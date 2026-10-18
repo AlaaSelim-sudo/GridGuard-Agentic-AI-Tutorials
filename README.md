@@ -1,48 +1,70 @@
 # GridGuard: Agentic AI for Power-System Operators
 
-Tutorial notebooks, recorded experiments, and presentation material on voltage support, service restoration and cyber response.
+Two connected tutorials for power engineers, operators, researchers and instructors. Begin with agentic AI concepts and power-system evidence, then follow recorded engineering cases from inputs and tool calls to results and human review.
 
-## Start here
+**[Open the tutorial site](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/)**
 
-- [Foundations presentation: 80 slides](agentic_operator_tutorial/latex/main.pdf) — agent definitions, power-system research, frameworks and utility case studies; IEEE ComSoc theme.
-- [Three operator cases: 59 slides](agentic_operator_cases_tutorial/Three_Operator_Cases.pdf) — a 120-minute follow-on with real GridGuard screenshots, five-step recorded walkthroughs and three exercises.
-- [Three-case teaching and source guide](agentic_operator_cases_tutorial/Teaching_and_Source_Guide.pdf) — explanations, timings, exercise debriefs, full citations and evidence boundaries.
-- [Code and recorded-result guide](agentic_operator_cases_tutorial/Code_and_Record_Guide.html) — source statements, original files, model-call journals and result records.
-- [Classroom Labs notebook](agentic_grid_workflow_tutorial/Classroom_Labs.ipynb) and [LangGraph workflow lab](agentic_grid_workflow_tutorial/Graph_Workflow_Lab.ipynb).
-- [Complete notebook index](NOTEBOOK_INDEX.md).
+[Watch](#watch) · [Get notebooks](#get-notebooks) · [Teach](#teach) · [Edit](#edit) · [Archive](#archive)
 
-The foundations presentation is the restored edition before the later image-notice revision. The current three-case presentation makes the responsibilities explicit: inputs → bounded model choice → Python numerical tool → recorded result → operator review. Its code panels reference original source lines and preserve the same Python statements.
+## Watch
 
-## What is included
+1. **[Foundations — open the slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/)** · **80 slides / 165 minutes**. Agents, tools and workflows; utility developments; power-system research; LangGraph concepts; and how to assess evidence. Includes two exercises. [Download the PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/foundations.pdf).
+2. **[Three operator cases — open the slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/)** · **59 slides / 120 minutes**. Voltage support, service restoration and cyber response, with three four-minute exercises. Genuine saved notebook screenshots and original code show **inputs → bounded model choice → Python tool → recorded result → operator review**. [Download the PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases.pdf).
 
-The current workshop folder preserves all 12 teaching notebooks, their executed HTML views, source code, feeder inputs, saved model weights, numerical results, original local model-call journals, figures, dashboards and requirements. The two current presentation folders contain PDFs, editable LaTeX/TikZ and Slidev sources, figures, complete source credits and teaching guides.
+The browser presentations need no Python installation, model account or live language-model service. Both use an IEEE ComSoc visual theme and include source credits and presenter notes. The sessions can be taught separately; their combined scheduled time is 4 hours 45 minutes.
 
-Earlier tutorial editions are retained in `agentic_grid_tutorial_3h`, `agentic_grid_tutorial_mpc_drl`, `smartgridcomm_greensboro`, `smartgridcomm_greensboro_llama_v2`, `Grid_Operator_Workflow_Tutorial` and `Agentic_Grid_LaTeX_Source`. They provide historical notebooks and presentations; start with the current links above. Some notebooks also appear as unchanged evidence copies inside presentation projects.
+## Get notebooks
 
-[PUBLICATION_MANIFEST.json](PUBLICATION_MANIFEST.json) lists every copied tutorial file, its original project-relative location, size and SHA-256 hash. Active three-case project paths are rebased using its existing portable-package conversion; the manifest records that change. Archived raw journals remain unchanged. Installed dependencies, build caches, temporary files and duplicate delivery ZIPs are excluded; the unpacked material is included. Small saved-model ZIP checkpoints are retained where the source uses them.
+Start with the [Classroom Labs](agentic_grid_workflow_tutorial/Classroom_Labs.ipynb) for the numerical cases and the separate [LangGraph workflow lab](agentic_grid_workflow_tutorial/Graph_Workflow_Lab.ipynb) for graph execution, state and branching.
 
-## Read, present and edit
+For a closer look at the evidence:
 
-GitHub can display notebooks and PDFs directly. Download or clone the repository to open the saved interactive HTML dashboards and source guides locally.
+- [Agent traces and latency](agentic_grid_workflow_tutorial/Agent_Trace_and_Latency.ipynb): actual saved model replies, tool outputs, stopping decisions and measured timing boundaries.
+- [Standard formulations](agentic_grid_workflow_tutorial/Standard_Formulations.ipynb): optimization, restoration MILP and state-estimation/control examples.
+- [LLM response selection](agentic_grid_workflow_tutorial/LLM_Response_Selection.ipynb): the recorded voltage response-selection study and its comparisons.
+- [Complete notebook index](NOTEBOOK_INDEX.md): all 12 current workflow notebooks and preserved earlier editions.
 
-For either current Slidev project, enter its `slidev` directory, install the dependencies pinned in `package.json` using npm or pnpm, and run `npm run dev`. The built `dist` output and `node_modules` are intentionally not committed. The two presentations use separate local preview ports in their own scripts; see each project README.
+GitHub previews the notebooks. To run them, clone or download the repository so each notebook keeps its sibling `src`, `data`, `models` and `results` folders. Follow the [workflow setup guide](agentic_grid_workflow_tutorial/README.md); the graph lab uses its own requirements.
 
-For LaTeX, compile `latex/main.tex` in either current presentation folder. The three-case written guide uses `latex/teaching_guide.tex`. The projects retain native editable TikZ and the vector assets used by the PDFs. A normal TeX installation or Tectonic can compile them. Some graphics-generation utilities contain environment-specific runtime paths; the already generated assets are provided.
+**Saved and live execution are different.** Opening saved outputs makes no new model call. The default Classroom Labs path performs numerical calculations with saved policy weights and archived model replies. Optional full-feeder OpenDSS checks, local Ollama calls and policy training require their respective dependencies and models. Earlier studies retain their original environment metadata.
 
-## Run the notebooks
+## Teach
 
-Enter `agentic_grid_workflow_tutorial` and follow its [README](agentic_grid_workflow_tutorial/README.md) and instructor guide. Create a dedicated Python environment using the supplied requirements, then open `Classroom_Labs.ipynb`. The separate graph lab has its own requirements. Recorded studies retain their original version metadata; a fresh environment installation was not performed for this publication.
+- **Foundations:** [instructor guide](agentic_operator_tutorial/Instructor_Guide.md) and [full reading and source guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/Full_Reading_Guide.html).
+- **Operator cases:** [instructor guide](agentic_operator_cases_tutorial/Instructor_Guide.md), [teaching and source guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases-teaching-guide.pdf), and [code and recorded-result guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Code_and_Record_Guide.html).
+- **Hands-on workshop:** [Classroom Labs instructor guide](agentic_grid_workflow_tutorial/Workshop_Instructor_Guide.md).
 
-The default classroom path uses numerical tools, saved policy weights and archived model replies. Optional OpenDSS runs and local Ollama calls require the corresponding dependencies and models. Reading saved outputs makes no new language-model call and operates no equipment.
+The guides include timings, explanations, exercise answers, complete references and figure credits. The current source and code guides are also available on the tutorial site. Download the repository to keep the local notebooks, dashboards and supporting records together.
 
-## Interpreting the evidence
+Keep the studies distinct when teaching. Voltage uses a synthetic SMART-DS feeder; restoration uses a separate six-node transport graph; cyber response uses a separate four-bus DC fixture. Numerical checks, model explanations and human approval are different events. The walkthroughs preserve their actual `REVIEW` or `PENDING` outcomes. These teaching records do not establish live utility deployment, switching authority or a general numerical advantage from adding an LLM. Their engineering supervisors are custom Python; the separate graph lab teaches LangGraph.
 
-Voltage uses a synthetic SMART-DS feeder. Restoration uses a separate six-node transport graph; cyber uses a separate four-bus DC fixture. Archived experiment families are labeled separately. A solver result, a language-model explanation and a human approval are different events. The recorded walkthroughs retain their original REVIEW or PENDING outcomes. They establish neither live utility deployment nor a general numerical advantage from adding a language model.
+## Edit
 
-The archived workshop uses custom Python supervisors. The separate current GridGuard application uses LangGraph; these dated records do not validate that newer application runtime.
+The two current projects include editable Slidev, LaTeX/TikZ, figures, source registries and notes:
 
-## Sources and rights
+- [Foundations project and rebuild instructions](agentic_operator_tutorial/README.md) · [Slidev source](agentic_operator_tutorial/slidev/slides.md).
+- [Operator-cases project and rebuild instructions](agentic_operator_cases_tutorial/README.md) · [Slidev source](agentic_operator_cases_tutorial/slidev/slides.md).
 
-Full references, publisher/author URLs, image credits, provenance manifests and recorded evidence limits are kept with the material. This is an independent educational adaptation of IEEE ComSoc artwork and colors. Sponsorship or endorsement is not claimed. See [THIRD_PARTY_SOURCES.md](THIRD_PARTY_SOURCES.md) and the preserved dependency notices. No blanket license is applied to third-party figures, photographs, paper crops, logos or source material.
+For local Slidev authoring, use Node.js 24 and pnpm 11.25.0. Enter either project's `slidev` folder, run `pnpm install --frozen-lockfile`, then `pnpm dev`. The LaTeX entry point is `latex/main.tex` in each project. Follow each project guide when regenerating content or figures; some original screenshot and graphics helpers need local runtime paths adjusted. Ready figures and PDFs are included.
 
-The screenshot and diagram regeneration helpers were authored for the original Windows runtime. Their bundled-browser/TeX/DLL paths may require adjustment elsewhere; the ready screenshots, vector figures, PDFs and presentation sources are included.
+The [online-site build guide](web/README.md) explains the shared Pages build. The [deployment workflow](.github/workflows/deploy-pages.yml) republishes the site when its presentation or website sources change on `main`.
+
+## Archive
+
+<details>
+<summary>Earlier tutorial editions and publication records</summary>
+
+Earlier work remains available for reproduction and comparison:
+
+- [Original three-hour tutorial](agentic_grid_tutorial_3h/README.md).
+- [MPC and deep reinforcement learning tutorial](agentic_grid_tutorial_mpc_drl/README.md).
+- [Greensboro multi-agent tutorial](smartgridcomm_greensboro/README.md) and [recorded Llama edition](smartgridcomm_greensboro_llama_v2/README.md).
+- [Earlier operator-workflow package](Grid_Operator_Workflow_Tutorial/agentic_grid_workflow_tutorial/README.md) and [earlier LaTeX source package](Agentic_Grid_LaTeX_Source/README.md).
+
+Use the two **Watch** links above for the current presentations. Some unchanged notebooks also appear inside presentation evidence folders. [PUBLICATION_MANIFEST.json](PUBLICATION_MANIFEST.json) records copied files, source locations and SHA-256 hashes; [PUBLICATION_AUDIT.json](PUBLICATION_AUDIT.json) records the publication checks. Installed dependencies, build caches and duplicate delivery bundles are excluded.
+
+</details>
+
+## Sources and credits
+
+Primary references, paper URLs, original image credits and evidence limits accompany the slides and guides. See [THIRD_PARTY_SOURCES.md](THIRD_PARTY_SOURCES.md) for source and rights information. IEEE sponsorship or endorsement is not claimed. Third-party photographs, figures, logos and source material retain their respective terms; no blanket license is applied to them.
