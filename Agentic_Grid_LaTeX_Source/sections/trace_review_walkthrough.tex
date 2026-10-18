@@ -1,0 +1,61 @@
+% Three optional evidence-review frames. No new benchmark or model execution.
+\begin{frame}[t]{Trace review 1/3: read token counts and two distinct clocks}
+\deepdive
+\checkpoint{T7}{Inspect the recorded calls and usage fields.}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.61\textwidth}
+\includegraphics[width=\linewidth,height=.61\textheight,keepaspectratio]{\figfile{recorded_call_latency_slide.png}}
+\end{column}
+\begin{column}{.36\textwidth}
+\footnotesize
+\textbf{Client:} HTTP request, parsing and schema validation, timed in seconds.
+\par\smallskip\textbf{Server:} \texttt{total\_duration} converted from nanoseconds. Do not add it to client time.
+\par\smallskip\textbf{Tokens:} \texttt{prompt\_eval\_count} (input), \texttt{eval\_count} (output).
+\par\smallskip\textbf{Example, current AC Planner:} 795 input tokens, 36 output tokens, 0.988 s client and 0.955 s server.
+\par\smallskip Unmeasured stage times and causes stay unknown.
+\end{column}
+\end{columns}
+\sources{Matched raw journals read by \texttt{src/trace\_latency.py}, \texttt{\_call\_row}. API field units: \url{https://docs.ollama.com/api/chat}. Figure: three current OpenDSS calls; T7 includes all ten selected calls.}
+\note{Optional. Explain that token throughput, if inspected in the table, is output count divided by eval_duration converted to seconds. It is a generation-rate measure, not total application throughput. For the current AC Planner this is about 74.3 generated tokens per second. Do not infer network overhead, queueing, hardware effects or cache causality from the difference of these aggregate intervals. The h06 client call is distinct from its slightly longer intake wrapper, and its downstream numerical runtime is a third interval.}
+\end{frame}
+
+\begin{frame}[t]{Trace review 2/3: compare cost with the recorded outcome}
+\deepdive
+\checkpoint{T8}{Compare fixed and agentic intervals within each recorded pair.}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.64\textwidth}
+\includegraphics[width=\linewidth,height=.62\textheight,keepaspectratio]{\figfile{recorded_workflow_latency_slide.png}}
+\end{column}
+\begin{column}{.33\textwidth}
+\footnotesize
+\textbf{Fixed / agentic seconds}\par
+AC: 0.346 / 3.110 s.\par
+MV: 0.134 / 4.911 s.\par
+Same action within each backend.
+\par\smallskip\textbf{Historical cases}\par
+MILP: 0.009859 / 6.10178 s.\par
+Cyber: 0.002146 / 5.93465 s.\par
+Checks pass; the agentic explanation returns \texttt{REVIEW}.
+\par\smallskip\textbf{No speed gain.} Language calls add time and can add unnecessary handoffs.
+\end{column}
+\end{columns}
+\par\footnotesize Current: precomputed controllers/training excluded. Historical: numerical tools included. One run per route; h06 at T5.
+\sources{Records: \texttt{results/workshop\_run\_[backend].json}, \texttt{standard\_agent\_workflow.json}. Interval definitions: \texttt{src/trace\_latency.py}.}
+\note{Optional. These are descriptive observations on one machine, not matched repeated statistical benchmarks. Compare fixed and agentic within each recorded pair, but do not pool protocols or rank backend speed from differently timed runs. The difference between total workflow time and summed client calls is only other work inside that interval, not a measured solver-stage timer. The positive h06 intake example demonstrates language coverage with errors elsewhere in the study; it does not turn these timing results into a speed advantage.}
+\end{frame}
+
+\begin{frame}[t]{Trace review 3/3: audit this record; design the next study}
+\deepdive
+\checkpoint{T9}{Inspect the source hashes and evidence audit.}
+\cellcode{T9}{1}{5}
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.24\linewidth}>{\raggedright\arraybackslash}p{.68\linewidth}@{}}
+\textbf{What this audit proves} & Matches specific saved bytes and replies. A hash detects change against a retained reference. \\
+\textbf{What it cannot prove} & Truth, model adequacy, operator identity or general performance. Recomputed hashes do not authenticate sources. \\
+\textbf{Next matched study} & Freeze cases, limits, models, prompts and code. Repeat both routes with declared seeds and randomized order. \\
+\textbf{Measure together} & Correctness, acceptance, unnecessary review, failures and time. Separate cold/warm setup and measure operator outcomes. \\
+\end{tabular}
+
+\sources{Exact source hashing: \texttt{src/trace\_latency.py}. Raw-source hashes and unique journal matching are returned by \texttt{load\_recorded\_evidence}. Companion T9 records the files actually inspected.}
+\note{Optional. There are eight source files in the current evidence collection, but the count is not hard-coded here so the notebook remains authoritative if packaging adds records. Store an external trusted reference if authenticity matters. Distinguish a file hash from the recommendation-field hash used by the dashboard. For a repeated experiment, predeclare handling of timeouts, failed schemas, incorrect READY replies and correct abstentions. Do not silently drop slow calls or failed tasks before reporting latency. This page proposes future methodology; it claims no new measurements.}
+\end{frame}

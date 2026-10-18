@@ -1,0 +1,35 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  teachPoint/.style={circle,draw=teachBlue,fill=white,line width=1.2pt,minimum size=5.7mm,inner sep=0pt},
+  teachDot/.style={circle,fill=teachBlue,minimum size=3.5mm,inner sep=0pt},
+  teachLabel/.style={align=center,text=teachNavy,font=\sffamily\bfseries\fontsize{13}{15}\selectfont},
+  teachNote/.style={align=center,text=teachNavy,font=\sffamily\fontsize{11}{13}\selectfont},
+  teachFlow/.style={-{Latex[length=2.2mm,width=1.6mm]},draw=teachBlue,line width=1.15pt,shorten >=1.5pt,shorten <=1.5pt},
+  teachWarn/.style={-{Latex[length=2.2mm,width=1.6mm]},draw=teachOrange,line width=1.15pt,shorten >=1.5pt,shorten <=1.5pt}]
+\definecolor{teachBlue}{HTML}{00629B}
+\definecolor{teachCyan}{HTML}{00A8C8}
+\definecolor{teachNavy}{HTML}{003B5C}
+\definecolor{teachOrange}{HTML}{B65B14}
+\definecolor{teachGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.3,3.6);
+
+\node[teachDot] (logs) at (0.55,2.9) {};
+\node[teachDot] (hist) at (0.55,1.8) {};
+\node[teachDot] (proc) at (0.55,0.7) {};
+\node[teachLabel,anchor=west] at (0.9,2.9) {Event logs};
+\node[teachLabel,anchor=west] at (0.9,1.8) {Historian};
+\node[teachLabel,anchor=west] at (0.9,0.7) {Procedures};
+\coordinate (merge) at (4.25,1.8);
+\draw[teachFlow] (3.7,2.9) -- (merge);
+\draw[teachFlow] (3.7,1.8) -- (merge);
+\draw[teachFlow] (3.7,0.7) -- (merge);
+\node[teachPoint] (brief) at (7.25,1.8) {};
+\node[teachPoint] (operator) at (12.35,1.8) {};
+\draw[teachFlow] (merge) -- (brief);
+\draw[teachFlow] (brief) -- (operator);
+\node[teachLabel] at (7.25,2.55) {Source-linked brief};
+\node[teachLabel] at (12.35,2.55) {Operator};
+\node[teachNote] at (7.25,0.85) {claims + timestamps + links};
+\node[teachNote] at (12.35,0.85) {checks the evidence};
+
+\end{tikzpicture}

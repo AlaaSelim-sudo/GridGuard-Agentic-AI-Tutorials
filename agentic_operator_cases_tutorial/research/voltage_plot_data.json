@@ -1,0 +1,338 @@
+{
+  "scope": "No solvers or LLM calls executed while authoring; original records inspected.",
+  "archived_test01_case": {
+    "id": "test_01",
+    "forecast_loads": [
+      1.0112062191802391,
+      1.005224985779734,
+      1.0006905741130825
+    ],
+    "rating_fraction": 0.7995473229563319,
+    "previous": [
+      0.2696261713643143,
+      0.0
+    ]
+  },
+  "archived_q_trial": {
+    "context_id": "test_01",
+    "operation_id": "RELAX_Q_10_PERCENT",
+    "candidate": {
+      "tool": "BOUNDED_LOCAL_SEARCH",
+      "control": [
+        0.9603066164910677,
+        -0.10000249718299654
+      ],
+      "operation": "RELAX_Q_10_PERCENT"
+    },
+    "score": 0.031082078060572192,
+    "summary": {
+      "control": [
+        0.9603066164910677,
+        -0.10000249718299654
+      ],
+      "p_actual_kw": 7538.835784514882,
+      "q_actual_kvar": -785.0642610989808,
+      "vmin": 1.0244175701973093,
+      "vmax": 1.039431162620944,
+      "max_line_utilization_pct": 58.310834292537315,
+      "max_allowed_current_pct": 72.92980992911413,
+      "accepted": true,
+      "violations": {
+        "voltage_low": 0,
+        "voltage_high": 0,
+        "line_current": 0,
+        "inverter_capability": 0,
+        "dispatch_tracking": 0
+      },
+      "scope": "MV phases only; ideal LV aggregation",
+      "backend": "lindistflow3",
+      "load_mult": 1.0112062191802391,
+      "rating_fraction": 0.7995473229563319
+    }
+  },
+  "mv_summaries": [
+    {
+      "method": "mpc_only",
+      "contexts": 12,
+      "final_model_passes": 12,
+      "final_ac_passes": 0,
+      "trial_rejections": 0,
+      "mean_final_objective_on_model_passes": 0.0340065598125857,
+      "mean_objective_improvement_on_model_passes": 0.0,
+      "improved_contexts": 0,
+      "mean_refinement_trials": 0.0,
+      "mean_response_calls_accounted": 0.0,
+      "mean_accounted_serial_seconds": null
+    },
+    {
+      "method": "fixed_numerical",
+      "contexts": 12,
+      "final_model_passes": 12,
+      "final_ac_passes": 0,
+      "trial_rejections": 0,
+      "mean_final_objective_on_model_passes": 0.0340065598125857,
+      "mean_objective_improvement_on_model_passes": 0.0,
+      "improved_contexts": 0,
+      "mean_refinement_trials": 1.0,
+      "mean_response_calls_accounted": 0.0,
+      "mean_accounted_serial_seconds": 3.326839058334978
+    },
+    {
+      "method": "majority_vote",
+      "contexts": 12,
+      "final_model_passes": 12,
+      "final_ac_passes": 0,
+      "trial_rejections": 0,
+      "mean_final_objective_on_model_passes": 0.0339847924178626,
+      "mean_objective_improvement_on_model_passes": 2.176739472310064e-05,
+      "improved_contexts": 12,
+      "mean_refinement_trials": 1.0,
+      "mean_response_calls_accounted": 3.0,
+      "mean_accounted_serial_seconds": 8.118809150004381
+    },
+    {
+      "method": "learned_selector",
+      "contexts": 12,
+      "final_model_passes": 12,
+      "final_ac_passes": 0,
+      "trial_rejections": 0,
+      "mean_final_objective_on_model_passes": 0.0339847924178626,
+      "mean_objective_improvement_on_model_passes": 2.176739472310064e-05,
+      "improved_contexts": 12,
+      "mean_refinement_trials": 1.0,
+      "mean_response_calls_accounted": 3.0,
+      "mean_accounted_serial_seconds": 8.119085208334582
+    },
+    {
+      "method": "raw_sac",
+      "contexts": 12,
+      "final_model_passes": 12,
+      "final_ac_passes": 1,
+      "trial_rejections": 0,
+      "mean_final_objective_on_model_passes": 0.4447233592053075,
+      "mean_objective_improvement_on_model_passes": -0.4107167993927217,
+      "improved_contexts": 0,
+      "mean_refinement_trials": 0.0,
+      "mean_response_calls_accounted": 0.0,
+      "mean_accounted_serial_seconds": null
+    }
+  ],
+  "ac_summaries": [
+    {
+      "method": "mpc_only",
+      "contexts": 12,
+      "final_model_passes": 12,
+      "final_ac_passes": 12,
+      "trial_rejections": 0,
+      "mean_final_objective_on_model_passes": 0.47172416594840766,
+      "mean_objective_improvement_on_model_passes": -0.00031832422362605695,
+      "improved_contexts": 0,
+      "mean_refinement_trials": 0.0,
+      "mean_response_calls_accounted": 0.0,
+      "mean_accounted_serial_seconds": null
+    },
+    {
+      "method": "fixed_numerical",
+      "contexts": 12,
+      "final_model_passes": 12,
+      "final_ac_passes": 12,
+      "trial_rejections": 11,
+      "mean_final_objective_on_model_passes": 0.47112137693022893,
+      "mean_objective_improvement_on_model_passes": 0.00028446479455269497,
+      "improved_contexts": 1,
+      "mean_refinement_trials": 1.0,
+      "mean_response_calls_accounted": 0.0,
+      "mean_accounted_serial_seconds": 0.6740139916691987
+    },
+    {
+      "method": "uniform_response",
+      "contexts": 12,
+      "final_model_passes": 12,
+      "final_ac_passes": 12,
+      "trial_rejections": 2,
+      "mean_final_objective_on_model_passes": 0.47110513098466494,
+      "mean_objective_improvement_on_model_passes": 0.00030071074011664883,
+      "improved_contexts": 8,
+      "mean_refinement_trials": 1.0,
+      "mean_response_calls_accounted": 3.0,
+      "mean_accounted_serial_seconds": 6.691011400008089
+    },
+    {
+      "method": "majority_vote",
+      "contexts": 12,
+      "final_model_passes": 12,
+      "final_ac_passes": 12,
+      "trial_rejections": 0,
+      "mean_final_objective_on_model_passes": 0.4713848786592687,
+      "mean_objective_improvement_on_model_passes": 2.0963065512885626e-05,
+      "improved_contexts": 11,
+      "mean_refinement_trials": 1.0,
+      "mean_response_calls_accounted": 3.0,
+      "mean_accounted_serial_seconds": 6.688888625007773
+    },
+    {
+      "method": "learned_selector",
+      "contexts": 12,
+      "final_model_passes": 12,
+      "final_ac_passes": 12,
+      "trial_rejections": 0,
+      "mean_final_objective_on_model_passes": 0.4713848786592687,
+      "mean_objective_improvement_on_model_passes": 2.0963065512885626e-05,
+      "improved_contexts": 11,
+      "mean_refinement_trials": 1.0,
+      "mean_response_calls_accounted": 3.0,
+      "mean_accounted_serial_seconds": 6.689140325005913
+    },
+    {
+      "method": "raw_sac",
+      "contexts": 12,
+      "final_model_passes": 1,
+      "final_ac_passes": 1,
+      "trial_rejections": 11,
+      "mean_final_objective_on_model_passes": 0.4551537799825989,
+      "mean_objective_improvement_on_model_passes": 0.0,
+      "improved_contexts": 0,
+      "mean_refinement_trials": 0.0,
+      "mean_response_calls_accounted": 0.0,
+      "mean_accounted_serial_seconds": null
+    }
+  ],
+  "archived_test01_ac_mpc": {
+    "candidate": {
+      "tool": "CONTINUOUS_MPC",
+      "control": [
+        0.3060522326419636,
+        0.027696908967886763
+      ],
+      "operation": "INITIAL_MPC"
+    },
+    "backend": "opendss",
+    "candidate_hash": "76e85ec890e5425cbc5c61d30124bbbbee619a980287df360194e5c0e3f5bb54",
+    "evidence_hash": "686a14cceeca2aa399b7b3e0eb934bfe7217aee1d1aaeb514da277efbd691e0a",
+    "summary": {
+      "control": [
+        0.3060522326419636,
+        0.027696908967886763
+      ],
+      "p_actual_kw": 2402.6467002858303,
+      "q_actual_kvar": 217.4331040333442,
+      "vmin": 1.0005276166702253,
+      "vmax": 1.0330024384102277,
+      "max_line_utilization_pct": 79.85298089339787,
+      "max_allowed_current_pct": 99.87273873689041,
+      "accepted": true,
+      "violations": {
+        "voltage_low": 0,
+        "voltage_high": 0,
+        "line_current": 0,
+        "inverter_capability": 0,
+        "dispatch_tracking": 0
+      },
+      "scope": "full supplied MV/LV feeder",
+      "backend": "opendss",
+      "load_mult": 1.0112062191802391,
+      "rating_fraction": 0.7995473229563319
+    },
+    "failures": [],
+    "feasible": true,
+    "score": 0.4818731743211942,
+    "seconds": 0.19644509999488946,
+    "error": null
+  },
+  "paired_ac_active_participation": [
+    {
+      "context_id": "test_01",
+      "mv_a": 0.9603066164910677,
+      "ac_a": 0.3060522326419636
+    },
+    {
+      "context_id": "test_02",
+      "mv_a": 0.9591895331573154,
+      "ac_a": 0.3215718469405695
+    },
+    {
+      "context_id": "test_03",
+      "mv_a": 0.9584015029323121,
+      "ac_a": 0.3308927755538754
+    },
+    {
+      "context_id": "test_04",
+      "mv_a": 0.9589571563333213,
+      "ac_a": 0.3197918201577041
+    },
+    {
+      "context_id": "test_05",
+      "mv_a": 0.9570214268734847,
+      "ac_a": 0.30186344159897127
+    },
+    {
+      "context_id": "test_06",
+      "mv_a": 0.9577568494240848,
+      "ac_a": 0.3098768771733355
+    },
+    {
+      "context_id": "test_07",
+      "mv_a": 0.9568244431861009,
+      "ac_a": 0.31182574160612486
+    },
+    {
+      "context_id": "test_08",
+      "mv_a": 0.9579074854203529,
+      "ac_a": 0.3192508727216442
+    },
+    {
+      "context_id": "test_09",
+      "mv_a": 0.9577287464160592,
+      "ac_a": 0.3183760437424251
+    },
+    {
+      "context_id": "test_10",
+      "mv_a": 0.9594058349967283,
+      "ac_a": 0.3021977738953355
+    },
+    {
+      "context_id": "test_11",
+      "mv_a": 0.9609736181154785,
+      "ac_a": 0.30006364004887853
+    },
+    {
+      "context_id": "test_12",
+      "mv_a": 0.9576888786664186,
+      "ac_a": 0.3234424540671227
+    }
+  ],
+  "fresh_L2_notebook": {
+    "file": "C:/Users/f00863x/OPRO/output/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "cell_index_zero_based": 7,
+    "cell_id": "classroom-007",
+    "load_scale": 1.0,
+    "rating_fraction": 0.8,
+    "rows": [
+      {
+        "method": "MPC",
+        "control": [
+          0.960307,
+          -0.111114
+        ],
+        "J": 0.031104,
+        "vmin": 1.023874,
+        "vmax": 1.038709,
+        "max_allowed_current_pct": 73.619901,
+        "passes": true
+      },
+      {
+        "method": "saved SAC",
+        "control": [
+          0.340066,
+          0.014024
+        ],
+        "J": 0.436428,
+        "vmin": 1.013243,
+        "vmax": 1.03,
+        "max_allowed_current_pct": 51.679336,
+        "passes": true
+      }
+    ],
+    "precision": "Values exactly as printed in stored six-decimal notebook output, not newly computed."
+  }
+}

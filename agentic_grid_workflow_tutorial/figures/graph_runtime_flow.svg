@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="430" viewBox="0 0 1080 430" role="img" aria-label="Sequential LangGraph with shared state, conditional repair cycle and optional human interrupt">
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9Z" fill="#35695f"/></marker></defs>
+<rect width="1080" height="430" fill="#fff"/>
+<g font-family="Arial,sans-serif" fill="#173f37">
+<text x="32" y="35" font-size="24" font-weight="bold">A bounded feedback graph: the arrows execute</text>
+<text x="32" y="64" font-size="16" fill="#58716a">Rule-driven toy example · no language model or electrical safety claim</text>
+<g stroke="#35695f" stroke-width="2.5" fill="none" marker-end="url(#arrow)">
+<path d="M92 145H160"/><path d="M330 145H405"/><path d="M580 145H718"/><path d="M945 145H1005"/>
+<path d="M492 179V242"/><path d="M406 277H244V180"/>
+<path d="M580 165L700 265H720"/>
+</g>
+<circle cx="62" cy="145" r="29" fill="#e9f4ef" stroke="#35695f" stroke-width="2"/>
+<text x="62" y="151" text-anchor="middle" font-size="13" font-weight="bold">START</text>
+<rect x="160" y="108" width="170" height="72" rx="9" fill="#e9f4ef" stroke="#35695f" stroke-width="2"/>
+<text x="245" y="137" text-anchor="middle" font-size="19" font-weight="bold">simulate</text>
+<text x="245" y="161" text-anchor="middle" font-size="14">I = 0.4 + 0.8u</text>
+<rect x="405" y="108" width="175" height="72" rx="9" fill="#e9f4ef" stroke="#35695f" stroke-width="2"/>
+<text x="492" y="137" text-anchor="middle" font-size="19" font-weight="bold">verify</text>
+<text x="492" y="161" text-anchor="middle" font-size="14">I ≤ toy limit?</text>
+<rect x="718" y="108" width="227" height="72" rx="9" fill="#e9f4ef" stroke="#35695f" stroke-width="2"/>
+<text x="831" y="136" text-anchor="middle" font-size="18" font-weight="bold">report / human review</text>
+<text x="831" y="160" text-anchor="middle" font-size="14">G5: interrupt → resume</text>
+<circle cx="1032" cy="145" r="27" fill="#e9f4ef" stroke="#35695f" stroke-width="2"/>
+<text x="1032" y="151" text-anchor="middle" font-size="14" font-weight="bold">END</text>
+<rect x="406" y="242" width="174" height="72" rx="9" fill="#fff5df" stroke="#ac7f2b" stroke-width="2"/>
+<text x="493" y="270" text-anchor="middle" font-size="19" font-weight="bold">repair</text>
+<text x="493" y="294" text-anchor="middle" font-size="14">u ← max(0, u − 0.25)</text>
+<rect x="720" y="242" width="225" height="72" rx="9" fill="#fcedea" stroke="#ad573d" stroke-width="2"/>
+<text x="832" y="270" text-anchor="middle" font-size="19" font-weight="bold">HOLD → END</text>
+<text x="832" y="294" text-anchor="middle" font-size="14">repair budget exhausted</text>
+<text x="640" y="130" text-anchor="middle" font-size="14">pass</text>
+<text x="505" y="213" font-size="14">fail + budget left</text>
+<text x="330" y="265" text-anchor="middle" font-size="14">retry</text>
+<rect x="606" y="194" width="126" height="24" rx="4" fill="#fff"/>
+<text x="669" y="211" text-anchor="middle" font-size="14">fail + no budget</text>
+<rect x="32" y="350" width="1016" height="56" rx="8" fill="#f2f6f4" stroke="#cbded5"/>
+<text x="50" y="374" font-size="16" font-weight="bold">Shared state: command · current · limit · attempts · max_repairs · status · acknowledged</text>
+<text x="50" y="396" font-size="15">trace uses an append reducer; scalar updates replace values. The retry edge makes this graph cyclic, not a DAG.</text>
+</g></svg>

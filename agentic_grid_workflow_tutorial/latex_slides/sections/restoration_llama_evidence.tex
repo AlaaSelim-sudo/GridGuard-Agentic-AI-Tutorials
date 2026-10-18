@@ -1,0 +1,24 @@
+% Historical confirmation h06; do not label this a continuous SAC experiment.
+\begin{frame}[t]{R5: an actual request becomes a checked restoration proposal}
+\deepdive
+\checkpoint{R5}{Historical h06: language intake, then the shared finite restoration catalog.}
+\footnotesize
+\textbf{Operator request:} ``Use the 0.25 km bypass to reconnect demand, with current no higher than 100 A. Keep the 2 km bypass open and leave PV generation at zero.''
+\par\smallskip
+\begin{tabular}{@{}p{.23\linewidth}p{.43\linewidth}p{.28\linewidth}@{}}
+\toprule Stage / method & Actual output & Next action \\
+\midrule
+Intake / parser + Llama & \texttt{READY}; 100 A; long tie=false; PV=false & Pass restrictions to tools \\
+Planning / catalog search & Short tie; PV cap 0; shed 75\% of noncritical load objects & Propose catalog optimum \\
+Simulation / OpenDSS & 1,843.61 kW served; 474.04 kW critical & Check the exact proposal \\
+Verification / limits & 95.56\% allowed-current use; no violations & Record recommendation \\
+Explanation / metric card & Action, modeled checks and limits & Operator decision pending \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\textbf{Exact Llama reason:} ``Operator request accepted as is''.
+\par\smallskip
+\textbf{Baseline:} the documented parser asks for clarification; the hybrid completes h06. Across five clear restoration requests: \textbf{3/5 versus 5/5}. This extends intake coverage, not the optimizer's objective.
+\sources{Actual response: \texttt{results/confirmation\_calls.json}, h06; stages: \texttt{results/confirmation.json}. Descriptive restoration subset; the full 12-request hybrid set contains two incorrect READY interpretations.}
+\note{This is a previously recorded, distinct restoration-language experiment, not the current continuous SAC workflow and not the six-node MILP. The parser fails to recognize the short bypass description in h06 and returns CLARIFY without running the numerical route. The hybrid invokes Llama once, receives the three correct restrictions, then runs exactly the same fixed downstream engineering workflow. The finite catalog tests six noncritical-load-object shedding fractions; four fail thermal checks and the selected75-percent setting serves more load than the feasible90-percent setting. Exact served power is1843.61355 kW, critical power474.03975 kW, maximum allowed-current use95.5555042806 percent, and modeled voltage1.0054611888--1.0299998974 p.u. The percentage shed counts noncritical load objects, not kW. This old runtime status is RECOMMEND, a simulated recommendation, with no equipment operated. The seven-request outage subset was selected descriptively after the original confirmation run: five clear and two missing/prohibited requests. Both methods clarify both latter cases. The parent twelve-request hybrid data include two incorrect READY interpretations: h05 inherited a parser error, and h09 used Llama on an unsupported90-percent request. Show these limits when discussing success; do not claim guaranteed language grounding, better service for identical structured constraints, or measured operator-time savings.}
+\end{frame}

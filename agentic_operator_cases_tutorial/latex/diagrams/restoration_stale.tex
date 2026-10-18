@@ -1,0 +1,27 @@
+\begingroup
+\hyphenpenalty=10000\exhyphenpenalty=10000
+\definecolor{IEEEBlue}{HTML}{00629B}
+\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}
+\definecolor{Slate}{HTML}{526470}
+\definecolor{RestRed}{HTML}{B83136}
+\definecolor{RestAmber}{HTML}{A66610}
+\begin{tikzpicture}[x=.90cm,y=.82cm,font=\fontsize{11}{12}\selectfont,
+  every node/.style={text=Navy},
+  flow/.style={-{Stealth[length=2mm]},line width=1pt,draw=IEEEBlue},
+  bus/.style={circle,draw=IEEEBlue,line width=1pt,minimum size=5.5mm,inner sep=1pt,fill=white},
+  textblock/.style={align=center,inner sep=1pt},
+  pass/.style={draw=Cyan,line width=2pt},
+  available/.style={draw=Slate,line width=.8pt},
+  optional/.style={draw=RestAmber,dashed,line width=1pt}]
+
+\node[textblock,text width=3.4cm] at (1.8,2.35) {\textbf{Verified case}\\40 kW + T1\\candidate + evidence};
+\node[textblock,text width=3.5cm] at (6.0,2.35) {\textbf{Request changes}\\L7: 40 to 20 kW\\Extension: T2};
+\node[textblock,text width=3.0cm,text=RestRed] at (10.5,2.35) {\textbf{HOLD}\\Old evidence fails\\request fresh solve};
+\draw[flow] (3.6,2.35)--(4.15,2.35);
+\draw[flow,draw=RestRed] (7.9,2.35)--(8.85,2.35);
+\node[textblock,text width=11.4cm] at (6.1,.8) {Original: \textbf{True}\qquad Changed request: \textbf{False}};
+\node[textblock,text width=11.4cm,text=Slate] at (6.1,.1) {Binding failure means stale evidence; it does not prove physical infeasibility.};
+
+\end{tikzpicture}
+\endgroup

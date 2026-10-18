@@ -1,0 +1,342 @@
+{
+  "reviewed_as_of": "2026-10-17",
+  "scope": "Primary-source toolkit and research evidence for an educational utility-operator tutorial. Tool capabilities are not evidence of field deployment.",
+  "evidence_rules": [
+    "Use 'current verified examples' rather than claiming an exhaustive list of the latest tools.",
+    "Present the proposed utility architecture and scenario as tutorial designs, not vendor deployments.",
+    "Separate software capabilities, research evaluations, and demonstrated company deployments.",
+    "Pin framework, protocol, benchmark, model, and task versions when reproducing results."
+  ],
+  "entries": [
+    {
+      "id": "tool-01",
+      "title": "LangGraph",
+      "category": "Workflow orchestration",
+      "verified_capabilities": "Mix deterministic checks and LLM decisions in a stateful graph; persist progress, stream execution, and pause for human oversight.",
+      "utility_teaching_use": "Make alarm triage an explicit graph: retrieve evidence, diagnose, validate, request approval, then record the approved work item.",
+      "limitation": "Low-level runtime: application authors still implement data access, policies, storage, and validation. It does not certify grid decisions.",
+      "date_note": "Live documentation reviewed 2026-10-17; no package-version claim.",
+      "references": [
+        "T01"
+      ]
+    },
+    {
+      "id": "tool-02",
+      "title": "Microsoft Agent Framework",
+      "category": "Agents and durable workflows",
+      "verified_capabilities": "Combines agents, workflow graphs, model clients, middleware and MCP. Checkpoints save workflow state and support resumption.",
+      "utility_teaching_use": "Resume a maintenance investigation after an operator shift change or service restart.",
+      "limitation": "An in-memory checkpoint does not survive restart. Persistent checkpoints are sensitive trusted state; identities and topology must remain compatible. Go has documented preview limitations.",
+      "date_note": "Overview updated 2026-08-25; checkpoint guide updated 2026-09-16.",
+      "references": [
+        "T02",
+        "T03"
+      ]
+    },
+    {
+      "id": "tool-03",
+      "title": "OpenAI Agents SDK and component lifecycle",
+      "category": "Code-first agent runtime",
+      "verified_capabilities": "Python/TypeScript agent orchestration with tools, handoffs, guardrails, human review, state and tracing; the application owns deployment and approval decisions.",
+      "utility_teaching_use": "Wrap approved historian queries, procedure retrieval, and draft work-order creation as narrowly scoped functions.",
+      "limitation": "Guardrails are application mechanisms, not proof of physical safety. Agent Builder is deprecated, with shutdown scheduled 2026-11-30; ChatKit remains available. The separate Evals platform also has a scheduled 2026-11-30 shutdown.",
+      "date_note": "Current docs reviewed 2026-10-17; deprecations announced 2026-06-03.",
+      "references": [
+        "T04",
+        "T05",
+        "T16"
+      ]
+    },
+    {
+      "id": "tool-04",
+      "title": "Google Agent Development Kit (ADK) 2.0",
+      "category": "Graph and multi-agent development",
+      "verified_capabilities": "Adds graph workflows that combine agents, tools and functions; supports structured routing, human input, dynamic workflows, and evaluation of tool trajectories and response quality.",
+      "utility_teaching_use": "Build a procedure assistant whose deterministic workflow requests missing asset identity before an agent reasons over the evidence.",
+      "limitation": "Language feature parity and migration details vary. A response-safety score does not measure electrical operating safety.",
+      "date_note": "ADK Python 2.0 GA 2026-05-19; Go 2.0 GA 2026-06-30; TypeScript 2.0 GA 2026-08-21.",
+      "references": [
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "tool-05",
+      "title": "Model Context Protocol (MCP)",
+      "category": "Tool and context interoperability",
+      "verified_capabilities": "Standardizes discovery and invocation of tools, resources and prompts between AI applications and external systems.",
+      "utility_teaching_use": "Place a governed gateway in front of read-only historian, GIS, manuals and asset-registry connectors.",
+      "limitation": "A protocol does not establish permission or trust by itself. Authenticate users and servers, scope access, validate token audiences, and do not pass downstream tokens through unchanged.",
+      "date_note": "Reviewed dated 2026-07-28 documentation.",
+      "references": [
+        "T08",
+        "T09"
+      ]
+    },
+    {
+      "id": "tool-06",
+      "title": "Agent2Agent (A2A)",
+      "category": "Agent interoperability",
+      "verified_capabilities": "Agent Cards describe capabilities; task/message/artifact operations support delegation across separately implemented agents, including streaming and asynchronous work.",
+      "utility_teaching_use": "Let an operations assistant request a bounded diagnosis from a separately governed asset-health agent.",
+      "limitation": "A2A handles collaboration; MCP handles tool/context access. Both require authentication and application policy. Protocol conformance does not verify returned engineering advice.",
+      "date_note": "Current specification reviewed 2026-10-17; its migration section describes v1.0 breaking changes.",
+      "references": [
+        "T10"
+      ]
+    },
+    {
+      "id": "tool-07",
+      "title": "AIOpsLab",
+      "category": "Operations research testbed",
+      "verified_capabilities": "Deploys microservice environments, injects faults, generates workloads and telemetry, and exposes an interface to evaluate agents across incident tasks.",
+      "utility_teaching_use": "Teach detect-diagnose-plan-act-verify in an isolated utility IT or communications-service sandbox before considering an OT pilot.",
+      "limitation": "This is cloud-operations research; its results are not evidence of safe autonomous switching or generation dispatch.",
+      "date_note": "MLSys 2025 publication, May 2025; repository reviewed 2026-10-17.",
+      "references": [
+        "T11"
+      ]
+    },
+    {
+      "id": "tool-08",
+      "title": "Evaluation toolkit: tau-bench family, AgentDojo, ADK Arena",
+      "category": "Reliability and security research",
+      "verified_capabilities": "tau²-bench tests agent/user coordination in telecom; AgentDojo tests prompt injection in tool-returned data; ADK Arena compares frameworks with a fixed LLM developer.",
+      "utility_teaching_use": "Measure repeated success, policy compliance, operator coordination, attack resistance, cost and recovery on local scenarios.",
+      "limitation": "Benchmarks are proxies, not certification. Simulator choice, task revisions and harness configuration change scores; ADK Arena is a work-in-progress preprint.",
+      "date_note": "tau² paper 2025-06-09; AgentDojo revised 2024-11-24; ADK Arena submitted 2026-06-04; tau repository includes 2026 updates.",
+      "references": [
+        "T12",
+        "T13",
+        "T14",
+        "T15"
+      ]
+    }
+  ],
+  "research_lessons": [
+    {
+      "title": "Evaluate coordinated action, not fluent answers",
+      "evidence": "tau²-bench gives both the agent and simulated user tools in a shared telecom environment, exposing reasoning and coordination failures.",
+      "teaching_inference": "For operators, grade whether the assistant requests the right evidence, communicates a clear next step, and reaches the allowed final state. Repeat each case; one successful run is insufficient.",
+      "references": [
+        "T12",
+        "T13"
+      ]
+    },
+    {
+      "title": "Treat retrieved content as evidence with a trust boundary",
+      "evidence": "AgentDojo studies malicious instructions embedded in tool results and evaluates both legitimate task completion and attacker goals.",
+      "teaching_inference": "A maintenance PDF, alarm annotation or vendor response must not grant tool permissions. Put authorization and action validation outside the model.",
+      "references": [
+        "T14",
+        "T09"
+      ]
+    },
+    {
+      "title": "Select the complete system through local evaluation",
+      "evidence": "ADK Arena's June 2026 preprint compares 51 Python frameworks and finds no framework dominates across its tested benchmarks.",
+      "teaching_inference": "Choose on your tasks, access controls, maintainability, latency and evidence quality; avoid equating a framework logo or leaderboard rank with utility readiness.",
+      "references": [
+        "T15"
+      ]
+    }
+  ],
+  "suggested_utility_architecture": {
+    "status": "Proposed educational architecture; not a claim about any named utility.",
+    "use_case": "Transformer cooling alarm: gather evidence and draft a maintenance work order for an operator.",
+    "flow": [
+      {
+        "step": 1,
+        "label": "Read-only event input",
+        "detail": "An event bus supplies alarm ID, asset ID and timestamp from a historian/EMS/ADMS mirror. Validate timestamp, asset mapping and data freshness."
+      },
+      {
+        "step": 2,
+        "label": "Governed evidence tools",
+        "detail": "Use scoped APIs or MCP for trends, asset registry, current procedures, weather and maintenance history. Preserve source IDs and timestamps."
+      },
+      {
+        "step": 3,
+        "label": "Bounded orchestration",
+        "detail": "A durable graph routes retrieval and analysis. A single agent can own the workflow; add specialists or A2A only where separate ownership helps."
+      },
+      {
+        "step": 4,
+        "label": "Deterministic validation",
+        "detail": "Check units, missing signals, procedure revision, action allowlist and tool arguments. Invoke approved engineering calculators or simulators for numerical work."
+      },
+      {
+        "step": 5,
+        "label": "Operator review",
+        "detail": "Show evidence, uncertainty and proposed action. Stop and escalate when evidence conflicts or required data is absent."
+      },
+      {
+        "step": 6,
+        "label": "Controlled business action",
+        "detail": "After authenticated approval, a separate service may create a draft work item with an idempotency key. Re-read the record and log the result."
+      }
+    ],
+    "continuous_controls": [
+      "Separate the reasoning service from control-plane credentials; keep protection and real-time control in existing deterministic systems.",
+      "Least privilege, per-tool scopes, immutable audit trail, protected checkpoint storage, budget and timeout limits.",
+      "Capture model/framework/tool versions, retrieved evidence, operator decision, tool outcome and recovery path.",
+      "Evaluate in replay/shadow mode first, then stage a narrowly scoped pilot using site-approved acceptance criteria."
+    ],
+    "metrics": [
+      "Task completion with correct final state",
+      "Policy violations and unauthorized actions",
+      "Evidence/source correctness",
+      "Repeated-trial reliability",
+      "Operator acceptance and intervention rate",
+      "Recovery/rollback success",
+      "Latency and cost"
+    ],
+    "reference_basis": [
+      "T01",
+      "T03",
+      "T04",
+      "T09",
+      "T11",
+      "T12",
+      "T14"
+    ],
+    "inference_note": "Architecture and acceptance suggestions are an educational synthesis, not directly prescribed or certified by these sources."
+  },
+  "references": [
+    {
+      "id": "T01",
+      "title": "LangGraph overview",
+      "publisher": "LangChain",
+      "date": "Undated live documentation",
+      "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+      "evidence_type": "Official documentation"
+    },
+    {
+      "id": "T02",
+      "title": "Microsoft Agent Framework overview",
+      "publisher": "Microsoft Learn",
+      "date": "2026-08-25 (last updated)",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/overview/",
+      "evidence_type": "Official documentation"
+    },
+    {
+      "id": "T03",
+      "title": "Microsoft Agent Framework Workflows — Checkpoints",
+      "publisher": "Microsoft Learn",
+      "date": "2026-09-16 (last updated)",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/workflows/checkpoints",
+      "evidence_type": "Official documentation"
+    },
+    {
+      "id": "T04",
+      "title": "Agents SDK",
+      "publisher": "OpenAI Developers",
+      "date": "Undated live documentation",
+      "url": "https://developers.openai.com/api/docs/guides/agents/sdk",
+      "evidence_type": "Official documentation"
+    },
+    {
+      "id": "T05",
+      "title": "Agent Builder",
+      "publisher": "OpenAI Developers",
+      "date": "Undated live documentation; shutdown scheduled 2026-11-30",
+      "url": "https://developers.openai.com/api/docs/guides/agent-builder",
+      "evidence_type": "Official documentation"
+    },
+    {
+      "id": "T06",
+      "title": "Welcome to ADK 2.0",
+      "publisher": "Google ADK",
+      "date": "Python GA 2026-05-19; Go GA 2026-06-30; TypeScript GA 2026-08-21",
+      "url": "https://adk.dev/2.0/",
+      "evidence_type": "Official documentation"
+    },
+    {
+      "id": "T07",
+      "title": "ADK Evaluation Criteria",
+      "publisher": "Google ADK documentation repository",
+      "date": "Undated live documentation",
+      "url": "https://github.com/google/adk-docs/blob/main/docs/evaluate/criteria.md",
+      "evidence_type": "Official documentation source"
+    },
+    {
+      "id": "T08",
+      "title": "MCP Architecture overview",
+      "publisher": "Model Context Protocol",
+      "date": "2026-07-28 documentation revision",
+      "url": "https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture",
+      "evidence_type": "Official protocol documentation"
+    },
+    {
+      "id": "T09",
+      "title": "MCP Security Best Practices",
+      "publisher": "Model Context Protocol",
+      "date": "2026-07-28 documentation revision",
+      "url": "https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices",
+      "evidence_type": "Official protocol documentation"
+    },
+    {
+      "id": "T10",
+      "title": "A2A Protocol specification",
+      "publisher": "A2A Project / Linux Foundation",
+      "date": "Current specification reviewed 2026-10-17",
+      "url": "https://a2a-protocol.org/latest/specification/",
+      "evidence_type": "Official protocol specification"
+    },
+    {
+      "id": "T11",
+      "title": "AIOpsLab: A Holistic Framework for Evaluating AI Agents for Enabling Autonomous Cloud",
+      "authors": "Yinfang Chen et al.",
+      "publisher": "MLSys 2025 / Microsoft Research",
+      "date": "2025-05",
+      "url": "https://www.microsoft.com/en-us/research/publication/aiopslab-a-holistic-framework-for-evaluating-ai-agents-for-enabling-autonomous-cloud/",
+      "code_url": "https://github.com/microsoft/AIOpsLab",
+      "evidence_type": "Peer-reviewed research and author-maintained software"
+    },
+    {
+      "id": "T12",
+      "title": "tau²-Bench: Evaluating Conversational Agents in a Dual-Control Environment",
+      "authors": "Victor Barres, Honghua Dong, Soham Ray, Xujie Si, Karthik Narasimhan",
+      "publisher": "arXiv:2506.07982",
+      "date": "2025-06-09",
+      "url": "https://arxiv.org/abs/2506.07982",
+      "evidence_type": "Primary research preprint"
+    },
+    {
+      "id": "T13",
+      "title": "tau-bench family repository",
+      "publisher": "Sierra Research",
+      "date": "Live repository; July 2026 grading update documented",
+      "url": "https://github.com/sierra-research/tau2-bench",
+      "evidence_type": "Author-maintained software",
+      "version_note": "banking_knowledge scores before 1.0.1 are not comparable with 1.0.1 or later; other domains unaffected by that grading fix."
+    },
+    {
+      "id": "T14",
+      "title": "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents",
+      "authors": "Edoardo Debenedetti et al.",
+      "publisher": "arXiv:2406.13352",
+      "date": "2024-06-19; revised 2024-11-24",
+      "url": "https://arxiv.org/abs/2406.13352",
+      "code_url": "https://github.com/ethz-spylab/agentdojo",
+      "evidence_type": "Primary research paper and author-maintained software"
+    },
+    {
+      "id": "T15",
+      "title": "ADK Arena: Evaluating Agent Development Kits via LLM-as-a-Developer",
+      "authors": "Jintao Huang, Xiaomin Li, Gaurav Mittal, Yu Hu",
+      "publisher": "arXiv:2606.05548",
+      "date": "2026-06-04",
+      "url": "https://arxiv.org/abs/2606.05548",
+      "evidence_type": "Primary research preprint (work in progress)"
+    },
+    {
+      "id": "T16",
+      "title": "OpenAI API Deprecations",
+      "publisher": "OpenAI Developers",
+      "date": "Agent Builder and Evals platform notices 2026-06-03",
+      "url": "https://developers.openai.com/api/docs/deprecations",
+      "evidence_type": "Official lifecycle notices"
+    }
+  ]
+}

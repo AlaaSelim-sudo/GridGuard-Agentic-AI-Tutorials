@@ -1,0 +1,25 @@
+\definecolor{IEEEBlue}{HTML}{00629B}
+\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}
+\definecolor{Slate}{HTML}{526470}
+\definecolor{AlertRed}{HTML}{B83136}
+\definecolor{Amber}{HTML}{A66610}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,
+ font=\fontsize{11}{13}\selectfont,text=Navy,
+ box/.style={draw=IEEEBlue,thick,rounded corners=2pt,align=center,
+ fill=IEEEBlue!4,inner sep=3pt,minimum height=.62cm},
+ arr/.style={->,draw=IEEEBlue,line width=1pt},
+ ]
+
+\node[box,text width=2.30cm] (vote) at (1.4,.65) {Majority vote};
+\node[box,text width=2.30cm] (learned) at (1.4,-.65) {Frozen LinUCB};
+\node[box,text width=3.55cm,minimum height=1.25cm] (same) at (6.0,0)
+ {Same final action\\12/12 MV test cases\\Mean $J=0.03398479$};
+\node[box,text width=2.80cm] (claim) at (10.9,0) {No general learned\\advantage established};
+\draw[arr] (vote.east)--(same.west);
+\draw[arr] (learned.east)--(same.west);
+\draw[arr] (same.east)--(claim.west);
+\node[align=center,text=Slate] at (6.0,-1.35)
+ {Fixed numerical refinement: mean $J=0.03400656$};
+
+\end{tikzpicture}

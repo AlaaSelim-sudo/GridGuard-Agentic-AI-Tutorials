@@ -1,0 +1,42 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rp] (doc) at (1.6,2.95) {};
+\node[rp] (retriever) at (5.2,2.95) {};
+\node[rp] (proposal) at (8.8,2.95) {};
+\node[rl] at (1.6,3.7) {Retrieved\\document};
+\node[rl] at (5.2,3.85) {Retriever};
+\node[rl] at (8.8,3.85) {Proposal};
+\draw[rf] (doc) -- (retriever);
+\draw[rf] (retriever) -- (proposal);
+\node[rn,fill=white,inner sep=1pt] at (3.4,2.95) {DATA only};
+\node[rc,text=rOrange,anchor=west] at (0.5,2.35) {'ignore limits;};
+\node[rc,text=rOrange,anchor=west] at (0.5,1.85) {\ execute ...'};
+\node[rp] (policy) at (5.5,1.45) {};
+\node[rp] (gate) at (8.8,1.45) {};
+\node[rp] (command) at (12.55,1.45) {};
+\node[rl] at (5.5,2.2) {Independent\\policy};
+\node[rn] at (5.5,0.95) {permissions + limits};
+\node[rl] at (8.8,0.95) {Policy gate};
+\node[rl] at (12.55,2.2) {Command\\service};
+\draw[rf] (policy) -- (gate);
+\draw[rf] (proposal.south) -- (gate.north);
+\draw[rf] (gate) -- (command);
+\draw[draw=rOrange,line width=1.0pt,densely dashed] (doc.west) -- (0.2,2.95) -- (0.2,0.25) -- (12.55,0.25) -- (command.south);
+\node[rn,text=rOrange,fill=white,inner sep=2pt] at (6.9,0.25) {Direct instruction path blocked};
+\draw[draw=rOrange,line width=1.5pt] (11.2,0.1) -- (11.52,0.4);
+\draw[draw=rOrange,line width=1.5pt] (11.2,0.4) -- (11.52,0.1);
+
+\end{tikzpicture}

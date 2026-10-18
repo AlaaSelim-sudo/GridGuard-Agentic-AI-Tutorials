@@ -1,0 +1,305 @@
+{
+  "case": "V2",
+  "case_definition": {
+    "id": "V2",
+    "task": "voltage",
+    "forecast": [
+      3,
+      3,
+      3
+    ],
+    "previous": 2,
+    "rating_fraction": 0.8,
+    "fault": false,
+    "capacity": 400.0,
+    "pv_available": true,
+    "long_available": true,
+    "attack": "none",
+    "force_dqn_first": true
+  },
+  "backend": "lindistflow3",
+  "method": "agentic",
+  "model_scope": "medium_voltage_only",
+  "status": "REVIEW",
+  "candidate": null,
+  "metrics": null,
+  "trace": [
+    {
+      "stage": "Awareness",
+      "method": "Freshness + topology identity + max absolute voltage residual",
+      "inputs": {
+        "age_seconds": 2.0,
+        "reference_voltage_pu": [
+          1.03,
+          1.0473492755950582
+        ],
+        "reported_voltage_pu": [
+          1.03,
+          1.0473492755950582
+        ],
+        "trusted_topology": "6db79a9944d9e197ced9eb44b87bbeabf92bbc0eab77702bcbecac306fe6c61f",
+        "reported_topology": "6db79a9944d9e197ced9eb44b87bbeabf92bbc0eab77702bcbecac306fe6c61f",
+        "provenance": "Synthetic aggregate sensors from the selected model, not independent field telemetry."
+      },
+      "response": {
+        "failures": [],
+        "max_voltage_residual_pu": 0.0,
+        "threshold_pu": 0.01,
+        "state": {
+          "vmin": 1.03,
+          "vmax": 1.0473492755950582,
+          "served_kw": 4747.467560000007,
+          "unserved_kw": 0.0,
+          "nominal_kw": 4747.467560000007,
+          "critical_served_kw": 474.03975000000014,
+          "critical_total_kw": 474.03975000000014,
+          "pv_kw": 7648.952981297478,
+          "losses_kw": 31.528087030761196,
+          "mv_cycles": 0,
+          "model_scope": "medium_voltage_only",
+          "backend": "lindistflow3",
+          "energized_bus_count": 453,
+          "allowed_current_utilization_pct": 71.80956821988315,
+          "loss_note": "Approximate MV I^2R reporting only; omitted from linear balance"
+        }
+      },
+      "status": "PASS",
+      "response_source": "deterministic_method"
+    },
+    {
+      "stage": "Planning",
+      "method": "H=3 Bellman MPC + Llama strategy selection",
+      "inputs": {
+        "forecast_load_multipliers": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "rating_fraction": 0.8,
+        "max_value_gap": 0.02
+      },
+      "response": {
+        "numerical_plan": {
+          "status": "PLAN",
+          "plan_caps": [
+            100.0,
+            100.0,
+            100.0
+          ],
+          "objective": 2.6073297973938816,
+          "first_action_values": [
+            1.598710674731697,
+            1.738273174731697,
+            1.8778356747316969,
+            1.9873981747316976,
+            2.096960674731697,
+            2.3160856747316982,
+            2.5352106747316965,
+            2.6073297973938816
+          ],
+          "max_value_gap": 0.02,
+          "objective_units": "dimensionless discounted PV benefit minus switching penalty",
+          "candidate": {
+            "tool": "MPC",
+            "pv_cap": 100.0,
+            "tie": "none",
+            "shed_fraction": 0.0
+          }
+        },
+        "language_response": {
+          "strategy": "MPC_ONLY",
+          "reason": "The task is to adjust the voltage, and the MPC model is suitable for medium voltage only, which matches the model scope. The MPC model is also the most straightforward choice given the task and the model scope.",
+          "call_id": 1,
+          "seconds": 3.0735060000006342,
+          "error": null,
+          "reason_source": "actual_local_llama_response"
+        },
+        "effective_strategy": "DRL_THEN_MPC",
+        "declared_intervention": "Declared equal starting-action intervention: evaluate DQN first in both supervisors."
+      },
+      "status": "PLAN",
+      "response_source": "numerical_result_and_live_llama"
+    },
+    {
+      "stage": "Execution",
+      "method": "DQN forward pass + argmax",
+      "inputs": {
+        "attempt": 1,
+        "mode": "simulation_proposal_only"
+      },
+      "response": {
+        "candidate": {
+          "tool": "DRL",
+          "pv_cap": 30.0,
+          "tie": "none",
+          "shed_fraction": 0.0
+        },
+        "q_values": [
+          1.0390575294789137,
+          2.3042219062449982,
+          2.439295475850898,
+          2.614494027898478,
+          0.5902535667927055,
+          0.5571527089246713,
+          0.5622585529932594,
+          0.5362811930821545
+        ],
+        "observation": [
+          0.7692307692307692,
+          0.7692307692307692,
+          0.7692307692307692,
+          0.2,
+          0.8,
+          1.0
+        ],
+        "weights_sha256": "6de729ed9356fa7233e86983ba7116617e987898681643f61ad0152cfd17f802",
+        "training_scope": "Original nominal OpenDSS training; same weights transferred to both workflows."
+      },
+      "status": "PROPOSE",
+      "response_source": "deterministic_method"
+    },
+    {
+      "stage": "Simulation",
+      "method": "Three-phase LinDistFlow radial sweeps",
+      "inputs": {
+        "tool": "DRL",
+        "pv_cap": 30.0,
+        "tie": "none",
+        "shed_fraction": 0.0
+      },
+      "response": {
+        "vmin": 1.0125903436678478,
+        "vmax": 1.03,
+        "served_kw": 4747.467560000007,
+        "unserved_kw": 0.0,
+        "nominal_kw": 4747.467560000007,
+        "critical_served_kw": 474.03975000000014,
+        "critical_total_kw": 474.03975000000014,
+        "pv_kw": 2647.500000000004,
+        "losses_kw": 24.106773433337057,
+        "mv_cycles": 0,
+        "model_scope": "medium_voltage_only",
+        "backend": "lindistflow3",
+        "energized_bus_count": 453,
+        "allowed_current_utilization_pct": 50.89848113479629,
+        "loss_note": "Approximate MV I^2R reporting only; omitted from linear balance"
+      },
+      "status": "SOLVED",
+      "response_source": "deterministic_method"
+    },
+    {
+      "stage": "Verification",
+      "method": "Action scope + model limits + feasible MPC continuation/value gap",
+      "inputs": {
+        "voltage_limits_pu": [
+          0.95,
+          1.05
+        ],
+        "rating_fraction": 0.8,
+        "max_value_gap": 0.02,
+        "model_scope": "medium_voltage_only"
+      },
+      "response": {
+        "accepted_in_model_scope": false,
+        "failures": [
+          "MPC_value_gap"
+        ],
+        "value_gap": 0.619931622662184,
+        "scope_warning": "LV/transformers are outside LinDistFlow coverage"
+      },
+      "status": "REJECT",
+      "response_source": "deterministic_method"
+    },
+    {
+      "stage": "Recovery",
+      "method": "Bounded DQN-to-MPC fallback; at most two candidates",
+      "inputs": {
+        "failed_candidate": {
+          "tool": "DRL",
+          "pv_cap": 30.0,
+          "tie": "none",
+          "shed_fraction": 0.0
+        },
+        "failed_checks": [
+          "MPC_value_gap"
+        ]
+      },
+      "response": {
+        "decision": "REVIEW",
+        "reason": "DRL proposal lacks safety certificate",
+        "call_id": 2,
+        "seconds": 2.469339299990679,
+        "error": null,
+        "reason_source": "actual_local_llama_response"
+      },
+      "status": "REVIEW",
+      "response_source": "deterministic_method"
+    },
+    {
+      "stage": "Explanation",
+      "method": "Deterministic metric card + evidence-grounded Llama focus",
+      "inputs": {
+        "status": "REVIEW",
+        "candidate": null,
+        "metrics": null,
+        "reasons": [
+          "MPC_value_gap"
+        ],
+        "model_scope": "medium_voltage_only",
+        "operator_requirement": "Review and acknowledge the displayed action, current limit, model scope and uncertainties.",
+        "equipment_operated": false
+      },
+      "response": {
+        "operator_card": {
+          "status": "REVIEW",
+          "candidate": null,
+          "metrics": null,
+          "reasons": [
+            "MPC_value_gap"
+          ],
+          "model_scope": "medium_voltage_only",
+          "operator_requirement": "Review and acknowledge the displayed action, current limit, model scope and uncertainties.",
+          "equipment_operated": false
+        },
+        "language_response": {
+          "focus": "REVIEW_MODEL_LIMITS",
+          "reason": "MPC_value_gap",
+          "call_id": 3,
+          "seconds": 2.614129599998705,
+          "error": null,
+          "reason_source": "actual_local_llama_response"
+        },
+        "language_limit": "Free-text rationale is not an engineering certificate."
+      },
+      "status": "COMPLETE",
+      "response_source": "deterministic_method"
+    },
+    {
+      "stage": "Operator acknowledgment",
+      "method": "Hash-bound local readback state machine",
+      "inputs": {
+        "recommendation_id": "f28c7dd99f032a4b768a45b1eeb852fc625bb62120833e9687b13bf82e189b33"
+      },
+      "response": {
+        "state": "PENDING",
+        "required_readbacks": [
+          "action_and_current_limit",
+          "model_scope",
+          "remaining_risks"
+        ],
+        "effect": "Record local review only; no dispatch"
+      },
+      "status": "PENDING",
+      "response_source": "deterministic_method"
+    }
+  ],
+  "reasons": [
+    "MPC_value_gap"
+  ],
+  "gate_rejections": 1,
+  "prediction": null,
+  "recommendation_id": "f28c7dd99f032a4b768a45b1eeb852fc625bb62120833e9687b13bf82e189b33",
+  "seconds": 8.25253780001367,
+  "model_solves": 2,
+  "llm_calls": 3
+}

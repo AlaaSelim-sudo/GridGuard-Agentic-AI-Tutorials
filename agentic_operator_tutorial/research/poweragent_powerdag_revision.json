@@ -1,0 +1,155 @@
+{
+  "reviewed": "2026-10-17",
+  "scope": "Two explicitly requested examples: Harvard PowerAgent roadmap/community and University of Vermont PowerDAG. No shared content or renderer edits; no experiments rerun.",
+  "source_map_additions_file": "poweragent_powerdag_sources.json",
+  "poweragent": {
+    "id": "PA01",
+    "name": "PowerAgent",
+    "identity": "Harvard SEAS Power and AI Initiative's open-source community and three-layer roadmap, introduced by Qian Zhang and Le Xie in 2025; not the later PowerAgentBench-Dyn paper.",
+    "paper": {
+      "title": "PowerAgent: A Road Map Toward Agentic Intelligence in Power Systems: Foundation Model, Model Context Protocol, and Workflow",
+      "authors": ["Qian Zhang","Le Xie"],
+      "affiliation": "Harvard John A. Paulson School of Engineering and Applied Sciences",
+      "publisher": "IEEE Power and Energy Magazine 23(5), 93–101, 2025",
+      "doi": "10.1109/MPE.2025.3579718",
+      "url": "https://doi.org/10.1109/MPE.2025.3579718",
+      "preprint_url": "https://doi.org/10.36227/techrxiv.174918210.07854858/v1",
+      "full_text_access": "Publisher returns an access error; TechRxiv returns403; indexed author-PDF CloudFront host no longer resolves. Only indexed portions of the author preprint were accessible. Do not claim the complete journal article was inspected.",
+      "alternative_full_primary": "The full19-page Le Xie ERCOT presentation (8December2025) was inspected; it cites this paper and presents the roadmap and demonstrations. Current author project/site/repositories independently support the concrete implementation examples."
+    },
+    "primary_refs": ["PA01","PA02","PA03","PA04","PA05","PA06"],
+    "relationship_to_P01": "PowerAgentBench-Dyn (arXiv2606.20401, existing P01) is a later benchmark contribution within the PowerAgent ecosystem, measuring constrained dynamic-study tasks. It is not the original PowerAgent roadmap, and its session results must retain their P01 attribution.",
+    "layers": [
+      {"name":"PowerFM","function":"Domain knowledge and reasoning: retrieval, fine-tuning, domain foundation models and evaluation"},
+      {"name":"PowerMCP","function":"Standardized interfaces that expose power software/tools to an agent"},
+      {"name":"PowerWF","function":"Multi-step study orchestration and human–machine workflow design"}
+    ],
+    "later_component": "The current project also names PowerSkills, a library of domain instructions. Distinguish the current ecosystem from the2025 paper's three-layer roadmap.",
+    "roadmap_locator": "PA03 PDF p.11; Harvard project overview PA02",
+    "demonstration_scope": "Load-growth or large-load grid impact: examine congestion, voltage and N−1 contingencies, and draft a study report with mitigation suggestions. PA03 pp.13–14 and current PA02 demonstrations.",
+    "current_implementation": {
+      "source_ref": "PA06",
+      "source_url": "https://github.com/Power-Agent/PowerWF/blob/main/Grid%20Impact%20Evaluation/src/agent/graph.py",
+      "status": "Author example source inspected; not executed or independently performance-tested",
+      "framework": "Explicit LangGraph StateGraph and ToolNode imports; LangChain ChatOpenAI wrapper",
+      "model": "Current example names gpt-4o in code; do not generalize this to every PowerAgent component or the historical article",
+      "simulator": "PowerWorld tool groups imported by this graph; a separate pandapower module also exists, but this graph uses the PowerWorld groups",
+      "inputs": ["PowerWorld .pwb file path","target bus number","additional load demand in MW"],
+      "nodes": ["input_collection","baseline_analysis","baseline_contingency_analysis","simple_load_modification","modified_contingency_analysis","summary","tools"],
+      "main_stage_order": ["collect case/bus/load","baseline power flow","baseline N−1 study","add load and run modified power flow","modified N−1 study","summary and suggestions"],
+      "state_and_routing": "Four completion flags route the shared tools node back to the appropriate analysis node. Conditional edges let analysis nodes request tools before proceeding.",
+      "code_locators": {"imports":"lines2–10","input_contract":"40–84","stage_functions":"152–427","conditional_routing":"429–468","graph_construction":"469–516"},
+      "authority_caveat": "Source is a demonstration workflow. Tool return interpretation/completion flags are not independent engineering acceptance, utility approval or live-control authorization."
+    },
+    "code_and_tools": {
+      "organization":"https://github.com/Power-Agent",
+      "mcp":"https://github.com/Power-Agent/PowerMCP",
+      "workflows":"https://github.com/Power-Agent/PowerWF",
+      "tool_examples":"PowerMCP currently exposes servers including PSS/E, PowerWorld, OpenDSS, pandapower and PowerFactory. Proprietary engines still require the user's installation/license; an MCP wrapper does not grant software access."
+    },
+    "numerical_result": null,
+    "numerical_result_caveat": "The roadmap, author presentation and inspected source example do not establish a matched success-rate or speedup trial for this workflow. Do not borrow P01 dynamic-benchmark results as original PowerAgent performance or plot an invented percentage.",
+    "proposed_slides": [
+      {"title":"Harvard PowerAgent separates knowledge, tools and workflow","points":["Zhang and Xie's2025 roadmap connects PowerFM, PowerMCP and PowerWF.","The ecosystem includes several projects; PowerAgentBench-Dyn is one later evaluation contribution."],"visual":"Three-layer native schematic with distinct domain-method, tool-interface and orchestration roles","refs":["PA01","PA02","PA03"]},
+      {"title":"A PowerAgent example already uses LangGraph","points":["The author grid-impact example collects case, bus and addedMW, then compares baseline and modified flow/contingency studies.","LangGraph routes calls and state; PowerWorld computes; the source example supplies no deployment performance claim."],"visual":"Source-faithful six-stage chain with a shared tool-return branch; label current author implementation","refs":["PA03","PA04","PA06"]}
+    ]
+  },
+  "powerdag": {
+    "id":"PD01",
+    "title":"PowerDAG: Supervisory Agentic AI System for Automating Distribution Grid Analysis",
+    "authors":["Emmanuel O. Badmus","Amritanshu Pandey"],
+    "affiliation":"Department of Electrical and Biomedical Engineering, University of Vermont, Burlington, VT, USA",
+    "version":"arXiv2603.17418v4,5July2026; first submitted18March2026",
+    "paper_url":"https://arxiv.org/pdf/2603.17418v4",
+    "metadata_url":"https://arxiv.org/abs/2603.17418v4",
+    "version_warning":"Search results often expose v1's old Reliable title, GPT-5.2 and100% result. Do not mix these with v4's larger benchmark, newer models and98% result.",
+    "maturity":"Research prototype and controlled workflow benchmark on feeder models; not live utility-control deployment",
+    "framework_attribution":"Custom paper architecture with six evaluated configurations. LangChain ReAct and CrewAI are comparison configurations; no evidence establishes the full PowerDAG system as LangGraph.",
+    "mechanisms": [
+      {"name":"Adaptive retrieval","steps":["Rank50 archived expert query-workflow records by query-embedding cosine similarity.","Fit a two-segment score-decay elbow to select a query-specific candidate count.","Run an LLM filter once on candidate query/workflow traces; retain existing useful exemplars rather than generating a plan in this filter."],"locator":"Section IV.B; Figure3, PDF p.4; AppendixC–E,p.9"},
+      {"name":"JIT supervision","steps":["Obtain proposed tool name and bound arguments.","Check the rule library for required preceding Write tools.","If a required prerequisite is absent, block before execution, preserve environment state and return a corrective advisory.","If covered prerequisites pass, or a tool has no rule, allow the call."],"locator":"Section IV.C, PDF pp.4–5; Algorithm1,p.5; AppendixF,pp.9–10"}
+    ],
+    "dag_semantics":"DAG nodes represent individual call events, not tool types. Repeated uses of one tool are distinct nodes in an acyclic event trace. The enclosing propose/observe/supervise execution loop remains iterative; this does not mean every runtime control graph is acyclic.",
+    "dag_locator":"Section III.C, PDF p.3",
+    "verified_tool_sequence": {
+      "query":"Run steady-state three-phase power flow on Stowe at2025-03-21 09:00, then plot bus-voltage magnitudes",
+      "locator":"AppendixB example record007, PDF pp.8–9",
+      "steps":[
+        {"tool":"load_load","arguments":{"feeder":"stowe","timestamp":"2025-03-21 09:00:00"}},
+        {"tool":"load_solar","arguments":{"feeder":"stowe","timestamp":"2025-03-21 09:00:00"}},
+        {"tool":"load_distribution_network","arguments":{"feeder":"stowe"}},
+        {"tool":"create_and_initialize_model","arguments":{}},
+        {"tool":"build_constraints","arguments":{"analysis_type":"powerflow"}},
+        {"tool":"build_objective","arguments":{"analysis_type":"powerflow"}},
+        {"tool":"solve","arguments":{}},
+        {"tool":"update_network_voltages","arguments":{}},
+        {"tool":"plot_network_data","arguments":{"plot_type":"voltage","feeder":"stowe"}}
+      ],
+      "diagram_instruction":"Depict this as the reported exemplar ordering, not a proven minimal prerequisite DAG. Group the three data loaders as a preparation block and constraints/objective as an assembly block if needed, but do not introduce unverified parallelism or additional PV/BESS scenario edges.",
+      "strict_gate_example":"SectionIV.C p.5 explicitly gives voltage-violation checking after a power-flow solve as a prerequisite. Introduction pp.1–2 explains that skipping a prerequisite network-state update can let a solver return success on the wrong state.",
+      "unverified_example":"No exact base-model→PV/BESS-scenario prerequisite chain is established in the v4 paper text; do not invent one."
+    },
+    "benchmark": {
+      "feeder_models":["Rochester","Stowe","Glover","South Hero"],
+      "location":"Four real-world Vermont distribution feeders represented as GridLAB-D models, with coordinates and AMI load series",
+      "grid_bus_counts":"Not disclosed in the inspected v4; do not infer topology sizes",
+      "records":200,"families":10,"records_per_family":20,"exemplars":50,"exemplars_per_family":5,"held_out_queries":150,"held_out_per_family":15,
+      "workflow_calls_range":[2,21],"registered_tools":108,"models":10,"configurations":6,"total_runs":9000,
+      "runs_per_query_per_model_configuration":1,
+      "split":"Within-family holdout; test queries differ in feeder/parameters/time/solver/limits/artifacts but share studied task families with the exemplars.",
+      "task_families":["general inventory","powerflow","infeasibility diagnostics","dynamic hosting capacity","EV placement","BESS","PV","grid-forming inverter","combined transmission/distribution","distribution state estimation"],
+      "locator":"SectionV.A–E, PDF p.6; AppendixA/TableIII,p.8"
+    },
+    "metrics": {
+      "Pass_at_1":"Fraction of150 held-out queries whose executed workflows cover all required expert calls, compatible arguments and valid dependency order. Additional Read calls are tolerated; extra state-changing Write calls fail except limit setters deduplicated to final values.",
+      "Precision":"Fraction of queries with expert-equivalent workflow after DAG normalization; not conventional per-call precision and not the same as Pass@1.",
+      "tokens":"Mean prompt+completion tokens over successful runs for TableII, shown in thousands. All-run averages reported separately are not interchangeable.",
+      "locator":"SectionV.E, PDF pp.6–7; TableII,p.8"
+    },
+    "table_II": {
+      "locator":"TableII, PDF p.8 (TableI,p.6 only defines configuration components)",
+      "model_order":["Llama3.2-3B","Gemma4 E2B","GPT-OSS120B","Gemma4 31B","Qwen3.6-27B","GPT-4o mini","Gemini3.1 Flash-Lite","Claude Haiku4.5","Gemini3.1 Pro","GPT-5.5"],
+      "Pass_at_1_percent": {
+        "ReAct baseline":[6.67,2.00,41.33,47.33,48.67,20.67,40.67,36.00,88.00,77.33],
+        "LangChain ReAct":[4.00,1.33,36.00,38.00,43.33,25.33,36.00,43.33,80.00,74.67],
+        "CrewAI single agent":[2.00,0.67,40.67,45.33,40.00,25.33,34.67,44.00,73.33,73.33],
+        "PowerChain-AR (retrieval only)":[9.33,12.67,78.00,66.00,88.00,55.33,68.00,74.67,91.33,92.67],
+        "JIT supervisor only":[6.00,5.33,75.33,68.67,76.00,56.00,83.33,80.67,93.33,96.00],
+        "Full PowerDAG":[12.67,16.67,88.00,89.33,92.67,73.33,90.67,90.67,97.33,98.00]
+      },
+      "selected_same_model_ablation": {
+        "model":"GPT-5.5","denominator":150,
+        "columns":["configuration","author_reported_Pass_at_1_percent","reconstructed_successes"],
+        "rows":[["ReAct baseline",77.33,116],["Adaptive retrieval only",92.67,139],["JIT supervisor only",96.00,144],["Full PowerDAG",98.00,147]],
+        "count_status":"Counts reconstructed from reported percentages and explicitly stated n=150; percentages are author-reported. No new experiment or repeated-trial interval.",
+        "caption":"GPT-5.5 workflow success on the same150 held-out queries: retrieval and prerequisite checks are complementary in this benchmark. One run per query/configuration; published v4 TableII.",
+        "extra_metric_caution":"Full GPT-5.5 PowerDAG has98.00% Pass@1 but47.33% expert-equivalent Precision; do not describe98% as exact tool-trace replication.",
+        "token_values_thousands_successful_runs":{"ReAct":84,"retrieval_only":66,"JIT_only":64,"full":74},
+        "token_caveat":"These are rounded TableII means over successful runs only, not dollars or all-attempt total cost."
+      }
+    },
+    "supervisor_coverage": {
+      "locator":"AppendixF/TableVI, PDF p.10",
+      "tools_with_checks":94,"registered_tools":108,"tool_coverage_percent":87.0,
+      "covered_expert_calls":1097,"expert_calls":1330,"call_coverage_percent":82.5,
+      "prerequisite_rules":112,"advisory_runs_percent":78.8,"mean_blocked_proposals_per_run":6.57,
+      "post_advisory_failures":8,"runs_with_advisories":1178,
+      "limitation":"Uncovered tools are allowed, and required-tool membership does not certify all possible parameter/freshness/physics constraints. The encoded rule set is not exhaustive."
+    },
+    "implementation": {
+      "agent_url":"https://github.com/emmanuelbadmus/PowerDAG",
+      "agent_status":"Paper-linked repository; current content could not be fetched in this review",
+      "benchmark_url":"https://github.com/emmanuelbadmus/DistGrid-AgentBench",
+      "benchmark_status":"Author README, task structure, tool manifest and evaluator interface verified; not executed",
+      "public_reproducibility":"Feeder network data, GIS data and network-tool implementations are proprietary and omitted. Only BESS/basicPV/GFI (3of10 families) are fully runnable from the public install. All ground-truth workflow JSON remains available.",
+      "old_repository_warning":"The v1-linked PowerDAG/PowerDAG repository README uses a generic PowerAgent package name. Do not confuse that package with Harvard's separate Power-Agent organization, or assume it reproduces v4."
+    },
+    "limitations":["One run per model/configuration/query; no run-to-run uncertainty estimate.","Held-out queries share the ten task families and four feeder models; this does not establish unseen-family or arbitrary-utility generalization.","Pass@1 is expert-workflow conformance, not an independent field-safety probability or end-to-end operator productivity measure.","No public reconstruction of all9,000 runs is possible without proprietary network software/data.","Do not generalize correct prerequisite checks to complete physical validation or authorization.","Baseline framework results concern the paper's configured tasks and implementation; they do not rank every possible LangChain or CrewAI application."],
+    "proposed_slides":[
+      {"title":"PowerDAG learns a workflow from expert examples","points":["Adaptive retrieval selects expert query/tool traces; a one-time filter checks procedural relevance.","The model still proposes calls, while an external supervisor checks prerequisites."],"visual":"Query → exemplar selection → agent → gate → environment; observations and advisories return to agent","refs":["PD01"]},
+      {"title":"A voltage plot depends on a solved, updated model","points":["The published Stowe exemplar loads inputs, builds and solves a model, updates voltages, then plots.","Call events form a DAG; repeating a tool creates a new event rather than a cyclic prerequisite."],"visual":"Native sequence of grouped exact AppendixB calls; label reported order","refs":["PD01"]},
+      {"title":"A supervisor blocks missing prerequisites before execution","points":["A missing prerequisite yields an advisory and leaves the environment unchanged.","Rules cover94of108 tools; unlisted tools are not automatically blocked."],"visual":"Proposed voltage check → solved-state prerequisite gate → execute or blocked/advisory branch","refs":["PD01","PD02"]},
+      {"title":"Retrieval and supervision improve this measured workflow","points":["GPT-5.5 Pass@1 rises77.33→92.67/96.00→98.00% on150 held-out queries.","The metric checks expert workflows; public network data/tool omissions limit full reproduction."],"visual":"Four-bar same-model ablation; explicit metric and n=150","refs":["PD01","PD02"]}
+    ]
+  }
+}

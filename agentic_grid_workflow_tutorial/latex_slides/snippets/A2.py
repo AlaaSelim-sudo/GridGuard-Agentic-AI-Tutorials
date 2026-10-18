@@ -1,0 +1,5 @@
+print('FIXED supervisor:')
+show_trace(fixed)
+print('AGENTIC supervisor:', agent_source)
+show_trace(agentic)
+display(pd.DataFrame(voltage_comparison(fixed, agentic)))

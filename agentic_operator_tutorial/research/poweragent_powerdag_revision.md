@@ -1,0 +1,27 @@
+# PowerAgent and PowerDAG revision evidence
+
+Reviewed17October2026. Primary full PowerDAG v4, author benchmark README, PowerAgent's author presentation, Harvard pages and source repositories were inspected. No experiments were rerun. Sources ready for merge are in `poweragent_powerdag_sources.json`; precise values and call lists are in `poweragent_powerdag_revision.json`.
+
+## Harvard PowerAgent is the ecosystem; P01 is a later benchmark
+
+Qian Zhang and Le Xie introduced **PowerAgent: A Road Map Toward Agentic Intelligence in Power Systems: Foundation Model, Model Context Protocol, and Workflow**, IEEE Power and Energy Magazine23(5),93–101,2025. [Published DOI](https://doi.org/10.1109/MPE.2025.3579718). Harvard's official project and PAI pages identify it as the Harvard SEAS open-source community. PowerAgentBench-Dyn, already cited as P01, is a2026 benchmark contribution within this ecosystem, not the original roadmap paper.
+
+The three layers are PowerFM (domain knowledge/reasoning), PowerMCP (tool interfaces) and PowerWF (study coordination). The current site also includes PowerSkills; retain the distinction between current projects and the original three-layer roadmap. The complete [author ERCOT presentation,8December2025](https://www.ercot.com/files/docs/2025/12/01/4-Guest-Presentation-A-Roadmap-toward-Agentic-Intelligence-in-Power-Systems.pdf) shows the layers on PDFp.11 and load/interconnection-study demonstrations on pp.13–14. This is a roadmap and implementation example, not a matched numerical performance trial.
+
+There is now an explicit, source-verified LangGraph connection: [PowerWF Grid Impact Evaluation graph.py](https://github.com/Power-Agent/PowerWF/blob/main/Grid%20Impact%20Evaluation/src/agent/graph.py). It imports StateGraph/ToolNode, collects a PowerWorld case/bus/addedMW, and follows baseline flow → baseline contingencies → load modification and flow → modified contingencies → summary. Conditional tool-return routing uses completion flags. The current example uses GPT-4o and PowerWorld tool groups. This does not establish the historical article's exact SDK or every PowerAgent component's implementation. No source execution or independent acceptance test was performed.
+
+**Access limit:** IEEE/TechRxiv blocked full article retrieval; the indexed author-PDF host no longer resolves. The roadmap identity is verified, but the complete journal text was not read. Concrete workflow statements above are supported by the complete author presentation and inspected source. Do not claim an unverified performance percentage or silently substitute P01 results.
+
+## PowerDAG: use v4, not stale search snippets
+
+Emmanuel O. Badmus and Amritanshu Pandey, University of Vermont: **PowerDAG: Supervisory Agentic AI System for Automating Distribution Grid Analysis**, [arXiv2603.17418v4](https://arxiv.org/pdf/2603.17418v4),5July2026. V1 used the different *Reliable* title, GPT-5.2 and a100% headline; those do not describe v4.
+
+The system retrieves expert query/tool traces using an adaptive score-decay cutoff plus an LLM filter, then places a deterministic prerequisite supervisor before tool execution. Missing prerequisites block the call, preserve state and return an advisory. SectionIII.C(p.3) treats DAG nodes as distinct call events; the same tool can recur as a later event. The enclosing agent execution is iterative. No LangGraph implementation is identified for full PowerDAG; LangChain ReAct and CrewAI are comparison configurations.
+
+The exact Stowe exemplar (AppendixB,pp.8–9) is: load_load(timestamp), load_solar(same timestamp), load_distribution_network, create_and_initialize_model, build_constraints(powerflow), build_objective(powerflow), solve, update_network_voltages, plot_network_data(voltage). Draw this as **reported exemplar ordering**, not an inferred minimal dependency graph. SectionIV.C(p.5) explicitly states that voltage-violation checks require a prior power-flow solve. The paper does not establish the suggested PV/BESS scenario-specific prerequisite edges.
+
+V4 has200expert-verified records,50exemplars and150held-out queries, across ten families and four Vermont feeder models. Each model/configuration/query is run once;6configurations×10models×150queries gives9,000runs. The split is within-family. TableII(p.8) reports GPT-5.5 Pass@1: ReAct77.33%, retrieval-only92.67%, JIT-only96.00%, full98.00%. Counts116,139,144,147 out of150 can be reconstructed from these percentages; label them calculated if used. TableI(p.6) defines components rather than results.
+
+Pass@1 checks required expert tool calls, compatible arguments and dependency order. It tolerates extra Read calls, with restricted Write-call treatment. It is not physical-grid safety or exact trace replication; full GPT-5.5 Precision is47.33%. TableVI(p.10) reports prerequisite checks for94/108tools and1,097/1,330expert calls; uncovered tools are allowed. An encoded prerequisite library does not certify all freshness, physics or permission constraints.
+
+The [author benchmark](https://github.com/emmanuelbadmus/DistGrid-AgentBench) publishes task workflows and evaluator code, but its README excludes proprietary feeder/GIS data and network tools. Only BESS/basicPV/GFI—3of10families—are fully runnable publicly. The paper-linked agent URL is https://github.com/emmanuelbadmus/PowerDAG; its current contents were unavailable during this review. Do not confuse the old generic `poweragent` package under PowerDAG/PowerDAG with Harvard's separate Power-Agent organization.

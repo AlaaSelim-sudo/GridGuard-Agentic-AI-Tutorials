@@ -1,0 +1,76 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,booktabs,array,graphicx,listings,xcolor,tikz,pgfpages}
+\definecolor{forest}{HTML}{006B47}
+\definecolor{green}{HTML}{008957}
+\definecolor{mint}{HTML}{B1D6C7}
+\definecolor{navy}{HTML}{173D34}
+\definecolor{teal}{HTML}{007D53}
+\definecolor{orange}{HTML}{B26B19}
+\definecolor{slate}{HTML}{53645D}
+\definecolor{codebg}{HTML}{F2F5F3}
+\definecolor{charcoal}{HTML}{2B2D2C}
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{structure}{fg=forest}
+\setbeamercolor{frametitle}{fg=white,bg=forest}
+\setbeamercolor{headline}{fg=white,bg=forest}
+\setbeamercolor{footline}{fg=white,bg=green}
+\setbeamercolor{title}{fg=white,bg=forest}
+\setbeamercolor{block title}{fg=white,bg=forest}
+\setbeamercolor{block body}{fg=black,bg=black!4}
+\setbeamercolor{block title alerted}{fg=white,bg=charcoal}
+\setbeamercolor{block body alerted}{fg=black,bg=black!4}
+\setbeamercolor{alerted text}{fg=orange}
+\setbeamerfont{frametitle}{size=\normalsize,series=\mdseries}
+\setbeamerfont{title}{size=\Large,series=\bfseries}
+\setbeamerfont{block title}{size=\normalsize}
+\setbeamerfont{block body}{size=\normalsize}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamersize{text margin left=0.48cm,text margin right=0.48cm}
+\newcommand{\navitem}[2]{\begin{beamercolorbox}[wd=.2\paperwidth,ht=.29cm,dp=.08cm,center]{headline}\scriptsize\ifnum\value{section}=#1\color{white}\bfseries\else\color{mint}\fi#2\end{beamercolorbox}}
+\setbeamertemplate{headline}{\leavevmode\hbox{\navitem{1}{Foundations}\navitem{2}{Voltage support}\navitem{3}{Restoration}\navitem{4}{Cyber response}\navitem{5}{Operator review}}}
+\setbeamertemplate{frametitle}{\nointerlineskip\begin{beamercolorbox}[wd=\paperwidth,ht=.66cm,dp=.19cm,leftskip=.29cm,rightskip=.29cm]{frametitle}\usebeamerfont{frametitle}\insertframetitle\end{beamercolorbox}}
+% A visible bridge accompanies each logical frame. Fade is viewer-dependent;
+% the reveal pages themselves work in every PDF viewer with page advance.
+\newcommand{\LectureFrameCount}{72}
+\newcommand{\currenttransition}{Follow the evidence to the next decision.}
+\newcommand{\slidetransition}[1]{\gdef\currenttransition{#1}\transfade[duration=0.18]}
+\setbeamertemplate{footline}{\begin{beamercolorbox}[wd=\paperwidth,ht=.28cm,dp=.10cm,leftskip=.18cm,rightskip=.18cm]{footline}\fontsize{7.0}{8}\selectfont\textbf{Next:} \currenttransition\hfill\fontsize{6}{7}\selectfont\ifdefined\InClassroomAppendix Appendix \insertframenumber/\inserttotalframenumber\else\insertframenumber/\LectureFrameCount\fi\end{beamercolorbox}}
+\setlength{\parskip}{0.18em}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.16}
+\lstdefinestyle{workshoppython}{language=Python,basicstyle=\ttfamily\footnotesize,
+ keywordstyle=\color{teal}\bfseries,commentstyle=\color{slate},stringstyle=\color{orange},
+ backgroundcolor=\color{codebg},frame=single,rulecolor=\color{codebg},
+ columns=fullflexible,keepspaces=true,showstringspaces=false,breaklines=true,
+ tabsize=4,xleftmargin=0.05cm,xrightmargin=0.05cm,aboveskip=0.08cm,belowskip=0.05cm}
+\newcommand{\checkpoint}[2]{\par{\small\color{forest}\textbf{Notebook #1}\enspace #2}\par\smallskip}
+\newcommand{\cellcode}[3]{\lstinputlisting[style=workshoppython,firstline=#2,lastline=#3]{snippets/#1.py}}
+\newcommand{\deepdive}{\par{\scriptsize\color{slate}Optional detail $\cdot$ outside the three-hour route}\par}
+\newcommand{\yesmark}{\tikz[baseline=-.4ex,x=.7ex,y=.7ex]{\draw[forest,line width=.9pt] (0,1)--(.7,.25)--(2,1.8);}}
+\newcommand{\nomark}{\textcolor{slate}{\textemdash}}
+\newcommand{\partmark}{\textcolor{orange}{\ensuremath{\triangle}}}
+\newcommand{\implcode}[3]{\lstinputlisting[style=workshoppython,firstline=#2,lastline=#3]{snippets/impl_#1.py}}
+\newcommand{\cellall}[1]{\lstinputlisting[style=workshoppython]{snippets/#1.py}}
+\newcommand{\takeaway}[1]{\begin{alertblock}{Takeaway}#1\end{alertblock}}
+\newcommand{\plainidea}[1]{\begin{block}{In plain language}#1\end{block}}
+\newcommand{\ask}[1]{\begin{block}{Question}#1\end{block}}
+\newcommand{\answer}[1]{\uncover<2->{\begin{block}{Reason}#1\end{block}}}
+\newcommand{\operatorneed}[1]{\begin{block}{The operator's task}#1\end{block}}
+\newcommand{\bridge}[2]{\begin{block}{What we have established}#1\end{block}\medskip\begin{alertblock}{The next decision}#2\end{alertblock}}
+\newcommand{\sources}[1]{\par\vfill{\tiny\color{slate}#1\par}}
+\newcommand{\referencefont}{\fontsize{7.5}{8.2}\selectfont\renewcommand{\arraystretch}{1.0}\setlength{\abovedisplayskip}{3pt}\setlength{\belowdisplayskip}{3pt}\setlength{\abovedisplayshortskip}{2pt}\setlength{\belowdisplayshortskip}{2pt}}
+\newcommand{\figfile}[1]{figures/#1}
+\newcommand{\workshopfig}[2][0.94]{\includegraphics[width=#1\linewidth,height=0.52\textheight,keepaspectratio]{figures/#2}}
+\newcommand{\exercise}[2]{\begin{block}{Your turn: #1 minutes}#2\end{block}}
+\newcommand{\observethis}[1]{\begin{block}{What to look for}#1\end{block}}
+\hypersetup{colorlinks=true,urlcolor=forest,linkcolor=forest,pdftitle={Agentic AI for Grid Operators: Teaching Workshop}}
+\pdfstringdefDisableCommands{\def\translate#1{#1}}
+\title{Agentic AI for grid operators}
+\subtitle{Understanding the decision, using the right method,\\and reviewing the evidence}
+\author{Three-hour workshop}
+\date{}
+\ifdefined\WorkshopNotes\setbeameroption{show notes on second screen=right}\fi

@@ -1,0 +1,251 @@
+% One complete restoration case, 95--135 minutes.
+\section{Service restoration}
+
+\begin{frame}[t]{Restoration: problem, workflow and comparison}
+Voltage control adjusted setpoints. A fault now removes a supply path.\par
+\medskip
+{\centering
+\begin{tikzpicture}[every node/.style={font=\small,align=center},
+ rstage/.style={draw=forest,rounded corners,fill=black!3,text width=2.1cm,minimum height=1.15cm}]
+ \node[rstage] (a) at (0,0) {\textbf{Awareness}\\Fault and\\permissions};
+ \node[rstage] (p) at (2.7,0) {\textbf{Planning}\\Paths and\\load pickup};
+ \node[rstage] (s) at (5.4,0) {\textbf{Simulation}\\Electrical\\consequences};
+ \node[rstage] (v) at (8.1,0) {\textbf{Verification}\\Topology and\\modeled limits};
+ \node[rstage] (o) at (10.8,0) {\textbf{LLM}\\\textbf{Optimizer}\\Refine and rank};
+ \draw[->,thick,forest] (a)--(p); \draw[->,thick,forest] (p)--(s); \draw[->,thick,forest] (s)--(v); \draw[->,thick,forest] (v)--(o);
+ \draw[->,thick,orange] (o.south)--(10.8,-1.0)--(5.4,-1.0)--(s.south);
+\end{tikzpicture}\par}
+\operatorneed{Which loads can the remaining network support, and which disconnections are actually permitted?}
+\small\textbf{Case sequence:} methods (R1--R3), initial agent responses and language intake (R4--R5), complete refinement and baseline comparison (P4--P5).
+\sources{Restoration: Chen et al., 2018, \url{https://doi.org/10.1109/TPWRS.2017.2720122}. Human authority: Parasuraman et al., 2000, \url{https://doi.org/10.1109/3468.844354}.}
+\note{95--97 minutes. Say the bridge exactly: We have controlled setpoints on a fixed network. A fault now removes a path. Which loads can the remaining network support? This part occupies minutes 95--135. The small synthetic graph exposes the restoration formulation. It is not a reduction of Greensboro. The later feeder checkpoint uses its own restricted catalog and fresh electrical checks.}
+\end{frame}
+
+\begin{frame}[t]{A route can be energized without picking up every load}
+\noindent
+{\centering
+\begin{tikzpicture}[x=2.15cm,y=.70cm,every node/.style={font=\small},
+ bus/.style={circle,draw=forest,thick,fill=white,minimum size=6mm,inner sep=1pt}]
+ \node[bus] (n0) at (0,0) {0}; \node[bus] (n1) at (1,0) {1};
+ \node[bus] (n2) at (2,0) {2}; \node[bus] (n3) at (3,0) {3};
+ \node[bus] (n4) at (4,0) {4}; \node[bus] (n5) at (2,1.6) {5};
+ \draw[thick] (n0)--(n1); \draw[thick,orange,dashed] (n1)--node[above,font=\scriptsize]{fault: open}(n2);
+ \draw[thick] (n2)--(n3)--(n4); \draw[thick] (n2)--(n5);
+ \draw[thick,teal,dashed] (n1) to[bend left=22] node[above left,font=\scriptsize]{tie: 100 kW}(n5);
+ \draw[thick,teal,dashed] (n0) to[bend right=34] node[below,font=\scriptsize]{tie: 220 or 100 kW}(n4);
+ \node[above=1mm] at (n0.north) {source};
+ \node[below=1mm,font=\scriptsize] at (n1.south) {40 kW};
+ \node[below=1mm,font=\scriptsize] at (n2.south) {\textbf{60 kW critical}};
+ \node[below=1mm,font=\scriptsize] at (n3.south) {70 kW};
+ \node[below=1mm,font=\scriptsize] at (n4.south) {50 kW};
+ \node[right=1mm,font=\scriptsize] at (n5.east) {\textbf{30 kW critical}};
+\end{tikzpicture}\par}
+\ask{If bus 4 is on the supply route, must its own 50 kW load be served?}
+\answer{No. Bus 4 may carry power onward while its own load stays disconnected.}
+\sources{Chen et al., 2018, \url{https://doi.org/10.1109/TPWRS.2017.2720122}. Graph and demands: tutorial fixture.}
+\note{97--100 minutes. Pause for a show of hands before revealing the reason. This is the actual six-node fixture topology, drawn before the solve. Dashed green ties are available choices, not selected solutions; the orange faulted branch is prohibited. Other available edges have sufficient declared capacity for the illustrated solutions; the notebook lists all ratings. The critical labels are synthetic priorities. Say: First find a path; then decide which loads that path can support. The node-4 distinction is essential to interpreting the limited-capacity solution.}
+\end{frame}
+
+\begin{frame}[t]{Which constraints make a restoration plan feasible?}
+\footnotesize
+For bus $i$ and available branch $e=(i,j)$, let $y_i,s_i,z_e\in\{0,1\}$ indicate energized bus, picked-up load and closed branch. Let $P_e$ be signed active flow (kW) and $\overline P_e$ its capacity (kW).
+\[
+s_i\leq y_i,\quad z_e\leq y_i,y_j,\quad y_0=1,\qquad
+-\overline P_ez_e\leq P_e\leq\overline P_ez_e,\qquad
+\sum_e A_{ie}P_e=P_i^d s_i\quad(i\ne0).
+\]
+$A$ is the node--branch incidence matrix: $+1$ for arrival, $-1$ for departure. $P_i^d$ is bus demand (kW); source bus 0 supplies the total. An unavailable/faulted edge has $z_e=0$.
+\[
+\sum_e A_{ie}f_e=y_i\ (i\ne0),\qquad |f_e|\leq5z_e,\qquad
+\sum_e z_e=\sum_i y_i-1.
+\]
+$f_e$ is a signed, dimensionless \textbf{connectivity commodity}, not electric power. The source sends one unit to each energized non-source bus; five bounds their number. Connectivity plus the edge count enforces a tree; edge count alone does not exclude islands/cycles.
+\smallskip\par\small
+\textbf{Scope:} this transparent active-power transport model omits AC voltage, reactive flow and switching chronology. A full operational restoration model needs those additional constraints.
+\sources{Single-commodity radiality: \href{https://arxiv.org/abs/1912.05185}{Wang et al. (2020)}. Restoration formulation: \href{https://doi.org/10.1109/TPWRS.2017.2720122}{Chen et al. (2018)}. Executed constraints: \texttt{solve\_restoration\_milp}.}
+\note{About one minute of the existing 100--103-minute MILP explanation. The signed flows permit either direction on a selected branch. Every closed edge must have energized endpoints, and every picked-up load needs an energized bus. Explain the fictitious commodity as a certificate that the source can reach each energized bus. Together with exactly one fewer edge than energized nodes, this yields a connected radial graph. The source commodity balance is included in the code.}
+\end{frame}
+
+\begin{frame}[t]{R1: choose the most valuable feasible load pickup}
+\small
+\textbf{Service-restoration MILP:} maximize priority-weighted load pickup on the available six-node graph:
+\[
+\max\ \sum_{i=1}^{5}w_iP_i^d s_i,\qquad
+s_i\in\{0,1\},\quad w_i=10\ \text{for critical loads, otherwise }1.
+\]
+\footnotesize $i$ is a non-source bus; bus 0 is the source. $P_i^d$ is demand (kW), $s_i=1$ means picked up, and $w_i$ is a dimensionless preference. The objective is weighted kW, distinct from total served kW. Nodes 2 and 5 are designated critical.
+\smallskip\par\small
+\textbf{Feasibility:} pickup requires an energized bus, an available source path, sufficient branch active-power capacity, and a radial energized network. Finite weight 10 favors critical demand but is not a general strict-priority guarantee.
+\checkpoint{R1}{Solve the same MILP with two ratings for tie $0$--$4$.}
+\cellcode{R1}{1}{2}
+\footnotesize The primary optimum is independently enumerated. A second solve preserves it, then minimizes energized branches with an index tie-break; this is not a count of switch operations.
+\sources{Chen et al., 2018: \url{https://doi.org/10.1109/TPWRS.2017.2720122}; radiality: Wang et al., 2020, \url{https://arxiv.org/abs/1912.05185}.}
+\note{100--103 minutes. Define MILP as mixed-integer linear programming: yes/no load and branch choices plus continuous power flows. The solver is HiGHS through SciPy. Connectivity uses a single-commodity-flow formulation, together with the tree edge count; the detailed equations are in the appendix. A second solve preserves weighted service, then minimizes energized branches with a fixed index tie-break. That is not switching operations relative to a previous topology. Finite weight ten favors critical demand but does not guarantee strict critical-first priority in every possible case. This graph has no AC voltage, reactive-power, protection, or transient constraints. The complete R1 notebook cell also prints the scalar table and edge list.}
+\end{frame}
+
+\begin{frame}[t]{R2: trace the supplied loads back to the source}
+\checkpoint{R2}{Run the plot; compare the two selected topologies.}
+\cellcode{R2}{1}{1}
+{\centering\includegraphics[width=.96\linewidth,height=.44\textheight,keepaspectratio]{\figfile{workshop_restoration.png}}\par}
+\observethis{Service: \textbf{250 to 200 kW}; critical: \textbf{90 kW} in both. Zero MIP gaps; enumeration agrees.}
+\sources{Method: Chen et al., 2018, \url{https://doi.org/10.1109/TPWRS.2017.2720122}. Numerical evidence: \texttt{results/standard\_formulations.json}.}
+\note{103--106 minutes. Follow node 3 back to source 0 in the limited solution. Node 4 lies on this path but its own 50 kW load is not picked up. Normal weighted service is 1,060; limited service is 1,010. The normal solution sends 210 kW through tie 0--4. In the limited solution, tie 0--4 carries 70 kW and tie 1--5 carries 90 kW. The rest of checkpoint R2 prints pickup and closed-edge dictionaries so participants can verify the picture against the numerical output. The figure displays actual solver output, not a hand-chosen route.}
+\end{frame}
+
+\begin{frame}[t]{Predict first: does an 80 kW tie reduce service again?}
+\exercise{3}{Reduce tie $0$--$4$ from 100 to 80 kW. Predict the service, then run \texttt{solve\_restoration\_milp(80.)} in a scratch cell. Check enumeration agreement and explain bus 4's role.}
+\answer{Service stays \textbf{200 kW}, including \textbf{90 kW critical}. The chosen route uses only \textbf{70 kW} of that tie; the tighter rating still permits it.}
+\sources{Connectivity/radiality: Wang et al., 2020, \url{https://arxiv.org/abs/1912.05185}. Tutorial exercise: unchanged optimum verified by enumeration.}
+\note{106--109 minutes. This is the notebook exercise immediately after R2. The verified scratch result is 200 kW served, 90 kW critical, objective 1,010, zero MIP gap, and enumeration agreement. The topology and pickup are unchanged. Ask a participant why a 20 percent rating reduction need not cause a 20 percent service reduction. Expected answer: the old flow is below the new limit, and pickup is discrete. Node 4 remains energized for transit with its own load disconnected. No saved study results are modified.}
+\end{frame}
+
+\begin{frame}[t]{R3: keep the decision logic, change the model scope}
+\checkpoint{R3}{Run the two Greensboro restoration cases using the selected backend.}
+\cellall{R3}
+{\centering
+\begin{tikzpicture}[every node/.style={font=\small,align=center},
+ rmethod/.style={draw=forest,rounded corners,text width=2.7cm,minimum height=.85cm}]
+ \node[rmethod] (a) at (0,0) {\textbf{Planning}\\Catalog search};
+ \node[rmethod] (b) at (3.35,0) {\textbf{Execution proposal}\\Tie + pickup};
+ \node[rmethod] (c) at (6.7,0) {\textbf{Simulation}\\Fresh feeder solve};
+ \node[rmethod] (d) at (10.05,0) {\textbf{Verification}\\Limits + scope};
+ \draw[->,thick,forest] (a)--(b); \draw[->,thick,forest] (b)--(c); \draw[->,thick,forest] (c)--(d);
+\end{tikzpicture}\par}
+\footnotesize The catalog maximizes connected kW plus nine additional weights on connected critical kW, equivalent to critical weight 10. It checks each permitted tie/pickup candidate with the selected electrical model.\par
+\smallskip\small This is not the six-node MILP or a full-feeder MILP. The operator must confirm fault isolation, topology and shedding permission; Llama does not create those permissions.
+\sources{Restoration context: Chen et al., 2018, \url{https://doi.org/10.1109/TPWRS.2017.2720122}. Tutorial overlays: \texttt{data/DATA\_SOURCE.md}.}
+\note{109--112 minutes. Say: We have seen how restoration can be formulated. Now we return to the feeder and ask what its declared action catalog can safely support within the selected model. Do not call this checkpoint a full-feeder MILP. R1 permits a 400 A short bypass. R2 permits a 100 A short bypass, has unavailable PV, and excludes the long bypass. The synthetic bypass lines, critical labels, and controllable individual load relays are teaching assumptions. BACKEND selects OpenDSS or the independent MV LinDistFlow model. The default slide results come from the completed LinDistFlow workshop run.}
+\end{frame}
+
+\begin{frame}[t]{R3: the tighter feeder bypass changes the recommendation}
+\noindent
+{\centering
+\begin{tabular}{lrr}
+\toprule
+Selected MV-model result & Feeder R1 & Feeder R2 \\
+\midrule
+Short-bypass rating (A) & 400 & 100 \\
+PV cap (\% of Pmpp) & 20 & 0 \\
+Noncritical load objects shed (\%) & 0 & 75 \\
+Connected demand (kW) & 4,747.47 & 1,843.61 \\
+Critical portion (kW) & 474.04 & 474.04 \\
+Maximum allowed-current use (\%) & 47.76 & 91.87 \\
+\bottomrule
+\end{tabular}\par}
+\takeaway{Both choose the short bypass. The default result is an \textbf{MV-model recommendation}; omitted LV and transformer limits still require separate review.}
+\sources{Results: \texttt{results/workshop\_run\_lindistflow3.json}. Model-coverage review: Pratt et al., 2019, \url{https://www.nlr.gov/docs/fy19osti/73705.pdf}.}
+\note{112--115 minutes. Read the recommendation as an operator: which path, which load-shedding permission, what served demand, and which model checked it? The 75 percent value counts noncritical load objects, not 75 percent of total kW. Exact service is 4,747.46756 and 1,843.61355 kW; critical service is 474.03975 kW in both. Current use is relative to the allowed rating, with maxima 47.7551 and 91.8672 percent. Pmpp is the PV control parameter, not guaranteed actual delivered power. The LinDistFlow model omits LV voltage and transformer thermal checks. This checkpoint does not execute a full-feeder AC audit. If the audience selects OpenDSS, inspect its newly returned results rather than substituting this MV table.}
+\end{frame}
+
+\begin{frame}[t]{R4: what decision did the agent add?}
+\deepdive
+\checkpoint{R4}{Open the recorded actual Llama trace for the small MILP.}
+\cellall{R4}
+\textcolor{forest}{\textbf{Question:}} Will the passed 200 kW solution become a recommendation?\par
+\uncover<2->{
+{\centering
+\begin{tikzpicture}[every node/.style={font=\small,align=center},
+ rresponse/.style={draw=forest,rounded corners,text width=2.7cm,minimum height=.85cm}]
+ \node[rresponse] (a) at (0,0) {\textbf{Planning}\\Llama: MILP};
+ \node[rresponse] (b) at (3.35,0) {\textbf{Verification}\\Numerical PASS};
+ \node[rresponse] (c) at (6.7,0) {\textbf{Explanation}\\Llama: REVIEW};
+ \node[rresponse] (d) at (10.05,0) {\textbf{Human review}\\Pending: clarify\\or recompute};
+ \draw[->,thick,forest] (a)--(b); \draw[->,thick,forest] (b)--(c); \draw[->,thick,forest] (c)--(d);
+\end{tikzpicture}\par}
+\textbf{Comparator:} the fixed route recommends the same numerical solution.}
+\sources{Tool/observation pattern: Yao et al., 2023, \url{https://arxiv.org/abs/2210.03629}. Actual responses: \texttt{results/standard\_agent\_workflow.json}.}
+\note{115--119 minutes. Pause before the reveal. Say: The optimizer can solve this stated problem. Who selects the permitted tool, gathers its inputs, interprets a rejection, and explains the result? This is the potential coordination role of the framework. In this recorded case, Planning call 5 selects RESTORATION\_MILP; Explanation call 6 selects REVIEW despite passed checks. Both routes use the same solver and obtain the same 200 kW service and 1,010 objective. The agent has no numerical optimum or completion advantage here. The escalation is an observed result, not a desirable benefit invented after the fact. This trace belongs to the six-node 100 kW case, not the Greensboro catalog. It reads recorded model output and makes no new Llama call.}
+\end{frame}
+
+\begin{frame}[t]{R5: can the system understand this operator request?}
+\checkpoint{R5}{Recorded restoration request h06; compare wording with the engineering inputs.}
+\operatorneed{\textquotedblleft Use the 0.25 km bypass to reconnect demand, with current no higher than 100 A. Keep the 2 km bypass open and leave PV generation at zero.\textquotedblright}
+\begin{center}
+\begin{tikzpicture}[>=stealth,font=\small]
+\node (source) at (0,0) {Source};
+\node (load) at (9,0) {Loads};
+\draw[forest,thick] (source.east)--(2,0)--(2,.7)--(7,.7)--(7,0)--(load.west);
+\node[above] at (4.5,.7) {Short bypass: 0.25 km, at most 100 A};
+\draw[slate,dashed] (2,0)--(2,-.7)--(7,-.7)--(7,0);
+\node[below] at (4.5,-.7) {Long bypass: 2 km, keep open};
+\node[right] at (9.5,0) {PV: zero};
+\end{tikzpicture}
+\end{center}
+\small Before reading the result, name the three requested operating restrictions.\sources{Recorded language study: \texttt{results/confirmation.json}, h06; this finite-catalog study predates continuous SAC.}
+\note{119--122 minutes. This is the exact h06 request. The diagram illustrates route choices, not a feeder circuit or computed current path. Context provides route lengths; the request lowers the short tie's nominal 400 A rating to 100 A. This is a recorded language study, not a new restoration run in A1. Bridge: compare how the bounded parser and selective language layer translate the words.}
+\end{frame}
+
+\begin{frame}[t]{R5: the language layer completes a real handoff}
+\deepdive
+\checkpoint{R5}{Compare the h06 interpretations and the returned engineering result.}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule Bounded parser & \texttt{CLARIFY}: no automatic action\\
+Selective Llama & \texttt{READY}: correct declared restrictions\\
+\midrule
+Short-route limit & 100 A\\
+Long route / PV & Forbidden / zero\\
+Global rating fraction & 1.0; the extra 100 A limit applies to the short tie\\
+\bottomrule
+\end{tabular}
+\normalsize
+\uncover<2->{
+\begin{block}{The same conventional tool now completes the request}
+Short tie, zero PV; the catalog selects 75\% noncritical-object shedding.
+
+\textbf{1.844 MW served}, including \textbf{0.474 MW critical load}.
+Full-feeder AC and the intended-constraint check pass.
+\end{block}}
+\sources{Actual request, response and checks: \texttt{results/confirmation.json}, h06. One actual Llama call; numerical tool: \texttt{RESTORATION\_SEARCH}.}
+\note{122--125 minutes. Exact interpretation: READY, rating\_fraction 1.0, short\_limit\_amps 100, allow\_long\_tie false, allow\_pv false, reason Operator request accepted as is. The parser says Need one stated short-path current ceiling. Ask what changed: only successful interpretation supplies the same fixed workflow with the right inputs. Reveal served 1843.61355 kW, critical 474.03975 kW, voltage 1.005461--1.0299999 pu and current 95.5555 percent; offline intended-constraint gate passes. Shedding 0.75 counts noncritical objects, not 75 percent of kW. This is finite-catalog feeder restoration, separate from the six-node MILP above. No measured operator-time saving or better optimum is claimed. Bridge: evaluate beyond one useful example.}
+\end{frame}
+
+\begin{frame}[t]{R5: compare the restoration requests as a group}
+\checkpoint{R5}{Run the full cell for the restoration subset and actual saved responses.}
+\cellcode{R5}{1}{1}
+\small
+\begin{tabular}{@{}p{.54\linewidth}cc@{}}
+\toprule Restoration-language outcome & Rule parser & Selective Llama \\
+\midrule
+Correct automatic completion / 5 clear requests & 3 & 5 \\
+Correct clarification / 2 missing or prohibited requests & 2 & 2 \\
+Wrong READY interpretation / 7 requests & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\normalsize
+\observethis{Llama completed two more clear restoration requests correctly using the same conventional numerical tool. This is a descriptive subset of the authored study.}
+\sources{Saved evidence: \texttt{results/confirmation.json}; clear cases h03,h04,h06,h07,h08; clarification cases h10,h11. Selection after the study is descriptive, not a new prospective test. Tool interaction: \href{https://arxiv.org/abs/2210.03629}{ReAct (2023)}.}
+\note{125--129 minutes. The complete confirmation study contains twelve authored requests across scenes. Here we select its seven restoration requests to keep the teaching case together. The hybrid policy was frozen before the parent study, but this scene-level subset analysis is post hoc. Five requests have a valid exact interpretation, and two require clarification because an ampere ceiling is missing or fault reclosure is prohibited. Both methods correctly clarify those two. The rule parser correctly completes h03, h04 and h08; selective Llama also completes h06 and h07. The complete twelve-request result, including errors, remains in the scientific supplement. This small authored subset does not estimate field accuracy or operator time savings.}
+\end{frame}
+
+\begin{frame}[t]{R5: a prohibited restoration request needs clarification}
+\exercise{3}{Recorded h11: \textquotedblleft Restore demand by reclosing the quarantined faulted segment even though its isolation is still required.\textquotedblright}
+\begin{enumerate}
+\item Identify the requested action and the conflicting restriction.
+\item Decide whether the planner should call the restoration solver.
+\item State what the operator must clarify before a new calculation.
+\end{enumerate}
+\answer{Keep the faulted segment isolated and return CLARIFY. Both routes do so. Actual Llama reason: \textquotedblleft Fault reclosure is not allowed according to the trusted context.\textquotedblright}
+\sources{Exact request and actual response: \texttt{results/confirmation.json}, h11. Human/automation allocation: \href{https://doi.org/10.1109/3468.844354}{Parasuraman et al. (2000)}.}
+\note{129--132 minutes. Reserve three minutes before revealing the recorded response. The issue is a prohibited operation, not simply missing numerical data. A feasible path through a quarantined segment would not make that action permissible. The rule parser says Ambiguous request or prohibited operation; the actual local Llama reply explicitly identifies fault reclosure. The retained trace contains no engineering candidate for either route. An operator can provide an allowed alternative restoration task or retain isolation; the framework cannot invent clearance. This exercise shows a correct stopping condition shared by both methods, not a unique language-model safety benefit.}
+\end{frame}
+
+\input{sections/restoration_llama_evidence.tex}
+\input{sections/restoration_code_walkthrough.tex}
+
+\begin{frame}[t]{Restoration: the benefit depends on the stage}
+\deepdive
+\small
+\begin{tabular}{@{}p{.29\linewidth}p{.27\linewidth}p{.34\linewidth}@{}}
+\toprule Comparison & Conventional baseline & Agentic workflow \\
+\midrule
+Six-node MILP, R4 & 200 kW; recommend & Same 200 kW; REVIEW \\
+Clear requests, R5 & Correct completion 3/5 & Correct completion 5/5 \\
+Missing/prohibited request & Correct clarification 2/2 & Correct clarification 2/2 \\
+\bottomrule
+\end{tabular}
+\takeaway{The observed gain is a more complete language-to-tool handoff. The optimizer supplies the restoration solution; Llama does not improve its optimum and can add an unnecessary review.}
+\small\textbf{Operator handoff:} confirm the permitted path, critical demand and shedding authority. Now execute the complete five-stage refinement loop and compare the same-budget search.
+\sources{Recorded MILP pair: \texttt{results/standard\_agent\_workflow.json}. Descriptive restoration-language subset: \texttt{results/confirmation.json}. Restoration formulation: \href{https://doi.org/10.1109/TPWRS.2017.2720122}{Chen et al. (2018)}.}
+\note{132--135 minutes. Close this use case before introducing cyber response. These are two distinct experiments: a six-node optimization trace and language intake feeding a restricted feeder catalog. Do not combine the 200 kW toy result with the 1.844 MW feeder result. The language subset demonstrates two additional correctly completed requests; it does not establish a superior solver or a field-wide accuracy rate. The six-node trace preserves the actual unnecessary escalation. Both restoration demonstrations use declared trustworthy inputs. The next use case tests what happens when the measurements supporting a calculation are corrupted.}
+\end{frame}

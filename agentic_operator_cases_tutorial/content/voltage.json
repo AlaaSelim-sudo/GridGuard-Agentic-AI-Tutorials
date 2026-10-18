@@ -1,0 +1,657 @@
+[
+  {
+    "title": "Voltage support: return a command with evidence",
+    "kind": "figure",
+    "points": [
+      "Request: use available solar while staying inside voltage, current and inverter limits.",
+      "Return an advisory command plus evidence for one synthetic feeder, uhs20_1247–udt8894."
+    ],
+    "minutes": 1.5,
+    "refs": [
+      "VCASE",
+      "VGUIDE"
+    ],
+    "caption": "Existing SMART-DS synthetic Greensboro feeder; one teaching model, not a live utility circuit.",
+    "note": "Start with the operator’s work request, not a model brand. The supplied case is one synthetic SMART-DS Greensboro feeder, uhs20_1247–udt8894. The purpose is to propose fleet inverter settings while checking the declared voltage, current and capability constraints. The command is advisory and does not reach a distribution-management system. The map establishes the study model; it does not establish field accuracy, protection coordination or operational approval. Ask learners to identify the needed inputs: load forecast, previous command, device ratings, available active power assumption, topology/model revision and requested MV/LV coverage. The controller implementation scales inverter ratings, so “available solar” is a declared modeling assumption rather than an irradiance forecast validated here. The twelve-slide path follows request → frozen contract → proposals → numerical validation → bounded repair → scope audit → human review. Evidence: voltage chapter frame V01 and Classroom_Labs.ipynb cells 2, 4 and 33; source plot figures/feeder.png.",
+    "image_source_path": "research/evidence/figures/feeder.png",
+    "diagram_spec": null,
+    "main_ref": "VCASE",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/latex_teaching/chapters/voltage.tex",
+        "locator": "frame f:V01"
+      },
+      {
+        "file": "research/evidence/figures/feeder.png",
+        "locator": "original scientific model map"
+      }
+    ]
+  },
+  {
+    "title": "Freeze what the two control numbers mean",
+    "kind": "diagram",
+    "points": [
+      "The fleet command is (a,b): active participation and reactive injection.",
+      "Use declared voltage/current limits; inverter capability alone does not establish feeder feasibility."
+    ],
+    "minutes": 2,
+    "refs": [
+      "VCTRL",
+      "VNOTE"
+    ],
+    "caption": "Native teaching diagram of the implemented fleet capability region; the point is the recorded MPC command.",
+    "note": "Define S_i as each inverter’s kVA rating. The implementation requests p_i=a S_i kW and q_i=b S_i kvar using one dimensionless fleet command. Negative b means reactive absorption under the injection convention. The action validator requires 0≤a≤1, |b|≤0.44 and a²+b²≤1. These are implemented teaching bounds, not universal utility settings. Network checks separately require modeled voltage magnitudes in [0.95,1.05] p.u. and current no greater than the scenario’s rating_fraction times nominal current allowance. “100% allowed-current use” means the derated allowance is fully used, not necessarily 100% nameplate current. Freeze the backend, forecast, rating fraction, previous action and model/request revision before interpreting a result. A small negative b may help high voltage in this case, but its direction and feasibility still need a model solve. The illustrated capability region is clipped to the implemented reactive band. The marker uses rounded MPC coordinates and does not prove network feasibility. Evidence: continuous_control.py _control, map_action, ContinuousPlant.solve and verify_control; Classroom_Labs.ipynb L1 cell 4.",
+    "image_source_path": null,
+    "diagram_spec": {
+      "id": "voltage_capability",
+      "tex_source_path": "diagrams/voltage_capability.tex",
+      "description": "Equal-scale a/b capability diagram clipped by |b|≤0.44; fleet equations; negative b means absorption.",
+      "width_limit_cm": 13,
+      "height_limit_cm": 3.5,
+      "minimum_font_pt": 11,
+      "native": true
+    },
+    "main_ref": "VCTRL",
+    "diagramID": "voltage_capability",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/src/continuous_control.py",
+        "locator": "Q_LIMIT=.44; _control lines 82–92; ContinuousPlant.solve lines 169–177; verify_control lines 180–219"
+      },
+      {
+        "file": "research/evidence/Classroom_Labs.ipynb",
+        "cell_index_zero_based": 4,
+        "cell_id": "classroom-004"
+      }
+    ]
+  },
+  {
+    "title": "Numerical tools propose; the language model selects a trial",
+    "kind": "diagram",
+    "points": [
+      "MPC solves three forecast snapshots and proposes its first move.",
+      "SAC proposes from saved trained weights. An LLM selects a permitted trial after numerical checks."
+    ],
+    "minutes": 2,
+    "refs": [
+      "VCTRL",
+      "VMPC",
+      "VSAC",
+      "VPILOT"
+    ],
+    "caption": "Native workflow for the existing implementation; changed commands return to the solver.",
+    "note": "MPC means model predictive control. Here it is a local sensitivity optimizer over H=3 quasi-static power-flow snapshots, linked by a command-movement penalty and discount 0.98. Only its first action enters the response-selection experiment. This is not a certified global optimum, dynamic stability study or robust recursive-feasibility proof. SAC means soft actor-critic: a model-free RL method. The supplied actor was trained previously using rewards from a declared OpenDSS response-surface approximation at nominal current allowance. Classroom inference uses saved weights without retraining; current derating is a transfer condition. Both tools produce candidate numerical commands. A fresh simulation and fail-closed checks decide whether a candidate can become the incumbent. Only then do actual local language models request a bounded refinement from the allowed menu. They do not solve the power flow, relax limits or grant approval. Cite the local implementation for every measured result; the MPC book and SAC paper explain the algorithm families, not performance of this feeder. Evidence: continuous_control.py optimize_mpc/sac_proposal, pilot README Roles and authority and Planning horizon versus first-action checks.",
+    "image_source_path": null,
+    "diagram_spec": {
+      "id": "voltage_proposal_flow",
+      "tex_source_path": "diagrams/voltage_proposal_flow.tex",
+      "description": "Frozen case branches into MPC/SAC; both feed fresh checking; LLM requests one permitted rechecked trial.",
+      "width_limit_cm": 13,
+      "height_limit_cm": 3.5,
+      "minimum_font_pt": 11,
+      "native": true
+    },
+    "main_ref": "VCTRL",
+    "diagramID": "voltage_proposal_flow",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/src/continuous_control.py",
+        "locator": "optimize_mpc lines 235–320; sac_proposal lines 467–473"
+      },
+      {
+        "file": "research/evidence/results/ensemble_voltage_pilot/README.md",
+        "locator": "Roles and authority; Planning horizon versus first-action checks"
+      }
+    ]
+  },
+  {
+    "title": "Compare two freshly checked proposals",
+    "kind": "figure",
+    "points": [
+      "Fresh L2: MPC (0.960307,−0.111114); SAC (0.340066,+0.014024).",
+      "Both pass the MV checks; current-step J is 0.031104 versus 0.436428."
+    ],
+    "minutes": 2,
+    "refs": [
+      "VNOTE",
+      "VCTRL"
+    ],
+    "caption": "Replotted stored L2 current checks. 100% is the declared allowed-current limit.",
+    "note": "Use the executed default L2 output in Classroom_Labs.ipynb cell 7, ID classroom-007, with LOAD_SCALE=1.0 and RATING_FRACTION=0.80. Its forecast multipliers derive from the saved base context; LOAD_SCALE=1.0 does not mean every forecast equals one. MPC returns a=0.960307,b=−0.111114 with vmin=1.023874,vmax=1.038709 and maximum allowed-current utilization 73.619901%. Saved SAC returns a=0.340066,b=+0.014024 with vmin=1.013243,vmax=1.030000 and utilization 51.679336%. Both pass the reduced MV contract. Their current-step teaching costs are 0.031104 and 0.436428, respectively. The lower-cost proposal is preferred only after constraints are checked. The cost is dimensionless J=(1−a)²+0.05b²+10 mean[(V−1.01)²]+0.05||u−u_previous||². It is not dollars or a field reliability score. A controller cost gap does not measure agent-orchestration benefit. The crop selects only the coherent current panel; the full original plot also has separately sorted voltage curves, whose equal horizontal ranks are not identical buses. L2’s timer encloses planning, saved-actor inference and checks, not isolated SAC inference.",
+    "image_source_path": "images/voltage_current_comparison.png",
+    "diagram_spec": null,
+    "main_ref": "VNOTE",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/Classroom_Labs.ipynb",
+        "cell_index_zero_based": 7,
+        "cell_id": "classroom-007",
+        "execution_count": 3,
+        "locator": "stored text/plain DataFrame output and original plotted figure"
+      },
+      {
+        "file": "research/evidence/results/classroom_cell_manifest.json",
+        "locator": "checkpoint L2; execution 2026-10-17T13:29:30–13:29:34Z"
+      }
+    ],
+    "image_transformation": "New larger vector chart from the stored six-decimal L2 output values; no new numerical experiment."
+  },
+  {
+    "title": "Turn three replies into two physical trial choices",
+    "kind": "diagram",
+    "points": [
+      "Three archived replies collapse to two distinct physical actions.",
+      "Two votes choose reactive reduction. Selection buys one numerical trial; it does not authorize operation."
+    ],
+    "minutes": 2,
+    "refs": [
+      "VARCH",
+      "VNOTE"
+    ],
+    "caption": "Actual archived test_01 choices; native diagram groups equal tool-and-parameter records.",
+    "note": "Deliberately switch from fresh L2 to archived original test_01, whose rating_fraction is 0.7995473229563319 rather than L2’s 0.80. The load forecast is [1.0112062191802391,1.005224985779734,1.0006905741130825], and previous command [0.2696261713643143,0]. This context has MPC incumbent [0.9603066164910677,−0.11111388575888505]. Llama3.1:8b requests INCREASE_PV_0025, giving [0.9628066164910677,−0.11111388575888505]. Llama3.2:3b and qwen2.5:7b-instruct both request RELAX_Q_10_PERCENT, giving [0.9603066164910677,−0.10000249718299654]. Group requests by physical tool and parameters before counting them: three public replies form two candidates. The two-vote candidate gets one simulator trial. Neither a majority nor a bandit score is a probability of electrical safety. The actual recorded reasons include unsupported links from Q reduction to curtailment and a “voltage stability” claim; steady-state first-action checks do not establish stability. Printing these stored replies makes no new LLM call. Evidence: contexts.json record id=test_01, catalog and case; responses.json context_id=test_01; Classroom_Labs.ipynb cell 10.",
+    "image_source_path": null,
+    "diagram_spec": {
+      "id": "voltage_canonical_trial",
+      "tex_source_path": "diagrams/voltage_canonical_trial.tex",
+      "description": "Three actual model requests merge into two canonical controls; two Q-reduction votes allocate one fresh numerical trial.",
+      "width_limit_cm": 13,
+      "height_limit_cm": 3.5,
+      "minimum_font_pt": 11,
+      "native": true
+    },
+    "main_ref": "VARCH",
+    "diagramID": "voltage_canonical_trial",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/results/ensemble_voltage_pilot/contexts.json",
+        "locator": "array record id=test_01; case, incumbent, catalog"
+      },
+      {
+        "file": "research/evidence/results/ensemble_voltage_pilot/responses.json",
+        "locator": "three records context_id=test_01"
+      },
+      {
+        "file": "research/evidence/Classroom_Labs.ipynb",
+        "cell_index_zero_based": 10,
+        "cell_id": "classroom-010"
+      }
+    ]
+  },
+  {
+    "title": "Validate the changed command and bind its evidence",
+    "kind": "diagram",
+    "points": [
+      "Archived Q reduction: J=0.031082, V=1.02442–1.03943 p.u., and 72.93% allowed-current use.",
+      "These are MV-model results. Changed commands or inputs require new bound evidence."
+    ],
+    "minutes": 2,
+    "refs": [
+      "VRECHECK",
+      "VCTRL",
+      "VNOTE"
+    ],
+    "caption": "Recorded test_01 Q-reduction result, not a result for an edited classroom scenario.",
+    "note": "The final_rechecks.json record context_id=test_01, operation_id=RELAX_Q_10_PERCENT reports control [0.9603066164910677,−0.10000249718299654], score 0.031082078060572192, vmin 1.0244175701973093, vmax 1.039431162620944 and maximum allowed-current utilization 72.92980992911413%. All recorded voltage, line-current, inverter-capability and dispatch-tracking violation counts are zero. This is a newly checked MV first action in its archived original context. Do not subtract its score from a learner-edited L2 case. The physical verifier reconstructs findings from identified finite voltage/current arrays, freshness/convergence, scenario parameters and actual-versus-requested dispatch. The result still needs a separate request/scope check before readback. Bind the exact request, candidate and result so changed load, command or model revision invalidates old evidence. Hash matching demonstrates local identity/consistency; it is not sensor authentication or a guarantee that evidence is trustworthy. A rejected trial does not replace a valid incumbent. Recompute after every repair; a better public explanation changes no electrical evidence. Evidence: exact final_rechecks record; classroom_labs.py trial_saved_selection, bind_evidence and bound_to; notebook L4 cell 13.",
+    "image_source_path": null,
+    "diagram_spec": {
+      "id": "voltage_validation_gate",
+      "tex_source_path": "diagrams/voltage_validation_gate.tex",
+      "description": "Exact command/case → new solve → reconstructed physical checks → bound result, with a recheck loop.",
+      "width_limit_cm": 13,
+      "height_limit_cm": 3.5,
+      "minimum_font_pt": 11,
+      "native": true
+    },
+    "main_ref": "VRECHECK",
+    "diagramID": "voltage_validation_gate",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/results/ensemble_voltage_pilot/final_rechecks.json",
+        "locator": "record context_id=test_01 AND operation_id=RELAX_Q_10_PERCENT; score and summary"
+      },
+      {
+        "file": "research/evidence/src/continuous_control.py",
+        "locator": "verify_control and stage_cost"
+      },
+      {
+        "file": "research/evidence/Classroom_Labs.ipynb",
+        "cell_index_zero_based": 13,
+        "cell_id": "classroom-013"
+      }
+    ]
+  },
+  {
+    "title": "1. Inputs: the recorded OpenDSS case",
+    "kind": "figure",
+    "points": [
+      "P3 uses full-feeder OpenDSS, an 80% current allowance and three forecast loads.",
+      "The model chooses allowed steps. Saved SAC and calculated MPC supply candidate controls."
+    ],
+    "minutes": 2,
+    "refs": [
+      "TRACE_VOLT"
+    ],
+    "main_ref": "TRACE_VOLT",
+    "caption": "Actual dashboard Awareness excerpt, P3 OpenDSS, 27 September 2026; separate from test_01.",
+    "image_source_path": "research/screenshots/voltage_input.png",
+    "diagram_spec": null,
+    "note": "Explicitly start a separate, internally coherent recorded walkthrough. Do not carry over test_01 controls, costs or response-selection results. The source is workshop_run_opendss.json, agentic, case P3_current_reserve, recorded 2026-09-27T16:12:29.530248+00:00. Forecast multipliers are [1.00,0.94,1.06], previous command [0.25,0], rating_fraction=0.80, and modeled voltage bounds [0.95,1.05] p.u. The workflow receives a saved SAC proposal and a previously calculated three-snapshot MPC plan; it independently solves and checks the selected first actions during this recorded workflow. The structured contract labels the data as synthetic scenario/model-generated evidence, with no live SCADA. Both fixed and agentic supervisors have the same numerical proposals and permit at most two candidate evaluations: SAC first and one eligible MPC fallback. The language model's role is to request a permitted next numerical check. The engineering runtime is a custom Python supervisor; it is not the current GridGuard desktop LangGraph implementation. Reading the saved dashboard or notebook now makes no new LLM call or physical command.",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/results/workshop_run_opendss.json",
+        "locator": "created_utc; agentic.case_definition; agentic.contract; agentic.trace[0] Awareness"
+      },
+      {
+        "file": "research/evidence/Workshop_Operator_Dashboard.html",
+        "locator": "#run value 3, opendss · agentic · P3_current_reserve; #request and #trace details[0]"
+      },
+      {
+        "file": "research/evidence/Workshop_OpenDSS_Executed.ipynb",
+        "cell_index_zero_based": 9,
+        "cell_id": "3863ba3a",
+        "locator": "execution 4: request_contract and review_requirements"
+      }
+    ],
+    "walkthrough_step": 1,
+    "visual_height_cm": 3.35,
+    "visual_height_px": 335
+  },
+  {
+    "title": "2. Agent: request the MPC fallback",
+    "kind": "figure",
+    "points": [
+      "Planner chooses VERIFY_SAC_FIRST; that proposal then fails the thermal check.",
+      "Recovery chooses USE_MPC_PLAN. The final explanation asks the operator to REVIEW_EVIDENCE."
+    ],
+    "minutes": 2,
+    "refs": [
+      "TRACE_VOLT"
+    ],
+    "main_ref": "TRACE_VOLT",
+    "caption": "Actual dashboard Recovery reply after the thermal rejection; no new model call was made for this slide.",
+    "image_source_path": "research/screenshots/voltage_route.png",
+    "diagram_spec": null,
+    "note": "All three replies are genuine records in continuous_llama_opendss_20260927T161223523552Z.json and are matched to this workflow. Planner, call 1 at 16:12:23.523552 UTC, returns VERIFY_SAC_FIRST: 'A numerical SAC proposal is available; its fresh first-action check has not yet been requested.' Its context contains the immutable contract, numerical MPC plan, SAC proposal, current stage, protocol and permitted actions. After numerical thermal rejection, Recovery, call 2 at 16:12:24.665244 UTC, receives failed_candidate, failed_checks=['thermal'], replacement_plan and the same contract. It returns USE_MPC_PLAN: 'The MPC plan has been generated and is eligible for a numerical check. This is the next allowed step in the recovery process.' Explanation, call 3 at 16:12:25.646676 UTC, returns REVIEW_EVIDENCE after the MPC check passes. The client times are 0.9879972, 0.8466333 and 0.9853947 seconds. These replies select bounded transitions; they do not produce the setpoints, prove feasibility, alter the 80% limit or acknowledge for an operator. The resulting fixed and agentic final controls are the same in this recorded pair. No general performance improvement is demonstrated by adding these calls.",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/results/continuous_llama_opendss_20260927T161223523552Z.json",
+        "locator": "array entries 0–2: exact context, response, raw_response, timestamps and elapsed client time"
+      },
+      {
+        "file": "research/evidence/results/workshop_run_opendss.json",
+        "locator": "agentic.trace[1] Planning; trace[5] Recovery; trace[9] Explanation"
+      },
+      {
+        "file": "research/evidence/Agent_Trace_and_Latency.html",
+        "locator": "#t3-voltage-the-actual-llama-response-and-its-timing-boundary: executed T3 exact returned reasons"
+      },
+      {
+        "file": "research/evidence/Agent_Trace_and_Latency.ipynb",
+        "cell_index_zero_based": 6,
+        "cell_id": "trace-06",
+        "locator": "execution 3: printed actual OpenDSS Planner, Recovery and Explanation replies"
+      }
+    ],
+    "walkthrough_step": 2,
+    "visual_height_cm": 3.35,
+    "visual_height_px": 335
+  },
+  {
+    "title": "3. Code: check the chosen command",
+    "kind": "normal",
+    "points": [
+      "USE_MPC_PLAN selects the existing numerical candidate; the agent does not invent new setpoints.",
+      "The loop solves that exact command with OpenDSS and calls verify_control before returning a recommendation."
+    ],
+    "minutes": 2,
+    "refs": [
+      "TRACE_VOLT"
+    ],
+    "main_ref": "TRACE_VOLT",
+    "caption": "Exact source excerpt: the allowed recovery choice returns to the existing simulation-and-verification loop.",
+    "code_lines": [
+      "point = plant.solve(",
+      "    candidate['control'],",
+      "    load_mult=case.forecast_loads[0],",
+      "    rating_fraction=case.rating_fraction,",
+      ")",
+      "failures = verify_control(point, case)"
+    ],
+    "code_caption": "src/continuous_workflow.py, lines 231–232. Source statements; line breaks added for readability.",
+    "code_source": {
+      "path": "research/evidence/src/continuous_workflow.py",
+      "start": 231,
+      "end": 232,
+      "ranges": [
+        [
+          231,
+          232
+        ]
+      ]
+    },
+    "diagram_spec": null,
+    "note": "This excerpt displays the two original statements from src/continuous_workflow.py lines231–232. Long arguments are wrapped for readability; the builder verifies the same Python syntax tree. plant.solve receives the exact candidate control, first forecast load and current allowance. verify_control then checks the result. The following original lines233–234 also enforce backend/control identity. Earlier in this same recorded run, Llama selected VERIFY_SAC_FIRST, the fresh SAC check failed thermal limits, and Recovery selected USE_MPC_PLAN. The bounded loop then checked the existing numerical MPC candidate. The model neither writes setpoints nor changes limits. The statement excerpt is part of a function, not a standalone program. Full original source and the source/call journals are linked under TRACE_VOLT.",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/src/continuous_workflow.py",
+        "locator": "choose lines 190–194; exact displayed recovery lines 252–260; actual solve and verify_control calls lines 231–234; acceptance lines 247–250"
+      },
+      {
+        "file": "research/evidence/results/workshop_run_opendss.json",
+        "locator": "agentic.trace[5] Recovery followed by trace[6–8] Execution, Simulation and Verification"
+      }
+    ],
+    "walkthrough_step": 3,
+    "visual_height_cm": 3.8,
+    "visual_height_px": 355,
+    "code_format": "same_statements"
+  },
+  {
+    "title": "4. Result: SAC fails; MPC passes",
+    "kind": "figure",
+    "points": [
+      "SAC fails at 111.97% of allowed current. The MPC fallback passes at 99.60%.",
+      "The checked proposal is P = 2387.16 kW and Q = +325.74 kvar; Vmax = 1.03503 p.u."
+    ],
+    "minutes": 2,
+    "refs": [
+      "TRACE_VOLT"
+    ],
+    "main_ref": "TRACE_VOLT",
+    "caption": "Recorded P3 first-action results. 100% denotes the declared current allowance, which is 80% of the nominal rating.",
+    "image_source_path": "research/screenshots/voltage_result.png",
+    "diagram_spec": null,
+    "note": "The saved SAC action is [0.33693869411945343,0.030701177120208742]. OpenDSS converges, voltage is 1.0025570904–1.0375340016 p.u., but current use is 111.9666069740% of the allowed current, with two line-current findings. It is rejected for thermal limits. The MPC fallback is [0.3040791833492598,0.04149291669866676]. A new selected-first-action solve gives P=2387.1573822298833 kW, Q=325.7379256164953 kvar, Vmin=1.001782946227172 and Vmax=1.03502551840022 p.u., current use=99.60441047658344% of the allowed current, and zero voltage/current/inverter/dispatch-tracking findings. Nominal-current utilization is 79.68352838126675%, which becomes 99.6044% when divided by the 80% allowance. Keep these denominators explicit. The workflow contains two fresh candidate evaluations and one rejection. Its recorded interval is 3.1104543 seconds, excluding the supplied precomputed controllers/training. The paired fixed workflow reaches the same final MPC control. These results establish what the numerical tools checked in one synthetic full-feeder snapshot, not a benefit caused by LLM routing, dynamic stability or protection adequacy.",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/results/workshop_run_opendss.json",
+        "locator": "agentic.attempts[0–1]; agentic.metrics; agentic.gate_rejections; agentic.fresh_candidate_evaluations"
+      },
+      {
+        "file": "research/evidence/Workshop_Operator_Dashboard.html",
+        "locator": "#run value 3; #p, #q, #current, #rejections and #attempts"
+      },
+      {
+        "file": "research/evidence/Workshop_OpenDSS_Executed.ipynb",
+        "cell_index_zero_based": 22,
+        "cell_id": "a2",
+        "locator": "execution 12: actual agentic trace and voltage_comparison output"
+      }
+    ],
+    "walkthrough_step": 4,
+    "visual_height_cm": 3.35,
+    "visual_height_px": 335
+  },
+  {
+    "title": "5. Operator: review the exact recommendation",
+    "kind": "figure",
+    "points": [
+      "Read back P = 2387.16 kW, Q = +325.74 kvar, the 80% current allowance and full MV/LV scope.",
+      "Then acknowledge this exact advisory record or request review. The saved human step is still PENDING."
+    ],
+    "minutes": 2,
+    "refs": [
+      "TRACE_VOLT"
+    ],
+    "main_ref": "TRACE_VOLT",
+    "caption": "Original operator controls, still awaiting human readback. No acknowledgment or equipment operation was performed.",
+    "image_source_path": "research/screenshots/voltage_review.png",
+    "diagram_spec": null,
+    "note": "The recorded final status is MODEL_RECOMMEND. Its last trace event is Operator acknowledgment, PENDING: acknowledged=False, dispatch_authorized=False and equipment_operated=False. The recommendation identity is 63408d6a0cdca791ff902746f97ef2a2d1c27d1f9456846b74ccfcacd6f97fb1. That binds the displayed case, action, modeled results and contract; it is not authenticated identity or proof that sensors are correct. The original Workshop_Operator_Dashboard.html offers a local P/Q readback, requested-current-allowance readback, scope/assumption confirmations and reviewer label. A record may be acknowledged only if its stored numerical evidence is internally consistent and the readback matches. For this result the displayed P/Q is 2387.16 kW and 325.74 kvar, with an 80% nominal-current allowance. Viewing this screenshot does not acknowledge anything. The screenshot must retain the pending state and blank readback controls. Any later dashboard acknowledgment would be a new unauthenticated local teaching record, not part of the archived experiment or permission to operate equipment. The model still omits protection, switching transients and operational authorization.",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/results/workshop_run_opendss.json",
+        "locator": "agentic.status; agentic.recommendation_id; agentic.trace[10] Operator acknowledgment"
+      },
+      {
+        "file": "research/evidence/Workshop_Operator_Dashboard.html",
+        "locator": "#run value 3; Operator review section; #trace details[10], Operator acknowledgment · PENDING"
+      },
+      {
+        "file": "research/evidence/src/workshop_review.py",
+        "locator": "readbackValid, values, updateButton and record; original record fields remain advisory"
+      }
+    ],
+    "walkthrough_step": 5,
+    "visual_height_cm": 3.3,
+    "visual_height_px": 335
+  },
+  {
+    "title": "Exercise: is this packet ready for the requested scope?",
+    "kind": "exercise",
+    "points": [
+      "The request requires full MV/LV coverage. Choose a disposition, identify missing evidence, and state the next permitted step."
+    ],
+    "minutes": 4,
+    "refs": [
+      "VRECHECK",
+      "VNOTE"
+    ],
+    "caption": "Four minutes in pairs. Metrics are recorded; the full-scope operator request is the teaching prompt.",
+    "note": "Keep the answer hidden until the following debrief slide. Give pairs four minutes: one person argues for a disposition and the other audits the evidence. The figure contains the exact archived test_01 Q-reduction result, rounded for display. The full MV/LV request is a hypothetical operator requirement used to examine scope matching, not a claim that the archived experiment dispatched a full-feeder action. Ask learners to distinguish three questions: are the displayed MV numbers within the teaching bounds, does that cover the requested network, and is any equipment action authorized? Answer for the teacher: the MV physical checks pass, but the packet remains HOLD for the requested full MV/LV scope because the evidence covers only MV phases with ideal LV aggregation. A same-action full-feeder OpenDSS audit is needed. If that action fails, use an allowed numerical replan/repair and obtain new checks; do not reuse old evidence or ask the language model to declare approval. Acknowledgment cannot fill a missing scope check. No additional simulation has been run for this exercise. Accept any answer that clearly separates physical pass, scope adequacy and human authority. Evidence: recorded metrics in final_rechecks.json; operator_packet scope equality rule; Classroom_Labs.ipynb cell 33.",
+    "image_source_path": null,
+    "diagram_spec": {
+      "id": "voltage_exercise_packet",
+      "tex_source_path": "diagrams/voltage_exercise_packet.tex",
+      "description": "Neutral request/evidence/disposition cards, without the answer or a colored PASS/HOLD decision route.",
+      "width_limit_cm": 13,
+      "height_limit_cm": 3.5,
+      "minimum_font_pt": 11,
+      "native": true
+    },
+    "main_ref": "VRECHECK",
+    "diagramID": "voltage_exercise_packet",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/results/ensemble_voltage_pilot/final_rechecks.json",
+        "locator": "test_01 RELAX_Q_10_PERCENT exact recorded metrics"
+      },
+      {
+        "file": "research/evidence/Classroom_Labs.ipynb",
+        "cell_index_zero_based": 33,
+        "cell_id": "classroom-033",
+        "locator": "full_scope state HOLD while engineering_pass is True"
+      }
+    ],
+    "exercise_answer_visibility": "notes_only_until_next_debrief"
+  },
+  {
+    "title": "Debrief: passing one model is not enough",
+    "kind": "normal",
+    "points": [
+      "The request remains HOLD: MV-only evidence does not meet full MV/LV scope.",
+      "Audit the same action in OpenDSS; if it fails, replan and verify a new command.",
+      "Operator readback records an advisory packet; it cannot dispatch equipment."
+    ],
+    "minutes": 2,
+    "refs": [
+      "VNOTE",
+      "VCTRL"
+    ],
+    "caption": "",
+    "note": "Reveal the answer after pairs have reported. First acknowledge that the displayed MV voltage and current checks pass: this avoids teaching that an unfavorable decision means the calculations were wrong. The mismatch is coverage. A request for full supplied MV/LV needs evidence from that scope. A same-action broader-model audit asks whether this exact command survives changed equations and constraint coverage. A separate AC MPC solve asks what a controller using that broader model would recommend; it changes the action and therefore needs a new final check. Do not call that change an LLM improvement. Keep the failed trial and scope limitation in the final packet. In the actual classroom L12 code, the full-scope packet has evidence_matches=True and engineering_pass=True but scope_matches=False, so it remains HOLD and cannot be acknowledged. For an explicitly MV-scoped teaching request, the same bound result can be READY_FOR_READBACK. Wrong recommendation ID or missing operator name rejects readback. A valid local acknowledgment still has equipment_dispatch=False. This is a semantic guard in a teaching implementation, not a certified live control-room permission system. Evidence: Classroom_Labs.ipynb cell 33 stored output and src/classroom_labs.py operator_packet/acknowledge.",
+    "image_source_path": null,
+    "diagram_spec": null,
+    "main_ref": "VNOTE",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/Classroom_Labs.ipynb",
+        "cell_index_zero_based": 33,
+        "cell_id": "classroom-033",
+        "locator": "stored DataFrame output and assertions"
+      },
+      {
+        "file": "research/evidence/src/classroom_labs.py",
+        "locator": "operator_packet lines 259–267; acknowledge lines 270–278"
+      }
+    ]
+  },
+  {
+    "title": "Check the same actions against broader model coverage",
+    "kind": "diagram",
+    "points": [
+      "On 12 held-out cases, selected MV actions pass 12/12 MV checks and 0/12 same-action AC audits.",
+      "Broader equations and network coverage changed the result; better prose cannot repair missing model scope."
+    ],
+    "minutes": 2,
+    "refs": [
+      "VANAL",
+      "VAC",
+      "VPILOT"
+    ],
+    "caption": "Separately recorded 12-case pilot. MV phases with ideal LV aggregation versus the supplied MV/LV model.",
+    "note": "Use the historical twelve-context comparison, not the default L5 notebook cell as evidence for all twelve outcomes. The primary frozen learned selector and majority both have final_model_passes=12 and final_ac_passes=0 on the MV test split in selector_analysis.json. The exact retained actions were independently audited in full-feeder OpenDSS. AC audit outcomes were excluded from MV LLM inputs, acceptance and selector reward; do not imply that the MV selector anticipated them. The broad model changes both equations and covered network/constraints, so this is not an isolated numerical-accuracy test. For a concrete initial-action example, test_01’s original MV-MPC command has MV vmax=1.0387087638 and allowed-current utilization=73.6615825%, yet its same-action AC audit reports vmax=1.0898278087, allowed-current utilization=347.2530224%, seventeen high-voltage findings and eleven line-current findings. That example is the INITIAL_MPC audit, not the later Q-reduction record. Independent AC MPC replanning gives first actions passing 12/12 AC checks in these recorded contexts. Neither result is a field safety certificate or a claim of global AC optimality. Evidence: selector_analysis test summaries and ac_transfer summaries; initial_model_audits test_01/INITIAL_MPC; heldout_model_comparison.json.",
+    "image_source_path": null,
+    "diagram_spec": {
+      "id": "voltage_model_scope",
+      "tex_source_path": "diagrams/voltage_model_scope.tex",
+      "description": "Same 12 selected MV actions split into reduced-model PASS and failed same-action AC audit; separate AC MPC proposals are checked anew.",
+      "width_limit_cm": 13,
+      "height_limit_cm": 3.5,
+      "minimum_font_pt": 11,
+      "native": true
+    },
+    "main_ref": "VANAL",
+    "diagramID": "voltage_model_scope",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/results/ensemble_voltage_pilot/selector_analysis.json",
+        "locator": "test.summaries methods learned_selector/majority_vote; ac_transfer.summaries method mpc_only"
+      },
+      {
+        "file": "research/evidence/results/ensemble_voltage_pilot/initial_model_audits.json",
+        "locator": "record context_id=test_01, initial_method=INITIAL_MPC; lindistflow and opendss summaries"
+      },
+      {
+        "file": "research/evidence/results/ensemble_voltage_pilot/heldout_model_comparison.json",
+        "locator": "12 paired context records"
+      }
+    ],
+    "visual_height_cm": 3.6,
+    "visual_height_px": 310
+  },
+  {
+    "title": "The historical selector ties a simpler voting rule",
+    "kind": "diagram",
+    "points": [
+      "Vote and frozen LinUCB tie on all 12 MV test cases: mean J=0.03398479.",
+      "Fixed numerical refinement gives 0.03400656. This pilot does not establish learned-selection superiority."
+    ],
+    "minutes": 2,
+    "refs": [
+      "VANAL",
+      "VARCH"
+    ],
+    "caption": "Historical single-feeder test split; lower dimensionless current-step J is preferred after the MV gate.",
+    "note": "LinUCB is a linear contextual bandit: it scores which permitted operation to test from context and canonical-action features. It does not train the LLMs or evaluate private reasoning. There are 24 training contexts, 8 validation contexts and 12 held-out tests. The primary selector has 24 selected-feedback updates and remains frozen during validation/test. The actual test summaries give majority_vote and learned_selector identical mean final objective 0.0339847924178626. paired_test_comparison against majority_vote reports learned_better=0, ties=12 and learned_worse=0. The predeclared fixed numerical refinement is INCREASE_PV_0025, with mean 0.0340065598125857. A posthoc fixed Q-reduction rule reproduces the vote/learner choices without LLM calls; label that rule diagnostic, not a predeclared baseline. The tiny cost improvement over one fixed action does not establish a general learned or language-model benefit. All common-pool selectors incur three response calls. Reconstructed serial mean time is 8.119085 seconds for the learned selector versus 3.326839 for the fixed numerical method; these are sums of recorded components, not a measured online control-room transaction. Five training orders reuse the same contexts and do not create five independent datasets. Evidence: selector_analysis.json protocol, test.summaries and paired_test_comparison; README Latency and limits.",
+    "image_source_path": null,
+    "diagram_spec": {
+      "id": "voltage_selector_tie",
+      "tex_source_path": "diagrams/voltage_selector_tie.tex",
+      "description": "Vote and frozen LinUCB merge to the same actions and mean J in 12 cases; explicit simpler comparator below.",
+      "width_limit_cm": 13,
+      "height_limit_cm": 3.5,
+      "minimum_font_pt": 11,
+      "native": true
+    },
+    "main_ref": "VANAL",
+    "diagramID": "voltage_selector_tie",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/results/ensemble_voltage_pilot/selector_analysis.json",
+        "locator": "test.summaries methods majority_vote, learned_selector, fixed_numerical; paired_test_comparison comparator majority_vote"
+      },
+      {
+        "file": "research/evidence/results/ensemble_voltage_pilot/selector_analysis_protocol.json",
+        "locator": "training/test split, fixed_numerical_operation, latency accounting"
+      }
+    ]
+  },
+  {
+    "title": "Replan with the model that covers the request",
+    "kind": "figure",
+    "points": [
+      "Archived test_01 AC MPC proposes (0.306052,+0.027697); Vmax=1.03300 p.u. and allowed-current use=99.87%.",
+      "All 12 AC-MPC first actions pass the AC gate; raw SAC passes 1/12."
+    ],
+    "minutes": 2,
+    "refs": [
+      "VAC",
+      "VANAL"
+    ],
+    "caption": "Replotted paired command records. Each curve uses a separately planned control; this is not a solver-error plot.",
+    "note": "This single-panel original plot is figures/selector_E6.png. It compares the active component a of the original MV LinDistFlow incumbent with an independent full-feeder OpenDSS MPC first action for each of the same twelve contexts. It is not a percent-error plot or an LLM-selector comparison. For archived test_01, heldout_model_comparison.json gives AC first action [0.3060522326419636,+0.027696908967886763], vmin=1.0005276166702253, vmax=1.0330024384102277 and maximum allowed-current utilization=99.87273873689041%; the check passes with no recorded violations. All twelve independently AC-planned first actions pass their snapshot gate. Raw saved SAC passes only one of the twelve full AC checks. The AC transfer reuses already computed MPC plans and marks the planning time as reused; it does not retrain or tune the selector. Its final mean J remains 0.4713848786592687 for both majority and learner, compared with fixed numerical 0.47112137693022893 and uniform response 0.47110513098466494. Thus the learned selector does not beat those simpler comparators here. Do not directly rank MV and AC objective means: the voltage sets and covered constraints differ. A passing first action proves neither full-horizon feasibility nor stability. Evidence: heldout_model_comparison array test_01 opendss_mpc; selector_analysis ac_transfer.summaries mpc_only/raw_sac and comparators.",
+    "image_source_path": "images/voltage_scope_commands.png",
+    "diagram_spec": null,
+    "main_ref": "VAC",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/results/ensemble_voltage_pilot/heldout_model_comparison.json",
+        "locator": "all 12 records; context_id=test_01 opendss_mpc candidate and summary"
+      },
+      {
+        "file": "research/evidence/results/ensemble_voltage_pilot/selector_analysis.json",
+        "locator": "ac_transfer.summaries methods mpc_only, raw_sac, fixed_numerical, majority_vote, learned_selector, uniform_response"
+      }
+    ],
+    "replot_spec": {
+      "source_json": "research/evidence/results/ensemble_voltage_pilot/heldout_model_comparison.json",
+      "x": "context_id",
+      "series": [
+        {
+          "label": "MV incumbent",
+          "y": "lindistflow_incumbent.candidate.control[0]"
+        },
+        {
+          "label": "Full-feeder AC MPC",
+          "y": "opendss_mpc.candidate.control[0]"
+        }
+      ],
+      "ylabel": "Common fleet active participation a",
+      "preserve_zero_baseline": false,
+      "note": "These are two independent proposed controls on the same contexts, not solver-error measurements."
+    },
+    "image_transformation": "New larger vector chart from the paired 12-context command records; values unchanged."
+  },
+  {
+    "title": "Return one scoped packet for human review",
+    "kind": "diagram",
+    "points": [
+      "A human acknowledges a specific checked packet.",
+      "Scope mismatch, a wrong ID or missing operator name keeps readback blocked."
+    ],
+    "minutes": 2.5,
+    "refs": [
+      "VNOTE",
+      "VCTRL",
+      "VGUIDE"
+    ],
+    "caption": "Recorded L12 review logic: acknowledgment remains a local simulation record with no equipment dispatch.",
+    "note": "Ask a learner to narrate the complete operator path: state the request; freeze case and allowed actions; obtain MPC/SAC proposals; calculate fresh evidence; verify every physical bound; test any permitted refinement; audit the requested model scope; and return the exact evidence packet. The packet must preserve the original command, source/model identity, failed trials, current/voltage margins, limitations and a recommendation identifier. A human reviews the specific packet and reads back that identifier with an operator name. In the implementation, valid acknowledgment changes only the local advisory record. It cannot invoke a live DMS, change a setpoint or overrule a failed scope check. The actual L12 output shows a full MV/LV request remaining HOLD despite engineering_pass=True under MV scope, while an explicitly MV teaching request can be acknowledged. A wrong ID is rejected; a correct readback still leaves equipment_dispatch=False. Hashes establish consistency of the local request/candidate/result binding, not external authenticity. End with the measured lesson: numerical tools supplied settings; language supplied bounded trial instructions; the MV learner tied voting; a broader model changed admissibility. No general advantage of more LLMs, a learned selector or this teaching architecture has been demonstrated. Evidence: notebook cell 33 and source operator_packet/acknowledge.",
+    "image_source_path": null,
+    "diagram_spec": {
+      "id": "voltage_operator_packet",
+      "tex_source_path": "diagrams/voltage_operator_packet.tex",
+      "description": "Evidence packet → human review and ID readback → advisory record; mismatches keep HOLD.",
+      "width_limit_cm": 13,
+      "height_limit_cm": 3.5,
+      "minimum_font_pt": 11,
+      "native": true
+    },
+    "main_ref": "VNOTE",
+    "diagramID": "voltage_operator_packet",
+    "evidence_locators": [
+      {
+        "file": "research/evidence/Classroom_Labs.ipynb",
+        "cell_index_zero_based": 33,
+        "cell_id": "classroom-033",
+        "locator": "packet table, wrong-ID rejection and no-dispatch assertions"
+      },
+      {
+        "file": "research/evidence/src/classroom_labs.py",
+        "locator": "operator_packet and acknowledge"
+      }
+    ]
+  }
+]

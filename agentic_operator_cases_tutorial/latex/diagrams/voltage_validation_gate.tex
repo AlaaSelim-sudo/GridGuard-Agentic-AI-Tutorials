@@ -1,0 +1,24 @@
+\definecolor{IEEEBlue}{HTML}{00629B}
+\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}
+\definecolor{Slate}{HTML}{526470}
+\definecolor{AlertRed}{HTML}{B83136}
+\definecolor{Amber}{HTML}{A66610}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,
+ font=\fontsize{11}{13}\selectfont,text=Navy,
+ box/.style={draw=IEEEBlue,thick,rounded corners=2pt,align=center,
+ fill=IEEEBlue!4,inner sep=3pt,minimum height=.62cm},
+ arr/.style={->,draw=IEEEBlue,line width=1pt},
+ ]
+
+\node[box,text width=2.20cm] (candidate) at (1.30,.25) {Exact control\\and case};
+\node[box,text width=2.20cm] (solve) at (4.55,.25) {New solve\\model scope};
+\node[box,text width=2.20cm] (gate) at (7.80,.25) {Voltage\\Current\\Capability\\Tracking};
+\node[box,text width=2.20cm] (bound) at (11.05,.25) {Bind evidence\\return status};
+\draw[arr] (candidate)--(solve);
+\draw[arr] (solve)--(gate);
+\draw[arr] (gate)--(bound);
+\draw[arr,draw=Amber] (gate.south)--(7.80,-1.12)--(4.55,-1.12)--(solve.south);
+\node[fill=white,text=Amber] at (6.17,-1.12) {changed action: recheck};
+
+\end{tikzpicture}

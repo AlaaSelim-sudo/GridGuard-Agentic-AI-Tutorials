@@ -1,0 +1,34 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rc,anchor=west] at (0.3,3.55) {asset=F12, voltage=12.47 kV};
+\node[rc,anchor=west] at (0.3,2.95) {topology=v42};
+\node[rp] (badgate) at (8.45,3.25) {};
+\draw[rf] (6.7,3.25) -- (badgate.west);
+\draw[rw] (badgate.east) -- (10.4,3.25);
+\node[rl,text=rOrange,anchor=west] at (10.65,3.25) {REJECT};
+\node[rn,text=rOrange] at (11.4,2.55) {expects pu + v43};
+\node[rn] at (8.45,3.88) {Validator};
+\draw[draw=rGray,line width=0.5pt] (0.3,2.12) -- (13.8,2.12);
+\node[rc,anchor=west] at (0.3,1.65) {asset=F12, voltage=1.00 pu};
+\node[rc,anchor=west] at (0.3,1.05) {base=12.47 kV, topology=v43};
+\node[rp] (goodgate) at (8.45,1.35) {};
+\draw[rf] (6.7,1.35) -- (goodgate.west);
+\draw[rf] (goodgate.east) -- (11.45,1.35);
+\node[rl,anchor=west] at (11.7,1.35) {Solver};
+\node[rn] at (8.45,0.8) {valid request};
+\node[rn] at (7.1,0.2) {12.47 kV / 12.47 kV = 1.00 pu, using the same voltage base};
+
+\end{tikzpicture}

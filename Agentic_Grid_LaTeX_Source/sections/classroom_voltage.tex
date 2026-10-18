@@ -1,0 +1,342 @@
+\section{Voltage support}
+\begin{frame}[t]{Voltage support: choose the next action, then test its consequences}
+
+\begin{columns}[T]
+\column{.52\textwidth}
+\textbf{Operator request}\par
+Keep the selected feeder within its modeled limits while using available PV.
+\par\medskip\par
+\uncover<2->{\textbf{Decisions}\par
+How much active power? How much reactive support? Which model should judge the proposal?
+\par\medskip\par
+\textbf{This chapter's experiment}\par
+MPC and SAC propose controls. Language models choose a bounded refinement. A fresh numerical check decides admissibility.}
+\column{.45\textwidth}
+\includegraphics[width=\linewidth,height=.53\textheight,keepaspectratio]{\figfile{feeder.png}}
+\par\smallskip\scriptsize One SMART-DS synthetic Greensboro feeder: \texttt{uhs20\_1247--udt8894}. The entire city is not modeled.
+\end{columns}
+\slidetransition{Which methods can propose the same physical action?}
+\sources{Palmintier et al., \href{https://data.openei.org/submissions/2981}{SMART-DS dataset (2020)}; \texttt{data/DATA\_SOURCE.md}.}
+\note{40--42 min. Transition: We now have a valid tool request. What numerical tool should produce the control? Ask participants to name one constraint that the map does not show. Mention synthetic geography and artificial critical-load labels. This map supplies context, not evidence of utility deployment. Spoken bridge: Which methods can propose the same physical action?}
+\end{frame}
+
+\begin{frame}[t]{Model-based and model-free methods answer the same action question}
+
+\begin{columns}[T]
+\column{.48\textwidth}
+\textbf{Model-based: predict, then optimize}
+\begin{center}\begin{tikzpicture}[every node/.style={font=\small,align=center},b/.style={draw=forest,text width=2cm,minimum height=.9cm}]
+\node[b] (m) {Model +\\forecast};\node[b,fill=mint!25] (u) at (3,0) {MPC\\candidate $u$};\draw[->,thick] (m)--(u);
+\end{tikzpicture}\end{center}
+Optimization occurs at decision time. A wrong forecast or missing constraint can invalidate the proposal.
+\column{.48\textwidth}
+\uncover<2->{\textbf{Model-free: learn, then infer}
+\begin{center}\begin{tikzpicture}[every node/.style={font=\small,align=center},b/.style={draw=forest,text width=2cm,minimum height=.9cm}]
+\node[b] (m) {Interaction +\\reward};\node[b,fill=mint!25] (u) at (3,0) {SAC / PPO\\policy $\pi$};\draw[->,thick] (m)--(u);
+\end{tikzpicture}\end{center}
+Training occurs before use. A new observation produces an action quickly; distribution shift can make it poor.}
+\end{columns}
+\par\medskip
+\small $u$: proposed control; $\pi$: learned observation-to-action rule. SAC is executed here; PPO is a discussed continuous-action alternative.
+\par\medskip
+\uncover<3->{\textbf{Fair comparison:} same scenario, objective and acceptance limits. Both proposals return to a fresh power-flow check; an LLM response does not replace that check.}
+
+\slidetransition{How does a planner use a forecast before acting?}
+\sources{Rawlings, Mayne \& Diehl, \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Model Predictive Control (2017)}. Haarnoja et al., \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{SAC, ICML 2018}; Schulman et al., \href{https://arxiv.org/abs/1707.06347}{PPO (2017)}.}
+\note{42--44 min. Model-free describes how the policy is learned, not an absence of engineering models in the full system. The SAC actor was trained using a simulator. PPO can represent continuous actions but is not the trained actor used in this experiment. Keep inference latency distinct from training cost. Spoken bridge: How does a planner use a forecast before acting?}
+\end{frame}
+
+\begin{frame}[t]{MPC plans several moves and applies only the first}
+
+\small\textbf{Read the symbols first:} $x_k$ is state, $u_k$ is control and $d_k$ is forecast demand at step $k$. $H$ is the look-ahead horizon; $\ell$ scores one step; $\gamma=0.98$ discounts later steps.
+\uncover<2->{\[
+\min_{u_0,\ldots,u_{H-1}}\ \underbrace{\sum_{k=0}^{H-1}\gamma^k\ell(x_k,u_k)}_{\text{cost of the proposed sequence}}
+\quad\text{s.t.}\quad
+\underbrace{x_{k+1}=f(x_k,u_k,d_k)}_{\text{prediction model}},\quad
+\underbrace{g(x_k,u_k)\leq0}_{\text{allowed operating region}}.
+\]}
+\begin{center}\begin{tikzpicture}[every node/.style={font=\small,align=center},b/.style={draw=forest,text width=2.3cm,minimum height=.8cm}]
+\node[b] (a) at (0,0) {Observe\\$x_0$};\node[b] (b) at (3,0) {Optimize\\$u_0,u_1,u_2$};
+\node[b,fill=mint!30] (c) at (6,0) {Apply / test\\$u_0$ only};\node[b] (d) at (9,0) {New data\\replan};
+\uncover<3->{\draw[->,thick] (a)--(b);\draw[->,thick] (b)--(c);\draw[->,thick] (c)--(d);}
+\end{tikzpicture}\end{center}
+\uncover<3->{\small\textbf{Our implementation:} $H=3$ quasi-static power-flow snapshots linked by control-movement cost. The generic dynamic equation explains MPC; the tutorial uses algebraic snapshots and does not demonstrate transient stability or a closed-loop rollout.}
+
+\slidetransition{What exactly should one control move minimize?}
+\sources{Rawlings, Mayne \& Diehl, \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Model Predictive Control (2017)}.}
+\note{44--46 min. Derive receding horizon verbally before showing code. Ask which future action is actually used now. The generalized dynamic equation explains MPC, while the actual tutorial uses algebraic power-flow solves at each forecast step. No terminal-set or closed-loop stability guarantee is claimed. Spoken bridge: What exactly should one control move minimize?}
+\end{frame}
+
+\begin{frame}[t]{Make the objective interpretable before optimizing it}
+
+\small\textbf{One two-number fleet command:} $u=(a,b)$. For inverter $i$, $S_i$ is its kVA rating, $a$ is active participation and signed $b$ is reactive participation; both are dimensionless. The one-step teaching cost is $\ell$.
+\[
+p_i=aS_i,\qquad q_i=bS_i,\qquad b<0\ \Rightarrow\ \text{reactive absorption}.
+\]
+\uncover<2->{\[
+\ell=\underbrace{(1-a)^2}_{\text{unused active capability}}
++\underbrace{0.05b^2}_{\text{reactive effort}}
++\underbrace{10\,\operatorname{mean}[(V-1.01)^2]}_{\text{voltage deviation}}
++\underbrace{0.05\|u-u_{\rm prev}\|_2^2}_{\text{command movement}}.
+\]}
+\small $V$: modeled voltage magnitudes (p.u.); $1.01$: reference (p.u.); $u_{\rm prev}$: previous command. Model scope determines which voltages enter the mean.
+\par\medskip
+\textcolor{forest}{\textbf{Predict:}} If we reduce $|b|$, which term certainly decreases? Does total cost necessarily decrease?
+\uncover<3->{\par\medskip\textbf{Only the reactive-effort term certainly decreases.} Voltage, movement cost and feasibility can change too. These weights are teaching preferences under the declared availability assumption. A smaller one-step $\ell$ does not establish stability or field performance.}
+
+\slidetransition{Which constraints can overrule a low cost?}
+\sources{Actual recorded voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}, E1--E8; raw calls and numerical records in \texttt{results/ensemble\_voltage\_pilot/}.}
+\note{46--48 min. Define every symbol; no one should infer the sign convention. The supplied available active power equals the inverter kVA assumption verified in the adapter. The policy does not choose 930 independent inverter settings. Ask: if we reduce reactive effort, can voltage constraints become worse even though one cost term improves? Yes. Spoken bridge: Which constraints can overrule a low cost?}
+\end{frame}
+
+\begin{frame}[t]{A low objective is useful only inside the admissible set}
+
+\small\textbf{Symbols before limits:} $V_i$ is bus-phase voltage; $I_e$ is branch current; lower/upper bounds define the contract. $a,b$ are the fleet command; $S_i$ is inverter rating.
+\begin{columns}[T]
+\column{.48\textwidth}
+\uncover<2->{\textbf{Network admissibility}
+\[V_{\min}\leq|V_i|\leq V_{\max},\quad |I_e|\leq I_e^{\max}.\]
+\textbf{Device admissibility}
+\[a^2+b^2\leq1,\quad 0\leq a\leq1,\quad b_{\min}\leq b\leq b_{\max}.\]
+The circle follows from $p_i^2+q_i^2\leq S_i^2$.}
+\column{.48\textwidth}
+\uncover<2->{\textbf{Evidence admissibility}\par
+Finite inputs and solver completion; dispatch tracking; matching case, control, model and evidence IDs.
+\par\medskip
+The planner uses local sensitivities and a conservative capability polygon. The proposed action then returns to the selected numerical model.}
+\end{columns}
+\par\medskip
+\textcolor{forest}{\textbf{Predict:}} Can a majority vote make an excessive current acceptable?
+\uncover<3->{\par\textbf{No.} Voting selects a trial. The engineering gate determines whether it can be retained.}
+
+\slidetransition{Which constraints can our chosen model see?}
+\sources{Actual recorded voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}, E1--E8; raw calls and numerical records in \texttt{results/ensemble\_voltage\_pilot/}. Rawlings, Mayne \& Diehl, \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Model Predictive Control (2017)}.}
+\note{48--50 min. Show the question before revealing. Explain why solver convergence, good objective and feasibility are three different statements. Constants such as voltage bounds and current derating must come from the selected experiment contract, never from generated prose. The local optimizer can be suboptimal; fresh checking is essential. Spoken bridge: Which constraints can our chosen model see?}
+\end{frame}
+
+\begin{frame}[t]{LinDistFlow3 and OpenDSS expose different parts of this feeder}
+
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.23\linewidth}>{\raggedright\arraybackslash}p{.34\linewidth}>{\raggedright\arraybackslash}p{.35\linewidth}@{}}
+\toprule & \textbf{Python LinDistFlow3} & \textbf{OpenDSS} \\
+\midrule
+Relation & Linear three-phase approximation. & Nonlinear unbalanced power flow. \\
+Network & MV; ideal aggregated LV demand. & Supplied MV/LV and transformers. \\
+Meaning of PASS & Within the reduced contract. & Within the full-feeder snapshot contract. \\
+\bottomrule
+\end{tabular}\par
+\par\smallskip
+\uncover<2->{\textbf{Decode the voltage-drop model:} $\mathbf w_i$ is squared phase voltage at parent bus $i$ (V$^2$); $j$ is its child; $Z_{ij}$ is coupled impedance ($\Omega$); $\mathbf S_{ij}$ is downstream phase power (VA).}
+\uncover<3->{\[
+\mathbf w_j=\underbrace{\mathbf w_i}_{\text{upstream voltage}}
+-\underbrace{2\operatorname{Re}\!\left[\overline\beta\odot\left(Z_{ij}(\beta\odot\overline{\mathbf S}_{ij})\right)\right]}_{\text{three-phase coupled voltage drop}}.
+\]
+\scriptsize $\beta=(1,e^{-j2\pi/3},e^{-j4\pi/3})$ gives nominal phase ratios; here $j$ in the exponential is the imaginary unit. Bars mean conjugation; $\odot$ means entrywise multiplication; $\operatorname{Re}$ takes the real part.}
+\par\smallskip
+\uncover<3->{\small\textbf{Comparison boundary:} different network coverage also changes which constraints can fail. This is not an accuracy-only comparison of equivalent models.}
+
+\slidetransition{How does a learned actor produce an alternative?}
+\sources{Gan \& Low, \href{https://arxiv.org/abs/1406.3054}{three-phase distribution optimization (2014)}; \href{https://opendss.epri.com/}{EPRI OpenDSS documentation}; \texttt{src/lindistflow3.py}.}
+\note{50--52 min. Do not treat agreement of two differently scoped models as a pure accuracy benchmark. The equation matches the fixed-phase phasor closure in src/lindistflow3.py. Mutual impedance coupling is retained. Currents use the fixed 1.03-pu reference; losses are diagnostic and are omitted from the branch balance. Model fidelity and constraint coverage are separate experimental factors. Spoken bridge: How does a learned actor produce an alternative?}
+\end{frame}
+
+\begin{frame}[t]{SAC learns a continuous proposal; verification remains a separate step}
+
+\small\textbf{Learning vocabulary:} $s_t$ is an observation, $u_t$ an action, $r$ a reward and $\pi$ the actor. $\mathcal H$ measures policy entropy; $\alpha$ weights exploration and $\gamma$ discounts later rewards.
+\uncover<2->{\[
+\max_{\pi}\ \mathbb E\!\left[\sum_{t\geq0}\gamma^t
+\left\{\underbrace{r(s_t,u_t)}_{\text{task reward}}+\underbrace{\alpha\,\mathcal H(\pi(\cdot\mid s_t))}_{\text{exploration incentive}}\right\}\right].
+\]}
+\begin{center}\begin{tikzpicture}[every node/.style={font=\small,align=center},b/.style={draw=forest,text width=2.45cm,minimum height=1cm}]
+\node[b] (a) at (0,0) {Training simulator\\reward + replay};\node[b] (b) at (3.3,0) {Trained actor\\freeze weights};
+\node[b] (c) at (6.6,0) {New observation\\proposed $(a,b)$};\node[b,fill=mint!30] (d) at (9.9,0) {Fresh simulation\\accept / reject};
+\uncover<2->{\draw[->,thick] (a)--(b);\draw[->,thick] (b)--(c);}\uncover<3->{\draw[->,thick] (c)--(d);}
+\end{tikzpicture}\end{center}
+\uncover<3->{\small\textbf{Executed artifact:} 12,000 training transitions on a cubic surrogate fitted to 240 AC solves; 48 separate fit-validation samples. New scenarios change current-rating conditions: this is transfer, not retraining. A reward penalty does not prove constraint satisfaction.}
+
+\slidetransition{What changes when we perturb the demand?}
+\sources{Haarnoja et al., \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{SAC, ICML 2018}; Schulman et al., \href{https://arxiv.org/abs/1707.06347}{PPO (2017)}. Trained artifact: \texttt{Continuous\_SAC\_Training.ipynb}.}
+\note{52--53 min. Keep this to one minute; detailed actor and critic training go to the appendix. SAC and the LLM-response selector solve different learning problems. The classroom performs fresh inference with the saved actor weights and freshly checks the action. It does not retrain SAC. The archived training environment uses a fitted cubic surrogate rather than 12,000 full power-flow solves. Spoken bridge: What changes when we perturb the demand?}
+\end{frame}
+
+\begin{frame}[t]{Lab 2: change demand and compare the same two numerical actions}
+
+\checkpoint{L2}{Fresh MPC solve, saved-actor inference and fresh numerical checks.}
+\cellcode{L2}{1}{5}
+\uncover<2->{\exercise{7}{Before running, predict whether a demand change increases PV curtailment or reduces it. Run the default experiment, then change one load multiplier. Compare objective, voltage/current margins and the gate result.}
+\textbf{Record three things:} the assumption you changed; the numerical response; whether the original recommendation still has matching evidence.}
+\par\smallskip\par
+\textbf{Do not infer:} an action that was good at the original load is still good after the change.
+
+\slidetransition{Which margins explain the numerical result?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. Rawlings, Mayne \& Diehl, \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Model Predictive Control (2017)}.}
+\note{53--60 min. Allow seven minutes including questions. Run L2 as a full cell. Students work in pairs: one predicts, one executes. Ask them to point to a metric supporting their answer. If local setup fails, use the executed output and edit the prediction worksheet rather than waiting for installs. Spoken bridge: Which margins explain the numerical result?}
+\end{frame}
+
+\begin{frame}[t]{Read the margins before deciding which controller was better}
+
+\begin{center}\includegraphics[width=.97\linewidth,height=.50\textheight,keepaspectratio]{\figfile{classroom_voltage.png}}\end{center}
+\small
+\uncover<2->{\textbf{Compare in this order:} did the action pass the same gate? What objective did it achieve? What changed when the demand changed? What was excluded by the model?}
+\par\medskip\par
+\uncover<3->{\textbf{Bridge:} the numerical methods produced evidence. Now the LLM may choose a bounded next trial from that evidence.}
+
+\slidetransition{What can a language model add to this evidence?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit.}
+\note{60--63 min. This figure is generated by the default L2 execution, not invented to favor agentic AI. A proposal can be feasible but much worse on cost. Ask whether the result comes from MPC, SAC, a better model or orchestration. Keep causal attribution separate. Spoken bridge: What can a language model add to this evidence?}
+\end{frame}
+
+\begin{frame}[t]{Actual Llama responses can be useful and still contain unsupported claims}
+
+\small\vspace{.10cm}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.18\linewidth}>{\raggedright\arraybackslash}p{.24\linewidth}>{\raggedright\arraybackslash}p{.48\linewidth}@{}}
+\toprule Model / time & Selected trial & Excerpt from its recorded public response \\
+\midrule
+Llama 3.1 8B\newline 1.867 s & Increase $a$ by 0.0025 & ``Increasing active participation by 0.0025 may help reduce curtailment and improve the overall performance.'' \\
+Llama 3.2 3B\newline 0.905 s & Reduce $|b|$ by 10\% & ``Reducing reactive effort magnitude by ten percent may help improve the overall system performance and reduce curtailment'' \\
+Qwen 2.5 7B\newline 1.844 s & Reduce $|b|$ by 10\% & ``may help improve voltage stability without significantly degrading active power performance'' \\
+\bottomrule
+\end{tabular}\par
+\par\medskip
+\checkpoint{L3}{Original archived test 01; separate from the changed L2 classroom case.}
+\uncover<2->{\textbf{Critique:} less reactive effort alone does not establish less curtailment. These steady-state tests do not establish voltage stability.}
+
+\slidetransition{How do different replies become comparable actions?}
+\sources{Actual recorded voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}, E1--E8; raw calls and numerical records in \texttt{results/ensemble\_voltage\_pilot/}.}
+\note{63--68 min. Run L3 and allow students to identify one supported and one unsupported clause before revealing. These are short exact excerpts; full public responses are in the notebook. They are not private chain-of-thought. Actual times were recorded in September, not measured by the new cached display cell. Llama is the model family; Ollama is the local runtime. Spoken bridge: How do different replies become comparable actions?}
+\end{frame}
+
+\begin{frame}[t]{Voting selects one physical operation, not the most persuasive paragraph}
+
+\begin{center}\begin{tikzpicture}[every node/.style={font=\small,align=center},b/.style={draw=forest,text width=2.5cm,minimum height=1.1cm}]
+\node[b] (a) at (0,0) {Three model replies\\structured JSON};\node[b] (b) at (3.3,0) {Canonicalize\\tool + parameters};
+\node[b,fill=mint!30] (c) at (6.6,0) {Vote / select\\one operation};\node[b] (d) at (9.9,0) {Simulate again\\verify again};
+\draw[->,thick] (a)--(b);\draw[->,thick] (b)--(c);\draw[->,thick] (c)--(d);
+\end{tikzpicture}\end{center}
+\par\medskip
+Two descriptions of the same $(a,b)$ should not become two different actions. Canonical IDs make duplicates and ties reproducible.
+\par\medskip
+\uncover<2->{\textbf{Test 01:} two models propose the same Q reduction; one proposes a PV increase. The majority selects the Q trial.}
+\par\medskip
+\uncover<3->{\textbf{Why disagreement matters:} it suggests another candidate to test. It does not quantify the probability that the grid action is safe.}
+
+\slidetransition{Can feedback teach us which operation to test?}
+\sources{Actual recorded voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}, E1--E8; raw calls and numerical records in \texttt{results/ensemble\_voltage\_pilot/}. Ensemble evaluation context: \href{https://arxiv.org/abs/2606.18789}{PowerAgentBench-SS (2026)}.}
+\note{68--70 min. Explain that a predetermined SHA tie-break is repeatability, not engineering preference. Correlated models can share a mistaken assumption. The all-responses comparator receives more numerical trials and must be labeled as extra budget. Voting cannot lower limits or invent permissions. Spoken bridge: Can feedback teach us which operation to test?}
+\end{frame}
+
+\begin{frame}[t]{The LLM optimizer can learn which proposed operation to test}
+
+\small\textbf{Select $\rightarrow$ observe $\rightarrow$ update.} Here $s$ is the evidence summary and $a$ is a canonical proposed operation. $\phi(s,a)$ encodes their features; $\theta$ stores learned reward coefficients; $A$ stores regularized feature information; $\beta$ weights exploration. Score $q$ chooses the next operation $a^*$.
+\uncover<2->{\[
+q(a\mid s)=\underbrace{\theta^\top\phi(s,a)}_{\text{predicted reward}}
++\underbrace{\beta\sqrt{\phi(s,a)^\top A^{-1}\phi(s,a)}}_{\text{training exploration bonus}},
+\qquad a^*=\arg\max_a q(a\mid s).
+\]}
+\uncover<3->{\small After selection, observe reward $r$ and update $A$ and reward vector $b$:
+\[
+A\leftarrow A+\phi\phi^\top,\qquad b\leftarrow b+r\phi,\qquad\theta=A^{-1}b.
+\]
+This reward vector $b$ is unrelated to inverter $b$. Frozen L4 evaluation uses predicted reward only, without updates.}
+\par\smallskip
+\checkpoint{L4}{Load the frozen LinUCB selector, choose an operation and recheck it.}
+\textbf{Boundary:} the bandit selects among already generated responses. It neither selects which LLM to call nor trains LLM weights.
+
+\slidetransition{What reward should the selector receive?}
+\sources{Li et al., \href{https://arxiv.org/abs/1003.0146}{LinUCB, WWW 2010}; Actual recorded voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}, E1--E8; raw calls and numerical records in \texttt{results/ensemble\_voltage\_pilot/}.}
+\note{70--73 min. First describe select, observe, update in words. Then reveal the equations. Training has an uncertainty bonus; frozen classroom evaluation uses predicted reward only. The selected-feedback simulator replay is not observational deployment data. No future score, gate outcome or held-out feedback may enter selection features. Spoken bridge: What reward should the selector receive?}
+\end{frame}
+
+\begin{frame}[t]{Reward learning and safety checking have different jobs}
+
+\small $J_{\rm inc}$ and $J_{\rm trial}$ are incumbent and trial current-step costs; $r$ is feedback after a numerical trial.
+\uncover<2->{\[
+r=\begin{cases}
+\min(1,\max(0,J_{\rm inc}-J_{\rm trial})/0.01)-0.01,&\text{trial passes},\\
+-1.01,&\text{trial rejected}.
+\end{cases}
+\]}
+\small The penalty 0.01 is a fixed trial charge, not latency in seconds.
+\par\medskip
+\textbf{Learning design:} 24 training contexts, 8 validation, 12 test; five training orders over the same data. Frozen validation/test: zero updates.
+\par\medskip
+\exercise{3}{Run L4. Compare the selected trial with the majority vote. If the reward predicts improvement but fresh verification fails, which result should control the recommendation?}
+\uncover<3->{\textbf{The gate.} Retain a valid incumbent or escalate. Reward optimization does not create an operating permission.}
+
+\slidetransition{Does the learned selector outperform a simpler rule?}
+\sources{Actual recorded voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}, E1--E8; raw calls and numerical records in \texttt{results/ensemble\_voltage\_pilot/}. Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit.}
+\note{73--76 min. Reserve the three minutes. Training and test files are separate. All permitted trial outcomes exist for audit, but training consumes only selected feedback. Ask how changing the reward scaling changes learning without changing the physical limits. The posthoc simple-rule diagnostic is not a predeclared baseline. Spoken bridge: Does the learned selector outperform a simpler rule?}
+\end{frame}
+
+\begin{frame}[t]{A rigorous result can show that the extra agent adds no benefit}
+
+\begin{tabular}{@{}lrrr@{}}
+\toprule MV test, 12 scenarios & Mean $J$ & Full-feeder AC PASS & Accounted time \\
+\midrule
+Numerical fixed refinement & 0.03400656 & 0/12 & 3.327 s \\
+Majority vote & 0.03398479 & 0/12 & Pool cost applies \\
+Learned selector & 0.03398479 & 0/12 & 8.119 s \\
+\bottomrule
+\end{tabular}\par
+\par\medskip
+\uncover<2->{Learned selection and voting tie on every held-out case. A posthoc fixed Q-reduction rule also reproduces these decisions without LLM calls.}
+\par\medskip
+\uncover<3->{\textbf{What is demonstrated?} Reproducible proposals, traceable refinement and explicit model-scope checking.
+\par\medskip
+\textbf{What is not demonstrated?} Superior control from extra LLMs or learning. A simpler supervisor is a serious comparator.}
+
+\slidetransition{Will the same action pass a broader model?}
+\sources{Actual recorded voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}, E1--E8; raw calls and numerical records in \texttt{results/ensemble\_voltage\_pilot/}.}
+\note{76--78 min. Do not hide the negative result. The denominator is 12 scenarios, not number of model calls. The measured time is reconstructed serial accounting from actual components. A claim that agentic AI improves optimization must survive the identical-tool fixed-rule baseline. Explain why this negative result is a valuable research lesson. Spoken bridge: Will the same action pass a broader model?}
+\end{frame}
+
+\begin{frame}[t]{Lab 5: ask a broader model to audit the recommendation}
+
+\checkpoint{L5}{Fresh MV check; optional fresh AC audit and separate AC replanning.}
+\cellcode{L5}{1}{5}
+\uncover<2->{\small\textbf{Separate recorded pilot: 12 paired cases}\par\smallskip\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.38\linewidth}rr@{}}
+\toprule Final learned-workflow result & MV planning & OpenDSS planning \\
+\midrule
+Selected-model final checks & 12/12 & 12/12 \\
+Full-feeder AC checks & 0/12 & 12/12 \\
+Human operating approval & Pending & Pending \\
+\bottomrule
+\end{tabular}\par}
+\par\medskip
+\uncover<3->{\textbf{Causal explanation:} the network coverage and acceptance contract changed. The learned selector remained frozen. Do not attribute the broader-model benefit to Llama.}
+
+\slidetransition{Which stage produced each part of the evidence?}
+\sources{Actual recorded voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}, E1--E8; raw calls and numerical records in \texttt{results/ensemble\_voltage\_pilot/}. Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit.}
+\note{78--80 min. Default performs a fresh MV audit of the archived original action. If OpenDSS is installed, enable the fresh AC check and separate AC replanning. The 12-case table on this slide is the separately labeled historical pilot, not output from this one-case cell. Both audiences use the same tool contract. Explain that different bus sets also change the voltage term in the objective, so cross-model objective values are not a pure solver ranking. Spoken bridge: Which stage produced each part of the evidence?}
+\end{frame}
+
+\begin{frame}[t]{Voltage support: what each stage contributed}
+
+\small
+\begin{center}\begin{tikzpicture}[every node/.style={font=\scriptsize,align=center},b/.style={draw=forest,rounded corners=2pt,text width=2.34cm,minimum height=1.45cm,inner sep=3pt}]
+\node[b] (a) at (0,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]a.center) {Awareness};
+\uncover<1->{\node[text width=2.22cm] at ([yshift=-.16cm]a.center) {Validate request\\\textcolor{forest}{load, rating, scope}};}
+\node[b] (p) at (2.82,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]p.center) {Planning};
+\uncover<1->{\node[text width=2.22cm] at ([yshift=-.16cm]p.center) {MPC + SAC\\\textcolor{forest}{candidate $(a,b)$}};}
+\node[b] (s) at (5.64,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]s.center) {Simulation};
+\uncover<2->{\node[text width=2.22cm] at ([yshift=-.16cm]s.center) {Chosen power flow\\\textcolor{forest}{voltages, currents}};}
+\node[b] (v) at (8.46,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]v.center) {Verification};
+\uncover<2->{\node[text width=2.22cm] at ([yshift=-.16cm]v.center) {Limits + binding\\\textcolor{forest}{PASS / reject}};}
+\node[b] (o) at (11.28,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]o.center) {LLM optimizer};
+\uncover<3->{\node[text width=2.22cm] at ([yshift=-.16cm]o.center) {Vote / LinUCB\\\textcolor{forest}{next bounded trial}};}
+\draw[->,thick] (a)--(p);\draw[->,thick] (p)--(s);\draw[->,thick] (s)--(v);\draw[->,thick] (v)--(o);
+\uncover<3->{\draw[->,thick,orange] (o.south)--(11.28,-1.2)--node[below,font=\scriptsize]{changed action: simulate and verify again}(5.64,-1.2)--(s.south);}
+\end{tikzpicture}\end{center}
+\textbf{Evidence provenance:} L2 performs fresh numerical solves and saved-actor inference. L3--L5 separately inspect the recorded response-selection pilot; its Llama replies are archived.
+\par\medskip
+\uncover<4->{\textbf{Operator handoff:} retain the checked action, model scope and failed limits. In the recorded test, voting and learned selection tie; the reduced-model actions still fail the broader AC audit. The architecture exposes this boundary rather than proving better control.}
+
+\slidetransition{What changes when the decision is a topology, not a setpoint?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. Actual recorded voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}, E1--E8; raw calls and numerical records in \texttt{results/ensemble\_voltage\_pilot/}.}
+\note{80--82 min. Ask one participant to summarize the actual benefit and one limitation. The language layer provides bounded interpretation and trial selection; engineering methods produce the physical evidence. Transition to topology and discrete optimization. This completes voltage without switching to another historical protocol mid-lesson. Spoken bridge: What changes when the decision is a topology, not a setpoint?}
+\end{frame}

@@ -1,0 +1,97 @@
+% Four taught frames, approximately eight minutes. Sources refreshed 2026-10-17.
+% Place after the three case debriefs and before the final operator discussion.
+
+\begin{frame}[t]{Recent research asks when coordination is worth its cost}
+\small\raggedright
+\textbf{Research result:} Kim et al. study 260 configurations across six agent benchmarks. Collaboration depends on task structure and the capability of the single-agent baseline.
+\medskip
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.27\linewidth}>{\raggedright\arraybackslash}p{.31\linewidth}>{\raggedright\arraybackslash}p{.34\linewidth}@{}}
+\toprule Design choice & Possible benefit & What our experiment must measure \\
+\midrule
+Parallel specialists & Explore different candidates & Distinct valid actions per budget \\
+Central coordinator & Preserve shared state and check handoffs & Stale evidence and rejected calls \\
+Learned response selector & Allocate a trial using past feedback & Held-out reward and selection cost \\
+\bottomrule
+\end{tabular}\par
+\medskip
+\uncover<2->{\textbf{Return to L4 and E5.} The learned selector ties majority voting. A post-hoc fixed reactive-power rule produces the same actions. This result makes the added model calls a research question.}
+\begin{alertblock}{Discussion, 30 seconds}
+If three models propose the same action, what additional information has the ensemble supplied?
+\end{alertblock}
+\slidetransition{How can an effective procedure carry over to a new task?}
+\sources{\href{https://arxiv.org/html/2512.08296v3}{Kim et al., agent-system scaling, v3 (2026)}. Published title: \href{https://doi.org/10.1038/s42256-026-01268-y}{Capable language models can outgrow the benefits of collaboration, Nature Machine Intelligence (2026)}. Tutorial evidence: E5, saved voltage pilot.}
+\note{Allow two minutes. Bridge from the case results: now that the audience has seen actual candidates, they can assess architectural value. The six benchmarks in Kim et al. are general agent tasks, not grid operations. The architectural tradeoffs in this table are questions for our experiment, not reproduced findings. Ask learners to distinguish three model identities from three distinct physical actions. A candidate vote can convey agreement while adding no action diversity. The tutorial pays for the whole pool before selecting a trial, so it cannot claim the cost savings of routing a prompt to only one model. The voltage result is a null result about selector advantage, not proof that language interpretation never helps. Next: how can a useful procedure persist when the task or agent changes? Spoken bridge: How can an effective procedure carry over to a new task?}
+\end{frame}
+
+\begin{frame}[t]{Reusable skills make the procedure explicit}
+\small\raggedright
+\textbf{A recent power-system example.} Etingov and Biswas combine reusable skills, subagents and MCP-connected PSSE tools for power-flow and dynamic-study tasks.
+\medskip
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.23\linewidth}>{\raggedright\arraybackslash}p{.69\linewidth}@{}}
+\toprule A reusable procedure needs & Voltage-support example for this classroom \\
+\midrule
+Entry conditions & Current topology, trusted measurements and declared limits \\
+Method and tools & MPC or SAC proposal, model execution and fresh verification \\
+Evidence to return & Candidate ID, model scope, constraint margins and objective \\
+Exit or escalation & Verified recommendation, or a reason to hold for review \\
+\bottomrule
+\end{tabular}\par
+\medskip
+\uncover<2->{\textbf{Code connection, L1.} \texttt{bind\_evidence} ties the result to its request and candidate. \texttt{bound\_to} rejects a changed load or command.}
+\begin{block}{A small experiment}
+Remove the model scope from a handoff. Decide which later claim can no longer be justified.
+\end{block}
+\slidetransition{Which decisions require an enforced authority boundary?}
+\sources{\href{https://arxiv.org/abs/2609.40272v2}{Etingov and Biswas, Skill-Based AI Agents for Power-System Studies, v2 (1 October 2026), preprint}. Context design: \href{https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents}{Anthropic, Effective context engineering (2025), engineering guidance}. Table: proposed classroom procedure.}
+\note{Allow two minutes. A skill packages a procedure, while a tool performs a specific operation. The cited recent study uses PSSE and distinct agent implementations. Our tutorial uses Python tools and does not reproduce its platform or performance. The purpose of this slide is to make the existing numerical workflow reusable without losing assumptions. A language summary may compress details that the state contract must retain exactly. Ask the audience what an OpenDSS verification establishes if the prior record only says PASS. Answer: without model scope and identity they cannot determine which candidate or part of the network passed. The exercise is a review of the existing handoff, not a live mutation of the scientific archive. Next: preserved evidence still needs a defined authority boundary. Spoken bridge: Which decisions require an enforced authority boundary?}
+\end{frame}
+
+\begin{frame}[t]{Control-room authority belongs in executable rules}
+\small\raggedright
+\textbf{2026 governance study:} an external layer enforces tool permissions, step budgets, operator approval and numerical provenance. Its prototype reports 93.7\% task success and 100\% rule compliance in 590 runs.
+\medskip
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  state/.style={draw=forest,fill=white,text width=2.7cm,minimum height=1.05cm,align=center,font=\small},
+  flow/.style={->,>=stealth,thick,forest}]
+\node[state] (p) at (0,0) {Proposed action};
+\node[state] (v) at (3.7,0) {Fresh verification};
+\node[state,fill=mint!25] (h) at (7.4,0) {Operator review};
+\uncover<2->{\draw[flow] (p)--(v);}
+\uncover<3->{\draw[flow] (v)--(h);}
+\node[align=center,font=\small,text width=10.7cm] at (3.7,-1.15) {A changed candidate, state or operating limit invalidates the prior review.};
+\end{tikzpicture}
+\end{center}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.47\linewidth}>{\raggedright\arraybackslash}p{.47\linewidth}@{}}
+\textbf{The rule can hold} & \textbf{The task can still fail} \\
+An approval gate blocks unapproved actions. & The proposal may name the wrong equipment. \\
+A number points to a backend result. & The agent may choose the wrong source. \\
+\end{tabular}\par
+\medskip
+\textbf{Lab L12:} \texttt{operator\_packet} checks the required scope. \texttt{acknowledge} checks readback identity. The endpoint remains advisory.
+\slidetransition{How could we test the benefit of this orchestration fairly?}
+\sources{\href{https://arxiv.org/html/2609.22476v1}{Mylonas, Foti and Varvarigos, Governance-Aware Agentic Digital Twin for TSO Control Rooms (18 September 2026), preprint, \S6}. Diagram: tutorial review boundary.}
+\note{Allow two minutes. Point to the separation between language capability and runtime enforcement. The cited paper's rule compliance concerns its tested prototype and trusted governance layer. Its authors explicitly reserve measurement of operator benefit for a subsequent study. In our classroom, state and candidate identity allow a reviewer to see exactly what has been checked. A wrong-source result can be perfectly traceable, so provenance and correctness require separate evaluation. Ask learners which acknowledgment should remain valid after changing the voltage threshold: none of the earlier approvals should authorize the changed recommendation. Keep the endpoint advisory. This is the reason the operator screen presents limits, model scope and rejected alternatives alongside the concise Llama explanation. Spoken bridge: How could we test the benefit of this orchestration fairly?}
+\end{frame}
+
+\begin{frame}[t]{The next study should isolate workflow value}
+\small\raggedright
+\textbf{A testable question:} does agentic orchestration complete unfamiliar operator requests more reliably with the same engineering tools and budget?
+\medskip
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.22\linewidth}>{\raggedright\arraybackslash}p{.34\linewidth}>{\raggedright\arraybackslash}p{.36\linewidth}@{}}
+\toprule Comparison & Hold fixed & Measure separately \\
+\midrule
+Scripted workflow vs. Llama orchestration & Models, observations, limits and available tools & Correct intent, completed stages and unsupported claims \\
+One LLM vs. several roles & Base model and total tool/token budget & Handoff errors, recovery and latency \\
+Fixed vs. vote vs. learned selection & Response pool, trial budget and frozen test set & Feasibility, objective and selection overhead \\
+\bottomrule
+\end{tabular}\par
+\medskip
+\uncover<2->{\textbf{Stress extension:} change forecast uncertainty or the model scope, then repeat the audit. Keep test outcomes out of prompts and learned-selector updates.}
+\begin{alertblock}{Exit question}
+Which measured outcome would justify adding one more agent to your control-room workflow?
+\end{alertblock}
+\slidetransition{What time did the extra coordination actually cost?}
+\sources{Evidence-based scoring: \href{https://arxiv.org/html/2606.18789v1}{PowerAgentBench-SS (June 2026)}. Uncertainty-aware orchestration: \href{https://arxiv.org/html/2606.24609v1}{CONDUCTOR (June 2026)}. Table: proposed evaluation design, not a reported experiment.}
+\note{Allow two minutes. This slide closes the research section with a concrete experimental design. Accept multiple well-defined answers to the exit question, such as fewer incorrect interpretations at equal electrical feasibility and acceptable latency, or fewer unsupported readiness claims under model mismatch. Numerical objective improvement is another possible outcome, but it must be demonstrated rather than assumed. A matched scripted baseline can use the same verifier and numerical solvers. More validation calls must be accounted for. CONDUCTOR motivates a richer analysis surface; our forecast perturbations would be a classroom sensitivity experiment, not a reproduction or a calibrated operational risk estimate. PowerAgentBench-SS motivates separate evidence and physical scores. Operator workload needs an actual human study. Transition to the final operator review: the audience now has a criterion for judging whether to trust, reject or extend the workflow. Spoken bridge: What time did the extra coordination actually cost?}
+\end{frame}

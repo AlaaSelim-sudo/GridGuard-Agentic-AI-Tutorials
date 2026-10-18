@@ -1,0 +1,184 @@
+{
+  "summary": [
+    {
+      "method": "rule_parser",
+      "label": "Conventional parser",
+      "clear_requests": 20,
+      "correct_automatic_completions": 14,
+      "exact_interpretations": 14,
+      "incorrect_ready_interpretations": 0,
+      "unnecessary_handoffs": 6,
+      "clarification_cases": 4,
+      "correct_semantic_clarifications": 4,
+      "final_response_service_or_schema_errors": 0,
+      "canonical_completions": 5,
+      "paraphrase_completions": 9,
+      "median_machine_seconds": 0.29702009999891743,
+      "machine_seconds_total": 11.0287412000107,
+      "outside_gold_limits": 0
+    },
+    {
+      "method": "llama_once",
+      "label": "Llama: one pass",
+      "clear_requests": 20,
+      "correct_automatic_completions": 16,
+      "exact_interpretations": 16,
+      "incorrect_ready_interpretations": 4,
+      "unnecessary_handoffs": 0,
+      "clarification_cases": 4,
+      "correct_semantic_clarifications": 4,
+      "final_response_service_or_schema_errors": 0,
+      "canonical_completions": 4,
+      "paraphrase_completions": 12,
+      "median_machine_seconds": 3.839133750003384,
+      "machine_seconds_total": 91.38097860002745,
+      "outside_gold_limits": 0
+    },
+    {
+      "method": "llama_critic",
+      "label": "Llama + critic",
+      "clear_requests": 20,
+      "correct_automatic_completions": 9,
+      "exact_interpretations": 9,
+      "incorrect_ready_interpretations": 5,
+      "unnecessary_handoffs": 7,
+      "clarification_cases": 4,
+      "correct_semantic_clarifications": 3,
+      "final_response_service_or_schema_errors": 0,
+      "canonical_completions": 2,
+      "paraphrase_completions": 7,
+      "median_machine_seconds": 6.4216742500066175,
+      "machine_seconds_total": 158.2748483000032,
+      "outside_gold_limits": 0
+    },
+    {
+      "method": "llama_self_review",
+      "label": "Llama + self-review",
+      "clear_requests": 20,
+      "correct_automatic_completions": 10,
+      "exact_interpretations": 10,
+      "incorrect_ready_interpretations": 7,
+      "unnecessary_handoffs": 4,
+      "clarification_cases": 4,
+      "correct_semantic_clarifications": 3,
+      "final_response_service_or_schema_errors": 0,
+      "canonical_completions": 2,
+      "paraphrase_completions": 8,
+      "median_machine_seconds": 6.539982000002055,
+      "machine_seconds_total": 160.19782109998778,
+      "outside_gold_limits": 0
+    },
+    {
+      "method": "structured_reference",
+      "label": "Correct structured inputs",
+      "clear_requests": 20,
+      "correct_automatic_completions": 20,
+      "exact_interpretations": 20,
+      "incorrect_ready_interpretations": 0,
+      "unnecessary_handoffs": 0,
+      "clarification_cases": 0,
+      "correct_semantic_clarifications": 0,
+      "final_response_service_or_schema_errors": 0,
+      "canonical_completions": 5,
+      "paraphrase_completions": 15,
+      "median_machine_seconds": 1.0984986500006926,
+      "machine_seconds_total": 16.978614000006928,
+      "outside_gold_limits": 0
+    }
+  ],
+  "paired_reviews": [
+    {
+      "method": "llama_critic",
+      "corrections": [],
+      "regressions": [
+        "q04",
+        "q05",
+        "q09",
+        "q10",
+        "q14",
+        "q15",
+        "q20",
+        "q21"
+      ]
+    },
+    {
+      "method": "llama_self_review",
+      "corrections": [],
+      "regressions": [
+        "q04",
+        "q05",
+        "q09",
+        "q10",
+        "q14",
+        "q20",
+        "q21"
+      ]
+    }
+  ],
+  "total_actual_request_llm_calls": 72,
+  "unique_model_service_schema_errors": 0,
+  "recovery_summary": {
+    "single_pass": {
+      "runs": 3,
+      "verified_completions": 0,
+      "no_action_outcomes": 3,
+      "tool_calls": 3,
+      "llm_calls": 0,
+      "total_seconds": 0.5760243000040646,
+      "fresh_ac_solves": 4
+    },
+    "adaptive_rules": {
+      "runs": 3,
+      "verified_completions": 3,
+      "no_action_outcomes": 0,
+      "tool_calls": 6,
+      "llm_calls": 0,
+      "total_seconds": 1.1433646000077715,
+      "fresh_ac_solves": 7
+    },
+    "agent_loop": {
+      "runs": 3,
+      "verified_completions": 3,
+      "no_action_outcomes": 0,
+      "tool_calls": 6,
+      "llm_calls": 6,
+      "total_seconds": 17.663547800009837,
+      "fresh_ac_solves": 7
+    }
+  },
+  "scoring_note": "Correct completion requires exact requested restrictions and fresh verification under the offline gold constraints. Model errors are handoffs, not successful semantic clarification. Structured-input reference excludes unmeasured human translation time.",
+  "timing_note": "Descriptive timings from one local session; fixed evaluation order and model caching. Initial Llama output is shared across the paired critic/self-review comparisons.",
+  "confirmation": [
+    {
+      "method": "rule_parser",
+      "clear_requests": 8,
+      "correct_automatic_completions": 5,
+      "incorrect_ready_interpretations": 1,
+      "clear_request_errors": 1,
+      "outside_gold_requested_limits": 1,
+      "unnecessary_handoffs": 2,
+      "clarification_cases": 4,
+      "correct_semantic_clarifications": 4,
+      "model_calls": 0,
+      "median_machine_seconds": 0.12629770000421559
+    },
+    {
+      "method": "hybrid",
+      "clear_requests": 8,
+      "correct_automatic_completions": 7,
+      "incorrect_ready_interpretations": 2,
+      "clear_request_errors": 1,
+      "outside_gold_requested_limits": 1,
+      "unnecessary_handoffs": 0,
+      "clarification_cases": 4,
+      "correct_semantic_clarifications": 3,
+      "model_calls": 6,
+      "median_machine_seconds": 2.1584224000034737
+    }
+  ],
+  "exploratory_hybrid_pilot": {
+    "label": "Post-hoc exploratory policy, not a prespecified pilot arm",
+    "correct_automatic_completions": 19,
+    "incorrect_ready_interpretations": 1
+  }
+}

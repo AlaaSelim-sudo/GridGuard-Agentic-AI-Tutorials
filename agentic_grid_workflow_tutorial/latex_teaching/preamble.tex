@@ -1,0 +1,60 @@
+\ifdefined\TeachingHandout
+  \documentclass[handout,aspectratio=169,10pt]{beamer}
+\else
+  \documentclass[aspectratio=169,10pt]{beamer}
+\fi
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools,booktabs,array,tabularx,graphicx,listings,tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric,fit,decorations.pathreplacing,backgrounds}
+\pgfplotsset{compat=1.18}
+\definecolor{navy}{HTML}{173F37}
+\definecolor{teal}{HTML}{08734F}
+\definecolor{amber}{HTML}{A66610}
+\definecolor{red}{HTML}{B83136}
+\definecolor{slate}{HTML}{52635E}
+\definecolor{pale}{HTML}{EDF5F0}
+\definecolor{blue}{HTML}{245F9B}
+\setbeamercolor{normal text}{fg=black!90,bg=white}
+\setbeamercolor{structure}{fg=teal}
+\setbeamercolor{frametitle}{fg=navy,bg=white}
+\setbeamercolor{alerted text}{fg=red}
+\setbeamercolor{block title}{fg=teal,bg=pale}
+\setbeamercolor{block body}{fg=black!90,bg=pale}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+\setbeamerfont{block body}{size=\normalsize}
+\setbeamersize{text margin left=.55cm,text margin right=.55cm}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{blocks}[default]
+\setbeamercovered{transparent=8}
+\newcommand{\TeachingSource}{}
+\newcommand{\TeachingBridge}{}
+\newcommand{\Source}[1]{\gdef\TeachingSource{#1}}
+\newcommand{\Bridge}[1]{\gdef\TeachingBridge{#1}\transfade[duration=.18]}
+\setbeamertemplate{headline}{\begin{beamercolorbox}[wd=\paperwidth,ht=.36cm,dp=.08cm,leftskip=.55cm]{normal text}\scriptsize\color{teal}\insertsectionhead\strut\end{beamercolorbox}}
+\setbeamertemplate{frametitle}{\vspace{.02cm}\insertframetitle\par\vspace{.1cm}\textcolor{teal}{\rule{\linewidth}{.7pt}}\vspace{-.12cm}}
+\setbeamertemplate{footline}{%
+ \begin{beamercolorbox}[wd=\paperwidth,ht=.88cm,dp=.08cm,leftskip=.55cm,rightskip=.55cm]{normal text}
+ \begin{minipage}[b][.82cm][t]{14.9cm}
+ \parbox[t][.34cm][t]{\linewidth}{\fontsize{6.3}{7.3}\selectfont\color{slate}\TeachingSource\strut}
+ \par\vspace{.02cm}\textcolor{teal!35}{\rule{\linewidth}{.3pt}}\par\vspace{-.04cm}
+ {\fontsize{7}{8}\selectfont\color{navy}\textbf{Next:} \TeachingBridge\hfill\insertframenumber/\inserttotalframenumber\strut\par}
+ \end{minipage}\end{beamercolorbox}}
+\newcommand{\Idea}[2]{\begin{block}{#1}#2\end{block}}
+\newcommand{\Question}[1]{\par\smallskip\textcolor{teal}{\textbf{Predict:}} #1\par}
+\newcommand{\Answer}[1]{\uncover<2->{\par\smallskip\textcolor{teal}{\textbf{Explanation:}} #1\par}}
+\newcommand{\Checkpoint}[2]{\par{\small\color{teal}\textbf{Notebook #1}\quad #2}\par\smallskip}
+\newcommand{\Code}[1]{\lstinputlisting[style=python]{snippets/#1}}
+\newcommand{\yesmark}{\textcolor{teal}{\checkmark}}
+\newcommand{\nomark}{\textcolor{slate}{---}}
+\newcommand{\partmark}{\textcolor{amber}{\ensuremath{\triangle}}}
+\lstdefinestyle{python}{language=Python,basicstyle=\ttfamily\fontsize{7.2}{8.8}\selectfont,keywordstyle=\color{teal}\bfseries,commentstyle=\color{slate},stringstyle=\color{amber},backgroundcolor=\color{pale},frame=none,columns=fullflexible,keepspaces=true,showstringspaces=false,breaklines=true,tabsize=4,xleftmargin=.12cm,xrightmargin=.12cm,aboveskip=.12cm,belowskip=.12cm}
+\tikzset{box/.style={draw=teal,fill=pale,rounded corners=2pt,align=center,font=\small,inner sep=5pt},arrow/.style={-{Stealth[length=2mm]},thick,draw=teal},every picture/.style={line width=.7pt}}
+\setlength{\parskip}{0pt}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\hypersetup{colorlinks=true,linkcolor=teal,urlcolor=teal,pdftitle={Agentic AI for Grid Operators: a worked teaching sequence},pdfsubject={Native LaTeX teaching slides, notebook experiments and evidence}}
+\setbeameroption{hide notes}

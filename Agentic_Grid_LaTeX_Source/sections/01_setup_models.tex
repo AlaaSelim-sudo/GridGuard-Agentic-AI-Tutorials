@@ -1,0 +1,91 @@
+% Foundations continues from 00_framework.tex; do not increment section here.
+\begin{frame}[t]{S1--S2: open the same workflow with either model}
+\checkpoint{S1}{Run the complete imports cell with one selected backend.}
+\cellcode{S1}{19}{20}
+\checkpoint{S2}{Check the printed versions, source and assumptions.}
+\observethis{Select \texttt{opendss} for the supplied AC circuit, or \texttt{lindistflow3} for the Python MV model. The checkpoint sequence is shared.}
+\small Local Ollama runs \texttt{llama3.1:8b}. Explicit replay uses saved responses; live mode makes real calls.
+\sources{Model tools: \href{https://opendss.epri.com/PowerFlow.html}{EPRI OpenDSS}; \href{https://arxiv.org/abs/1406.3054}{Gan and Low (2014)}. Local language-model service: \href{https://docs.ollama.com/}{Ollama documentation}.}
+\note{20--22 minutes. Run the entire S1 cell, not only these configuration lines, followed by S2. Checkpoint labels are stable teaching IDs rather than execution counts. Before class participants should install dependencies and pull the local model. If live calls are unavailable, select the explicitly labeled replay option and retain that provenance. No result is invented to fill a missing tool response.}
+\end{frame}
+
+\begin{frame}[t]{Inspect the framework before asking it to solve a case}
+\checkpoint{W1}{Locate the named stages, actor methods and permitted tool choices.}
+\cellall{W1}
+\checkpoint{W2}{Inspect the shared request and human readback requirements.}
+\cellall{W2}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=2.65cm,minimum height=1.0cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (r) at (0,0) {Request\\and limits};
+\node[box] (c) at (3.5,0) {Candidate\\and method};
+\node[box] (v) at (7,0) {Checks\\and coverage};
+\node[box] (h) at (10.5,0) {Review\\and readback};
+\draw[flow] (r.east)--(c.west); \draw[flow] (c.east)--(v.west); \draw[flow] (v.east)--(h.west);
+\end{tikzpicture}
+\end{center}
+\observethis{Find the current allowance and model scope that the operator must read back.}
+\sources{Architecture inspection uses the workshop's actual role and record definitions. Language/tool interaction concept: \href{https://arxiv.org/abs/2210.03629}{Yao et al., ReAct (2023)}.}
+\note{22--24 minutes. W1 displays the actual role-method contract; W2 displays the structured request and readback requirements, not an executed candidate or check. The four-box diagram previews the record's eventual path. Ask for the requested current allowance and the model scope to confirm. Voltage checkpoints A1--A2 supply the live execution trace. Restoration R4--R5 and cyber C4 inspect their own recorded traces. This avoids asking participants to infer the architecture from a long use-case table.}
+\end{frame}
+
+\begin{frame}[t]{One synthetic feeder, two different model boundaries}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.52\textwidth}
+\includegraphics[width=\linewidth,height=.52\textheight,keepaspectratio]{\figfile{feeder.png}}
+\end{column}
+\begin{column}{.45\textwidth}
+\textbf{Greensboro-area feeder udt8894}\par
+One supplied synthetic network.\par\medskip
+\textbf{OpenDSS}\par
+Unbalanced AC; supplied MV and LV details.\par\smallskip\footnotesize Nonlinear voltage/current solution, line losses and modeled device behavior.\par\medskip
+\textbf{Three-phase LinDistFlow}\par
+Coupled phases; MV network and aggregate interfaces.\par\smallskip\footnotesize Lossless power balance and nominal phase-ratio linearization; mutual line impedances are retained.
+\end{column}
+\end{columns}
+\plainidea{A model pass does not cover the LV constraints omitted by LinDistFlow.}
+\sources{SMART-DS provenance: \texttt{appendix/Scientific\_Notes.md}. Electrical methods: \href{https://opendss.epri.com/PowerFlow.html}{EPRI OpenDSS}; \href{https://arxiv.org/abs/1406.3054}{Gan and Low (2014)}.}
+\note{24--27 minutes. MV and LV mean medium voltage and low voltage. Explain the map footprint without implying utility deployment. The linear export retains imbalance and mutual impedance but omits internal low-voltage constraints and loss terms in its power balance. A full AC circuit still does not establish protection coordination or transformer thermal dynamics. The restoration MILP and WLS lessons also use explicitly separate small networks to expose their mathematics.}
+\end{frame}
+
+\begin{frame}[t]{Choose, predict, require: the numerical contract}
+\small
+\textbf{One contract shared by conventional and agentic supervision:}
+\[
+\min_{x,u,z}\ \sum_{k=0}^{H-1}\ell_k(x_k,u_k,z_k;\hat d_k)
+\quad\text{s.t.}\quad F_m(x,u,z;\hat d)=0,\quad g_m(x,u,z;\hat d)\leq0,\quad (u,z)\in\mathcal A.
+\]
+\footnotesize
+\renewcommand{\arraystretch}{1.02}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.20\linewidth}>{\raggedright\arraybackslash}p{.72\linewidth}@{}}
+\toprule Symbol / domain & Meaning and units in this workshop \\
+\midrule
+$x$; continuous & Predicted electrical states: voltage (p.u.), current (A), or angles (rad), depending on model. \\
+$u$; continuous & Controllable setpoints; voltage case uses dimensionless inverter participation factors. \\
+$z$; binary & Discrete choices such as branch closure or load pickup; absent from the voltage reduction. \\
+$\hat d_k$, $k$, $H$ & Declared demand/forecast at step $k$; $k=0,\ldots,H-1$; $H$ is number of planning steps. \\
+$m$, $F_m$, $g_m$ & Selected model; its physical equalities and operating-limit inequalities. Each residual retains its physical units. \\
+$\ell_k$, $\mathcal A$ & Scalar stage cost with declared weights/normalization; set of permitted controls and operations. \\
+\bottomrule
+\end{tabular}
+\smallskip\par
+\textbf{Physical meaning:} power flow predicts consequences; optimization chooses among them. A converged solve can still violate limits. A good objective cannot authorize a prohibited action.
+\sources{Model-based optimization: \href{https://arxiv.org/abs/1406.3054}{Gan and Low (2014)}; Rawlings, Mayne and Diehl, \emph{Model Predictive Control} (2017).}
+\note{27--29 minutes. Read the symbols as a sentence: choose the sequence with the best declared objective, subject to model equations F, inequalities g and the allowed action set A. H equals one for a snapshot and is larger for a horizon. The optimizer may call a model repeatedly. A converged power flow alone does not establish feasible constraints or an optimum. Agents and conventional supervisors share this contract.}
+\end{frame}
+
+\begin{frame}[t]{M1: inspect one fresh model prediction}
+\checkpoint{M1}{Run the whole cell for its stated PV setting.}
+\cellcode{M1}{1}{4}
+\observethis{Find the scope, voltage range, current use and failure list. Say what was checked before calling the candidate acceptable.}
+\footnotesize Here the dimensionless controls are $u=(a,b)=(0.25,0)$: each inverter produces $p=aS$ kW and $q=bS$ kvar for rating $S$ kVA. Voltage is magnitude divided by its declared base; current use is current divided by its allowed rating.\par
+\smallskip\small\textbf{Acceptance means:} identified finite evidence, convergence, legal controls, tracked dispatch, and the stated modeled limits. It does not establish protection coordination or trustworthy live sensors.
+\sources{Fresh prediction uses the selected \href{https://opendss.epri.com/PowerFlow.html}{OpenDSS} or \href{https://arxiv.org/abs/1406.3054}{three-phase LinDistFlow} model. Exact calculation: generated notebook checkpoint M1.}
+\note{29--33 minutes. Run all four M1 lines. The final displayed line prints the failure list. The setting is a=0.25, b=0: twenty-five percent active participation and zero reactive participation. A numerical solve can converge while voltage or current constraints fail. A fresh solve repeats the chosen model's evaluation and cannot eliminate common model error. Ask a participant to give a complete sentence naming the setting, evaluated constraints and model coverage.}
+\end{frame}
+
+\begin{frame}[t]{The architecture is ready for its first control question}
+\bridge{We know the human, language and numerical responsibilities. We can evaluate a proposal and name its model scope.}{Which voltage-control proposal should the workflow produce, and what evidence should accompany it?}
+\small First see how active and reactive power affect one operating point. Then compare continuous SAC proposals with model-based MPC.
+\sources{Tool foundations: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al., SAC (2018)}; Rawlings, Mayne and Diehl, \emph{Model Predictive Control} (2017).}
+\note{33--35 minutes. Point back to the swimlane: we now enter the numerical lane while retaining the operator's objective and the shared verifier. Start the voltage lesson with physical intuition, then the declared control variables, calculation, plots and interpretation. Keep the three-hour transition at minute thirty-five.}
+\end{frame}

@@ -1,0 +1,68 @@
+{
+  "model": {
+    "name": "llama3.1:8b",
+    "model": "llama3.1:8b",
+    "modified_at": "2026-08-06T20:43:34.0412645-04:00",
+    "size": 4920753328,
+    "digest": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "llama",
+      "families": [
+        "llama"
+      ],
+      "parameter_size": "8.0B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 131072,
+      "embedding_length": 4096
+    },
+    "capabilities": [
+      "completion",
+      "tools"
+    ]
+  },
+  "controller_horizon": 3,
+  "step_minutes": 5,
+  "training_seeds": [
+    11,
+    22,
+    33
+  ],
+  "test_profiles": [
+    [
+      3,
+      2,
+      1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      3,
+      2,
+      1,
+      3
+    ],
+    [
+      1,
+      2,
+      3,
+      4,
+      3,
+      2,
+      1,
+      0,
+      2,
+      3,
+      4,
+      2
+    ]
+  ],
+  "training_steps_per_seed": 18000,
+  "shared_table_ac_solves": 40,
+  "calls": 16,
+  "scope": "Quasi-static finite-action voltage-control benchmark. Exact shared AC lookup; two held-out load sequences, nominal and changed-rating versions. DRL has 3 seeds; Llama supervisor uses seed11 DQN only. No deployment or statistical claim.",
+  "cost": "Controller decision time uses precomputed AC lookup and excludes table construction. Training and table costs are separate. Updated MPC sees current rating; stale MPC intentionally retains nominal rating. All controllers get the same load forecasts.",
+  "safety": "Shielded DQN and agentic MPC use the same checker. Deterministic updated MPC is the strong matched-information counterfactual."
+}

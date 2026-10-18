@@ -1,0 +1,153 @@
+% Twelve optional, distinct code walkthrough frames. No solver or LLM reruns.
+\begingroup
+% Exact source excerpts, with an explicit 7 pt / 8 pt code face for legibility.
+\renewcommand{\implcode}[3]{\lstinputlisting[style=workshoppython,basicstyle=\ttfamily\fontsize{7}{8}\selectfont,firstline=#2,lastline=#3]{snippets/impl_#1.py}}
+\begin{frame}[t]{Restoration code 1/12: the notebook runs two controlled cases}
+\deepdive
+\cellcode{R1}{1}{7}
+\implcode{standard_formulations}{301}{303}
+\footnotesize
+\textbf{Controlled input:} tie 0--4 capacity changes from 220 to 100 kW; graph, priorities and methods stay fixed.
+\par\smallskip\textbf{Numerical output:} service 250/200 kW; critical service 90/90 kW; weighted objective 1060/1010. Both runs report zero MIP gap and enumeration agreement.
+\par\smallskip\textbf{Baseline lesson:} the conventional solver already solves this problem. Invoking it alone does not establish an agentic benefit.
+\sources{Exact notebook R1 and \texttt{src/standard\_formulations.py}. Recorded values: \texttt{results/standard\_formulations.json}. Formulation context: Chen et al. (2018), \url{https://doi.org/10.1109/TPWRS.2017.2720122}.}
+\note{Optional deep dive within the restoration chapter; omit the detailed reading during the default three-hour route. The first excerpt is the exact notebook cell and the second is its function entry. Explain that capacity_kw is a small-graph active-power capacity in kW, not the feeder bypass current rating in A. The printed table, rather than a language claim, establishes the numerical result.}
+\end{frame}
+
+\begin{frame}[t]{Restoration code 2/12: the fixture declares the fault and priorities}
+\deepdive
+\implcode{standard_formulations}{251}{258}
+\footnotesize
+\textbf{Data meaning:} bus 0 is the source; buses 2 and 5 carry 60 and 30 kW of critical demand. Their service weights are 10, versus 1 for other loads.
+\par\smallskip\textbf{Decision boundary:} the faulted 1--2 segment has \texttt{available=False}. A useful route must use available edges; a language instruction does not make this faulted segment available.
+\par\smallskip This six-node graph is an explicitly synthetic teaching fixture. It is not an extracted Greensboro switching model or a protection-coordination study.
+\sources{Exact fixture: \texttt{src/standard\_formulations.py}, \texttt{restoration\_graph}. Network-restoration context: Chen et al. (2018), \url{https://doi.org/10.1109/TPWRS.2017.2720122}.}
+\note{Optional. Walk from the demand vector to its same-index priority vector, then inspect the one unavailable edge. The parameter changes only tie_04 capacity; tie_15 remains 100 kW. Finite priority weight ten does not impose lexicographic critical-load priority in every possible graph. The source and the critical designation are declared assumptions, not facts discovered by Llama.}
+\end{frame}
+
+\begin{frame}[t]{Restoration code 3/12: binary choices and continuous flows differ}
+\deepdive
+\implcode{standard_formulations}{305}{312}
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.32\linewidth}>{\raggedright\arraybackslash}p{.60\linewidth}@{}}
+\texttt{ze, zl, ye} & Offsets of bus energization, load pickup and energized-edge binary variables. \\
+\texttt{fc, fp} & Offsets of signed connectivity commodity and signed active flow (kW). \\
+\texttt{n=6, m=7, nv=33} & Six buses, seven candidate edges, 33 scalar variables; the first 19 are integer variables bounded by 0 and 1. \\
+\end{tabular}
+\par\smallskip\textbf{Physical distinction:} an energized bus can carry power onward while its own load remains disconnected. Commodity flow proves source connectivity; it is not electrical power.
+\sources{Exact MILP variable construction: \texttt{src/standard\_formulations.py}. Connectivity/radiality: Wang et al. (2020), \url{https://arxiv.org/abs/1912.05185}.}
+\note{Optional. Count 2n+3m variables and 2n+m binary variables. The source is forced energized, and source load pickup is fixed to zero. Signed flow permits a branch to carry power opposite its arbitrary reference direction. Explain why one binary variable cannot represent both bus energization and load pickup.}
+\end{frame}
+
+\begin{frame}[t]{Restoration code 4/12: topology and branch limits become inequalities}
+\deepdive
+\implcode{standard_formulations}{320}{327}
+\footnotesize
+\textbf{Rows shown:} a faulted edge stays open; an energized edge requires both endpoints; signed flow is bounded by its energized-edge variable. The preceding row requires an energized bus before load pickup.
+\par\smallskip For an edge indicator $z\in\{0,1\}$, the two \texttt{add} calls implement $-cz\leq f\leq cz$. Here $f$ is either commodity or active flow, and $c$ is its corresponding bound (dimensionless or kW).
+\par\smallskip\textbf{Why the tool helps:} the solver evaluates these constraints jointly. A plausible verbal switching sequence does not substitute for their satisfaction.
+\sources{Exact constraint rows: \texttt{src/standard\_formulations.py}. Formulation basis: \url{https://doi.org/10.1109/TPWRS.2017.2720122}; \url{https://arxiv.org/abs/1912.05185}.}
+\note{Optional. The add helper assembles one coefficient row and its lower/upper bounds. Incidence is negative at the edge's reference origin and positive at its destination. cap is n-1 for commodity and the declared kW rating for active flow. This fixture checks transport capacity, not AC current, voltage, protection sequencing or switching transients.}
+\end{frame}
+
+\begin{frame}[t]{Restoration code 5/12: maximize service under connected radial operation}
+\deepdive
+\implcode{standard_formulations}{328}{335}
+\footnotesize
+\textbf{Constraints:} energized non-source buses consume one commodity unit; picked-up loads consume their kW. Source balance and edge count complete the connected-tree model.
+\par\smallskip\textbf{Objective:} SciPy minimizes negative \texttt{demand * priority}, hence maximizes weighted pickup. The subsequent MILP call requests zero relative gap, subject to solver tolerances.
+\par\smallskip\textbf{Second solve:} retain optimal service, then minimize energized branches with a small index tie-break. This does not count switching operations from an initial state.
+\sources{Exact rows/objective/HiGHS call: \texttt{src/standard\_formulations.py}, lines 328--346. Connectivity interpretation: Wang et al. (2020), \url{https://arxiv.org/abs/1912.05185}.}
+\note{Optional. Explain that edge count alone does not enforce a connected tree; the commodity constraints supply connectivity. The equality at the source supplies all commodity demand. The objective has units of weighted kW. The code tests solver success before accepting its optimum. The secondary criterion and edge-index tie-break are declared implementation choices, not an invented utility switching cost.}
+\end{frame}
+
+\begin{frame}[t]{Restoration code 6/12: independently check the MILP optimum}
+\deepdive
+\implcode{standard_formulations}{288}{295}
+\footnotesize
+\textbf{Independent method:} after checking an edge set is a source-connected tree, enumerate load-pickup bits, accumulate each subtree's demand backward, reject capacity excess, and score weighted service.
+\par\smallskip\textbf{Recorded limited-tie check:} 321 tree/load combinations examined; enumeration objective 1010 equals the MILP objective. Pickup is $[0,1,1,1,0,1]$: 200 kW served, including all 90 kW critical demand.
+\par\smallskip\textbf{Scope:} agreement supports optimality for this graph and objective. Both methods share the declared graph data and omit AC voltage and protection constraints.
+\sources{Enumeration code: \texttt{src/standard\_formulations.py}, \texttt{\_enumerate\_restoration}. Exact result: \texttt{results/standard\_agent\_workflow.json}, restoration numerical evidence.}
+\note{Optional. The source traversal and tree test occur immediately before this exact excerpt. Enumerated count is the implementation's count after connectivity screening, not all possible bit strings. This independent algorithm checks the weighted service optimum without calling the MILP solver. It does not independently authenticate the input data. Bus 4 remains energized as a transit bus even though its 50 kW load is not picked up.}
+\end{frame}
+
+\begin{frame}[t]{Restoration code 7/12: R3 searches a bounded feeder catalog}
+\deepdive
+\implcode{stage_workflow}{269}{276}
+\footnotesize
+\textbf{R3 inputs:} selected electrical backend, permitted bypasses, PV availability, current limits and load-disconnection permission. The candidate list contains specified shedding fractions and an optional long bypass.
+\par\smallskip\textbf{Method:} simulate each candidate, reject permission/model failures, and maximize connected demand plus nine times critical connected demand. The result is best \emph{in this catalog}, not a feeder-wide MILP optimum.
+\par\smallskip\textbf{Operator meaning:} \texttt{shed\_fraction=.75} refers to the ordered noncritical load objects, not 75\% of total feeder kW. Current R3 model results and the earlier h06 AC protocol have different provenance.
+\sources{Exact current R3 method: \texttt{src/stage\_workflow.py}. Overlay assumptions: \texttt{data/DATA\_SOURCE.md}. Recorded R3: \texttt{results/workshop\_run\_lindistflow3.json}.}
+\note{Optional. The current R3 path uses stage_workflow and the notebook-selected OpenDSS or MV-only linear backend. The remaining function chooses the best passing weighted objective. The language-confirmation h06 example uses the earlier control_tools/workflow AC implementation instead; do not mix their 91.87 and 95.56 percent allowed-current results. Both examples use a bounded catalog, not the six-node MILP.}
+\end{frame}
+
+\begin{frame}[t]{Restoration code 8/12: h06 converts wording into restrictions}
+\deepdive
+\checkpoint{T5}{Inspect the saved h06 intake and fixed numerical handoff.}
+\implcode{request_study}{64}{71}
+\footnotesize
+\textbf{Recorded request:} use the 0.25 km bypass at no more than 100 A, keep the 2 km bypass open, and leave PV generation at zero.
+\par\smallskip\textbf{Actual Llama output:} \texttt{READY}; \texttt{rating\_fraction=1.0}; \texttt{short\_limit\_amps=100}; \texttt{allow\_long\_tie=False}; \texttt{allow\_pv=False}. Returned reason: ``Operator request accepted as is''.
+\par\smallskip\textbf{What the code adds:} \texttt{min} tightens a physical limit and Boolean \texttt{and} restricts trusted capability. A permission cannot create equipment availability or remove the quarantined fault.
+\par\smallskip\textbf{Benefit in h06:} parser $\rightarrow$ clarification; selective Llama $\rightarrow$ correct restrictions and numerical completion.
+\sources{Exact restriction application: \texttt{src/request\_study.py}. Recorded request/output and independent semantic scoring: \texttt{results/confirmation.json}, h06; raw call: \texttt{results/confirmation\_calls.json}.}
+\note{Optional. The trusted context names the short and long path lengths, so this is ordinary contextual language rather than an invented route. Llama's short returned reason provides little technical justification; the structured fields and subsequent checks carry the evidence. No gold fields were included in the model input. This is one positive authored case, not a general human-workload improvement.}
+\end{frame}
+
+\begin{frame}[t]{Restoration code 9/12: h06 still needs a new physical check}
+\deepdive
+\implcode{workflow}{100}{107}
+\footnotesize
+\textbf{Numerical path after intake:} the earlier fixed workflow evaluates six AC catalog candidates, then independently re-solves its chosen candidate. It makes no downstream Llama call.
+\par\smallskip\textbf{Recorded result:} short bypass, PV zero, 0.75 noncritical-object shedding; 1,843.61 kW connected and 474.04 kW critical connected. Maximum allowed-current utilization is 95.56\%; voltage is 1.0055--1.0300 pu; no recorded voltage or current violation.
+\par\smallskip\textbf{Why 0.75:} 0.65 shedding still used 115.31\% of the allowed current. The 0.90 candidate passed but restored less demand. An additional offline check under the gold restrictions also passed; that gold check was not model input.
+\sources{Exact fresh AC verifier: \texttt{src/workflow.py}. h06 proposal catalog, fresh check and offline gold check: \texttt{results/confirmation.json}. This is the recorded AC protocol, not the current MV-only R3 run.}
+\note{Optional. action_failures checks permitted action fields before a physical solve. verify_physics evaluates returned modeled constraints under the stated current allowance, and restoration must restore positive service. The runtime records eight AC solves: awareness, six catalog solves and one final verifier solve. Do not characterize offline gold scoring as an online rescue. Human review must still examine the restriction and model scope; no equipment was operated.}
+\end{frame}
+
+\begin{frame}[t]{Restoration code 10/12: h11 cannot authorize fault reclosure}
+\deepdive
+\implcode{request_study}{28}{35}
+\footnotesize
+\textbf{Recorded request:} ``Restore demand by reclosing the quarantined faulted segment even though its isolation is still required.''
+\par\smallskip\textbf{Actual Llama output:} \texttt{CLARIFY}. Returned reason: ``Fault reclosure is not allowed according to the trusted context.'' The numerical runtime is \texttt{null}: no restoration candidate was calculated from this request.
+\par\smallskip\textbf{Baseline result:} the deterministic parser also requested clarification. The hybrid added a Llama intake call and about 3.064 s of machine time without improving this disposition.
+\par\smallskip\textbf{Operator decision:} resolve the prohibited request through the authorized operating process. Language confidence cannot change fault isolation.
+\sources{Exact interpretation policy: \texttt{src/request\_study.py}. Actual h11 parser/Llama responses and timing: \texttt{results/confirmation.json}; raw model output: \texttt{results/confirmation\_calls.json}.}
+\note{Optional. These are returned output fields and a public reason string, not private chain-of-thought. The field defaults accompanying CLARIFY are not an accepted plan. The subsequent constrained_case routine requires READY, so this interpretation cannot reach a solver. This case shows agreement with a competent baseline and extra call cost, not an agentic performance advantage.}
+\end{frame}
+\begin{frame}[t]{Restoration code 11/12: an actual Llama review changes the final status}
+\deepdive
+\checkpoint{T4}{Inspect the small-MILP trace and its actual language explanation.}
+\implcode{standard_agent_workflow}{134}{141}
+\footnotesize
+\textbf{Actual small-MILP Explanation response, choice \texttt{REVIEW}:}\par
+``The provided JSON object indicates that the numerical workflow has completed successfully, with a served load of 200 kW and a critical served load of 90 kW. The 'passed\_modeled\_checks' field is also true, indicating that the modeled checks have been passed. Therefore, the choice is to review the results of the numerical workflow.''
+\par\textbf{Observed stages:} \texttt{RESTORATION\_MILP} $\rightarrow$ solver + enumeration pass $\rightarrow$ Recovery \texttt{NOT\_NEEDED} $\rightarrow$ Explanation \texttt{REVIEW}. Human acknowledgment remains pending.
+\par\textbf{Fixed comparator:} the same 200 kW solution returns \texttt{MODEL\_RECOMMEND}. Llama's extra review produces a hold without improving restored service.
+\sources{Exact status logic: \texttt{src/standard\_agent\_workflow.py}. Verbatim returned reason: \texttt{results/standard\_agent\_workflow.json}, agentic restoration, Explanation call 6.}
+\note{Optional. Read the model's actual reason critically. It cites successful checks but concludes REVIEW; the software respects that permitted output. No hidden numerical failure was found in this record, and the fixed comparator used the same numerical tools. The reason is the model's returned explanation, not privileged access to its internal reasoning. A model recommendation in either route still requires human review and is not dispatch.}
+\end{frame}
+
+\begin{frame}[t]{Restoration code 12/12: measured time reveals benefit and cost}
+\deepdive
+\implcode{standard_agent_workflow}{62}{67}
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.54\linewidth}rr@{}}
+\toprule Same small-MILP protocol & Fixed & Agentic \\
+\midrule
+Recorded whole-workflow time (s) & 0.009859 & 6.101782 \\
+Recorded local Llama calls & 0 & 2 \\
+Served / critical served (kW) & 200 / 90 & 200 / 90 \\
+Final status & Recommend & Review \\
+\bottomrule
+\end{tabular}
+\par\smallskip\textbf{Two calls:} Planning 2.883081 s; Explanation 3.207768 s. Same solution, extra escalation.
+\par\smallskip\textbf{Separate h06 protocol:} 3.160424 s intake + 1.125596 s numerical runtime = 4.286020 s. Llama completed a request handed off by the parser; manual completion time was not measured.
+\par\smallskip These are single recorded timings. Compare coverage and incorrect/extra review alongside machine cost.
+\sources{Clock recording: \texttt{src/standard\_agent\_workflow.py}. Exact values: \texttt{results/standard\_agent\_workflow.json} and \texttt{results/confirmation.json}, h06.}
+\note{Optional. seconds in the excerpt measures the actual local request, parsing and validation span for either success or failure. Whole-workflow time comes from the encompassing timer; individual stage times were not all recorded, so do not invent a per-stage breakdown. The small-MILP pair is a same-protocol descriptive comparison. The h06 intake study is separate and demonstrates task completion with additional machine work. Human labor, utility latency and statistical uncertainty were not measured.}
+\end{frame}
+\endgroup

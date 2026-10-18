@@ -1,0 +1,78 @@
+[
+  {
+    "title": "Agentic AI: Three Operator Cases",
+    "kind": "cover",
+    "points": [
+      "Voltage support, service restoration and cyber response",
+      "120 minutes with three short group exercises",
+      "IEEE ComSoc theme / Recorded research examples and operator review"
+    ],
+    "minutes": 0.5,
+    "refs": [
+      "B01",
+      "W00"
+    ],
+    "note": "This is the follow-on to the agentic-AI foundations tutorial. We apply the ideas to three engineering decisions, rather than repeating the literature survey. The numerical examples come from the existing GridGuard teaching studies. Their models and assumptions differ: a synthetic distribution feeder, a six-node restoration transport graph, and a four-bus DC estimation fixture. None is a live utility deployment or a permission to operate equipment. All slides belong to the session. The three exercises require discussion and a decision, not software installation."
+  },
+  {
+    "title": "Three cases test three different kinds of evidence",
+    "kind": "diagram",
+    "diagram": "common_three_cases",
+    "caption": "The same advisory process must answer a different engineering question in each case.",
+    "points": [
+      "Voltage: does the proposed control pass the required model scope?",
+      "Restoration: who receives service? Cyber: which information can support a decision?"
+    ],
+    "minutes": 1.5,
+    "refs": [
+      "W00"
+    ],
+    "note": "Ask participants to predict which evidence can fail in each case. Voltage has a model-coverage problem: a candidate can pass a reduced model and fail a broader AC audit. Restoration has an explicit objective and topology problem: maximum total load and priority service can legitimately produce different plans. Cyber has an information-trust problem: a small residual can coexist with a wrong estimated state. These are not interchangeable failure modes, so one universal success percentage is inappropriate. Keep the cases separate while reusing the habit of specifying inputs, tools, tests and the human decision."
+  },
+  {
+    "title": "An operator request becomes a checked study",
+    "kind": "diagram",
+    "diagram": "common_operator_loop",
+    "caption": "Proposed advisory workflow. Numerical checks control whether a candidate reaches human review.",
+    "points": [
+      "The agent interprets the request and chooses allowed tools. Solvers calculate the consequences.",
+      "Failed or outdated evidence returns to a bounded repair step, or the study stops."
+    ],
+    "minutes": 1.5,
+    "refs": [
+      "W00",
+      "DEF03"
+    ],
+    "note": "Read the workflow as responsibilities, not a claim that each box is a separate LLM. Awareness fixes the study state. Planning proposes an allowed action. Simulation produces numerical evidence. Verification tests the request, limits and evidence identity. The optimizer or repair step may suggest a new candidate within a fixed budget. A person receives the resulting advisory packet. This structure is a teaching synthesis informed by the existing classroom implementation. The engineering notebooks use a custom Python supervisor. Their shared responsibilities do not establish that they execute in LangGraph; the separate graph lab demonstrates that runtime independently. A numerical solver or fixed script may perform most of the work. The added walkthroughs expose the actual recorded choices, code calls, output values and pending human decisions. The voltage P3 workflow and the standard restoration/cyber workflow are separate dated studies. Each uses its original custom Python supervisor. The present GridGuard app has a separate LangGraph implementation; these archived records do not test that newer runtime."
+  },
+  {
+    "title": "Every result must stay attached to its inputs",
+    "kind": "diagram",
+    "diagram": "common_evidence_binding",
+    "caption": "Illustrative evidence identity. These version labels are teaching examples, not an operational record.",
+    "points": [
+      "Keep the case, model scope, data revision, candidate and limits together.",
+      "A matching hash detects a changed packet. It does not prove that a sensor or a model is correct."
+    ],
+    "minutes": 1.5,
+    "refs": [
+      "W00",
+      "OT01"
+    ],
+    "note": "Use a concrete example: a voltage result at load multiplier 1.00 cannot support a changed request at 1.10 without checking applicability. Likewise, a restoration capacity change or a different measurement-trust set changes the evidence context. The classroom binding routine hashes canonicalized request, candidate and result contents. That establishes local content consistency only. It is not a digital signature, sensor authentication, or a proof of physical feasibility. The operator should be able to see the relevant identity and limits directly in the report. Do not transfer all details into a cryptographic-looking identifier that nobody can inspect."
+  },
+  {
+    "title": "The three exercises end with a specific next step",
+    "kind": "normal",
+    "points": [
+      "Work in pairs: one person proposes the next step, the other checks the evidence.",
+      "For each case, choose: continue the study, hold the recommendation, or request missing evidence.",
+      "Use one number or one failed check to explain the decision. Each discussion lasts four minutes."
+    ],
+    "minutes": 1,
+    "refs": [
+      "W00"
+    ],
+    "note": "Explain the active-learning format before the first case. Give pairs one minute to read, two minutes to decide and one minute to prepare a short justification. The debrief follows as a separate slide, so the answer is not hidden behind a click or given away on the exercise slide. The choices concern progression through an advisory study, not field dispatch. Encourage participants to name the next responsible tool or human role. A valid hold decision should specify what evidence would allow progress."
+  }
+]

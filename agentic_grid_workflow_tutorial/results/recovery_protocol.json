@@ -1,0 +1,128 @@
+{
+  "study": "Known-failure recovery; a teaching ablation with a competent deterministic supervisor",
+  "created_utc": "2026-09-20T18:41:47.732636+00:00",
+  "cases": [
+    {
+      "id": "F1",
+      "description": "Injected MPC service-unavailable response; nominal DQN remains usable.",
+      "case": {
+        "id": "recovery_F1",
+        "task": "voltage",
+        "forecast": [
+          3,
+          3,
+          3
+        ],
+        "previous": 2,
+        "rating_fraction": 1.0,
+        "fault": false,
+        "capacity": 400.0,
+        "pv_available": true,
+        "long_available": true
+      },
+      "initial_tool": "MPC",
+      "unavailable_tool": "MPC",
+      "injected_delay_seconds": 0.02
+    },
+    {
+      "id": "F2",
+      "description": "Injected DQN checkpoint-access failure; MPC remains usable.",
+      "case": {
+        "id": "recovery_F2",
+        "task": "voltage",
+        "forecast": [
+          3,
+          3,
+          3
+        ],
+        "previous": 2,
+        "rating_fraction": 1.0,
+        "fault": false,
+        "capacity": 400.0,
+        "pv_available": true,
+        "long_available": true
+      },
+      "initial_tool": "DRL",
+      "unavailable_tool": "DRL",
+      "injected_delay_seconds": 0.02
+    },
+    {
+      "id": "F3",
+      "description": "Actual nominal-trained DQN proposal fails the 80% current-rating check.",
+      "case": {
+        "id": "recovery_F3",
+        "task": "voltage",
+        "forecast": [
+          3,
+          3,
+          3
+        ],
+        "previous": 2,
+        "rating_fraction": 0.8,
+        "fault": false,
+        "capacity": 400.0,
+        "pv_available": true,
+        "long_available": true
+      },
+      "initial_tool": "DRL",
+      "unavailable_tool": "",
+      "injected_delay_seconds": 0.02
+    }
+  ],
+  "methods": [
+    "single_pass",
+    "adaptive_rules",
+    "agent_loop"
+  ],
+  "tool_budget": 2,
+  "single_pass": "Same forced first tool and gate; stops after its first failure. This is a repair-loop ablation, not the strongest conventional practice.",
+  "adaptive_rules": "Structured finite-state recovery excludes failed tools and chooses the available alternative; no hidden expected answer.",
+  "agent_loop": "Actual local Llama critic followed by planner; planner receives critic feedback and the same failed-tool observations.",
+  "availability_faults": "Injected adapter responses with a real 20 ms delay. No process was stopped and no checkpoint was deleted.",
+  "electrical_case": "Uses the saved trained DQN and fresh OpenDSS verification at 80% permitted line ratings; no policy action is fabricated.",
+  "cost": "End-to-end run latency includes one awareness AC solve, numerical tools, fresh gate solves, injected delay and any Llama calls. Excludes AC-table build and DQN training, shared by all methods.",
+  "claim_boundary": "Demonstrates recovery versus a single pass. Matching a competent finite-state supervisor does not establish a unique LLM advantage. Three authored cases, one live run per condition; no statistical or field-performance claim.",
+  "sources": {
+    "feeder": {
+      "Buscoords.dss": "582a4c02a404867fa4eab7f218d40836443ce8224ab57cc8629c7494dce8c7b5",
+      "Capacitors.dss": "8be0b2df6068cc1d9c85bfd5f62b5ed0c22b1e30a3053b741420665c754446ff",
+      "LineCodes.dss": "ddd3120d7054b31a7c5b62d76d9f6ec44fb3712938eb0fa6f854703dfdd4d7c4",
+      "Lines.dss": "a91ee50f90b66fc3acdbc28f9d0c416a9319d3b430d44fc99edc8464526cbf0a",
+      "Loads.dss": "cae4d0a1efe8ec3a7b21f79cf8e85dc6f4492700c2e68224e8edd5763cfb8a2e",
+      "Master.dss": "19a511a8d1e899c7312e1d2ac0b10721736cf9b0a497e7ca0e32a0f53dc2c6b4",
+      "PVSystems.dss": "ee44045900df09f2c767ed6c713cd65260e15bc6891edb85566edd461c330b6f",
+      "Storage.dss": "03bb7e5c58bebfe1c2d74ef139c28d4afaced6aac3dd6dad2acb31eecd52f233",
+      "Transformers.dss": "e622a2fec97614709714f4db7bf0b156d6cd54885f32337bf3b88c8b537adbc3"
+    },
+    "physics_code": "7c6f0414d335d29ae745f1c6d1c5981bc598f18f18ef31224ec8dd1618eb97e6",
+    "control_code": "c284a8c2fb9e9f321637200fc38d449f1388aa96e440cd47d10c36a6727cda92",
+    "caps": [
+      0.0,
+      10.0,
+      20.0,
+      30.0,
+      40.0,
+      60.0,
+      80.0,
+      100.0
+    ],
+    "loads": [
+      0.3,
+      0.5,
+      0.7,
+      1.0,
+      1.3
+    ],
+    "horizon": 3,
+    "gamma": 0.95,
+    "switch_cost": 0.15,
+    "voltage_limits": [
+      0.95,
+      1.05
+    ],
+    "cache_schema": 2
+  },
+  "study_code_sha256": "9f3fba4428d5898959ef50a85260bb1dc6560f3969280771fb1bdb30a3271726",
+  "workflow_code_sha256": "bf4ae392cd4bc88420cc2a3e7e8b024701b3a3965eaddc2c625f049d4b0f7b71",
+  "policy_weights_sha256": "6de729ed9356fa7233e86983ba7116617e987898681643f61ad0152cfd17f802"
+}

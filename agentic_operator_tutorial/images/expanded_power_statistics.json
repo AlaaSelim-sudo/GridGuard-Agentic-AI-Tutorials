@@ -1,0 +1,146 @@
+{
+  "expanded_power_dynamic": {
+    "id": "expanded_power_dynamic",
+    "title": "Dynamic-model repair within a restricted action space",
+    "caption": "PowerAgentBench-Dyn DMQ case: ten independent sessions per model on one modified WECC solar PV dynamic model. Full-suite compliant success is 10/10 for Opus 4.8, 10/10 for Sonnet 4.6, and 9/10 for Haiku 4.5. Median updates are 1, 1 and 2. Eight quality tests and a maximum of five parameter updates define this case. No confidence interval or fleet-level performance is claimed.",
+    "data": [
+      {
+        "model": "Opus 4.8",
+        "successes": 10,
+        "trials": 10,
+        "median_updates": 1,
+        "median_final_gains": [
+          1,
+          5,
+          1,
+          5
+        ]
+      },
+      {
+        "model": "Sonnet 4.6",
+        "successes": 10,
+        "trials": 10,
+        "median_updates": 1,
+        "median_final_gains": [
+          0.5,
+          2,
+          0.5,
+          3.5
+        ]
+      },
+      {
+        "model": "Haiku 4.5",
+        "successes": 9,
+        "trials": 10,
+        "median_updates": 2,
+        "median_final_gains": [
+          1.2,
+          2,
+          1.5,
+          4
+        ]
+      }
+    ],
+    "source_refs": [
+      "P01"
+    ],
+    "source_url": "https://arxiv.org/abs/2606.20401v1",
+    "locator": "Table II and section III-C, PDF p.3",
+    "assumptions": "Author-reported counts and medians reproduced, not independently rerun. One fixed corrupted model; no human or deterministic search comparator.",
+    "file": "expanded_power_dynamic.png",
+    "pdf": "expanded_power_dynamic.pdf",
+    "svg": "expanded_power_dynamic.svg",
+    "credit": "Original chart from cited author-reported research results"
+  },
+  "expanded_power_benchmark": {
+    "id": "expanded_power_benchmark",
+    "title": "Complete answers and partial credit measure different outcomes",
+    "caption": "Selected PowerBench Table 4 results. Macro Joint Accuracy equally weights the three task families, with 60 temporal, 90 contextual and 150 comparative questions; it is not a correct-count divided by 300. Overall Field Accuracy is the mean per-question fraction of correct fields. Whiskers are author-reported 95% bootstrap intervals, not newly calculated intervals. All three configurations used the same 300-question benchmark and 50-call/300-second retrieval-and-reasoning budgets.",
+    "data": [
+      {
+        "model": "GPT-5.6-Sol",
+        "macro_ja": 74.2,
+        "macro_ja_ci95": [
+          69.5,
+          78.7
+        ],
+        "overall_fa": 82.7,
+        "overall_fa_ci95": [
+          79.4,
+          85.8
+        ],
+        "family_ja": {
+          "TRR": 85,
+          "CRR": 88.9,
+          "CoRR": 48.7
+        }
+      },
+      {
+        "model": "GLM-5.3",
+        "macro_ja": 63.3,
+        "macro_ja_ci95": [
+          59.2,
+          67.3
+        ],
+        "overall_fa": 65.2,
+        "overall_fa_ci95": [
+          62.2,
+          68.1
+        ]
+      },
+      {
+        "model": "Doubao-Seed-Evolving",
+        "macro_ja": 59.3,
+        "macro_ja_ci95": [
+          55.7,
+          62.6
+        ],
+        "overall_fa": 58.1,
+        "overall_fa_ci95": [
+          56.4,
+          59.6
+        ]
+      }
+    ],
+    "questions_per_model": 300,
+    "task_family_sizes": {
+      "TRR": 60,
+      "CRR": 90,
+      "CoRR": 150
+    },
+    "source_refs": [
+      "P02"
+    ],
+    "source_url": "https://arxiv.org/abs/2609.34492v1",
+    "locator": "Table 4, PDF p.8; aggregation definitions section 4.1 and Appendix D",
+    "assumptions": "Different aggregation rules are retained. Partial field credit is not full-task success. Do not infer pairwise significance from marginal interval overlap. Benchmark results are synthetic and author-reported; public runnable release not verified.",
+    "file": "expanded_power_benchmark.png",
+    "pdf": "expanded_power_benchmark.pdf",
+    "svg": "expanded_power_benchmark.svg",
+    "credit": "Original chart from cited author-reported scores and bootstrap intervals"
+  },
+  "expanded_power_gridmind": {
+    "id": "expanded_power_gridmind",
+    "title": "Artifact reuse saves executions and wall time",
+    "caption": "GridMind weather-risk workflow, same seven-query session on a synthetic Texas 2000-bus case. Full-rerun ablation executes 35 stages and takes 1432.6 s; content-addressed reuse executes 14 stages and takes 677.1 s. The stage-count reduction is 60%; the calculated wall-time speedup is 2.1158× (2.12× rounded), corresponding to 52.7363% less wall time. These are different metrics, not two descriptions of the same percentage. No repeated-session uncertainty estimate is reported.",
+    "data": {
+      "baseline_stages": 35,
+      "reuse_stages": 14,
+      "baseline_wall_seconds": 1432.6,
+      "reuse_wall_seconds": 677.1,
+      "stage_reduction_percent": 60,
+      "wall_speedup_calculated": 2.1157879190666073,
+      "wall_time_reduction_percent_calculated": 52.73628368002233
+    },
+    "source_refs": [
+      "P03"
+    ],
+    "source_url": "https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.pdf",
+    "locator": "Table 1 and sections 4.2–4.3, PDF p.4",
+    "assumptions": "Same reported query sequence; full-rerun arm uses fresh namespaces. Single simulation session, surrogate screening and reduced-order cascade models. No live utility operation or independently repeated performance claim.",
+    "file": "expanded_power_gridmind.png",
+    "pdf": "expanded_power_gridmind.pdf",
+    "svg": "expanded_power_gridmind.svg",
+    "credit": "Original chart from cited author-reported session/ablation measurements"
+  }
+}

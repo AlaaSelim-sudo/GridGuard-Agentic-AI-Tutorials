@@ -1,0 +1,31 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rc,anchor=west] at (0.4,3.65) {resolve\_asset('F12')};
+\draw[rf] (7.8,3.65) -- (9.2,3.65);
+\node[rl,anchor=west] at (9.6,3.65) {id = 447};
+\node[rc,anchor=west] at (0.4,2.65) {read\_measurements(};
+\node[rc,anchor=west] at (0.4,2.08) {\ id=447, window='15:00..15:05')};
+\draw[rf] (7.8,2.4) -- (9.2,2.4);
+\node[rl,text=rOrange,anchor=west] at (9.6,2.4) {quality = STALE};
+\draw[rw] (11.4,2.0) -- (11.4,1.48);
+\node[rc,anchor=west] at (0.4,1.05) {stop\_and\_request\_refresh(id=447)};
+\draw[rf] (7.8,1.05) -- (9.2,1.05);
+\node[rl,anchor=west] at (9.6,1.05) {refresh requested};
+\node[rn,text=rGray,anchor=west] at (0.4,0.25) {Unsupported continuation:};
+\node[rc,text=rGray,anchor=west] at (6.2,0.25) {run\_solver(...)};
+\draw[draw=rOrange,line width=1.6pt] (6.2,0.25) -- (9.9,0.25);
+
+\end{tikzpicture}

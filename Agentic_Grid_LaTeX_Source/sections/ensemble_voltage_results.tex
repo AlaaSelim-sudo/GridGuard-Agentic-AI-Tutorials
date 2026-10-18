@@ -1,0 +1,179 @@
+\begin{frame}[t]{E1: a separate frozen experiment for the revised optimizer}
+\deepdive
+
+\checkpoint{E1}{Read the split and provenance before comparing methods.}
+\fontsize{8.5}{10}\selectfont
+\begin{tabular}{@{}p{.32\linewidth}p{.61\linewidth}@{}}
+\toprule Experiment element & Executed scope \\
+\midrule
+Training / validation / test & 24 / 8 / 12 distinct sampled voltage scenarios \\
+Initial proposal tools & Fresh $H=3$ MPC and the previously trained continuous SAC actor \\
+Actual language models & Llama 3.1 8B; Llama 3.2 3B; Qwen 2.5 7B \\
+Response records & 132 MV calls + 36 calls for the same 12 AC-transfer scenarios \\
+Learned selector & Five training orders; 24 selected-feedback updates each \\
+Electrical verification & Model gate plus separately reported full-feeder AC evidence \\
+\bottomrule
+\end{tabular}\par\medskip
+\textbf{Default notebook:} saved simulator replay, with one reproduced reward update and no new LLM calls.
+\par\medskip\textbf{Question:} does selecting a better next trial justify the cost of generating the pool?
+
+\sources{Executed voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}; frozen protocols and actual response journals: \texttt{results/ensemble\_voltage\_pilot/}. Numerical evidence and final checks are retained.}
+\note{Introduce the E experiment separately from the previous P reference. This corrects the old candidate omission by placing MPC in the initial pool. Scenario splits were frozen before numerical collection. Five learning orders are algorithm sensitivity runs over the same 24 cases, not 120 independent cases. The saved data contain all operation outcomes for audit; the trainer opens only its chosen feedback at each update. This is simulated partial-feedback replay, not logged field data.}
+\end{frame}
+
+\begin{frame}[t]{E2: MPC enters planning directly alongside SAC}
+\deepdive
+
+\checkpoint{E2}{Both proposals receive a fresh first-action simulation.}
+\implcode{ensemble_voltage}{141}{148}
+\fontsize{8.1}{9.5}\selectfont
+\begin{tabular}{@{}lrrr@{}}\toprule Test 01, MV & $a$ & $b$ & Current-step $J$ \\ \midrule
+INITIAL\_MPC & 0.960307 & -0.111114 & 0.031104 \\
+INITIAL\_SAC & 0.340094 & 0.014049 & 0.436392 \\
+\bottomrule\end{tabular}\par\smallskip
+$a$: active fraction; $b$: reactive fraction. Both pass the MV checks. MPC supplies the incumbent on all 44 MV contexts.
+
+\sources{Executed voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}; frozen protocols and actual response journals: \texttt{results/ensemble\_voltage\_pilot/}. Numerical evidence and final checks are retained.}
+\note{The snippet is copied from the exact collection source. MPC is not an optional tool that a language model must remember to request. The two numerical actions are checked on the same context. All observed MV MPC plans have empty horizon-plan failure lists, but the response-refinement gate and ranking remain first-action/current-step operations. Source implementation names INITIAL_MPC and INITIAL_SAC are provenance, not separate LLM agents.}
+\end{frame}
+
+\begin{frame}[t]{E3: three models respond to the same numerical evidence}
+\deepdive
+\checkpoint{E3}{Actual public responses for the fixed first test scenario.}
+\begin{block}{llama3.1:8b; 1.867 s}\fontsize{7.3}{8.3}\selectfont \textbf{INCREASE\_PV\_0025}. The incumbent candidate has a score of 0.031103819352072536, which is relatively low. Increasing active participation by 0.0025 may help reduce curtailment and improve the overall performance. This is supported by the operation's description, which states that it increases active participation to reduce curtailment.
+\end{block}
+\begin{block}{llama3.2:3b; 0.905 s}\fontsize{7.3}{8.3}\selectfont \textbf{RELAX\_Q\_10\_PERCENT}. Reducing reactive effort magnitude by ten percent may help improve the overall system performance and reduce curtailment, as evidenced by the current step J calculation which includes a term of 0.05*b\textasciicircum{}2, indicating a positive impact of reducing q on the objective function.
+\end{block}
+\begin{block}{qwen2.5:7b-instruct; 1.844 s}\fontsize{7.3}{8.3}\selectfont \textbf{RELAX\_Q\_10\_PERCENT}. The current incumbent solution has a lower objective score compared to the SAC candidate, indicating it is performing better. Relaxing the reactive effort by 10\% may help improve voltage stability without significantly degrading active power performance, as evidenced by the SAC candidate's higher score.
+\end{block}
+
+\sources{Executed voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}; frozen protocols and actual response journals: \texttt{results/ensemble\_voltage\_pilot/}. Numerical evidence and final checks are retained.}
+\note{Keep the reasons verbatim and ask students which statements can be checked against available evidence. These are public model outputs, not hidden reasoning. Test 01 is a fixed illustration; the notebook exposes every response and reports aggregate outcomes. Identical prompts and distinct model configurations do not establish independent errors.}
+\end{frame}
+
+\begin{frame}[t]{E3: canonical actions make the vote reproducible}
+\deepdive
+
+\checkpoint{E3}{Inspect the actual operation, votes and physical controls.}
+\cellcode{E3}{1}{7}
+\small\medskip
+\textbf{Canonical key:} tool name plus finite structured control parameters.\par\smallskip
+\textbf{Evidence limit:} Qwen mentions voltage stability; these tests establish only steady-state quantities.\par\smallskip
+\textbf{Majority tie rule:} smallest canonical SHA-256 ID, fixed before evaluation.\par\smallskip
+\textbf{Baseline cost:} fixed pool response, majority and learned selection all pay for the same three calls.
+
+\sources{Executed voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}; frozen protocols and actual response journals: \texttt{results/ensemble\_voltage\_pilot/}. Numerical evidence and final checks are retained.}
+\note{Run the whole E3 cell, not just the excerpt. Canonicalization rejects malformed replies and duplicate model identities. The SHA tie-break is deterministic and has no physical preference. A fixed response from the common pool is a controlled selection comparator, not a single-model deployment runtime. Full raw call payloads remain in the journal.}
+\end{frame}
+
+\begin{frame}[t]{E4: the reward is revealed only after a response is selected}
+\deepdive
+
+\checkpoint{E4}{Reproduce the first actual training update.}
+\cellcode{E4}{4}{12}
+\fontsize{8.1}{9.5}\selectfont
+\[
+r=\begin{cases}
+\min(1,\max(0,J_{\rm inc}-J_{\rm trial})/0.01)-0.01, & \text{trial passes},\\
+-1.01, & \text{trial rejected}.
+\end{cases}
+\]
+$J_{\rm inc}$: incumbent cost; $J_{\rm trial}$: selected-trial cost. The fixed trial penalty is not seconds. Numerical acceptance remains a separate hard check.
+
+\sources{Executed voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}; frozen protocols and actual response journals: \texttt{results/ensemble\_voltage\_pilot/}. Numerical evidence and final checks are retained. Bandit method: \href{https://arxiv.org/abs/1003.0146}{Li et al. (2010)}.}
+\note{This is executable notebook code, and its first operation/reward is checked against the recorded training trace. The outcomes exist in a separate file for audit, but the operation is selected before that file is opened. No test outcome enters training, and the independent AC audit is excluded from the MV reward. All response-generation cost has already been incurred, so the reward does not pretend that selecting one response saves the other calls.}
+\end{frame}
+
+\begin{frame}[t]{E4: actual learning records and frozen evaluation}
+\deepdive
+
+\checkpoint{E4}{Five predeclared training orders over the same 24 contexts.}
+\begin{center}\includegraphics[width=.96\linewidth,height=.44\textheight,keepaspectratio]{\figfile{selector_E4.png}}\end{center}
+\fontsize{8.3}{9.8}\selectfont
+Each checkpoint has 24 reward updates. Validation and test update $A$ and $b$ zero times. All five orders yield the same held-out MV actions and objectives here.
+\par\smallskip This small regularized linear fit demonstrates learning mechanics. The trace does not establish convergence or generalization across feeders.
+
+\sources{Executed voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}; frozen protocols and actual response journals: \texttt{results/ensemble\_voltage\_pilot/}. Numerical evidence and final checks are retained.}
+\note{SAC training and response-selection training have separate checkpoints. These curves show the bandit, not the 12,000-transition SAC training experiment. Training rewards can be negative even for a feasible trial because the improvement is small relative to the fixed trial penalty. The uncertainty bonus supports exploration during training; frozen evaluation uses predicted reward only.}
+\end{frame}
+
+\begin{frame}[t]{E5: learned selection ties voting on the held-out cases}
+
+\checkpoint{E5}{Same three responses, one selected trial, fresh final check.}
+\begin{center}\includegraphics[width=.99\linewidth,height=.54\textheight,keepaspectratio]{\figfile{selector_E5.png}}\end{center}
+\fontsize{8.3}{9.8}\selectfont
+MV test: learned selection and voting tie in all 12 cases. Mean $J=0.03398479$ versus numerical incumbent $0.03400656$; the reduction is small.\par
+Every retained MV action fails the separate full-feeder AC audit.
+
+\sources{Executed voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}; frozen protocols and actual response journals: \texttt{results/ensemble\_voltage\_pilot/}. Numerical evidence and final checks are retained.}
+\note{This is the central selector result. The interval against voting collapses to zero because every paired outcome is identical. The graph gives all-responses extra trial budget and labels it accordingly. A small improvement over a particular fixed operation is not evidence that learning or LLM generation is necessary. E5 also displays a post-hoc diagnostic of every permitted fixed numerical rule; always relaxing Q matches the selected pattern without language calls. The twelve contexts are the statistical units.}
+\end{frame}
+
+\begin{frame}[t]{E5: trial rejection and final quality are different outcomes}
+\deepdive
+
+\checkpoint{E5--E6}{Compare each method within its declared model scope.}
+\fontsize{8.7}{10.2}\selectfont
+\begin{tabular}{@{}llrrr@{}}\toprule Backend & Method & Mean final $J$ & Trial rejects & Final AC PASS \\ \midrule
+MV & Fixed numerical & 0.03400656 & 0/12 & 0/12 \\
+MV & Majority vote & 0.03398479 & 0/12 & 0/12 \\
+MV & Learned selector & 0.03398479 & 0/12 & 0/12 \\
+AC & Fixed numerical & 0.47112138 & 11/12 & 12/12 \\
+AC & Majority vote & 0.47138488 & 0/12 & 12/12 \\
+AC & Learned selector & 0.47138488 & 0/12 & 12/12 \\
+
+\bottomrule\end{tabular}\par\medskip
+\textbf{AC transfer:} the learned selector avoids rejected trials but has a worse mean objective than fixed numerical selection. One larger missed improvement matters.\par\medskip
+\textbf{Same gate:} a rejected refinement retains the incumbent, which can still pass its final check.\par\medskip
+The final AC PASS column uses the broader-model audit for MV and the selected AC gate for OpenDSS. Different model scopes also change the voltage term in $J$.
+
+\sources{Executed voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}; frozen protocols and actual response journals: \texttt{results/ensemble\_voltage\_pilot/}. Numerical evidence and final checks are retained.}
+\note{Keep the objective and rejection metrics separate. The fixed increase operation is often rejected under AC constraints but in one context finds a larger improvement. Majority and learned selection favor the smaller Q refinement and are identical in this transfer set. Zero rejected trials therefore does not imply the best objective. All numbers are conditional on the declared method and twelve scenarios; final full-feeder PASS is not a field guarantee.}
+\end{frame}
+
+\begin{frame}[t]{E6: the model determines which constraints are visible}
+
+\checkpoint{E6}{The same 12 physical contexts under both planning models.}
+\begin{center}\includegraphics[width=.94\linewidth,height=.50\textheight,keepaspectratio]{\figfile{selector_E6.png}}\end{center}
+\fontsize{8.5}{10}\selectfont
+Learned workflow: \textbf{0/12} retained MV actions pass the full-feeder AC audit. With OpenDSS planning and verification, \textbf{12/12} final actions pass.\par
+MV aggregation omits internal LV/transformer constraints. This comparison changes constraint coverage; it is not an accuracy-only test of two equivalent models.
+
+\sources{Executed voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}; frozen protocols and actual response journals: \texttt{results/ensemble\_voltage\_pilot/}. Numerical evidence and final checks are retained.}
+\note{The plotted controls are the initial MV incumbent and separately optimized OpenDSS MPC plan, while the sentence reports final learned-workflow gates. The notebook exposes both. Avoid claiming the learned selector caused the AC benefit: the numerical model and acceptance contract changed. The selector trained on MV scenarios is frozen for AC transfer, so this is not separately trained in-domain learning on AC. Operator review must show both scope and failed broader-model checks.}
+\end{frame}
+
+\begin{frame}[t]{E7: actual inference time belongs in the comparison}
+\deepdive
+
+\checkpoint{E7}{Recorded calls, component accounting and cached replay differ.}
+\begin{center}\includegraphics[width=.97\linewidth,height=.50\textheight,keepaspectratio]{\figfile{selector_E7.png}}\end{center}
+\fontsize{8.2}{9.8}\selectfont
+168 actual calls, zero call/schema failures. MV mean accounted serial time: learned $8.119$ s; fixed numerical $3.327$ s.\par
+All three responses are already generated when selection begins. The learner cannot save their inference time. AC transfer discloses reused MPC planning separately.
+
+\sources{Executed voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}; frozen protocols and actual response journals: \texttt{results/ensemble\_voltage\_pilot/}. Numerical evidence and final checks are retained.}
+\note{The plot shows actual local call latency, including model loading and residency effects. Calls were collected in model batches. Total policy durations are reconstructed sums of observed components, not direct online end-to-end stopwatch measurements. Fixed numerical generates no language pool. Cached notebook execution makes no new model calls and must not be reported as inference speed. Do not compare AC component totals excluding reused planning with MV totals including planning.}
+\end{frame}
+
+\begin{frame}[t]{E8: the operator sees the recommendation and its scope}
+\deepdive
+
+\checkpoint{E8}{Inspect the actual first test scenario and all five stage outputs.}
+\fontsize{8.6}{10.2}\selectfont
+\begin{tabular}{@{}p{.30\linewidth}p{.30\linewidth}p{.31\linewidth}@{}}
+\toprule Operator field & MV planning workflow & OpenDSS transfer workflow \\
+\midrule
+Selected-model final check & PASS & PASS \\
+Full-feeder check & FAIL & PASS \\
+Advisory status & HOLD for broader-model review & Ready for human review \\
+Displayed evidence & Control, model scope, failed AC constraints & Control, final constraints and candidate identity \\
+Human acknowledgment & Pending & Pending \\
+Equipment dispatch & None & None \\
+\bottomrule\end{tabular}\par\medskip
+\textbf{Five returned stage records:} context; MPC/SAC controls; fresh simulation metrics; gate result; selected response operation and measured gain.\par\medskip
+The existing P dashboard remains a separate historical readback exercise. E records do not silently replace its recommendations.
+
+\sources{Executed voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}; frozen protocols and actual response journals: \texttt{results/ensemble\_voltage\_pilot/}. Numerical evidence and final checks are retained.}
+\note{The cell creates a compact operator report with exact candidate and evidence hashes. A full-feeder recommendation is held when the MV action fails the separate AC audit. The accepted AC action still requires human review and an authorized operating process. An acknowledgment is not generated by the experiment. The notebook also prints each stage method and actual returned output, making the abstraction traceable to recorded code and evidence.}
+\end{frame}

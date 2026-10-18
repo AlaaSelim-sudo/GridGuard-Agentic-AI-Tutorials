@@ -1,0 +1,111 @@
+% Nine optional implementation frames. Exact excerpts refer to packaged sources.
+\begin{frame}[t]{Initial supervisor code 1/9: a bounded loop controls what can happen next}
+\deepdive
+\implcode{continuous_workflow}{217}{223}
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.22\linewidth}>{\raggedright\arraybackslash}p{.70\linewidth}@{}}
+\textbf{Attempt 1} & Validate the shared SAC proposal and request a fresh simulation. \\
+\textbf{Attempt 2} & After rejection, check the eligible MPC first action or stop for review. \\
+\textbf{Terminal result} & Return a recommendation within the selected model's scope, or return \texttt{REVIEW}. There is no third attempt or equipment command. \\
+\end{tabular}
+\par\smallskip Both supervisors use the same numerical route and acceptance limits. Llama chooses only a permitted next step.
+\sources{Executable transition rules: \texttt{src/continuous\_workflow.py}, \texttt{run\_continuous\_workflow}, including lines 252--265. Historical continuous-supervisor protocol 1.1; the new five-stage loop is a separate experiment.}
+\note{Optional implementation detail. Begin with the literal range(2), rather than another abstract architecture drawing. The initial planner is allowed VERIFY_SAC_FIRST or REVIEW. After a failed first check, a validated MPC plan can be offered once. A planner REVIEW is terminal for candidate evaluation. Execution here means a numerical proposal, not field dispatch. Ask the audience to locate the two restrictions that prevent arbitrary tool loops: the finite attempt count and the expected tool name.}
+\end{frame}
+
+\begin{frame}[t]{Initial supervisor code 2/9: the request becomes a numerical contract}
+\deepdive
+\implcode{continuous_workflow}{49}{56}
+\footnotesize
+\textbf{Units:} voltage is per unit; current allowance is percent of branch rating. For inverter $g$, $S_g$ is kVA, $p_g$ is kW, $q_g$ is kvar, and $a,b$ are dimensionless fleet participation factors.
+\par\smallskip\textbf{Authority:} the validated case supplies demand and limits. The language reply has no field for replacing them.
+\par\smallskip\textbf{Notebook W2:} inspect this contract before a run. Correct misunderstood operator intent first.
+\sources{Exact contract: \texttt{src/continuous\_workflow.py}. Case-domain validation and action bounds: \texttt{src/continuous\_control.py}, \texttt{validate\_case} and \texttt{\_control}. Notebook W2.}
+\note{Optional. In the current P3 case, rating_fraction is 0.8, so the returned allowance is 80 percent, not an 80 percent reserve. The participation action is shared across the inverter fleet and is not an independently optimized command at every inverter. Contract validation checks form and declared numerical ranges. It does not establish that a request was interpreted correctly or that the sensors are authenticated. This is why readback remains necessary.}
+\end{frame}
+
+\begin{frame}[t]{Initial supervisor code 3/9: named roles share one local Llama service}
+\deepdive
+\implcode{continuous_workflow}{69}{72}
+\implcode{continuous_workflow}{190}{194}
+\footnotesize
+\textbf{Changes by role:} Planner sees the proposal and contingency plan. Recovery sees failed checks. Explanation sees the metric card. Each receives a restricted menu.
+\par\smallskip\textbf{Shared:} one local \texttt{llama3.1:8b} backbone and the numerical tools. Sequential role prompts do not provide independent votes or independent safety assessment.
+\par\smallskip The fixed route uses the same interface, so every recorded choice identifies its source.
+\sources{Actual client and role dispatch: \texttt{src/continuous\_workflow.py}. Role/tool interaction background: Yao et al., ReAct (ICLR 2023), \url{https://arxiv.org/abs/2210.03629}.}
+\note{Optional. Explain that an agent architecture can impose useful separation of responsibilities without creating statistically independent judgments. This implementation makes no independence claim. One additional role can add another model call and another failure opportunity. The scientific question is whether the resulting interpretation or routing improves a measured task outcome after accounting for errors and cost.}
+\end{frame}
+
+\begin{frame}[t]{Initial supervisor code 4/9: the language tool chooses from a restricted menu}
+\deepdive
+\implcode{continuous_workflow}{75}{78}
+\implcode{continuous_workflow}{81}{82}
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.20\linewidth}>{\raggedright\arraybackslash}p{.72\linewidth}@{}}
+\textbf{Planner menu} & \texttt{VERIFY\_SAC\_FIRST} or \texttt{REVIEW}. Requesting a check does not approve the proposal. \\
+\textbf{Recovery menu} & \texttt{USE\_MPC\_PLAN} or \texttt{REVIEW}. The first choice still requires a fresh numerical check. \\
+\textbf{Returned reason} & A public explanation of the selected choice, not numerical evidence or a correctness guarantee. \\
+\end{tabular}
+\sources{Exact schema and system-prompt excerpt: \texttt{src/continuous\_workflow.py}. Structured-response API: \url{https://docs.ollama.com/api/chat}.}
+\note{Optional. These excerpts are two separate portions of the actual ask method, not a reconstructed prompt. The call also includes definitions of the permitted actions from CHOICE_DEFINITIONS. The prompt states the policy, while program logic enforces the available routes and numerical gate. A prompt alone cannot establish electrical feasibility. The user-visible reason is stored model output, not a reconstruction of hidden reasoning.}
+\end{frame}
+
+\begin{frame}[t]{Initial supervisor code 5/9: valid JSON is only the first acceptance test}
+\deepdive
+\implcode{continuous_workflow}{99}{108}
+\footnotesize
+\textbf{Established:} two fields, a permitted choice and a nonempty reason. Service, decoding or schema failure produces local \texttt{REVIEW}.
+\par\smallskip\textbf{Still unverified:} request semantics, measurement trust, optimality and voltage/current feasibility.
+\par\smallskip\textbf{Provenance:} \texttt{actual\_local\_llama} is a parsed reply; \texttt{local\_failure\_fallback} is locally generated text. Neither proves physical safety.
+\sources{Exact parser, fallback and client timer: \texttt{src/continuous\_workflow.py}. Response-source labels are returned at lines 112--114. API response structure: \url{https://docs.ollama.com/api/chat}.}
+\note{Optional. The exception path is part of the workflow, not an LLM response. It must not be reported as successful model reasoning. Give the concrete counterexample from the intake study: a perfectly valid structured reply can misread a current reserve. A physical solver operating under that incorrect limit cannot recover the original human intent. The current numerical workflow receives an already approved structured case.}
+\end{frame}
+
+\begin{frame}[t]{Initial supervisor code 6/9: a passing result always carries its model scope}
+\deepdive
+\implcode{continuous_workflow}{273}{278}
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.22\linewidth}>{\raggedright\arraybackslash}p{.70\linewidth}@{}}
+\textbf{OpenDSS} & Full supplied unbalanced MV/LV feeder. The experiment does not model protection coordination or transients. \\
+\textbf{LinDistFlow3} & Coupled MV phase network with idealized LV aggregation. Internal LV voltage/current constraints are omitted. \\
+\textbf{Both} & Fresh selected-model simulation, not field evidence or coverage of omitted equipment. \\
+\end{tabular}
+\par\smallskip\texttt{MODEL\_RECOMMEND} is scoped to the selected model. Different constraint coverage can produce different actions.
+\sources{Exact returned scope: \texttt{src/continuous\_workflow.py}. Model assumptions: \texttt{src/lindistflow3.py} and \texttt{appendix/Stage\_Methods\_and\_Models.md}. Current recorded comparison: \texttt{results/continuous\_workflow\_comparison.json}.}
+\note{Optional. Tie this source excerpt to the current P3 example: the MV model accepts the common SAC action, while full AC requires an MPC fallback. This does not establish that the linear MV prediction is inaccurate on the MV buses. It demonstrates why a result must expose its coverage. Plan-level screening also checks that the stored plan backend matches the selected backend. Fresh checking reuses the selected physical model, so it is not independent model validation.}
+\end{frame}
+
+\begin{frame}[t]{Initial supervisor code 7/9: a fresh solve can reject a plausible proposal}
+\deepdive
+\implcode{continuous_workflow}{230}{237}
+\footnotesize
+\textbf{Inputs:} proposed $[a,b]$, first forecast demand multiplier and approved current allowance. The backend returns fresh action-specific evidence.
+\par\smallskip\textbf{Gate:} finite, identified voltage/current arrays, convergence, scope and dispatch tracking. Missing or invalid evidence rejects.
+\par\smallskip\textbf{Recovery:} exceptions and mismatches reject. An eligible MPC fallback passes through this same solve and gate.
+\sources{Exact fresh-evaluation path: \texttt{src/continuous\_workflow.py}. Deterministic checks: \texttt{src/continuous\_control.py}, \texttt{verify\_control}. Here $a,b$ are dimensionless inverter participation factors.}
+\note{Optional. Emphasize the difference between the model's own accepted flag and the deterministic gate that reconstructs the checks from the returned arrays. The checker requires nonempty finite data, identities, fresh convergence, valid scope, the requested case, voltage and current bounds, and actual versus commanded P/Q tracking. This is a first-action check. The MPC plan has separate horizon evidence, and neither proves stability or robustness to unknown disturbances.}
+\end{frame}
+
+\begin{frame}[t]{Initial supervisor code 8/9: the final authority stays with the operator}
+\deepdive
+\implcode{continuous_workflow}{61}{64}
+\implcode{continuous_workflow}{288}{291}
+\footnotesize
+\textbf{Read back:} proposed P/Q, participation factors, current allowance and scope. Review measurement, protection and implementation questions.
+\par\smallskip\textbf{Record identity:} the hash binds the decision fields to this record. Local acknowledgment neither dispatches equipment nor overrides rejection.
+\par\smallskip\textbf{Benefit to test:} consistent evidence for human review. Operator workload and live ADMS deployment are not evaluated.
+\sources{Exact local-review contract: \texttt{src/continuous\_workflow.py}. Human/automation allocation background: Parasuraman, Sheridan and Wickens (2000), \url{https://doi.org/10.1109/3468.844354}. Dashboard checkpoint F2.}
+\note{Optional. The operator remains a person, not another Llama role. The final dashboard is local and has no SCADA dispatch API. Hashing supports record identity but does not authenticate the human, sensors, model or source files. A future operational integration would need separate authority and assurance work. Ask the audience which displayed quantity would reveal a mistaken interpretation of a 20 percent current reserve.}
+\end{frame}
+
+\begin{frame}[t]{Initial supervisor code 9/9: match the displayed response to its recorded call}
+\deepdive
+\checkpoint{T1}{Open the read-only trace notebook and load the supplied evidence.}
+\implcode{continuous_workflow}{108}{114}
+\footnotesize
+\textbf{Stage record:} the role, numerical method, status, response source and returned content travel together. The journal retains the actual request context and raw local-model response.
+\par\smallskip\textbf{Audit rule:} the reader requires the same call ID, choice, reason and recorded client duration. It rejects missing or nonunique matches instead of selecting a convenient journal.
+\par\smallskip T2--T6 expose the voltage, MILP, h06 intake and cyber traces. T7--T9 then inspect timing fields and source hashes. Reading these files does not invoke a solver or Llama.
+\sources{Exact stage schema, journal and client timer: \texttt{src/continuous\_workflow.py}. Matching reader: \texttt{src/trace\_latency.py}. Companion: \texttt{Agent\_Trace\_and\_Latency.ipynb}, T1--T9.}
+\note{Optional. This is the bridge from architecture to inspectable experiments: every claim on the later case slides should point to a numerical return or an actual recorded language response. The call ID is local to its journal, so the source path and unique matching rule also matter. Deterministic stages do not acquire invented LLM reasons or invented per-stage timings. The notebooks are evidence readers unless the main experiment explicitly launches a live call.}
+\end{frame}

@@ -1,0 +1,118 @@
+{
+  "as_of": "2026-10-17",
+  "scope": "Primary U.S. control-room operator evidence. Organization-specific facts must not be generalized into universal staffing or work schedules.",
+  "sources": [
+    {
+      "id": "O01",
+      "title": "What Happens in the Control Room",
+      "organization": "PJM Interconnection",
+      "date": "2026-04-16",
+      "date_note": "Current PDF footer prints 'Aprill 16, 2026'; search snippets may expose an older 2025 edition. Facts here use the opened 2026 PDF.",
+      "url": "https://www.pjm.com/-/media/DotCom/about-pjm/newsroom/fact-sheets/what-happens-in-the-control-room-fact-sheet.pdf",
+      "short": "PJM control-room facts 2026",
+      "web_ref": "turn44view0",
+      "type": "Official operator fact sheet"
+    },
+    {
+      "id": "O02",
+      "title": "CB006 PJM Control Room Interactions, Revision 9",
+      "organization": "PJM Interconnection",
+      "date": "2025-08-11",
+      "url": "https://www.pjm.com/-/media/DotCom/library/whitepapers/compliance/cb006-pjm-control-room-interactions.ashx?la=en",
+      "short": "PJM operator roles 2025",
+      "web_ref": "turn46view0",
+      "type": "Official compliance bulletin explaining roles; controlling agreements and manuals take precedence"
+    },
+    {
+      "id": "O03",
+      "title": "ISO now has expanded training and emergency operations facilities",
+      "organization": "California ISO",
+      "author": "Tricia Johnstone, Director, Operational Readiness",
+      "date": "2025-02-20",
+      "date_evidence_url": "https://www.caiso.com/about/news/topics/operations",
+      "url": "https://www.caiso.com/about/news/energy-matters-blog/iso-now-has-expanded-training-and-emergency-operations-facilities",
+      "short": "CAISO operator training 2025",
+      "web_ref": "turn44view1",
+      "type": "Official operator organization article"
+    },
+    {
+      "id": "O04",
+      "title": "Meet the team that monitors the grid and keeps the lights on",
+      "organization": "Duke Energy",
+      "author": "Jessica Wells",
+      "date": "2022-08-02",
+      "url": "https://illumination.duke-energy.com/articles/meet-the-team-that-monitors-the-grid-and-keeps-the-lights-on",
+      "short": "Duke operator profile 2022",
+      "web_ref": "turn46view1",
+      "type": "Official historical utility operator profile"
+    }
+  ],
+  "facts": [
+    {
+      "id": "OF01",
+      "claim": "PJM's system-operator team works 24 hours a day, seven days a week, balancing supply and demand, watching transmission overloads, and planning for the next day.",
+      "ref": "O01",
+      "locator": "PDF page 1",
+      "caveat": "Team coverage does not mean an individual works continuously. Do not infer a shift length or staffing count, or apply this schedule to every utility desk.",
+      "proposed_agent_use": "Prepare a source-linked briefing of new outages, changed forecasts, and unresolved actions; a qualified operator checks it at handover.",
+      "proposal_status": "Illustrative tutorial design, not a disclosed PJM agent deployment."
+    },
+    {
+      "id": "OF02",
+      "claim": "At PJM, a Generation Dispatcher handles real-time load/generation balance and reserves; a Power Dispatcher handles transmission security, outage coordination, and voltage control. A Reliability Engineer studies next-day outages; a Master Coordinator handles forecasts, generation scheduling, and interchange.",
+      "ref": "O02",
+      "locator": "PDF page 1",
+      "caveat": "These are PJM job positions. The bulletin explicitly says positions do not map one-to-one to NERC functional titles. Other operators may organize desks differently.",
+      "proposed_agent_use": "Route a task to the appropriate desk's evidence and simulation tools; retain a named human owner for the decision.",
+      "proposal_status": "Illustrative tutorial design."
+    },
+    {
+      "id": "OF03",
+      "claim": "PJM operates two control rooms concurrently as one coordinated team, sharing an Energy Management System, dispatch tools, and electronic logging.",
+      "ref": "O02",
+      "locator": "PDF pages 1-2",
+      "caveat": "An organization-specific resilience and coordination arrangement; do not generalize the count to all utilities.",
+      "proposed_agent_use": "Draft a traceable event log and reconcile duplicate updates without replacing required operating communications.",
+      "proposal_status": "Illustrative tutorial design."
+    },
+    {
+      "id": "OF04",
+      "claim": "PJM reports eight weeks of operator training annually, including simulations, grid exercises, and practice managing stress and fatigue.",
+      "ref": "O01",
+      "locator": "PDF pages 1-2",
+      "caveat": "PJM's reported training program, not a universal U.S. minimum or individual qualification rule.",
+      "proposed_agent_use": "Use an agent in a simulator exercise to assemble evidence and draft options, then score missed constraints, unsupported claims, and operator corrections.",
+      "proposal_status": "Illustrative tutorial design."
+    },
+    {
+      "id": "OF05",
+      "claim": "CAISO's 2025 training expansion included an 18-console simulator room. Its operator schedule included one training week in each six-week rotation, and simulated disaster or outage scenarios could run for up to eight hours.",
+      "ref": "O03",
+      "locator": "Article sections 'Training at CAISO' and facilities description",
+      "caveat": "Reported CAISO facilities and schedule in February 2025. Do not imply all utilities use that schedule or confuse an eight-hour exercise with a work-shift rule.",
+      "proposed_agent_use": "Practice a storm or equipment-outage scenario using read-only evidence retrieval and a simulator before considering an operational pilot.",
+      "proposal_status": "Illustrative tutorial design; the article does not claim an agent was used in these simulations."
+    },
+    {
+      "id": "OF06",
+      "claim": "Duke's 2022 operator profile describes monitoring weather, generation, in-service lines, and customer demand, then running studies on real-time data to support maintenance and operating decisions. The featured reliability coordinator monitored Duke and neighboring power flows in the Carolinas and Virginia.",
+      "ref": "O04",
+      "locator": "Article body, operator duties and reliability-coordinator profile",
+      "caveat": "Historical profile of one utility context. The article does not establish current staffing, universal desk roles, or an agent deployment. Avoid copying its informal explanation that excess total generation directly causes thermal overloads.",
+      "proposed_agent_use": "Gather timestamped weather, asset status, and the applicable procedure; call a validated study tool; present evidence and unresolved checks to the operator.",
+      "proposal_status": "Illustrative tutorial design."
+    }
+  ],
+  "suggested_operator_task_mapping": [
+    {"operator_task":"Shift or event briefing","agent_assistance":"Summarize changes with source IDs, timestamps, and unresolved actions","human_decision":"Confirm the brief and required communications"},
+    {"operator_task":"Planned-outage screening","agent_assistance":"Retrieve procedures and past records, flag missing data, run approved checks","human_decision":"Decide disposition and coordinate with responsible organizations"},
+    {"operator_task":"Voltage or congestion investigation","agent_assistance":"Assemble topology and telemetry; invoke a power-flow or contingency tool","human_decision":"Assess feasibility and authorize action through normal procedures"},
+    {"operator_task":"Training and debrief","agent_assistance":"Replay a simulated event and draft a source-linked sequence of observed tool actions","human_decision":"Instructor scores correctness, judgement, and communication"}
+  ],
+  "editorial_caveats": [
+    "The task-to-agent mapping is the tutorial author's proposed design, not evidence that PJM, CAISO, or Duke uses that architecture.",
+    "Keep each source's derived narrative concise across slides and notes; O01-O04 web extraction budgets are 200 words each.",
+    "Avoid universal shift lengths, mandatory staffing counts, or training-hour claims; cite organization and date with each numerical fact.",
+    "Mention independent simulation, documented authority, and operator review without claiming that an LLM replaces dispatch, protection, or trained personnel."
+  ]
+}

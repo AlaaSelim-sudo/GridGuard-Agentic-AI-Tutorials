@@ -1,0 +1,416 @@
+{
+  "request": "Bring back demand with at most one hundred amperes through the nearby bypass. Keep the farther route open and leave solar generation out of the plan.",
+  "scene": "outage",
+  "parser": {
+    "rating_fraction": 1.0,
+    "short_limit_amps": 400.0,
+    "allow_long_tie": true,
+    "allow_pv": true,
+    "status": "CLARIFY",
+    "reason": "Need one stated short-path current ceiling."
+  },
+  "interpretation": {
+    "status": "READY",
+    "rating_fraction": 1.0,
+    "short_limit_amps": 100,
+    "allow_long_tie": false,
+    "allow_pv": false,
+    "reason": "Operator request accepted as is"
+  },
+  "intake_call": {
+    "payload": {
+      "model": "llama3.1:8b",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Interpret an authorized operator request for a distribution-grid simulation. Extract restrictions only; never change trusted topology, fault quarantine, forecasts, equipment ratings or verification rules. Output all fields in the JSON schema. READY means the request is clear, supported and consistent. CLARIFY means incomplete, contradictory, unsupported or seeking to bypass a mandatory rule; do not guess. rating_fraction is the permitted fraction of nominal line current, not a PV power percentage. short_limit_amps is an additional current ceiling on the short restoration bypass. allow_long_tie and allow_pv are operator permissions; false can restrict the trusted capabilities, true cannot create them. Use the trusted default restrictions for fields the operator does not change. A later explicit correction supersedes a withdrawn earlier value; unresolved conflicts require clarification. Honor negation, comparisons and ordinary number words/fractions. Only rating_fraction=0.8 or 1.0 and short_limit_amps=100,150,400 are implemented in this small lesson. A reference to a prohibited fault reclosure or skipped verifier requires CLARIFY. Return only concise JSON. Your reason is not an electrical safety certificate. Your role is Interpreter. Interpret the request."
+        },
+        {
+          "role": "user",
+          "content": "{\"operator_request\": \"Bring back demand with at most one hundred amperes through the nearby bypass. Keep the farther route open and leave solar generation out of the plan.\", \"trusted_context\": {\"outage_segment_isolated\": true, \"restoration_paths\": {\"short\": {\"length_km\": 0.25}, \"long\": {\"length_km\": 2.0}}, \"physical_short_tie_rating_amps\": 400, \"physical_long_tie_available\": true, \"physical_pv_available\": true, \"default_restrictions\": {\"rating_fraction\": 1.0, \"short_limit_amps\": 400.0, \"allow_long_tie\": true, \"allow_pv\": true}, \"mandatory_verification\": true, \"fault_reclosure_allowed\": false}}"
+        }
+      ],
+      "format": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "READY",
+              "CLARIFY"
+            ]
+          },
+          "rating_fraction": {
+            "type": "number",
+            "enum": [
+              0.8,
+              1.0
+            ]
+          },
+          "short_limit_amps": {
+            "type": "number",
+            "enum": [
+              100,
+              150,
+              400
+            ]
+          },
+          "allow_long_tie": {
+            "type": "boolean"
+          },
+          "allow_pv": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "rating_fraction",
+          "short_limit_amps",
+          "allow_long_tie",
+          "allow_pv",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "stream": false,
+      "keep_alive": "30m",
+      "options": {
+        "temperature": 0,
+        "seed": 11,
+        "num_predict": 230,
+        "num_ctx": 8192
+      }
+    },
+    "raw_response": {
+      "model": "llama3.1:8b",
+      "created_at": "2026-09-20T21:26:59.1293442Z",
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"status\": \"READY\",\n  \"rating_fraction\": 1.0,\n  \"short_limit_amps\": 100,\n  \"allow_long_tie\": false,\n  \"allow_pv\": false,\n  \"reason\": \"Operator request accepted as is\"\n}"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 1157296100,
+      "load_duration": 3145600,
+      "prompt_eval_count": 412,
+      "prompt_eval_cached_count": 5,
+      "prompt_eval_duration": 312632000,
+      "eval_count": 58,
+      "eval_duration": 794059000
+    },
+    "response": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 100,
+      "allow_long_tie": false,
+      "allow_pv": false,
+      "reason": "Operator request accepted as is"
+    },
+    "seconds": 3.197442599994247
+  },
+  "workflow": {
+    "case": "demo_49be73a1af",
+    "method": "agentic",
+    "status": "RECOMMEND",
+    "candidate": {
+      "tool": "RESTORATION_SEARCH",
+      "pv_cap": 0.0,
+      "tie": "short",
+      "shed_fraction": 0.75
+    },
+    "metrics": {
+      "converged": true,
+      "vmin": 1.005461188811932,
+      "vmax": 1.029999897435215,
+      "voltage_violations": 0,
+      "served_kw": 1843.61355,
+      "unserved_kw": 2903.85401,
+      "critical_served_kw": 474.03975,
+      "critical_total_kw": 474.03975,
+      "pv_kw": 0.0,
+      "losses_kw": 77.20442842726705,
+      "mv_cycles": 0,
+      "topology_hash": "54aabe637ee6fbab14cf2414d5b33d53a1cf824d245cc9808f75f8f08ff84da1",
+      "physical_load_disconnects": 1466,
+      "max_line_pct": 95.55550428063577,
+      "overloaded_lines": 0,
+      "tie_loading_pct": 95.55550428063577
+    },
+    "reasons": [],
+    "trace": [
+      {
+        "role": "Awareness",
+        "event": "evidence_validation",
+        "failures": [],
+        "evidence": {
+          "trusted_source": true,
+          "age_s": 2.0,
+          "reported_topology": "ff458badff854981010cdcbe36c69a4eebe6b011d3a5c6c2e41b744d6842350d",
+          "trusted_topology": "ff458badff854981010cdcbe36c69a4eebe6b011d3a5c6c2e41b744d6842350d",
+          "reported_vmax": 1.0300000000000002,
+          "trusted_vmax": 1.0300000000000002
+        },
+        "state": {
+          "converged": true,
+          "vmin": 1.03,
+          "vmax": 1.0300000000000002,
+          "voltage_violations": 0,
+          "served_kw": 0,
+          "unserved_kw": 4747.46756,
+          "critical_served_kw": 0,
+          "critical_total_kw": 474.03975,
+          "pv_kw": 0,
+          "losses_kw": 0.0,
+          "mv_cycles": 0,
+          "topology_hash": "ff458badff854981010cdcbe36c69a4eebe6b011d3a5c6c2e41b744d6842350d",
+          "physical_load_disconnects": 0,
+          "max_line_pct": 0.0,
+          "overloaded_lines": 0
+        }
+      },
+      {
+        "role": "Planner",
+        "event": "select_tool",
+        "tool": "RESTORATION_SEARCH",
+        "reason": "Evaluate available bypasses and load priorities to find a feasible service-restoration recommendation."
+      },
+      {
+        "role": "Tool",
+        "event": "proposal",
+        "tool": "RESTORATION_SEARCH",
+        "result": {
+          "status": "PROPOSE",
+          "candidate": {
+            "tool": "RESTORATION_SEARCH",
+            "pv_cap": 0.0,
+            "tie": "short",
+            "shed_fraction": 0.75
+          },
+          "reason": "best_in_catalog",
+          "catalog": [
+            {
+              "candidate": {
+                "tool": "RESTORATION_SEARCH",
+                "pv_cap": 0.0,
+                "tie": "short",
+                "shed_fraction": 0.0
+              },
+              "failures": [
+                "thermal"
+              ],
+              "metrics": {
+                "converged": true,
+                "vmin": 0.9854964048421673,
+                "vmax": 1.0299996591224663,
+                "voltage_violations": 0,
+                "served_kw": 4747.46756,
+                "unserved_kw": 0.0,
+                "critical_served_kw": 474.03975,
+                "critical_total_kw": 474.03975,
+                "pv_kw": 0.0,
+                "losses_kw": 181.27015043482064,
+                "mv_cycles": 0,
+                "topology_hash": "54aabe637ee6fbab14cf2414d5b33d53a1cf824d245cc9808f75f8f08ff84da1",
+                "physical_load_disconnects": 0,
+                "max_line_pct": 234.45393128470923,
+                "overloaded_lines": 1,
+                "tie_loading_pct": 234.45393128470923
+              },
+              "objective": 9013.82531
+            },
+            {
+              "candidate": {
+                "tool": "RESTORATION_SEARCH",
+                "pv_cap": 0.0,
+                "tie": "short",
+                "shed_fraction": 0.25
+              },
+              "failures": [
+                "thermal"
+              ],
+              "metrics": {
+                "converged": true,
+                "vmin": 0.9888249304282821,
+                "vmax": 1.0299997292395007,
+                "voltage_violations": 0,
+                "served_kw": 3980.0999850000003,
+                "unserved_kw": 767.3675749999998,
+                "critical_served_kw": 474.03975,
+                "critical_total_kw": 474.03975,
+                "pv_kw": 0.0,
+                "losses_kw": 148.0265291845758,
+                "mv_cycles": 0,
+                "topology_hash": "54aabe637ee6fbab14cf2414d5b33d53a1cf824d245cc9808f75f8f08ff84da1",
+                "physical_load_disconnects": 489,
+                "max_line_pct": 203.37519304035365,
+                "overloaded_lines": 1,
+                "tie_loading_pct": 203.37519304035365
+              },
+              "objective": 8246.457735
+            },
+            {
+              "candidate": {
+                "tool": "RESTORATION_SEARCH",
+                "pv_cap": 0.0,
+                "tie": "short",
+                "shed_fraction": 0.5
+              },
+              "failures": [
+                "thermal"
+              ],
+              "metrics": {
+                "converged": true,
+                "vmin": 0.9958361936882413,
+                "vmax": 1.02999981463045,
+                "voltage_violations": 0,
+                "served_kw": 3081.565955,
+                "unserved_kw": 1665.901605,
+                "critical_served_kw": 474.03975,
+                "critical_total_kw": 474.03975,
+                "pv_kw": 0.0,
+                "losses_kw": 112.82551647305232,
+                "mv_cycles": 0,
+                "topology_hash": "54aabe637ee6fbab14cf2414d5b33d53a1cf824d245cc9808f75f8f08ff84da1",
+                "physical_load_disconnects": 978,
+                "max_line_pct": 157.6535906055711,
+                "overloaded_lines": 1,
+                "tie_loading_pct": 157.6535906055711
+              },
+              "objective": 7347.923705
+            },
+            {
+              "candidate": {
+                "tool": "RESTORATION_SEARCH",
+                "pv_cap": 0.0,
+                "tie": "short",
+                "shed_fraction": 0.65
+              },
+              "failures": [
+                "thermal"
+              ],
+              "metrics": {
+                "converged": true,
+                "vmin": 1.0005045947159907,
+                "vmax": 1.0299998810566209,
+                "voltage_violations": 0,
+                "served_kw": 2182.471935,
+                "unserved_kw": 2564.995625,
+                "critical_served_kw": 474.03975,
+                "critical_total_kw": 474.03975,
+                "pv_kw": 0.0,
+                "losses_kw": 86.10789255200496,
+                "mv_cycles": 0,
+                "topology_hash": "54aabe637ee6fbab14cf2414d5b33d53a1cf824d245cc9808f75f8f08ff84da1",
+                "physical_load_disconnects": 1271,
+                "max_line_pct": 115.30566339723573,
+                "overloaded_lines": 1,
+                "tie_loading_pct": 115.30566339723573
+              },
+              "objective": 6448.829685000001
+            },
+            {
+              "candidate": {
+                "tool": "RESTORATION_SEARCH",
+                "pv_cap": 0.0,
+                "tie": "short",
+                "shed_fraction": 0.75
+              },
+              "failures": [],
+              "metrics": {
+                "converged": true,
+                "vmin": 1.005461188811932,
+                "vmax": 1.029999897435215,
+                "voltage_violations": 0,
+                "served_kw": 1843.61355,
+                "unserved_kw": 2903.85401,
+                "critical_served_kw": 474.03975,
+                "critical_total_kw": 474.03975,
+                "pv_kw": 0.0,
+                "losses_kw": 77.20442842726705,
+                "mv_cycles": 0,
+                "topology_hash": "54aabe637ee6fbab14cf2414d5b33d53a1cf824d245cc9808f75f8f08ff84da1",
+                "physical_load_disconnects": 1466,
+                "max_line_pct": 95.55550428063577,
+                "overloaded_lines": 0,
+                "tie_loading_pct": 95.55550428063577
+              },
+              "objective": 6109.9713
+            },
+            {
+              "candidate": {
+                "tool": "RESTORATION_SEARCH",
+                "pv_cap": 0.0,
+                "tie": "short",
+                "shed_fraction": 0.9
+              },
+              "failures": [],
+              "metrics": {
+                "converged": true,
+                "vmin": 1.0104259607909656,
+                "vmax": 1.029999943827485,
+                "voltage_violations": 0,
+                "served_kw": 1242.77749,
+                "unserved_kw": 3504.69007,
+                "critical_served_kw": 474.03975,
+                "critical_total_kw": 474.03975,
+                "pv_kw": 0.0,
+                "losses_kw": 65.85022632666352,
+                "mv_cycles": 0,
+                "topology_hash": "54aabe637ee6fbab14cf2414d5b33d53a1cf824d245cc9808f75f8f08ff84da1",
+                "physical_load_disconnects": 1760,
+                "max_line_pct": 69.02853342016488,
+                "overloaded_lines": 0,
+                "tie_loading_pct": 69.02853342016488
+              },
+              "objective": 5509.13524
+            }
+          ],
+          "seconds": 0.9235074000025634,
+          "fresh_ac_solves": 6
+        }
+      },
+      {
+        "role": "Verification",
+        "event": "fresh_AC_check",
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "converged": true,
+          "vmin": 1.005461188811932,
+          "vmax": 1.029999897435215,
+          "voltage_violations": 0,
+          "served_kw": 1843.61355,
+          "unserved_kw": 2903.85401,
+          "critical_served_kw": 474.03975,
+          "critical_total_kw": 474.03975,
+          "pv_kw": 0.0,
+          "losses_kw": 77.20442842726705,
+          "mv_cycles": 0,
+          "topology_hash": "54aabe637ee6fbab14cf2414d5b33d53a1cf824d245cc9808f75f8f08ff84da1",
+          "physical_load_disconnects": 1466,
+          "max_line_pct": 95.55550428063577,
+          "overloaded_lines": 0,
+          "tie_loading_pct": 95.55550428063577
+        },
+        "fresh_ac_solves": 1
+      },
+      {
+        "role": "Explanation",
+        "event": "report",
+        "text": "Verified simulation recommendation: {'tool': 'RESTORATION_SEARCH', 'pv_cap': 0.0, 'tie': 'short', 'shed_fraction': 0.75}. Voltage 1.0055\u20131.0300 pu; maximum allowed-rating utilization 95.56%. No physical equipment was operated."
+      }
+    ],
+    "initial_tool_override": null,
+    "budget": 2,
+    "tool_calls": 1,
+    "fresh_ac_solves": 8,
+    "gate_rejections": 0,
+    "seconds": 4.127329800001462,
+    "llm_calls": 1,
+    "explanation": "Verified simulation recommendation: {'tool': 'RESTORATION_SEARCH', 'pv_cap': 0.0, 'tie': 'short', 'shed_fraction': 0.75}. Voltage 1.0055\u20131.0300 pu; maximum allowed-rating utilization 95.56%. No physical equipment was operated."
+  },
+  "interpretation_notice": "Check the extracted restrictions against the operator request. The electrical gate does not establish semantic correctness; this classroom example is not independently gold-graded."
+}

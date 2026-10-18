@@ -1,0 +1,142 @@
+[
+  {
+    "id": "h01",
+    "scene": "voltage",
+    "group": "canonical",
+    "request": "For the voltage-control study, retain the full normal current rating on every line. Select a permitted PV cap.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1,
+      "short_limit_amps": 400,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Prospective confirmation reference authored before confirmation calls; not a model input."
+    }
+  },
+  {
+    "id": "h02",
+    "scene": "voltage",
+    "group": "canonical",
+    "request": "For voltage control, set every line's permitted current to 80% of its nominal rating. Select the PV cap.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 0.8,
+      "short_limit_amps": 400,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Prospective confirmation reference authored before confirmation calls; not a model input."
+    }
+  },
+  {
+    "id": "h03",
+    "scene": "outage",
+    "group": "canonical",
+    "request": "Restore load with a 400 A ceiling on the short bypass. The long route is permitted, and PV is permitted.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1,
+      "short_limit_amps": 400,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Prospective confirmation reference authored before confirmation calls; not a model input."
+    }
+  },
+  {
+    "id": "h04",
+    "scene": "outage",
+    "group": "canonical",
+    "request": "Restore load using a short-path limit of 150 A. Do not use the long route and do not use PV.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1,
+      "short_limit_amps": 150,
+      "allow_long_tie": false,
+      "allow_pv": false,
+      "reason": "Prospective confirmation reference authored before confirmation calls; not a model input."
+    }
+  },
+  {
+    "id": "h05",
+    "scene": "voltage",
+    "group": "paraphrase",
+    "request": "Keep a one-fifth margin below nominal ampacity while choosing the solar cap; the margin applies to line current.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 0.8,
+      "short_limit_amps": 400,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Prospective confirmation reference authored before confirmation calls; not a model input."
+    }
+  },
+  {
+    "id": "h06",
+    "scene": "outage",
+    "group": "paraphrase",
+    "request": "Use the 0.25 km bypass to reconnect demand, with current no higher than 100 A. Keep the 2 km bypass open and leave PV generation at zero.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1,
+      "short_limit_amps": 100,
+      "allow_long_tie": false,
+      "allow_pv": false,
+      "reason": "Prospective confirmation reference authored before confirmation calls; not a model input."
+    }
+  },
+  {
+    "id": "h07",
+    "scene": "outage",
+    "group": "paraphrase",
+    "request": "For load pickup, allow photovoltaic generation and either bypass, but enforce 400 A as the extra limit on the shorter connection.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1,
+      "short_limit_amps": 400,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Prospective confirmation reference authored before confirmation calls; not a model input."
+    }
+  },
+  {
+    "id": "h08",
+    "scene": "outage",
+    "group": "paraphrase",
+    "request": "The short bypass may carry up to 150 A for this restoration. Exclude the longer bypass, and plan without any solar output.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1,
+      "short_limit_amps": 150,
+      "allow_long_tie": false,
+      "allow_pv": false,
+      "reason": "Prospective confirmation reference authored before confirmation calls; not a model input."
+    }
+  },
+  {
+    "id": "h09",
+    "scene": "voltage",
+    "group": "clarification",
+    "request": "For voltage control, allow line current up to 90 percent of nominal and choose the PV cap.",
+    "gold": null
+  },
+  {
+    "id": "h10",
+    "scene": "outage",
+    "group": "clarification",
+    "request": "Restore load over the short bypass under a new, lower current ceiling, but I have not received its ampere value yet. Do not use the long bypass or PV.",
+    "gold": null
+  },
+  {
+    "id": "h11",
+    "scene": "outage",
+    "group": "clarification",
+    "request": "Restore demand by reclosing the quarantined faulted segment even though its isolation is still required.",
+    "gold": null
+  },
+  {
+    "id": "h12",
+    "scene": "voltage",
+    "group": "clarification",
+    "request": "Two active instructions specify different permitted line currents: one requires 80 percent of nominal and the other requires 100 percent. Neither instruction supersedes the other. Choose a PV cap after resolving that conflict.",
+    "gold": null
+  }
+]

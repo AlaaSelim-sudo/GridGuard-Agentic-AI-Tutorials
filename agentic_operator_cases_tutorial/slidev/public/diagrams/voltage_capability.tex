@@ -1,0 +1,34 @@
+\definecolor{IEEEBlue}{HTML}{00629B}
+\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}
+\definecolor{Slate}{HTML}{526470}
+\definecolor{AlertRed}{HTML}{B83136}
+\definecolor{Amber}{HTML}{A66610}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,
+ font=\fontsize{11}{13}\selectfont,text=Navy,
+ box/.style={draw=IEEEBlue,thick,rounded corners=2pt,align=center,
+ fill=IEEEBlue!4,inner sep=3pt,minimum height=.62cm},
+ arr/.style={->,draw=IEEEBlue,line width=1pt},
+ ]
+
+\begin{scope}[x=2.35cm,y=2.35cm]
+ \fill[Cyan!15] (0,-.44) -- plot[domain=-.44:.44,samples=70] ({sqrt(1-\x*\x)},\x) -- (0,.44) -- cycle;
+ \draw[Cyan,thick] plot[domain=-.44:.44,samples=70] ({sqrt(1-\x*\x)},\x);
+ \draw[Slate,dashed] (0,.44)--(.90,.44);
+ \draw[Slate,dashed] (0,-.44)--(.90,-.44);
+ \draw[arr] (0,0)--(1.14,0) node[right] {$a$};
+ \draw[arr] (0,-.55)--(0,.57) node[above] {$b$};
+ \node[left] at (0,.44) {$+0.44$};
+ \node[left] at (0,-.44) {$-0.44$};
+ \node[below] at (1,0) {$1$};
+ \fill[IEEEBlue] (.960307,-.111114) circle(.025);
+ \node[below left] at (.94,-.12) {MPC};
+\end{scope}
+\node[align=left,text width=7.7cm] at (8.15,.60)
+ {$p_i=aS_i,\qquad q_i=bS_i$\\[3pt]
+ $0\le a\le1,\quad |b|\le0.44,\quad a^2+b^2\le1$};
+\node[align=left,text width=7.7cm] at (8.15,-.64)
+ {$b<0$: reactive absorption\\[3pt]
+ Inverter capability is one check.};
+
+\end{tikzpicture}

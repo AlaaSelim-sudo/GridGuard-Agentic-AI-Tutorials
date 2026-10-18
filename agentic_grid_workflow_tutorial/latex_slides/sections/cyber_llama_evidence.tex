@@ -1,0 +1,23 @@
+% Historical standard-method trace; one case-specific evidence frame.
+\begin{frame}[t]{C4: the actual cyber agent retains a provisional candidate}
+\deepdive
+\checkpoint{C4}{Recorded four-bus DC workflow; trusted measurements are supplied as an assumption.}
+\footnotesize
+\begin{tabular}{@{}p{.23\linewidth}p{.43\linewidth}p{.28\linewidth}@{}}
+\toprule Stage / method & Actual response & Next action \\
+\midrule
+Planning / Llama & \texttt{WLS\_TRUSTED\_REDISPATCH} & Run the permitted tool \\
+Estimation / trusted WLS & Rank 3; three angles; residual degrees of freedom 0 & Form the DC control problem \\
+Proposal / redispatch & $u=0.12169$ p.u. flexible injection & Evaluate under synthetic truth \\
+Verification / DC checks & Flow $1$--$2=0.17046<0.18$ p.u.; zero violations & Prepare numerical report \\
+Explanation / Llama & \texttt{REVIEW}, despite passed modeled checks & Escalate; candidate provisional \\
+Human review / authority & Acknowledgment remains pending & No equipment command \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\textbf{Actual Planner reason:} ``This tool is authorized for the given use case and scope, and it is designed for a specific DC redispatch example with trusted measurements.''
+\par\smallskip
+\textbf{Strong baseline:} fixed supervision uses the same $u$, has the same flows and returns \texttt{MODEL\_RECOMMEND}. No added Llama detection or control benefit is demonstrated; its escalation remains visible.
+\sources{Exact responses: \texttt{results/standard\_agent\_workflow.json}, cyber calls 7--8. Tool evidence: \texttt{results/standard\_formulations.json}. Stealth limitation: Liu et al., \url{https://doi.org/10.1145/1653662.1653666}.}
+\note{Read the returned enum, not what we hoped the agent would do. Llama chooses the correct tool family on Planning call7. The numerical solver produces injection0.12169366726990237 per unit, and simulation using known synthetic truth returns branch1--2 flow0.1704607615600558 per unit. All four modeled branch limits pass. On Explanation call8, the model chooses REVIEW even though its reason says the workflow completed successfully and passed modeled checks. The implementation therefore returns REVIEW; the numerical candidate must remain provisional. Do not silently convert the narrative into MODEL\_RECOMMEND. The fixed adaptive comparator uses the same protected readings and numerical method, and gets the same action. Compared with control from the corrupted stealth estimate, protected-data recovery lowers the actual toy flow from0.24 to0.17046 and removes one modeled overload. That improvement belongs to the additional evidence and redispatch, not to Llama. Full-rank trusted measurements make the toy state identifiable, but they have zero residual redundancy and their authenticity is assumed, not established by the framework. This is a recorded standard-method trace from September21, separate from the current continuous voltage study.}
+\end{frame}

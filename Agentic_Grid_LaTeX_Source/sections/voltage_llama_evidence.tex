@@ -1,0 +1,24 @@
+% Current continuous experiment; one case-specific evidence frame.
+\begin{frame}[t]{A2: actual Llama choices follow the numerical evidence}
+\deepdive
+\checkpoint{A2}{Current OpenDSS P3 record: 80\% nominal-current allowance; interface 1.1.}
+\footnotesize
+\begin{tabular}{@{}p{.20\linewidth}p{.43\linewidth}p{.31\linewidth}@{}}
+\toprule Stage / method & Actual returned evidence or choice & Next action \\
+\midrule
+Awareness / schema & Allowance 80\%; voltage 0.95--1.05 p.u. & Keep limits immutable \\
+Planning / Llama + MPC & \texttt{VERIFY\_SAC\_FIRST}; an MPC plan is available & Evaluate saved SAC point \\
+Execution / SAC & $(a,b)=(0.33694,\,0.03070)$ & Fresh OpenDSS solve \\
+Verification / checks & Current use 111.97\%; \texttt{thermal} & Reject; permit one retry \\
+Recovery / Llama & \texttt{USE\_MPC\_PLAN} & Freshly check $(0.30408,\,0.04149)$ \\
+Recheck / OpenDSS & Current use 99.60\%; no modeled violations & Return evidence card \\
+Explanation / Llama & \texttt{REVIEW\_EVIDENCE} & Human acknowledgment pending \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\textbf{Actual Planner reason:} ``A numerical SAC proposal is available; its fresh first-action check has not yet been requested.''
+\par\smallskip
+\textbf{Paired baseline:} fixed rules return the same MPC action and 99.60\%. Llama contributes a recorded next-step reason; the numerical gain comes from verification and MPC recovery.
+\sources{Exact stages/reply: \texttt{results/workshop\_run\_opendss.json}, Planning call 1. Three actual Llama calls; two candidate checks. Detailed provenance: \texttt{appendix/Case\_Agent\_Responses.md}.}
+\note{Read down the rows as a sequence, not as a list of eight different language models. Awareness, execution, simulation and verification use deterministic methods; the recorded language calls are Planner, Recovery and Explanation. The Simulation stage appears through its fresh OpenDSS output in the recheck rows. Current use is max absolute modeled phase current divided by the allowed rating, so 111.97 percent means exceeding the requested eighty-percent nominal allowance. The initial SAC point has two current violations; the MPC first point has zero. Exact fixed and agentic replacement controls are a=0.3040791833492598 and b=0.04149291669866676, with P=2387.15738223 kW and Q=325.73792562 kvar. Final modeled voltage is1.001782946--1.035025518 p.u. Both supervisors recommend that same point; no physical action was executed. The current interface was clarified after a disclosed pilot in which both agentic routes escalated before candidate simulation; this is development evidence, not a held-out language benchmark. In the MV-only backend the original SAC point passes at50.9183 percent current use and recovery is skipped. This difference is model coverage, not a difference in agent authority.}
+\end{frame}

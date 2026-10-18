@@ -1,0 +1,40 @@
+<!doctype html><meta charset="utf-8"><title>GridGuard: code and recorded results</title><style>body{font:20px/1.55 Arial;color:#003b5c;max-width:1080px;margin:40px auto;padding:0 28px}h1,h2{color:#00629b}h2{border-top:3px solid #00a6b2;padding-top:28px;margin-top:50px}pre{font:19px/1.5 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f7fa;padding:22px}a{color:#00629b;overflow-wrap:anywhere}li{margin:12px 0}.source{font-size:16px;color:#526470}</style><h1>GridGuard: code and recorded results</h1><p>These are the actual tutorial supervisors and preserved records used in the presentation. Each model reply selects a permitted workflow step; Python numerical tools calculate and check the action.</p><p>The archived workshop uses custom Python supervisors. The separate current GridGuard application uses LangGraph. These records establish the behavior of the dated tutorial runs.</p>
+<h2>Voltage / P3 OpenDSS / 27 September 2026</h2><ol>
+<li><b>Slide 12: Inputs: the recorded OpenDSS case</b><br>P3 uses full-feeder OpenDSS, an 80% current allowance and three forecast loads. The model chooses allowed steps. Saved SAC and calculated MPC supply candidate controls.</li>
+<li><b>Slide 13: Agent: request the MPC fallback</b><br>Planner chooses VERIFY_SAC_FIRST; that proposal then fails the thermal check. Recovery chooses USE_MPC_PLAN. The final explanation asks the operator to REVIEW_EVIDENCE.</li>
+<li><b>Slide 14: Code: check the chosen command</b><br>USE_MPC_PLAN selects the existing numerical candidate; the agent does not invent new setpoints. The loop solves that exact command with OpenDSS and calls verify_control before returning a recommendation.</li>
+<li><b>Slide 15: Result: SAC fails; MPC passes</b><br>SAC fails at 111.97% of allowed current. The MPC fallback passes at 99.60%. The checked proposal is P = 2387.16 kW and Q = +325.74 kvar; Vmax = 1.03503 p.u.</li>
+<li><b>Slide 16: Operator: review the exact recommendation</b><br>Read back P = 2387.16 kW, Q = +325.74 kvar, the 80% current allowance and full MV/LV scope. Then acknowledge this exact advisory record or request review. The saved human step is still PENDING.</li>
+</ol>
+<p>src/continuous_workflow.py, lines 231–232. Source statements; line breaks added for readability.</p><pre>point = plant.solve(
+    candidate[&#x27;control&#x27;],
+    load_mult=case.forecast_loads[0],
+    rating_fraction=case.rating_fraction,
+)
+failures = verify_control(point, case)</pre><p><a href="research/evidence/src/continuous_workflow.py">Read the complete original Python file</a> · <a href="research/source_TRACE_VOLT.html">Open the executed notebook, raw call journal and result record</a></p>
+<p class="source">GridGuard teaching materials. Recorded OpenDSS voltage workflow: P3 case, actual Llama replies, dashboard and Python source. Local executed tutorial and preserved model-call journals. 27 September 2026.</p>
+<h2>Restoration / six-node graph / 21 September 2026</h2><ol>
+<li><b>Slide 30: Inputs: the six-node restoration task</b><br>This recorded six-node run fixes tie 0–4 at 100 kW; the earlier example used 40 kW. The structured input already names RESTORATION_MILP as the allowed tool.</li>
+<li><b>Slide 31: Agent: choose the authorized MILP</b><br>Planning call 5 returns RESTORATION_MILP using the local model llama3.1:8b. Python checks the allowed choice and calls its fixed solver routine. Llama does not calculate the plan.</li>
+<li><b>Slide 32: Code: solve and check the pickup plan</b><br>The actual call is solve_restoration_milp(100.): the argument sets tie 0–4 to 100 kW. The numerical gate requires solver success and agreement with independent enumeration.</li>
+<li><b>Slide 33: Result: 200 kW total, 90 kW critical</b><br>The solver serves nodes 1, 2, 3 and 5: 200 kW total, including all 90 critical kW. Solver success and enumeration agree. The fixed workflow returns the same numerical result without Llama.</li>
+<li><b>Slide 34: Operator: the record requires review</b><br>Llama’s Explanation call 6 returns REVIEW despite passing numerical checks. The recorded human acknowledgment remains PENDING. Proposed next step: inspect the scope, request missing engineering checks and review again before any separate operating authorization.</li>
+</ol>
+<p>src/standard_agent_workflow.py, lines 80, 83. Source statements; line breaks added for readability.</p><pre>result = solve_restoration_milp(100.)
+accepted = bool(
+    result[&#x27;milp&#x27;][&#x27;success&#x27;]
+    and result[&#x27;agreement&#x27;]
+)</pre><p><a href="research/evidence/src/standard_agent_workflow.py">Read the complete original Python file</a> · <a href="research/source_TRACE_REST.html">Open the executed notebook, raw call journal and result record</a></p>
+<p class="source">GridGuard teaching materials. Recorded six-node restoration workflow: actual Llama routing, MILP evidence and pending human review. Local executed tutorial and preserved model-call journals. 21 September 2026.</p>
+<h2>Cyber / four-bus DC / 21 September 2026</h2><ol>
+<li><b>Slide 49: Inputs: a declared four-bus DC task</b><br>The structured input authorizes WLS_TRUSTED_REDISPATCH for a four-bus DC teaching case. Trusted sensors are assumed. The separate offline audit uses known synthetic truth.</li>
+<li><b>Slide 50: Agent: choose the authorized estimator</b><br>Actual model call 7 returned WLS_TRUSTED_REDISPATCH. The wrapper checks that choice against the task&#x27;s authorization before running the numerical tool.</li>
+<li><b>Slide 51: Code: calculate the provisional correction</b><br>The tool computes the estimate and correction; the model does not calculate the setpoint. The wrapper records the proposal, simulation checks and verification result separately.</li>
+<li><b>Slide 52: Result: a bounded correction with evidence</b><br>The tool proposes u = 0.121694 p.u.; predicted flow12 is 0.170000 p.u. The offline audit gives flow12 = 0.170461 p.u. and no branch-rating violations in this fixture.</li>
+<li><b>Slide 53: Operator: resolve trust before proceeding</b><br>Actual model call 8 returned REVIEW despite the passed numerical checks. The record ends at PENDING acknowledgment. A person must decide what evidence or further study is needed.</li>
+</ol>
+<p>src/standard_agent_workflow.py, lines 87–89. Source statements; line breaks added for readability.</p><pre>result = run_wls_demo()
+recovery = result[&#x27;trusted_recovery&#x27;]
+control = recovery[&#x27;control&#x27;]</pre><p><a href="research/evidence/src/standard_agent_workflow.py">Read the complete original Python file</a> · <a href="research/source_TRACE_CYBER.html">Open the executed notebook, raw call journal and result record</a></p>
+<p class="source">GridGuard teaching materials. Recorded four-bus cyber workflow: actual Llama routing, trusted-state correction and pending human review. Local executed tutorial and preserved model-call journals. 21 September 2026.</p>
+<h2>Check the alignment</h2><p><a href="research/code_manifest.json">Code manifest</a> records original source hashes, line ranges and verified equivalent Python statements. Display line breaks and indentation improve readability. The surrounding function is in the complete source.</p><p><a href="research/screenshots/capture_manifest.json">Screenshot manifest</a> records original HTML hashes, selected regions and unchanged output text. Screenshots show real archived notebook or dashboard views; they do not imply field deployment or a new live run.</p><p>The original model prompts and raw replies are linked in each source index. Opening a saved record makes no model call. The archived operator acknowledgment remains pending in all three walkthroughs.</p>

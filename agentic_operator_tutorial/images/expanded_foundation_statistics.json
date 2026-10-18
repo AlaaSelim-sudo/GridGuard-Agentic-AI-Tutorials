@@ -1,0 +1,201 @@
+{
+  "react_webshop": {
+    "id": "F01",
+    "title": "ReAct: reasoning alongside actions",
+    "caption": "Reported WebShop success rates: Act-only 30.1%, ReAct 40.0%, using PaLM 540B and 500 test instructions. Success requires satisfying all product requirements. These historical benchmark results are distinct from task score and from LATS's different WebShop experiment.",
+    "assumptions": "Reported rates preserved. No integer success counts, confidence intervals, replication model, or current production performance inferred.",
+    "source_url": "https://arxiv.org/pdf/2210.03629v3",
+    "source_refs": [
+      "F01"
+    ],
+    "source_locator": "Table 4, PDF p.8; evaluation setup, PDF p.7",
+    "setup": {
+      "model": "PaLM 540B",
+      "dataset": "WebShop",
+      "evaluated_n": 500,
+      "n_unit": "test instructions",
+      "repetitions": "not established for plotted cells"
+    },
+    "plot_id": "expanded_foundation_react",
+    "metric": "WebShop success rate (%)",
+    "data": [
+      {
+        "method": "Act-only",
+        "reported_value": 30.1
+      },
+      {
+        "method": "ReAct",
+        "reported_value": 40.0
+      }
+    ],
+    "value_status": "author-reported",
+    "uncertainty_intervals": null,
+    "derived_delta": null,
+    "file": "expanded_foundation_react.png",
+    "pdf": "expanded_foundation_react.pdf",
+    "svg": "expanded_foundation_react.svg",
+    "credit": "Original plot derived from cited primary-paper data; no experiments rerun"
+  },
+  "toolformer_mawps": {
+    "id": "F02",
+    "title": "Toolformer: the same model with API calls enabled",
+    "caption": "Reported MAWPS accuracy is 15.0% with API calls disabled and 44.0% enabled for the same fine-tuned GPT-J Toolformer model. The evaluation checks the first generated number, or the first number following an equals sign in an equation. Decoding allows at most one API call per input. Exact evaluated n is undisclosed.",
+    "assumptions": "Same-model decoding ablation. This first-number criterion is more lenient than full-solution correctness. No confidence intervals or sample count inferred.",
+    "source_url": "https://proceedings.neurips.cc/paper_files/paper/2023/file/d842425e4bf79ba039352da0f658a906-Paper-Conference.pdf",
+    "source_refs": [
+      "F02"
+    ],
+    "source_locator": "Table 3 and math-benchmark evaluation criterion, PDF p.6",
+    "setup": {
+      "model": "GPT-J, fine-tuned Toolformer",
+      "dataset": "MAWPS",
+      "evaluated_n": null,
+      "n_note": "exact evaluated count undisclosed",
+      "max_api_calls_per_input": 1
+    },
+    "plot_id": "expanded_foundation_toolformer",
+    "metric": "MAWPS first-number accuracy (%)",
+    "data": [
+      {
+        "method": "API calls disabled",
+        "reported_value": 15.0
+      },
+      {
+        "method": "API calls enabled",
+        "reported_value": 44.0
+      }
+    ],
+    "value_status": "author-reported",
+    "uncertainty_intervals": null,
+    "derived_delta": null,
+    "file": "expanded_foundation_toolformer.png",
+    "pdf": "expanded_foundation_toolformer.pdf",
+    "svg": "expanded_foundation_toolformer.svg",
+    "credit": "Original plot derived from cited primary-paper data; no experiments rerun"
+  },
+  "reflexion_ablation": {
+    "id": "F03",
+    "title": "Reflexion: tests and reflection work together here",
+    "caption": "Reported pass@1 accuracy on the 50 hardest HumanEval problems translated to Rust: GPT-4 base model 60%, reflection without test generation 52%, tests without reflection 60%, full Reflexion 68%. The ablation separates internal test generation/execution from natural-language reflection. It is specific to this selected hard programming subset.",
+    "assumptions": "Percentages converted directly from reported 0.60, 0.52, 0.60 and 0.68. No uncertainty intervals or success counts inferred. Tests and compiler feedback are task-specific evidence.",
+    "source_url": "https://proceedings.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+    "source_refs": [
+      "F03"
+    ],
+    "source_locator": "Table 3, PDF p.8; subset description in Table 2 and adjoining text",
+    "setup": {
+      "model": "GPT-4",
+      "dataset": "HumanEval Rust, 50 hardest tasks",
+      "evaluated_n": 50,
+      "n_unit": "selected translated programming problems"
+    },
+    "plot_id": "expanded_foundation_reflexion",
+    "metric": "HumanEval Rust pass@1 accuracy (%)",
+    "data": [
+      {
+        "method": "Base model",
+        "reported_value": 60.0
+      },
+      {
+        "method": "Reflection without tests",
+        "reported_value": 52.0
+      },
+      {
+        "method": "Tests without reflection",
+        "reported_value": 60.0
+      },
+      {
+        "method": "Full Reflexion",
+        "reported_value": 68.0
+      }
+    ],
+    "value_status": "author-reported fractions expressed as percentages",
+    "uncertainty_intervals": null,
+    "derived_delta": null,
+    "file": "expanded_foundation_reflexion.png",
+    "pdf": "expanded_foundation_reflexion.pdf",
+    "svg": "expanded_foundation_reflexion.svg",
+    "credit": "Original plot derived from cited primary-paper data; no experiments rerun"
+  },
+  "lats_webshop": {
+    "id": "F04",
+    "title": "LATS: searching alternative action paths",
+    "caption": "Reported WebShop task score is 64.2 for Reflexion and 75.9 for LATS (ReAct), with GPT-3.5 on 50 instructions. Score equals 100 times mean environment reward and is separate from success rate. Both methods use up to 30 trajectories; LATS expands five children. Equal trajectory count does not imply equal model-call or token budgets.",
+    "assumptions": "Historical prompting-method comparison, not a cross-paper ranking. Exact model snapshot and repeated-run uncertainty undisclosed. LATS requires environment reversion; the benchmark is a controlled shopping environment.",
+    "source_url": "https://arxiv.org/pdf/2310.04406v3",
+    "source_refs": [
+      "F04"
+    ],
+    "source_locator": "Table 6 and Section 5.3, PDF p.8; Appendix D.3, PDF pp.16–17",
+    "setup": {
+      "model": "GPT-3.5",
+      "model_snapshot": "unspecified",
+      "dataset": "WebShop",
+      "evaluated_n": 50,
+      "n_unit": "instructions/environments",
+      "max_trajectories": 30,
+      "lats_children_per_expansion": 5
+    },
+    "plot_id": "expanded_foundation_lats",
+    "metric": "WebShop task score (0–100)",
+    "data": [
+      {
+        "method": "Reflexion",
+        "reported_value": 64.2
+      },
+      {
+        "method": "LATS (ReAct)",
+        "reported_value": 75.9
+      }
+    ],
+    "value_status": "author-reported",
+    "uncertainty_intervals": null,
+    "derived_delta": null,
+    "file": "expanded_foundation_lats.png",
+    "pdf": "expanded_foundation_lats.pdf",
+    "svg": "expanded_foundation_lats.svg",
+    "credit": "Original plot derived from cited primary-paper data; no experiments rerun"
+  },
+  "aflow_mbpp": {
+    "id": "F05",
+    "title": "AFlow: optimizing the workflow before use",
+    "caption": "Reported MBPP pass@1 is 73.6% for the best manual baselines (CoT self-consistency, MedPrompt and MultiPersona tie) and 83.4% for AFlow, all executed with GPT-4o-mini. Table 1 averages three test runs. The paper states a 20% validation/80% test split with seed 42 but does not disclose the exact MBPP test count. Workflow search uses Claude-3.5-sonnet as optimizer.",
+    "assumptions": "Same-executor workflow comparison. Selecting the largest reported manual-baseline value is a descriptive comparison. No confidence intervals or exact test count inferred; no deployment reliability claim.",
+    "source_url": "https://arxiv.org/pdf/2410.10762v4",
+    "source_refs": [
+      "F05"
+    ],
+    "source_locator": "Table 1 and Section 5.1, PDF pp.7–8",
+    "setup": {
+      "executor": "GPT-4o-mini-0718",
+      "optimizer": "Claude-3.5-sonnet",
+      "dataset": "MBPP",
+      "evaluated_n": null,
+      "n_note": "exact test count undisclosed",
+      "test_repetitions": 3,
+      "aggregation": "mean",
+      "validation_fraction": 0.2,
+      "test_fraction": 0.8,
+      "split_seed": 42
+    },
+    "plot_id": "expanded_foundation_aflow",
+    "metric": "MBPP pass@1 (%)",
+    "data": [
+      {
+        "method": "Best manual workflows",
+        "reported_value": 73.6
+      },
+      {
+        "method": "AFlow workflow",
+        "reported_value": 83.4
+      }
+    ],
+    "value_status": "author-reported",
+    "uncertainty_intervals": null,
+    "derived_delta": null,
+    "file": "expanded_foundation_aflow.png",
+    "pdf": "expanded_foundation_aflow.pdf",
+    "svg": "expanded_foundation_aflow.svg",
+    "credit": "Original plot derived from cited primary-paper data; no experiments rerun"
+  }
+}

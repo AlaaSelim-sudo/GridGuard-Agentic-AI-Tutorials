@@ -1,0 +1,1846 @@
+{
+  "logical_frames": 140,
+  "main_frames": 72,
+  "core_frames": 72,
+  "deepdive_frames": 0,
+  "reference_frames": 68,
+  "appendix_frames": 68,
+  "notebooks": [
+    "Graph_Workflow_Lab.ipynb",
+    "Classroom_Labs.ipynb",
+    "Workshop_Step_by_Step.ipynb",
+    "Agent_Trace_and_Latency.ipynb",
+    "Proposal_Complete_Workflow.ipynb",
+    "LLM_Response_Selection.ipynb"
+  ],
+  "presentation_pages": 244,
+  "frames": [
+    {
+      "frame": 1,
+      "presentation_pages": "1\u20132",
+      "handout_page": 1,
+      "title": "One operator, three decisions, one evidence trail",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What will we build in three hours?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 2,
+      "presentation_pages": "3",
+      "handout_page": 2,
+      "title": "A three-hour route from diagrams to operator review",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which part of the software makes a decision?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 3,
+      "presentation_pages": "4\u20135",
+      "handout_page": 3,
+      "title": "Tool, agent and orchestrator have different jobs",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How do we draw these responsibilities clearly?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 4,
+      "presentation_pages": "6\u20137",
+      "handout_page": 4,
+      "title": "Read the diagram: operation, state, dependency and decision",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which operations could run independently?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 5,
+      "presentation_pages": "8\u201310",
+      "handout_page": 5,
+      "title": "A dependency DAG can split work and join the evidence",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which execution orders preserve every dependency?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 6,
+      "presentation_pages": "11\u201312",
+      "handout_page": 6,
+      "title": "Topological order puts every prerequisite before its consumer",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What changes when a failed check requests a retry?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 7,
+      "presentation_pages": "13\u201314",
+      "handout_page": 7,
+      "title": "A retry loop is a graph with a cycle, not a DAG",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What information must survive every node?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 8,
+      "presentation_pages": "15",
+      "handout_page": 8,
+      "title": "Typed state is the record carried through the graph",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Should a new result replace or append to a field?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 9,
+      "presentation_pages": "16\u201317",
+      "handout_page": 9,
+      "title": "A reducer states how a field absorbs new information",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How does the record choose the next edge?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 10,
+      "presentation_pages": "18\u201320",
+      "handout_page": 10,
+      "title": "Conditional routing makes the next action explicit",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Where can a human pause this process?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 11,
+      "presentation_pages": "21\u201322",
+      "handout_page": 11,
+      "title": "A checkpoint and an interrupt make review resumable",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How do these graph ideas map to our five stages?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 12,
+      "presentation_pages": "23\u201324",
+      "handout_page": 12,
+      "title": "Five proposed stages share one candidate and its evidence",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which returned facts should a verifier trust?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 13,
+      "presentation_pages": "25\u201326",
+      "handout_page": 13,
+      "title": "Typed, current and feasible are three separate claims",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which prior frameworks teach these mechanisms?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 14,
+      "presentation_pages": "27",
+      "handout_page": 14,
+      "title": "Recent frameworks provide mechanisms we can test",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What does a comparison checkmark actually mean?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 15,
+      "presentation_pages": "28",
+      "handout_page": 15,
+      "title": "A capability tick describes scope, not superiority",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Can we run the graph mechanics without an LLM?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 16,
+      "presentation_pages": "29",
+      "handout_page": 16,
+      "title": "The G lab makes every state transition visible",
+      "route": "core",
+      "checkpoints": [
+        "G0",
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5"
+      ],
+      "notebooks": [
+        "Graph_Workflow_Lab.ipynb"
+      ],
+      "transition": "How is this diagram expressed in Python state?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 17,
+      "presentation_pages": "30\u201331",
+      "handout_page": 17,
+      "title": "G1: give the graph a record and an event history",
+      "route": "core",
+      "checkpoints": [
+        "G1"
+      ],
+      "notebooks": [
+        "Graph_Workflow_Lab.ipynb"
+      ],
+      "transition": "Where does the graph decide to stop or retry?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 18,
+      "presentation_pages": "32\u201333",
+      "handout_page": 18,
+      "title": "G2--G3: bind node functions to permitted routes",
+      "route": "core",
+      "checkpoints": [
+        "G2",
+        "G3"
+      ],
+      "notebooks": [
+        "Graph_Workflow_Lab.ipynb"
+      ],
+      "transition": "Will every initial command reach the ready node?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 19,
+      "presentation_pages": "34\u201335",
+      "handout_page": 19,
+      "title": "G4: predict three paths before running the graph",
+      "route": "core",
+      "checkpoints": [
+        "G4"
+      ],
+      "notebooks": [
+        "Graph_Workflow_Lab.ipynb"
+      ],
+      "transition": "How does a ready result wait for a person?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 20,
+      "presentation_pages": "36\u201337",
+      "handout_page": 20,
+      "title": "G5: pause, inspect the checkpoint, then resume review",
+      "route": "core",
+      "checkpoints": [
+        "G5"
+      ],
+      "notebooks": [
+        "Graph_Workflow_Lab.ipynb"
+      ],
+      "transition": "Can saved evidence survive a changed request?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 21,
+      "presentation_pages": "38\u201339",
+      "handout_page": 21,
+      "title": "L1: a changed request needs fresh evidence",
+      "route": "core",
+      "checkpoints": [
+        "L0",
+        "L1"
+      ],
+      "notebooks": [
+        "Classroom_Labs.ipynb"
+      ],
+      "transition": "Which method should propose the real command?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 22,
+      "presentation_pages": "40\u201341",
+      "handout_page": 22,
+      "title": "Model-based planning and model-free learning supply proposals",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What must the voltage experiment compare fairly?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 23,
+      "presentation_pages": "42\u201343",
+      "handout_page": 23,
+      "title": "From graph mechanics to a physical voltage decision",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which inverter action supports this feeder?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 24,
+      "presentation_pages": "44\u201345",
+      "handout_page": 24,
+      "title": "Voltage support: choose the next action, then test its consequences",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which methods can propose the same physical action?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 25,
+      "presentation_pages": "46\u201348",
+      "handout_page": 25,
+      "title": "Model-based and model-free methods answer the same action question",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How does a planner use a forecast before acting?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 26,
+      "presentation_pages": "49\u201351",
+      "handout_page": 26,
+      "title": "MPC plans several moves and applies only the first",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What exactly should one control move minimize?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 27,
+      "presentation_pages": "52\u201354",
+      "handout_page": 27,
+      "title": "Make the objective interpretable before optimizing it",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which constraints can overrule a low cost?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 28,
+      "presentation_pages": "55\u201357",
+      "handout_page": 28,
+      "title": "A low objective is useful only inside the admissible set",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which constraints can our chosen model see?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 29,
+      "presentation_pages": "58\u201360",
+      "handout_page": 29,
+      "title": "LinDistFlow3 and OpenDSS expose different parts of this feeder",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How does a learned actor produce an alternative?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 30,
+      "presentation_pages": "61\u201363",
+      "handout_page": 30,
+      "title": "SAC learns a continuous proposal; verification remains a separate step",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What changes when we perturb the demand?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 31,
+      "presentation_pages": "64\u201365",
+      "handout_page": 31,
+      "title": "Lab 2: change demand and compare the same two numerical actions",
+      "route": "core",
+      "checkpoints": [
+        "L2"
+      ],
+      "notebooks": [
+        "Classroom_Labs.ipynb"
+      ],
+      "transition": "Which margins explain the numerical result?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 32,
+      "presentation_pages": "66\u201368",
+      "handout_page": 32,
+      "title": "Read the margins before deciding which controller was better",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What can a language model add to this evidence?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 33,
+      "presentation_pages": "69\u201370",
+      "handout_page": 33,
+      "title": "Actual Llama responses can be useful and still contain unsupported claims",
+      "route": "core",
+      "checkpoints": [
+        "L3"
+      ],
+      "notebooks": [
+        "Classroom_Labs.ipynb"
+      ],
+      "transition": "How do different replies become comparable actions?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 34,
+      "presentation_pages": "71\u201373",
+      "handout_page": 34,
+      "title": "Voting selects one physical operation, not the most persuasive paragraph",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Can feedback teach us which operation to test?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 35,
+      "presentation_pages": "74\u201376",
+      "handout_page": 35,
+      "title": "The LLM optimizer can learn which proposed operation to test",
+      "route": "core",
+      "checkpoints": [
+        "L4"
+      ],
+      "notebooks": [
+        "Classroom_Labs.ipynb"
+      ],
+      "transition": "What reward should the selector receive?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 36,
+      "presentation_pages": "77\u201379",
+      "handout_page": 36,
+      "title": "Reward learning and safety checking have different jobs",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Does the learned selector outperform a simpler rule?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 37,
+      "presentation_pages": "80\u201382",
+      "handout_page": 37,
+      "title": "A rigorous result can show that the extra agent adds no benefit",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Will the same action pass a broader model?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 38,
+      "presentation_pages": "83\u201385",
+      "handout_page": 38,
+      "title": "Lab 5: ask a broader model to audit the recommendation",
+      "route": "core",
+      "checkpoints": [
+        "L5"
+      ],
+      "notebooks": [
+        "Classroom_Labs.ipynb"
+      ],
+      "transition": "Which stage produced each part of the evidence?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 39,
+      "presentation_pages": "86\u201389",
+      "handout_page": 39,
+      "title": "Voltage support: what each stage contributed",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What changes when the decision is a topology, not a setpoint?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 40,
+      "presentation_pages": "90",
+      "handout_page": 40,
+      "title": "Ten-minute break: 82--92 minutes",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "After the break, which loads should the remaining paths support?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 41,
+      "presentation_pages": "91\u201393",
+      "handout_page": 41,
+      "title": "After a fault, reconnecting service is a discrete decision",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How do we express pickup, energization and connectivity?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 42,
+      "presentation_pages": "94\u201397",
+      "handout_page": 42,
+      "title": "Restoration MILP: choose service while preserving a source path",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What makes the comparison with a baseline fair?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 43,
+      "presentation_pages": "98\u2013100",
+      "handout_page": 43,
+      "title": "A fair baseline must optimize the same feasible network",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Where should the service curve change as capacity shrinks?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 44,
+      "presentation_pages": "101\u2013102",
+      "handout_page": 44,
+      "title": "Lab 6: predict the effect of reducing tie capacity",
+      "route": "core",
+      "checkpoints": [
+        "L6"
+      ],
+      "notebooks": [
+        "Classroom_Labs.ipynb"
+      ],
+      "transition": "Why can several ratings produce the same service?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 45,
+      "presentation_pages": "103\u2013105",
+      "handout_page": 45,
+      "title": "Discrete service can stay constant while a rating changes",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Can this result still be used after the topology changes?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 46,
+      "presentation_pages": "106\u2013108",
+      "handout_page": 46,
+      "title": "Lab 7: a changed topology needs a new evidence record",
+      "route": "core",
+      "checkpoints": [
+        "L7"
+      ],
+      "notebooks": [
+        "Classroom_Labs.ipynb"
+      ],
+      "transition": "Which stage must repair a stale handoff?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 47,
+      "presentation_pages": "109\u2013112",
+      "handout_page": 47,
+      "title": "Use every workflow stage, but attribute the benefit correctly",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Can correctly bound evidence still describe the wrong state?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 48,
+      "presentation_pages": "113\u2013115",
+      "handout_page": 48,
+      "title": "From restoration to cyber response: what if the evidence is wrong?",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How does an operator estimate a state from imperfect sensors?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 49,
+      "presentation_pages": "116\u2013118",
+      "handout_page": 49,
+      "title": "Cyber response begins with an estimation problem",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What does a residual actually measure?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 50,
+      "presentation_pages": "119\u2013122",
+      "handout_page": 50,
+      "title": "WLS measures consistency with a model and noise assumption",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Can the estimate change while the residual stays the same?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 51,
+      "presentation_pages": "123\u2013125",
+      "handout_page": 51,
+      "title": "A coordinated perturbation can change the estimate without the residual",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What do the residual and state-error curves look like?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 52,
+      "presentation_pages": "126\u2013127",
+      "handout_page": 52,
+      "title": "Lab 8: sweep the attack size and watch two different signals",
+      "route": "core",
+      "checkpoints": [
+        "L8"
+      ],
+      "notebooks": [
+        "Classroom_Labs.ipynb"
+      ],
+      "transition": "Which plotted signal is available to the operator?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 53,
+      "presentation_pages": "128\u2013130",
+      "handout_page": 53,
+      "title": "A missed alarm can coexist with a large estimation error",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What additional evidence can justify recovery?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 54,
+      "presentation_pages": "131\u2013133",
+      "handout_page": 54,
+      "title": "Protected measurements enable a constrained recovery action",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Does the recovery action remove the physical overload?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 55,
+      "presentation_pages": "134\u2013135",
+      "handout_page": 55,
+      "title": "Lab 9: verify the control consequence under the same synthetic truth",
+      "route": "core",
+      "checkpoints": [
+        "L9"
+      ],
+      "notebooks": [
+        "Classroom_Labs.ipynb"
+      ],
+      "transition": "How should every stage preserve the uncertainty?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 56,
+      "presentation_pages": "136\u2013139",
+      "handout_page": 56,
+      "title": "The cyber workflow must preserve uncertainty at each handoff",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which failure boundary is common across the three cases?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 57,
+      "presentation_pages": "140\u2013142",
+      "handout_page": 57,
+      "title": "The three cases teach three different failure boundaries",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How should we evaluate the next generation of this framework?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 58,
+      "presentation_pages": "143\u2013144",
+      "handout_page": 58,
+      "title": "Recent research asks when coordination is worth its cost",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How can an effective procedure carry over to a new task?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 59,
+      "presentation_pages": "145\u2013146",
+      "handout_page": 59,
+      "title": "Reusable skills make the procedure explicit",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which decisions require an enforced authority boundary?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 60,
+      "presentation_pages": "147\u2013149",
+      "handout_page": 60,
+      "title": "Control-room authority belongs in executable rules",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How could we test the benefit of this orchestration fairly?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 61,
+      "presentation_pages": "150\u2013151",
+      "handout_page": 61,
+      "title": "The next study should isolate workflow value",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What time did the extra coordination actually cost?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 62,
+      "presentation_pages": "152\u2013153",
+      "handout_page": 62,
+      "title": "Latency must be measured where the work actually happens",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What can we inspect in one real local Llama call?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 63,
+      "presentation_pages": "154\u2013156",
+      "handout_page": 63,
+      "title": "Lab 11: one optional local Llama call, with visible provenance",
+      "route": "core",
+      "checkpoints": [
+        "L11"
+      ],
+      "notebooks": [
+        "Classroom_Labs.ipynb"
+      ],
+      "transition": "Which outcomes must we score separately?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 64,
+      "presentation_pages": "157",
+      "handout_page": 64,
+      "title": "Evaluate the failure, the recovery and the final outcome separately",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What evidence should reach the operator?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 65,
+      "presentation_pages": "158",
+      "handout_page": 65,
+      "title": "The control room receives a recommendation with an evidence trail",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How does a review become an explicit acknowledgment?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 66,
+      "presentation_pages": "159\u2013162",
+      "handout_page": 66,
+      "title": "Lab 12: acknowledgment is a state transition, not a generated sentence",
+      "route": "core",
+      "checkpoints": [
+        "L12"
+      ],
+      "notebooks": [
+        "Classroom_Labs.ipynb"
+      ],
+      "transition": "Can we reconstruct every stage from one saved trace?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 67,
+      "presentation_pages": "163",
+      "handout_page": 67,
+      "title": "One trace should answer what happened at every stage",
+      "route": "core",
+      "checkpoints": [
+        "L10"
+      ],
+      "notebooks": [
+        "Classroom_Labs.ipynb"
+      ],
+      "transition": "Which missing evidence changes the operator decision?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 68,
+      "presentation_pages": "164\u2013165",
+      "handout_page": 68,
+      "title": "Capstone: would you approve, hold or request another study?",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which architecture fits each kind of operator task?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 69,
+      "presentation_pages": "166",
+      "handout_page": 69,
+      "title": "Match the architecture to the operator task",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Can you explain one complete case using the five stages?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 70,
+      "presentation_pages": "167",
+      "handout_page": 70,
+      "title": "Explain the full workflow in sixty seconds",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which comparisons support a scientific claim?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 71,
+      "presentation_pages": "168\u2013169",
+      "handout_page": 71,
+      "title": "Three checks for scientific claims about agentic control",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What single assumption would you change in the next experiment?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 72,
+      "presentation_pages": "170",
+      "handout_page": 72,
+      "title": "Your next experiment: change one assumption and keep an audit trail",
+      "route": "core",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Choose an extension, then use the appendix when you need its derivation.",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 73,
+      "presentation_pages": "171",
+      "handout_page": 73,
+      "title": "Technical appendix: use after the three-hour class",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which physical limit couples active and reactive power?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 74,
+      "presentation_pages": "172\u2013173",
+      "handout_page": 74,
+      "title": "Two controls share one inverter capability",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which limits turn the request into an optimization problem?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 75,
+      "presentation_pages": "174",
+      "handout_page": 75,
+      "title": "Turn the operating request into a checkable problem",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which quantities can this particular experiment control?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 76,
+      "presentation_pages": "175",
+      "handout_page": 76,
+      "title": "What does this teaching experiment actually control?",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What operating point does the numerical optimizer return?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 77,
+      "presentation_pages": "176",
+      "handout_page": 77,
+      "title": "V1: ask the optimizer for a better operating point",
+      "route": "reference",
+      "checkpoints": [
+        "V1"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "Which constraint can become worse when voltage improves?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 78,
+      "presentation_pages": "177",
+      "handout_page": 78,
+      "title": "V2: better voltage can come with higher current",
+      "route": "reference",
+      "checkpoints": [
+        "V2"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "What changes if only reactive power can move?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 79,
+      "presentation_pages": "178",
+      "handout_page": 79,
+      "title": "Hold active power fixed; change only reactive power",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Will the same control pass the fuller model?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 80,
+      "presentation_pages": "179\u2013180",
+      "handout_page": 80,
+      "title": "V3: does the same control pass a fuller audit?",
+      "route": "reference",
+      "checkpoints": [
+        "V3"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "How does a horizon plan extend a single operating point?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 81,
+      "presentation_pages": "181",
+      "handout_page": 81,
+      "title": "MPC chooses a continuous P/Q sequence",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How does a learned policy generate a continuous action?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 82,
+      "presentation_pages": "182",
+      "handout_page": 82,
+      "title": "SAC maps the operating state to continuous controls",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which feedback trains the policy?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 83,
+      "presentation_pages": "183",
+      "handout_page": 83,
+      "title": "What does SAC learn to reward?",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Does a favorable reward establish engineering feasibility?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 84,
+      "presentation_pages": "184",
+      "handout_page": 84,
+      "title": "Training reward and fresh engineering checks answer different questions",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Why choose SAC, and when could PPO be appropriate?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 85,
+      "presentation_pages": "185",
+      "handout_page": 85,
+      "title": "Why SAC here, and where would PPO fit?",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What do MPC and the saved SAC actor propose for one case?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 86,
+      "presentation_pages": "186",
+      "handout_page": 86,
+      "title": "V4: produce an MPC plan and a SAC proposal",
+      "route": "reference",
+      "checkpoints": [
+        "V4"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "Does each proposed action pass a fresh check?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 87,
+      "presentation_pages": "187",
+      "handout_page": 87,
+      "title": "V5: a continuous proposal still needs a fresh check",
+      "route": "reference",
+      "checkpoints": [
+        "V5"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "How do the decision variables change after a fault?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 88,
+      "presentation_pages": "188",
+      "handout_page": 88,
+      "title": "Which constraints make a restoration plan feasible?",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which feasible pickup has the greatest declared value?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 89,
+      "presentation_pages": "189",
+      "handout_page": 89,
+      "title": "R1: choose the most valuable feasible load pickup",
+      "route": "reference",
+      "checkpoints": [
+        "R1"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "Can every supplied load be traced back to a source?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 90,
+      "presentation_pages": "190",
+      "handout_page": 90,
+      "title": "R2: trace the supplied loads back to the source",
+      "route": "reference",
+      "checkpoints": [
+        "R2"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "How does a fuller model change this restoration study?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 91,
+      "presentation_pages": "191",
+      "handout_page": 91,
+      "title": "R3: keep the decision logic, change the model scope",
+      "route": "reference",
+      "checkpoints": [
+        "R3"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "What changes when the feeder bypass rating is tighter?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 92,
+      "presentation_pages": "192",
+      "handout_page": 92,
+      "title": "R3: the tighter feeder bypass changes the recommendation",
+      "route": "reference",
+      "checkpoints": [
+        "R3"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "Which part of the decision came from the language agent?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 93,
+      "presentation_pages": "193\u2013194",
+      "handout_page": 93,
+      "title": "R4: what decision did the agent add?",
+      "route": "reference",
+      "checkpoints": [
+        "R4"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "Can the workflow interpret a new operator request?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 94,
+      "presentation_pages": "195",
+      "handout_page": 94,
+      "title": "R5: can the system understand this operator request?",
+      "route": "reference",
+      "checkpoints": [
+        "R5"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "Which exact fields pass from language to the numerical tool?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 95,
+      "presentation_pages": "196\u2013197",
+      "handout_page": 95,
+      "title": "R5: the language layer completes a real handoff",
+      "route": "reference",
+      "checkpoints": [
+        "R5"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "How do the request cases compare under the same rules?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 96,
+      "presentation_pages": "198",
+      "handout_page": 96,
+      "title": "R5: compare the restoration requests as a group",
+      "route": "reference",
+      "checkpoints": [
+        "R5"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "What should happen when an operation is prohibited?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 97,
+      "presentation_pages": "199\u2013200",
+      "handout_page": 97,
+      "title": "R5: a prohibited restoration request needs clarification",
+      "route": "reference",
+      "checkpoints": [
+        "R5"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "How can corrupted measurements affect the inferred state?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 98,
+      "presentation_pages": "201",
+      "handout_page": 98,
+      "title": "Fit the readings, then examine what the fit leaves unexplained",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How do residuals produce an alarm and a suspect reading?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 99,
+      "presentation_pages": "202",
+      "handout_page": 99,
+      "title": "From residuals to an alarm and a suspect measurement",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What happens when one detector sees three corruption cases?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 100,
+      "presentation_pages": "203",
+      "handout_page": 100,
+      "title": "C1: use one detector on three measurement cases",
+      "route": "reference",
+      "checkpoints": [
+        "C1"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "Can the residual remain small while the state estimate shifts?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 101,
+      "presentation_pages": "204\u2013205",
+      "handout_page": 101,
+      "title": "C2: a small residual can accompany a large state error",
+      "route": "reference",
+      "checkpoints": [
+        "C2"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "What independent information supports recovery?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 102,
+      "presentation_pages": "206",
+      "handout_page": 102,
+      "title": "Recovery needs new evidence before it needs a new action",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What actions follow from the different information sets?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 103,
+      "presentation_pages": "207",
+      "handout_page": 103,
+      "title": "C3: compare the actions, then evaluate their consequences",
+      "route": "reference",
+      "checkpoints": [
+        "C3"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "Does the recovery action satisfy every branch limit?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 104,
+      "presentation_pages": "208",
+      "handout_page": 104,
+      "title": "C3: check every branch against its own limit",
+      "route": "reference",
+      "checkpoints": [
+        "C3"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "Which claims can the language agent support with this evidence?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 105,
+      "presentation_pages": "209",
+      "handout_page": 105,
+      "title": "C4: the agent can explain evidence, but cannot establish trust",
+      "route": "reference",
+      "checkpoints": [
+        "C4"
+      ],
+      "notebooks": [
+        "Workshop_Step_by_Step.ipynb"
+      ],
+      "transition": "How can we isolate the contribution of response selection?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 106,
+      "presentation_pages": "210",
+      "handout_page": 106,
+      "title": "E1: a separate frozen experiment for the revised optimizer",
+      "route": "reference",
+      "checkpoints": [
+        "E1"
+      ],
+      "notebooks": [
+        "LLM_Response_Selection.ipynb"
+      ],
+      "transition": "Where do MPC and SAC enter the fixed experimental protocol?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 107,
+      "presentation_pages": "211",
+      "handout_page": 107,
+      "title": "E2: MPC enters planning directly alongside SAC",
+      "route": "reference",
+      "checkpoints": [
+        "E2"
+      ],
+      "notebooks": [
+        "LLM_Response_Selection.ipynb"
+      ],
+      "transition": "What do three actual models propose for the same evidence?",
+      "implementation_excerpts": [
+        {
+          "module": "ensemble_voltage",
+          "start": 141,
+          "end": 148
+        }
+      ]
+    },
+    {
+      "frame": 108,
+      "presentation_pages": "212",
+      "handout_page": 108,
+      "title": "E3: three models respond to the same numerical evidence",
+      "route": "reference",
+      "checkpoints": [
+        "E3"
+      ],
+      "notebooks": [
+        "LLM_Response_Selection.ipynb"
+      ],
+      "transition": "How are different phrasings grouped into physical actions?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 109,
+      "presentation_pages": "213",
+      "handout_page": 109,
+      "title": "E3: canonical actions make the vote reproducible",
+      "route": "reference",
+      "checkpoints": [
+        "E3"
+      ],
+      "notebooks": [
+        "LLM_Response_Selection.ipynb"
+      ],
+      "transition": "When does the selector receive its numerical reward?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 110,
+      "presentation_pages": "214",
+      "handout_page": 110,
+      "title": "E4: the reward is revealed only after a response is selected",
+      "route": "reference",
+      "checkpoints": [
+        "E4"
+      ],
+      "notebooks": [
+        "LLM_Response_Selection.ipynb"
+      ],
+      "transition": "How do training records differ from frozen evaluation?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 111,
+      "presentation_pages": "215",
+      "handout_page": 111,
+      "title": "E4: actual learning records and frozen evaluation",
+      "route": "reference",
+      "checkpoints": [
+        "E4"
+      ],
+      "notebooks": [
+        "LLM_Response_Selection.ipynb"
+      ],
+      "transition": "Does the learned selector beat voting on held-out cases?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 112,
+      "presentation_pages": "216",
+      "handout_page": 112,
+      "title": "E5: learned selection ties voting on the held-out cases",
+      "route": "reference",
+      "checkpoints": [
+        "E5"
+      ],
+      "notebooks": [
+        "LLM_Response_Selection.ipynb"
+      ],
+      "transition": "Can a rejected trial still end in a feasible recommendation?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 113,
+      "presentation_pages": "217",
+      "handout_page": 113,
+      "title": "E5: trial rejection and final quality are different outcomes",
+      "route": "reference",
+      "checkpoints": [
+        "E5",
+        "E6"
+      ],
+      "notebooks": [
+        "LLM_Response_Selection.ipynb"
+      ],
+      "transition": "Which constraints become visible in the broader model?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 114,
+      "presentation_pages": "218",
+      "handout_page": 114,
+      "title": "E6: the model determines which constraints are visible",
+      "route": "reference",
+      "checkpoints": [
+        "E6"
+      ],
+      "notebooks": [
+        "LLM_Response_Selection.ipynb"
+      ],
+      "transition": "What inference and solver time does each method consume?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 115,
+      "presentation_pages": "219",
+      "handout_page": 115,
+      "title": "E7: actual inference time belongs in the comparison",
+      "route": "reference",
+      "checkpoints": [
+        "E7"
+      ],
+      "notebooks": [
+        "LLM_Response_Selection.ipynb"
+      ],
+      "transition": "What should the operator see after this comparison?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 116,
+      "presentation_pages": "220",
+      "handout_page": 116,
+      "title": "E8: the operator sees the recommendation and its scope",
+      "route": "reference",
+      "checkpoints": [
+        "E8"
+      ],
+      "notebooks": [
+        "LLM_Response_Selection.ipynb"
+      ],
+      "transition": "Can a feasible incumbent still benefit from one bounded trial?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 117,
+      "presentation_pages": "221",
+      "handout_page": 117,
+      "title": "A passed candidate can still be improved",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How do we enforce an equal maximum trial budget?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 118,
+      "presentation_pages": "222",
+      "handout_page": 118,
+      "title": "Optimize over tested candidates under the same maximum budget",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which claims belong to the public reason and which to the solver?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 119,
+      "presentation_pages": "223",
+      "handout_page": 119,
+      "title": "The public Llama reason and the numerical evidence have different jobs",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Where is the bounded decision loop implemented?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 120,
+      "presentation_pages": "224",
+      "handout_page": 120,
+      "title": "Initial supervisor code 1/9: a bounded loop controls what can happen next",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How does the operator request become a numerical contract?",
+      "implementation_excerpts": [
+        {
+          "module": "continuous_workflow",
+          "start": 217,
+          "end": 223
+        }
+      ]
+    },
+    {
+      "frame": 121,
+      "presentation_pages": "225",
+      "handout_page": 121,
+      "title": "Initial supervisor code 2/9: the request becomes a numerical contract",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How do several roles share one local model service?",
+      "implementation_excerpts": [
+        {
+          "module": "continuous_workflow",
+          "start": 49,
+          "end": 56
+        }
+      ]
+    },
+    {
+      "frame": 122,
+      "presentation_pages": "226",
+      "handout_page": 122,
+      "title": "Initial supervisor code 3/9: named roles share one local Llama service",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How is the language choice restricted to permitted tools?",
+      "implementation_excerpts": [
+        {
+          "module": "continuous_workflow",
+          "start": 69,
+          "end": 72
+        },
+        {
+          "module": "continuous_workflow",
+          "start": 190,
+          "end": 194
+        }
+      ]
+    },
+    {
+      "frame": 123,
+      "presentation_pages": "227",
+      "handout_page": 123,
+      "title": "Initial supervisor code 4/9: the language tool chooses from a restricted menu",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which checks follow valid JSON?",
+      "implementation_excerpts": [
+        {
+          "module": "continuous_workflow",
+          "start": 75,
+          "end": 78
+        },
+        {
+          "module": "continuous_workflow",
+          "start": 81,
+          "end": 82
+        }
+      ]
+    },
+    {
+      "frame": 124,
+      "presentation_pages": "228",
+      "handout_page": 124,
+      "title": "Initial supervisor code 5/9: valid JSON is only the first acceptance test",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How does a passing result retain its model scope?",
+      "implementation_excerpts": [
+        {
+          "module": "continuous_workflow",
+          "start": 99,
+          "end": 108
+        }
+      ]
+    },
+    {
+      "frame": 125,
+      "presentation_pages": "229",
+      "handout_page": 125,
+      "title": "Initial supervisor code 6/9: a passing result always carries its model scope",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What can a fresh solve reject that prose cannot detect?",
+      "implementation_excerpts": [
+        {
+          "module": "continuous_workflow",
+          "start": 273,
+          "end": 278
+        }
+      ]
+    },
+    {
+      "frame": 126,
+      "presentation_pages": "230",
+      "handout_page": 126,
+      "title": "Initial supervisor code 7/9: a fresh solve can reject a plausible proposal",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How does the code preserve the operator review boundary?",
+      "implementation_excerpts": [
+        {
+          "module": "continuous_workflow",
+          "start": 230,
+          "end": 237
+        }
+      ]
+    },
+    {
+      "frame": 127,
+      "presentation_pages": "231",
+      "handout_page": 127,
+      "title": "Initial supervisor code 8/9: the final authority stays with the operator",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which saved call produced the displayed response?",
+      "implementation_excerpts": [
+        {
+          "module": "continuous_workflow",
+          "start": 61,
+          "end": 64
+        },
+        {
+          "module": "continuous_workflow",
+          "start": 288,
+          "end": 291
+        }
+      ]
+    },
+    {
+      "frame": 128,
+      "presentation_pages": "232",
+      "handout_page": 128,
+      "title": "Initial supervisor code 9/9: match the displayed response to its recorded call",
+      "route": "reference",
+      "checkpoints": [
+        "T1"
+      ],
+      "notebooks": [
+        "Agent_Trace_and_Latency.ipynb"
+      ],
+      "transition": "Which two clocks appear in the recorded trace?",
+      "implementation_excerpts": [
+        {
+          "module": "continuous_workflow",
+          "start": 108,
+          "end": 114
+        }
+      ]
+    },
+    {
+      "frame": 129,
+      "presentation_pages": "233",
+      "handout_page": 129,
+      "title": "Trace review 1/3: read token counts and two distinct clocks",
+      "route": "reference",
+      "checkpoints": [
+        "T7"
+      ],
+      "notebooks": [
+        "Agent_Trace_and_Latency.ipynb"
+      ],
+      "transition": "How does measured cost relate to the actual outcome?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 130,
+      "presentation_pages": "234",
+      "handout_page": 130,
+      "title": "Trace review 2/3: compare cost with the recorded outcome",
+      "route": "reference",
+      "checkpoints": [
+        "T8"
+      ],
+      "notebooks": [
+        "Agent_Trace_and_Latency.ipynb"
+      ],
+      "transition": "What should the next controlled study measure?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 131,
+      "presentation_pages": "235",
+      "handout_page": 131,
+      "title": "Trace review 3/3: audit this record; design the next study",
+      "route": "reference",
+      "checkpoints": [
+        "T9"
+      ],
+      "notebooks": [
+        "Agent_Trace_and_Latency.ipynb"
+      ],
+      "transition": "How are the three phases coupled in the linear approximation?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 132,
+      "presentation_pages": "236",
+      "handout_page": 132,
+      "title": "Optional reference: coupled three-phase LinDistFlow",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How do objective terms and constraints define voltage support?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 133,
+      "presentation_pages": "237",
+      "handout_page": 133,
+      "title": "Optional reference: voltage-control objective and constraints",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "What exactly is the implemented finite-horizon plan?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 134,
+      "presentation_pages": "238",
+      "handout_page": 134,
+      "title": "Optional reference: the executed continuous horizon plan",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How do policy outputs map to physical inverter controls?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 135,
+      "presentation_pages": "239",
+      "handout_page": 135,
+      "title": "Optional reference: SAC objective, action mapping and reward",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which restoration variables enforce service and radiality?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 136,
+      "presentation_pages": "240",
+      "handout_page": 136,
+      "title": "Optional reference: restoration MILP variables and topology",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How is the residual statistic calibrated?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 137,
+      "presentation_pages": "241",
+      "handout_page": 137,
+      "title": "Optional reference: WLS, residual covariance and calibration",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Why can a coordinated corruption leave the residual unchanged?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 138,
+      "presentation_pages": "242",
+      "handout_page": 138,
+      "title": "Optional reference: why a coordinated corruption can be invisible",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "How does protected information enter constrained control?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 139,
+      "presentation_pages": "243",
+      "handout_page": 139,
+      "title": "Optional reference: trusted-data estimation and constrained control",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Which assumptions still limit the scientific claim?",
+      "implementation_excerpts": []
+    },
+    {
+      "frame": 140,
+      "presentation_pages": "244",
+      "handout_page": 140,
+      "title": "Study boundaries and the next scientific comparisons",
+      "route": "reference",
+      "checkpoints": [],
+      "notebooks": [],
+      "transition": "Choose one matched comparison to investigate after class.",
+      "implementation_excerpts": []
+    }
+  ]
+}

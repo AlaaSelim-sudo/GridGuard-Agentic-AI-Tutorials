@@ -1,0 +1,863 @@
+{
+  "reviewed_as_of": "2026-10-17",
+  "scope": "Foundational mechanisms and fixed-paper results. These are separate benchmark experiments, not a cross-paper leaderboard or utility-deployment reliability evidence.",
+  "paper_selection": [
+    "F01",
+    "F02",
+    "F03",
+    "F04",
+    "F05"
+  ],
+  "papers": [
+    {
+      "id": "F01",
+      "short_name": "ReAct",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "authors": [
+        "Shunyu Yao",
+        "Jeffrey Zhao",
+        "Dian Yu",
+        "Nan Du",
+        "Izhak Shafran",
+        "Karthik Narasimhan",
+        "Yuan Cao"
+      ],
+      "affiliations": [
+        "Princeton University",
+        "Google Research, Brain team"
+      ],
+      "dates": {
+        "first_preprint": "2022-10-06",
+        "read_version": "v3, 2023-03-10",
+        "venue": "ICLR 2023"
+      },
+      "urls": {
+        "paper": "https://arxiv.org/pdf/2210.03629v3",
+        "metadata": "https://arxiv.org/abs/2210.03629v3",
+        "project": "https://react-lm.github.io/",
+        "code": "https://github.com/ysymyth/ReAct"
+      },
+      "mechanism": "Interleave proposed reasoning steps with environment actions and returned observations in the prompt history. Domain actions obtain new evidence; generated text can update a plan but does not itself change the environment.",
+      "mechanism_locators": [
+        "Section 2, PDF pp.3–4",
+        "Figure 1, PDF p.2"
+      ],
+      "executable_workflow": [
+        "Provide a task, permitted action grammar and few-shot demonstration trajectories.",
+        "Generate a next action from task and recorded observations; reject malformed or out-of-scope actions in the application.",
+        "Execute the selected environment action and append its observation to the context.",
+        "Repeat until finish or a fixed budget is reached. Stopping and software gates are explicit tutorial implementation requirements."
+      ],
+      "paper_action_example": {
+        "domain": "Wikipedia question answering",
+        "actions": [
+          "search[entity]",
+          "lookup[string]",
+          "finish[answer]"
+        ],
+        "locator": "Section 3.1, PDF p.4"
+      },
+      "result": {
+        "locator": "Table 4 and Section 4, PDF pp.7–8",
+        "dataset": "WebShop",
+        "model": "PaLM-540B",
+        "prompting": "one-shot",
+        "metric": "Success rate (%) = fraction of episodes satisfying all requested product requirements",
+        "denominator": 500,
+        "denominator_unit": "test instructions",
+        "repetitions": "Not specified in Table 4",
+        "chart_columns": [
+          "method",
+          "success_rate_percent"
+        ],
+        "chart_rows": [
+          [
+            "Act-only",
+            30.1
+          ],
+          [
+            "ReAct",
+            40
+          ]
+        ],
+        "additional_rows": [
+          [
+            "Imitation learning",
+            29.1
+          ],
+          [
+            "Imitation + reinforcement learning",
+            28.7
+          ],
+          [
+            "Expert human",
+            59.6
+          ]
+        ],
+        "reported_values": true,
+        "delta_percentage_points_calculated": 9.9,
+        "count_note": "Do not reverse-engineer integer successes from rounded rates; the paper states the task-set size but does not provide raw per-method counts here."
+      },
+      "supporting_results": [
+        {
+          "locator": "Table 3, PDF p.8",
+          "dataset": "ALFWorld",
+          "denominator": 134,
+          "denominator_unit": "unseen games per prompt setting",
+          "metric": "Success rate (%)",
+          "rows": [
+            [
+              "ReAct average across six prompts",
+              57
+            ],
+            [
+              "ReAct best of six prompts",
+              71
+            ],
+            [
+              "Act best of six prompts",
+              45
+            ]
+          ],
+          "limitation": "The 71% headline selects the best of six prompt settings; do not describe it as the average result."
+        },
+        {
+          "locator": "Table 1, PDF p.5",
+          "dataset": "HotpotQA",
+          "metric": "Exact match (%)",
+          "rows": [
+            [
+              "CoT",
+              29.4
+            ],
+            [
+              "ReAct",
+              27.4
+            ]
+          ],
+          "limitation": "ReAct does not improve every task/model/metric. These are separate experiments from the WebShop chart."
+        }
+      ],
+      "implementation_distinction": "ReAct is a 2022/2023 prompting and interaction paradigm, not an orchestration SDK. The original repository supplies GPT-3 notebooks; that code/backend differs from the PaLM-540B main-paper result. Later LangGraph/other implementations are separate software products.",
+      "limitations": [
+        "The benchmark is a simulated shopping environment, not a utility-control deployment.",
+        "Observations may be unhelpful or wrong; generated reasoning can repeat or misinterpret them.",
+        "No engineering feasibility, permission or operating-time guarantee follows from this benchmark.",
+        "Few-shot examples and model/backend choice materially affect results."
+      ],
+      "utility_transfer": "Illustrative transfer only: a bounded advisory agent may resolve an asset, retrieve a versioned measurement, call an offline simulator and return evidence. Each tool still needs typed parameters, version checks, constraints and authorization.",
+      "figure_suggestions": [
+        {
+          "kind": "published_original",
+          "locator": "Figure 1, PDF p.2",
+          "description": "Crop one task trajectory showing action/observation alternation; preserve the paper's source credit."
+        },
+        {
+          "kind": "reproduced_chart",
+          "locator": "Table 4, PDF p.8",
+          "description": "Two bars: Act-only30.1, ReAct40.0; label reported WebShop success rates and all setup details."
+        }
+      ],
+      "slide_suggestions": [
+        {
+          "route": "core",
+          "title": "Choose a next call from the evidence so far",
+          "visual": "Short task → permitted call → actual observation → revised next call; label a utility trace as illustrative.",
+          "locator": "Section 2; Figure 1"
+        },
+        {
+          "route": "core",
+          "title": "The same model performs better with observations and sparse planning",
+          "visual": "The two-bar WebShop result; identify500 test instructions and the 9.9-point calculated difference.",
+          "locator": "Table 4"
+        },
+        {
+          "route": "extension",
+          "title": "A better loop is still dependent on retrieval",
+          "visual": "Contrast the WebShop gain with HotpotQA27.4 vs CoT29.4; do not make a pooled score.",
+          "locator": "Table 1"
+        }
+      ]
+    },
+    {
+      "id": "F02",
+      "short_name": "Toolformer",
+      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "authors": [
+        "Timo Schick",
+        "Jane Dwivedi-Yu",
+        "Roberto Dessì",
+        "Roberta Raileanu",
+        "Maria Lomeli",
+        "Eric Hambro",
+        "Luke Zettlemoyer",
+        "Nicola Cancedda",
+        "Thomas Scialom"
+      ],
+      "affiliations": [
+        "FAIR, Meta",
+        "Universitat Pompeu Fabra"
+      ],
+      "dates": {
+        "first_preprint": "2023-02-09",
+        "read_version": "NeurIPS 2023 published paper",
+        "venue": "NeurIPS 2023"
+      },
+      "urls": {
+        "paper": "https://proceedings.neurips.cc/paper_files/paper/2023/file/d842425e4bf79ba039352da0f658a906-Paper-Conference.pdf",
+        "metadata": "https://proceedings.neurips.cc/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html",
+        "preprint": "https://arxiv.org/pdf/2302.04761v1",
+        "code": null
+      },
+      "code_status": "No official Toolformer implementation was identified in the checked paper, publisher or Meta publication page. Do not attribute third-party reimplementations to the paper authors.",
+      "mechanism": "Generate candidate API annotations on a language-model corpus, execute the calls, keep only calls whose responses improve prediction of subsequent text, and fine-tune the language model on retained call-and-result examples.",
+      "mechanism_locators": [
+        "Figure 2, PDF p.2",
+        "Section 2, PDF pp.2–4"
+      ],
+      "filter_formula": "Keep a call if L_i^- - L_i^+ >= tau_f, where L_i^- is min(loss without call, loss with call but without response) and L_i^+ includes the response.",
+      "executable_workflow": [
+        "Offline: sample candidate calls at candidate positions in existing texts.",
+        "Execute candidate APIs, then score the original continuation with and without each response.",
+        "Filter by the stated loss-improvement threshold and fine-tune on retained augmented texts.",
+        "At inference: pause generation on the API delimiter, execute the call, insert the returned result and continue."
+      ],
+      "result": {
+        "locator": "Table 3, PDF p.6; Section 4.2",
+        "dataset": "MAWPS",
+        "model": "Same fine-tuned GPT-J Toolformer model in both chart arms",
+        "metric": "First-number answer accuracy (%)",
+        "denominator": null,
+        "denominator_note": "Evaluated MAWPS sample count is not disclosed in this paper's reported setup; do not substitute an external dataset's nominal size.",
+        "chart_columns": [
+          "configuration",
+          "accuracy_percent"
+        ],
+        "chart_rows": [
+          [
+            "API calls disabled",
+            15
+          ],
+          [
+            "API calls enabled",
+            44
+          ]
+        ],
+        "reported_values": true,
+        "delta_percentage_points_calculated": 29,
+        "evaluation_detail": "First generated number is scored, except that if an equation is produced the first number after '=' is scored. This is a more lenient criterion than exact-string match.",
+        "inference_budget": "At most one API call per input; API-start token considered among top10 candidates rather than ordinary greedy-only top1."
+      },
+      "supporting_results": [
+        {
+          "locator": "Table 3, PDF p.6",
+          "metric": "First-number answer accuracy (%)",
+          "columns": [
+            "dataset",
+            "calls_disabled",
+            "calls_enabled"
+          ],
+          "rows": [
+            [
+              "ASDiv",
+              14.8,
+              40.4
+            ],
+            [
+              "SVAMP",
+              6.3,
+              29.4
+            ],
+            [
+              "MAWPS",
+              15,
+              44
+            ]
+          ],
+          "denominator": null
+        }
+      ],
+      "implementation_distinction": "This paper changes model weights through self-supervised fine-tuning. Adding a function schema to a current SDK prompt does not reproduce Toolformer training. The runtime interrupt/call/resume pattern is one component of the method.",
+      "limitations": [
+        "Only one API call per evaluation input; original training does not teach chained tool calls or interactive search refinement.",
+        "Lower next-token loss is a training utility criterion, not a proof of engineering correctness or safe action.",
+        "The paper's calculator supports four arithmetic operations and rounds to two decimal places; that tool is not a power-system solver.",
+        "Call selection is sensitive to wording and does not account for tool-dependent computational cost."
+      ],
+      "utility_transfer": "Illustrative lesson: decide which operations should be delegated to deterministic domain tools and evaluate whether the selected call adds useful evidence. Do not use a generic calculator's improvement to infer AC power-flow competence.",
+      "figure_suggestions": [
+        {
+          "kind": "published_original",
+          "locator": "Figure 2, PDF p.2",
+          "description": "Original sample→execute→filter training schematic."
+        },
+        {
+          "kind": "reproduced_chart",
+          "locator": "Table 3, PDF p.6",
+          "description": "MAWPS15% vs44%, calls disabled/enabled in the same trained model; n undisclosed."
+        }
+      ],
+      "slide_suggestions": [
+        {
+          "route": "extension",
+          "title": "Learn when a call is useful during training",
+          "visual": "Original Figure2 or a clearly labeled redraw; separate offline training from runtime execution.",
+          "locator": "Figure 2; Section 2"
+        },
+        {
+          "route": "extension",
+          "title": "A deterministic tool changes this measured task",
+          "visual": "Two MAWPS bars15/44; label first-number metric and one-call budget.",
+          "locator": "Table 3"
+        },
+        {
+          "route": "extension",
+          "title": "The filter optimizes prediction, not the engineering contract",
+          "visual": "Loss-improvement formula above a separate domain acceptance check; latter is tutorial inference.",
+          "locator": "Section 2"
+        }
+      ]
+    },
+    {
+      "id": "F03",
+      "short_name": "Reflexion",
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "authors": [
+        "Noah Shinn",
+        "Federico Cassano",
+        "Ashwin Gopinath",
+        "Karthik Narasimhan",
+        "Shunyu Yao"
+      ],
+      "affiliations": [
+        "Northeastern University",
+        "MIT",
+        "Princeton University"
+      ],
+      "dates": {
+        "first_preprint": "2023-03-20",
+        "read_version": "NeurIPS 2023 published paper",
+        "venue": "NeurIPS 2023"
+      },
+      "urls": {
+        "paper": "https://proceedings.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+        "metadata": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html",
+        "code": "https://github.com/noahshinn/reflexion"
+      },
+      "authorship_note": "The NeurIPS published paper lists five authors. The repository/arXiv citation also includes Edward Berman; do not silently combine version-specific author lists.",
+      "mechanism": "An actor attempts a task; an evaluator supplies feedback; a reflection model converts the failure and trajectory into text retained in episodic memory for the next attempt. The language-model weights stay fixed.",
+      "mechanism_locators": [
+        "Figure 2 and Algorithm 1, PDF p.4",
+        "Section 3, PDF pp.3–5"
+      ],
+      "executable_workflow": [
+        "Generate a candidate program and a small internal test suite.",
+        "Run tests/compiler and retain concrete failure information.",
+        "Generate a concise reflection and condition the next attempt on that feedback and retained memory.",
+        "Stop on the internal success gate or a prespecified trial budget; evaluate the final selected program separately on benchmark tests. In a utility adaptation, the independent engineering checker is an additional requirement."
+      ],
+      "result": {
+        "locator": "Table 3, PDF p.8",
+        "dataset": "50 hardest HumanEval problems translated to Rust using MultiPL-E",
+        "model": "GPT-4",
+        "metric": "Reported pass@1 accuracy (%) of final procedure output",
+        "denominator": 50,
+        "denominator_unit": "problems",
+        "chart_columns": [
+          "configuration",
+          "accuracy_percent"
+        ],
+        "chart_rows": [
+          [
+            "Base model",
+            60
+          ],
+          [
+            "Reflection without generated tests",
+            52
+          ],
+          [
+            "Generated tests without reflection",
+            60
+          ],
+          [
+            "Full Reflexion",
+            68
+          ]
+        ],
+        "reported_values": true,
+        "delta_percentage_points_calculated": 8,
+        "budget_note": "The procedure can revise internally before returning its selected output. Pass@1 is not one model call and the chart is not an equal-compute comparison.",
+        "count_note": "Percentages and sample-set size are reproduced; no raw success counts are reconstructed."
+      },
+      "supporting_results": [
+        {
+          "locator": "Table 1, PDF p.7",
+          "dataset": "HumanEval Python",
+          "metric": "Reported pass@1 (%)",
+          "rows": [
+            [
+              "GPT-4 base",
+              80.1
+            ],
+            [
+              "Reflexion",
+              91
+            ]
+          ],
+          "denominator": null,
+          "limitation": "Headline is after an internal test/reflection procedure. Exact Python sample denominator is not stated beside this table; use the50-task Rust ablation for an explicit-n chart."
+        },
+        {
+          "locator": "Table 1, PDF p.7",
+          "dataset": "MBPP Python",
+          "metric": "Reported pass@1 (%)",
+          "rows": [
+            [
+              "GPT-4 base",
+              80.1
+            ],
+            [
+              "Reflexion",
+              77.1
+            ]
+          ],
+          "denominator": null,
+          "limitation": "The method is not uniformly improving; self-generated tests can accept a wrong implementation."
+        }
+      ],
+      "implementation_distinction": "Reflexion is an inference-time feedback/memory architecture. It does not update neural weights, and it is not a current hosted SDK or an automatic guarantee that self-evaluation is correct.",
+      "limitations": [
+        "Incorrect self-generated tests can cause false acceptance or harmful repair of correct code.",
+        "The no-test ablation falls below the baseline; ungrounded self-critique can worsen the result.",
+        "The paper reports failure to improve meaningfully on a100-environment WebShop experiment after four trials (AppendixB.1, PDFp.14).",
+        "Results use coding/QA/games, not utility operating actions; costs and repeated attempts must be counted."
+      ],
+      "utility_transfer": "Illustrative transfer only: retain a failed simulator/checker report and a concise repair note for another offline candidate. Preserve checker results independently from the model's explanation; never turn a remembered suggestion into an operating rule automatically.",
+      "figure_suggestions": [
+        {
+          "kind": "published_original",
+          "locator": "Figure 2, PDF p.4",
+          "description": "Actor/evaluator/reflection and short/long-term memory architecture. Crop or redraw the diagram legibly rather than showing tiny adjacent pseudocode."
+        },
+        {
+          "kind": "reproduced_chart",
+          "locator": "Table 3, PDF p.8",
+          "description": "Four-ablation chart60/52/60/68; show the negative no-test result as well as the gain."
+        }
+      ],
+      "slide_suggestions": [
+        {
+          "route": "core",
+          "title": "Retain a failure as useful feedback",
+          "visual": "Concrete failed test → reflection note → revised program; identify actual evaluator evidence and generated advice.",
+          "locator": "Figure 2"
+        },
+        {
+          "route": "core",
+          "title": "Self-critique needs a grounded check",
+          "visual": "Four Rust ablation bars, n50; full68 vs base60, ungrounded reflection52.",
+          "locator": "Table 3"
+        },
+        {
+          "route": "extension",
+          "title": "An internal pass can still be a false approval",
+          "visual": "Internal test gate and separate reference-test gate; describe MBPP's77.1 vs80.1 counterexample.",
+          "locator": "Tables1–2; PDF pp.7–8"
+        }
+      ]
+    },
+    {
+      "id": "F04",
+      "short_name": "LATS",
+      "title": "Language Agent Tree Search Unifies Reasoning, Acting, and Planning in Language Models",
+      "dates": {
+        "arxiv_v1": "2023-10-06",
+        "read_version": "v3, 2024-06-06",
+        "venue": "ICML 2024, PMLR 235, 21–27 July 2024"
+      },
+      "urls": {
+        "paper": "https://arxiv.org/pdf/2310.04406v3",
+        "metadata": "https://arxiv.org/abs/2310.04406",
+        "publisher": "https://proceedings.mlr.press/v235/zhou24r.html",
+        "publisher_pdf": "https://raw.githubusercontent.com/mlresearch/v235/main/assets/zhou24r/zhou24r.pdf",
+        "code": "https://github.com/andyz245/LanguageAgentTreeSearch",
+        "webshop_script": "https://github.com/andyz245/LanguageAgentTreeSearch/blob/main/webshop/lats.sh",
+        "environment": "https://github.com/princeton-nlp/WebShop",
+        "original_paper_code": "https://github.com/lapisrocks/LanguageAgentTreeSearch"
+      },
+      "mechanism": "Online trajectory search. States contain task, action history and observations. UCT selects; the LM samples actions; environment feedback plus LM/self-consistency scoring evaluates children. Simulate, backpropagate reward, and retain failed trajectories with reflections as future context. Stop on success or budget. No weight training or learned world model.",
+      "mechanism_locators": [
+        "Section 4 and Figure 2, pp.4–6",
+        "Algorithm 1, p.15"
+      ],
+      "formulas": [
+        "UCT(s)=V(s)+w*sqrt(ln(N(parent))/N(s))",
+        "V(s)=lambda*LM(s)+(1-lambda)*SC(s)"
+      ],
+      "result": {
+        "recommended_chart": "WebShop score among prompting methods; success rate is a separate metric.",
+        "locator": "Table 6 and Section 5.3, p.8; Appendix D.3, pp.16–17",
+        "dataset": "WebShop",
+        "model": "GPT-3.5; official script uses gpt-3.5-turbo",
+        "model_snapshot": "Unspecified",
+        "metric": "Task score = 100 × mean environment reward",
+        "denominator": 50,
+        "denominator_unit": "instructions/environments",
+        "repetitions": "Unspecified",
+        "search_budget": {
+          "n_children": 5,
+          "k_trajectories": 30,
+          "depth": 15,
+          "lambda": 0.8
+        },
+        "baseline": "Reflexion",
+        "baseline_score": 64.2,
+        "lats_score": 75.9,
+        "delta_score_points": 11.7,
+        "chart_columns": [
+          "method",
+          "score",
+          "success_rate_percent"
+        ],
+        "chart_rows": [
+          [
+            "ReAct",
+            53.8,
+            28.0
+          ],
+          [
+            "ReAct (best of k)",
+            59.1,
+            32.0
+          ],
+          [
+            "Reflexion",
+            64.2,
+            35.0
+          ],
+          [
+            "LATS (ReAct)",
+            75.9,
+            38.0
+          ]
+        ],
+        "comparison_note": "LATS, ReAct best-of-k and Reflexion share k=30, not equal model-call/token budgets. Other Table 6 training/human rows are not controlled same-model comparisons."
+      },
+      "limits": "Higher inference cost than simpler prompting; requires reverting environments to earlier states. Benchmarks simplify real-world interaction.",
+      "limits_locator": "Appendix B, p.14",
+      "repository_workflow": {
+        "status": "Source-inspected, not executed; requires API credentials and local environment.",
+        "steps": [
+          "Clone andyz245/LanguageAgentTreeSearch and enter webshop.",
+          "Install and start Princeton WebShop locally following its repository.",
+          "Install webshop/requirements.txt; set OPENAI_API_KEY.",
+          "Set the local WebShop URL in lats.py.",
+          "Run: sh lats.sh"
+        ],
+        "script_parameters": "gpt-3.5-turbo, task indices 0:50, n_generate_sample=5, n_evaluate_sample=1, temperature=1.0, iterations=30",
+        "reproducibility_note": "README states WebShop/HotPotQA trajectories were too large to upload. Its LangGraph/LlamaIndex links are later implementations; do not present those libraries as the paper architecture."
+      },
+      "teaching_inference": "For a utility operator, branch and replay in a simulator or reversible workspace. Search over draft actions; commit real-world changes only after selecting an outcome. The paper does not establish safe rollback of irreversible external actions.",
+      "slide_suggestions": [
+        {
+          "route": "core",
+          "title": "Try alternatives before choosing a path",
+          "visual": "Small search tree over an example shopping request; each edge is an action, each node includes the returned observation.",
+          "source_locator": "Figure 2, p.5"
+        },
+        {
+          "route": "extension",
+          "title": "Searching buys score at a cost",
+          "visual": "WebShop prompting-method score bars; show 50 tasks and 30-trajectory budget, plus reversible-environment requirement.",
+          "source_locator": "Table 6, p.8; Appendix B, p.14"
+        },
+        {
+          "route": "extension",
+          "title": "An operator needs a place to replay",
+          "visual": "Draft/simulated action tree feeds one selected action sequence; external commitment is a separate tutorial design step.",
+          "source_locator": "Appendix B, p.14; tutorial inference"
+        }
+      ],
+      "authors": [
+        "Andy Zhou",
+        "Kai Yan",
+        "Michal Shlapentokh-Rothman",
+        "Haohan Wang",
+        "Yu-Xiong Wang"
+      ],
+      "affiliations": [
+        "University of Illinois Urbana-Champaign",
+        "Lapis Labs"
+      ],
+      "implementation_distinction": "The original research implementation is a search controller over task trajectories. Later LangGraph and LlamaIndex integrations are separate implementations, not the software whose name establishes the paper result."
+    },
+    {
+      "id": "F05",
+      "short_name": "AFlow",
+      "title": "AFlow: Automating Agentic Workflow Generation",
+      "dates": {
+        "arxiv_v1": "2024-10-14",
+        "read_version": "v4, 2025-04-15",
+        "venue": "ICLR 2025"
+      },
+      "urls": {
+        "paper": "https://arxiv.org/pdf/2410.10762v4",
+        "metadata": "https://arxiv.org/abs/2410.10762",
+        "publisher": "https://openreview.net/pdf?id=z5uVAKwmjf",
+        "code": "https://github.com/FoundationAgents/AFlow",
+        "entrypoint": "https://github.com/FoundationAgents/AFlow/blob/main/run.py",
+        "configuration": "https://github.com/FoundationAgents/AFlow/blob/main/config/config2.example.yaml"
+      },
+      "mechanism": "Offline search over complete executable workflows. MCTS tree nodes are whole workflows; an optimizer edits prompts and code connections. Model, temperature and output format stay fixed. Reusable operators narrow the search. Mixed uniform/score selection, repeated execution evaluation, and parent-linked experience guide subsequent edits.",
+      "mechanism_locators": [
+        "Figure 3, p.5",
+        "Section 4 and Algorithm 1, pp.6–7"
+      ],
+      "selection_formula": "P(i)=lambda/n+(1-lambda)*exp(alpha*(s_i-s_max))/sum_j exp(alpha*(s_j-s_max)); lambda=0.2, alpha=0.4",
+      "discovered_workflow": "MBPP: generate three programs; ensemble-select; test; return on success, otherwise repair using failure feedback.",
+      "discovered_workflow_locator": "Appendix B.1, p.22",
+      "result": {
+        "recommended_chart": "MBPP only; avoid averaging incompatible benchmark metrics.",
+        "locator": "Table 1 and Section 5.1, pp.7–8",
+        "dataset": "MBPP",
+        "metric": "pass@1 (%)",
+        "executor": "GPT-4o-mini-0718",
+        "optimizer": "Claude-3.5-sonnet",
+        "optimizer_snapshot": "Unspecified",
+        "denominator": null,
+        "denominator_note": "Exact MBPP test count undisclosed in paper. Full dataset split 20% validation/80% test, seed 42; do not substitute the standard MBPP test size.",
+        "repetitions": 3,
+        "aggregation": "mean",
+        "max_search_rounds": 20,
+        "validation_executions_per_candidate": 5,
+        "best_manual": 73.6,
+        "aflow": 83.4,
+        "delta_percentage_points": 9.8,
+        "chart_columns": [
+          "method",
+          "pass_at_1_percent"
+        ],
+        "chart_rows": [
+          [
+            "IO",
+            71.8
+          ],
+          [
+            "CoT",
+            71.8
+          ],
+          [
+            "CoT SC (5-shot)",
+            73.6
+          ],
+          [
+            "MedPrompt",
+            73.6
+          ],
+          [
+            "MultiPersona",
+            73.6
+          ],
+          [
+            "Self Refine",
+            69.8
+          ],
+          [
+            "ADAS",
+            53.4
+          ],
+          [
+            "AFlow",
+            83.4
+          ]
+        ]
+      },
+      "limits": "Requires numerical evaluation; validation-driven workflow discovery has search cost. Results concern benchmark workflows. Different executors may need different workflows.",
+      "limits_locators": [
+        "Section 3.2, p.6",
+        "Section 5.2, p.8"
+      ],
+      "repository_workflow": {
+        "status": "Source-inspected, not executed; commands require credentials and historical model availability.",
+        "steps": [
+          "Clone FoundationAgents/AFlow; create Python 3.9 environment.",
+          "Install requirements.txt.",
+          "Configure models and credentials in config/config2.yaml using the example.",
+          "Run: python run.py --dataset MBPP --max_rounds 20 --validation_rounds 5",
+          "Evaluate saved workflows using optimizer mode Test in run.py."
+        ],
+        "source_notes": "Current run.py automatically downloads datasets. Its validation_rounds default is 1, unlike the paper's 5: pass 5 explicitly. README warns some operators may have migration bugs. Current code defaults do not establish exact paper reproduction."
+      },
+      "teaching_inference": "Treat this as outer-loop process improvement: first define a reliable score, then compare candidate procedures on held-out examples. AFlow's optimized workflow is the deployed artifact; the search tree is not the user's live task state.",
+      "slide_suggestions": [
+        {
+          "route": "core",
+          "title": "Improve the procedure, then use it",
+          "visual": "Two loops: offline workflow candidate search across scored examples; selected workflow handles a new task.",
+          "source_locator": "Figure 3, p.5"
+        },
+        {
+          "route": "core",
+          "title": "A discovered procedure has concrete branches",
+          "visual": "Three generated programs converge to ensemble selection, test gate, optional repair.",
+          "source_locator": "Appendix B.1, p.22"
+        },
+        {
+          "route": "extension",
+          "title": "Measure the workflow, not the brand",
+          "visual": "MBPP pass@1 bars from Table 1; annotate executor, missing exact test count and three-run mean.",
+          "source_locator": "Table 1, p.8"
+        }
+      ],
+      "authors": [
+        "Jiayi Zhang",
+        "Jinyu Xiang",
+        "Zhaoyang Yu",
+        "Fengwei Teng",
+        "Xiong-Hui Chen",
+        "Jiaqi Chen",
+        "Mingchen Zhuge",
+        "Xin Cheng",
+        "Sirui Hong",
+        "Jinlin Wang",
+        "Bingnan Zheng",
+        "Bang Liu",
+        "Yuyu Luo",
+        "Chenglin Wu"
+      ],
+      "implementation_distinction": "AFlow is a research workflow-optimization framework. Its MCTS nodes are whole workflows, unlike task-trajectory nodes in LATS. A general orchestration SDK does not automatically perform this offline optimization or supply the evaluation score."
+    }
+  ],
+  "source_map_additions": {
+    "F01": {
+      "id": "F01",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "authors": [
+        "Shunyu Yao",
+        "Jeffrey Zhao",
+        "Dian Yu",
+        "Nan Du",
+        "Izhak Shafran",
+        "Karthik Narasimhan",
+        "Yuan Cao"
+      ],
+      "publisher": "ICLR 2023",
+      "date": "10 March 2023; arXiv v3, ICLR 2023",
+      "url": "https://arxiv.org/abs/2210.03629v3",
+      "pdf_url": "https://arxiv.org/pdf/2210.03629v3",
+      "short": "ReAct paper",
+      "type": "Original peer-reviewed research; benchmark evidence, not utility deployment",
+      "location": "Table 4 and Section 4, PDF pp.7–8",
+      "code_url": "https://github.com/ysymyth/ReAct"
+    },
+    "F02": {
+      "id": "F02",
+      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "authors": [
+        "Timo Schick",
+        "Jane Dwivedi-Yu",
+        "Roberto Dessì",
+        "Roberta Raileanu",
+        "Maria Lomeli",
+        "Eric Hambro",
+        "Luke Zettlemoyer",
+        "Nicola Cancedda",
+        "Thomas Scialom"
+      ],
+      "publisher": "Advances in Neural Information Processing Systems 36, NeurIPS 2023",
+      "date": "2023; NeurIPS published paper; first preprint 9 February 2023",
+      "url": "https://proceedings.neurips.cc/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html",
+      "pdf_url": "https://proceedings.neurips.cc/paper_files/paper/2023/file/d842425e4bf79ba039352da0f658a906-Paper-Conference.pdf",
+      "short": "Toolformer paper",
+      "type": "Original peer-reviewed research; benchmark evidence, not utility deployment",
+      "location": "Table 3, PDF p.6; Section 4.2"
+    },
+    "F03": {
+      "id": "F03",
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "authors": [
+        "Noah Shinn",
+        "Federico Cassano",
+        "Ashwin Gopinath",
+        "Karthik Narasimhan",
+        "Shunyu Yao"
+      ],
+      "publisher": "Advances in Neural Information Processing Systems 36, NeurIPS 2023",
+      "date": "2023; NeurIPS published paper; first preprint 20 March 2023",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html",
+      "pdf_url": "https://proceedings.neurips.cc/paper_files/paper/2023/file/1b44b878bb782e6954cd888628510e90-Paper-Conference.pdf",
+      "short": "Reflexion paper",
+      "type": "Original peer-reviewed research; benchmark evidence, not utility deployment",
+      "location": "Table 3, PDF p.8",
+      "code_url": "https://github.com/noahshinn/reflexion"
+    },
+    "F04": {
+      "id": "F04",
+      "title": "Language Agent Tree Search Unifies Reasoning, Acting, and Planning in Language Models",
+      "authors": [
+        "Andy Zhou",
+        "Kai Yan",
+        "Michal Shlapentokh-Rothman",
+        "Haohan Wang",
+        "Yu-Xiong Wang"
+      ],
+      "publisher": "Proceedings of the 41st International Conference on Machine Learning, PMLR 235",
+      "date": "2024; ICML 2024; arXiv v3 dated 6 June 2024",
+      "url": "https://proceedings.mlr.press/v235/zhou24r.html",
+      "pdf_url": "https://arxiv.org/pdf/2310.04406v3",
+      "short": "LATS paper",
+      "type": "Original peer-reviewed research; benchmark evidence, not utility deployment",
+      "location": "Table 6 and Section 5.3, p.8; Appendix D.3, pp.16–17",
+      "code_url": "https://github.com/andyz245/LanguageAgentTreeSearch"
+    },
+    "F05": {
+      "id": "F05",
+      "title": "AFlow: Automating Agentic Workflow Generation",
+      "authors": [
+        "Jiayi Zhang",
+        "Jinyu Xiang",
+        "Zhaoyang Yu",
+        "Fengwei Teng",
+        "Xiong-Hui Chen",
+        "Jiaqi Chen",
+        "Mingchen Zhuge",
+        "Xin Cheng",
+        "Sirui Hong",
+        "Jinlin Wang",
+        "Bingnan Zheng",
+        "Bang Liu",
+        "Yuyu Luo",
+        "Chenglin Wu"
+      ],
+      "publisher": "ICLR 2025",
+      "date": "2025; ICLR 2025; arXiv v4 dated 15 April 2025",
+      "url": "https://arxiv.org/abs/2410.10762v4",
+      "pdf_url": "https://arxiv.org/pdf/2410.10762v4",
+      "short": "AFlow paper",
+      "type": "Original peer-reviewed research; benchmark evidence, not utility deployment",
+      "location": "Table 1 and Section 5.1, pp.7–8",
+      "code_url": "https://github.com/FoundationAgents/AFlow"
+    }
+  },
+  "global_teaching_constraints": [
+    "Use actual call arguments, returned observations and evaluator outputs to teach an executable mechanism.",
+    "Label published figures as original source figures; new plots reproduce reported values, while deltas are tutorial calculations.",
+    "Do not pool scores, pass@1, exact match and success rate into an overall performance number.",
+    "Paper-era models, sample sets and search budgets differ. A modern SDK implementation needs its own measurement.",
+    "An operator transfer is an explicitly proposed adaptation, not a claim that any named utility deployed the paper."
+  ],
+  "route_suggestion": {
+    "core": [
+      "ReAct mechanism and result",
+      "Reflexion mechanism and grounded-feedback ablation",
+      "LATS mechanism in a reversible sandbox"
+    ],
+    "optional_extensions": [
+      "Toolformer training/call-selection mechanism",
+      "AFlow offline workflow search and held-out evaluation",
+      "Additional failure analyses and original paper figures"
+    ]
+  },
+  "mechanism_synthesis": "AFlow searches for the procedure used across tasks; LATS searches alternative paths within a task. An orchestration SDK can implement either control structure but does not automatically supply its evaluator, budget, reversible environment or evidence of improvement."
+}

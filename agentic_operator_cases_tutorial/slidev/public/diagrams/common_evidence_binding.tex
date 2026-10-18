@@ -1,0 +1,9 @@
+\begin{tikzpicture}[font=\sffamily\fontsize{12}{14}\selectfont,x=1cm,y=1cm,
+b/.style={draw=IEEEBlue,align=left,text width=3.25cm,inner sep=8pt}]
+\node[b] (r) at (1.8,1.6) {\textbf{Request}\\case + revision\\model scope + limits};
+\node[b] (u) at (6.2,1.6) {\textbf{Candidate}\\allowed device + action\\exact control values};
+\node[b] (e) at (10.6,1.6) {\textbf{Evidence}\\same request + action\\solver output + checks};
+\draw[IEEEBlue,very thick,-{Latex}] (r)--(u);\draw[IEEEBlue,very thick,-{Latex}] (u)--(e);
+\draw[Amber,thick] (r.south)--(1.8,.05)--(10.6,.05)--(e.south);
+\node[fill=white,text=Amber] at (6.2,.05) {A changed input invalidates the old binding};
+\end{tikzpicture}

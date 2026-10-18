@@ -1,0 +1,2420 @@
+[
+  {
+    "id": "V01",
+    "title": "One feeder. Two controls. One checked recommendation.",
+    "section": "Voltage support",
+    "kind": "divider",
+    "kicker": "40–42 min · Voltage support",
+    "takeaway": "Start with an operating request whose physical scope is explicit.",
+    "items": [
+      "Use available PV",
+      "Respect voltage and current limits",
+      "Keep the operator in the decision loop"
+    ],
+    "notes": "The voltage chapter uses one SMART-DS synthetic Greensboro feeder, identified as uhs20_1247–udt8894. It is not a model of the whole city or a live utility. Ask learners which information they still need before advising an operator: device availability, thermal ratings, voltage bounds, model coverage and permitted actions. The map establishes geographic context; it does not establish operational validity. Our numerical experiment uses a fleet command with two continuous variables. All recommendations remain advisory simulation outputs. This chapter moves from a familiar control problem to the reason for explicit agent handoffs: a recommendation should carry the evidence and assumptions that justify it.",
+    "refs": [
+      {
+        "label": "SMART-DS · synthetic distribution models",
+        "url": "https://data.openei.org/submissions/2981"
+      },
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "visual": "feeder",
+    "image": "/assets/feeder.png",
+    "image_caption": "SMART-DS synthetic Greensboro feeder uhs20_1247–udt8894. One selected feeder; no live utility deployment.",
+    "prompt": "What must the operator know before accepting a new inverter setting?",
+    "minutes": 1
+  },
+  {
+    "id": "V02",
+    "title": "Follow the evidence through all five stages",
+    "section": "Voltage support",
+    "kind": "flow",
+    "kicker": "Workflow map",
+    "takeaway": "Every stage returns an inspectable result, even without an LLM call.",
+    "items": [
+      "Awareness → validated request",
+      "Planning → MPC and SAC proposals",
+      "Simulation and verification → checked evidence",
+      "LLM optimizer → bounded next trial"
+    ],
+    "notes": "Animate the stage path in order and keep the final loop visible. Awareness validates the operating request. Planning obtains model-based MPC and model-free SAC proposals. Simulation evaluates their physical consequences with a selected model. Verification checks numerical limits and binds the evidence to the request and candidate. The LLM optimizer can select a permitted refinement; a changed action must return to simulation and verification. A final recommendation is passed to the operator. These responsibilities are distinct from calling a language model five times. Deterministic numerical stages are essential parts of the agentic workflow. Ask participants to predict which stages must repeat if the reactive-power command changes.",
+    "refs": [
+      {
+        "label": "Rawlings, Mayne & Diehl · MPC",
+        "url": "https://sites.engineering.ucsb.edu/~jbraw/mpc/"
+      },
+      {
+        "label": "Haarnoja et al. · SAC (ICML 2018)",
+        "url": "https://proceedings.mlr.press/v80/haarnoja18b.html"
+      },
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "visual": "stages",
+    "nodes": [
+      "Awareness",
+      "Planning",
+      "Simulation",
+      "Verification",
+      "LLM optimizer"
+    ],
+    "prompt": "Which stages repeat when the command changes?",
+    "minutes": 0.75
+  },
+  {
+    "id": "V03",
+    "title": "Awareness: make assumptions machine-checkable",
+    "section": "Voltage support",
+    "kind": "concept",
+    "kicker": "Stage 1 · Awareness",
+    "takeaway": "A useful request identifies what must be true before planning.",
+    "items": [
+      "Task: voltage support",
+      "Load multiplier and current derating",
+      "Model scope and request revision",
+      "Output: validated contract or rejection"
+    ],
+    "notes": "Connect the request object to the earlier tool-contract lesson. The load multiplier describes the scenario; the rating fraction sets a thermal condition; the backend specifies the numerical model. These are engineering inputs, not values that a language model may silently choose. A revision distinguishes a changed operating condition from the previous request. The classroom validator checks required fields and allowed values before numerical work begins. This does not authenticate a sensor or prove that the inputs represent the actual feeder. The returned contract is a clear starting point for later checks. Ask learners to identify one field that would require a new simulation if it changed.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L1",
+      "start": 1,
+      "end": 5
+    },
+    "prompt": "Does validating a request prove that its measurements are true?",
+    "answer": "No. Schema validity, provenance and physical truth are different properties.",
+    "minutes": 0.75
+  },
+  {
+    "id": "V04",
+    "title": "Model-based and model-free methods share an action contract",
+    "section": "Voltage support",
+    "kind": "comparison",
+    "kicker": "Stage 2 · Planning",
+    "takeaway": "Compare candidate actions under the same scenario, cost and limits.",
+    "items": [
+      "MPC: predict with a model, then optimize",
+      "SAC: infer with a trained continuous-action policy",
+      "PPO: another continuous-action option, discussed only",
+      "Both: return the proposed command for checking"
+    ],
+    "notes": "Explain model-based and model-free before naming algorithms. MPC uses a prediction model while solving the current decision. SAC learns a policy from interaction and produces an action from an observation at inference time. A model-free policy may still have been trained in a simulator; the overall workflow certainly still uses engineering models for verification. SAC is the trained actor executed here. PPO is a relevant alternative, not a second trained result in this tutorial. The same request and acceptance limits apply to both proposals. A fast policy call is useful only if its physical outcome and total workflow cost are also acceptable. This motivates the common candidate contract.",
+    "refs": [
+      {
+        "label": "Rawlings, Mayne & Diehl · MPC",
+        "url": "https://sites.engineering.ucsb.edu/~jbraw/mpc/"
+      },
+      {
+        "label": "Haarnoja et al. · SAC (ICML 2018)",
+        "url": "https://proceedings.mlr.press/v80/haarnoja18b.html"
+      },
+      {
+        "label": "Schulman et al. · PPO (2017)",
+        "url": "https://arxiv.org/abs/1707.06347"
+      }
+    ],
+    "nodes": [
+      "Observation",
+      "MPC or SAC",
+      "Candidate (a,b)",
+      "Fresh physical check"
+    ],
+    "columns": [
+      "Method",
+      "Decision-time work",
+      "Physical gate"
+    ],
+    "rows": [
+      [
+        "MPC",
+        "Model + optimization",
+        "Required"
+      ],
+      [
+        "SAC",
+        "Saved actor inference",
+        "Required"
+      ],
+      [
+        "PPO",
+        "Discussed alternative",
+        "Required"
+      ]
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "V05",
+    "title": "MPC plans ahead, then uses the first move",
+    "section": "Voltage support",
+    "kind": "flow",
+    "kicker": "Model-based control",
+    "takeaway": "A horizon informs the current action; new observations trigger replanning.",
+    "items": [
+      "Observe the present state",
+      "Optimize a sequence over H steps",
+      "Test and apply only the first command",
+      "Update the forecast and solve again"
+    ],
+    "notes": "Build the timeline one element at a time. The central concept is repeated optimization using new information, rather than executing an entire old plan without revision. The generic MPC framework can contain dynamics and long horizons. This tutorial implements H=3 quasi-static power-flow snapshots, linked by a penalty on command movement. It returns the first proposed control for a fresh check. It does not demonstrate transient stability or a complete closed-loop field rollout. Ask learners why a new forecast could change the later controls and why only the first control is considered now. The next slide formalizes these ideas without hiding the difference between general MPC and the implemented approximation.",
+    "refs": [
+      {
+        "label": "Rawlings, Mayne & Diehl · MPC",
+        "url": "https://sites.engineering.ucsb.edu/~jbraw/mpc/"
+      }
+    ],
+    "nodes": [
+      "Observe",
+      "Plan u₀,u₁,u₂",
+      "Check u₀",
+      "Reobserve"
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "V06",
+    "title": "Read the MPC objective from left to right",
+    "section": "Voltage support",
+    "kind": "equation",
+    "kicker": "General formulation → implemented specialization",
+    "takeaway": "Prediction and constraints are part of the optimization problem.",
+    "items": [
+      "Minimize discounted stage costs",
+      "Enforce the prediction model",
+      "Keep every planned step inside constraints"
+    ],
+    "notes": "First read the symbols aloud. State x_k summarizes the system at step k, u_k is a proposed control and d_k is forecast demand. The stage cost ell encodes preferences, while g represents constraints that preferences cannot waive. The displayed dynamic relation is the standard general formulation. Our implementation specializes it to algebraic power-flow snapshots, a three-step horizon and movement coupling between controls. The discount factor is 0.98. There is no terminal invariant-set construction or closed-loop stability theorem in this teaching example. Have learners point to the part of the equation that would change if the forecast changes, then to the part that enforces a device rating.",
+    "refs": [
+      {
+        "label": "Rawlings, Mayne & Diehl · MPC",
+        "url": "https://sites.engineering.ucsb.edu/~jbraw/mpc/"
+      }
+    ],
+    "equation": "\\min_{u_{0:H-1}}\\sum_{k=0}^{H-1}\\gamma^k\\ell(x_k,u_k)\\quad\\text{s.t.}\\quad x_{k+1}=f(x_k,u_k,d_k),\\quad g(x_k,u_k)\\le0",
+    "symbols": [
+      {
+        "symbol": "x_k",
+        "meaning": "Predicted state at step k"
+      },
+      {
+        "symbol": "u_k,d_k",
+        "meaning": "Control and forecast demand"
+      },
+      {
+        "symbol": "H,\\gamma",
+        "meaning": "Horizon and discount; tutorial H=3, γ=0.98"
+      },
+      {
+        "symbol": "\\ell,f,g",
+        "meaning": "Stage cost, prediction model, constraint function"
+      }
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "V07",
+    "title": "Two numbers specify the inverter fleet command",
+    "section": "Voltage support",
+    "kind": "equation",
+    "kicker": "Control vocabulary",
+    "takeaway": "Define units and signs before interpreting any numerical result.",
+    "items": [
+      "a sets active participation",
+      "b sets signed reactive participation",
+      "Negative b means reactive absorption",
+      "Every inverter retains its own rating"
+    ],
+    "notes": "The tutorial uses a reduced fleet control rather than thousands of independently optimized inverter setpoints. For inverter i, S_i is the apparent-power rating and the dimensionless pair a,b scales active and reactive commands. Here the available active capability follows the adapter's declared teaching assumption. The negative sign convention for b corresponds to reactive absorption. Learners should not infer the sign from a plot without reading this contract. Ask what happens to each device when a increases by 0.0025. The physical change is proportional to that device's rating. This shared two-number interface lets MPC, SAC and a bounded language-selected refinement propose directly comparable controls.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "equation": "u=(a,b),\\qquad p_i=aS_i,\\qquad q_i=bS_i",
+    "symbols": [
+      {
+        "symbol": "u",
+        "meaning": "Two-number fleet command"
+      },
+      {
+        "symbol": "a,b",
+        "meaning": "Dimensionless active and signed reactive participation"
+      },
+      {
+        "symbol": "S_i",
+        "meaning": "Inverter i apparent-power rating, kVA"
+      },
+      {
+        "symbol": "p_i,q_i",
+        "meaning": "Active kW and reactive kvar commands"
+      }
+    ],
+    "minutes": 0.75
+  },
+  {
+    "id": "V08",
+    "title": "Four cost terms express four preferences",
+    "section": "Voltage support",
+    "kind": "equation",
+    "kicker": "Objective, not a safety certificate",
+    "takeaway": "A cheaper reactive command can still worsen the total outcome.",
+    "items": [
+      "Preserve active capability",
+      "Limit reactive effort",
+      "Keep voltages near 1.01 p.u.",
+      "Avoid abrupt changes from the previous command"
+    ],
+    "notes": "Reveal the cost one term at a time and ask learners to name the engineering preference represented by each term. The first term discourages curtailment under the declared availability assumption. The second discourages reactive effort. The third measures mean squared voltage deviation over the modeled bus-phase set. The fourth penalizes command movement. All weights are teaching design choices, not universal operating preferences. Reducing the magnitude of b certainly reduces the reactive-effort term, but can alter voltages, movement and feasibility. The objective is evaluated for the current step in the reported comparisons. A better objective alone establishes neither stability nor a safe recommendation outside the modeled contract.",
+    "refs": [
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "equation": "\\ell=(1-a)^2+0.05b^2+10\\,\\mathrm{mean}[(V-1.01)^2]+0.05\\lVert u-u_{\\mathrm{prev}}\\rVert_2^2",
+    "symbols": [
+      {
+        "symbol": "V",
+        "meaning": "Modeled voltage magnitudes, p.u."
+      },
+      {
+        "symbol": "u_{\\mathrm{prev}}",
+        "meaning": "Previous two-number command"
+      },
+      {
+        "symbol": "\\ell",
+        "meaning": "Dimensionless weighted teaching cost"
+      }
+    ],
+    "prompt": "Does reducing reactive effort necessarily reduce the total cost?",
+    "answer": "No. The voltage and movement terms can change.",
+    "minutes": 1
+  },
+  {
+    "id": "V09",
+    "title": "Feasibility comes before ranking",
+    "section": "Voltage support",
+    "kind": "equation",
+    "kicker": "Stage 4 · Verification preview",
+    "takeaway": "Neither a low cost nor a majority vote can waive a limit.",
+    "items": [
+      "Network: voltage and current bounds",
+      "Devices: inverter capability and action bounds",
+      "Evidence: finite values and completed solve",
+      "Identity: matching request, command and model"
+    ],
+    "notes": "Draw the inverter capability circle while revealing the network bounds. The circle follows from the apparent-power limit after dividing by the squared rating. The planner uses local sensitivities and a conservative capability polygon; the final proposal still returns to a numerical model for checking. Distinguish a solver returning normally, a good cost and a feasible candidate. These are separate observations. Evidence validity also requires matching case, candidate and model identifiers, so results from a previous setting cannot be attached to a new one. Ask whether three language models agreeing can make a branch overcurrent acceptable. The answer locates the engineering gate above preference selection.",
+    "refs": [
+      {
+        "label": "Rawlings, Mayne & Diehl · MPC",
+        "url": "https://sites.engineering.ucsb.edu/~jbraw/mpc/"
+      },
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "equation": "V_{\\min}\\le|V_i|\\le V_{\\max},\\quad |I_e|\\le I_e^{\\max},\\quad a^2+b^2\\le1,\\quad 0\\le a\\le1",
+    "symbols": [
+      {
+        "symbol": "V_i",
+        "meaning": "Bus-phase voltage, p.u."
+      },
+      {
+        "symbol": "I_e,I_e^{\\max}",
+        "meaning": "Branch current and allowed current, A"
+      },
+      {
+        "symbol": "a,b",
+        "meaning": "Normalized active and reactive command"
+      }
+    ],
+    "prompt": "Can three agreeing LLMs turn an overcurrent into PASS?",
+    "answer": "No. Voting chooses a trial; numerical constraints determine admissibility.",
+    "minutes": 0.75
+  },
+  {
+    "id": "V10",
+    "title": "The two backends see different constraint sets",
+    "section": "Voltage support",
+    "kind": "comparison",
+    "kicker": "Stage 3 · Simulation",
+    "takeaway": "Declare model coverage before comparing outcomes.",
+    "items": [
+      "LinDistFlow3: MV network, ideal aggregated LV demand",
+      "OpenDSS: supplied MV/LV feeder and transformers",
+      "Same action can pass one contract and fail another",
+      "Changed coverage prevents an accuracy-only comparison"
+    ],
+    "notes": "Keep two model cards visible while adding their coverage. Python LinDistFlow3 implements a coupled three-phase linear approximation on the MV network. Its ideal aggregation does not expose LV voltages or transformer thermal constraints. OpenDSS solves the supplied unbalanced MV/LV power-flow model. Both are useful for their declared purpose, but their PASS labels answer different questions. This experiment changes both model equations and coverage. It therefore cannot isolate a pure approximation-error effect. Even the voltage term in the objective is aggregated over different modeled sets. Ask learners which additional limits could fail when the same command is sent to the broader model.",
+    "refs": [
+      {
+        "label": "Gan & Low · three-phase optimization (2014)",
+        "url": "https://arxiv.org/abs/1406.3054"
+      },
+      {
+        "label": "EPRI · OpenDSS documentation",
+        "url": "https://opendss.epri.com/"
+      },
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "nodes": [
+      "Same command",
+      "MV-only check",
+      "Full MV/LV check"
+    ],
+    "columns": [
+      "Model",
+      "Covered network",
+      "Meaning of PASS"
+    ],
+    "rows": [
+      [
+        "LinDistFlow3",
+        "MV + ideal LV aggregation",
+        "Reduced contract"
+      ],
+      [
+        "OpenDSS",
+        "Supplied MV/LV + transformers",
+        "Full snapshot contract"
+      ]
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "V11",
+    "title": "LinDistFlow3 retains three-phase coupling",
+    "section": "Voltage support",
+    "kind": "equation",
+    "kicker": "Python model used in the notebook",
+    "takeaway": "The linear relation still contains mutual impedance between phases.",
+    "items": [
+      "Propagate squared voltages down the radial feeder",
+      "Use phase impedance matrices",
+      "Assume nominal phase-angle ratios",
+      "Report losses diagnostically; omit them from branch balance"
+    ],
+    "notes": "Start from the parent and child buses, then reveal the voltage-drop term. The equation matches the fixed phase-ratio closure used by the Python adapter. The matrix Z contains mutual phase coupling, so this is not a single-phase equivalent. The beta vector encodes nominal phase relationships, overbars denote complex conjugation, the circle-like multiplication symbol means entrywise multiplication and Re extracts the real component. Branch powers are in VA and squared voltages in volts squared. The imaginary unit in the exponent is distinct from a bus index. Currents use fixed source-reference phasors at 1.03 p.u.; small-loss assumptions are not certified error bounds. The full limitations remain in the handout.",
+    "refs": [
+      {
+        "label": "Gan & Low · three-phase optimization (2014)",
+        "url": "https://arxiv.org/abs/1406.3054"
+      },
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "equation": "\\mathbf w_j=\\mathbf w_i-2\\,\\mathrm{Re}\\!\\left[\\overline{\\boldsymbol\\beta}\\odot\\left(Z_{ij}\\left(\\boldsymbol\\beta\\odot\\overline{\\mathbf S}_{ij}\\right)\\right)\\right]",
+    "symbols": [
+      {
+        "symbol": "\\mathbf w_i,\\mathbf w_j",
+        "meaning": "Parent and child squared phase voltages, V²"
+      },
+      {
+        "symbol": "Z_{ij},\\mathbf S_{ij}",
+        "meaning": "Coupled impedance Ω; downstream phase powers VA"
+      },
+      {
+        "symbol": "\\boldsymbol\\beta",
+        "meaning": "Nominal phase ratios (1, e⁻ʲ²π/³, e⁻ʲ⁴π/³)"
+      },
+      {
+        "symbol": "\\overline{\\cdot},\\odot,\\mathrm{Re}",
+        "meaning": "Conjugate, entrywise product, real part"
+      }
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "V12",
+    "title": "SAC balances task reward and exploration",
+    "section": "Voltage support",
+    "kind": "equation",
+    "kicker": "Model-free continuous control",
+    "takeaway": "A reward penalty is not a proof of constraint satisfaction.",
+    "items": [
+      "Actor maps observations to continuous actions",
+      "Reward evaluates the task outcome",
+      "Entropy encourages exploration during learning",
+      "The frozen actor still needs fresh verification"
+    ],
+    "notes": "Use this equation to explain the purpose of SAC rather than derive every update rule. The actor is a probability distribution over continuous actions. The task reward expresses operational preferences and penalties, while entropy encourages broader exploration during training. Alpha controls that tradeoff and gamma discounts future rewards. Training and inference are different phases: the classroom loads saved weights and computes a new action for the current observation. It does not retrain the policy. Even a strong reward penalty for violations can leave unsafe actions under distribution shift. This is why the actor is a candidate generator within the workflow, followed by simulation and a hard acceptance gate.",
+    "refs": [
+      {
+        "label": "Haarnoja et al. · SAC (ICML 2018)",
+        "url": "https://proceedings.mlr.press/v80/haarnoja18b.html"
+      },
+      {
+        "label": "Schulman et al. · PPO (2017)",
+        "url": "https://arxiv.org/abs/1707.06347"
+      }
+    ],
+    "equation": "\\max_\\pi\\ \\mathbb E\\!\\left[\\sum_{t\\ge0}\\gamma^t\\{r(s_t,u_t)+\\alpha\\mathcal H(\\pi(\\cdot\\mid s_t))\\}\\right]",
+    "symbols": [
+      {
+        "symbol": "s_t,u_t",
+        "meaning": "Observation and continuous action"
+      },
+      {
+        "symbol": "\\pi,r",
+        "meaning": "Actor policy and task reward"
+      },
+      {
+        "symbol": "\\mathcal H,\\alpha",
+        "meaning": "Policy entropy and exploration weight"
+      },
+      {
+        "symbol": "\\gamma",
+        "meaning": "Reward discount factor"
+      },
+      {
+        "symbol": "\\mathbb E,t",
+        "meaning": "Expectation over policy trajectories; discrete training step"
+      }
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "V13",
+    "title": "Read the training provenance, not only the actor output",
+    "section": "Voltage support",
+    "kind": "flow",
+    "kicker": "SAC artifact used by L2",
+    "takeaway": "Training cost and inference cost belong to different measurements.",
+    "items": [
+      "240 AC solves fit a cubic surrogate",
+      "48 separate samples evaluate the surrogate fit",
+      "12,000 policy-training transitions use that surrogate",
+      "L2 performs new inference with saved weights"
+    ],
+    "notes": "Animate a pipeline from AC samples to surrogate fitting to policy training to the saved actor. The 12,000 transitions are not 12,000 OpenDSS solves. This distinction matters for reproducibility and for reporting computational cost. The fit-validation samples assess the surrogate, not all aspects of policy robustness. New classroom scenarios can alter demand or current-rating conditions, creating a transfer problem for the frozen actor. A quick inference time therefore says little about total development cost or reliability under shift. Ask learners what evidence they would request before trusting the actor beyond this fixture. Possible answers include separate policy test cases, out-of-distribution conditions, constraint failures and an appropriate deterministic baseline.",
+    "refs": [
+      {
+        "label": "Haarnoja et al. · SAC (ICML 2018)",
+        "url": "https://proceedings.mlr.press/v80/haarnoja18b.html"
+      },
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "nodes": [
+      "240 AC samples",
+      "Cubic surrogate",
+      "12,000 transitions",
+      "Saved SAC actor"
+    ],
+    "prompt": "What exactly is being recomputed when we run L2?",
+    "minutes": 1
+  },
+  {
+    "id": "V14",
+    "title": "L2: the code changes a scenario, then recomputes",
+    "section": "Voltage support",
+    "kind": "code",
+    "kicker": "Notebook checkpoint · L2",
+    "takeaway": "One cell solves MPC, infers SAC and checks both candidates.",
+    "items": [
+      "Change one scenario parameter",
+      "Call the shared experiment helper",
+      "Time the whole numerical operation",
+      "Inspect the returned comparison table"
+    ],
+    "notes": "Walk through the exact first seven lines of L2. LOAD_SCALE and RATING_FRACTION are the two visible scenario controls. The helper performs a fresh MPC calculation, new saved-actor inference and new numerical checks. The timer encloses the helper call, so it measures more than policy inference alone. The returned table is the place to compare feasibility and cost before looking at the plot. Keep the original default outputs as a reference, then make one change at a time. The later L3 response pool belongs to a different archived original context; rerunning L2 does not regenerate those LLM responses. This boundary must stay explicit during the exercise.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L2",
+      "start": 1,
+      "end": 7
+    },
+    "prompt": "Which output would show that a faster proposal was unusable?",
+    "minutes": 1
+  },
+  {
+    "id": "V15",
+    "title": "Lab: predict, change demand, explain the outcome",
+    "section": "Voltage support",
+    "kind": "lab",
+    "kicker": "53–60 min · 7-minute paired exercise",
+    "takeaway": "Change one assumption and support your conclusion with a metric.",
+    "items": [
+      "Predict before running",
+      "Run L2 at the default load",
+      "Change LOAD_SCALE once and rerun L2",
+      "Record feasibility, objective and the limiting margin"
+    ],
+    "notes": "Allow seven minutes and keep this slide visible while participants work. One learner predicts and one operates the notebook, then they exchange roles. First record the default results. Next choose a modest changed load multiplier and predict how PV participation, reactive support or curtailment might respond. Run the full L2 cell and compare the same acceptance metrics. Students should explain a result using a numerical margin rather than a general claim about AI. If setup fails, use the executed notebook output to complete the prediction and interpretation tasks. Do not modify unrelated cells or imply that the archived LLM pool has changed. Finish by collecting one surprising observation from the room.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L2",
+      "start": 1,
+      "end": 4
+    },
+    "prompt": "At higher demand, will PV curtailment necessarily increase?",
+    "answer": "Not necessarily. Local voltage and current constraints can move in different directions.",
+    "minutes": 7
+  },
+  {
+    "id": "V16",
+    "title": "Inspect the margins before the winner label",
+    "section": "Voltage support",
+    "kind": "chart",
+    "kicker": "Fresh L2 default output",
+    "takeaway": "A feasible action can still be much worse on the declared objective.",
+    "items": [
+      "MPC objective: 0.031104",
+      "SAC objective: 0.436428",
+      "Both pass the reduced-model gate in this default case",
+      "Voltage curves are separately sorted distributions"
+    ],
+    "notes": "Use the actual executed L2 figure. The displayed default costs are rounded for teaching: MPC is approximately 0.031104 and SAC 0.436428, with both feasible under the reduced-model contract. The voltage curves are sorted separately, so matching positions are ranks rather than the same physical bus. The current-utilization plot reports the most heavily used allowed current bound. Ask participants to identify the evidence for feasibility before comparing objective values. A cost gap here is a controller result, not automatically an advantage of the multi-agent architecture. Students with changed load settings should report their own values and avoid mixing them with this original reference output.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "image": "/assets/classroom_voltage.png",
+    "image_caption": "Executed L2 default: fresh MPC solve, saved SAC actor inference and reduced-model checks. Sorted curves are voltage ranks.",
+    "prompt": "Does the lower objective identify which stage caused the improvement?",
+    "minutes": 2
+  },
+  {
+    "id": "V17",
+    "title": "L3: inspect actual archived model responses",
+    "section": "Voltage support",
+    "kind": "code",
+    "kicker": "Notebook checkpoint · L3",
+    "takeaway": "Recorded model output is evidence to inspect, not a fresh measurement.",
+    "items": [
+      "Load original test_01",
+      "Display model, operation, reason and recorded seconds",
+      "Count distinct physical candidates",
+      "Keep this context separate from modified L2"
+    ],
+    "notes": "Explain why this cell is reproducible without contacting a local model. It loads an archived response pool from original test_01, displays each exact public response and reports how the structured proposals were canonicalized. The seconds column contains recorded call durations, not the time required to print the table. The original test context is not identical to L2's default rating fraction, and certainly not to a student-modified L2 scenario. This cell therefore teaches inspection and evidence attribution. It does not supply new context-matched recommendations for the latest classroom perturbation. Ask learners to find a claim in a reason that is supported by the numeric evidence and one that still requires testing.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L3",
+      "start": 1,
+      "end": 8
+    },
+    "minutes": 1
+  },
+  {
+    "id": "V18",
+    "title": "Three replies produce two different physical trials",
+    "section": "Voltage support",
+    "kind": "comparison",
+    "kicker": "Archived actual responses · original test_01",
+    "takeaway": "A persuasive explanation can contain an unsupported engineering claim.",
+    "items": [
+      "Llama 3.1 8B: increase a by 0.0025 · 1.867 s",
+      "Llama 3.2 3B: reduce |b| by 10% · 0.905 s",
+      "Qwen 2.5 7B: reduce |b| by 10% · 1.844 s",
+      "Steady-state tests do not establish voltage stability"
+    ],
+    "notes": "These times and choices come from the recorded response-selection pilot. Llama 3.1 suggested increasing active participation to reduce curtailment. Llama 3.2 described reducing reactive effort and also mentioned reducing curtailment, a causal connection that its text alone does not establish. Qwen used the phrase voltage stability, which is unsupported by these steady-state tests. Present the excerpts as public rationales, not access to private model reasoning. Llama names the model family; Ollama is the local runtime that served it. Have the audience annotate the difference between a permitted operation and a justified physical claim. The next step converts prose-backed choices into reproducible physical candidates.",
+    "refs": [
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "prompt": "Qwen wrote “may help improve voltage stability.” What evidence supports that?",
+    "answer": "These steady-state tests do not establish voltage stability.",
+    "columns": [
+      "Recorded model",
+      "Selected operation",
+      "Call time"
+    ],
+    "rows": [
+      [
+        "Llama 3.1 8B",
+        "Increase a by 0.0025",
+        "1.867 s"
+      ],
+      [
+        "Llama 3.2 3B",
+        "Reduce |b| by 10%",
+        "0.905 s"
+      ],
+      [
+        "Qwen 2.5 7B",
+        "Reduce |b| by 10%",
+        "1.844 s"
+      ]
+    ],
+    "minutes": 2
+  },
+  {
+    "id": "V19",
+    "title": "Vote on a canonical operation",
+    "section": "Voltage support",
+    "kind": "flow",
+    "kicker": "Stage 5 · LLM optimizer",
+    "takeaway": "Voting selects the next trial; verification controls whether it is retained.",
+    "items": [
+      "Parse structured tool and parameter fields",
+      "Deduplicate identical physical commands",
+      "Count votes with a fixed tie rule",
+      "Simulate and verify the selected trial"
+    ],
+    "notes": "Animate three response cards merging into two physical-candidate cards. Two different descriptions of the same command must not count as two distinct control actions. Canonical identifiers depend on the tool and parameters rather than rhetorical style. In original test_01, two models propose the same reactive reduction and one proposes a PV increase, so the majority chooses the reactive trial. A predetermined hash tie-break makes ties reproducible; it is not an engineering preference. Agreement is also not a calibrated safety probability because models can share mistaken assumptions. A changed command returns to the numerical stages. Ask what should happen if the majority-selected trial fails a current constraint.",
+    "refs": [
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "nodes": [
+      "3 structured replies",
+      "2 canonical candidates",
+      "Majority choice",
+      "Fresh check"
+    ],
+    "prompt": "What happens if the majority trial fails?",
+    "answer": "Reject that trial; retain a valid incumbent or escalate.",
+    "minutes": 2
+  },
+  {
+    "id": "V20",
+    "title": "LinUCB learns which operation is worth testing",
+    "section": "Voltage support",
+    "kind": "equation",
+    "kicker": "Learned response selection",
+    "takeaway": "The learner chooses among generated operations, not which LLM to call.",
+    "items": [
+      "Features combine context and candidate operation",
+      "Training score includes an exploration bonus",
+      "Feedback updates the linear reward model",
+      "Frozen evaluation uses predicted reward only"
+    ],
+    "notes": "Explain select, observe and update before revealing the formula. The feature vector represents the known context and a canonical operation, including vote-related information. Theta stores learned reward coefficients; A stores regularized feature information. During training, beta controls an uncertainty bonus. After a trial, selected feedback updates the reward model. The classroom evaluation freezes these parameters and uses predicted reward only, with no test updates. All candidate LLM responses have already been generated, so their call costs are paid by every pool selector. This is a contextual bandit, a simple reinforcement-learning setting, rather than training the language models or adapting a full sequential control policy online.",
+    "refs": [
+      {
+        "label": "Li et al. · LinUCB (WWW 2010)",
+        "url": "https://arxiv.org/abs/1003.0146"
+      },
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "equation": "q(a\\mid s)=\\theta^\\top\\phi(s,a)+\\beta\\sqrt{\\phi(s,a)^\\top A^{-1}\\phi(s,a)},\\qquad a^*=\\arg\\max_a q(a\\mid s)",
+    "symbols": [
+      {
+        "symbol": "s,a",
+        "meaning": "Evidence context and canonical operation; a is not inverter participation here"
+      },
+      {
+        "symbol": "\\phi,\\theta",
+        "meaning": "Context-operation features and learned coefficients"
+      },
+      {
+        "symbol": "A,\\beta",
+        "meaning": "Feature-information matrix and exploration weight"
+      },
+      {
+        "symbol": "q,a^*",
+        "meaning": "Training selection score and highest-scoring permitted operation"
+      }
+    ],
+    "minutes": 3
+  },
+  {
+    "id": "V21",
+    "title": "Learning feedback must follow the physical gate",
+    "section": "Voltage support",
+    "kind": "equation",
+    "kicker": "Reward and evaluation protocol",
+    "takeaway": "A predicted reward cannot override a failed physical check.",
+    "items": [
+      "24 training, 8 validation, 12 test contexts",
+      "Five training orders; selected feedback only",
+      "Frozen validation and test: zero updates",
+      "The 0.01 trial charge is not seconds"
+    ],
+    "notes": "Read the reward in two branches. A passing trial can earn a bounded improvement reward relative to the incumbent cost, with a fixed trial charge. A rejected trial receives a negative reward. The 0.01 scaling and charge are design choices; the charge does not measure latency. Training consumes selected outcomes, although the audit records contain other outcomes for comparisons. Validation and test are frozen, avoiding feedback leakage. Five training orders reuse the same training contexts and are not five independent datasets. Ask learners how changing reward scaling might change selection without changing any electrical operating limit. This separates learning preferences from the hard verification contract.",
+    "refs": [
+      {
+        "label": "Li et al. · LinUCB (WWW 2010)",
+        "url": "https://arxiv.org/abs/1003.0146"
+      },
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "equation": "r=\\begin{cases}\\min\\!\\left(1,\\dfrac{\\max(0,J_{\\mathrm{inc}}-J_{\\mathrm{trial}})}{0.01}\\right)-0.01,&\\text{PASS}\\\\-1.01,&\\text{rejected}\\end{cases}",
+    "symbols": [
+      {
+        "symbol": "r",
+        "meaning": "Post-trial learning feedback"
+      },
+      {
+        "symbol": "J_{\\mathrm{inc}},J_{\\mathrm{trial}}",
+        "meaning": "Incumbent and trial current-step costs"
+      }
+    ],
+    "minutes": 3
+  },
+  {
+    "id": "V22",
+    "title": "L4: test the frozen choice, not the predicted reward",
+    "section": "Voltage support",
+    "kind": "lab",
+    "kicker": "73–76 min · 3-minute experiment",
+    "takeaway": "The selected action must earn a new numerical result.",
+    "items": [
+      "Run L4",
+      "Compare the learner choice with the majority vote",
+      "Inspect fresh feasibility and cost",
+      "Explain what happens after a failed trial"
+    ],
+    "notes": "Read the exact L4 code, then give participants three minutes. The stored selector chooses an operation using its frozen parameters. The numerical helper evaluates the selected trial again under the archived original context. The displayed predicted reward is a learned estimate, while the returned trial table contains newly calculated outcomes. Participants should check whether the canonical candidate matches the majority choice and whether it passes the engineering gate. In this recorded test, the learner and majority agree on reactive reduction. Do not subtract this cost from a modified L2 cost, because those are different contexts. Ask which outcome controls the recommendation if a predicted improvement conflicts with failed verification.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L4",
+      "start": 1,
+      "end": 8
+    },
+    "prompt": "Predicted reward is positive, but the current limit fails. Accept?",
+    "answer": "Reject. The gate takes precedence over reward prediction.",
+    "minutes": 3
+  },
+  {
+    "id": "V23",
+    "title": "A useful experiment can find no learned advantage",
+    "section": "Voltage support",
+    "kind": "comparison",
+    "kicker": "Held-out MV pilot · 12 scenarios",
+    "takeaway": "Compare extra agents with a strong, inexpensive deterministic supervisor.",
+    "items": [
+      "Fixed refinement mean J: 0.03400656",
+      "Vote and learned selector mean J: 0.03398479",
+      "Vote and learner tie on every held-out case",
+      "A posthoc fixed Q-reduction rule reproduces their choices"
+    ],
+    "notes": "Present this result without framing a tiny cost change as general superiority. The majority vote and frozen learner tie on all twelve held-out MV cases. A simple posthoc rule that always selects the reactive reduction reproduces those choices without language-model calls. Because that rule was identified after inspecting results, label it a diagnostic rather than a predeclared baseline. The experiment demonstrates that bounded proposals, fresh verification and reproducible traces can be implemented. It does not demonstrate that additional LLMs or a learned selector are necessary for better control. Ask what new test set or task distribution would make the learner's contribution more convincing than the simpler supervisor.",
+    "refs": [
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "prompt": "Which ablation would test whether language-model calls are necessary?",
+    "columns": [
+      "MV held-out method",
+      "Mean J",
+      "Full-feeder AC PASS"
+    ],
+    "rows": [
+      [
+        "Fixed refinement",
+        "0.03400656",
+        "0 / 12"
+      ],
+      [
+        "Majority vote",
+        "0.03398479",
+        "0 / 12"
+      ],
+      [
+        "Frozen learner",
+        "0.03398479",
+        "0 / 12"
+      ]
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "V24",
+    "title": "Account for the full decision path",
+    "section": "Voltage support",
+    "kind": "comparison",
+    "kicker": "Latency is part of the result",
+    "takeaway": "Fast actor inference does not imply a fast end-to-end recommendation.",
+    "items": [
+      "Fixed-refinement accounted serial time: 3.327 s",
+      "Learned-selection accounted serial time: 8.119 s",
+      "All pool selectors pay for all three model calls",
+      "Separate setup, inference, simulation and verification"
+    ],
+    "notes": "The two reported times are reconstructed serial accounting from actual recorded components in the held-out pilot. They are not a guaranteed deployment response time and should not be confused with a new classroom timing measurement. Pool-based selectors share the cost of generating the three responses. The learned selector's small scoring operation is only one component of that total. Cold model loading, prompt processing, token generation and numerical checking can have very different scaling. Ask learners to draw the boundary around the quantity they want to compare. The engineering question is whether any incremental benefit justifies the additional decision latency under the intended operator workflow.",
+    "refs": [
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      },
+      {
+        "label": "Ollama · chat API and timing fields",
+        "url": "https://docs.ollama.com/api/chat"
+      }
+    ],
+    "visual": "latency",
+    "prompt": "What would change if the local model had to load from disk?",
+    "columns": [
+      "MV held-out method",
+      "Accounted serial time"
+    ],
+    "rows": [
+      [
+        "Fixed refinement",
+        "3.327 s"
+      ],
+      [
+        "Frozen learner with response pool",
+        "8.119 s"
+      ]
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "V25",
+    "title": "L5: audit the same action, then replan separately",
+    "section": "Voltage support",
+    "kind": "code",
+    "kicker": "Notebook checkpoint · L5",
+    "takeaway": "Cross-model auditing and replanning answer different questions.",
+    "items": [
+      "Default: fresh MV check",
+      "Optional: same-action full-feeder OpenDSS audit",
+      "Optional: separate MPC solve using the AC backend",
+      "Keep the frozen selector unchanged"
+    ],
+    "notes": "Read the helper call before enabling its optional path. The same-action audit asks whether an existing recommendation survives a broader physical model. The separate AC MPC solve asks what command a planner using that broader model would propose. Mixing those questions can make model coverage look like an LLM improvement. The default classroom execution performs the MV check; enabling RUN_OPENDSS in L0 requests the fresh AC audit and separate AC replanning in L5. The saved learner remains frozen. OpenDSS computations should be performed sequentially because the local engine has shared mutable state. Compare the status, limiting quantities and model scope rather than treating cross-model costs as an exact solver ranking.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "EPRI · OpenDSS documentation",
+        "url": "https://opendss.epri.com/"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L5",
+      "start": 1,
+      "end": 6
+    },
+    "minutes": 1
+  },
+  {
+    "id": "V26",
+    "title": "Broader coverage reveals a missing constraint boundary",
+    "section": "Voltage support",
+    "kind": "comparison",
+    "kicker": "Recorded paired pilot · 12 cases",
+    "takeaway": "The reduced-model PASS does not satisfy a full-feeder request.",
+    "items": [
+      "MV-planned actions: 12/12 pass the MV gate",
+      "Same actions: 0/12 pass the full-feeder AC audit",
+      "AC-planned final actions: 12/12 pass their AC gate",
+      "Human operating approval remains pending"
+    ],
+    "notes": "The table summarizes the separately recorded twelve paired scenarios, not the output of one L5 cell. The reduced model accepts all twelve final actions under its own scope, yet their same-action full-feeder audits fail. Planning with the AC backend returns actions that pass the full-feeder snapshot contract in these scenarios. The result is caused by the broader model and constraint coverage, with the selector still frozen. It cannot be attributed to more convincing Llama explanations. Within the AC pilot, the learned selector also does not establish superiority over fixed or uniform selection. Ask learners how a responsible operator packet should describe an MV-only recommendation when full MV/LV coverage was requested.",
+    "refs": [
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      },
+      {
+        "label": "EPRI · OpenDSS documentation",
+        "url": "https://opendss.epri.com/"
+      }
+    ],
+    "prompt": "Which component supplied the extra physical information?",
+    "answer": "The broader numerical model and its acceptance contract.",
+    "columns": [
+      "Final learned-workflow actions",
+      "Selected-model gate",
+      "Full-feeder AC audit"
+    ],
+    "rows": [
+      [
+        "MV planning",
+        "12 / 12",
+        "0 / 12"
+      ],
+      [
+        "OpenDSS planning",
+        "12 / 12",
+        "12 / 12"
+      ]
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "V27",
+    "title": "Verification returns reasons, not just a green badge",
+    "section": "Voltage support",
+    "kind": "concept",
+    "kicker": "Stage 4 · Verification",
+    "takeaway": "A rejected recommendation should explain the failing contract.",
+    "items": [
+      "Recompute the exact selected action",
+      "Check voltage, current and capability limits",
+      "Bind results to the request and candidate",
+      "Return PASS, rejection reasons and model scope"
+    ],
+    "notes": "Return to verification after the cross-model result has made its purpose concrete. A bare boolean cannot explain whether a command failed because of overcurrent, incomplete data, wrong scope or stale evidence. The verifier should retain the numerical metrics, checked bounds and request-candidate identity alongside its decision. The classroom uses hash binding as a consistency mechanism, not as sensor authentication or a proof of truthful computation. The exact selected action receives a final check before handoff. Ask learners what changes when an operator edits only one setpoint: the old evidence is no longer the evidence for that command. This motivates a fresh check rather than simply updating the displayed label.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "visual": "stages",
+    "prompt": "Which fields would you want beside a rejected recommendation?",
+    "minutes": 1
+  },
+  {
+    "id": "V28",
+    "title": "Voltage support: keep the benefit claim precise",
+    "section": "Voltage support",
+    "kind": "flow",
+    "kicker": "80–82 min · Handoff before the break",
+    "takeaway": "The workflow exposes assumptions and failures; better control must be measured.",
+    "items": [
+      "Awareness: validated scenario",
+      "Planning: MPC and SAC candidate controls",
+      "Simulation and verification: scope-specific physical evidence",
+      "Optimizer and operator: bounded refinement, review and readback"
+    ],
+    "notes": "Close the voltage chapter with the complete path and the actual findings. The numerical controllers supplied proposed settings. The language models supplied bounded refinement choices and public explanations. Voting and frozen learned selection tied in the held-out MV pilot. Broader-model checking revealed that the reduced-model recommendations did not meet the requested full-feeder scope. These are valuable workflow lessons without a claim of universal agentic control superiority. The operator must see the command, scenario, evidence, failed checks, remaining assumptions and required scope. Readback remains advisory and does not dispatch equipment. Invite one participant to name a demonstrated benefit and another to name a limitation, then take the scheduled ten-minute break before restoration.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "visual": "stages",
+    "prompt": "Name one demonstrated workflow benefit and one unproven performance claim.",
+    "minutes": 1
+  },
+  {
+    "id": "R01",
+    "title": "After the fault, decide what can be reconnected",
+    "section": "Restoration",
+    "kind": "divider",
+    "kicker": "92 min · Restoration",
+    "takeaway": "Restoration chooses topology and load pickup under operating constraints.",
+    "items": [
+      "One faulted edge is unavailable",
+      "Two possible ties reconnect downstream buses",
+      "Critical and ordinary loads compete for capacity"
+    ],
+    "notes": "Resume after the break with the six-node restoration drawing. This transparent graph is a separate teaching fixture rather than a reduced claim about the Greensboro feeder. Node zero is the source; edge 1–2 is faulted and unavailable. The original loads are 40, 60, 70, 50 and 30 kW at nodes one through five, with nodes two and five assigned critical priority. One optional tie has a 100 kW capacity; the other has the capacity swept in the exercise. Reveal the ties only after participants locate the fault. Ask which loads might be served without assuming every energized bus must pick up its own load.",
+    "refs": [
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      },
+      {
+        "label": "Wang et al. · radiality constraints (2020)",
+        "url": "https://arxiv.org/abs/1912.05185"
+      }
+    ],
+    "visual": "restoration",
+    "prompt": "Can an energized bus transmit power while its local load stays disconnected?",
+    "answer": "Yes. Bus energization and load pickup are separate decisions.",
+    "minutes": 1.5
+  },
+  {
+    "id": "R02",
+    "title": "Three binary decisions describe one restoration plan",
+    "section": "Restoration",
+    "kind": "concept",
+    "kicker": "Stage 1 · Awareness → decision vocabulary",
+    "takeaway": "Separate pickup, energization and switch closure.",
+    "items": [
+      "sᵢ: pick up load i",
+      "yᵢ: energize bus i",
+      "zₑ: close edge e",
+      "A fault exclusion is a hard constraint"
+    ],
+    "notes": "Use the same network drawing and highlight a transit bus. A bus may be energized to carry power to another load while its own demand is not picked up. This requires separate binary variables s and y. A line is closed only if its endpoint buses are energized, and the faulted edge is forced open. These logical distinctions prevent an apparently good service total from describing an impossible path. Awareness supplies the isolated fault, permitted ties, capacities and documented priorities. It does not invent permission to operate equipment. Ask learners to translate the transit-bus example into s_i=0 and y_i=1 before revealing the objective on the next slide.",
+    "refs": [
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      },
+      {
+        "label": "Wang et al. · radiality constraints (2020)",
+        "url": "https://arxiv.org/abs/1912.05185"
+      }
+    ],
+    "symbols": [
+      {
+        "symbol": "s_i",
+        "meaning": "Binary load pickup"
+      },
+      {
+        "symbol": "y_i",
+        "meaning": "Binary energized bus"
+      },
+      {
+        "symbol": "z_e",
+        "meaning": "Binary closed edge"
+      }
+    ],
+    "visual": "restoration",
+    "minutes": 1
+  },
+  {
+    "id": "R03",
+    "title": "Choose a service objective that matches the instruction",
+    "section": "Restoration",
+    "kind": "equation",
+    "kicker": "Stage 2 · Model-based planning",
+    "takeaway": "Priority weights express policy; they are not an LLM discovery.",
+    "items": [
+      "Maximize weighted served demand",
+      "Critical weights are 10; other weights are 1",
+      "Use unit weights for the total-service baseline",
+      "Report both critical and total served kW"
+    ],
+    "notes": "Reveal demand, priority and pickup separately in the objective. Demand d_i is nominal active power, w_i is a documented service priority and s_i decides whether that demand is picked up. Assigning a weight of ten to critical loads changes the optimization policy; an improvement in critical service is therefore not evidence that a language model outperformed a numerical optimizer. A finite weight also does not guarantee lexicographic critical-first service for every possible network. A strict priority requirement should be implemented through staged optimization or a verified primary-objective constraint. The notebook reports both total and critical service so that the audience can see the tradeoff rather than only a single weighted score.",
+    "refs": [
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      },
+      {
+        "label": "Wang et al. · radiality constraints (2020)",
+        "url": "https://arxiv.org/abs/1912.05185"
+      }
+    ],
+    "equation": "\\max\\sum_i w_i d_i s_i,\\qquad s_i\\le y_i,\\qquad z_{ij}\\le y_i,\\;z_{ij}\\le y_j,\\qquad z_{\\mathrm{fault}}=0",
+    "symbols": [
+      {
+        "symbol": "d_i",
+        "meaning": "Load demand, kW"
+      },
+      {
+        "symbol": "w_i",
+        "meaning": "Priority weight; critical 10, otherwise 1"
+      },
+      {
+        "symbol": "s_i,y_i,z_{ij}",
+        "meaning": "Binary pickup, energized bus and closed edge"
+      }
+    ],
+    "minutes": 1.5
+  },
+  {
+    "id": "R04",
+    "title": "Power must reach every served load",
+    "section": "Restoration",
+    "kind": "equation",
+    "kicker": "Physical transport constraints",
+    "takeaway": "An attractive pickup list still needs a feasible source path.",
+    "items": [
+      "Balance active power at each non-source bus",
+      "Limit flow by the closed edge capacity",
+      "An open edge carries no power",
+      "The source supplies the served demand"
+    ],
+    "notes": "Walk through one path from source zero to a picked-up load. The incidence matrix assigns a sign to each branch at each bus. The balance equation ensures that the net incoming active power equals served demand. The capacity condition forces zero flow on an open edge and limits the magnitude of flow on a closed edge. Signed P allows either direction according to the chosen orientation. This is an active-power transport formulation, not a full AC power-flow model. It omits voltage and reactive power so that the discrete restoration logic is visible. Before a physical switching recommendation, those omitted constraints and equipment permissions would require their own checks.",
+    "refs": [
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      },
+      {
+        "label": "Wang et al. · radiality constraints (2020)",
+        "url": "https://arxiv.org/abs/1912.05185"
+      }
+    ],
+    "equation": "\\sum_e A_{ie}P_e=d_i s_i\\quad(i\\ne0),\\qquad-\\overline P_e z_e\\le P_e\\le\\overline P_e z_e",
+    "symbols": [
+      {
+        "symbol": "A_{ie}",
+        "meaning": "Signed node-edge incidence entry"
+      },
+      {
+        "symbol": "P_e",
+        "meaning": "Active branch flow, kW"
+      },
+      {
+        "symbol": "\\overline P_e",
+        "meaning": "Branch capacity, kW"
+      },
+      {
+        "symbol": "i=0",
+        "meaning": "Source bus"
+      }
+    ],
+    "minutes": 1.5
+  },
+  {
+    "id": "R05",
+    "title": "Radiality needs connectivity as well as an edge count",
+    "section": "Restoration",
+    "kind": "equation",
+    "kicker": "Graph certificate",
+    "takeaway": "A tree equation alone does not exclude a disconnected island.",
+    "items": [
+      "Send one fictitious unit to each energized non-source bus",
+      "Allow that commodity only on closed edges",
+      "Combine connectivity with the tree edge count",
+      "The commodity is a proof device, not electricity"
+    ],
+    "notes": "Draw a disconnected cycle as a counterexample to relying on edge count alone. The model sends a fictitious commodity from the source to each energized non-source bus. Its balance makes a source path necessary; its bounds allow travel only on closed edges. Together with the tree edge count, this certifies a connected radial energized graph in this formulation. There are at most five non-source energized buses, which explains the bound five in the teaching model. This commodity is separate from the electrical power flow P. Ask learners why the source must supply the commodity even though only non-source equations are displayed. The distinction prepares them to read a MILP implementation without confusing graph constraints and physics.",
+    "refs": [
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      },
+      {
+        "label": "Wang et al. · radiality constraints (2020)",
+        "url": "https://arxiv.org/abs/1912.05185"
+      }
+    ],
+    "equation": "\\sum_e A_{ie}f_e=y_i\\ (i\\ne0),\\qquad |f_e|\\le5z_e,\\qquad \\sum_e z_e=\\sum_i y_i-1",
+    "symbols": [
+      {
+        "symbol": "f_e",
+        "meaning": "Fictitious connectivity flow, not electrical power"
+      },
+      {
+        "symbol": "5",
+        "meaning": "Maximum number of energized non-source buses"
+      },
+      {
+        "symbol": "\\sum z_e=\\sum y_i-1",
+        "meaning": "Tree edge count, used together with connectivity"
+      }
+    ],
+    "minutes": 1.5
+  },
+  {
+    "id": "R06",
+    "title": "Compare objectives on the same feasible network",
+    "section": "Restoration",
+    "kind": "comparison",
+    "kicker": "Baseline design",
+    "takeaway": "Hold the fault, capacities and constraints fixed.",
+    "items": [
+      "Unweighted baseline: maximize total served kW",
+      "Priority policy: maximize weighted served demand",
+      "Both: identical physical and logical constraints",
+      "Report exact solutions and independent agreement"
+    ],
+    "notes": "The classroom baseline is deliberately stronger than an arbitrary greedy order. It exactly maximizes total service over the same feasible graph used by the priority-weighted problem. The baseline is solved by exhaustive enumeration; the weighted problem uses HiGHS MILP and an independent enumeration check. Different algorithms are acceptable here because both solve the same declared finite feasible sets exactly. The comparison isolates the objective policy rather than a solver-quality effect. Report both total and critical demand served. Ask what would make the comparison unfair: granting one method a different tie, relaxing its fault exclusion, changing its loads or silently assigning extra numerical search budget.",
+    "refs": [
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      },
+      {
+        "label": "Wang et al. · radiality constraints (2020)",
+        "url": "https://arxiv.org/abs/1912.05185"
+      },
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "prompt": "If critical service improves after changing weights, what caused that change?",
+    "answer": "The documented objective policy, unless another controlled experiment shows otherwise.",
+    "columns": [
+      "Property",
+      "Total-service baseline",
+      "Priority policy"
+    ],
+    "rows": [
+      [
+        "Same fault and capacities",
+        "✓",
+        "✓"
+      ],
+      [
+        "Same feasible network",
+        "✓",
+        "✓"
+      ],
+      [
+        "Objective",
+        "Total kW",
+        "Weighted kW"
+      ],
+      [
+        "Exact method",
+        "Enumeration",
+        "MILP + enumeration"
+      ]
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "R07",
+    "title": "The planner returns a topology plus a pickup decision",
+    "section": "Restoration",
+    "kind": "flow",
+    "kicker": "Stage 2 · Standard optimization method",
+    "takeaway": "Use the method that fits the decision type.",
+    "items": [
+      "Solve the weighted binary restoration problem",
+      "Preserve the best weighted service in a second solve",
+      "Minimize energized edges, then apply a small tie-break",
+      "Return decisions and solver evidence"
+    ],
+    "notes": "Explain why a mixed-integer model is a natural method for on/off topology and load-pickup choices. The first solve maximizes weighted service. A secondary solve preserves that primary optimum, then minimizes energized branch count with a small edge-index tie-break. That secondary quantity is not the number of switching operations relative to an initial topology. If a real restoration policy needs operation counts or crew timing, those variables must be modeled explicitly. MPC could extend this into a rolling multi-period mixed-integer formulation, while a learned policy could propose candidates. Neither extension is executed in this classroom cell. The tutorial keeps the exact standard method and uses orchestration to manage its inputs and evidence.",
+    "refs": [
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      },
+      {
+        "label": "Wang et al. · radiality constraints (2020)",
+        "url": "https://arxiv.org/abs/1912.05185"
+      },
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "nodes": [
+      "Fault + priorities",
+      "MILP optimum",
+      "Secondary tie-break",
+      "Topology + pickup"
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "R08",
+    "title": "L6: a capacity sweep is one reproducible experiment",
+    "section": "Restoration",
+    "kind": "code",
+    "kicker": "Notebook checkpoint · L6",
+    "takeaway": "Recompute the plan at every tested rating.",
+    "items": [
+      "Declare the capacity levels",
+      "Solve weighted and unweighted service problems",
+      "Check the MILP using independent enumeration",
+      "Display total and critical service"
+    ],
+    "notes": "Read the five displayed lines as an experiment definition. The capacity tuple identifies five distinct test conditions. The helper solves each one and returns a table containing the objective-policy comparison and independent agreement checks. The measured operation includes the sweep and enumeration, so it is not a single MILP-solve latency. Reusing a previous solution after changing capacity would miss the very effect being studied. Students should save their prediction before running and then inspect the pickup and closed-edge details if a service value is surprising. The final assertion in the full cell checks agreement with exhaustive enumeration for all sampled conditions, giving a direct small-system correctness check.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L6",
+      "start": 1,
+      "end": 5
+    },
+    "minutes": 1
+  },
+  {
+    "id": "R09",
+    "title": "Lab: tighten the tie and follow the source path",
+    "section": "Restoration",
+    "kind": "lab",
+    "kicker": "102–110 min · 8-minute paired exercise",
+    "takeaway": "Explain discrete service changes using topology and capacity.",
+    "items": [
+      "Predict service at 40, 60, 80 and 120 kW",
+      "Run L6 and add one tighter capacity",
+      "Compare critical and total service",
+      "Explain one plateau using the selected loads"
+    ],
+    "notes": "Give pairs eight minutes. One participant follows the source path on the network diagram while the other checks capacities and pickup variables in the notebook. Begin with the stated capacity points, then add a tighter point to the tuple and rerun the full cell. Avoid assuming that a twenty-percent capacity reduction causes a twenty-percent service reduction: indivisible pickup and alternative paths create thresholds and flat regions. Learners should compare objective values and feasibility when equivalent topologies tie rather than insisting on identical edge identifiers. If a result appears counterintuitive, trace each served load to source zero and verify every branch capacity. End with a short explanation of one plateau.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      }
+    ],
+    "visual": "restoration",
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L6",
+      "start": 1,
+      "end": 3
+    },
+    "prompt": "Will total service vary smoothly as tie capacity changes?",
+    "answer": "No. Binary load pickup creates thresholds and plateaus.",
+    "minutes": 8
+  },
+  {
+    "id": "R10",
+    "title": "The service curve reveals the policy tradeoff",
+    "section": "Restoration",
+    "kind": "chart",
+    "kicker": "Fresh L6 default sweep",
+    "takeaway": "Read critical service and total service together.",
+    "items": [
+      "Each marker is a solved capacity level",
+      "Coincident markers mean equal outcomes",
+      "Priority can reduce total kW while preserving critical kW",
+      "Flat regions reflect discrete choices"
+    ],
+    "notes": "The plot is generated from the executed classroom sweep. Its markers are discrete solved conditions, not samples of a validated continuous response curve. Weighted and unweighted objectives may select different load combinations, so one policy can restore fewer total kilowatts while restoring more critical kilowatts. Coincident markers show equal outcomes at those conditions. Use the graph to connect the optimization equation with a visible operating consequence. Ask learners to identify one capacity at which reporting total service alone would hide the policy difference. Then ask which field in the operator request justifies the chosen priority. The graph demonstrates the consequences of documented priorities, not an inherent advantage of using an LLM.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      }
+    ],
+    "image": "/assets/classroom_restoration.png",
+    "image_caption": "Executed L6 sweep. Markers denote sampled capacities; coincident outcomes overlap. Critical priorities are teaching labels.",
+    "minutes": 1
+  },
+  {
+    "id": "R11",
+    "title": "Case A: 40 kW capacity makes priorities visible",
+    "section": "Restoration",
+    "kind": "comparison",
+    "kicker": "A constrained restoration case",
+    "takeaway": "The best total-service plan need not restore the most critical demand.",
+    "items": [
+      "Weighted policy: 130 kW total",
+      "Weighted policy: 90 kW critical",
+      "Unweighted baseline: 140 kW total",
+      "Unweighted baseline: 30 kW critical"
+    ],
+    "notes": "At the 40 kW swept tie capacity, the priority-weighted solution serves 130 kW in total, including all 90 kW labeled critical in this teaching graph. The unweighted exact baseline serves 140 kW total but only 30 kW critical. These values come from the same feasible network under different objective weights. The ten-kilowatt total-service difference is the price of this particular policy choice in this scenario. It should be shown openly rather than hidden in a weighted score. Ask participants which result matches an instruction to prioritize critical loads, and what additional policy clarification would be necessary if priorities were strict rather than finite weights.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      }
+    ],
+    "prompt": "Which plan is better if the operator's instruction changes?",
+    "columns": [
+      "40 kW tie case",
+      "Total served",
+      "Critical served"
+    ],
+    "rows": [
+      [
+        "Unweighted baseline",
+        "140 kW",
+        "30 kW"
+      ],
+      [
+        "Priority-weighted policy",
+        "130 kW",
+        "90 kW"
+      ]
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "R12",
+    "title": "Case B: more capacity can leave service unchanged",
+    "section": "Restoration",
+    "kind": "question",
+    "kicker": "A second restoration condition",
+    "takeaway": "The next available load may need more capacity than the increment supplies.",
+    "items": [
+      "At 80 kW: weighted service is 200 kW",
+      "At 100 kW: weighted service remains 200 kW",
+      "Both serve 90 kW critical demand",
+      "Inspect discrete pickup and the binding path"
+    ],
+    "notes": "The weighted solution serves 200 kW total and 90 kW critical at both the 80 and 100 kW swept capacities in the default graph. This plateau makes a useful second case because it prevents a simplistic linear interpretation of capacity improvements. A new indivisible load may not fit the remaining capacity, and another path or constraint may still bind. Have learners inspect the chosen pickup set and closed edges before proposing a causal explanation. The graph alone shows the plateau but does not identify every active constraint. Ask whether splitting a load into controllable blocks would change the problem. It would change the feasible decision set and require a new declared model.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      }
+    ],
+    "visual": "restoration",
+    "prompt": "Why can a 20 kW rating increase restore no additional load?",
+    "answer": "The next discrete pickup may remain infeasible, or another constraint still binds.",
+    "minutes": 1
+  },
+  {
+    "id": "R13",
+    "title": "Simulation and verification check different properties",
+    "section": "Restoration",
+    "kind": "flow",
+    "kicker": "Stages 3 and 4 · Restoration",
+    "takeaway": "A candidate topology needs recomputation and an independent contract check.",
+    "items": [
+      "Simulation: compute flows for the chosen topology",
+      "Verification: capacity, fault exclusion and source connectivity",
+      "Independent check: enumeration agrees with the MILP",
+      "Scope: no AC voltages or switching chronology"
+    ],
+    "notes": "Separate the outputs of simulation and verification on the same topology. Simulation calculates the modeled consequences of the candidate. Verification decides whether those consequences and the discrete decisions satisfy the contract. Independent enumeration checks the optimizer's result on this small finite fixture; it does not add AC constraints that the model omitted. The six-node classroom problem includes active-power transport, connectivity and radiality but no voltage, reactive power, relay coordination or time-ordered switching. A real operator must not mistake that scope for a complete switching plan. Ask learners which omitted property would matter before energizing equipment and where its result would enter the workflow.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Chen et al. · restoration optimization (2018)",
+        "url": "https://doi.org/10.1109/TPWRS.2017.2720122"
+      },
+      {
+        "label": "Wang et al. · radiality constraints (2020)",
+        "url": "https://arxiv.org/abs/1912.05185"
+      }
+    ],
+    "nodes": [
+      "Topology + pickup",
+      "Flow calculation",
+      "Constraint check",
+      "Scoped recommendation"
+    ],
+    "minutes": 0.75
+  },
+  {
+    "id": "R14",
+    "title": "L7: changing the rating invalidates old evidence",
+    "section": "Restoration",
+    "kind": "lab",
+    "kicker": "Notebook checkpoint · L7",
+    "takeaway": "A correct old solution is not a checked solution for a new request.",
+    "items": [
+      "Bind the original plan to its request",
+      "Change capacity and revision",
+      "Test the old evidence against the new request",
+      "HOLD and request a fresh constrained solve"
+    ],
+    "notes": "Run the full L7 cell after L6. It takes the first weighted restoration result, binds the request and candidate to its evidence, and then changes the capacity to 20 kW with a new revision. The original consistency test succeeds; the changed request with old evidence fails. This is a controlled demonstration of stale-evidence rejection. The hash mechanism does not prove that a simulator was correct or that input data were authentic. It establishes that the evidence record belongs to a different declared request. Ask participants to describe the appropriate operator-visible response in plain language: the earlier recommendation must be held while a new constrained solve is obtained.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L7",
+      "start": 2,
+      "end": 9
+    },
+    "prompt": "Can we keep the old green status after lowering the rating?",
+    "answer": "No. The changed contract requires new evidence.",
+    "minutes": 1.25
+  },
+  {
+    "id": "R15",
+    "title": "Inspect all five stages in a recorded feeder run",
+    "section": "Restoration",
+    "kind": "flow",
+    "kicker": "Archived actual workflow · inspected by L10",
+    "takeaway": "The live MILP lab and the recorded feeder catalog are separate experiments.",
+    "items": [
+      "Awareness: fault isolation and equipment permissions",
+      "Planning: bounded catalog candidates",
+      "Simulation and verification: power flow and thermal rejection",
+      "LLM optimizer: permitted shedding refinement"
+    ],
+    "notes": "Make the change of experiment explicit before presenting language responses. L6 and L7 are fresh calculations on a six-node graph. L10 also exposes an archived five-stage feeder workflow using a small synthetic bypass-and-shedding catalog. That archive is not the same MILP experiment. Its awareness record includes a 100 A short bypass, a forbidden long bypass, artificial critical-load labels and no PV dispatch. The planner generates bounded initial catalog candidates. Simulation records physical metrics, and verification rejects the initial high-pickup candidate for thermal failure. The optimizer may request a permitted catalog refinement. Every changed candidate returns to simulation and verification before ranking and operator handoff.",
+    "refs": [
+      {
+        "label": "Recorded experiment · five-stage workflow",
+        "url": "../Proposal_Complete_Workflow.html"
+      },
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "visual": "stages",
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L10",
+      "start": 16,
+      "end": 23
+    },
+    "minutes": 1
+  },
+  {
+    "id": "R16",
+    "title": "A recorded Llama ranking needs numerical scrutiny",
+    "section": "Restoration",
+    "kind": "comparison",
+    "kicker": "Actual public responses · Llama 3.1 8B",
+    "takeaway": "Explanations are reviewable claims, not substitutes for sorting verified scores.",
+    "items": [
+      "Planning: GENERATE_CANDIDATES · 0.874 s",
+      "Refinement: SHED_075 · 1.259 s",
+      "Later ranking lists E02 before E03",
+      "Recorded costs: −5509.13524 versus −6109.97130"
+    ],
+    "notes": "The archived restoration planner asked for both initial simulations within the contract. After a thermal failure, the optimizer selected SHED_075, meaning disconnection of 75 percent of an ordered set of noncritical load objects, not 75 percent of their kilowatts. The later public ranking says lower scores are better yet lists E02 ahead of the lower-cost E03. That mismatch is a concrete reason to keep deterministic verified-score ranking separate from prose. The final numerical selection retains the lower valid cost. Ask learners to explain why negative restoration costs reverse a casual intuition about larger numbers. The recorded call durations are examples from that run, not classroom print times or universal latency benchmarks.",
+    "refs": [
+      {
+        "label": "Recorded experiment · five-stage workflow",
+        "url": "../Proposal_Complete_Workflow.html"
+      }
+    ],
+    "prompt": "Which is lower: −5509 or −6110?",
+    "answer": "−6110. The verified numeric objective should control the ranking.",
+    "minutes": 1
+  },
+  {
+    "id": "R17",
+    "title": "The feeder comparison ties on restored service",
+    "section": "Restoration",
+    "kind": "comparison",
+    "kicker": "Archived matched workflow comparison",
+    "takeaway": "Traceability is demonstrated; extra restored load from Llama is not.",
+    "items": [
+      "Fixed and Llama routes: 1843.614 kW total served",
+      "Both: 474.040 kW critical served",
+      "Fixed route: 0.306 s; Llama route: 5.232 s",
+      "Same selected shedding operation and final model checks"
+    ],
+    "notes": "These are recorded end-to-end times for the MV feeder-catalog experiment. Both routes use the same candidate budget and select the same SHED_075 operation, producing the same final service objective. The Llama route makes four language calls and takes about 5.232 seconds, while the fixed route takes about 0.306 seconds. This is one matched scenario, not a statistical latency benchmark or a field deployment. Its value is that the intermediate actions, failed thermal check, public language claims and final evidence are inspectable. Do not use the result to claim additional restored load from agentic AI. A stronger research study would test varied faults, unseen topology conditions and equal computational budgets.",
+    "refs": [
+      {
+        "label": "Recorded experiment · five-stage workflow",
+        "url": "../Proposal_Complete_Workflow.html"
+      }
+    ],
+    "visual": "latency",
+    "prompt": "Which benefit is supported here: more service or a reviewable workflow?",
+    "columns": [
+      "Archived MV feeder route",
+      "Total service",
+      "Critical service",
+      "Recorded time"
+    ],
+    "rows": [
+      [
+        "Fixed supervisor",
+        "1843.614 kW",
+        "474.040 kW",
+        "0.306 s"
+      ],
+      [
+        "Llama supervisor",
+        "1843.614 kW",
+        "474.040 kW",
+        "5.232 s"
+      ]
+    ],
+    "minutes": 1
+  },
+  {
+    "id": "R18",
+    "title": "A matching record can still contain wrong measurements",
+    "section": "Restoration",
+    "kind": "flow",
+    "kicker": "118–119 min · Transition to cyber response",
+    "takeaway": "Identity, model consistency and physical truth are different properties.",
+    "items": [
+      "Correct identifiers bind a record to a request",
+      "Consistency checks test agreement with assumptions",
+      "Neither property guarantees truthful sensor values",
+      "Next: a corrupted estimate that looks consistent"
+    ],
+    "notes": "Conclude restoration with the operator's perspective. The plan packet should show isolated faults, permitted operations, selected pickup, modeled constraints, fresh evidence and any missing checks. It must not present the synthetic snapshot as a verified switching sequence. The stale-evidence exercise solved one problem: using a result for the wrong declared request. It did not solve the deeper problem of untrustworthy measurements inside a correctly identified record. Use this distinction to transition to cyber response. Ask learners whether a well-formed, freshly computed and internally consistent report could still describe the wrong physical state. The next controlled four-bus experiment demonstrates exactly that failure boundary.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "nodes": [
+      "Correct identity",
+      "Model consistency",
+      "Physical truth"
+    ],
+    "prompt": "Could fresh, correctly identified evidence still be physically misleading?",
+    "answer": "Yes. Its measurements or model assumptions may be wrong.",
+    "minutes": 1,
+    "visual": "claims"
+  },
+  {
+    "id": "C01",
+    "title": "A controller acts on an estimate, not on hidden truth",
+    "section": "Cyber response",
+    "kind": "divider",
+    "kicker": "119–121 min · Cyber response",
+    "takeaway": "Start with the information available to the operator.",
+    "items": [
+      "Four-bus DC teaching system",
+      "Three unknown non-reference voltage angles",
+      "Eight flow, injection and angle measurements",
+      "Two corruption patterns; one controlled experiment"
+    ],
+    "notes": "Introduce the data path from physical state to measurements to estimator to controller. The four-bus fixture is separate from the Greensboro feeder and is designed to expose a detector limitation clearly. Its unknown state contains three non-reference voltage angles, while eight measurements provide redundancy. The experimenter knows the simulated true state for evaluation, but the agent's operating gate does not receive that truth. Two numerical corruption patterns are compared: one isolated sensor bias and a coordinated pattern consistent with the same linear model. The objective is to understand information limits and safe handling of uncertainty. Ask which quantities an operator can observe directly and which are inferred.",
+    "refs": [
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "nodes": [
+      "Physical state",
+      "Measurements",
+      "State estimate",
+      "Control proposal"
+    ],
+    "visual": "residual",
+    "prompt": "Does a precise-looking state estimate guarantee an accurate state?",
+    "minutes": 1.5
+  },
+  {
+    "id": "C02",
+    "title": "WLS combines measurements using their uncertainty",
+    "section": "Cyber response",
+    "kind": "equation",
+    "kicker": "State-estimation vocabulary",
+    "takeaway": "A model and covariance turn measurements into an estimate.",
+    "items": [
+      "H maps angles to expected measurements",
+      "R weights sensors in their own units",
+      "The estimate minimizes weighted mismatch",
+      "Observability requires sufficient independent information"
+    ],
+    "notes": "Read the measurement relation before the minimization. The state vector x contains three angles in radians. The vector z contains eight sensor readings with potentially different physical units. H maps angles to expected measurements, and covariance R accounts for their assumed uncertainty. A measurement with lower variance receives greater influence after proper weighting. Full column rank is required to identify all state directions in this linear fixture. In numerical code, use a stable weighted least-squares solve rather than treating an explicit matrix inverse as the preferred implementation. Ask learners why simply averaging all measurement errors would be inappropriate when flow, injection and angle channels have different scales and uncertainties.",
+    "refs": [
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "equation": "z=Hx+\\epsilon,\\quad\\epsilon\\sim\\mathcal N(0,R),\\qquad \\hat x=\\arg\\min_x(z-Hx)^\\top R^{-1}(z-Hx)",
+    "symbols": [
+      {
+        "symbol": "x,\\hat x",
+        "meaning": "True and estimated non-reference angles, rad; dimension 3"
+      },
+      {
+        "symbol": "z,H",
+        "meaning": "Eight measurements and the linear measurement matrix"
+      },
+      {
+        "symbol": "\\epsilon,R",
+        "meaning": "Measurement noise and its covariance"
+      }
+    ],
+    "minutes": 1.5
+  },
+  {
+    "id": "C03",
+    "title": "A residual tests consistency with assumptions",
+    "section": "Cyber response",
+    "kind": "equation",
+    "kicker": "Stage 1 · Awareness through WLS",
+    "takeaway": "No alarm means no detected inconsistency under the stated model.",
+    "items": [
+      "Residual: unexplained measurement mismatch",
+      "Weighted energy J is dimensionless",
+      "Eight measurements minus three states gives five degrees",
+      "99% threshold: 15.0863"
+    ],
+    "notes": "Define the residual as what the estimated state cannot explain. Its covariance-weighted energy J is compared with a chi-squared threshold under the assumed linear model and Gaussian noise. Here the residual has five degrees of freedom because there are eight measurements and three observable state variables. The 0.99 quantile is approximately 15.0863. The nominal one-percent false-alarm level depends on the model, noise and rank assumptions; it is not a measured field false-alarm rate. An exceedance indicates inconsistency, not malicious intent or the identity of a compromised sensor. Ask the audience to finish the sentence: no residual alarm means no inconsistency was detected by this test, not that the state is true.",
+    "refs": [
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "equation": "r=z-H\\hat x,\\qquad J=r^\\top R^{-1}r,\\qquad J>\\chi^2_{5,0.99}=15.0863\\ \\Rightarrow\\ \\mathrm{alarm}",
+    "symbols": [
+      {
+        "symbol": "r",
+        "meaning": "Measurement residual"
+      },
+      {
+        "symbol": "J",
+        "meaning": "Dimensionless residual energy"
+      },
+      {
+        "symbol": "\\chi^2_{5,0.99}",
+        "meaning": "99th percentile with 5 residual degrees of freedom"
+      }
+    ],
+    "prompt": "Does an alarm establish that the cause was malicious?",
+    "answer": "No. Model error, noise assumptions and ordinary sensor faults can also cause inconsistency.",
+    "minutes": 1.5
+  },
+  {
+    "id": "C04",
+    "title": "Case A: bias one measurement",
+    "section": "Cyber response",
+    "kind": "concept",
+    "kicker": "Isolated corruption",
+    "takeaway": "An isolated error often leaves a residual signature.",
+    "items": [
+      "Change one sensor channel",
+      "Leave the other channels unchanged",
+      "Re-estimate the state",
+      "Inspect the weighted mismatch"
+    ],
+    "notes": "Use the isolated corruption as a familiar reference before the coordinated case. Adding bias to one measurement can create a disagreement that the remaining redundant channels cannot explain. As the bias grows, residual energy tends to increase in this chosen fixture. Avoid turning that observation into a claim that every isolated attack is detectable or that any alarm proves an attack. Detection depends on the measurement arrangement, uncertainty, bias direction and magnitude. The later lab computes the result rather than assuming it. Ask learners to predict which curve should rise first: the residual statistic or the state-estimation error. Both can change, but they measure different aspects of the outcome.",
+    "refs": [
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "visual": "residual",
+    "prompt": "Which other measurements could contradict the biased sensor?",
+    "minutes": 0.75
+  },
+  {
+    "id": "C05",
+    "title": "Case B: shift measurements along a modeled direction",
+    "section": "Cyber response",
+    "kind": "equation",
+    "kicker": "Coordinated model-consistent corruption",
+    "takeaway": "A structured perturbation can look like a different physical state.",
+    "items": [
+      "Choose a state displacement c",
+      "Map it into measurement space using H",
+      "Add that pattern to the measurements",
+      "Use the unchanged estimator model"
+    ],
+    "notes": "Introduce c as a hypothetical state displacement and a as a measurement-space perturbation. The construction a=Hc is a mathematical teaching case: the added measurement pattern is exactly one that the assumed linear model can explain. It requires knowledge of the relevant model and the ability to alter the required channels. Those conditions are important limits, not details to hide. The purpose is to test the detector's information boundary in a controlled fixture, rather than claim every real system permits this pattern. Ask learners what state estimate would explain z plus Hc if the original estimate explained z. Their prediction leads directly to the cancellation on the next slide.",
+    "refs": [
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "equation": "a=Hc,\\qquad z'=z+a=z+Hc",
+    "symbols": [
+      {
+        "symbol": "c",
+        "meaning": "Chosen state displacement, rad"
+      },
+      {
+        "symbol": "a",
+        "meaning": "Coordinated measurement perturbation"
+      },
+      {
+        "symbol": "z'",
+        "meaning": "Perturbed measurement vector"
+      }
+    ],
+    "prompt": "What estimated state would explain the added Hc term?",
+    "minutes": 1
+  },
+  {
+    "id": "C06",
+    "title": "Cancel Hc and see the detector limitation",
+    "section": "Cyber response",
+    "kind": "equation",
+    "kicker": "Same-slide algebra reveal",
+    "takeaway": "The estimate can move while the residual stays unchanged.",
+    "items": [
+      "With the same full-rank WLS model: x̂′ = x̂ + c",
+      "Substitute into the residual",
+      "The added Hc terms cancel",
+      "No residual alarm can coexist with a wrong estimate"
+    ],
+    "notes": "Keep the measurement relation visible while revealing the cancellation in steps. For the same full-rank linear WLS problem, adding Hc to the observations shifts the estimate by c. Substituting that shifted estimate into the residual removes the added terms exactly. The residual is unchanged even though the estimated state has moved. Give the audience a few seconds to perform the cancellation before showing the result. This is a detector limitation under specified assumptions, not a universal claim about all estimators or attacks. A language model explaining the same residual more fluently does not create missing information. The next lab contrasts the unchanged detector statistic with an offline state-error metric.",
+    "refs": [
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "equation": "r'=z'-H\\hat x'=z+Hc-H(\\hat x+c)=z-H\\hat x=r",
+    "symbols": [
+      {
+        "symbol": "\\hat x'=\\hat x+c",
+        "meaning": "Shifted estimate under the same full-rank linear WLS model"
+      },
+      {
+        "symbol": "r'=r",
+        "meaning": "Exactly unchanged residual for this construction"
+      }
+    ],
+    "prompt": "What does the detector fail to observe here?",
+    "answer": "A state displacement that remains consistent with the measurement model.",
+    "minutes": 1.25
+  },
+  {
+    "id": "C07",
+    "title": "Awareness should preserve provenance and uncertainty",
+    "section": "Cyber response",
+    "kind": "concept",
+    "kicker": "Stage 1 · Cyber workflow",
+    "takeaway": "Do not turn a weak observation into a strong assurance.",
+    "items": [
+      "Record sensor provenance and trust assumptions",
+      "Check estimator rank and data validity",
+      "Report residual alarm status accurately",
+      "Keep unknown authenticity explicit"
+    ],
+    "notes": "Return from algebra to the awareness stage. Its output should include measurement sources, the assumed covariance, estimator observability and the residual test result. It should also identify which trust assertions are external assumptions. A matching record identifier does not authenticate its sensor values, and a low residual does not demonstrate their physical truth. The correct public explanation may be that no inconsistency was detected by this estimator while coordinated corruption remains possible under the model. Such wording is useful to an operator because it preserves the uncertainty needed for the next decision. Ask learners which additional evidence would actually change the information available, rather than merely restating the same readings.",
+    "refs": [
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "visual": "stages",
+    "prompt": "Would another LLM reading the same residual add independent sensor evidence?",
+    "answer": "No. Independent information requires a justified additional source.",
+    "minutes": 0.75
+  },
+  {
+    "id": "C08",
+    "title": "L8: run two corruption families with one shared estimator",
+    "section": "Cyber response",
+    "kind": "code",
+    "kicker": "Notebook checkpoint · L8",
+    "takeaway": "Sweep the perturbation size and retain comparable conditions.",
+    "items": [
+      "Use the same scale grid",
+      "Compute isolated and coordinated cases",
+      "Record residual and offline state error",
+      "Time the whole WLS sweep"
+    ],
+    "notes": "Walk through the first five lines of L8. ATTACK_SCALES defines the tested magnitudes, and the helper recomputes the WLS outcomes for both perturbation families. The same fixture, covariance and threshold keep the comparison interpretable. The table includes a detector-visible statistic and an offline error calculated from known synthetic truth. The latter is available to the teacher for scoring, not to the operating gate. The timer encloses the complete helper call and should not be presented as one sensor-update latency. Ask participants to sketch the expected residual curves before running. The experiment becomes more instructive when learners commit to a prediction rather than merely observing a plot.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L8",
+      "start": 1,
+      "end": 5
+    },
+    "minutes": 0.75
+  },
+  {
+    "id": "C09",
+    "title": "Lab: separate detector evidence from evaluation truth",
+    "section": "Cyber response",
+    "kind": "lab",
+    "kicker": "128–135 min · 7-minute exercise",
+    "takeaway": "Find a case with growing error and no residual alarm.",
+    "items": [
+      "Predict both residual curves",
+      "Run L8",
+      "Mark the 15.0863 threshold",
+      "Explain which plot an operator can actually use"
+    ],
+    "notes": "Allow seven minutes for the two-family sweep. Learners should identify at least one model-consistent corruption level at which the residual remains below threshold while the offline state error increases. Have them label the residual plot as detector-visible and the state-error plot as evaluation-only. The truth metric must not quietly enter the decision logic. Encourage learners to add a scale value and observe whether the algebraic prediction persists in the numerical calculation. Ask what assumptions would need to change to break the exact cancellation. Answers include restricted channel access, a different measurement model or additional independent information. Finish with one careful sentence explaining what no alarm does and does not mean.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L8",
+      "start": 1,
+      "end": 3
+    },
+    "prompt": "Which curve can be computed without knowing the true state?",
+    "answer": "The WLS residual curve; state error requires the synthetic truth.",
+    "minutes": 7
+  },
+  {
+    "id": "C10",
+    "title": "One curve is flat while the state error grows",
+    "section": "Cyber response",
+    "kind": "chart",
+    "kicker": "Fresh L8 default sweep",
+    "takeaway": "Model consistency and state accuracy answer different questions.",
+    "items": [
+      "Coordinated residual J stays near 3.92022",
+      "Isolated scale-1 residual J is about 277.497",
+      "Threshold is 15.0863",
+      "The right-hand error curve uses offline truth"
+    ],
+    "notes": "Use the plotted default outputs to connect the cancellation to a visible result. The coordinated case preserves a residual energy of approximately 3.92022 across the tested scales, below the threshold of 15.0863, while its offline state error grows. The isolated scale-one case has residual energy around 277.497 and exceeds the threshold. The residual axis uses a symmetric-log presentation to retain detail near the threshold and at larger values; read the tick labels carefully. These are outcomes of the controlled fixture, not estimates of field detection rates. Ask participants to explain why adding another prose interpretation of the flat curve cannot by itself reveal the hidden displacement.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "image": "/assets/classroom_cyber.png",
+    "image_caption": "Executed L8 sweep. Left: detector-visible residual. Right: offline state error using synthetic truth.",
+    "minutes": 1
+  },
+  {
+    "id": "C11",
+    "title": "Plan recovery from a justified information source",
+    "section": "Cyber response",
+    "kind": "equation",
+    "kicker": "Stage 2 · Model-based constrained control",
+    "takeaway": "Protected measurements change the state information used by the planner.",
+    "items": [
+      "Estimate from three assumed protected angle readings",
+      "Choose the smallest corrective injection",
+      "Keep predicted branch flows inside tightened limits",
+      "HOLD if protected information is unavailable"
+    ],
+    "notes": "Introduce the trust assumption before the optimization. The fixture provides three additional angle readings explicitly assumed protected; neither the estimator nor the LLM establishes that protection. From their estimate, a scalar quadratic program chooses added injection at node two, balanced at the source. The objective minimizes corrective effort, and the branch-flow constraints include a 0.01 p.u. planning margin. This is a standard constrained model-based response, not an MPC rollout or trained SAC action in this case. The hard bounds and trust basis remain visible in the returned record. Ask learners why changing only the prose label from suspicious to trusted would not justify this calculation.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "equation": "\\min_{0\\le u\\le0.5}\\frac12u^2\\quad\\text{s.t.}\\quad |F\\hat x_{\\mathcal T}+b_u u|\\le\\overline f-0.01",
+    "symbols": [
+      {
+        "symbol": "u",
+        "meaning": "Added node-2 injection, balanced at source, p.u."
+      },
+      {
+        "symbol": "\\hat x_{\\mathcal T}",
+        "meaning": "State estimated from assumed protected readings"
+      },
+      {
+        "symbol": "F,b_u",
+        "meaning": "Angle-to-flow map and control sensitivity"
+      },
+      {
+        "symbol": "\\overline f",
+        "meaning": "Branch limits (0.35, 0.18, 0.35, 0.35) p.u."
+      }
+    ],
+    "minutes": 2
+  },
+  {
+    "id": "C12",
+    "title": "Three independent readings remove redundancy",
+    "section": "Cyber response",
+    "kind": "question",
+    "kicker": "Observability is not authentication",
+    "takeaway": "A full-rank estimate can still lack a residual consistency test.",
+    "items": [
+      "Three protected angle readings",
+      "Three unknown state variables",
+      "Rank 3 permits estimation",
+      "Residual degrees of freedom: zero"
+    ],
+    "notes": "Pause on a subtle consequence of the protected-channel fixture. Three independent angle readings can identify the three unknown state variables, but they leave no residual degrees of freedom. The estimate exists because of rank, while the trust in those readings remains an external assumption. Do not describe zero residual as confirmation that the protected readings are correct. This is an excellent example of why observability, redundancy and authenticity should be taught separately. Ask the audience how they would strengthen the evidence in a real system: authenticated channels, independent measurements, validated sensor health and appropriate threat assumptions are distinct contributions. In this tutorial, unavailable protected information leads to HOLD rather than an invented trusted state.",
+    "refs": [
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "equation": "\\mathrm{rank}(H_{\\mathcal T})=3,\\qquad m_{\\mathcal T}-n=3-3=0",
+    "symbols": [
+      {
+        "symbol": "H_{\\mathcal T}",
+        "meaning": "Measurement matrix for the protected subset"
+      },
+      {
+        "symbol": "m_{\\mathcal T},n",
+        "meaning": "Protected measurement count and state dimension"
+      }
+    ],
+    "prompt": "Does full rank imply enough redundancy to test consistency?",
+    "answer": "No. This exactly determined protected subset has zero residual degrees of freedom.",
+    "minutes": 1
+  },
+  {
+    "id": "C13",
+    "title": "L9: compare trusted evidence with its absence",
+    "section": "Cyber response",
+    "kind": "code",
+    "kicker": "Notebook checkpoint · L9",
+    "takeaway": "The correct unavailable-data result is an explicit HOLD.",
+    "items": [
+      "Call the same response function twice",
+      "Protected unavailable → HOLD",
+      "Protected available → constrained injection proposal",
+      "Inspect the stated trust assumption"
+    ],
+    "notes": "Read both helper calls before showing the table. The first removes the protected-channel assumption and must return HOLD. The second enables the stated protected readings, solves the constrained recovery problem and reports an advisory candidate. This comparison teaches an information dependency, not a difference between a weak and a strong language model. The assertions in the full cell verify the expected hold behavior and the absence of offline actual violations in this fixed scenario. The offline check uses synthetic truth solely to evaluate the experiment. Ask learners what a control-room display should retain when it holds: the missing evidence, the reason for holding and a clear path for obtaining justified additional information.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L9",
+      "start": 1,
+      "end": 9
+    },
+    "minutes": 1
+  },
+  {
+    "id": "C14",
+    "title": "Lab: connect the new estimate to a physical consequence",
+    "section": "Cyber response",
+    "kind": "lab",
+    "kicker": "140–145 min · 5-minute exercise",
+    "takeaway": "Explain the chain from information to command to branch flow.",
+    "items": [
+      "Run L9",
+      "Check the 0.18 p.u. limit on branch 1–2",
+      "Inspect every other branch",
+      "Describe why protected information changes the action"
+    ],
+    "notes": "Give learners five minutes to run L9 and compare the two information conditions. The useful causal chain is protected evidence changes the estimate, the estimate changes the constrained injection, and that injection changes the modeled physical flows. A label from an LLM is not the source of the new information. Have participants inspect all branches rather than stopping after the highlighted branch falls below its limit. The 0.01 p.u. planning margin is an engineering choice and is not calibrated as a probabilistic guarantee. If someone changes the fixture, the displayed reference numbers may no longer apply; they should report their newly calculated values and the assumptions behind them.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "prompt": "What causes the improved physical outcome here?",
+    "answer": "The protected-state estimate and the constrained numerical control, under the stated assumptions.",
+    "minutes": 5
+  },
+  {
+    "id": "C15",
+    "title": "The control consequence makes the failure visible",
+    "section": "Cyber response",
+    "kind": "comparison",
+    "kicker": "Original four-bus fixture",
+    "takeaway": "A plausible corrupted estimate can leave a real overload untreated.",
+    "items": [
+      "Corrupted-state control: u = 0",
+      "Its actual branch 1–2 flow: 0.24000 p.u.",
+      "Protected-state control: u = 0.12169 p.u.",
+      "Its actual branch 1–2 flow: 0.17046 p.u."
+    ],
+    "notes": "Compare the two commands under the same known synthetic truth. Using the stealth-corrupted estimate leaves the corrective injection at zero and the highlighted actual branch flow at 0.24 p.u., above the 0.18 limit. Using the protected estimate gives approximately 0.12169 p.u. injection and 0.17046 p.u. actual flow on that branch. The slight difference from the planned tightened bound reflects the fixture's measurement noise. All other branch limits must also be checked. These actual-flow values are evaluation outcomes, not measurements secretly given to the operating gate. The result demonstrates the importance of the information basis and constrained controller; it does not establish a universal cyber-defense guarantee.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      },
+      {
+        "label": "Liu, Ning & Reiter · false-data injection (2009)",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "prompt": "Why is the actual-flow column labeled evaluation-only?",
+    "columns": [
+      "Information basis",
+      "Injection u",
+      "Actual flow 1–2"
+    ],
+    "rows": [
+      [
+        "Stealth-corrupted",
+        "0 p.u.",
+        "0.24000 p.u."
+      ],
+      [
+        "Assumed protected",
+        "0.12169 p.u.",
+        "0.17046 p.u."
+      ]
+    ],
+    "minutes": 0.75
+  },
+  {
+    "id": "C16",
+    "title": "Preserve uncertainty through all five stages",
+    "section": "Cyber response",
+    "kind": "flow",
+    "kicker": "Stages 1–5 · Cyber workflow",
+    "takeaway": "The architecture should carry trust assumptions to the operator.",
+    "items": [
+      "Awareness: provenance, rank and residual evidence",
+      "Planning: WLS estimate and constrained QP action",
+      "Simulation and verification: predicted flows and binding",
+      "LLM optimizer: permitted refinement, public rationale or escalation"
+    ],
+    "notes": "Animate the same five-stage structure used in the previous cases, but emphasize the changed numerical methods. Awareness records provenance and estimator diagnostics. Planning uses a WLS estimate and a scalar constrained QP. Simulation computes DC flows for the candidate. Verification checks trust-basis requirements, rank, action bounds, flow limits and evidence identity. The LLM optimizer may request a permitted numerical refinement and provide a public explanation, but cannot manufacture protected measurements. A new estimate or command triggers another numerical check. The operator packet retains the assumed trust basis and remaining limitations. This general architecture accommodates different domain solvers without requiring MPC or SAC to be used in every decision type.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Recorded experiment · five-stage workflow",
+        "url": "../Proposal_Complete_Workflow.html"
+      },
+      {
+        "label": "Schweppe & Wildes · state estimation (1970)",
+        "url": "https://doi.org/10.1109/TPAS.1970.292678"
+      }
+    ],
+    "visual": "stages",
+    "minutes": 0.75
+  },
+  {
+    "id": "C17",
+    "title": "Recorded Llama refinement does not improve the final control",
+    "section": "Cyber response",
+    "kind": "comparison",
+    "kicker": "Archived actual cyber workflow",
+    "takeaway": "A numerical baseline remains the reference for claimed agentic benefits.",
+    "items": [
+      "Planning reply: GENERATE_CANDIDATES · 0.829 s",
+      "TRUSTED_QP refinement reply: 1.195 s",
+      "Fixed and Llama routes select u = 0.12169 p.u.",
+      "Recorded totals: fixed 0.0038 s; Llama 5.203 s"
+    ],
+    "notes": "The archived cyber-stealth workflow is inspected in L10, separately from the fresh L8 and L9 calculations. Its actual planning response asks for new candidates based on the given tools and objective. A later optimizer reply chooses TRUSTED_QP and requests new simulation and verification. The public response is useful because its proposed operation and stated justification can be checked. However, the fixed and Llama routes finish with the same constrained injection and objective. Their recorded total times differ substantially because the Llama route makes four model calls. These are single-run measurements, not a distributional benchmark. The example demonstrates reviewable orchestration and the need for numerical checks, not improved attack detection or lower control cost from the language layer.",
+    "refs": [
+      {
+        "label": "Recorded experiment · five-stage workflow",
+        "url": "../Proposal_Complete_Workflow.html"
+      },
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "visual": "latency",
+    "prompt": "Actual planning reply: “Requesting new candidates based on the given tools and objective.”",
+    "answer": "Inspect the returned candidate and fresh numerical evidence before accepting the explanation.",
+    "columns": [
+      "Archived cyber route",
+      "Final u",
+      "Recorded total"
+    ],
+    "rows": [
+      [
+        "Fixed supervisor",
+        "0.12169 p.u.",
+        "0.0038 s"
+      ],
+      [
+        "Llama supervisor",
+        "0.12169 p.u.",
+        "5.203 s"
+      ]
+    ],
+    "minutes": 0.5
+  },
+  {
+    "id": "C18",
+    "title": "Three cases, three different failure boundaries",
+    "section": "Cyber response",
+    "kind": "comparison",
+    "kicker": "147–149 min · Synthesis",
+    "takeaway": "A common workflow manages evidence; each use case still needs its own physics.",
+    "items": [
+      "Voltage: reduced scope can omit binding limits",
+      "Restoration: changed conditions invalidate an old plan",
+      "Cyber: consistent data can describe the wrong state",
+      "Common response: justified tools, fresh checks and operator review"
+    ],
+    "notes": "Give participants a minute to write one sentence for each case. Voltage support showed that a reduced-model PASS may fail a broader physical audit. Restoration showed that priority policy changes service tradeoffs and that a changed capacity invalidates old evidence. Cyber response showed that a model-consistent perturbation can preserve residuals while changing the estimated state. The common framework keeps requests explicit, selects appropriate numerical methods, records their outputs, verifies changed proposals and carries limitations to a human reviewer. It does not create physical information by adding language agents. The final research discussion should ask when learned orchestration improves task success enough to justify its latency, complexity and additional failure modes.",
+    "refs": [
+      {
+        "label": "Executed tutorial · Classroom Labs",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Recorded experiment · LLM response selection",
+        "url": "../LLM_Response_Selection.html"
+      },
+      {
+        "label": "Recorded experiment · five-stage workflow",
+        "url": "../Proposal_Complete_Workflow.html"
+      }
+    ],
+    "prompt": "Which stage would you strengthen first for each failure boundary?",
+    "columns": [
+      "Case",
+      "Failure boundary",
+      "Evidence response"
+    ],
+    "rows": [
+      [
+        "Voltage",
+        "Omitted constraints",
+        "Broader-model audit"
+      ],
+      [
+        "Restoration",
+        "Stale recommendation",
+        "Fresh case-bound solve"
+      ],
+      [
+        "Cyber",
+        "Consistent wrong state",
+        "Justified trusted source / HOLD"
+      ]
+    ],
+    "minutes": 2
+  }
+]

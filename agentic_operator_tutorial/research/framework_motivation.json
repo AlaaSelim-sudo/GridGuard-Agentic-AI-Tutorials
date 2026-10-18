@@ -1,0 +1,274 @@
+{
+  "reviewed_as_of": "2026-10-17",
+  "scope": "Verified framework evidence for a 45–50 minute introductory and motivation tutorial. Detailed utility use cases belong in a separate practical tutorial.",
+  "headline_recommendation": "Use ToolUniverse as the main Harvard-developed framework example, followed by POPPER and/or TxAgent as research patterns. Present LangGraph, Microsoft Agent Framework, OpenAI Agents SDK and Google ADK as current documented development frameworks. Do not imply university affiliation proves utility readiness.",
+  "harvard_candidates": [
+    {
+      "name": "ToolUniverse",
+      "attribution": "Harvard Medical School / Zitnik Lab-led research platform, with Harvard College, Kempner Institute, Harvard Data Science Initiative, Broad Institute, MIT and MIT Lincoln Laboratory affiliations in the paper.",
+      "authors": "Shanghua Gao, Richard Zhu, Pengwei Sui, Zhenglun Kong, Sufian Aldogom, Yepeng Huang, Ayush Noori, Reza Shamji, Krishna Parvataneni, Theodoros Tsiligkaridis, Marinka Zitnik.",
+      "affiliation_evidence": "Paper v3 first page: Gao is affiliation 1 (Department of Biomedical Informatics, Harvard Medical School); corresponding author Zitnik is affiliations 1, 5, 6, 7 (HMS, Kempner, Broad, HDSI).",
+      "publication": "ToolUniverse: An open platform for democratizing AI scientists; arXiv:2509.23426; first submitted 2025-09-27, v3 revised 2026-08-07.",
+      "maturity": "Open-source scientific-tool platform with public documentation, Python/API/MCP interfaces and tagged releases; manuscript describes v1.3.1. Cited paper is a preprint. Sources do not establish utility deployment or a safety-certified operational runtime.",
+      "verified_summary": "Provides typed tool specifications and modules to register, find, call, compose, create and refine scientific tools. This makes tool integration a reusable layer around a model.",
+      "preferred_slide_wording": "Harvard Medical School's ToolUniverse organizes scientific tools behind common interfaces so agents can discover, call and combine them.",
+      "count_policy": "Omit tool counts on main slides. If needed: the 2025-10-09 Kempner article reports 600+; paper v3 reports 2,700+ tools as of July 2026. Current documentation contains both 1000+ and 2700+ text, so date and source any number explicitly.",
+      "utility_connection_as_inference": "The transferable pattern is an approved catalog of historian, document and simulation tools with validated inputs and structured outputs; these sources do not provide utility-specific tools.",
+      "references": [
+        "H01",
+        "H02",
+        "H03",
+        "H04",
+        "H05",
+        "H12"
+      ]
+    },
+    {
+      "name": "TxAgent",
+      "attribution": "Harvard Medical School / Zitnik Lab research agent with MIT Lincoln Laboratory collaboration; author affiliations also include Brigham and Women's Hospital, Kempner, Broad and HDSI.",
+      "authors": "Shanghua Gao, Richard Zhu, Zhenglun Kong, Ayush Noori, Xiaorui Su, Curtis Ginder, Theodoros Tsiligkaridis, Marinka Zitnik.",
+      "affiliation_evidence": "Paper first page and official project page explicitly map most authors to Department of Biomedical Informatics, Harvard Medical School; Tsiligkaridis to MIT Lincoln Laboratory.",
+      "publication": "TxAgent: An AI Agent for Therapeutic Reasoning Across a Universe of Tools; arXiv:2503.10970; submitted 2025-03-14.",
+      "maturity": "Biomedical research agent/model with public code, model assets, demos and author-reported benchmark results. The cited 2025 version is a preprint, not a general production orchestration runtime. Do not infer clinical outcomes or utility performance.",
+      "verified_summary": "Combines a domain-specialized model, ToolRAG retrieval and ToolUniverse to select tools, retrieve biomedical evidence and iteratively answer therapeutic reasoning tasks.",
+      "preferred_slide_wording": "TxAgent shows a domain agent selecting relevant tools, retrieving evidence and revising its answer across multiple steps.",
+      "count_policy": "The original 2025 paper's 211-tool toolbox describes that experiment, not today's ToolUniverse library size. Avoid mixing the two counts.",
+      "utility_connection_as_inference": "The lesson is that an operations agent needs curated domain tools and evidence checks; a large general model alone does not provide the full workflow.",
+      "references": [
+        "H06",
+        "H07",
+        "H08"
+      ]
+    },
+    {
+      "name": "POPPER",
+      "attribution": "Stanford–Harvard research collaboration. Harvard affiliation is specifically co-first author Ying Jin at the Data Science Initiative and Department of Health Care Policy; other author department affiliations in the paper are Stanford.",
+      "authors": "Kexin Huang, Ying Jin, Ryan Li, Michael Y. Li, Emmanuel Candès, Jure Leskovec.",
+      "affiliation_evidence": "First page lists Ying Jin as affiliation 2: Data Science Initiative & Department of Health Care Policy, Harvard University.",
+      "publication": "Automated Hypothesis Validation with Agentic Sequential Falsifications; ICML 2025, PMLR 267:25372–25437; conference July 13–19, 2025. arXiv first submitted 2025-02-14.",
+      "maturity": "Peer-reviewed research framework with public implementation, benchmark scripts and demo. It is a hypothesis-testing research system, not a utility operations runtime.",
+      "verified_summary": "An experiment-design agent proposes falsification tests, an execution agent runs analyses, and sequential evidence aggregation controls false-positive claims under the paper's stated assumptions.",
+      "preferred_slide_wording": "POPPER, a Stanford–Harvard collaboration, separates proposing a hypothesis from executing tests and deciding whether the evidence supports it.",
+      "limitations": "Formal Type-I error control relies on valid logical implications, sequential statistical validity and stopping assumptions. It is not a blanket guarantee for LLM outputs or physical safety.",
+      "utility_connection_as_inference": "Teach 'an explanation is a hypothesis; an independent tool test supplies evidence.' Do not claim POPPER has validated feeder control or transmission dispatch.",
+      "references": [
+        "H09",
+        "H10",
+        "H11"
+      ]
+    }
+  ],
+  "development_frameworks": [
+    {
+      "name": "LangGraph",
+      "maintainer": "LangChain",
+      "role": "Stateful workflow graphs combining deterministic code and agentic steps, with persistence and human oversight.",
+      "teaching_visual": "A small graph with retrieve → analyze → verify → review and a bounded retry edge.",
+      "utility_connection": "Implement an explicit advisory workflow; engineering tools supply numerical validation.",
+      "connection_status": "Educational design inference, not a named deployment.",
+      "references": [
+        "T01"
+      ],
+      "url": "https://docs.langchain.com/oss/python/langgraph/overview"
+    },
+    {
+      "name": "Microsoft Agent Framework",
+      "maintainer": "Microsoft",
+      "role": "Agents and graph-based workflows, tool integration, middleware and resumable checkpoints.",
+      "teaching_visual": "Agent cards inside a workflow, with a checkpoint/database icon.",
+      "utility_connection": "Long-running case triage and handover require durable, protected state.",
+      "connection_status": "Educational design inference, not a named deployment.",
+      "references": [
+        "T02",
+        "T03"
+      ],
+      "url": "https://learn.microsoft.com/en-us/agent-framework/overview/"
+    },
+    {
+      "name": "OpenAI Agents SDK",
+      "maintainer": "OpenAI",
+      "role": "Code-first tools, specialist handoffs, guardrails, review and tracing in the application's runtime.",
+      "teaching_visual": "One coordinator calling three typed tools, with a visible action trace.",
+      "utility_connection": "Expose narrow approved read/simulate/draft functions and evaluate observable actions.",
+      "connection_status": "Educational design inference, not a named deployment.",
+      "references": [
+        "T04"
+      ],
+      "url": "https://developers.openai.com/api/docs/guides/agents/sdk"
+    },
+    {
+      "name": "Google Agent Development Kit (ADK)",
+      "maintainer": "Google",
+      "role": "Agent and graph workflows, human input, structured routing and evaluation; ADK 2.0 is documented for 2026.",
+      "teaching_visual": "A graph with deterministic input checks before an agent and evaluator after it.",
+      "utility_connection": "Validate asset identity and tool trajectory in replayed scenarios.",
+      "connection_status": "Educational design inference, not a named deployment.",
+      "references": [
+        "T06",
+        "T07"
+      ],
+      "url": "https://adk.dev/2.0/"
+    }
+  ],
+  "recommended_slides": [
+    {
+      "title": "Frameworks give the agent a working environment",
+      "duration_minutes": 3,
+      "visual": "Four compact cards: LangGraph (state/graph), Microsoft (workflow/checkpoint), OpenAI (tools/handoffs/traces), Google ADK (agents/graphs/evaluation).",
+      "caption": "Current documented framework examples; compare fit through local evaluation.",
+      "key_message": "A model proposes the next step; the surrounding application supplies tools, state, policy and observable results.",
+      "source_ids": [
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "title": "Harvard example: ToolUniverse",
+      "duration_minutes": 3,
+      "visual": "Original static schematic: goal → tool finder → typed tool caller → scientific resources; structured results return to the agent. Add manager/composer as small supporting blocks.",
+      "bullets": [
+        "Developed by a Harvard Medical School-led team with collaborators.",
+        "Standardizes how an agent discovers, calls and combines scientific tools.",
+        "The reusable idea: governed interfaces and testable outputs.",
+        "Research platform; utility deployment needs its own tools and validation."
+      ],
+      "source_ids": [
+        "H01",
+        "H02",
+        "H03",
+        "H04",
+        "H05"
+      ]
+    },
+    {
+      "title": "Research lesson: specialize the tools, test the claim",
+      "duration_minutes": 3,
+      "visual": "Two lanes: TxAgent — request → relevant tools → evidence-based response; POPPER — hypothesis → designed test → executed analysis → evidence decision.",
+      "bullets": [
+        "TxAgent: a Harvard-led biomedical agent with domain tools.",
+        "POPPER: a Stanford–Harvard framework for hypothesis testing.",
+        "Transfer the design lessons: curate evidence and test proposed explanations.",
+        "Benchmarks support research claims within their evaluated tasks."
+      ],
+      "source_ids": [
+        "H06",
+        "H07",
+        "H08",
+        "H09",
+        "H10",
+        "H11"
+      ]
+    }
+  ],
+  "lecture_guidance": [
+    "Keep this framework segment to about 8–9 minutes in the 45–50 minute introductory session.",
+    "Use static original diagrams and at most one progressive reveal per diagram; avoid motion between every slide.",
+    "A single utility teaser can motivate the tool pattern; reserve detailed operator prompts, simulation settings and three full cases for the separate practical tutorial.",
+    "Provide full paper titles, dates, official documentation and code URLs in a reading list; a logo and short author-year label are not a full reading source.",
+    "The Harvard Kempner computing handbook lists common frameworks, but inclusion there is not evidence Harvard developed those frameworks.",
+    "Avoid broad claims that more tools, more agents or a more prestigious institution makes a deployment safer or more effective."
+  ],
+  "references": [
+    {
+      "id": "H01",
+      "title": "ToolUniverse: An open platform for democratizing AI scientists",
+      "authors": "Shanghua Gao et al.",
+      "type": "Primary research preprint",
+      "date": "2025-09-27; revised 2026-08-07 (v3)",
+      "url": "https://arxiv.org/abs/2509.23426v3"
+    },
+    {
+      "id": "H02",
+      "title": "ToolUniverse paper v3 — affiliation and architecture evidence",
+      "type": "Primary paper PDF",
+      "date": "2026-08-07",
+      "url": "https://arxiv.org/pdf/2509.23426v3",
+      "location": "Page 1 affiliations; pages 1–4 architecture/release; Figure 1 on page 5."
+    },
+    {
+      "id": "H03",
+      "title": "ToolUniverse Documentation",
+      "type": "Official Harvard lab documentation",
+      "date": "Live documentation reviewed 2026-10-17",
+      "url": "https://zitniklab.hms.harvard.edu/ToolUniverse/en/"
+    },
+    {
+      "id": "H04",
+      "title": "mims-harvard/ToolUniverse",
+      "type": "Author-maintained source repository",
+      "date": "Reviewed 2026-10-17",
+      "url": "https://github.com/mims-harvard/ToolUniverse",
+      "license": "Apache-2.0"
+    },
+    {
+      "id": "H05",
+      "title": "From Models to Scientists: Building AI Agents for Scientific Discovery",
+      "authors": "Shanghua Gao, Richard Zhu, Marinka Zitnik",
+      "publisher": "Harvard Kempner Institute",
+      "type": "Institutional primary explanation",
+      "date": "2025-10-09",
+      "url": "https://kempnerinstitute.harvard.edu/research/deeper-learning/from-models-to-scientists-building-ai-agents-for-scientific-discovery/"
+    },
+    {
+      "id": "H06",
+      "title": "TxAgent: An AI Agent for Therapeutic Reasoning Across a Universe of Tools",
+      "authors": "Shanghua Gao et al.",
+      "type": "Primary research preprint",
+      "date": "2025-03-14",
+      "url": "https://arxiv.org/abs/2503.10970",
+      "pdf_url": "https://arxiv.org/pdf/2503.10970",
+      "location": "First-page affiliations and study scope."
+    },
+    {
+      "id": "H07",
+      "title": "TxAgent official project page",
+      "publisher": "Zitnik Lab, Harvard Medical School",
+      "type": "Author-maintained project documentation",
+      "date": "Reviewed 2026-10-17",
+      "url": "https://zitniklab.hms.harvard.edu/TxAgent/"
+    },
+    {
+      "id": "H08",
+      "title": "mims-harvard/TxAgent",
+      "type": "Author-maintained source repository",
+      "date": "Reviewed 2026-10-17",
+      "url": "https://github.com/mims-harvard/TxAgent"
+    },
+    {
+      "id": "H09",
+      "title": "Automated Hypothesis Validation with Agentic Sequential Falsifications",
+      "authors": "Kexin Huang, Ying Jin, Ryan Li, Michael Y. Li, Emmanuel Candès, Jure Leskovec",
+      "publisher": "ICML 2025, PMLR 267:25372–25437",
+      "type": "Peer-reviewed primary research",
+      "date": "2025-07-13 to 2025-07-19 conference",
+      "url": "https://proceedings.mlr.press/v267/huang25n.html"
+    },
+    {
+      "id": "H10",
+      "title": "POPPER paper — affiliations and statistical assumptions",
+      "type": "Author-hosted primary paper PDF",
+      "date": "2025; arXiv first submitted 2025-02-14",
+      "url": "https://cs.stanford.edu/~jure/pubs/auto-hypothesis-validation-icml25.pdf",
+      "location": "Page 1 affiliation; Sections 2.2–2.4 and Figure 1 for mechanism and assumptions."
+    },
+    {
+      "id": "H11",
+      "title": "snap-stanford/POPPER",
+      "type": "Author-maintained source repository",
+      "date": "Reviewed 2026-10-17",
+      "url": "https://github.com/snap-stanford/POPPER"
+    },
+    {
+      "id": "H12",
+      "title": "Agentic AI Tools — Kempner Institute Computing Handbook",
+      "publisher": "Harvard Kempner Institute",
+      "type": "Institutional documentation",
+      "date": "Last updated 2026-10-11",
+      "url": "https://handbook.eng.kempnerinstitute.harvard.edu/s5b_agentic_ai_workflows/agentic_ai_tools.html"
+    }
+  ]
+}

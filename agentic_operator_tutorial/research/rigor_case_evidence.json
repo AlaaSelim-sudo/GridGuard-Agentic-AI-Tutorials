@@ -1,0 +1,515 @@
+{
+  "reviewed_on": "2026-10-17",
+  "purpose": "Metric definitions, limitations and plotting instructions for a rigorous teaching tutorial.",
+  "global_rules": [
+    "All company outcomes below are reported by suppliers or named customers in supplier-hosted stories; none is an independent causal study.",
+    "A missing sample size, uncertainty estimate or metric definition must remain unknown.",
+    "Do not place heterogeneous company metrics on a common performance leaderboard.",
+    "Bounds, approximations and projections must remain visibly marked."
+  ],
+  "cases": [
+    {
+      "case_id": "CAISO_OATI",
+      "source_ids": [
+        "C01",
+        "C02"
+      ],
+      "sources": [
+        {
+          "id": "C01",
+          "url": "https://www.caiso.com/about/news/energy-matters-blog/exploring-ai-to-support-smarter-grid-management",
+          "location": "2025 pilot account; scale and advisory architecture",
+          "web_ref": "turn119view1"
+        },
+        {
+          "id": "C02",
+          "url": "https://www.oati.com/ai-for-energy/",
+          "location": "CAISO section, paragraphs beginning 'Start with the scale' and 'The results CAISO reported'",
+          "web_ref": "turn119view0"
+        }
+      ],
+      "status": "Customer described a pilot in 2025; supplier's 2026 field report describes production outage-review assistance.",
+      "metrics": [
+        {
+          "id": "caiso_batch",
+          "definition": "Nightly automated analysis of next-day outage requests",
+          "numerator": {
+            "value": 500,
+            "bound": "lower",
+            "unit": "requests per batch"
+          },
+          "denominator": {
+            "value": 8,
+            "bound": "strict upper",
+            "unit": "minutes per batch"
+          },
+          "observation_period": "Nightly; number of observed nights not disclosed",
+          "baseline": null,
+          "evaluation_method": null,
+          "includes": "Modeling/market-impact checks, historical comparison, keyword analysis",
+          "excludes_or_unknown": "Human review time; request complexity; failures/retries; hardware/concurrency; per-request latency; tail percentiles",
+          "reported_by": "OATI, attributing results to CAISO",
+          "safe_derivation": {
+            "formula": "500 / 8",
+            "value": 62.5,
+            "relation": ">",
+            "unit": "requests/minute of batch throughput",
+            "assumptions": "Use only as an arithmetic lower bound on reported batch throughput; not independent measurement."
+          }
+        },
+        {
+          "id": "caiso_workload",
+          "definition": "RC West contextual workload, not the timed AI batch",
+          "generation_requests_per_day": {
+            "value": 500,
+            "relation": ">"
+          },
+          "transmission_requests_per_day": {
+            "value": 200,
+            "relation": ">"
+          },
+          "active_outages": {
+            "value": 3000,
+            "qualifier": "roughly"
+          },
+          "analyst_effort": {
+            "value": 40,
+            "unit": "analyst-hours across teams per outage day",
+            "qualifier": "on the order of"
+          },
+          "sample_size": null,
+          "measurement_method": null
+        },
+        {
+          "id": "caiso_lookup",
+          "definition": "Procedure and single-line-diagram lookup duration",
+          "before": "minutes",
+          "after": "seconds",
+          "exact_values": null,
+          "sample_size": null
+        }
+      ],
+      "cannot_infer": [
+        "Do not divide 40 analyst-hours by 8 machine minutes: task scopes and time types differ.",
+        "No measured hours saved, false-negative rate, per-request p95 or reliability gain is supplied.",
+        "Do not combine RC West workload with the narrower CAISO balancing-area chart as one population."
+      ],
+      "recommended_plot": "Annotate a nightly batch with ≥500 requests and <8 min; optionally show throughput >62.5 requests/min as a labeled derived lower bound."
+    },
+    {
+      "case_id": "AES_EHS",
+      "source_ids": [
+        "U01",
+        "Q02"
+      ],
+      "sources": [
+        {
+          "id": "U01",
+          "url": "https://cloud.google.com/customers/aes",
+          "location": "Results; audit-process background; operational-results paragraphs",
+          "web_ref": "turn119view2"
+        },
+        {
+          "id": "Q02",
+          "url": "https://claude.com/customers/aes",
+          "location": "Headline results and 'Transforming safety and efficiency'",
+          "web_ref": "turn119view3"
+        }
+      ],
+      "status": "Operational safety-audit agents with human examination retained.",
+      "metrics": [
+        {
+          "id": "aes_time",
+          "definition": "Audit results/report turnaround; precise start/end boundary not specified",
+          "before": {
+            "value": 14,
+            "unit": "days",
+            "qualifier": "reported"
+          },
+          "after": {
+            "value": 1,
+            "unit": "hour",
+            "qualifier": "approximately"
+          },
+          "baseline_scope": "Prior audit process",
+          "evaluation_cohort": {
+            "value": 50,
+            "relation": ">",
+            "unit": "agent audits reported by Google",
+            "caveat": "Not a disclosed paired sample or metric-specific denominator"
+          },
+          "calendar_vs_working_days": null,
+          "employee_active_time": null,
+          "variance": null,
+          "statistical_test": null
+        },
+        {
+          "id": "aes_labor_context",
+          "definition": "Prior complete safety-management audit effort",
+          "value": 100,
+          "qualifier": "approximately",
+          "unit": "employee-hours per audit",
+          "annual_volume": {
+            "value": 1500,
+            "relation": ">",
+            "unit": "audits/year; internal and external in Google account"
+          },
+          "cannot_infer": "100 employee-hours is not 14 calendar days of continuous labor; no post-agent person-hour value is given."
+        },
+        {
+          "id": "aes_accuracy",
+          "definition": null,
+          "reported_change": {
+            "low": 10,
+            "high": 20,
+            "unit": "percent increase, interpretation unspecified"
+          },
+          "baseline_accuracy": null,
+          "numerator": null,
+          "denominator": null,
+          "gold_standard": null,
+          "adjudication": null,
+          "absolute_vs_relative": null,
+          "error_type_breakdown": null,
+          "confidence_interval": null,
+          "metric_specific_sample": null,
+          "plot_eligible": false,
+          "reason": "No defensible accuracy axis or absolute score can be reconstructed."
+        },
+        {
+          "id": "aes_cost",
+          "definition": "Audit costs; accounting boundary unspecified",
+          "reported_reduction_percent": 99,
+          "baseline_currency_amount": null,
+          "after_currency_amount": null,
+          "cost_components": null,
+          "includes_reviewer_effort": null,
+          "includes_setup_and_maintenance": null,
+          "metric_specific_sample": null
+        },
+        {
+          "id": "aes_capacity",
+          "definition": "Potential annual audit capacity",
+          "reported_multiple": 2,
+          "claim_type": "Capacity statement ('can double'), not a disclosed completed-year production count",
+          "human_work": "Customer says agents handle half the workload; remaining human examination stays",
+          "cannot_infer": "Do not equate workload share with a measured 50% reduction in employee-hours."
+        }
+      ],
+      "source_disagreement": {
+        "google_time_percent": 99.7,
+        "anthropic_headline_time_percent": 96,
+        "anthropic_body_time_percent": 99,
+        "assessment": "Both narratives describe approximately two weeks to one hour, but their percentage headlines differ. Use native times and do not silently select a derived speedup."
+      },
+      "cannot_infer": [
+        "No exact speedup ratio without defining the day and process boundary.",
+        "No error-free audit guarantee or measured safety improvement.",
+        "No annual labor savings by multiplying 1,500, 100 hours and the cost percentage."
+      ],
+      "recommended_plot": "Show native reported times '14 days → ~1 hour' with scope note. A cost index of 100→1 is a derived display of the reported 99% reduction, with the unspecified cost boundary prominent."
+    },
+    {
+      "case_id": "DUKE_AWS",
+      "source_ids": [
+        "U02",
+        "U03"
+      ],
+      "sources": [
+        {
+          "id": "U02",
+          "url": "https://press.aboutamazon.com/aws/2026/9/aws-launches-agentic-grid-planning-program-to-accelerate-interconnection-studies",
+          "date": "2026-09-17",
+          "location": "Opening paragraph and Duke collaboration",
+          "web_ref": "turn121view1"
+        },
+        {
+          "id": "U03",
+          "url": "https://aws.amazon.com/energy-utilities/agentic-grid-planning/",
+          "date": "Undated live page",
+          "location": "Program description and 'What you can do'",
+          "web_ref": "turn121view2"
+        }
+      ],
+      "status": "Duke engineers already using specialized AWS agents in planning when program launched.",
+      "metrics": [
+        {
+          "id": "duke_data_prep",
+          "source_id": "U02",
+          "definition": "Duke interconnection-study data preparation",
+          "before": {
+            "value": 2,
+            "unit": "weeks of manual work"
+          },
+          "after": {
+            "value": null,
+            "unit": "hours",
+            "qualifier": "unspecified number"
+          },
+          "sample_size": null,
+          "task_distribution": null,
+          "calendar_vs_working_weeks": null,
+          "elapsed_vs_employee_time": null,
+          "baseline_protocol": null,
+          "uncertainty": null,
+          "cost": null,
+          "plot_eligible": "annotation only",
+          "cannot_infer": "No numeric speedup ratio, per-study end-to-end time or engineering-headcount reduction."
+        },
+        {
+          "id": "aws_task_speed",
+          "source_id": "U03",
+          "definition": "Program study-task speed relative to manual analysis",
+          "multiple": 4,
+          "bound": "up to",
+          "attribution": "AWS program-level claim, not specifically a Duke result",
+          "sample_size": null,
+          "benchmark_tasks": null,
+          "aggregation": null,
+          "hardware": null,
+          "variance": null,
+          "plot_eligible": "bounded vendor claim only"
+        },
+        {
+          "id": "aws_engineer_time",
+          "source_id": "U03",
+          "definition": "Engineer-active time",
+          "reduction_percent": 92,
+          "bound": "up to",
+          "attribution": "AWS program-level claim",
+          "baseline_value": null,
+          "after_value": null,
+          "sample_size": null,
+          "study_scope": null,
+          "review_time_boundary": null,
+          "plot_eligible": "bounded vendor claim only"
+        }
+      ],
+      "cannot_infer": [
+        "The 4× and 92% claims measure different quantities and need not be from the same task.",
+        "Do not assign those two program maxima to Duke or multiply them.",
+        "Study agents coordinate existing deterministic simulation software; no measured interconnection-queue or grid-reliability outcome is supplied."
+      ],
+      "recommended_plot": "Use a native-unit annotated comparison '2 weeks of manual preparation → hours (not specified)' for Duke. Keep generic program maxima visually separate."
+    },
+    {
+      "case_id": "TC_ENERGY_PIPER",
+      "source_ids": [
+        "U04"
+      ],
+      "sources": [
+        {
+          "id": "U04",
+          "url": "https://aws.amazon.com/solutions/case-studies/tcenergy-bedrock/",
+          "location": "Outcome section; solution description",
+          "web_ref": "turn121view3"
+        }
+      ],
+      "status": "Pipeline-record agent used by engineers; Canadian-headquartered North American operator.",
+      "metrics": [
+        {
+          "id": "tc_review_time",
+          "definition": "Document review time",
+          "reduction_percent": 85,
+          "baseline_scope": "Prior manual engineering document verification",
+          "baseline_value": null,
+          "after_value": null,
+          "elapsed_vs_employee_time": null,
+          "sample_size": null,
+          "document_mix": null,
+          "measurement_window": null,
+          "review_inclusion": null,
+          "variance": null,
+          "evaluation_method": null
+        },
+        {
+          "id": "tc_adoption",
+          "definition": "Active PIPER users",
+          "value": 100,
+          "relation": ">",
+          "snapshot_date": null,
+          "not_a_denominator_for": "Review-time or accuracy evaluation"
+        },
+        {
+          "id": "tc_accuracy",
+          "definition": null,
+          "low_percent": 95,
+          "high_percent": 100,
+          "stage": "early testing",
+          "document_length": {
+            "value": 120,
+            "relation": "up to",
+            "unit": "pages per document"
+          },
+          "sample_documents": null,
+          "sample_fields": null,
+          "numerator": null,
+          "denominator": null,
+          "ground_truth": null,
+          "aggregation": null,
+          "confidence_interval": null,
+          "plot_eligible": false,
+          "reason": "Reported range is not a confidence interval; accuracy unit and sample are unknown."
+        },
+        {
+          "id": "tc_avoided_cost",
+          "definition": "Expected avoided maintenance capital expenditure, PIPER and SCOUT combined",
+          "amount_usd": 18700000,
+          "relation": ">",
+          "horizon_years": 5,
+          "status": "projection",
+          "realized": false,
+          "model": null,
+          "discounting": null,
+          "capital_vs_operating_cost": "capital",
+          "cannot_infer": "Not realized annual savings, revenue, or a cost result attributable to PIPER alone."
+        }
+      ],
+      "cannot_infer": [
+        "Accuracy on tested documents ≤120 pages does not establish accuracy on the >1,000-page packages mentioned as a challenge.",
+        "More than 100 users does not establish a sample of 100 timing or accuracy tests.",
+        "No physical maintenance, pipeline safety or electric-grid reliability effect was measured in the public account."
+      ],
+      "recommended_plot": "Within-case review-time index 100→15, explicitly derived from the reported 85% reduction. Preserve unknown absolute duration and review scope; do not rank it against AES or Duke."
+    }
+  ],
+  "operator_evidence": [
+    {
+      "source_id": "Q01",
+      "title": "An Analysis of Grid Operators",
+      "authors": [
+        "Corey Fallon",
+        "Brett Jefferson",
+        "Tyler Ryan"
+      ],
+      "publisher": "Pacific Northwest National Laboratory",
+      "date": "2023-04-19",
+      "url": "https://www.pnnl.gov/sites/default/files/media/file/PNNL_workshop_Presentation_Human_Factors_Virtual_Workshop_March_2023.pdf",
+      "web_ref": "turn121view0",
+      "locations": {
+        "methods": "PDF p.5 / printed slide 5",
+        "workload": "PDF p.9 / printed slide 9"
+      },
+      "population": "20 electric-grid power control-room operators; recruitment and representativeness not disclosed",
+      "survey_items": 75,
+      "metric": {
+        "value": 61,
+        "unit": "percent",
+        "statistic": "reported average share of tasks requiring completion in under 30 minutes",
+        "task_scope": "Tasks performed or supported by operators"
+      },
+      "exact_question_text": null,
+      "per_item_respondents": null,
+      "number_of_tasks": null,
+      "averaging_formula": null,
+      "variance": null,
+      "confidence_interval": null,
+      "interpretation": "Small-sample survey/self-report context, not national prevalence or observed task timing.",
+      "cannot_infer": [
+        "Not 61% of operators; do not calculate 12.2 respondents.",
+        "Not a sample of 75 tasks or 1,500 independent observations.",
+        "No binomial confidence interval is justified from N=20 and 61%."
+      ],
+      "safe_slide_label": "A PNNL survey of 20 operators reported an average 61% of tasks requiring completion within 30 minutes."
+    }
+  ],
+  "plot_quantities": [
+    {
+      "id": "caiso_batch_minimum",
+      "case": "CAISO/OATI",
+      "value": 500,
+      "relation": ">=",
+      "unit": "requests/nightly batch",
+      "source_id": "C02",
+      "label": "At least 500 requests (supplier report)",
+      "uncertainty": "No statistical interval disclosed"
+    },
+    {
+      "id": "caiso_batch_time",
+      "case": "CAISO/OATI",
+      "value": 8,
+      "relation": "<",
+      "unit": "minutes/nightly batch",
+      "source_id": "C02",
+      "label": "Under eight minutes; human review separate",
+      "uncertainty": "No night-count or distribution"
+    },
+    {
+      "id": "caiso_throughput_bound",
+      "case": "CAISO/OATI",
+      "value": 62.5,
+      "relation": ">",
+      "unit": "requests/minute",
+      "source_id": "C02",
+      "derived": true,
+      "formula": "500/8",
+      "label": "Derived lower bound on reported batch throughput; not request latency"
+    },
+    {
+      "id": "aes_native_time",
+      "case": "AES",
+      "source_id": "U01",
+      "before": {
+        "value": 14,
+        "unit": "days"
+      },
+      "after": {
+        "value": 1,
+        "unit": "hour",
+        "approximate": true
+      },
+      "plot_type": "native-unit annotation",
+      "allow_numeric_ratio": false,
+      "label": "Reported turnaround; time boundary/day convention unspecified"
+    },
+    {
+      "id": "aes_cost_index",
+      "case": "AES",
+      "source_id": "U01",
+      "before": 100,
+      "after": 1,
+      "unit": "audit-cost index",
+      "derived": true,
+      "formula": "100*(1-0.99)",
+      "label": "Reported relative cost; accounting scope not disclosed"
+    },
+    {
+      "id": "duke_native_time",
+      "case": "Duke Energy",
+      "source_id": "U02",
+      "before": {
+        "value": 2,
+        "unit": "weeks"
+      },
+      "after": {
+        "value": null,
+        "unit": "hours"
+      },
+      "plot_type": "native-unit annotation",
+      "allow_numeric_ratio": false,
+      "label": "Reported data preparation; final number of hours unspecified"
+    },
+    {
+      "id": "tc_review_index",
+      "case": "TC Energy PIPER",
+      "source_id": "U04",
+      "before": 100,
+      "after": 15,
+      "unit": "document-review-time index",
+      "derived": true,
+      "formula": "100*(1-0.85)",
+      "label": "Reported relative review time; absolute baseline and test sample undisclosed"
+    },
+    {
+      "id": "operator_workload_survey",
+      "value": 61,
+      "unit": "percent",
+      "source_id": "Q01",
+      "respondents": 20,
+      "plot_type": "single labeled estimate, no error bar",
+      "label": "Average share of tasks requiring <30 min; small operator survey",
+      "is_national_estimate": false
+    }
+  ],
+  "source_additions_file": "rigor_case_sources.json"
+}

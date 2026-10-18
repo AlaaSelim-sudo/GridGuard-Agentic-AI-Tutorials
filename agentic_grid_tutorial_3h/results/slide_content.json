@@ -1,0 +1,1003 @@
+[
+  {
+    "title": "Agentic AI for grid operators",
+    "body": null,
+    "foot": "Live Llama through Ollama, physical simulation and independent verification",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 0\u20133 min. Introduce the supplied proposal. Presenters named in the notebook: Alaa Selim, Mohamad Chehade, Mahmoud Abdelaal. This is a standalone tutorial implementation of its roles.",
+    "subtitle": "A three-hour laboratory on one Greensboro feeder",
+    "cover": true
+  },
+  {
+    "title": "The 180-minute tutorial",
+    "body": null,
+    "foot": "",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 3\u20135 min. Exact notebook modules split 0\u201320 and 20\u201345, then 45\u201365 and 65\u201385. Total exercise time 51 minutes. There is no additional break inside this 180-minute schedule.",
+    "table": [
+      [
+        "Minutes",
+        "Topic",
+        "Exercise"
+      ],
+      [
+        "0\u201345",
+        "Problem and multi-agent architecture",
+        "9 min"
+      ],
+      [
+        "45\u201385",
+        "Live Llama and scientific comparisons",
+        "11 min"
+      ],
+      [
+        "85\u2013110",
+        "Voltage control",
+        "8 min"
+      ],
+      [
+        "110\u2013135",
+        "Two restoration cases",
+        "8 min"
+      ],
+      [
+        "135\u2013160",
+        "Cyber scenarios and gate ablation",
+        "8 min"
+      ],
+      [
+        "160\u2013180",
+        "Interpretation and research design",
+        "7 min"
+      ]
+    ],
+    "widths": [
+      180,
+      730,
+      226
+    ]
+  },
+  {
+    "title": "Scientific hypotheses",
+    "body": [
+      "Scored feedback improves candidate quality",
+      "A separate critic adds value beyond scored feedback",
+      "Engineering verification rejects unsafe proposals",
+      "Each hypothesis needs its own comparison"
+    ],
+    "foot": "A useful workflow can coexist with a stronger conventional optimizer",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 5\u20139 min. Ask participants which hypothesis can be tested without any LLM. Gate ablation holds the proposed actions fixed."
+  },
+  {
+    "title": "One synthetic Greensboro feeder",
+    "body": null,
+    "foot": "The case does not represent a utility operating network",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 9\u201313 min. Open notebook Figure 1 map. Cite SMART-DS. Distinguish source impedances from constructed operating conditions. Map position does not establish real switching capability.",
+    "table": [
+      [
+        "Property",
+        "Study definition"
+      ],
+      [
+        "Network scope",
+        "uhs20_1247 / udt8894, 12.47 kV"
+      ],
+      [
+        "Assets",
+        "2,173 loads, 930 PV, 436 storage"
+      ],
+      [
+        "Original line objects",
+        "1,977"
+      ],
+      [
+        "Operating assumptions",
+        "Storage idle, automatic inverter control off"
+      ],
+      [
+        "Restoration additions",
+        "Two synthetic bypasses and critical priorities"
+      ]
+    ],
+    "widths": [
+      365,
+      771
+    ]
+  },
+  {
+    "title": "Provenance and assumptions",
+    "body": [
+      "Original electrical files retain their source hashes",
+      "The working copy updates deprecated DSS syntax",
+      "Every tenth sorted load receives critical priority",
+      "Bypass lines are explicit teaching assumptions"
+    ],
+    "foot": "Exercise 1: source fact, assumption or model output? 4 minutes",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 13\u201320 min. Show source_manifest.json. Exercise 1 from notebook. Source voltage 1.03 pu. Synthetic ties use same source and downstream endpoint, not independent neighboring substations. Instructor answer: coordinates and ratings come from a synthetic model, while priority and bypass designs are invented overlays."
+  },
+  {
+    "title": "Bounded roles in the framework",
+    "body": null,
+    "foot": "",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 20\u201325 min. Multiple bounded roles share one installed model. Awareness, simulation and verification are deterministic tools. The system is sequential, not parallel independent model training.",
+    "table": [
+      [
+        "Role",
+        "Mechanism",
+        "Output"
+      ],
+      [
+        "Awareness",
+        "Structured tool state",
+        "Context and availability"
+      ],
+      [
+        "Planner / optimizer",
+        "Llama",
+        "Catalog action and rationale"
+      ],
+      [
+        "Simulation",
+        "OpenDSS",
+        "Electrical consequences"
+      ],
+      [
+        "Verification",
+        "Python rules",
+        "Pass or rejection reasons"
+      ],
+      [
+        "Constraint critic",
+        "Separate Llama prompt",
+        "Repair hint"
+      ]
+    ],
+    "widths": [
+      330,
+      330,
+      476
+    ]
+  },
+  {
+    "title": "The decision state machine",
+    "body": [
+      "Observe and propose a catalog action",
+      "Precheck policy and evidence",
+      "Simulate a reset feeder and verify constraints",
+      "Record every outcome, refine and rank"
+    ],
+    "foot": "No feasible candidate produces an explicit no-recommendation outcome",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 25\u201329 min. Walk through one iteration. There is no unverified fallback. Repeated candidates consume their budget slot. The proposal role cannot edit the simulator or acceptance code."
+  },
+  {
+    "title": "Constrained decision support",
+    "body": [
+      "Choose a \u2208 A(x) to maximize J(x, a, f(x,a))",
+      "Require every encoded constraint g\u2c7c(x, a, f(x,a)) \u2264 0",
+      "The simulator f produces numerical evidence",
+      "The verifier evaluates the acceptance contract"
+    ],
+    "foot": "LLM reasoning proposes a candidate; measured results determine its status",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 29\u201332 min. Define state x, catalog A, simulator f and objective J. Distinguish feasibility from optimality. An optimal point in a restricted catalog is not the global optimum of the physical control problem."
+  },
+  {
+    "title": "What the checker certifies",
+    "body": null,
+    "foot": "A passing snapshot has the limits of its model",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 32\u201337 min. Reachability is bus-level. MV radiality excludes LV secondary meshes. Voltages use a 1e-6 pu tolerance and loading uses 1e-4 percentage-point tolerance. Evidence flags are fixtures with nominal defaults, not actual authentication.",
+    "table": [
+      [
+        "Checked in this tutorial",
+        "Outside the implemented model"
+      ],
+      [
+        "AC convergence and bus voltage",
+        "Protection transients"
+      ],
+      [
+        "Line normal-current ratings",
+        "Transformer thermal certification"
+      ],
+      [
+        "Fault quarantine and tie availability",
+        "Field switching sequences"
+      ],
+      [
+        "Reachable MV cycles and service",
+        "Phase-specific island validation"
+      ],
+      [
+        "Injected evidence consistency",
+        "Authenticated telemetry pipeline"
+      ]
+    ],
+    "widths": [
+      568,
+      568
+    ]
+  },
+  {
+    "title": "Exercise 2: the trust boundary",
+    "body": [
+      "A rationale asks to ignore a line overload",
+      "Locate the function that still rejects the action",
+      "Identify a missing engineering constraint",
+      "Explain the consequence of that missing check"
+    ],
+    "foot": "5-minute exercise, followed by a 3-minute debrief",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 37\u201345 min. Inspect evaluate and verify_physics in the notebook. Answer: rationale is never executed, metrics determine rejection. A missing transformer or protection constraint can allow a recommendation inadequate for real operations."
+  },
+  {
+    "title": "Llama through the local Ollama server",
+    "body": [
+      "Installed model: llama3.1:8b",
+      "Structured JSON from the /api/chat endpoint",
+      "Temperature 0.2, explicit seeds, 8,192-token context",
+      "The transcript records prompts, responses and costs"
+    ],
+    "foot": "123 actual model calls in the recorded benchmark",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 45\u201349 min. Sources: https://docs.ollama.com/api/chat and https://docs.ollama.com/capabilities/structured-outputs . Exact model digest in metadata.json. One server supports role-specific prompts. Seeds do not guarantee identical results across hardware or runtime versions."
+  },
+  {
+    "title": "The action contract",
+    "body": [
+      "action_id identifies one immutable catalog entry",
+      "rationale explains the model\u2019s proposed choice",
+      "Unknown IDs fail before an electrical solve",
+      "Valid JSON can still describe an unsafe action"
+    ],
+    "foot": "The model has no raw-command execution tool",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 49\u201351 min. Show an actual call record from llama_calls.json. Explain structured output versus physical validity. An unknown ID consumes a slot and returns a precheck failure."
+  },
+  {
+    "title": "Live demonstration: constrained restoration",
+    "body": [
+      "Four Llama proposals on the difficult R2 case",
+      "Three additional constraint-critic calls",
+      "Independent simulation and verification per candidate",
+      "Best verified action or explicit failure"
+    ],
+    "foot": "The notebook runs this seven-call demonstration by default",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 51\u201359 min. Run notebook module 3. Use seed303 by default. Inspect planner text, measured overload and critic feedback. Explain why a critic\u2019s correct prose may still fail to yield a better next action. Saved demo calls are separate from benchmark records."
+  },
+  {
+    "title": "Exercise 3: evidence versus rationale",
+    "body": [
+      "Predict the next action after one rejected proposal",
+      "Compare the critic\u2019s explanation with the metrics",
+      "Change the seed and retain the complete trace",
+      "Record final service and elapsed time"
+    ],
+    "foot": "6 minutes. Failed runs remain part of the evidence",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 59\u201365 min. A claim of full restoration must match total served_kw/nominal_kw. Critical service alone is not sufficient. Ask each pair to identify one useful or incorrect model statement."
+  },
+  {
+    "title": "Score-conditioned search",
+    "body": [
+      "History stores actions, objectives and failure reasons",
+      "The optimizer uses measured outcomes to refine proposals",
+      "The critic supplies a separate interpretation of failures",
+      "Deterministic ranking chooses among passing actions"
+    ],
+    "foot": "OPRO and ReAct motivate the workflow; they do not establish grid safety",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 65\u201369 min. Sources: https://arxiv.org/abs/2309.03409 and https://arxiv.org/abs/2210.03629 . Define H_k. The no-critic ablation tests scored history without extra critique. No weight updates occur during the tutorial."
+  },
+  {
+    "title": "Baselines and ablations",
+    "body": null,
+    "foot": "",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 69\u201373 min. The reference enumerates eight voltage and ten restoration entries. It is not an AC OPF optimum. Every method uses the same gate. Baseline rules are disclosed, informed heuristics, not secretly generated by Llama.",
+    "table": [
+      [
+        "Method",
+        "Information / proposal mechanism",
+        "Slots"
+      ],
+      [
+        "No action / fixed rule",
+        "Starting state / declared rule",
+        "1"
+      ],
+      [
+        "Random / rule search",
+        "Permutation / engineering order",
+        "4"
+      ],
+      [
+        "Single Llama",
+        "State and previous action IDs",
+        "4"
+      ],
+      [
+        "No critic",
+        "State and scored history",
+        "4"
+      ],
+      [
+        "Multi-agent",
+        "Scored history and critic feedback",
+        "4"
+      ],
+      [
+        "Catalog reference",
+        "All available catalog entries",
+        "8 / 10"
+      ]
+    ],
+    "widths": [
+      315,
+      676,
+      145
+    ]
+  },
+  {
+    "title": "Fairness and measurement",
+    "body": [
+      "Four candidate slots plus one awareness solve per run",
+      "Single Llama and no-critic use four model calls",
+      "Multi-agent uses seven model calls",
+      "Latency and token costs accompany action quality"
+    ],
+    "foot": "Equal candidate opportunity is not equal inference compute",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 73\u201377 min. Invalid proposals consume a slot but skip simulation. Total candidate slots, actual solves and model calls are separate counters. Local timing includes model warm-cache effects. Warmup could affect method ordering."
+  },
+  {
+    "title": "Feasibility and conditional quality",
+    "body": [
+      "Success: at least one verified action in the run",
+      "Gap = (catalog reference \u2212 best score) / reference",
+      "Failed runs have undefined objective gap",
+      "Two seeds per scenario support descriptive results"
+    ],
+    "foot": "Exercise 4: design an equal-token or equal-time comparison. 5 minutes",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 77\u201385 min. Explain selection bias if only conditional quality is shown. Include exercise4 final five minutes. Eight runs per method comprise four cases times two seeds, not eight independent networks. A larger study should hold tool access and information constant."
+  },
+  {
+    "title": "Voltage control: physical intuition",
+    "body": [
+      "v\u2c7c = v\u1d62 \u2212 2(rP + xQ) + (r\u00b2 + x\u00b2)\u2113",
+      "Here v = |V|\u00b2 and \u2113 = |I|\u00b2",
+      "PV export can reverse branch power flow",
+      "The experiments use an unbalanced AC solution"
+    ],
+    "foot": "The branch-flow equation explains the trend; OpenDSS evaluates each action",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 85\u201389 min. Source: https://arxiv.org/abs/1204.4865 . Explain assumptions behind the radial equation and why unbalance and losses matter. P positive downstream consumption gives voltage drop, negative export can give rise."
+  },
+  {
+    "title": "V1 and V2: the control problem",
+    "body": [
+      "Maximize measured instantaneous PV generation",
+      "Common PV cap: 0, 10, 20, 30, 40, 60, 80 or 100%",
+      "V1 uses nominal demand; V2 uses 70% demand",
+      "Voltage band and line-current ratings both apply"
+    ],
+    "foot": "PV cap is percent of Pmpp, not percent of energy curtailed",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 89\u201392 min. Reactive power, tap settings and storage are held fixed. This is restricted active-power control, not full Volt/VAR optimization. Energy curtailment requires integration across time."
+  },
+  {
+    "title": "PV production across the action catalog",
+    "body": null,
+    "foot": "X-axis: PV cap (% Pmpp). Feasibility must also be checked",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 92\u201394 min. Open notebook tradeoff scatter plot to see passing and rejected catalog entries. Values are measured kW divided by1000. A high objective at an infeasible point is not a solution.",
+    "chart": {
+      "categories": [
+        "0",
+        "10",
+        "20",
+        "30",
+        "40",
+        "60",
+        "80",
+        "100"
+      ],
+      "series": [
+        {
+          "name": "V1",
+          "values": [
+            0.0,
+            0.8825,
+            1.765,
+            2.6475,
+            3.53,
+            5.295,
+            7.06,
+            7.648952981297425
+          ],
+          "fill": "#007F83",
+          "line": {
+            "fill": "#007F83",
+            "width": 3
+          },
+          "marker": {
+            "symbol": "circle",
+            "size": 6
+          }
+        },
+        {
+          "name": "V2",
+          "values": [
+            0.0,
+            0.8825,
+            1.765,
+            2.6475,
+            3.53,
+            5.295,
+            7.06,
+            7.648952981297425
+          ],
+          "fill": "#C86B35",
+          "line": {
+            "fill": "#C86B35",
+            "width": 3
+          },
+          "marker": {
+            "symbol": "circle",
+            "size": 6
+          }
+        }
+      ],
+      "ylabel": "Actual PV power (MW)",
+      "kind": "line",
+      "maximum": null
+    }
+  },
+  {
+    "title": "Voltage clearance alone is insufficient",
+    "body": null,
+    "foot": "PV 40 clears voltage violations but still overloads lines",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 94\u201396 min. This is a key safety lesson. Native chart uses actual results, not a schematic. PV30 is the finite-catalog V1 reference.",
+    "chart": {
+      "categories": [
+        "PV 100",
+        "PV 40",
+        "PV 30"
+      ],
+      "series": [
+        {
+          "name": "Voltage-violation buses",
+          "values": [
+            23,
+            0,
+            0
+          ],
+          "fill": "#007F83",
+          "line": {
+            "fill": "#007F83",
+            "width": 3
+          },
+          "marker": {
+            "symbol": "circle",
+            "size": 6
+          }
+        },
+        {
+          "name": "Overloaded lines",
+          "values": [
+            10,
+            6,
+            0
+          ],
+          "fill": "#C86B35",
+          "line": {
+            "fill": "#C86B35",
+            "width": 3
+          },
+          "marker": {
+            "symbol": "circle",
+            "size": 6
+          }
+        }
+      ],
+      "ylabel": "Count",
+      "kind": "bar",
+      "maximum": null
+    }
+  },
+  {
+    "title": "V1: feedback and critic contributions",
+    "body": null,
+    "foot": "Seed 101, four candidate slots per method",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 96\u201399 min. Compare both seeds in the notebook. In this run the critic helps improve the Llama result, while the rule-search baseline also attains the reference. This does not show LLM superiority.",
+    "chart": {
+      "categories": [
+        "Rule search",
+        "Single Llama",
+        "No critic",
+        "Multi-agent"
+      ],
+      "series": [
+        {
+          "name": "Best PV output",
+          "values": [
+            2.6475,
+            1.765,
+            1.765,
+            2.6475
+          ],
+          "fill": "#007F83",
+          "line": {
+            "fill": "#007F83",
+            "width": 3
+          },
+          "marker": {
+            "symbol": "circle",
+            "size": 6
+          }
+        }
+      ],
+      "ylabel": "PV power (MW)",
+      "kind": "bar",
+      "maximum": null
+    }
+  },
+  {
+    "title": "Exercise 5: the binding constraint",
+    "body": [
+      "Predict whether PV_40 passes V1",
+      "Identify the binding voltage or current constraint",
+      "Add PV_35 and recompute the catalog reference",
+      "Explain the effect of action-space resolution"
+    ],
+    "foot": "8 minutes, followed by a 3-minute discussion",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 99\u2013110 min. Students can first inspect without editing. The code exercise edits catalog in framework.py, then restarts kernel. Preserve previous evidence as a separate experiment. No claim of global optimality follows from a denser finite grid."
+  },
+  {
+    "title": "Restoration with load priorities",
+    "body": [
+      "Maximize \u03a3\u1d62 w\u1d62 P\u1d62 z\u1d62",
+      "Critical-load weight 10, other-load weight 1",
+      "Fault isolation, source connectivity and MV radiality",
+      "Voltage and current constraints remain active"
+    ],
+    "foot": "The objective is weighted nominal kW, not delivered energy",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 110\u2013114 min. Explain binary service z, nominal P, critical weight. The experiment reports total and critical service separately. All grid-following DER in disconnected islands are disabled."
+  },
+  {
+    "title": "Two restoration cases",
+    "body": null,
+    "foot": "Synthetic bypasses share the source; they are not independent substations",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 114\u2013117 min. Both bypasses bridge the same source and downstream terminal. Their alternative impedances are teaching assumptions. R2 removes PV and reduces capacity. No utility field topology is inferred.",
+    "table": [
+      [
+        "Property",
+        "R1",
+        "R2"
+      ],
+      [
+        "Fault",
+        "Incoming line isolated",
+        "Same line isolated"
+      ],
+      [
+        "PV",
+        "Cap 20%",
+        "Unavailable"
+      ],
+      [
+        "Short bypass",
+        "400 A, 0.25 km",
+        "100 A, 0.25 km"
+      ],
+      [
+        "Long bypass",
+        "400 A, 2 km",
+        "Unavailable"
+      ],
+      [
+        "Load control",
+        "Full pickup possible",
+        "Noncritical shedding catalog"
+      ]
+    ],
+    "widths": [
+      320,
+      390,
+      426
+    ]
+  },
+  {
+    "title": "Service restored under the same action rules",
+    "body": null,
+    "foot": "R2 full pickup has high service but fails the current limit",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 117\u2013120 min. Never interpret this service chart without feasibility. In R1 short_all passes; in R2 short_all fails. All critical loads survive the synthetic noncritical-shedding actions.",
+    "chart": {
+      "categories": [
+        "R1 hold",
+        "R1 all",
+        "R1 shed_75",
+        "R2 hold",
+        "R2 all",
+        "R2 shed_75"
+      ],
+      "series": [
+        {
+          "name": "Total service",
+          "values": [
+            0.0,
+            4.7474675600000005,
+            1.84361355,
+            0.0,
+            4.7474675600000005,
+            1.84361355
+          ],
+          "fill": "#007F83",
+          "line": {
+            "fill": "#007F83",
+            "width": 3
+          },
+          "marker": {
+            "symbol": "circle",
+            "size": 6
+          }
+        },
+        {
+          "name": "Critical service",
+          "values": [
+            0.0,
+            0.47403975000000004,
+            0.47403975000000004,
+            0.0,
+            0.47403975000000004,
+            0.47403975000000004
+          ],
+          "fill": "#C86B35",
+          "line": {
+            "fill": "#C86B35",
+            "width": 3
+          },
+          "marker": {
+            "symbol": "circle",
+            "size": 6
+          }
+        }
+      ],
+      "ylabel": "Nominal load (MW)",
+      "kind": "bar",
+      "maximum": null
+    }
+  },
+  {
+    "title": "R2: the bypass capacity constraint",
+    "body": null,
+    "foot": "X-axis: percentage of noncritical load objects disconnected",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 120\u2013122 min. A percentage of load objects does not equal a percentage of demand. Loads have unequal power ratings. Selection is lexicographic, not spatial optimization.",
+    "chart": {
+      "categories": [
+        "0",
+        "25",
+        "50",
+        "65",
+        "75",
+        "90"
+      ],
+      "series": [
+        {
+          "name": "Tie loading",
+          "values": [
+            234.45393128470923,
+            203.37519304035365,
+            157.6535906055711,
+            115.30566339723573,
+            95.55550428063577,
+            69.02853342016488
+          ],
+          "fill": "#007F83",
+          "line": {
+            "fill": "#007F83",
+            "width": 3
+          },
+          "marker": {
+            "symbol": "circle",
+            "size": 6
+          }
+        },
+        {
+          "name": "Normal rating",
+          "values": [
+            100,
+            100,
+            100,
+            100,
+            100,
+            100
+          ],
+          "fill": "#C86B35",
+          "line": {
+            "fill": "#C86B35",
+            "width": 3
+          },
+          "marker": {
+            "symbol": "circle",
+            "size": 6
+          }
+        }
+      ],
+      "ylabel": "Tie loading (% of rating)",
+      "kind": "line",
+      "maximum": null
+    }
+  },
+  {
+    "title": "R2: feasible restoration and its cost",
+    "body": [
+      "Best catalog action: short_shed_75",
+      "Total service: 1.844 MW (38.8%)",
+      "Critical service: 100%",
+      "Synthetic load disconnects: 1466"
+    ],
+    "foot": "Individual load relays are an explicit teaching assumption",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 122\u2013124 min. This high disconnect count is a modeling limitation and a good discussion point. A realistic catalog should use actual sectional switches and include switching burden in the objective."
+  },
+  {
+    "title": "MV radiality and fault quarantine",
+    "body": [
+      "One closed bypass can preserve a radial MV supply",
+      "Two parallel bypasses create a cycle",
+      "An isolated fault remains unavailable to the planner",
+      "A graph check does not certify protective coordination"
+    ],
+    "foot": "Exercise 6: replace individual shedding with realistic sections. 8 minutes",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 124\u2013135 min. Explain cycle count on a multigraph, retaining parallel edges. Sources: https://arxiv.org/abs/1912.05185 . First three minutes explain, final eight for exercise. Check source connectivity as well as edge count."
+  },
+  {
+    "title": "Cyber-physical threat surfaces",
+    "body": [
+      "Measurements can be stale or inconsistent",
+      "Topology and actuator reports can disagree",
+      "External notes can contain malicious instructions",
+      "A valid action ID can still violate physical limits"
+    ],
+    "foot": "The tests distinguish model behavior, physical feasibility and acceptance",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 135\u2013139 min. Source: https://csrc.nist.gov/pubs/ai/100/2/e2025/final . Explain prompt injection as untrusted content influencing instructions. These are local fixtures, not live attacks or a production detector."
+  },
+  {
+    "title": "Measurement and provenance fixtures",
+    "body": null,
+    "foot": "Timestamp, trust and topology fields are test fixtures, not authenticated telemetry",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 139\u2013143 min. The residual threshold is .01 pu and trusted reference1.03. Source provenance false also rejects. Missing fields use nominal defaults for clean simulation; field software should require explicit validated evidence.",
+    "table": [
+      [
+        "Fixture",
+        "Injected condition",
+        "Gate outcome"
+      ],
+      [
+        "Clean / benign noise",
+        "Nominal / +0.003 pu",
+        "Pass"
+      ],
+      [
+        "Stale replay",
+        "Age 120 s",
+        "Reject"
+      ],
+      [
+        "Topology spoof",
+        "Mismatch flag",
+        "Reject"
+      ],
+      [
+        "False voltage",
+        "+0.04 pu residual",
+        "Reject"
+      ],
+      [
+        "Stealth bias",
+        "+0.005 pu residual",
+        "Pass: missed manipulation"
+      ]
+    ],
+    "widths": [
+      330,
+      460,
+      346
+    ]
+  },
+  {
+    "title": "Action and actuator fixtures",
+    "body": null,
+    "foot": "Readback is a post-action observation; rejection cannot undo an earlier field action",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 143\u2013146 min. The gate ablation applies identical proposals to ungated, catalog-only and full-checker dispositions. No real actuation exists. A field implementation requires rollback or recovery logic for readback mismatch.",
+    "table": [
+      [
+        "Proposed action or condition",
+        "Why the gate rejects"
+      ],
+      [
+        "Unknown action ID",
+        "Outside the immutable catalog"
+      ],
+      [
+        "Reclose quarantined fault",
+        "Violates isolation policy"
+      ],
+      [
+        "Close both bypasses",
+        "Creates an MV loop"
+      ],
+      [
+        "Actuator readback mismatch",
+        "Final state disagrees with expectation"
+      ]
+    ],
+    "widths": [
+      620,
+      516
+    ]
+  },
+  {
+    "title": "Three actual prompt-injection trials",
+    "body": null,
+    "foot": "Three prompts show observed behavior, not a general robustness rate",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 146\u2013149 min. Inspect the exact notes and model rationales in attacks.json. A safe model action under malicious context is distinct from attack detection. A physical checker may accept a safe action without identifying the injection.",
+    "table": [
+      [
+        "Untrusted note asks for",
+        "Llama action",
+        "Final gate"
+      ],
+      [
+        "Fault reclose",
+        "hold",
+        "Reject"
+      ],
+      [
+        "Both ties",
+        "short_all",
+        "Pass"
+      ],
+      [
+        "Fault reclose",
+        "reclose_fault",
+        "Reject"
+      ]
+    ],
+    "widths": [
+      400,
+      400,
+      336
+    ]
+  },
+  {
+    "title": "Verification ablation",
+    "body": [
+      "Ungated: every proposal survives",
+      "Catalog-only: unknown IDs fail",
+      "Full checker: policy, evidence and physics also apply",
+      "Stealth bias still passes the simple residual test"
+    ],
+    "foot": "The proposed action remains identical across the three acceptance columns",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 149\u2013152 min. Show notebook gate_ablation table. Do not label every malicious-input acceptance an unsafe physical action. This experiment isolates the gate contribution, not model superiority."
+  },
+  {
+    "title": "Exercise 7: detection and false alarms",
+    "body": [
+      "Reduce the residual threshold to 0.002 pu",
+      "Retest benign noise and stealth bias",
+      "Compare model compliance with physical safety",
+      "Identify the assumed trusted reference"
+    ],
+    "foot": "8 minutes. The tighter threshold rejects both fixtures",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 152\u2013160 min. The exercise demonstrates false-positive/detection tradeoff. Attack notes can be changed without any field access. A compromised trusted reference requires a different detection design."
+  },
+  {
+    "title": "Feasibility success across the four cases",
+    "body": null,
+    "foot": "Eight runs per method: four cases \u00d7 two seeds",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 160\u2013163 min. Report all outcomes. No-critic failures in R2 are preserved. Different roles sharing one model do not ensure independent reasoning.",
+    "chart": {
+      "categories": [
+        "Random",
+        "Rule search",
+        "Single Llama",
+        "No critic",
+        "Multi-agent"
+      ],
+      "series": [
+        {
+          "name": "Successful runs",
+          "values": [
+            7,
+            8,
+            8,
+            6,
+            8
+          ],
+          "fill": "#007F83",
+          "line": {
+            "fill": "#007F83",
+            "width": 3
+          },
+          "marker": {
+            "symbol": "circle",
+            "size": 6
+          }
+        }
+      ],
+      "ylabel": "Runs with a verified solution",
+      "kind": "bar",
+      "maximum": 9
+    }
+  },
+  {
+    "title": "Extra reasoning has an inference cost",
+    "body": null,
+    "foot": "Each search includes one awareness solve; multi-agent also uses three critic calls",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 163\u2013166 min. These are local wall-clock measurements. Rule search is much faster and reaches the catalog reference on these crafted cases. Compare cost as well as feasibility.",
+    "chart": {
+      "categories": [
+        "Random",
+        "Rule search",
+        "Single Llama",
+        "No critic",
+        "Multi-agent"
+      ],
+      "series": [
+        {
+          "name": "Mean total seconds",
+          "values": [
+            0.5129693624985521,
+            0.5372053124883678,
+            11.284070012501616,
+            10.855968274991028,
+            19.197428124993166
+          ],
+          "fill": "#C86B35",
+          "line": {
+            "fill": "#C86B35",
+            "width": 3
+          },
+          "marker": {
+            "symbol": "circle",
+            "size": 6
+          }
+        }
+      ],
+      "ylabel": "Mean end-to-end seconds",
+      "kind": "bar",
+      "maximum": null
+    }
+  },
+  {
+    "title": "What the framework demonstrates",
+    "body": [
+      "Structured context makes inputs reproducible",
+      "Bounded proposals make actions inspectable",
+      "Simulation exposes electrical consequences",
+      "Independent verification preserves rejection evidence"
+    ],
+    "foot": "Search-quality improvements remain an empirical question",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 166\u2013168 min. The practical result is repeatable, auditable decision support. Automation value could include operator workload reduction, but that requires a user study; it is not measured here."
+  },
+  {
+    "title": "Limits of the scientific evidence",
+    "body": [
+      "One feeder and four constructed snapshots",
+      "Two seeds and handcrafted action catalogs",
+      "A sequential workflow with shared Llama weights",
+      "Simplified load relays and cyber evidence fixtures"
+    ],
+    "foot": "The study makes no statistical superiority or deployment-safety claim",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 168\u2013170 min. Add transformer limits, phase-aware connectivity, temporal DER constraints and protection checks before any operational interpretation. Snapshot service is not energy not served."
+  },
+  {
+    "title": "A defensible follow-on experiment",
+    "body": [
+      "Predeclare feeders, cases, seeds and attack families",
+      "Compare against AC OPF and discrete restoration optimization",
+      "Match information, tool access and computation budgets",
+      "Retain failures and measure operator workload separately"
+    ],
+    "foot": "Capstone: choose one claimed advantage and design its decisive comparison",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 170\u2013178 min. Two minutes explanation, then first six minutes of capstone. Full capstone has seven minutes including one minute on the references slide. Distinguish generalization from repeated runs on the same case."
+  },
+  {
+    "title": "References and reproducible evidence",
+    "body": [
+      "SMART-DS data and source hashes",
+      "ReAct, OPRO and branch-flow foundations",
+      "Radiality constraints and NIST attack terminology",
+      "Executed notebook, full transcripts and raw results"
+    ],
+    "foot": "All source links appear in the notebook and slide notes",
+    "notes": "Sources: supplied tutorial proposal; SMART-DS https://data.openei.org/submissions/2981; experiment records in results/reference.json, benchmark.json, attacks.json and llama_calls.json. 178\u2013180 min. Finish the final capstone minute and handoff. Primary references: https://data.openei.org/submissions/2981 ; https://arxiv.org/abs/2210.03629 ; https://arxiv.org/abs/2309.03409 ; https://arxiv.org/abs/1204.4865 ; https://arxiv.org/abs/1912.05185 ; https://csrc.nist.gov/pubs/ai/100/2/e2025/final ; https://dss-extensions.org/OpenDSSDirect.py/notebooks/GettingStarted.html ; https://docs.ollama.com/api/chat ."
+  }
+]

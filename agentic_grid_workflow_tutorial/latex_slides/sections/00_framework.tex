@@ -1,0 +1,283 @@
+\section{Foundations}
+
+\begin{frame}[t]{Agentic AI starts with a control-room decision}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.54\textwidth}
+\includegraphics[width=\linewidth,height=.46\textheight,keepaspectratio]{\figfile{control_room_concept.png}}
+\par\scriptsize\color{slate}AI-generated concept; not an installed utility system.
+\end{column}
+\begin{column}{.43\textwidth}
+\textbf{Three questions recur.}\par\medskip
+Can we improve voltage?\par\medskip
+Which loads can we restore?\par\medskip
+Which measurements can we trust?
+\end{column}
+\end{columns}
+\operatorneed{Turn a request into a checked recommendation that a person can understand and review.}
+\sources{DOE, \href{https://www.energy.gov/sites/default/files/2024-02/11-02-2015_doe-voe-insights-into-advanced-distribution-management-systems-report_508_0.pdf}{\emph{ADMS Insights}} (2015). AI-illustration provenance: \texttt{figures/AI\_Illustration\_Provenance.md}.}
+\note{0--2 minutes. Start at the operator's desk. Ask participants which of the three questions they encounter in their work. The picture is AI-generated and illustrative, not a screenshot of the implementation. Our tutorial is decision support for a synthetic network, and later lessons expose both useful completions and mistakes. We first learn the workflow before solving any use case.}
+\end{frame}
+
+\begin{frame}[t]{An agent is a responsibility; its tools do the calculations}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.65cm,minimum height=1.45cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box,fill=mint!25] (role) at (0,0) {\textbf{Agent role}\\A task, inputs\\and permitted decisions};
+\node[box] (language) at (4.65,0) {\textbf{Language capability}\\Interpret, critique\\and propose a next step};
+\node[box] (tool) at (9.3,0) {\textbf{Numerical capability}\\Estimate, optimize,\\simulate and check};
+\draw[flow] (role.east)--(language.west);
+\draw[flow] (language.east)--(tool.west);
+\end{tikzpicture}
+\end{center}
+\ask{Who decides whether the current exceeds its engineering limit?}
+\answer{The numerical verifier uses the simulated current and the declared limit.}
+\par\small\textbf{Reference experiment:} one Llama backbone. \textbf{New voltage pilot:} three local model configurations with shared evidence.
+\sources{Yao et al., \href{https://arxiv.org/abs/2210.03629}{ReAct} (ICLR 2023). Role allocation: this tutorial.}
+\note{2--3 minutes. Ollama is the local service and Llama is the language model. An agent is a responsibility rather than a synonym for a separate neural network. The proposal has five core modules. Numerical functions and language prompts implement complementary parts of those modules; execution, explanation and acknowledgment are supporting operations. The same Llama model serves multiple prompts, so their errors may be correlated. No independent expert consensus is claimed.}
+\end{frame}
+
+\begin{frame}[t]{Three lanes separate a request, its evidence and its authority}
+\deepdive
+\begin{center}
+\begin{tikzpicture}[lanestep/.style={align=center,text width=2.4cm,inner sep=3pt,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\fill[mint!18] (-1.3,.65) rectangle (12.3,-.6);
+\fill[black!3] (-1.3,-.75) rectangle (12.3,-2.0);
+\fill[mint!18] (-1.3,-2.15) rectangle (12.3,-3.4);
+\node[anchor=east,font=\small\bfseries,align=right] at (.55,.04) {Operator};
+\node[anchor=east,font=\small\bfseries,align=right] at (.55,-1.35) {Agent\\workflow};
+\node[anchor=east,font=\small\bfseries,align=right] at (.55,-2.75) {Numerical\\tools};
+\node[lanestep] (goal) at (2.05,.04) {Goal and\\operating limits};
+\node[lanestep] (plan) at (4.65,-1.35) {Propose\\and refine};
+\node[lanestep] (tools) at (7.25,-2.75) {Solve, simulate\\and verify};
+\node[lanestep] (evidence) at (9.8,-1.35) {Ranked actions\\and evidence};
+\node[lanestep] (human) at (11,.04) {Review\\and read back};
+\draw[flow] (goal.east)-|(plan.north);
+\draw[flow] (plan.south)|-(tools.west);
+\draw[flow] (tools.east)-|(evidence.south);
+\draw[flow] (evidence.north)|-(human.west);
+\draw[flow,orange,dashed] (tools.north)--node[right,font=\scriptsize]{Feedback}(plan.south east);
+\end{tikzpicture}
+\end{center}
+\plainidea{Every proposed change returns to the model and the verifier before ranking.}
+\sources{Proposal, pp. 1--2: propose--simulate--verify--refine. Human function allocation: \href{https://doi.org/10.1109/3468.844354}{Parasuraman, Sheridan and Wickens (2000)}.}
+\note{3--5 minutes. Trace a concrete request, such as retaining PV while staying below a current allowance. Planning produces a candidate; the tools calculate its consequences. Feedback informs the optimizer's next action and a revised candidate must be simulated and checked again. Operator authority is a separate lane. The arrows represent information flow in this local teaching implementation; they are not live SCADA interfaces.}
+\end{frame}
+
+\begin{frame}[t]{The workflow needs a trustworthy problem statement}
+\deepdive
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.35cm,minimum height=1.0cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (request) at (0,1.1) {\textbf{Operator request}\\Goal and restrictions};
+\node[box] (measurement) at (0,-.3) {\textbf{Measurements}\\Values, time and trust};
+\node[box] (network) at (0,-1.7) {\textbf{Network model}\\Topology and ratings\\Model coverage};
+\node[box,fill=mint!25,text width=4.0cm,minimum height=1.5cm] (context) at (6.2,-.3) {\textbf{Versioned task context}\\A named case, a selected model,\\and explicit constraints};
+\draw[flow] (request.east)--(context.north west);
+\draw[flow] (measurement.east)--(context.west);
+\draw[flow] (network.east)--(context.south west);
+\end{tikzpicture}
+\end{center}
+\observethis{In this lab, Awareness validates the structured request, finite inputs and provenance. Live telemetry integration is outside the implementation.}
+\sources{Data/model integration context: U.S. DOE, \href{https://www.energy.gov/sites/default/files/2024-02/11-02-2015_doe-voe-insights-into-advanced-distribution-management-systems-report_508_0.pdf}{ADMS insights} (2015). Actual checks: \texttt{src/continuous\_workflow.py}.}
+\note{5--6 minutes. Distinguish a requested limit from a measured quantity and an equipment rating. The three input boxes explain a deployment context; the continuous-control implementation receives a declared synthetic case and provenance, rather than live telemetry. Residual and trust tests appear in the cyber lesson. A request can tighten a rating but cannot turn untrusted telemetry into truth. Bridge: assign each handoff to a named responsibility.}
+\end{frame}
+
+\begin{frame}[t]{The proposal has five core modules and a refinement loop}
+\begin{center}
+\begin{tikzpicture}[stage/.style={draw=forest,rounded corners,align=center,text width=2.25cm,minimum height=1.32cm,inner sep=3pt,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[stage,fill=mint!20] (a) at (0,0) {\textbf{1 Awareness}\\State and limits\\Inputs and trust};
+\node[stage] (p) at (2.75,0) {\textbf{2 Planning}\\Initial candidate\\actions};
+\node[stage] (s) at (5.5,0) {\textbf{3 Simulation}\\Predicted\\consequences};
+\node[stage] (v) at (8.25,0) {\textbf{4 Verification}\\Feasibility\\and policy};
+\node[stage,fill=mint!35] (o) at (11,0) {\textbf{5 LLM Optimizer}\\Critique, repair\\and refine};
+\draw[flow] (a.east)--(p.west); \draw[flow] (p.east)--(s.west);
+\draw[flow] (s.east)--(v.west); \draw[flow] (v.east)--(o.west);
+\draw[flow,orange] (o.south)--(11,-1.25)--node[below,font=\small]{Revised candidate: simulate and verify again}(5.5,-1.25)--(s.south);
+\node[stage,text width=4.1cm,minimum height=.95cm] (rank) at (9.15,-2.55) {\textbf{Feasible ranked actions}\\Evidence + operator review};
+\draw[flow] (o.east)--(12.35,0)--(12.35,-2.55)--(rank.east);
+\end{tikzpicture}
+\end{center}
+\par\small \textbf{Supporting steps:} tool execution, recorded explanation and human acknowledgment.
+\sources{\emph{Agentic AI for Grid Operators}, SmartGridComm 2026 tutorial proposal, pp. 1--2. Executed extension: \texttt{Proposal\_Complete\_Workflow.ipynb}.}
+\note{6--8 minutes. Name all five modules exactly as the proposal does. The LLM Optimizer is a distinct stage after numerical feedback: it critiques and selects bounded repairs or refinements. It is not merely the earlier fallback label or the final explanation. Every modified candidate returns through simulation and verification. Final ranking uses declared numerical objectives among accepted candidates; language output cannot override a failed gate. Execution and explanation remain useful substeps but do not replace any of the five proposal modules. The five modules use one local language backbone and numerical functions.}
+\end{frame}
+
+\begin{frame}[t]{Llama can choose an action; it cannot change the rules}
+\deepdive
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.56\linewidth}cc@{}}
+\toprule Decision or field & Llama may propose & Software fixes/checks \\
+\midrule
+Supported interpretation and next tool & \yesmark & \yesmark \\
+Candidate repair within the permitted action space & \yesmark & \yesmark \\
+Explanation based on returned evidence & \yesmark & \yesmark \\
+Current, voltage and device limits & \nomark & \yesmark \\
+Simulation result and final feasibility flag & \nomark & \yesmark \\
+Iteration budget and permitted control range & \nomark & \yesmark \\
+\bottomrule
+\end{tabular}
+\par\smallskip\scriptsize \yesmark\ implemented permission/check; \nomark\ not permitted in this workflow.
+\plainidea{A valid response must have the right structure, the right meaning and an acceptable physical result.}
+\sources{Bounded tool interaction: \href{https://arxiv.org/abs/2210.03629}{ReAct} (2023). Action permissions and validation: tutorial implementation.}
+\note{8--9 minutes. A schema restricts structure and allowed choices; it cannot establish that an operator's meaning was understood. A second software check enforces action bounds before simulation, and the numerical verifier evaluates the outcome afterward. A generated critique can identify a problem, but it cannot relax the requested current margin to make the candidate pass. The later language study includes an interpretation error, so this matrix is a description of control boundaries rather than a claim of perfect language understanding.}
+\end{frame}
+
+\begin{frame}[t]{Agentic frameworks contribute reusable coordination patterns}
+\deepdive
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.26\linewidth}>{\raggedright\arraybackslash}p{.49\linewidth}c@{}}
+\toprule Primary source & Pattern used in this tutorial & Included \\
+\midrule
+ReAct (ICLR 2023) & Act, observe tool output, then choose again & \yesmark \\
+AutoGen (2023 preprint) & Distinct responsibilities and tool permissions & \yesmark \\
+MetaGPT (ICLR 2024) & Structured handoffs and intermediate artifacts & \yesmark \\
+Magentic-One (2024 preprint) & Progress records and bounded replanning & \yesmark \\
+LangGraph (official docs) & Explicit workflow states and review boundaries & \yesmark \\
+\bottomrule
+\end{tabular}
+\par\smallskip\scriptsize \yesmark\ implemented analogous pattern; packages and external benchmarks are not embedded.
+\takeaway{The useful unit is a tested coordination mechanism, not the number of agents.}
+\sources{\href{https://arxiv.org/abs/2210.03629}{ReAct}; \href{https://arxiv.org/abs/2308.08155}{AutoGen}; \href{https://arxiv.org/abs/2308.00352}{MetaGPT}; \href{https://arxiv.org/abs/2411.04468}{Magentic-One}; \href{https://docs.langchain.com/oss/python/langgraph/overview}{LangGraph} (accessed 2026-09-27).}
+\note{9--10 minutes. Show one transferable mechanism per source. ReAct interleaves actions and observations; AutoGen provides configurable LLM/tool/human conversations; MetaGPT uses roles and standard operating procedures for software work; Magentic-One tracks task and progress state and replans; LangGraph documents state graphs, checkpoints and interrupts. We use direct Python implementations of related patterns, not those packages or their specialist teams. Our local state and readback are not a durable distributed or authenticated utility runtime. ReAct and MetaGPT are cited by conference publication; the cited AutoGen and Magentic-One works are preprints. None of their benchmark advantages establishes a grid-control benefit here.}
+\end{frame}
+
+\begin{frame}[t]{Compare supervisors while keeping the engineering tools equal}
+\deepdive
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.57\linewidth}cc@{}}
+\toprule Tutorial capability & Fixed supervisor & Llama-guided \\
+\midrule
+Same physical model and numerical tools & \yesmark & \yesmark \\
+Same declared limits and fresh acceptance gate & \yesmark & \yesmark \\
+Bounded retry or candidate-search budget & \yesmark & \yesmark \\
+Trace record and operator review & \yesmark & \yesmark \\
+Language interpretation beyond fixed rules & \nomark & \yesmark \\
+LLM critique using simulation/verifier feedback & \nomark & \yesmark \\
+\bottomrule
+\end{tabular}
+\par\smallskip\scriptsize \yesmark\ configured capability; \nomark\ not included. A tick is not a measured gain.\\
+Language interpretation uses the earlier intake study; the new refinement cases have structured inputs.
+\plainidea{Measure completion, wrong interpretations, feasible action quality and latency separately.}
+\sources{Controlled tutorial comparisons; \href{https://arxiv.org/abs/2411.04468}{Magentic-One} (2024) motivates explicit evaluation and progress records.}
+\note{10--11 minutes. This is a capability allocation matrix for the tutorial comparators, not a scorecard claiming superiority. A conventional controller can already optimize and enforce constraints. Keep the numerical tools, model, observations, permissions and budgets fixed when testing a language supervisor. Some fixed baselines already recover successfully, so a language model can tie them while adding latency or unnecessary review. Language intake and physical optimization are distinct experiments. In the completed proposal experiment, compare a fixed candidate policy and bounded LLM refinement with clearly recorded search budgets.}
+\end{frame}
+
+\begin{frame}[t]{Recent grid studies suggest three tests to keep separate}
+\deepdive
+\begin{center}
+\begin{tikzpicture}[card/.style={draw=forest,rounded corners,align=left,text width=3.65cm,minimum height=2.45cm,inner sep=7pt,font=\small}]
+\node[card] at (0,0) {\textbf{Can the tool task finish?}\\\smallskip Jia, Cui and Hug\\69 simulation tasks\\Daline / MATPOWER\\\smallskip\yesmark\ Return execution errors};
+\node[card] at (4.65,0) {\textbf{Was the task correct?}\\\smallskip Grid-Mind\\Connection-impact study\\IEEE 118-bus scenarios\\\smallskip\yesmark\ Score interpretation};
+\node[card] at (9.3,0) {\textbf{Does architecture help?}\\\smallskip RestoreBench\\Power-flow convergence\\Two grids, 46 cases each\\\smallskip\yesmark\ Match the baselines};
+\end{tikzpicture}
+\end{center}
+\par\small \yesmark\ evaluation lesson adopted here. Cited results are paper-reported; all three cited sources are preprints.
+\takeaway{Finishing a calculation, understanding a request and improving an operating action are different outcomes.}
+\sources{Jia et al., \href{https://arxiv.org/abs/2411.16707}{2024/revised 2025}; Grid-Mind, \href{https://arxiv.org/abs/2602.20683}{2026}; RestoreBench, \href{https://arxiv.org/abs/2609.00384}{2026}. Primary sources checked 2026-09-27.}
+\note{11--12 minutes. Jia, Cui and Hug use retrieval, reasoning and execution-error feedback in simulation assistance; their abstract reports 69 tasks involving Daline and MATPOWER. Grid-Mind uses a tool registry and simulation-grounded checks for connection-impact assessment and distinguishes parsing from tool selection. RestoreBench compares chatbot, single-agent and multi-agent approaches to recovering power-flow convergence on two grids with 46 cases each. Restoring solver convergence is not restoring disconnected load. We neither reproduce these benchmarks nor inherit their performance claims. Full titles, authors and boundaries remain in Recent_Agentic_AI_Literature.md and the reference appendix.}
+\end{frame}
+
+\begin{frame}[t]{The optimizer improves a candidate using returned evidence}
+\deepdive
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.4cm,minimum height=1.2cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (evidence) at (0,0) {\textbf{Observed evidence}\\Which check failed?\\What can improve?};
+\node[box,fill=mint!25] (llm) at (4.55,0) {\textbf{Bounded Llama critique}\\Select a repair\\or refinement};
+\node[box] (new) at (9.1,0) {\textbf{New candidate}\\Permitted change\\Fresh solve and checks};
+\draw[flow] (evidence.east)--(llm.west); \draw[flow] (llm.east)--(new.west);
+\draw[flow,orange] (new.south)--(9.1,-1.3)--node[below,font=\small]{Retain evidence; repeat within a fixed maximum budget}(0,-1.3)--(evidence.south);
+\end{tikzpicture}
+\end{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.44\linewidth}>{\raggedright\arraybackslash}p{.47\linewidth}@{}}
+\yesmark\ Repair: recover modeled feasibility & \yesmark\ Refine: improve the declared objective \\
+\yesmark\ Rank: compare accepted candidates & \nomark\ Redefine limits to accept a failed action \\
+\end{tabular}
+\sources{Proposal, p. 2: critique, repair, search, refinement and simulation-informed ranking. Executed experiment: \texttt{Proposal\_Complete\_Workflow.ipynb}.}
+\note{12--13 minutes. Distinguish repair from refinement. Repair addresses rejection; refinement seeks a better accepted action under the same limits. A fixed supervisor can also search, so the question is whether Llama selects useful next candidates at the allowed cost. Returned reasons are actual response fields, not hidden chain-of-thought. Numerical objective values and the common gate determine admissible rankings; a language preference alone cannot establish optimality or safety. The complete workflow notebook exposes each iteration and the final feasible candidate list for all three cases.}
+\end{frame}
+
+\begin{frame}[t]{Different methods pass through the same acceptance contract}
+\deepdive
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.2cm,minimum height=1.25cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (candidate) at (0,0) {\textbf{Any candidate source}\\Model-free policy\\Model-based optimizer};
+\node[box,fill=mint!25] (sim) at (4.6,0) {\textbf{Fresh simulation}\\Same operating state\\Same model scope};
+\node[box] (gate) at (9.2,0) {\textbf{Common verifier}\\Electrical constraints\\Operator policy};
+\draw[flow] (candidate.east)--(sim.west); \draw[flow] (sim.east)--(gate.west);
+\end{tikzpicture}
+\end{center}
+\[
+\mathrm{accept}(u)=\mathrm{solved}(u)\;\land\;\bigl[g_j(x(u),u)\leq0\ \ \forall j\bigr]\;\land\;\mathrm{policy}(u).
+\]
+\small $u$: proposed action; $x(u)$: simulated state; $g_j$: engineering-limit residual; $j$: check index.\\
+$\land$: every condition must hold; $\mathrm{policy}$: allowed-action and request checks.
+\plainidea{Passing means accepted within the declared model and checks. It does not certify field safety.}
+\sources{Shared gate: tutorial implementation. Electrical models: \href{https://opendss.epri.com/PowerFlow.html}{EPRI OpenDSS}; \href{https://arxiv.org/abs/1406.3054}{Gan and Low (2014)}.}
+\note{13--15 minutes. The equation is a general acceptance contract shared across the cases, not an additional solver formulation. In voltage support, residuals measure voltage, current and inverter limits. Restoration also checks switching, radiality and load priorities; the cyber case declares its measurement trust assumptions. A fresh simulation is a newly evaluated action, not necessarily an independent model. Model-based and model-free proposal methods must use the same declared gate. Model coverage, horizon feasibility, uncertainty and closed-loop guarantees remain separate questions. Specific equations and units follow inside each case.}
+\end{frame}
+
+\begin{frame}[t]{The operator reviews a decision, not a wall of logs}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=left,text width=5.35cm,inner sep=7pt,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box,minimum height=2.15cm] (evidence) at (0,0) {\textbf{Recommendation record}\\Requested limits and action\\Fresh checks and model scope\\Failed attempts; open questions};
+\node[box,minimum height=2.15cm] (human) at (6.7,0) {\textbf{Operator response}\\Read back the action and limits\\Acknowledge this exact record\\Revise or request review};
+\draw[flow] (evidence.east)--(human.west);
+\end{tikzpicture}
+\end{center}
+\ask{Does acknowledging a recommendation mean that a breaker has operated?}
+\answer{No. This tutorial records a local acknowledgment. Dispatch requires a separate authorized operating process.}
+\sources{Human/automation function allocation: \href{https://doi.org/10.1109/3468.844354}{Parasuraman, Sheridan and Wickens (2000)}. Local readback implementation: \texttt{Workshop\_Operator\_Dashboard.html}.}
+\note{15--16 minutes. Ask the question before revealing the answer. The existing dashboard binds the readback to the current recommendation hash; changing the model or recommendation requires a fresh readback. It does not have a SCADA dispatch connector. An acknowledgment is a useful interface state but was not evaluated as a human safety intervention. In a field pilot, the utility would determine who may authorize which action through its existing operating process.}
+\end{frame}
+
+\begin{frame}[t]{A possible deployment sits beside the ADMS}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.35cm,minimum height=1.15cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (adms) at (0,0) {\textbf{ADMS / SCADA}\\Telemetry and topology\\Read-only export};
+\node[box,fill=mint!25] (sidecar) at (4.75,0) {\textbf{Advisory service}\\Agents and tools\\Evidence record};
+\node[box] (operator) at (9.5,0) {\textbf{Operator workspace}\\Compare proposals\\Review uncertainty};
+\draw[flow] (adms.east)--node[above,font=\scriptsize]{Data}(sidecar.west);
+\draw[flow] (sidecar.east)--node[above,font=\scriptsize]{Advice}(operator.west);
+\node[align=center,text width=11.5cm,font=\small,color=slate] at (4.75,-1.8) {The utility's existing system retains field authorization,\\switching interlocks and command execution.};
+\end{tikzpicture}
+\end{center}
+\takeaway{This is a conceptual integration pattern. The workshop connects to local files and simulations.}
+\sources{ADMS evaluation context: Pratt et al., \href{https://www.nlr.gov/docs/fy19osti/73705.pdf}{\emph{A Test Bed to Evaluate Advanced Distribution Management Systems}} (2019). The sidecar allocation is a proposed design for discussion.}
+\note{16--17 minutes. Expand ADMS as advanced distribution management system and SCADA as supervisory control and data acquisition. The proposal adds a decision-support service alongside the established stack. The diagram's arrows are conceptual information flows, not implemented interfaces. A production design also needs utility-specific identity, access, data contracts, operational procedures and validation; do not imply those are complete here.}
+\end{frame}
+
+\begin{frame}[t]{Build evidence before changing operating practice}
+\deepdive
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.65cm,minimum height=1.6cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box,fill=mint!25] (replay) at (0,-1.0) {\textbf{1 Replay}\\Saved / simulated cases\\Repeatable decisions};
+\node[box] (shadow) at (4.55,-.35) {\textbf{2 Shadow operation}\\Advice beside live work\\Record disagreements};
+\node[box] (pilot) at (9.1,.3) {\textbf{3 Supervised pilot}\\Approved bounded cases\\Measure human benefit};
+\draw[flow] (replay.east)--(shadow.west);
+\draw[flow] (shadow.east)--(pilot.west);
+\end{tikzpicture}
+\end{center}
+\plainidea{The workshop supplies replay and simulation evidence. Shadow operation and a supervised pilot are proposed next stages.}
+\small Evaluate completion, errors, review quality, latency and human workload.
+\sources{Staged evaluation is this tutorial's proposed path, informed by \href{https://doi.org/10.1109/3468.844354}{Parasuraman et al. (2000)} and DOE's \href{https://www.energy.gov/sites/default/files/2024-02/11-02-2015_doe-voe-insights-into-advanced-distribution-management-systems-report_508_0.pdf}{ADMS deployment experience} (2015).}
+\note{17--18 minutes. Avoid describing this sequence as a published certification standard. It is a proposed engineering evaluation path. Replay checks reproducibility, shadow operation observes disagreements without issuing actions, and a supervised pilot evaluates selected decisions under a utility-approved process. Human workload and time savings require a human study; our saved calls and solver timings cannot establish them.}
+\end{frame}
+
+\begin{frame}[t]{Our three-hour route: understand, run, then review}
+\small
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{.57\linewidth}l@{}}
+\toprule Time & Learning question & Main notebook \\
+\midrule
+0--35 & Who does what, and what does the model cover? & S, W, M \\
+35--85 & Voltage support: methods, complete workflow, baseline & V, A; P2--P3 \\
+85--95 & Break & \\
+95--135 & Restoration: methods, complete workflow, baseline & R; P4--P5 \\
+135--165 & Cyber response: screening, repair, baseline & C; P6 \\
+165--180 & What should the operator review? & F; P7--P8 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize Select the core route; use additional code and experiment slides for deeper study.\\
+Companion notebooks expose recorded traces and the five-module refinement loop.
+\takeaway{Each case stays together: physical question, methods, all five modules, comparison and operator decision.}
+\sources{Workshop teaching sequence, aligned with the three applications and five-module architecture in the SmartGridComm 2026 proposal.}
+\note{18--20 minutes. The expanded deck is a teaching resource, not a requirement to narrate every slide in three hours. Choose the core route and a few code examples before class. The extra model-family slides explain the general concepts before the methods are specialized by use case. The proposal-complete notebook and its case slides execute every core module, including feedback-driven LLM optimization and rechecking. The trace-and-latency notebook separately replays historical results. Software downloads and model availability should be checked before the session.}
+\end{frame}

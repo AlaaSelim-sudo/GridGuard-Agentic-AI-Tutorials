@@ -1,0 +1,792 @@
+{
+  "base_1": {
+    "title": "Agentic AI for Utility Operators",
+    "points": [
+      "Engineering mechanisms, measured results and evaluation",
+      "90 minutes · two worked exercises",
+      "IEEE ComSoc theme · Evidence reviewed 17 October 2026"
+    ],
+    "minutes": 0.5,
+    "refs": [
+      "B01"
+    ],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "cover",
+    "note": "Pitch this version at utility engineers and researchers. The aim is to distinguish a successful API call, a valid modeled result and a justified operating recommendation. The following workshop provides the detailed GridGuard voltage, restoration and cyber cases. This tutorial supplies the mechanisms and evidence needed to assess them.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "base_2": {
+    "title": "Three questions behind a usable recommendation",
+    "points": [
+      "Data validity: do identity, units, time and topology match the question?",
+      "Engineering validity: was the requested problem solved within its declared constraints?",
+      "Decision validity: is the evidence complete enough for the permitted next action?"
+    ],
+    "minutes": 1.5,
+    "refs": [],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "normal",
+    "note": "These are three independent questions. A syntactically valid call can use an old topology. A converged optimization can change a forbidden variable. A correct result can still be incomplete for the operator’s decision. Introduce these as an acceptance contract that will be reused in the examples and exercises, rather than as an abstract architecture.",
+    "takeaway": "Judge the whole task against an explicit acceptance contract.",
+    "eyebrow": ""
+  },
+  "base_3": {
+    "title": "Operator attention is a scarce resource",
+    "points": [
+      "A PNNL survey of 20 control-room operators reported an average 61% of tasks requiring completion in under 30 minutes.",
+      "The 75-item survey did not publish the task denominator or variance behind that average.",
+      "Assistance should reduce evidence-search and review effort within the actual task window."
+    ],
+    "minutes": 2,
+    "refs": [
+      "Q01",
+      "O01",
+      "I02"
+    ],
+    "image": "duke_control_room.jpg",
+    "caption": "Duke Energy control room, 2022. PNNL’s survey is a separate study.",
+    "diagram": null,
+    "kind": "photo",
+    "note": "The statistic is an average share of tasks performed or supported, not the share of operators. Twenty respondents do not justify a binomial interval for the reported 61%, and 75 items do not imply 1,500 independent timing observations. It is a small self-report study, not a national estimate. Ask participants which tasks are deadline-sensitive and which can tolerate a longer investigation.",
+    "takeaway": "Measure the operator’s total effort and the task deadline, not only model response time.",
+    "eyebrow": ""
+  },
+  "base_5": {
+    "title": "Define the task before selecting the model",
+    "points": [
+      "Task: assess whether a previously computed result remains relevant after a new event.",
+      "Return evidence or request missing inputs; stop on a changed snapshot, failed tool, exhausted budget or missing permission."
+    ],
+    "minutes": 2,
+    "refs": [],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "normal",
+    "note": "All F12 records and policies in the worked examples are invented teaching data. They are not utility operating rules. Identify the user, expected artifact and permitted action first. Success means satisfying this contract, not producing an answer of a particular length or making a fixed number of tool calls.",
+    "takeaway": "A bounded engineering task provides a testable definition of success.",
+    "excerpt": [
+      "case = F12 / event at 15:02 / review at 15:05",
+      "snapshot = {data_time, topology_hash, model_revision}",
+      "allowed_output = recommendation or request_for_evidence"
+    ],
+    "eyebrow": ""
+  },
+  "base_6": {
+    "title": "An agent chooses calls; tools produce observations",
+    "points": [
+      "a is a tool invocation; h is the recorded interaction history; nu identifies the input snapshot.",
+      "The application checks the call before execution and appends the returned evidence to the history."
+    ],
+    "minutes": 2.5,
+    "refs": [
+      "T01",
+      "T04"
+    ],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "normal",
+    "note": "Read the equation as an interface, not a claim that the complete physical state is observed or that the history is Markovian. The model chooses a call conditioned on the goal and previous evidence. The application invokes a service against a particular snapshot. A historian returns measurements; a simulator returns modeled quantities. Neither result becomes an actuator command merely because the model selected the call.",
+    "takeaway": "Inspect calls, parameters and observations rather than relying on a fluent final explanation.",
+    "math_tex": "\\[\\begin{gathered}a_t\\sim\\pi_\\theta(\\,\\cdot\\mid g,h_t),\\qquad r_t=T(a_t;\\nu)\\\\h_{t+1}=(h_t,a_t,r_t)\\end{gathered}\\]",
+    "math_html": "a<sub>t</sub> ∼ π<sub>θ</sub>(· | g, h<sub>t</sub>) &nbsp; ; &nbsp; r<sub>t</sub> = T(a<sub>t</sub>; ν)<br>h<sub>t+1</sub> = (h<sub>t</sub>, a<sub>t</sub>, r<sub>t</sub>)",
+    "eyebrow": ""
+  },
+  "base_7": {
+    "title": "A useful trace includes the branch that stops",
+    "points": [
+      "Asset resolution succeeds, but the measurement query returns a stale-quality flag.",
+      "The correct next step is to request current evidence; the original task is still unresolved."
+    ],
+    "minutes": 2,
+    "refs": [],
+    "image": null,
+    "caption": "Invented trace illustrating observable call arguments, return values and a stopping decision.",
+    "diagram": "executed_trace",
+    "kind": "diagram",
+    "note": "Walk through the actual identifiers and timestamps in the drawing. A failed data precondition is a legitimate task outcome, not a reason to invent a measurement or silently substitute the last available value. Measure whether the agent detected the failure and returned a useful next request. A trace is necessary for this inspection but does not itself prove correctness.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "base_8": {
+    "title": "A typed contract prevents a concrete unit error",
+    "points": [
+      "12.47 kV equals 1.00 p.u. only when the selected voltage base is 12.47 kV.",
+      "A tool expecting p.u. must reject a raw value labeled kV or require explicit conversion metadata."
+    ],
+    "minutes": 2,
+    "refs": [],
+    "image": null,
+    "caption": "Illustrative contract; values are teaching data, not a recommended operating limit.",
+    "diagram": "typed_contract",
+    "kind": "diagram",
+    "note": "Dimensional consistency is part of the tool interface, not a prompt preference. The same numeral can describe very different quantities. Unit tags, base values and asset identity should be validated by software. Type validation still cannot establish that the underlying measurement or model is correct. The diagram intentionally shows both a failure and the information needed to repair it.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "base_9": {
+    "title": "A new topology invalidates the old result’s scope",
+    "points": [
+      "The old study used a closed switch and topology v42; the event produces topology v43.",
+      "Fresh prose cannot update the old numerical result. Refresh the snapshot and repeat affected checks."
+    ],
+    "minutes": 2,
+    "refs": [],
+    "image": null,
+    "caption": "Invented before/after network illustrating result invalidation; no power flow is calculated.",
+    "diagram": "snapshot_consistency",
+    "kind": "diagram",
+    "note": "Point to the changed switch rather than following a generic process arrow. The problem is not simply that the result is a number of minutes old: it represents a different network. Matching version tokens is a necessary consistency check. It does not replace checking whether the versioned model is accurate or whether the refreshed measurements represent the event.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "base_10": {
+    "title": "A retry can repeat the same software error",
+    "points": [
+      "R02 reports a reactive-load parameter omitted from an agent request and from the cache fingerprint.",
+      "Correcting the request still reused the old sweep result because the cache key had not changed."
+    ],
+    "minutes": 2.5,
+    "refs": [
+      "R02"
+    ],
+    "image": null,
+    "caption": "Schematic of the failure described in R02, section IV. Key syntax is illustrative.",
+    "diagram": "cache_key_failure",
+    "kind": "diagram",
+    "note": "The paper’s load task includes 100 MW and 10 Mvar. A missing reactive component changes the study. A cache that ignores that parameter can return the wrong result even after the model corrects its call. Explain why asking the model to try harder is insufficient: the adapter and cache need tests. A valid cache fingerprint must represent every input that can change the result, including relevant model and topology versions.",
+    "takeaway": "Agent reliability depends on ordinary software correctness around the model.",
+    "eyebrow": ""
+  },
+  "base_11": {
+    "title": "Convergence is conditional engineering evidence",
+    "points": [
+      "u is the candidate decision; x is the modeled state; m and tau identify the model and topology.",
+      "A feasible solution satisfies the declared equations and inequalities. It does not prove scenario coverage or authorization."
+    ],
+    "minutes": 2,
+    "refs": [
+      "R01",
+      "L01"
+    ],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "normal",
+    "note": "Separate solver status, residuals and modeled limit checks from the completeness of the requested analysis. A solution of the wrong problem can converge perfectly. The constraints and tolerances must be part of the study contract; no universal voltage or loading limit is asserted here. Authority to act remains a separate application and organizational question.",
+    "takeaway": "Report the solved problem and its assumptions alongside the solver status.",
+    "math_tex": "\\[\\begin{gathered}\\mathcal F(m,\\tau)=\\{u:\\ \\exists x\\ \\text{such that}\\\\f(x,u;m,\\tau)=0,\\quad g(x,u;m,\\tau)\\le0\\}\\end{gathered}\\]",
+    "math_html": "F(m, τ) = {u : there exists x with<br>f(x,u;m,τ) = 0 and g(x,u;m,τ) ≤ 0}",
+    "eyebrow": ""
+  },
+  "base_12": {
+    "title": "Exercise 1: audit three returned packets",
+    "points": [
+      "Illustrative prechecks: age at most 60 s, topology v43 and p.u. values. The user may recommend, not execute.",
+      "Which packet passes these prechecks? Explain the rejection reason for each other packet.",
+      "Does passing these checks establish complete engineering validity or permission to execute?"
+    ],
+    "minutes": 6,
+    "refs": [],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "exercise",
+    "note": "Give 1 minute to inspect, 2 minutes in pairs, 2 minutes to share and 1 minute to debrief. C alone passes these stated prechecks. A has the wrong topology; B has the wrong unit contract. C still needs correct asset mapping, a valid model, the required engineering checks, adequate scenario coverage and a reviewable interpretation. The user’s advisory role does not permit execution. Do not teach 60 seconds as a general operating standard: it is a made-up policy for this exercise.",
+    "takeaway": "",
+    "eyebrow": "Active learning · 6 minutes · pairs",
+    "excerpt": [
+      "A = {age_s:20, topology:v42, unit:pu}",
+      "B = {age_s:15, topology:v43, unit:kV}",
+      "C = {age_s:45, topology:v43, unit:pu}"
+    ]
+  },
+  "base_13": {
+    "title": "CAISO/OATI: distinguish throughput from latency",
+    "points": [
+      "The supplier reports 500+ next-day requests processed in a nightly batch in under eight minutes.",
+      "This implies batch throughput above 62.5 requests/minute; it does not reveal request latency or reviewer effort."
+    ],
+    "minutes": 2,
+    "refs": [
+      "C01",
+      "C02",
+      "I06"
+    ],
+    "image": "caiso_control_room.jpg",
+    "caption": "Real California ISO control room. Batch result and later production status are supplier-reported.",
+    "diagram": null,
+    "kind": "photo",
+    "note": "CAISO’s own 2025 account describes a planned-outage pilot using retrieval and multiple agents; OATI’s later account reports production assistance. The throughput is an explicitly calculated lower bound, 500 divided by 8. The source does not disclose the number of nights tested, a latency distribution or independently measured reliability effects. The decision stays with reviewers.",
+    "takeaway": "A processing-rate claim needs its batch boundary and remaining review work.",
+    "eyebrow": ""
+  },
+  "base_17": {
+    "title": "Duke/AWS: automate the study procedure",
+    "points": [
+      "Duke engineers use AWS-managed agents to coordinate case preparation and interconnection-study work.",
+      "The September 2026 announcement reports data preparation moving from two weeks to hours.",
+      "The final number of hours is unspecified; engineers retain final engineering decisions."
+    ],
+    "minutes": 2,
+    "refs": [
+      "U02",
+      "U03",
+      "I03"
+    ],
+    "image": "duke_operator.jpg",
+    "caption": "Duke operator, 2022, for context. The cited agents support planning, not this pictured operating desk.",
+    "diagram": null,
+    "kind": "photo",
+    "note": "The simulator performs deterministic numerical analysis while agents coordinate the procedure. The public sources do not name an open SDK, so do not label the system LangGraph or Strands. The timing concerns data preparation, not the complete interconnection process. Rerun provenance, scenario coverage and review decisions remain central engineering evidence.",
+    "takeaway": "A workflow benefit does not establish a shorter end-to-end regulatory process.",
+    "eyebrow": ""
+  },
+  "base_18": {
+    "title": "GE: distinguish the business and the technical claim",
+    "points": [
+      "GE Vernova’s GridOS deployment at Alabama Power establishes an operational platform, not a disclosed LLM control agent.",
+      "GE Aerospace reports selected supply-chain agentic applications using Palantir AIP.",
+      "Neither disclosure isolates an agent-specific causal reliability improvement for a utility."
+    ],
+    "minutes": 2,
+    "refs": [
+      "C07",
+      "C05",
+      "I01"
+    ],
+    "image": "ge_gridos_control_room.jpg",
+    "caption": "Official GridOS promotional composite. The two GE businesses and application domains are distinct.",
+    "diagram": null,
+    "kind": "photo",
+    "note": "Keep this requested GE example, but use it to teach claim identification. A named customer, platform deployment, selected agent task and controlled performance evaluation are different levels of evidence. Do not transfer an aerospace supply-chain result to electric-grid control. Siemens’ engineering-agent pilot remains in the reading guide as an adjacent example rather than repeating another generic company slide.",
+    "takeaway": "Identify the customer, task, agent mechanism and measured outcome separately.",
+    "eyebrow": ""
+  },
+  "base_20": {
+    "title": "AgentiGrid: inspect the experimental unit",
+    "points": [
+      "The September 2026 paper evaluates four model backends across three applications on one 200-bus test system.",
+      "Those 12 searches are different experimental settings, not 12 repeated trials of one task.",
+      "ExaGO supplies numerical analyses; the agent chooses modifications and interprets results."
+    ],
+    "minutes": 2,
+    "refs": [
+      "R01"
+    ],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "normal",
+    "note": "The applications include dispatch exploration, contingency screening and stochastic studies. Avoid treating no fatal JSON errors as task success. The relevant questions are whether the agent respected the allowed action space, enumerated the required scenarios and accurately described solver evidence. This is research on a specified prototype and modeled network, not an operating-utility reliability study.",
+    "takeaway": "Define exactly what one reported run represents before calculating a success rate.",
+    "eyebrow": ""
+  },
+  "base_21": {
+    "title": "A lower objective can solve the wrong problem",
+    "points": [
+      "R01 reports costs of 27,564 before and 17,398 after one backend changed unit commitment.",
+      "The requested task allowed dispatch changes. Relaxing the decision space makes the apparent gain invalid for that task."
+    ],
+    "minutes": 2,
+    "refs": [
+      "R01"
+    ],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "normal",
+    "note": "The numbers use the paper’s objective units; do not invent dollars per hour. A 36.9% lower reported objective looks attractive but came from changing a variable class outside the stated task. Other backends retained dispatch-only scope and found no improvement from the reported base. A valid evaluation checks action semantics, not only objective reduction.",
+    "takeaway": "Optimization success is defined by both the objective and the allowed decision space.",
+    "math_tex": "\\[\\begin{gathered}\\mathcal U_{\\rm dispatch}\\subseteq\\mathcal U_{\\rm expanded}\\\\\\min_{u\\in\\mathcal U_{\\rm expanded}}J(u)\\le\\min_{u\\in\\mathcal U_{\\rm dispatch}}J(u)\\end{gathered}\\]",
+    "math_html": "U<sub>dispatch</sub> ⊆ U<sub>expanded</sub><br>min<sub>u ∈ Uexpanded</sub> J(u) ≤ min<sub>u ∈ Udispatch</sub> J(u)",
+    "eyebrow": ""
+  },
+  "base_22": {
+    "title": "Successful calls can still miss an infeasible contingency",
+    "points": [
+      "All four backend runs identified the highest-cost outage; none identified a second infeasible outage.",
+      "These are four settings on one test grid, not independent repeated reliability trials."
+    ],
+    "minutes": 2.5,
+    "refs": [
+      "R01"
+    ],
+    "image": "rigor_r01_coverage.png",
+    "caption": "Counts derived from R01 Table III and section IV. Outage labels are bus pairs in that test system.",
+    "diagram": null,
+    "kind": "figure",
+    "note": "The plotted outcomes are economic-critical outage 187 to 189 identified by 4 of 4, infeasible outage 29 to 30 by 3 of 4, and infeasible outage 15 to 16 by 0 of 4. The lesson is incomplete evidence coverage, not a stable estimate of any model’s failure probability. Do not add binomial confidence intervals to these heterogeneous settings.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "base_23": {
+    "title": "Repeated results need counts and uncertainty",
+    "points": [
+      "R02 reports ten attempts per displayed setting on synthetic 100- and 1,000-bus grids.",
+      "The intervals shown are calculated Wilson 95% intervals; the paper itself reports counts."
+    ],
+    "minutes": 2.5,
+    "refs": [
+      "R02",
+      "R03"
+    ],
+    "image": "rigor_r02_capability.png",
+    "caption": "R02 Table II. L1: 100 MW + 10 Mvar load siting; L2: reactive adequacy for 100 MW + 50 Mvar generation.",
+    "diagram": null,
+    "kind": "figure",
+    "note": "Six of the eight displayed cells are 10/10 and two are 5/10. The tested code snapshot produced no results at higher complexity and larger scales; later fixes are discussed without complete new counts. Do not redraw the unreported cells as a matrix of zeroes. The grids are synthetic, not utility operating systems. Intervals assume independent fixed-setting Bernoulli outcomes and illustrate sampling uncertainty, not deployment readiness.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "base_24": {
+    "title": "Ten successes do not locate the rate precisely",
+    "points": [
+      "The calculated two-sided Wilson 95% interval for 10/10 is approximately 72.2% to 100%.",
+      "For 5/10 it is approximately 23.7% to 76.3%. Reusing one easy case also misses distributional uncertainty."
+    ],
+    "minutes": 1.5,
+    "refs": [
+      "R03"
+    ],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "normal",
+    "note": "Explain the interval as a method with repeated-sampling coverage, not a 95% posterior probability that this fixed parameter lies inside this particular interval. These are calculations from small hypothetical or paper counts under the binomial model. Wider task diversity, configuration changes and dependencies add uncertainty beyond this model. Keep Wilson two-sided intervals distinct from the one-sided exact failure bound introduced shortly.",
+    "takeaway": "Report trial counts, task distribution and interval method with a benchmark percentage.",
+    "callout": "Observed score ≠ known success probability",
+    "eyebrow": ""
+  },
+  "base_25": {
+    "title": "Workflow reliability compounds across required steps",
+    "points": [
+      "With independent identical 99%-successful steps, 20 required steps all succeed only 81.8% of the time.",
+      "Real errors can share a cause; measure the complete workflow rather than assuming independence."
+    ],
+    "minutes": 2.5,
+    "refs": [],
+    "image": "rigor_reliability_chain.png",
+    "caption": "Illustrative probability model, not measured agent performance: P(all L steps succeed) = q^L.",
+    "diagram": null,
+    "kind": "figure",
+    "note": "Use the three curves to show why a good local score can coexist with weaker task completion. A retry may share the same incorrect context, cache or tool adapter and therefore not be an independent fresh chance. The exact general chain rule multiplies conditional probabilities; the plotted q to the L is a simplified identical-independent model. It motivates end-to-end measurement and deterministic checks, not a forecast of an actual utility agent.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "base_26": {
+    "title": "The denominator changes the safety-relevant result",
+    "points": [
+      "In this invented test, two infeasible cases are accepted: 2/20 = 10% false approval among infeasible cases.",
+      "Calling the same two errors “2% of all 100 cases” hides the conditional failure rate."
+    ],
+    "minutes": 2.5,
+    "refs": [],
+    "image": "rigor_eval_outcomes.png",
+    "caption": "Invented test set: 80 feasible and 20 infeasible cases. Counts illustrate metric definitions, not a deployment result.",
+    "diagram": null,
+    "kind": "figure",
+    "note": "Seventy of 80 feasible cases are accepted; 10 are rejected. Two of 20 infeasible cases are accepted; 18 are rejected. Accepted-result precision is 70/72, or 97.2%, yet the false-approval rate in the critical infeasible stratum is 10%. Overall correct classification is 88/100. Define the error that matters before choosing a headline metric. More rejection can reduce false approvals while making the assistant less useful; measure both sides.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "base_27": {
+    "title": "Zero observed failures still leaves uncertainty",
+    "points": [
+      "After zero failures in n independent fixed-setting trials, the exact one-sided 95% upper bound is 1 − 0.05^(1/n).",
+      "Zero in 300 gives a bound near 0.994%; the bound does not cover a new task distribution."
+    ],
+    "minutes": 2.5,
+    "refs": [
+      "R04"
+    ],
+    "image": "rigor_zero_failure_bound.png",
+    "caption": "Calculated binomial bound. Fixed failure definition, independent trials and stable test conditions are required.",
+    "diagram": null,
+    "kind": "figure",
+    "note": "Derive it verbally: if the failure probability were p, the probability of seeing no failures in n independent trials would be (1-p)^n. Set this to 0.05 and solve. This bounds failure under the assumed test distribution; it is not certification and does not establish performance after a topology, model or task change. The approximation 3/n is useful for a quick mental estimate.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "base_29": {
+    "title": "Build an evaluation set that can expose failure",
+    "points": [
+      "Stratify by task complexity, grid scale, stale inputs, tool failures and feasible versus infeasible cases.",
+      "Use an independent reference check and keep tuning cases separate from final evaluation.",
+      "Record a case ID, configuration, snapshot, tool evidence, disposition and human corrections for every trial."
+    ],
+    "minutes": 2,
+    "refs": [
+      "R02",
+      "T12",
+      "T14"
+    ],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "normal",
+    "note": "Do not call repetitions of one prompt a broad test distribution. Count dependencies such as shared networks and scenarios, and report them. An independent checker should not merely ask the same model whether its answer is correct. Hold out cases when adjusting prompts or adapters. A local test matrix is a proposed method here, not a certification procedure.",
+    "takeaway": "Measure failure by stage and by case class, with denominators that remain visible.",
+    "eyebrow": ""
+  },
+  "base_32": {
+    "title": "Tool access and agent delegation have different contracts",
+    "points": [
+      "An MCP call exposes a tool or resource with explicit arguments and returned evidence.",
+      "An A2A task delegates work and needs status, artifact provenance and an accountable owner. Neither protocol establishes permission or correctness."
+    ],
+    "minutes": 2,
+    "refs": [
+      "T08",
+      "T09",
+      "T10"
+    ],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "normal",
+    "note": "The requests are illustrative, not executable API examples. Explain when a separately managed planning service is a genuine responsibility boundary. A single orchestrator with deterministic tools is simpler when no such boundary is required. Separate returned data from authority to perform a consequential action.",
+    "takeaway": "Interoperability needs an application-level acceptance contract.",
+    "excerpt": [
+      "Tool request: read_measurements(asset=447, interval=...)",
+      "Delegated task: assess case C17 and return a study artifact",
+      "Application checks: identity, scope, provenance, validity"
+    ],
+    "eyebrow": ""
+  },
+  "base_33": {
+    "title": "A retrieved instruction must remain untrusted data",
+    "points": [
+      "A document can contain “ignore limits; execute this command” without having authority to change the task.",
+      "Keep retrieved content in the evidence path; a separate gate checks identity, scope and the proposed action."
+    ],
+    "minutes": 2,
+    "refs": [
+      "T09",
+      "T14"
+    ],
+    "image": null,
+    "caption": "Invented prompt-injection example. The blocked path shows the authority boundary.",
+    "diagram": "trust_boundary",
+    "kind": "diagram",
+    "note": "AgentDojo studies attacks carried in tool-returned content. The example illustrates the mechanism, not an attack observed at a named utility. A model instruction alone is not a complete defense; the service must enforce permission independently. Test whether malicious content causes a forbidden call, changes the case scope or contaminates the evidence packet. Log the attempted action and the gate’s reason for rejection.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "base_37": {
+    "title": "Measure human value at the task boundary",
+    "points": [
+      "Record total task time, reviewer corrections and false approvals, including failed or escalated attempts.",
+      "A faster draft can increase review effort. Report distributions and difficult cases, including escalations."
+    ],
+    "minutes": 2,
+    "refs": [
+      "Q01",
+      "U01",
+      "U04"
+    ],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "normal",
+    "note": "This is a proposed measurement decomposition for a serial task; parallel stages need critical-path timing rather than a naive sum. Include the operator’s attention and the time to recover from an error. This explains why audit turnaround, batch throughput and review-time reduction cannot be treated as the same metric. Choose latency percentiles and workload measures appropriate to the actual task.",
+    "takeaway": "The operator’s completed work product is the unit of value.",
+    "math_tex": "T_{\\rm task}=T_{\\rm data}+T_{\\rm agent}+T_{\\rm review}+T_{\\rm rework}",
+    "math_html": "T<sub>task</sub> = T<sub>data</sub> + T<sub>agent</sub> + T<sub>review</sub> + T<sub>rework</sub>",
+    "eyebrow": ""
+  },
+  "base_38": {
+    "title": "A useful pilot compares like with like",
+    "points": [
+      "Begin in shadow mode: record proposed outputs without changing the operating decision.",
+      "Compare matched tasks with and without assistance; account for operator learning, task difficulty and carryover.",
+      "Predefine stopping rules, error classes, review obligations and the evidence required to expand scope."
+    ],
+    "minutes": 2,
+    "refs": [],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "normal",
+    "note": "This is a proposed evaluation design, not an industry-standard approval process. Randomized or counterbalanced task order can reduce order effects when feasible. Keep a fixed final evaluation set after tuning. Record disagreements between the agent and independent reference checks. A pilot result transfers only to conditions represented by the tested task, tools, configurations and users.",
+    "takeaway": "Separate building the assistant from testing the claim that it helps.",
+    "eyebrow": ""
+  },
+  "base_39": {
+    "title": "Power-sector test environments support this work",
+    "points": [
+      "DOE CESER’s July 2026 announcement describes LLNL’s Stormbreaker evaluation testbed.",
+      "EPRI’s SAFERai.power work addresses assessment and risk guidance; neither constitutes certification of this prototype."
+    ],
+    "minutes": 1,
+    "refs": [
+      "C15",
+      "C11",
+      "C12",
+      "I05"
+    ],
+    "image": "ornl_goal.jpg",
+    "caption": "ORNL GOAL research laboratory for context. This photograph is not the LLNL testbed.",
+    "diagram": null,
+    "kind": "photo",
+    "note": "The right environment makes tool failures, changing states and engineering consequences observable under controlled conditions. A testbed must still be configured to represent the task being evaluated. Keep the institutional roles distinct and avoid treating the existence of an evaluation initiative as proof of an individual agent’s performance.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "base_40": {
+    "title": "GridGuard: a testable engineering proposition",
+    "points": [
+      "The current prototype checks candidate actions in OpenDSS simulation on a synthetic feeder.",
+      "The claim to test is improved task outcomes under fixed constraints, not whether the model can produce plausible actions.",
+      "Retain proposal, snapshot, solver evidence, rejected candidates and reviewer disposition."
+    ],
+    "minutes": 2,
+    "refs": [
+      "L01",
+      "L02"
+    ],
+    "image": "gridguard_research_feeder.png",
+    "caption": "Existing workshop figure: synthetic SMART-DS Greensboro feeder udt8894; not a live utility circuit.",
+    "diagram": null,
+    "kind": "photo",
+    "note": "The current prototype has no live DMS command authority. State the hypothesis with measurable outcomes: correct feasible proposals, false approvals, engineering violations, time and reviewer corrections. Record non-results and scope violations. This supplies a rigorous motivation for the next tutorial without teaching its three numerical case studies here.",
+    "takeaway": "The contribution is useful proposals whose assumptions and evidence can be inspected.",
+    "eyebrow": ""
+  },
+  "base_41": {
+    "title": "Next tutorial: apply the acceptance contract",
+    "points": [
+      "Voltage support: was the declared candidate feasible under the intended model?",
+      "Restoration: were topology, switching constraints and served load checked completely?",
+      "Cyber response: did uncertain or malicious information change authority or corrupt the evidence?"
+    ],
+    "minutes": 1,
+    "refs": [
+      "L02"
+    ],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "normal",
+    "note": "Carry the three opening questions into the detailed workshop: data validity, engineering validity and decision validity. Ask participants to identify a denominator and a rejected case for every performance claim. The exact experiments and results belong to that next tutorial.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "base_42": {
+    "title": "Discussion and full sources",
+    "points": [
+      "Which failure mechanism would your first evaluation need to expose?",
+      "What would count as success for the operator’s complete task?",
+      "The separate guide links full papers, case disclosures, methods and editable visual sources."
+    ],
+    "minutes": 1.5,
+    "refs": [],
+    "image": null,
+    "caption": "",
+    "diagram": null,
+    "kind": "closing",
+    "note": "The 90-minute schedule includes the two six-minute exercises and this discussion. Use the reading guide for the original papers and metric definitions. End by asking for one concrete acceptance criterion rather than another proposed agent feature.",
+    "takeaway": "A credible claim names the task, denominator, assumptions, failures and remaining human work.",
+    "eyebrow": ""
+  },
+  "power_0": {
+    "title": "PowerAgentBench-Dyn: repair within an explicit action space",
+    "points": [
+      "The Harvard-led benchmark gives the agent a modified solar-PV dynamic model and feedback from eight DMView/PSS/E quality tests.",
+      "Only four REECAU1 controller gains may change; all other fields are locked, with at most five update attempts."
+    ],
+    "minutes": 2,
+    "refs": [
+      "P01",
+      "P01C"
+    ],
+    "kind": "normal",
+    "note": "Harvard SEAS, Politecnico di Milano and UBITECH authors make the action boundary testable. This is model diagnosis and repair in a benchmark, not approval to change a utility controller. The initial modified model fails all eight tests. Four editable gains do not mean all other engineering properties have been validated. The author repository includes a harness and requires licensed PSS/E plus external DMView.",
+    "takeaway": "A successful engineering agent satisfies the test suite and the allowed-edit contract.",
+    "caption": "",
+    "excerpt": [
+      "Allowed fields: Kqp, Kqi, Kvp, Kvi",
+      "run quality-test suite → inspect failed tests",
+      "propose permitted gain update → rerun full suite",
+      "success = all tests pass within budget and scope"
+    ],
+    "eyebrow": ""
+  },
+  "power_1": {
+    "title": "PowerAgentBench-Dyn result: counts and update effort",
+    "points": [
+      "Success requires all eight tests within five permitted updates; one modified model limits generalization."
+    ],
+    "minutes": 2,
+    "refs": [
+      "P01"
+    ],
+    "kind": "figure",
+    "note": "The three backends are Opus 4.8, Sonnet 4.6 and Haiku 4.5. These are reported sessions on one modified WECC solar-PV model. No matched human or deterministic search baseline establishes a comparative speedup. Counts reveal both the sample and failures; an update count says something different from end-to-end operator time. The 10/10 rows inherit the small-sample limitations explained later.",
+    "takeaway": "",
+    "caption": "PowerAgentBench-Dyn TableII: dynamic-model-quality task. Other dynamic-study tasks use different models and criteria.",
+    "image": "expanded_power_dynamic.png",
+    "visual_height_cm": 3.9,
+    "visual_height_px": 350,
+    "eyebrow": ""
+  },
+  "power_2": {
+    "title": "PowerBench: evidence retrieval across linked records",
+    "points": [
+      "The 300-question benchmark combines synthetic asset records, documents and telemetry; tools search, read files, read time series and execute Python.",
+      "Each attempt has a 50-tool-call and 300-second retrieval/reasoning budget; physical power flow is outside its evaluated task."
+    ],
+    "minutes": 2,
+    "refs": [
+      "P02"
+    ],
+    "kind": "normal",
+    "note": "An answer can be schema-valid yet use a wrong linked asset or time interval. This makes the benchmark relevant to control-room evidence work without claiming simulation or control capability. The three task families contain 60,90 and 150 questions. The paper reports generated datasets with 761 devices and 24,939 documents. At review, the linked public repository exposed only README and LICENSE; runnable release was not independently verified.",
+    "takeaway": "Retrieving a relevant record is an intermediate result; the complete answer still needs checking.",
+    "caption": "",
+    "excerpt": [
+      "Illustrative evidence chain, not a benchmark question:",
+      "resolve device clue → unique device record",
+      "read linked maintenance document and telemetry",
+      "compute required fields → return answer plus evidence"
+    ],
+    "eyebrow": ""
+  },
+  "power_3": {
+    "title": "PowerBench result: complete answers versus partial credit",
+    "points": [
+      "Joint accuracy requires all fields and a valid schema; field accuracy gives partial credit. Macro-JA weights families equally."
+    ],
+    "minutes": 2,
+    "refs": [
+      "P02"
+    ],
+    "kind": "figure",
+    "note": "The best row is GPT-5.6-Sol in this 2026 paper snapshot. Macro joint accuracy equally averages the three task-family accuracies; it is not a correct-count divided by 300. Overall field accuracy averages per-question field fractions. Marginal bootstrap intervals do not by themselves establish a significant paired difference. Synthetic evidence questions do not test physical-grid safety.",
+    "takeaway": "",
+    "caption": "PowerBench Table 4: selected models, author-reported 95% bootstrap intervals. Metrics use different aggregation rules.",
+    "image": "expanded_power_benchmark.png",
+    "visual_height_cm": 3.9,
+    "visual_height_px": 350,
+    "eyebrow": ""
+  },
+  "power_4": {
+    "title": "PowerBench: the difficult family is hidden by an average",
+    "points": [
+      "For the leading row, family joint accuracies are 85.0%,88.9% and 48.7%.",
+      "The equal-family average is 74.2%; fewer than half of the Comparative Retrieval and Reasoning questions receive complete answers."
+    ],
+    "minutes": 1.5,
+    "refs": [
+      "P02"
+    ],
+    "kind": "normal",
+    "note": "Families have unequal sizes 60,90 and 150. Equal weighting makes the smallest family as influential as the largest. This is a deliberately defined metric, not a mistake; it answers a different question from pooled question accuracy. In a utility pilot, publish per-task results so a weak critical capability cannot disappear inside an overall average.",
+    "takeaway": "Choose aggregation deliberately and inspect the task families that matter to the operator.",
+    "caption": "",
+    "math_tex": "\\[\\operatorname{Macro\\!\\text{-}\\!JA}=\\frac{85.0+88.9+48.7}{3}=74.2\\%\\]",
+    "math_html": "Macro-JA = (85.0 +88.9 +48.7) /3 =74.2%",
+    "eyebrow": ""
+  },
+  "power_5": {
+    "title": "GridMind: dependency-aware reuse of scientific stages",
+    "points": [
+      "The 2026 weather-risk workflow uses LangGraph to coordinate weather, outage, OPF, screening and cascade-analysis stages.",
+      "Content hashes identify reusable artifacts; a changed upstream forecast invalidates dependent stages."
+    ],
+    "minutes": 2,
+    "refs": [
+      "P03",
+      "P03A"
+    ],
+    "kind": "normal",
+    "note": "AERIS supplies weather, LUMINA or pandapower handles base OPF, a LUMINA surrogate screens, and EPFast provides reduced-order DC cascade simulation. The exact dependency graph matters: in this implementation the contingency stage consumes outage schedules directly, so changing ACOPF alone does not require rerunning every later-looking stage. Hashes establish identity of declared inputs, not correctness or unrecorded external freshness.",
+    "takeaway": "Reuse is justified by explicit dependencies, not by asking whether a previous answer sounds relevant.",
+    "caption": "",
+    "excerpt": [
+      "Reported seven-query session on synthetic Texas 2000:",
+      "increase cascade fan-out k → rerun cascade stage",
+      "shift weather forecast by 6 h → rerun all five stages",
+      "exactly restore first inputs → reuse prior artifacts"
+    ],
+    "eyebrow": ""
+  },
+  "power_6": {
+    "title": "GridMind result: stage savings differ from time savings",
+    "points": [
+      "The same seven queries use 60% fewer stages and 52.7% less wall time; stage costs differ."
+    ],
+    "minutes": 2,
+    "refs": [
+      "P03"
+    ],
+    "kind": "figure",
+    "note": "Do not call this 60% less wall time: the measured reduction is about 52.7%. Stages have different costs. The result combines workflow design and artifact reuse, not merely a faster language model. The single-session comparison provides no repeated-session confidence interval. Surrogate and reduced-order simulation results also need domain validation before a utility could use them.",
+    "takeaway": "",
+    "caption": "GridMind2026 Table 1: fresh-namespace reruns versus artifact reuse on a synthetic 2,000-bus hurricane-risk workflow.",
+    "image": "expanded_power_gridmind.png",
+    "visual_height_cm": 3.9,
+    "visual_height_px": 350,
+    "eyebrow": ""
+  },
+  "power_dsr": {
+    "title": "Dynamic security screening is a different benchmark task",
+    "points": [
+      "PowerAgentBench-Dyn also asks agents to screen ten candidate faults and identify three critical cases through PowerMCP/PowerFactory.",
+      "Reported success ranges from 0/10 to 10/10 across six backends; these outcomes cannot be pooled with dynamic-model repair."
+    ],
+    "minutes": 2,
+    "refs": [
+      "P01"
+    ],
+    "kind": "normal",
+    "note": "TablesIII–VI define a distinct Dynamic Security Risk Screening task and use Opus 4.7, not the 4.8 model-quality row. The reported counts are 9/10 Opus 4.7,9/10 Sonnet 4.6,7/10 Haiku 4.5,10/10 Gemini 3.1Pro,10/10 GPT-5.5 and 0/10 Qwen 2.5-Coder-7B. Failures include simulator-tool execution. A count should retain the task, tools, configuration and success definition; it is not a vendor reliability ranking.",
+    "takeaway": "A benchmark family contains distinct engineering tasks with distinct failure modes.",
+    "caption": "",
+    "eyebrow": ""
+  },
+  "gridmind2025_3": {
+    "title": "GridMind2025: typed agents around numerical solvers",
+    "points": [
+      "The earlier GridMind uses PydanticAI and pandapower for ACOPF and contingency work.",
+      "It reports 100% ACOPF success on case 118 across six backends; this is a narrower claim than complete contingency discovery."
+    ],
+    "minutes": 2,
+    "refs": [
+      "P04"
+    ],
+    "kind": "normal",
+    "note": "The 2025 paper tests 14-,30-,118- and 300-bus grids, with Figure 3’s case 118 success and execution-time comparison. The time distributions use five repetitions; do not invent a larger success denominator. This implementation differs from the 2026 LangGraph weather workflow. Preserve the year and paper title when discussing either system.",
+    "takeaway": "A numerical reference can establish one task’s result without validating every related task.",
+    "caption": "",
+    "eyebrow": ""
+  },
+  "gridmind2025_4": {
+    "title": "GridMind2025: conflicting contingency conclusions",
+    "points": [
+      "For case 118, one backend reports a maximum-overload metric of 165%; five others report 137%, with different critical-line sets.",
+      "The paper does not supply exhaustive contingency ground truth for that table; agreement alone cannot resolve correctness."
+    ],
+    "minutes": 2,
+    "refs": [
+      "P04"
+    ],
+    "kind": "normal",
+    "note": "These are paper-reported interpretations and tool results, not a new experiment. Differences could arise from scope, enumeration or interpretation; the table does not establish which result is complete. The appropriate lesson is to request comparable case definitions and an independent reference. Do not infer that the majority is right or calculate a failure probability from six heterogeneous backend rows.",
+    "takeaway": "",
+    "caption": "",
+    "excerpt": [
+      "Table 1, IEEE118 contingency study:",
+      "GPT-5 Mini → MaxOverload165%, set includes line 9",
+      "five other backends →137%, set includes line 6",
+      "required next evidence → independent exhaustive reference"
+    ],
+    "eyebrow": ""
+  }
+}

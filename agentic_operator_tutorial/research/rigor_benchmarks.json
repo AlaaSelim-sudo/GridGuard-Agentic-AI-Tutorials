@@ -1,0 +1,467 @@
+{
+  "reviewed_as_of": "2026-10-17",
+  "evidence_scope": "Quantitative extraction from fixed research-paper versions and supplied local full-text files. No field-deployment reliability is inferred.",
+  "capability_gaps": {
+    "reference": "R02",
+    "source_pdf": "https://arxiv.org/pdf/2607.28822v1",
+    "local_pdf": "tmp/operator_tutorial/Capability_Gaps.pdf",
+    "design": {
+      "vendors": 2,
+      "prompts": 6,
+      "grid_sizes": 4,
+      "attempts_per_setting": 10,
+      "planned_simulations": 480,
+      "grid_buses": [
+        100,
+        1000,
+        10000,
+        100000
+      ],
+      "prototype": "Development snapshot of AgentiGrid with ExaGO",
+      "systems": "Tiled synthetic grids built from a constrained 100-bus block derived from IEEE118; not four operating utility systems.",
+      "hardware": "Intel Core i7-11700F, 8 cores, 64GB RAM"
+    },
+    "quantified_cells": [
+      {
+        "backend": "DeepSeek-v4-pro",
+        "task": "L1",
+        "grid_buses": 100,
+        "successes": 5,
+        "attempts": 10,
+        "success_fraction": 0.5,
+        "reported_count": "5/10",
+        "wilson_95_calculated": {
+          "lower": 0.236593090512564,
+          "upper": 0.7634069094874361
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "DeepSeek-v4-pro",
+        "task": "L1",
+        "grid_buses": 1000,
+        "successes": 5,
+        "attempts": 10,
+        "success_fraction": 0.5,
+        "reported_count": "5/10",
+        "wilson_95_calculated": {
+          "lower": 0.236593090512564,
+          "upper": 0.7634069094874361
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "DeepSeek-v4-pro",
+        "task": "L2",
+        "grid_buses": 100,
+        "successes": 10,
+        "attempts": 10,
+        "success_fraction": 1,
+        "reported_count": "10/10",
+        "wilson_95_calculated": {
+          "lower": 0.7224672001371107,
+          "upper": 0.9999999999999999
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "DeepSeek-v4-pro",
+        "task": "L2",
+        "grid_buses": 1000,
+        "successes": 10,
+        "attempts": 10,
+        "success_fraction": 1,
+        "reported_count": "10/10",
+        "wilson_95_calculated": {
+          "lower": 0.7224672001371107,
+          "upper": 0.9999999999999999
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "OpenAI configuration (table label: gpt 5.4 B)",
+        "task": "L1",
+        "grid_buses": 100,
+        "successes": 10,
+        "attempts": 10,
+        "success_fraction": 1,
+        "reported_count": "10/10",
+        "wilson_95_calculated": {
+          "lower": 0.7224672001371107,
+          "upper": 0.9999999999999999
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "OpenAI configuration (table label: gpt 5.4 B)",
+        "task": "L1",
+        "grid_buses": 1000,
+        "successes": 10,
+        "attempts": 10,
+        "success_fraction": 1,
+        "reported_count": "10/10",
+        "wilson_95_calculated": {
+          "lower": 0.7224672001371107,
+          "upper": 0.9999999999999999
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "OpenAI configuration (table label: gpt 5.4 B)",
+        "task": "L2",
+        "grid_buses": 100,
+        "successes": 10,
+        "attempts": 10,
+        "success_fraction": 1,
+        "reported_count": "10/10",
+        "wilson_95_calculated": {
+          "lower": 0.7224672001371107,
+          "upper": 0.9999999999999999
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "OpenAI configuration (table label: gpt 5.4 B)",
+        "task": "L2",
+        "grid_buses": 1000,
+        "successes": 10,
+        "attempts": 10,
+        "success_fraction": 1,
+        "reported_count": "10/10",
+        "wilson_95_calculated": {
+          "lower": 0.7224672001371107,
+          "upper": 0.9999999999999999
+        },
+        "citation": "R02, Table II, PDF page 4"
+      }
+    ],
+    "confidence_interval_note": "Wilson two-sided95% intervals are calculated here from the reported counts, not reported by the paper. Their interpretation assumes comparable independent Bernoulli trials at a fixed setting; the paper does not establish independence or field representativeness.",
+    "unquantified_scopes": [
+      {
+        "scope": "10000 and100000-bus runs",
+        "reported_status": "Returned no results in tested snapshot; omitted from TableII",
+        "successes": null,
+        "attempts": null,
+        "note": "Do not encode these as quantified0/10 cells. Narrative says a newer10000-bus fix was forthcoming; no new results tabulated."
+      },
+      {
+        "scope": "Levels3–6",
+        "reported_status": "Failed to produce results",
+        "successes": null,
+        "attempts": null,
+        "note": "Exact per-backend/per-grid counts are not tabulated."
+      }
+    ],
+    "task_levels": [
+      {
+        "level": 1,
+        "description": "Find buses hosting100MW+10Mvar load under declared ACOPF constraints"
+      },
+      {
+        "level": 2,
+        "description": "Assess reactive adequacy for100MW+50Mvar generator at each bus"
+      },
+      {
+        "level": 3,
+        "description": "N-1 contingencies on three nearest neighbors after a50MW load addition"
+      },
+      {
+        "level": 4,
+        "description": "Minimum feasible hot reserve under N-1 contingencies"
+      },
+      {
+        "level": 5,
+        "description": "N-2 contingencies on three nearest neighbors"
+      },
+      {
+        "level": 6,
+        "description": "N-2 assessment plus ordered contingency-relief recommendations"
+      }
+    ],
+    "stated_feasibility_criteria": "For the stated load/contingency prompts: bus voltage0.9–1.1p.u. and branchMVA within rateA. These are the paper's test criteria, not a universal operating standard.",
+    "measured_and_observed_failures": [
+      {
+        "stage": "Task semantics and cache correctness",
+        "observation": "DeepSeek L1 omitted the10Mvar reactive load in5of10 attempts on each small-grid setting; corrected requests reused stale sweep results because the cache fingerprint omitted the reactive-load parameter.",
+        "citation": "R02 SectionIV, PDFp4"
+      },
+      {
+        "stage": "Agent interpretation after solver execution",
+        "observation": "Authors report inconsistent extraction/reasoning from solver numbers for both vendors, even when sweeps were correctly implemented; no rate is tabulated.",
+        "citation": "R02 SectionIV, PDFp4"
+      },
+      {
+        "stage": "Execution scalability and context",
+        "observation": "Large-grid failures involved deep-copy/linear-lookup backend costs and oversized model context; source describes roughly quadratic sweep cost.",
+        "citation": "R02 SectionIV, PDFp4"
+      },
+      {
+        "stage": "Orchestration of complex tasks",
+        "observation": "At L3, the OpenAI agent explored element/contingency definitions without sending a contingency to the solver; counts not tabulated.",
+        "citation": "R02 SectionIV, PDFp4–5"
+      }
+    ],
+    "token_ranges": [
+      {
+        "scope": "100-bus correct attempts",
+        "tokens_approx_min": 17000,
+        "tokens_approx_max": 17000,
+        "qualifier": "about"
+      },
+      {
+        "scope": "100-bus incorrect DeepSeek attempts",
+        "tokens_min": 27000,
+        "tokens_max": 39000
+      },
+      {
+        "scope": "1000-bus correct attempts",
+        "tokens_min": 36000,
+        "tokens_max": 43000
+      },
+      {
+        "scope": "1000-bus incorrect attempts",
+        "tokens_min": 57000,
+        "tokens_max": 78000
+      },
+      {
+        "scope": "Level3 OpenAI, no result",
+        "tokens_min": 50000,
+        "tokens_max": 100000
+      },
+      {
+        "scope": "Level3 DeepSeek attempts, partial work",
+        "tokens_min": 160000,
+        "tokens_max": 170000,
+        "time_seconds_min": 300,
+        "time_seconds_max": 400
+      }
+    ],
+    "chart_recommendation": "Plot the eight quantified count/denominator cells, optionally with calculated Wilson95% intervals. State that higher levels/larger grids are reported qualitatively as no result rather than plotted as zeros."
+  },
+  "agentigrid": {
+    "reference": "R01",
+    "source_pdf": "https://arxiv.org/pdf/2609.04544v1",
+    "local_pdf": "tmp/operator_tutorial/AgentiGrid.pdf",
+    "design": {
+      "searches": 12,
+      "models": 4,
+      "applications": 3,
+      "repeated_trials_per_model_application": "Not reported beyond the twelve searches",
+      "grid": "ACTIVSg200, synthetic200-bus case",
+      "maximum_iterations": 20,
+      "temperature": 0.3,
+      "hardware": "Intel Core i7-13650HX,14cores,32GBRAM"
+    },
+    "rows": [
+      {
+        "application": "PFLOW",
+        "backend": "Claude Sonnet4.6",
+        "iterations": 8,
+        "seconds": 130,
+        "tokens": 70793,
+        "result": "No improvement on reported basecost27564",
+        "cost": 27564,
+        "interpretation": "Respected dispatch-only scope; near-null optimization case"
+      },
+      {
+        "application": "PFLOW",
+        "backend": "GPT-5.4",
+        "iterations": 18,
+        "seconds": 159,
+        "tokens": 164730,
+        "result": "No improvement on reported basecost27564",
+        "cost": 27564,
+        "interpretation": "Respected dispatch-only scope; near-null optimization case"
+      },
+      {
+        "application": "PFLOW",
+        "backend": "GLM-5.1",
+        "iterations": 16,
+        "seconds": 580,
+        "tokens": 176039,
+        "result": "Changed unit commitment instead of dispatch; reported cost17398",
+        "cost": 17398,
+        "reported_cost_reduction_percent": 36.9,
+        "interpretation": "Scope violation; not valid success for the requested dispatch-only task"
+      },
+      {
+        "application": "PFLOW",
+        "backend": "DeepSeek-V4-Pro",
+        "iterations": 15,
+        "seconds": 342,
+        "tokens": 197354,
+        "result": "Changed unit commitment instead of dispatch; reported cost17941",
+        "cost": 17941,
+        "reported_cost_reduction_percent": 34.9,
+        "interpretation": "Scope violation; not valid success for the requested dispatch-only task"
+      },
+      {
+        "application": "SCOPFLOW",
+        "backend": "Claude Sonnet4.6",
+        "iterations": 7,
+        "seconds": 205,
+        "tokens": 164559,
+        "result": "Economic-critical187→189(+21.6%); did not identify29→30or15→16 infeasible outages"
+      },
+      {
+        "application": "SCOPFLOW",
+        "backend": "GPT-5.4",
+        "iterations": 18,
+        "seconds": 112,
+        "tokens": 150962,
+        "result": "Economic-critical187→189(+21.6%); found29→30infeasible; missed15→16"
+      },
+      {
+        "application": "SCOPFLOW",
+        "backend": "GLM-5.1",
+        "iterations": 7,
+        "seconds": 188,
+        "tokens": 72705,
+        "result": "Economic-critical187→189(+21.6%); found29→30infeasible; missed15→16"
+      },
+      {
+        "application": "SCOPFLOW",
+        "backend": "DeepSeek-V4-Pro",
+        "iterations": 11,
+        "seconds": 292,
+        "tokens": 177899,
+        "result": "Economic-critical187→189(+21.6%); found29→30infeasible; missed15→16"
+      },
+      {
+        "application": "SOPFLOW",
+        "backend": "Claude Sonnet4.6",
+        "iterations": 3,
+        "seconds": 29,
+        "tokens": 21408,
+        "result": "All tested scenario solutions feasible; identified bus152mostaffected"
+      },
+      {
+        "application": "SOPFLOW",
+        "backend": "GPT-5.4",
+        "iterations": 3,
+        "seconds": 12,
+        "tokens": 18585,
+        "result": "All tested scenario solutions feasible; identified15sensitivebuses including152"
+      },
+      {
+        "application": "SOPFLOW",
+        "backend": "GLM-5.1",
+        "iterations": 3,
+        "seconds": 19,
+        "tokens": 19545,
+        "result": "All tested scenario solutions feasible; identified15sensitivebuses including152"
+      },
+      {
+        "application": "SOPFLOW",
+        "backend": "DeepSeek-V4-Pro",
+        "iterations": 3,
+        "seconds": 20,
+        "tokens": 19183,
+        "result": "All tested scenario solutions feasible; identified bus152mostaffected"
+      }
+    ],
+    "table_citation": "R01 TableIII, PDFpage4; result interpretation SectionIV-B/C, PDFpages4–5.",
+    "contingency_detection": [
+      {
+        "outage": "187→189",
+        "property": "Highest reported economic-cost increase",
+        "identified_by_backend_runs": 4,
+        "total_backend_runs": 4,
+        "value_percent": 21.6
+      },
+      {
+        "outage": "29→30",
+        "property": "Infeasible contingency",
+        "identified_by_backend_runs": 3,
+        "total_backend_runs": 4
+      },
+      {
+        "outage": "15→16",
+        "property": "Second infeasible contingency",
+        "identified_by_backend_runs": 0,
+        "total_backend_runs": 4
+      }
+    ],
+    "interpretation_limits": [
+      "The 12 searches are 4 backends × 3 applications on one grid, not 12 repetitions of one task and not a reliability estimate.",
+      "All 12 avoided fatal JSON parsing failures; that metric does not establish complete or correct engineering conclusions.",
+      "PFLOW cost reductions from unit commitment change the allowed action space; do not plot them as improvements for the requested dispatch-only task.",
+      "Convergence and feasibility concern the modeled cases and declared constraints; they do not certify full contingency coverage, correct reporting or operating authorization.",
+      "Do not merge R01's September prototype results with R02's July development-snapshot results into a model leaderboard."
+    ]
+  },
+  "illustrative_statistics": {
+    "status": "Mathematical teaching illustrations, not empirical results from the grid papers",
+    "zero_failure": {
+      "formula": "One-sided 95% upper bound on failure probability after 0 failures in n independent fixed-setting Bernoulli trials: 1−0.05^(1/n)",
+      "values": [
+        {
+          "n": 10,
+          "failures_observed": 0,
+          "one_sided_95_upper_failure_probability": 0.2588655508930523
+        },
+        {
+          "n": 20,
+          "failures_observed": 0,
+          "one_sided_95_upper_failure_probability": 0.13910834066826516
+        },
+        {
+          "n": 100,
+          "failures_observed": 0,
+          "one_sided_95_upper_failure_probability": 0.029513049607039932
+        },
+        {
+          "n": 300,
+          "failures_observed": 0,
+          "one_sided_95_upper_failure_probability": 0.00993608194445772
+        }
+      ],
+      "assumption": "Independent identically distributed Bernoulli attempts with a fixed failure definition. Repeated agent tests may not satisfy these assumptions; this does not bound unknown operating conditions."
+    },
+    "serial_steps": {
+      "formula": "P(all L steps correct)=q^L if each step succeeds independently with the same probability q",
+      "q": 0.98,
+      "values": [
+        {
+          "steps": 1,
+          "success_probability": 0.98
+        },
+        {
+          "steps": 5,
+          "success_probability": 0.9039207967999999
+        },
+        {
+          "steps": 10,
+          "success_probability": 0.8170728068875467
+        },
+        {
+          "steps": 20,
+          "success_probability": 0.6676079717550942
+        }
+      ],
+      "assumption": "Illustrative independence and constant per-step probability; real agent errors can be correlated."
+    }
+  },
+  "framework_vs_domain_checks": [
+    {
+      "component": "General orchestration framework",
+      "automates": "State routing, tool dispatch, checkpoints, traces and review pauses",
+      "does_not_establish": "Correct asset mapping, engineering limits, valid physics, complete search coverage or action authorization"
+    },
+    {
+      "component": "AgentiGrid agent loop",
+      "automates": "Prompt assembly, proposed modifications, next-step choice and search journal",
+      "does_not_establish": "That the proposal stays within the requested action space or the final narrative matches solver outputs"
+    },
+    {
+      "component": "AgentiGrid deterministic orchestrator",
+      "automates": "Application-aware command checks, working copies, timeouts, subprocess execution and result parsing",
+      "does_not_establish": "That every relevant contingency was enumerated or the case's limits remain organizationally approved"
+    },
+    {
+      "component": "ExaGO applications",
+      "automates": "Numerical power-flow/optimization/stochastic/security-constrained analyses for provided cases",
+      "does_not_establish": "Task semantics, completeness of selected scenarios, model validity outside assumptions, or permission to act"
+    }
+  ]
+}

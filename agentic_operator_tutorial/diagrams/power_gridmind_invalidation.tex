@@ -1,0 +1,28 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rl,anchor=west] at (.45,3.55) {Changed input};
+\node[rl,anchor=west] at (6.0,3.55) {Affected stages};
+\node[rc,anchor=west] at (.45,2.65) {k: 50 to 200};
+\draw[rw] (4.4,2.65) -- (5.65,2.65);
+\node[rl,text=rOrange,anchor=west] at (6.0,2.65) {cascade only};
+\node[rn,anchor=west] at (6.0,2.1) {reuse the other four stages};
+\draw[draw=rGray,line width=.5pt] (.45,1.7) -- (13.75,1.7);
+\node[rc,anchor=west] at (.45,1.1) {forecast: +6 h};
+\draw[rw] (4.4,1.1) -- (5.65,1.1);
+\node[rl,text=rOrange,anchor=west,align=left] at (6.0,1.1) {line-wind, outages, ACOPF,\\contingency, cascade};
+\node[rn,text=rGray] at (7.1,.2) {Affected sets from the reported trace; no new dependency edges inferred};
+
+\end{tikzpicture}

@@ -1,0 +1,41 @@
+{
+  "powerdag_result": {
+    "id": "powerdag_revision_result",
+    "plot_id": "powerdag_revision_result",
+    "file": "powerdag_revision_result.png",
+    "pdf": "powerdag_revision_result.pdf",
+    "svg": "powerdag_revision_result.svg",
+    "source_refs": [
+      "PD01",
+      "PD02"
+    ],
+    "source_url": "https://arxiv.org/pdf/2603.17418v4",
+    "source_locator": "PowerDAG v4 TableII, PDF p.8; evaluation definition sectionV.E, pp.6–7",
+    "metric": "Workflow Pass@1 (%)",
+    "model": "GPT-5.5",
+    "denominator": 150,
+    "data": [
+      {
+        "configuration": "ReAct baseline",
+        "reported_percent": 77.33
+      },
+      {
+        "configuration": "Adaptive retrieval only",
+        "reported_percent": 92.67
+      },
+      {
+        "configuration": "JIT supervisor only",
+        "reported_percent": 96.0
+      },
+      {
+        "configuration": "Full PowerDAG",
+        "reported_percent": 98.0
+      }
+    ],
+    "caption": "PowerDAG v4 same-model comparison on150 held-out distribution-grid queries: GPT-5.5 ReAct77.33%, adaptive-retrieval-only92.67%, JIT-supervision-only96.00%, fullPowerDAG98.00%. Each query is run once per model/configuration; no experiments rerun.",
+    "assumptions": "Pass@1 checks expert tool coverage, compatible arguments and dependency ordering. Four real-world feeder models and ten task families; within-family holdout, not field reliability. No run-to-run interval is inferred. Public network-dependent reruns require proprietary data/tools; only3of10families are fully runnable publicly.",
+    "credit": "Original vector plot redrawn from author-reported PowerDAG v4 numerical results",
+    "value_status": "Author-reported percentages; plotted values are not reconstructed success counts",
+    "uncertainty_intervals": null
+  }
+}

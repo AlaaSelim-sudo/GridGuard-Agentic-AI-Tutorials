@@ -1,0 +1,98 @@
+
+\begin{frame}[t]{The control room receives a recommendation with an evidence trail}
+
+\begin{columns}[T]
+\column{.51\textwidth}
+\includegraphics[width=\linewidth,height=.56\textheight,keepaspectratio]{\figfile{proposal_control_room.png}}
+\scriptsize Concept illustration; AI-generated, not a deployed control room.
+\column{.46\textwidth}
+\textbf{What the operator needs}\par
+Requested action and exact equipment or candidate ID.\par\medskip
+Current case, model scope and constraint margins.\par\medskip
+Failed alternatives, unresolved assumptions and age of evidence.\par\medskip
+Concise public rationale, with each numerical claim tied to a tool result.
+\end{columns}
+\par\smallskip\small Deployment concept: advisory service beside existing operational applications; authorized procedures govern any later field action.
+
+\slidetransition{How does a review become an explicit acknowledgment?}
+\sources{\href{https://arxiv.org/abs/2609.22476}{Governance-aware TSO digital twin (2026)}; illustration provenance in \texttt{figures/Proposal\_Illustration\_Provenance.md}.}
+\note{162--164 min. Explain the deployment boundary: notebook, numerical sandbox and advisory review are implemented; operational integration is a concept. Do not suggest the synthetic feeder is a live network. Ask what the operator would need to see before reviewing a change during a busy shift. Spoken bridge: How does a review become an explicit acknowledgment?}
+\end{frame}
+
+\begin{frame}[t]{Lab 12: acknowledgment is a state transition, not a generated sentence}
+
+\checkpoint{L12}{Build an operator packet and test the readback gate.}
+\cellcode{L12}{9}{10}
+\exercise{4}{Try a wrong candidate ID, then the correct readback. Change the requested control after review. Decide whether the old acknowledgment should remain valid.}
+\begin{center}\begin{tikzpicture}[every node/.style={font=\small,align=center},b/.style={draw=forest,text width=2.55cm,minimum height=.9cm}]
+\node[b] (a) at (0,0) {Proposed};\node[b] (b) at (3.4,0) {Verified};\node[b] (c) at (6.8,0) {Awaiting review};\node[b,fill=mint!25] (d) at (10.2,0) {Acknowledged};
+\uncover<2->{\draw[->,thick,forest] (a)--(b);}\uncover<3->{\draw[->,thick,forest] (b)--(c);}\uncover<4->{\draw[->,thick,forest] (c)--(d);}
+\end{tikzpicture}\end{center}
+\small This is a local advisory exercise. No state in this notebook dispatches equipment.
+
+\slidetransition{Can we reconstruct every stage from one saved trace?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. Runtime authority: \href{https://arxiv.org/abs/2609.22476}{Mylonas et al. (2026)}.}
+\note{164--168 min. Four minutes hands-on. The operator reviews a specific packet; a language model cannot acknowledge on their behalf. Wrong identity is rejected. If a changed action is not reverified, a prior approval cannot carry over. A completed readback is still not proof the operator understood the evidence; that needs human-factors evaluation. Spoken bridge: Can we reconstruct every stage from one saved trace?}
+\end{frame}
+
+\begin{frame}[t]{One trace should answer what happened at every stage}
+
+\checkpoint{L10}{Compare real saved stage records and public responses.}
+\cellcode{L10}{1}{3}\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.22\linewidth}>{\raggedright\arraybackslash}p{.69\linewidth}@{}}
+\toprule Inspect & What the answer should expose \\
+\midrule
+Input & Case, measurement assumptions, allowed operations and model scope. \\
+Method & Which optimizer, policy, simulator or language call actually ran. \\
+Output & Candidate ID, returned values, constraint failures and public reason. \\
+Cost & Measured tool/call time, including failed attempts. \\
+Disposition & Retained, rejected, refined or escalated; the next required step. \\
+\bottomrule
+\end{tabular}\par
+\par\medskip
+\textbf{Trace labels matter:} classroom fresh solve, archived actual LLM response and optional live call are different evidence modes.
+
+\slidetransition{Which missing evidence changes the operator decision?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. Actual recorded five-stage reference: \texttt{Proposal\_Complete\_Workflow.ipynb}, P1--P8; \texttt{results/proposal\_complete\_workflow.json}.}
+\note{168--170 min. L10 is archived five-stage evidence, clearly labeled. The fresh classroom methods are related but are not retroactively given those old language responses. Ask students to find a stage that uses a deterministic method and explain why it still belongs in the agentic workflow. Each role has a responsibility, not necessarily its own model process. Spoken bridge: Which missing evidence changes the operator decision?}
+\end{frame}
+
+\begin{frame}[t]{Capstone: would you approve, hold or request another study?}
+
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.13\linewidth}>{\raggedright\arraybackslash}p{.57\linewidth}>{\raggedright\arraybackslash}p{.22\linewidth}@{}}
+\toprule Card & Evidence presented & Your decision \\
+\midrule
+A & MV PASS; full-feeder AC FAIL; Llama says ``ready''. & Review / hold / study? \\
+B & Restoration MILP PASS; equipment isolation has no supporting record. & Review / hold / study? \\
+C & No residual alarm; protected measurement set is unavailable. & Review / hold / study? \\
+\bottomrule
+\end{tabular}\par
+\par\medskip
+\textbf{Task:} identify the missing fact and the appropriate tool or human step. Do not answer with a model's confidence score.
+\uncover<2->{\par\medskip\textbf{Debrief:} A requires broader-model repair; B requires authorized isolation evidence; C requires justified independent information or escalation. None supports automatic dispatch.}
+
+\slidetransition{Which architecture fits each kind of operator task?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. Schweppe \& Wildes, \href{https://doi.org/10.1109/TPAS.1970.292678}{state estimation (1970)}; Liu, Ning \& Reiter, \href{https://doi.org/10.1145/1653662.1653666}{false-data injection, CCS 2009}.}
+\note{170--172 min. Ask one row per group. These cards are intentionally distinct: model scope, physical permission and information trust. The correct answer includes a concrete next action rather than simply no. Do not imply that holding a prior setting is always safe after a topology or measurement change. Spoken bridge: Which architecture fits each kind of operator task?}
+\end{frame}
+
+\begin{frame}[t]{Match the architecture to the operator task}
+
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.30\linewidth}>{\raggedright\arraybackslash}p{.31\linewidth}>{\raggedright\arraybackslash}p{.31\linewidth}@{}}
+\toprule Task condition & Useful architecture & Evidence required \\
+\midrule
+Stable repeated calculation & Fixed workflow + numerical checks & Correct model and tested contract. \\
+Varied language requests & LLM tool selection + typed state & Intent accuracy and supported claims. \\
+Several independent studies & Bounded specialist roles & Handoff quality and real parallel benefit. \\
+Competing refinements & Vote or learned selector & Held-out gain at equal trial budget. \\
+High-consequence action & Human review + enforced authorization & Correct action, scope, provenance and permissions. \\
+\bottomrule
+\end{tabular}\par
+\par\medskip
+\textbf{Design principle:} add complexity only when it solves a measured failure of the simpler workflow.
+
+\slidetransition{Can you explain one complete case using the five stages?}
+\sources{\href{https://arxiv.org/abs/2512.08296v3}{Kim et al., scaling agent systems (2026)}; \href{https://arxiv.org/abs/2609.22476}{governance-aware TSO study (2026)}.}
+\note{172--174 min. This table is a synthesis, not a ranking of packages. Ask learners to choose the simplest design for their own use case. A deterministic workflow can include the same engineering verifier and operator controls; those features are not exclusive benefits of an LLM. Spoken bridge: Can you explain one complete case using the five stages?}
+\end{frame}
+

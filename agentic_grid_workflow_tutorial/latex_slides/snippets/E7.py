@@ -1,0 +1,6 @@
+latency = latency_table()
+display(latency.groupby(['backend','model'])['seconds'].agg(['count','median','mean','max']).round(3))
+fig = plot_latency()
+plt.show()
+display(pd.DataFrame(analysis['test']['summaries'])[['method','mean_accounted_serial_seconds']].round(3))
+print('Recorded model calls:', len(latency), '; notebook replay makes zero new calls.')

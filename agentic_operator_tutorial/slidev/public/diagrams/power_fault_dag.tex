@@ -1,0 +1,48 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rp] (record) at (1.35,2.05) {};
+\node[rl] at (1.35,3.05) {Frozen\\R17};
+\node[rn] at (1.35,1.45) {.cfg + .dat};
+\coordinate (fork) at (2.45,2.05);
+\draw[rf] (record.east) -- (fork);
+\fill[rBlue] (fork) circle (1.8pt);
+\node[rp] (inception) at (4.75,3.2) {};
+\node[rl] at (4.75,3.85) {Find inception};
+\node[rn] at (4.75,2.7) {sample n\textsubscript{f}};
+\draw[rf] (fork) |- (inception.west);
+\node[rp] (maximum) at (4.75,.95) {};
+\node[rl] at (4.75,1.52) {Find max current};
+\node[rn] at (4.75,.45) {I\textsubscript{max}};
+\draw[rf] (fork) |- (maximum.west);
+\node[rp] (rate) at (8.55,2.05) {};
+\node[rn] at (8.55,1.5) {CFG: rate f\textsubscript{s}};
+\draw[rf] (fork) -- (rate.west);
+\node[rp] (time) at (8.55,3.2) {};
+\node[rl] at (8.55,3.85) {Convert to time};
+\node[rn] at (6.65,3.6) {n\textsubscript{f}};
+\node[rn] at (9.75,2.65) {n\textsubscript{f} / f\textsubscript{s}};
+\draw[rf] (inception.east) -- (time.west);
+\draw[rf] (rate.north) -- (time.south);
+\coordinate (join) at (11.05,2.05);
+\draw[rf] (time.east) -- (11.05,3.2) -- (join);
+\draw[rf] (maximum.east) -- (11.05,.95) -- (join);
+\fill[rBlue] (join) circle (2pt);
+\node[rp] (report) at (13.0,2.05) {};
+\draw[rf] (join) -- (report.west);
+\node[rl] at (13.0,2.85) {Report};
+\node[rn] at (13.0,1.45) {evidence};
+
+\end{tikzpicture}

@@ -1,0 +1,42 @@
+\begingroup
+\hyphenpenalty=10000\exhyphenpenalty=10000
+\definecolor{IEEEBlue}{HTML}{00629B}
+\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}
+\definecolor{Slate}{HTML}{526470}
+\definecolor{RestRed}{HTML}{B83136}
+\definecolor{RestAmber}{HTML}{A66610}
+\begin{tikzpicture}[x=.90cm,y=.82cm,font=\fontsize{11}{12}\selectfont,
+  every node/.style={text=Navy},
+  flow/.style={-{Stealth[length=2mm]},line width=1pt,draw=IEEEBlue},
+  bus/.style={circle,draw=IEEEBlue,line width=1pt,minimum size=5.5mm,inner sep=1pt,fill=white},
+  textblock/.style={align=center,inner sep=1pt},
+  pass/.style={draw=Cyan,line width=2pt},
+  available/.style={draw=Slate,line width=.8pt},
+  optional/.style={draw=RestAmber,dashed,line width=1pt}]
+\begin{scope}[x=.88cm]
+\node[bus] (r0) at (0.8,1.55) {0};
+\node[bus] (r1) at (2.8,2.3) {1};
+\node[bus,draw=RestAmber] (r2) at (5.5,2.3) {2};
+\node[bus] (r3) at (8.1,1.55) {3};
+\node[bus] (r4) at (5.5,.55) {4};
+\node[bus,draw=RestAmber] (r5) at (2.8,.55) {5};
+\draw[available] (r0)--(r1);
+\draw[RestRed,dashed,line width=1.4pt] (r1)--(r2);
+\node[text=RestRed,fill=white] at (3.45,1.86) {fault open};
+\draw[available] (r2)--(r3)--(r4);
+\draw[available] (r2)--(r5);
+\draw[optional] (r1)--node[left=1mm,fill=white,text=RestAmber] {100 kW}(r5);
+\draw[optional] (r0) to[out=-60,in=200] (r4);
+\node[anchor=west,text=RestAmber] at (.2,-.5) {tie 0--4: 40 kW};
+\node[above=1mm of r1] {40 kW};
+\node[above=1mm of r2,text=RestAmber] {60 kW critical};
+\node[above=1mm of r3] {70 kW};
+\node[right=1mm of r4] {50 kW};
+\node[anchor=west,text=RestAmber] at (3.3,-.15) {30 kW critical};
+\node[left=1mm of r0] {source};
+\node[textblock,text width=3.2cm] at (10.9,2.1) {Critical demand\\60 + 30 = 90 kW};
+\node[textblock,text width=3.2cm,text=Slate] at (10.9,.45) {Dashed ties: options\\not commands};
+\end{scope}
+\end{tikzpicture}
+\endgroup

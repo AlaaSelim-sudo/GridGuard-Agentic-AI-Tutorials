@@ -1,0 +1,37 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rp] (goal) at (1.35,2.6) {};
+\node[rl] at (1.35,3.28) {Goal};
+\node[rn] at (1.35,1.92) {diagnose v43};
+\node[rp] (agent) at (4.45,2.6) {};
+\node[rl] at (4.45,3.28) {LLM agent};
+\node[rp] (tool) at (8.25,2.6) {};
+\node[rl] at (8.25,3.28) {Tool};
+\node[rc] at (8.25,1.98) {run\_pf(v43, base)};
+\node[rp] (environment) at (12.2,2.6) {};
+\node[rl] at (12.2,3.28) {Environment};
+\node[rn] at (12.2,1.98) {case + solver};
+\draw[rf] (goal.east) -- (agent.west);
+\draw[rf] (agent.east) -- (tool.west);
+\draw[rf] (tool.east) -- (environment.west);
+\node[rn] at (6.35,2.96) {choose call};
+\node[rn] at (10.25,2.96) {execute};
+\draw[rf] (environment.east) -- (13.65,2.6) -- (13.65,.72) -- (4.45,.72) -- (agent.south);
+\node[rn] at (9.0,1.17) {convergence / error / artifact};
+\draw[draw=rCyan,line width=.9pt] (3.35,3.62) -- (3.35,3.8) -- (9.25,3.8) -- (9.25,3.62);
+\node[rn,text=rBlue] at (6.3,4.03) {LangGraph: state + execution};
+
+\end{tikzpicture}

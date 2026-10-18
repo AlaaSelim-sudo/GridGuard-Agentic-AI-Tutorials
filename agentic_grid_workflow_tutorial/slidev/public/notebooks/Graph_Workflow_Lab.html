@@ -1,0 +1,197 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Graph Workflow Lab · agent workflow lab</title>
+<style>
+:root{--ink:#17324d;--teal:#087e8b;--muted:#536978;--line:#d6e1e5}*{box-sizing:border-box}body{margin:0;color:var(--ink);font:17px/1.65 system-ui,Arial;background:#fff}nav{position:fixed;width:248px;inset:0 auto 0 0;padding:34px 24px;border-right:1px solid var(--line);overflow:auto;background:#f5f9fa}nav strong{font-size:14px;display:block;margin-bottom:25px;letter-spacing:.04em}nav a{display:block;margin:0 0 17px;line-height:1.4;font-size:13px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--teal)}main{max-width:1230px;margin-left:248px;padding:42px 52px 80px}h1{font-size:42px;line-height:1.15;letter-spacing:-.03em;margin:36px 0 15px}h2{font-size:29px;line-height:1.3;margin-top:70px;padding-top:22px;border-top:2px solid var(--line);scroll-margin-top:16px}h3{font-size:22px;margin-top:38px;line-height:1.4}a{color:var(--teal)}p,li{max-width:960px}.notice{background:#eef7f7;padding:18px 22px;border-left:4px solid var(--teal);font-size:14px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f1f5f7;padding:20px;font:13px/1.6 ui-monospace,Consolas,monospace;max-height:440px;overflow:auto;border-radius:4px}code{background:#eef3f5;font-size:.9em}pre code{background:transparent}details{margin:26px 0 14px;border:1px solid var(--line);border-radius:5px;padding:12px 18px}summary{cursor:pointer;color:var(--teal);font-size:14px;font-weight:600}.table-wrap{max-width:100%;overflow:auto;margin:20px 0}table{border-collapse:collapse;display:block;overflow:auto;width:100%;font-size:14px;line-height:1.5;margin:20px 0}td,th{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left!important;vertical-align:top}th{background:#edf4f5;color:var(--ink);font-weight:650}tr:nth-child(even){background:#f8fafb}figure{margin:30px 0}img{max-width:100%;height:auto}mjx-container[display="true"]{overflow:auto;max-width:100%;padding:12px 0}.footer{font-size:13px;color:var(--muted);margin-top:70px}
+@media(max-width:1000px){nav{position:static;width:auto;border-right:0;border-bottom:1px solid var(--line);padding:20px 25px}nav a{display:inline-block;margin:5px 15px 5px 0}nav strong{margin:0 0 10px}main{margin:0;padding:25px}h1{font-size:33px}}@media print{nav,details{display:none}main{margin:0;padding:0}h2{break-after:avoid}table,figure{break-inside:avoid}.notice{font-size:11px}}
+</style><script>window.MathJax={tex:{inlineMath:[['\\(','\\)'],['$','$']],displayMath:[['\\[','\\]'],['$$','$$']]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script></head><body><nav><strong>GRAPH RUNTIME LAB</strong><a href="#g0-confirm-the-runtime">G0 · Confirm the runtime</a><a href="#g1-declare-state-distinguish-replacement-from-accumulation">G1 · Declare state; distinguish replacement from accumulation</a><a href="#g2-write-tiny-node-functions-and-a-stopping-rule">G2 · Write tiny node functions and a stopping rule</a><a href="#g3-turn-the-drawing-into-a-stategraph">G3 · Turn the drawing into a StateGraph</a><a href="#g4-execute-three-paths-and-inspect-the-actual-trace">G4 · Execute three paths and inspect the actual trace</a><a href="#g5-optional-checkpoint-interrupt-inspect-and-resume">G5 · Optional: checkpoint, interrupt, inspect and resume</a></nav><main><div class="notice"><strong>Real LangGraph runtime · six short checkpoints · before the grid cases</strong><br><a href="Graph_Workflow_Lab.ipynb">Run this notebook</a> · <a href="requirements_graph_lab.txt">Separate prerequisites</a> · <a href="results/graph_lab_validation.json">Executed validation</a><br>Six-minute G0–G4 core; optional G5 checkpoint and simulated readback. Rule-driven invented toy equation, no LLM call or electrical validation. LangGraph 1.2.15 was executed; the main grid workflow remains custom Python.</div><h1>From a flowchart to an executable graph</h1>
+<p><strong>Six-minute core exercise, G0–G4; optional checkpoint/resume extension, G5.</strong></p>
+<p>Before using agents for grid problems, learn what the runtime actually does. This notebook executes a <strong>real LangGraph StateGraph</strong> with ordinary Python functions. It makes no LLM call. A node is a function; it may later call a solver, a language model, or another service. The graph runtime does not make the function intelligent or its output physically correct.</p>
+<p>You will trace three outcomes: a passing proposal, a successful bounded repair, and exhausted repair budget. Then pause at a simulated operator review and resume the same checkpoint.</p>
+<h3 id="install-once-before-class">Install once before class</h3>
+<p>Use Python 3.12 and a dedicated virtual environment, keeping this optional lesson separate from the main numerical environment:</p>
+<pre><code class="language-powershell">python -m venv .venv-graph
+.venv-graph\Scripts\python -m pip install -r requirements_graph_lab.txt
+.venv-graph\Scripts\python -m jupyter lab Graph_Workflow_Lab.ipynb
+</code></pre>
+<p>Select the new environment&#39;s kernel. Run cells from top to bottom. After installing prerequisites, execution is offline: no API key, Ollama, hosted tracing, OpenDSS or remote image renderer is needed. The executed reading page is available without installing anything.</p>
+<h3 id="the-visual-model">The visual model</h3>
+<p><img src="figures/graph_runtime_flow.svg" alt="State, bounded feedback and human pause in the toy graph"></p>
+<p>A <strong>directed acyclic graph (DAG)</strong> has directed edges and no directed cycles. A simple sequence is a DAG. Our repair arrow returns to simulation, making a <strong>directed graph with a bounded cycle</strong>, not a DAG. LangGraph supports this feedback structure.</p>
+<p>The state is the shared record. Nodes return partial updates. Edges select which node runs next. The append reducer keeps trace entries; ordinary scalar fields are replaced. This exercise is sequential: no parallel execution or multi-agent speedup is claimed.</p>
+<h2 id="g0-confirm-the-runtime">G0 · Confirm the runtime</h2>
+<p><strong>Predict:</strong> do you need an LLM to run a node? No: the graph only schedules functions and combines their state updates.</p>
+<p>The pinned tested version is LangGraph 1.2.15. Hosted tracing is explicitly disabled. Version output describes the installed runtime; it is not a runtime-performance comparison.</p>
+<details class="code" open><summary>Code · cell 1</summary><pre>import os, time, json, uuid
+from importlib.metadata import version
+from typing import Annotated, TypedDict
+from operator import add
+os.environ["LANGSMITH_TRACING"] = "false"
+os.environ["LANGCHAIN_TRACING_V2"] = "false"
+from langgraph.graph import StateGraph, START, END
+from langgraph.checkpoint.memory import InMemorySaver
+from langgraph.types import interrupt, Command
+from src.graph_workflow_lab import initial_state, recommendation_id, summary
+versions = {name: version(name) for name in ("langgraph", "langgraph-checkpoint", "langchain-core")}
+print(versions)
+print("Rule-driven toy graph. No LLM, network call or electrical-model validation.")</pre></details><pre class="output">{'langgraph': '1.2.15', 'langgraph-checkpoint': '4.3.0', 'langchain-core': '1.6.12'}
+Rule-driven toy graph. No LLM, network call or electrical-model validation.
+</pre><h2 id="g1-declare-state-distinguish-replacement-from-accumulation">G1 · Declare state; distinguish replacement from accumulation</h2>
+<p><strong>Predict:</strong> if one node writes a trace entry and the next writes another, should the first disappear?</p>
+<p>Each scalar update replaces its previous value. For trace, <strong>Annotated[list[str], add]</strong> specifies list concatenation, so new trace entries accumulate. Return only the new entry; returning the full history would append duplicates.</p>
+<p>TypedDict describes the schema for type checkers and the graph. It does <strong>not</strong> enforce numeric ranges at runtime. The initial_state helper validates the input boundary explicitly.</p>
+<details class="code" open><summary>Code · cell 2</summary><pre>class TrialState(TypedDict):
+    command: float
+    limit: float
+    attempts: int
+    max_repairs: int
+    current: float
+    passed: bool
+    status: str
+    acknowledged: bool
+    trace: Annotated[list[str], add]
+
+seed = initial_state(command=0.75, limit=0.80, max_repairs=2)
+print("Append reducer:", add(["simulate"], ["verify"]))
+print("Initial validated state:", seed)</pre></details><pre class="output">Append reducer: ['simulate', 'verify']
+Initial validated state: {'command': 0.75, 'limit': 0.8, 'attempts': 0, 'max_repairs': 2, 'current': 0.0, 'passed': False, 'status': 'TOY_NEW', 'acknowledged': False, 'trace': []}
+</pre><h2 id="g2-write-tiny-node-functions-and-a-stopping-rule">G2 · Write tiny node functions and a stopping rule</h2>
+<p>The deliberately invented relation is <strong>toy current = 0.4 + 0.8 × command</strong>. Both quantities use arbitrary toy units. It is <strong>not</strong> Ohm&#39;s law, a feeder model, a sensitivity learned from data, or an engineering safety certificate.</p>
+<p>Verification compares that toy current with a declared limit. A repair reduces command by 0.25 and consumes one repair. The router reads the updated state: pass → report; failure with budget → repair; failure without budget → HOLD. A tiny floating-point tolerance avoids rejecting an equality because of numerical representation.</p>
+<p><strong>Predict before G4:</strong> command 0.75 gives current 1.0. With limit 0.8, what command and current follow one repair?</p>
+<details class="code" open><summary>Code · cell 3</summary><pre>def simulate(s):
+    value = 0.4 + 0.8 * s["command"]
+    return {"current": value, "trace": [f"simulate: {value:.3f}"]}
+
+def verify(s):
+    ok = s["current"] &lt;= s["limit"] + 1e-12
+    return {"passed": ok, "trace": [f"verify: {ok}"]}
+
+def repair(s):
+    return {"command": max(0., s["command"] - 0.25),
+            "attempts": s["attempts"] + 1, "trace": ["repair: -0.25"]}
+
+def ready(s):
+    return {"status": "TOY_READY", "trace": ["report: ready"]}
+
+def hold(s):
+    return {"status": "TOY_HOLD", "trace": ["hold: budget exhausted"]}
+
+def route(s):
+    if s["passed"]:
+        return "report"
+    return "repair" if s["attempts"] &lt; s["max_repairs"] else "hold"</pre></details><h2 id="g3-turn-the-drawing-into-a-stategraph">G3 · Turn the drawing into a StateGraph</h2>
+<p>Nodes and fixed edges are registered first. The conditional edge calls route after verification. Its explicit mapping also makes the permitted branches inspectable. The repair edge closes the cycle. compile returns an executable graph; it does not execute the nodes.</p>
+<p>The report function is an explicit extension point. G5 replaces it with a human-review node and adds a checkpointer. No old notebook is silently migrated to LangGraph.</p>
+<p>Sources: <a href="https://docs.langchain.com/oss/python/langgraph/graph-api">official Graph API</a> and <a href="https://reference.langchain.com/python/langgraph/graph/state/StateGraph/add_conditional_edges">StateGraph API reference</a>.</p>
+<details class="code" open><summary>Code · cell 4</summary><pre>def build_graph(report_node=ready, checkpointer=None):
+    builder = StateGraph(TrialState)
+    nodes = {"simulate": simulate, "verify": verify, "repair": repair,
+             "report": report_node, "hold": hold}
+    for name, function in nodes.items():
+        builder.add_node(name, function)
+    builder.add_edge(START, "simulate")
+    builder.add_edge("simulate", "verify")
+    builder.add_conditional_edges("verify", route,
+        {"report": "report", "repair": "repair", "hold": "hold"})
+    builder.add_edge("repair", "simulate")
+    builder.add_edge("report", END)
+    builder.add_edge("hold", END)
+    return builder.compile(checkpointer=checkpointer)
+
+app = build_graph()
+print("Compiled nodes:", sorted(app.get_graph().nodes))</pre></details><pre class="output">Compiled nodes: ['__end__', '__start__', 'hold', 'repair', 'report', 'simulate', 'verify']
+</pre><h2 id="g4-execute-three-paths-and-inspect-the-actual-trace">G4 · Execute three paths and inspect the actual trace</h2>
+<p><strong>Do:</strong> run the three supplied inputs and keep their reference assertions unchanged. For the challenge, use a separate scratch cell to run app.invoke(initial_state(0.90, 0.50, 4), {&quot;recursion_limit&quot;: 40}). Predict its result before execution. This new input has four allowed repairs rather than one.</p>
+<p>The explicit repair budget controls the algorithm. The runtime recursion limit is a separate last-resort guard against a programming mistake; it is not the business stopping rule. Timings below measure local graph execution after imports and compilation, with no model inference or network latency.</p>
+<details class="code" open><summary>Code · cell 5</summary><pre>cases = {"passing": (0.25, 0.80, 2), "repair": (0.75, 0.80, 2),
+         "exhausted": (0.90, 0.50, 1)}
+results, elapsed_ms = {}, {}
+for name, args in cases.items():
+    started = time.perf_counter()
+    results[name] = app.invoke(initial_state(*args), {"recursion_limit": 40})
+    elapsed_ms[name] = 1000 * (time.perf_counter() - started)
+    print(name, json.dumps(summary(results[name])), f"{elapsed_ms[name]:.3f} ms")
+
+assert [results[k]["status"] for k in cases] == ["TOY_READY", "TOY_READY", "TOY_HOLD"]
+assert [results[k]["attempts"] for k in cases] == [0, 1, 1]
+assert results["repair"]["trace"] == ["simulate: 1.000", "verify: False",
+    "repair: -0.25", "simulate: 0.800", "verify: True", "report: ready"]
+
+from src.graph_workflow_lab import fixed_baseline
+for name, args in cases.items():
+    baseline = fixed_baseline(initial_state(*args), simulate, verify, repair, route, ready, hold)
+    assert summary(baseline) == summary(results[name])
+print("Direct Python baseline matches every command, outcome and trace: 3/3.")</pre></details><pre class="output">passing {"command": 0.25, "current": 0.6000000000000001, "limit": 0.8, "attempts": 0, "status": "TOY_READY", "acknowledged": false, "trace": ["simulate: 0.600", "verify: True", "report: ready"]} 2.129 ms
+repair {"command": 0.5, "current": 0.8, "limit": 0.8, "attempts": 1, "status": "TOY_READY", "acknowledged": false, "trace": ["simulate: 1.000", "verify: False", "repair: -0.25", "simulate: 0.800", "verify: True", "report: ready"]} 1.163 ms
+exhausted {"command": 0.65, "current": 0.92, "limit": 0.5, "attempts": 1, "status": "TOY_HOLD", "acknowledged": false, "trace": ["simulate: 1.120", "verify: False", "repair: -0.25", "simulate: 0.920", "verify: False", "hold: budget exhausted"]} 1.029 ms
+Direct Python baseline matches every command, outcome and trace: 3/3.
+</pre><details><summary>Answer and a six-minute stopping point</summary>
+Passing: command 0.25, toy current 0.60, zero repairs. Repaired: command 0.50, current 0.80, one repair. Exhausted: command 0.65, current 0.92 exceeds limit 0.50 after one allowed repair, so HOLD. All trace entries remain because the reducer appends. With four repairs, the exhausted case reaches command 0 and current 0.4, which meets the toy limit. These are outcomes of an invented equation, not electrical findings.
+</details>
+
+<p>The direct-Python baseline calls the <strong>same node functions and routing rule</strong> with a conventional loop. It returns exactly the same commands and trace in all three cases. LangGraph changes how execution, state and pause/resume are organized; it does not improve this equation or its controller. These single-run times are not a performance benchmark.</p>
+<p><strong>Bridge to the grid labs:</strong> replace the toy simulator with an explicit adapter to OpenDSS or LinDistFlow; replace the toy checker with numerical and policy checks. An MPC tool or saved SAC actor can propose controls. An LLM may choose an allowed refinement. The runtime coordinates calls and state; each tool still owns its method, contract, limitations and evidence.</p>
+<p>The existing five-stage grid workflow is custom Python. This notebook is a separate LangGraph teaching example, not evidence that those archived grid runs used LangGraph.</p>
+<h2 id="g5-optional-checkpoint-interrupt-inspect-and-resume">G5 · Optional: checkpoint, interrupt, inspect and resume</h2>
+<p><strong>Predict:</strong> does reaching the review node mean the operator has already approved? No. interrupt yields a payload and leaves the run pending.</p>
+<p>InMemorySaver stores checkpoints in the current process only. A stable thread_id identifies which suspended run to resume. Production recovery needs a persistent backend; restarting this notebook loses the in-memory store.</p>
+<p>The node restarts from its beginning on resume. Keep work before interrupt pure or idempotent; this example only computes a readback ID. Never place an equipment command before a human interrupt. The scripted response below is an explicitly <strong>simulated student acknowledgment</strong>, not a real operator&#39;s approval or equipment action.</p>
+<p>Sources: <a href="https://docs.langchain.com/oss/python/langgraph/interrupts">official interrupts guide</a>, <a href="https://reference.langchain.com/python/langgraph/types/interrupt">interrupt API</a>, and <a href="https://docs.langchain.com/oss/python/langgraph/persistence">persistence guide</a>.</p>
+<details class="code" open><summary>Code · cell 6</summary><pre>def human_review(s):
+    token = recommendation_id(s)
+    reply = interrupt({"recommendation_id": token, "command": s["command"],
+                       "toy_current": s["current"], "scope": "invented toy equation only"})
+    accepted = (isinstance(reply, dict) and reply.get("approve") is True
+                and reply.get("recommendation_id") == token)
+    return {"acknowledged": accepted,
+            "status": "TOY_ACKNOWLEDGED" if accepted else "TOY_HOLD",
+            "trace": [f"human review: {accepted}"]}
+
+review_app = build_graph(human_review, InMemorySaver())
+config = {"configurable": {"thread_id": "student-" + uuid.uuid4().hex}, "recursion_limit": 40}
+pause = review_app.invoke(initial_state(0.75, 0.80, 2), config)
+snapshot = review_app.get_state(config)
+print("Pending node:", snapshot.next, "| acknowledged:", snapshot.values["acknowledged"])
+print("Interrupt payload:", pause["__interrupt__"][0].value)
+assert snapshot.next == ("report",) and not snapshot.values["acknowledged"]
+response = {"approve": True, "recommendation_id": recommendation_id(snapshot.values)}
+resumed = review_app.invoke(Command(resume=response), config)
+print("After simulated readback:", summary(resumed))
+assert resumed["acknowledged"] and review_app.get_state(config).next == ()</pre></details><pre class="output">Pending node: ('report',) | acknowledged: False
+Interrupt payload: {'recommendation_id': '73cfb263ed2b1016', 'command': 0.5, 'toy_current': 0.8, 'scope': 'invented toy equation only'}
+After simulated readback: {'command': 0.5, 'current': 0.8, 'limit': 0.8, 'attempts': 1, 'status': 'TOY_ACKNOWLEDGED', 'acknowledged': True, 'trace': ['simulate: 1.000', 'verify: False', 'repair: -0.25', 'simulate: 0.800', 'verify: True', 'human review: True']}
+</pre><details><summary>Optional challenges and expected observations</summary>
+In a separate scratch cell, create a fresh thread, invoke the graph to obtain its interrupt, then resume with approve=False: the run should end in TOY_HOLD. Repeat with a wrong recommendation ID: it should also hold. Assert the expected negative outcome rather than reusing G5's positive acknowledgment assertion. A different thread ID identifies a different run, so it cannot resume this checkpoint. Nothing here validates a person's identity. The review payload and state must be bound to a trusted request and trusted evidence in a deployed application.
+</details>
+
+<h3 id="what-transfers-to-the-scientific-tutorial">What transfers to the scientific tutorial</h3>
+<table>
+<thead>
+<tr>
+<th>Runtime idea</th>
+<th>Existing grid-workflow responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Shared typed state</td>
+<td>Request, model scope, candidates, evidence identities and budgets</td>
+</tr>
+<tr>
+<td>Node function</td>
+<td>Awareness, planning, simulation, verification or optimization responsibility</td>
+</tr>
+<tr>
+<td>Conditional edge</td>
+<td>Refine, retain, HOLD or request operator review</td>
+</tr>
+<tr>
+<td>Append reducer</td>
+<td>Retain successive trace events instead of replacing the audit trail</td>
+</tr>
+<tr>
+<td>Checkpoint + interrupt</td>
+<td>Suspend a particular recommendation for a separate readback</td>
+</tr>
+</tbody></table>
+<p>An LLM is one possible implementation inside a node. MPC, SAC, WLS and OpenDSS are different tools or models that a node may call. A role label is not a separate trained model. A workflow with several nodes is not automatically multi-agent intelligence.</p>
+<p><strong>Exit question:</strong> explain why this graph can repair an action without being a DAG, and why a graph runtime cannot certify a power-system control.</p>
+<p class="footer">Real LangGraph execution · rule-driven toy model · explicit boundary to the grid tutorial · see scientific notes for assumptions and sources.</p></main></body></html>

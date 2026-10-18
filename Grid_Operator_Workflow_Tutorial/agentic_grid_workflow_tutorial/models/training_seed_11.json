@@ -1,0 +1,271 @@
+{
+  "seed": 11,
+  "steps": 18000,
+  "architecture": [
+    6,
+    48,
+    48,
+    8
+  ],
+  "reward": "PV_kW/8000 - 0.15*abs(cap-previous_cap)/100 if feasible, otherwise -2",
+  "rating_training": [
+    1.0
+  ],
+  "gamma": 0.95,
+  "optimizer": "Adam, lr 0.001",
+  "replay_capacity": 12000,
+  "batch": 64,
+  "target_update": 200,
+  "observation": [
+    "forecast_load_0/1.3",
+    "forecast_load_1/1.3",
+    "forecast_load_2/1.3",
+    "previous_cap/100",
+    "rating_fraction",
+    "remaining_episode_fraction"
+  ],
+  "held_out_sequences": [
+    [
+      3,
+      2,
+      1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      3,
+      2,
+      1,
+      3
+    ],
+    [
+      1,
+      2,
+      3,
+      4,
+      3,
+      2,
+      1,
+      0,
+      2,
+      3,
+      4,
+      2
+    ]
+  ],
+  "seconds": 3.6093533000021125,
+  "history": [
+    {
+      "step": 600,
+      "mean_reward": -1.0473666666666661,
+      "unsafe_proposal_fraction": 0.5516666666666666,
+      "td_huber_loss": 0.07631737447342167,
+      "epsilon": 0.9556296296296296
+    },
+    {
+      "step": 1200,
+      "mean_reward": -1.0041239583333341,
+      "unsafe_proposal_fraction": 0.53,
+      "td_huber_loss": 0.03738213097048486,
+      "epsilon": 0.9111851851851852
+    },
+    {
+      "step": 1800,
+      "mean_reward": -1.023784374999999,
+      "unsafe_proposal_fraction": 0.54,
+      "td_huber_loss": 0.043743871631902485,
+      "epsilon": 0.8667407407407407
+    },
+    {
+      "step": 2400,
+      "mean_reward": -0.8295197916666668,
+      "unsafe_proposal_fraction": 0.45,
+      "td_huber_loss": 0.03518771338893592,
+      "epsilon": 0.8222962962962963
+    },
+    {
+      "step": 3000,
+      "mean_reward": -0.8336364583333336,
+      "unsafe_proposal_fraction": 0.455,
+      "td_huber_loss": 0.016975771266991665,
+      "epsilon": 0.7778518518518518
+    },
+    {
+      "step": 3600,
+      "mean_reward": -0.7408500000000005,
+      "unsafe_proposal_fraction": 0.41833333333333333,
+      "td_huber_loss": 0.011807076254952429,
+      "epsilon": 0.7334074074074074
+    },
+    {
+      "step": 4200,
+      "mean_reward": -0.6768739583333336,
+      "unsafe_proposal_fraction": 0.39166666666666666,
+      "td_huber_loss": 0.012615454792213576,
+      "epsilon": 0.688962962962963
+    },
+    {
+      "step": 4800,
+      "mean_reward": -0.7113291666666673,
+      "unsafe_proposal_fraction": 0.4066666666666667,
+      "td_huber_loss": 0.014466559005769493,
+      "epsilon": 0.6445185185185185
+    },
+    {
+      "step": 5400,
+      "mean_reward": -0.5603640625000007,
+      "unsafe_proposal_fraction": 0.3416666666666667,
+      "td_huber_loss": 0.011110182769817553,
+      "epsilon": 0.6000740740740741
+    },
+    {
+      "step": 6000,
+      "mean_reward": -0.5040265624999998,
+      "unsafe_proposal_fraction": 0.31833333333333336,
+      "td_huber_loss": 0.0026377665795350603,
+      "epsilon": 0.5556296296296297
+    },
+    {
+      "step": 6600,
+      "mean_reward": -0.4253281249999993,
+      "unsafe_proposal_fraction": 0.2833333333333333,
+      "td_huber_loss": 0.003630183570906316,
+      "epsilon": 0.5111851851851852
+    },
+    {
+      "step": 7200,
+      "mean_reward": -0.4346760416666664,
+      "unsafe_proposal_fraction": 0.2916666666666667,
+      "td_huber_loss": 0.002697670137724798,
+      "epsilon": 0.4667407407407408
+    },
+    {
+      "step": 7800,
+      "mean_reward": -0.38039427083333327,
+      "unsafe_proposal_fraction": 0.27166666666666667,
+      "td_huber_loss": 0.0010853582656966424,
+      "epsilon": 0.4222962962962963
+    },
+    {
+      "step": 8400,
+      "mean_reward": -0.3284374999999996,
+      "unsafe_proposal_fraction": 0.25,
+      "td_huber_loss": 0.0015866857223024043,
+      "epsilon": 0.3778518518518519
+    },
+    {
+      "step": 9000,
+      "mean_reward": -0.16993541666666648,
+      "unsafe_proposal_fraction": 0.18333333333333332,
+      "td_huber_loss": 0.0012796658524279615,
+      "epsilon": 0.3334074074074074
+    },
+    {
+      "step": 9600,
+      "mean_reward": -0.18844427083333282,
+      "unsafe_proposal_fraction": 0.19333333333333333,
+      "td_huber_loss": 0.001235331448068964,
+      "epsilon": 0.288962962962963
+    },
+    {
+      "step": 10200,
+      "mean_reward": -0.08695625000000103,
+      "unsafe_proposal_fraction": 0.15,
+      "td_huber_loss": 0.004120385214730481,
+      "epsilon": 0.24451851851851847
+    },
+    {
+      "step": 10800,
+      "mean_reward": -0.019867187500000025,
+      "unsafe_proposal_fraction": 0.12166666666666667,
+      "td_huber_loss": 0.0019600331979107485,
+      "epsilon": 0.20007407407407407
+    },
+    {
+      "step": 11400,
+      "mean_reward": 0.045341666666666725,
+      "unsafe_proposal_fraction": 0.09833333333333333,
+      "td_huber_loss": 0.0015503572825074142,
+      "epsilon": 0.15562962962962967
+    },
+    {
+      "step": 12000,
+      "mean_reward": 0.10303124999999953,
+      "unsafe_proposal_fraction": 0.07333333333333333,
+      "td_huber_loss": 0.001077025275838341,
+      "epsilon": 0.11118518518518516
+    },
+    {
+      "step": 12600,
+      "mean_reward": 0.16819375000000003,
+      "unsafe_proposal_fraction": 0.043333333333333335,
+      "td_huber_loss": 0.001209786331626555,
+      "epsilon": 0.06674074074074077
+    },
+    {
+      "step": 13200,
+      "mean_reward": 0.2098286458333336,
+      "unsafe_proposal_fraction": 0.03,
+      "td_huber_loss": 0.0013786373713877938,
+      "epsilon": 0.05
+    },
+    {
+      "step": 13800,
+      "mean_reward": 0.20059010416666687,
+      "unsafe_proposal_fraction": 0.03166666666666667,
+      "td_huber_loss": 0.0010169675692118347,
+      "epsilon": 0.05
+    },
+    {
+      "step": 14400,
+      "mean_reward": 0.20612812500000016,
+      "unsafe_proposal_fraction": 0.03,
+      "td_huber_loss": 0.0011582334866766123,
+      "epsilon": 0.05
+    },
+    {
+      "step": 15000,
+      "mean_reward": 0.19980625000000024,
+      "unsafe_proposal_fraction": 0.03166666666666667,
+      "td_huber_loss": 0.00237086670569545,
+      "epsilon": 0.05
+    },
+    {
+      "step": 15600,
+      "mean_reward": 0.23161875000000037,
+      "unsafe_proposal_fraction": 0.02,
+      "td_huber_loss": 0.002211135358098691,
+      "epsilon": 0.05
+    },
+    {
+      "step": 16200,
+      "mean_reward": 0.21988333333333374,
+      "unsafe_proposal_fraction": 0.025,
+      "td_huber_loss": 0.0018725297351666987,
+      "epsilon": 0.05
+    },
+    {
+      "step": 16800,
+      "mean_reward": 0.23276302083333344,
+      "unsafe_proposal_fraction": 0.02,
+      "td_huber_loss": 0.0009991569645901295,
+      "epsilon": 0.05
+    },
+    {
+      "step": 17400,
+      "mean_reward": 0.19841875000000025,
+      "unsafe_proposal_fraction": 0.03333333333333333,
+      "td_huber_loss": 0.0005098660588602367,
+      "epsilon": 0.05
+    },
+    {
+      "step": 18000,
+      "mean_reward": 0.21887864583333372,
+      "unsafe_proposal_fraction": 0.025,
+      "td_huber_loss": 0.0007939595119930981,
+      "epsilon": 0.05
+    }
+  ],
+  "scope": "Same five demand levels in training and testing; two exact trajectories excluded. No broad generalization claim."
+}

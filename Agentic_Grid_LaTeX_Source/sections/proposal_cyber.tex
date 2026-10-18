@@ -1,0 +1,47 @@
+\begin{frame}[t]{Cyber response: execute all five proposal stages}
+\checkpoint{P6}{Follow the same five responsibilities through this use case.}
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.20\linewidth}>{\raggedright\arraybackslash}p{.28\linewidth}>{\raggedright\arraybackslash}p{.44\linewidth}@{}}\toprule Stage & Specific method & Observed output \\ \midrule
+Awareness & WLS + residual + protected comparison & Screen isolated and stealth corruption separately. \\
+Planning & Protected-state redispatch QP & Unverified u=0 seed; protected conservative u=0.30. \\
+Simulation & Four-bus DC flow sensitivity & Predict all four branch flows for each new injection. \\
+Verification & Trust + observability + flow margin & Require protected provenance and fixed branch limits. \\
+LLM Optimizer & Critique + bounded redispatch trials & Try QP and QP+0.01; rank feasible controls; recheck. \\\bottomrule\end{tabular}\takeaway{Every changed candidate gets new numerical evidence and a new gate decision.}
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. WLS: \href{https://doi.org/10.1109/TPAS.1970.292678}{Schweppe and Wildes (1970)}; stealth attack: \href{https://doi.org/10.1145/1653662.1653666}{Liu et al. (2009)}.}
+\note{This is the new proposal-complete experiment, not the earlier fallback trace. Read each stage as a specific input/method/output responsibility. The language model chooses bounded tools and states an explanation; numerical methods produce and evaluate controls. All six settings contain actual calls for critique, refinement and ranking. A final independent recheck precedes any recommendation. No equipment is operated.}
+\end{frame}
+
+\begin{frame}[t]{Cyber response: see the refinement loop change the shortlist}
+\checkpoint{P6}{Read trial order, feasible cost and final selection together.}
+\begin{center}\includegraphics[width=.98\linewidth,height=.57\textheight,keepaspectratio]{\figfile{proposal_cyber_search.png}}\end{center}
+\small Both routes reach $u=0.121694$ p.u., $J=0.007405$. Different trial order does not improve the final QP result.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. WLS: \href{https://doi.org/10.1109/TPAS.1970.292678}{Schweppe and Wildes (1970)}; stealth attack: \href{https://doi.org/10.1145/1653662.1653666}{Liu et al. (2009)}.}
+\note{The vertical axis is the best feasible cost so far, so rejected trials cannot make the curve worse. Blank first values mean no seed has passed yet, not zero cost. The final independent recheck is outside the four search evaluations. For restoration the cost is negative weighted served nominal kW, and shedding is a fraction of ordered noncritical load objects. For voltage it is the current-step objective, not the full MPC horizon cost. Report five numerical ties and one worse Llama outcome across the entire suite.}
+\end{frame}
+
+\begin{frame}[t]{Cyber response: what Llama actually returned}
+\begin{block}{Isolated --- EXTRA\_MARGIN\_001; 1.273 s}
+\footnotesize The candidate E01 failed due to DC flow margin and trusted measurement provenance requirements. The candidate E02 passed but has a cost of 0.045. To improve the cost, we can test a QP injection plus 0.01 pu, which is a conservative approach.\end{block}
+\begin{block}{Stealth --- EXTRA\_MARGIN\_001; 1.579 s}
+\footnotesize The candidate E02 has a cost of 0.045, but the objective is to minimize 0.5*u\textasciicircum{}2. The candidate E01 failed due to the lack of trusted measurement provenance, which is a valid concern given the scope of the problem. However, the permitted refinements include EXTRA\_MARGIN\_001, which could potentially improve the cost by adding a small margin to the injection.\end{block}\small Public explanations are recorded text; the verifier and objective supply the numerical verdict.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. WLS: \href{https://doi.org/10.1109/TPAS.1970.292678}{Schweppe and Wildes (1970)}; stealth attack: \href{https://doi.org/10.1145/1653662.1653666}{Liu et al. (2009)}.}
+\note{These are verbatim public reason fields from actual local llama3.1:8b calls in the revised protocol. Timings measure the local HTTP model call and include its server work, not an isolated token generation benchmark. Read the responses critically: they may include unsupported causal claims or confusion about costs. No hidden chain of thought is requested or shown. Later replies and the complete candidate evidence are in the P notebook and journal.}
+\end{frame}
+
+\begin{frame}[t]{Cyber response: compare with the same numerical tools}
+\small\begin{tabular}{@{}lrrr@{}}\toprule Setting & Fixed cost & Llama cost & Workflow seconds: fixed / Llama \\\midrule
+Isolated & 0.00740467 & 0.00740467 & 0.005 / 5.782 \\
+Stealth & 0.00740467 & 0.00740467 & 0.004 / 5.203 \\\bottomrule\end{tabular}\par\medskip\begin{tabular}{@{}lcc@{}} & Fixed & Llama \\ Same two seeds and numerical tools & \yesmark & \yesmark \\ Two refinement trials executed & \yesmark & \yesmark \\ Fresh final check and all modeled gates pass & \yesmark & \yesmark \\ Returned language critique & \nomark & \yesmark \\\end{tabular}\par\medskip\small \textbf{What improved:} protected measurements plus conventional redispatch improve the seed. \textbf{Llama increment:} observable coordination; no extra detection or control benefit.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. WLS: \href{https://doi.org/10.1109/TPAS.1970.292678}{Schweppe and Wildes (1970)}; stealth attack: \href{https://doi.org/10.1145/1653662.1653666}{Liu et al. (2009)}.}
+\note{Each row is one observed local workflow interval, including awareness, candidate preparation, simulation, checking and any language calls. It excludes adapter construction/imports and earlier SAC training. Different model scopes prevent interpreting the AC/MV cost gap as a solver-accuracy result. A tick records an executed mechanism; it does not mean superiority, guaranteed safety or utility deployment. The matched baseline is the deterministic search using the same tools and maximum budget. An unchecked seed is an ablation, not faithful conventional practice.}
+\end{frame}
+
+\begin{frame}[t]{Cyber response: connect the notebook to the actual implementation}
+\deepdive
+\checkpoint{P6}{Run the complete case cell; inspect the returned stage, candidate and language tables.}
+\cellall{P6}
+\par\smallskip\small The same saved record supplies these slides and the operator dashboard. Toggle the explicit live option in P1 to make a new experiment.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. WLS: \href{https://doi.org/10.1109/TPAS.1970.292678}{Schweppe and Wildes (1970)}; stealth attack: \href{https://doi.org/10.1145/1653662.1653666}{Liu et al. (2009)}.}
+\note{Optional code detail. These are literal notebook-cell extracts, synchronized with hashes by sync_from_notebook.py. The displayed helper reads the actual case records, shows both supervisors, all stage events and exact public responses. In live mode P1 first executes a complete new suite; the case cell then displays those new records. Do not mistake saved record durations for the time to render this table.}
+\end{frame}
+

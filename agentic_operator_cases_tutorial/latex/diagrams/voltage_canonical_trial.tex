@@ -1,0 +1,26 @@
+\definecolor{IEEEBlue}{HTML}{00629B}
+\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}
+\definecolor{Slate}{HTML}{526470}
+\definecolor{AlertRed}{HTML}{B83136}
+\definecolor{Amber}{HTML}{A66610}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,
+ font=\fontsize{11}{13}\selectfont,text=Navy,
+ box/.style={draw=IEEEBlue,thick,rounded corners=2pt,align=center,
+ fill=IEEEBlue!4,inner sep=3pt,minimum height=.62cm},
+ arr/.style={->,draw=IEEEBlue,line width=1pt},
+ ]
+
+\node[box,text width=2.15cm] (l1) at (1.25,1.00) {Llama 3.1};
+\node[box,text width=2.15cm] (l2) at (1.25,0) {Llama 3.2};
+\node[box,text width=2.15cm] (qw) at (1.25,-1.00) {Qwen 2.5};
+\node[box,text width=3.05cm] (active) at (5.55,.80) {$(a+0.0025,b)$\\one vote};
+\node[box,text width=3.05cm,draw=Cyan,fill=Cyan!8] (reactive) at (5.55,-.80) {$(a,0.9b)$\\two votes};
+\node[box,text width=3.25cm] (trial) at (10.75,-.80) {Numerical trial\\$a=0.960307$\\$b=-0.100002$};
+\node[align=center] at (10.75,.80) {Three replies\\two physical actions};
+\draw[arr] (l1.east)--(active.west);
+\draw[arr] (l2.east)--(reactive.west);
+\draw[arr] (qw.east)--(reactive.west);
+\draw[arr,draw=Cyan] (reactive.east)--(trial.west);
+
+\end{tikzpicture}

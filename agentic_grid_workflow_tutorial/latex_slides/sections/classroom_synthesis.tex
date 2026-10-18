@@ -1,0 +1,52 @@
+\begin{frame}[t]{Explain the full workflow in sixty seconds}
+
+\textbf{Awareness:} establish the current case and what is known.\par\medskip
+\textbf{Planning:} choose an appropriate numerical method and form candidates.\par\medskip
+\textbf{Simulation:} calculate each candidate's consequences in a declared model.\par\medskip
+\textbf{Verification:} check physical limits, identity, evidence and permissions.\par\medskip
+\textbf{LLM optimizer:} propose a bounded next trial, then return through simulation and verification.\par\medskip
+\textbf{Operator review:} inspect the recommendation and unresolved assumptions before any authorized action.
+\par\medskip
+\textcolor{forest}{\textbf{Partner exercise:}} use one of today's cases and name the actual method and output at every stage.
+
+\slidetransition{Which comparisons support a scientific claim?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit.}
+\note{174--176 min. Give one minute per pair, then ask for a concise example. Do not accept merely reciting agent names; require MPC, SAC, MILP, WLS, QP or a numerical model where appropriate. The physical simulation stage does not execute field actions. Spoken bridge: Which comparisons support a scientific claim?}
+\end{frame}
+
+\begin{frame}[t]{Three checks for scientific claims about agentic control}
+
+\textbf{1. Is the comparison matched?}\par
+Same observations, model coverage, limits, tools, candidate budget and test scenarios?\par\medskip
+\textbf{2. Which component caused the difference?}\par
+Better optimizer, broader model, protected information, language interpretation or coordination?\par\medskip
+\textbf{3. What was actually measured?}\par
+Constraint compliance, objective, task completion, claim support, latency or human performance?\par\medskip
+\uncover<2->{\textbf{Today's result:} the framework makes these questions executable. Extra language models and learned selection did not establish general superiority in the recorded pilot.}
+
+\slidetransition{What single assumption would you change in the next experiment?}
+\sources{\href{https://arxiv.org/abs/2606.18789}{PowerAgentBench-SS (2026)}; Actual recorded voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}, E1--E8; raw calls and numerical records in \texttt{results/ensemble\_voltage\_pilot/}.}
+\note{176--178 min. This is the scientific takeaway, not a marketing conclusion. Participants should be able to reject an unfair DRL-versus-agentic comparison where the latter receives a better model or more trials. Ask which ablation they would run next. Spoken bridge: What single assumption would you change in the next experiment?}
+\end{frame}
+
+\begin{frame}[t]{Your next experiment: change one assumption and keep an audit trail}
+
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.20\linewidth}>{\raggedright\arraybackslash}p{.43\linewidth}>{\raggedright\arraybackslash}p{.29\linewidth}@{}}
+\toprule Extension & Change one thing & Keep fixed \\
+\midrule
+Voltage & Forecast uncertainty or a current margin & Controls, model scope and trial budget. \\
+Restoration & Priority weights or one tie rating & Fault, graph and baseline constraints. \\
+Cyber & Sensor trust or noise assumptions & Physical truth and scoring protocol. \\
+Agent design & One role, prompt or selector feature & Tools, test split and numerical gates. \\
+\bottomrule
+\end{tabular}\par
+\par\medskip
+\textbf{Deliverable:} one plot, a baseline comparison, a trace explaining the result and a statement of what remains unproven.
+\par\medskip
+\textbf{After class:} the appendix contains derivations, full code excerpts, recorded responses and training details. It is reference material outside the 180-minute route.
+
+\slidetransition{Choose an extension, then use the appendix when you need its derivation.}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. Reading guide: \texttt{appendix/Agentic\_AI\_Research\_2026.md}.}
+\note{178--180 min. End with an achievable research task, not additional lecture content. Invite participants to choose one extension and write a hypothesis. The teaching session ends here; the appendix is not part of the time budget. Answer final questions and point to the source package and classroom notebook. Spoken bridge: Choose an extension, then use the appendix when you need its derivation.}
+\end{frame}
+

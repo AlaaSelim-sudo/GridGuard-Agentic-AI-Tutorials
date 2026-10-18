@@ -1,0 +1,627 @@
+{
+  "reliability_chain": {
+    "title": "Small per-step error compounds across a workflow",
+    "caption": "Illustrative calculation: if every step has identical success probability q and steps are independent, all L required steps succeed with probability q^L. These are mathematical scenarios, not measured agent reliability. Correlated errors or unequal steps require a different model.",
+    "formula": "P(all L succeed) = q^L",
+    "data": [
+      {
+        "q": 0.99,
+        "L": [
+          1,
+          5,
+          10,
+          20
+        ],
+        "probability_all_steps_succeed": [
+          0.99,
+          0.9509900498999999,
+          0.9043820750088044,
+          0.8179069375972308
+        ]
+      },
+      {
+        "q": 0.97,
+        "L": [
+          1,
+          5,
+          10,
+          20
+        ],
+        "probability_all_steps_succeed": [
+          0.97,
+          0.8587340256999999,
+          0.7374241268949281,
+          0.543794342926747
+        ]
+      },
+      {
+        "q": 0.95,
+        "L": [
+          1,
+          5,
+          10,
+          20
+        ],
+        "probability_all_steps_succeed": [
+          0.95,
+          0.7737809374999998,
+          0.5987369392383787,
+          0.3584859224085419
+        ]
+      }
+    ],
+    "source_refs": [],
+    "assumptions": "Identical independent Bernoulli step outcomes. All required steps must succeed.",
+    "id": "rigor_reliability_chain",
+    "file": "rigor_reliability_chain.png",
+    "pdf": "rigor_reliability_chain.pdf",
+    "svg": "rigor_reliability_chain.svg",
+    "credit": "Original illustrative calculation for this tutorial; not measured agent performance"
+  },
+  "zero_failure_bound": {
+    "title": "Zero observed failures still leaves a nonzero upper bound",
+    "caption": "Exact one-sided 95% binomial upper confidence bound after zero failures: p_upper = 1 - 0.05^(1/n). At n=30 the bound is 9.503%, at n=60 it is 4.8703%, at n=300 it is 0.9936%, and at n=3000 it is 0.09981%. It describes uncertainty under independent, identically distributed trials with a fixed failure definition and stable operating conditions. It does not establish reliability under a new topology or a new task distribution.",
+    "formula": "p_upper = 1 - alpha^(1/n), alpha = 0.05",
+    "n": [
+      10,
+      30,
+      60,
+      100,
+      300,
+      1000,
+      3000
+    ],
+    "p_upper": [
+      0.2588655508930523,
+      0.09503385285530419,
+      0.04870291331009746,
+      0.029513049607039932,
+      0.00993608194445772,
+      0.0029912495450953314,
+      0.0009980790119965555
+    ],
+    "source_refs": [],
+    "assumptions": "IID binomial trials, zero observed failures, prespecified one-sided 95% confidence procedure. This bound is calculated, not author-reported.",
+    "id": "rigor_zero_failure_bound",
+    "file": "rigor_zero_failure_bound.png",
+    "pdf": "rigor_zero_failure_bound.pdf",
+    "svg": "rigor_zero_failure_bound.svg",
+    "credit": "Original illustrative calculation for this tutorial; not measured agent performance"
+  },
+  "eval_outcomes": {
+    "id": "rigor_eval_outcomes",
+    "title": "Conditional failure rates depend on the relevant denominator",
+    "caption": "Hypothetical evaluation of 100 cases, not measured system performance. Of 80 truly feasible cases, 70 are accepted and 10 rejected. Of 20 truly infeasible cases, 2 are accepted and 18 rejected. False approval among infeasible cases is 2/20=10%, while the pooled fraction is 2/100=2%. Accepted-case precision is 70/72=97.22%. The denominator answers a different question in each metric.",
+    "data": {
+      "true_feasible": {
+        "accepted": 70,
+        "rejected": 10
+      },
+      "true_infeasible": {
+        "accepted": 2,
+        "rejected": 18
+      }
+    },
+    "assumptions": "Illustrative labels and outcomes, fixed failure definition. No measured agent data.",
+    "source_refs": [],
+    "file": "rigor_eval_outcomes.png",
+    "pdf": "rigor_eval_outcomes.pdf",
+    "svg": "rigor_eval_outcomes.svg",
+    "credit": "Original illustrative calculation for this tutorial; not measured agent performance"
+  },
+  "r02_capability": {
+    "id": "rigor_r02_capability",
+    "title": "Ten attempts give a narrow evidence base",
+    "caption": "Derived from R02 Table II, PDF page 4, tested development snapshot. Bars reproduce the eight reported 100/1000-bus count cells. Whiskers are calculated two-sided Wilson 95% intervals, not author-reported uncertainty. Their probabilistic interpretation requires comparable independent Bernoulli attempts, which the paper does not establish. The OpenAI table label is gpt 5.4 B. Larger grids and levels L3–L6 have no quantified result cells and are omitted, not encoded as zero. This is not field-deployment reliability or a current vendor ranking.",
+    "data": [
+      {
+        "backend": "DeepSeek-v4-pro",
+        "task": "L1",
+        "grid_buses": 100,
+        "successes": 5,
+        "attempts": 10,
+        "success_fraction": 0.5,
+        "reported_count": "5/10",
+        "wilson_95_calculated": {
+          "lower": 0.236593090512564,
+          "upper": 0.7634069094874361
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "DeepSeek-v4-pro",
+        "task": "L1",
+        "grid_buses": 1000,
+        "successes": 5,
+        "attempts": 10,
+        "success_fraction": 0.5,
+        "reported_count": "5/10",
+        "wilson_95_calculated": {
+          "lower": 0.236593090512564,
+          "upper": 0.7634069094874361
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "DeepSeek-v4-pro",
+        "task": "L2",
+        "grid_buses": 100,
+        "successes": 10,
+        "attempts": 10,
+        "success_fraction": 1,
+        "reported_count": "10/10",
+        "wilson_95_calculated": {
+          "lower": 0.7224672001371107,
+          "upper": 0.9999999999999999
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "DeepSeek-v4-pro",
+        "task": "L2",
+        "grid_buses": 1000,
+        "successes": 10,
+        "attempts": 10,
+        "success_fraction": 1,
+        "reported_count": "10/10",
+        "wilson_95_calculated": {
+          "lower": 0.7224672001371107,
+          "upper": 0.9999999999999999
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "OpenAI configuration (table label: gpt 5.4 B)",
+        "task": "L1",
+        "grid_buses": 100,
+        "successes": 10,
+        "attempts": 10,
+        "success_fraction": 1,
+        "reported_count": "10/10",
+        "wilson_95_calculated": {
+          "lower": 0.7224672001371107,
+          "upper": 0.9999999999999999
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "OpenAI configuration (table label: gpt 5.4 B)",
+        "task": "L1",
+        "grid_buses": 1000,
+        "successes": 10,
+        "attempts": 10,
+        "success_fraction": 1,
+        "reported_count": "10/10",
+        "wilson_95_calculated": {
+          "lower": 0.7224672001371107,
+          "upper": 0.9999999999999999
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "OpenAI configuration (table label: gpt 5.4 B)",
+        "task": "L2",
+        "grid_buses": 100,
+        "successes": 10,
+        "attempts": 10,
+        "success_fraction": 1,
+        "reported_count": "10/10",
+        "wilson_95_calculated": {
+          "lower": 0.7224672001371107,
+          "upper": 0.9999999999999999
+        },
+        "citation": "R02, Table II, PDF page 4"
+      },
+      {
+        "backend": "OpenAI configuration (table label: gpt 5.4 B)",
+        "task": "L2",
+        "grid_buses": 1000,
+        "successes": 10,
+        "attempts": 10,
+        "success_fraction": 1,
+        "reported_count": "10/10",
+        "wilson_95_calculated": {
+          "lower": 0.7224672001371107,
+          "upper": 0.9999999999999999
+        },
+        "citation": "R02, Table II, PDF page 4"
+      }
+    ],
+    "assumptions": "Reported counts preserved. Wilson intervals conditional on independent comparable trials. Model/backend and task snapshot specific.",
+    "source_refs": [
+      "R02"
+    ],
+    "source_url": "https://arxiv.org/pdf/2607.28822v1",
+    "file": "rigor_r02_capability.png",
+    "pdf": "rigor_r02_capability.pdf",
+    "svg": "rigor_r02_capability.svg",
+    "credit": "Original plot derived from cited paper data; see caption for interpretation"
+  },
+  "r01_coverage": {
+    "id": "rigor_r01_coverage",
+    "title": "A successful solver call does not imply complete contingency discovery",
+    "caption": "Derived from R01 Table III: the four reported backend searches on one synthetic ACTIVSg200 SCOPFLOW case all found economic-critical contingency 187–189 (+21.6% cost), three identified infeasible outage 29–30, and none identified infeasible outage 15–16. These are fixed backend-run counts, not repeated IID trials, estimated probabilities, or comprehensive field reliability. No confidence interval is justified by these four heterogeneous searches.",
+    "data": [
+      {
+        "contingency": "187–189",
+        "identified": 4,
+        "backend_searches": 4
+      },
+      {
+        "contingency": "29–30",
+        "identified": 3,
+        "backend_searches": 4
+      },
+      {
+        "contingency": "15–16",
+        "identified": 0,
+        "backend_searches": 4
+      }
+    ],
+    "assumptions": "One synthetic case, four different backend searches, reported search behavior only.",
+    "source_refs": [
+      "R01"
+    ],
+    "source_url": "https://arxiv.org/pdf/2609.04544v1",
+    "file": "rigor_r01_coverage.png",
+    "pdf": "rigor_r01_coverage.pdf",
+    "svg": "rigor_r01_coverage.svg",
+    "credit": "Original plot derived from cited paper data; see caption for interpretation"
+  },
+  "expanded_power_dynamic": {
+    "id": "expanded_power_dynamic",
+    "title": "Dynamic-model repair within a restricted action space",
+    "caption": "PowerAgentBench-Dyn DMQ case: ten independent sessions per model on one modified WECC solar PV dynamic model. Full-suite compliant success is 10/10 for Opus 4.8, 10/10 for Sonnet 4.6, and 9/10 for Haiku 4.5. Median updates are 1, 1 and 2. Eight quality tests and a maximum of five parameter updates define this case. No confidence interval or fleet-level performance is claimed.",
+    "data": [
+      {
+        "model": "Opus 4.8",
+        "successes": 10,
+        "trials": 10,
+        "median_updates": 1,
+        "median_final_gains": [
+          1,
+          5,
+          1,
+          5
+        ]
+      },
+      {
+        "model": "Sonnet 4.6",
+        "successes": 10,
+        "trials": 10,
+        "median_updates": 1,
+        "median_final_gains": [
+          0.5,
+          2,
+          0.5,
+          3.5
+        ]
+      },
+      {
+        "model": "Haiku 4.5",
+        "successes": 9,
+        "trials": 10,
+        "median_updates": 2,
+        "median_final_gains": [
+          1.2,
+          2,
+          1.5,
+          4
+        ]
+      }
+    ],
+    "source_refs": [
+      "P01"
+    ],
+    "source_url": "https://arxiv.org/abs/2606.20401v1",
+    "locator": "Table II and section III-C, PDF p.3",
+    "assumptions": "Author-reported counts and medians reproduced, not independently rerun. One fixed corrupted model; no human or deterministic search comparator.",
+    "file": "expanded_power_dynamic.png",
+    "pdf": "expanded_power_dynamic.pdf",
+    "svg": "expanded_power_dynamic.svg",
+    "credit": "Original chart from cited author-reported research results"
+  },
+  "expanded_power_benchmark": {
+    "id": "expanded_power_benchmark",
+    "title": "Complete answers and partial credit measure different outcomes",
+    "caption": "Selected PowerBench Table 4 results. Macro Joint Accuracy equally weights the three task families, with 60 temporal, 90 contextual and 150 comparative questions; it is not a correct-count divided by 300. Overall Field Accuracy is the mean per-question fraction of correct fields. Whiskers are author-reported 95% bootstrap intervals, not newly calculated intervals. All three configurations used the same 300-question benchmark and 50-call/300-second retrieval-and-reasoning budgets.",
+    "data": [
+      {
+        "model": "GPT-5.6-Sol",
+        "macro_ja": 74.2,
+        "macro_ja_ci95": [
+          69.5,
+          78.7
+        ],
+        "overall_fa": 82.7,
+        "overall_fa_ci95": [
+          79.4,
+          85.8
+        ],
+        "family_ja": {
+          "TRR": 85,
+          "CRR": 88.9,
+          "CoRR": 48.7
+        }
+      },
+      {
+        "model": "GLM-5.3",
+        "macro_ja": 63.3,
+        "macro_ja_ci95": [
+          59.2,
+          67.3
+        ],
+        "overall_fa": 65.2,
+        "overall_fa_ci95": [
+          62.2,
+          68.1
+        ]
+      },
+      {
+        "model": "Doubao-Seed-Evolving",
+        "macro_ja": 59.3,
+        "macro_ja_ci95": [
+          55.7,
+          62.6
+        ],
+        "overall_fa": 58.1,
+        "overall_fa_ci95": [
+          56.4,
+          59.6
+        ]
+      }
+    ],
+    "questions_per_model": 300,
+    "task_family_sizes": {
+      "TRR": 60,
+      "CRR": 90,
+      "CoRR": 150
+    },
+    "source_refs": [
+      "P02"
+    ],
+    "source_url": "https://arxiv.org/abs/2609.34492v1",
+    "locator": "Table 4, PDF p.8; aggregation definitions section 4.1 and Appendix D",
+    "assumptions": "Different aggregation rules are retained. Partial field credit is not full-task success. Do not infer pairwise significance from marginal interval overlap. Benchmark results are synthetic and author-reported; public runnable release not verified.",
+    "file": "expanded_power_benchmark.png",
+    "pdf": "expanded_power_benchmark.pdf",
+    "svg": "expanded_power_benchmark.svg",
+    "credit": "Original chart from cited author-reported scores and bootstrap intervals"
+  },
+  "expanded_power_gridmind": {
+    "id": "expanded_power_gridmind",
+    "title": "Artifact reuse saves executions and wall time",
+    "caption": "GridMind weather-risk workflow, same seven-query session on a synthetic Texas 2000-bus case. Full-rerun ablation executes 35 stages and takes 1432.6 s; content-addressed reuse executes 14 stages and takes 677.1 s. The stage-count reduction is 60%; the calculated wall-time speedup is 2.1158× (2.12× rounded), corresponding to 52.7363% less wall time. These are different metrics, not two descriptions of the same percentage. No repeated-session uncertainty estimate is reported.",
+    "data": {
+      "baseline_stages": 35,
+      "reuse_stages": 14,
+      "baseline_wall_seconds": 1432.6,
+      "reuse_wall_seconds": 677.1,
+      "stage_reduction_percent": 60,
+      "wall_speedup_calculated": 2.1157879190666073,
+      "wall_time_reduction_percent_calculated": 52.73628368002233
+    },
+    "source_refs": [
+      "P03"
+    ],
+    "source_url": "https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.pdf",
+    "locator": "Table 1 and sections 4.2–4.3, PDF p.4",
+    "assumptions": "Same reported query sequence; full-rerun arm uses fresh namespaces. Single simulation session, surrogate screening and reduced-order cascade models. No live utility operation or independently repeated performance claim.",
+    "file": "expanded_power_gridmind.png",
+    "pdf": "expanded_power_gridmind.pdf",
+    "svg": "expanded_power_gridmind.svg",
+    "credit": "Original chart from cited author-reported session/ablation measurements"
+  },
+  "power_dragent_counts": {
+    "file": "power_dragent_counts.png",
+    "source_refs": [
+      "D01"
+    ],
+    "source_url": "https://www.manuscriptlink.com/society/kics/media?key=kics%2Fconference%2Ficaiic2025%2Fpresentation%2F1571098105.pdf",
+    "source_locator": "PDF p.6 Table IV and p.8 Appendix; score definitions p.5 Table II; Q6 exception p.7 footnote 8",
+    "caption": "Correct answers (score >=2), reconstructed from Table IV and Appendix; n=18 DR cases per question. Q6 includes correctly labeled duration under footnote 8. Counts are author-data-derived, not an independent rerun.",
+    "assumptions": "18 disturbance-record cases, not 18 repeated stochastic trials per case. Scores were manually assessed by a domain expert. Baseline and agent use different prompt/context workflows. The comparison does not isolate one component causally. Do not describe the Q6 result as 13/18 correct clearance timestamps. Q6 printed mean is inconsistent; audited cell counts are used instead.",
+    "data": {
+      "Q2": {
+        "baseline_correct": 12,
+        "agent_correct": 18,
+        "denominator": 18
+      },
+      "Q5": {
+        "baseline_correct": 16,
+        "agent_correct": 18,
+        "denominator": 18
+      },
+      "Q6": {
+        "baseline_correct": 4,
+        "agent_correct": 13,
+        "denominator": 18
+      }
+    },
+    "credit": "Original educational plot derived from published DrAgent score cells; no experiments rerun."
+  },
+  "powerdag_result": {
+    "id": "powerdag_revision_result",
+    "plot_id": "powerdag_revision_result",
+    "file": "powerdag_revision_result.png",
+    "pdf": "powerdag_revision_result.pdf",
+    "svg": "powerdag_revision_result.svg",
+    "source_refs": [
+      "PD01",
+      "PD02"
+    ],
+    "source_url": "https://arxiv.org/pdf/2603.17418v4",
+    "source_locator": "PowerDAG v4 TableII, PDF p.8; evaluation definition sectionV.E, pp.6–7",
+    "metric": "Workflow Pass@1 (%)",
+    "model": "GPT-5.5",
+    "denominator": 150,
+    "data": [
+      {
+        "configuration": "ReAct baseline",
+        "reported_percent": 77.33
+      },
+      {
+        "configuration": "Adaptive retrieval only",
+        "reported_percent": 92.67
+      },
+      {
+        "configuration": "JIT supervisor only",
+        "reported_percent": 96.0
+      },
+      {
+        "configuration": "Full PowerDAG",
+        "reported_percent": 98.0
+      }
+    ],
+    "caption": "PowerDAG v4 same-model comparison on150 held-out distribution-grid queries: GPT-5.5 ReAct77.33%, adaptive-retrieval-only92.67%, JIT-supervision-only96.00%, fullPowerDAG98.00%. Each query is run once per model/configuration; no experiments rerun.",
+    "assumptions": "Pass@1 checks expert tool coverage, compatible arguments and dependency ordering. Four real-world feeder models and ten task families; within-family holdout, not field reliability. No run-to-run interval is inferred. Public network-dependent reruns require proprietary data/tools; only3of10families are fully runnable publicly.",
+    "credit": "Original vector plot redrawn from author-reported PowerDAG v4 numerical results",
+    "value_status": "Author-reported percentages; plotted values are not reconstructed success counts",
+    "uncertainty_intervals": null
+  },
+  "feedback": {
+    "source_refs": [
+      "E02"
+    ],
+    "source_url": "https://arxiv.org/pdf/2411.16707v3",
+    "source_locator": "Section V.A–B, PDF p.9; Figure 8, p.11; scheme definitions Table I, p.7",
+    "caption": "DALINE graded attempt-averaged scores: GPT4o-Sole 0.00, GPT4o-SR 31.37, CGPT4o-R 33.82 and GPT4o-Full 93.13. The evaluation uses 34 tasks with a maximum of three attempts each, awarding 100/50/0 points and carrying the last executed score into unused slots. This is not a final-completion fraction.",
+    "assumptions": "Reported values preserved. API schemes use gpt-4o-2024-05-13; CGPT4o-R is the ChatGPT4o built-in-RAG product scheme. Complete-system comparison, not isolated causal effects. No binomial interval or implied completed-task count.",
+    "metric": "Paper-defined attempt-averaged score (%)",
+    "data": [
+      [
+        "GPT4o-Sole",
+        0.0
+      ],
+      [
+        "GPT4o-SR (standard RAG)",
+        31.37
+      ],
+      [
+        "CGPT4o-R (ChatGPT RAG)",
+        33.82
+      ],
+      [
+        "GPT4o-Full",
+        93.13
+      ]
+    ],
+    "setup": {
+      "tasks": 34,
+      "attempt_budget": 3,
+      "tool": "DALINE",
+      "human_grading": true
+    },
+    "id": "power_study_feedback",
+    "plot_id": "power_study_feedback",
+    "file": "power_study_feedback.png",
+    "pdf": "power_study_feedback.pdf",
+    "svg": "power_study_feedback.svg",
+    "credit": "Original plot redrawn from cited primary-paper numerical results; no experiments rerun",
+    "value_status": "author-reported",
+    "uncertainty_intervals": null
+  },
+  "veragrid": {
+    "source_refs": [
+      "E04",
+      "E04C"
+    ],
+    "source_url": "https://arxiv.org/pdf/2607.25155v1",
+    "source_locator": "Table I, PDF p.4; benchmark definition Section III, p.3",
+    "caption": "Three explicitly selected same-model comparisons from VeraGrid-MCQ-150: GPT-5.2 64/150 without tools versus 149/150 with the solver-agent; Claude Sonnet 4.5 71/150 versus 149/150; Gemini 3 Flash 74/150 versus 150/150. Questions use one balanced 8-bus feeder and a VeraGrid reference solve.",
+    "assumptions": "First three Table I rows selected for legibility, not ranked. Template-derived MCQs share one solved feeder. Repeated-run uncertainty is unspecified; results do not estimate field-control reliability or arbitrary-feeder generalization.",
+    "metric": "Correct MCQ answers / 150",
+    "columns": [
+      "model",
+      "no_tool_correct",
+      "agent_correct",
+      "denominator"
+    ],
+    "data": [
+      [
+        "GPT-5.2",
+        64,
+        149,
+        150
+      ],
+      [
+        "Claude Sonnet 4.5",
+        71,
+        149,
+        150
+      ],
+      [
+        "Gemini 3 Flash",
+        74,
+        150,
+        150
+      ]
+    ],
+    "setup": {
+      "questions": 150,
+      "tiers": {
+        "easy": 50,
+        "medium": 50,
+        "hard": 50
+      },
+      "buses": 8,
+      "generators": 4,
+      "load_MW": 185,
+      "repetitions": "unspecified"
+    },
+    "id": "power_study_veragrid",
+    "plot_id": "power_study_veragrid",
+    "file": "power_study_veragrid.png",
+    "pdf": "power_study_veragrid.pdf",
+    "svg": "power_study_veragrid.svg",
+    "credit": "Original plot redrawn from cited primary-paper numerical results; no experiments rerun",
+    "value_status": "author-reported",
+    "uncertainty_intervals": null
+  },
+  "xgrid": {
+    "source_refs": [
+      "E01"
+    ],
+    "source_url": "https://arxiv.org/pdf/2512.20789v1",
+    "source_locator": "Table I, Q10, PDF p.9",
+    "caption": "X-GridAgent's reported IEEE39 scenario outputs: base-case objective 41,872.30, line11-out objective 42,115.34, and nonconverged AC OPF when all loads are doubled. The third scenario has no objective value; it is displayed outside the numerical axis. This is a scenario output, not an accuracy comparison.",
+    "assumptions": "Objective units are not specified in the paper table; no currency/hour unit invented. The dot-plot axis is deliberately zoomed and has no zero baseline; dots encode reported values, not bars. Nonconvergence is not represented as zero.",
+    "metric": "Reported total-generation-cost OPF objective (units unspecified)",
+    "columns": [
+      "scenario",
+      "reported_total_generation_cost",
+      "AC_OPF_converged"
+    ],
+    "data": [
+      [
+        "base case",
+        41872.3,
+        true
+      ],
+      [
+        "line 11 out of service",
+        42115.34,
+        true
+      ],
+      [
+        "all loads doubled",
+        null,
+        false
+      ]
+    ],
+    "setup": {
+      "case": "IEEE 39-bus",
+      "scenarios": 3,
+      "converged": 2,
+      "nonconverged": 1
+    },
+    "id": "power_study_xgrid",
+    "plot_id": "power_study_xgrid",
+    "file": "power_study_xgrid.png",
+    "pdf": "power_study_xgrid.pdf",
+    "svg": "power_study_xgrid.svg",
+    "credit": "Original plot redrawn from cited primary-paper numerical results; no experiments rerun",
+    "value_status": "author-reported",
+    "uncertainty_intervals": null
+  }
+}

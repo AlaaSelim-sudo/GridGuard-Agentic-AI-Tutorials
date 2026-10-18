@@ -1,0 +1,27 @@
+\definecolor{IEEEBlue}{HTML}{00629B}
+\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}
+\definecolor{Slate}{HTML}{526470}
+\definecolor{AlertRed}{HTML}{B83136}
+\definecolor{Amber}{HTML}{A66610}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,
+ font=\fontsize{11}{13}\selectfont,text=Navy,
+ box/.style={draw=IEEEBlue,thick,rounded corners=2pt,align=center,
+ fill=IEEEBlue!4,inner sep=3pt,minimum height=.62cm},
+ arr/.style={->,draw=IEEEBlue,line width=1pt},
+ ]
+
+\node[box,text width=2.05cm] (case) at (1.10,0) {Frozen case\\and limits};
+\node[box,text width=2.05cm] (mpc) at (4.05,.70) {MPC\\three-step plan};
+\node[box,text width=2.05cm] (sac) at (4.05,-.70) {SAC\\saved actor};
+\node[box,text width=2.25cm] (check) at (7.35,0) {New solve\\and checks};
+\node[box,text width=2.35cm] (llm) at (10.85,0) {LLM selects\\a trial};
+\draw[arr] (case.east)--(mpc.west);
+\draw[arr] (case.east)--(sac.west);
+\draw[arr] (mpc.east)--(check.west);
+\draw[arr] (sac.east)--(check.west);
+\draw[arr] (check.east)--(llm.west);
+\draw[arr,draw=Amber] (llm.south)--(10.85,-1.40)--(7.35,-1.40)--(check.south);
+\node[fill=white,text=Amber] at (9.1,-1.40) {one permitted change};
+
+\end{tikzpicture}

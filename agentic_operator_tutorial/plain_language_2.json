@@ -1,0 +1,528 @@
+{
+  "PowerDAG result: a controlled workflow comparison": {
+    "title": "PowerDAG results: the same queries, four setups",
+    "points": [
+      "Each GPT-5.5 setup runs the same 150 test queries once.",
+      "Pass@1 checks required tool calls, matching arguments and call order. It does not measure field reliability."
+    ],
+    "caption": "PowerDAG v4, Table II: four GPT-5.5 setups. The paper gives no interval for variation across repeated runs.",
+    "excerpt": [],
+    "note": "The reported Pass@1 scores are ReAct 77.33%, retrieval-only PowerChain-AR 92.67%, JIT supervision only 96.00%, and full PowerDAG 98.00%. Each setup runs 150 queries. Across the full study, six setups and ten model backends produce 9,000 query runs. Full PowerDAG scores 97.33% with Gemini 3.1 Pro and 92.67% with Qwen 3.6-27B. Pass@1 is an automated check against expert workflows. The test queries were kept out of the example set, but they use the same ten task families; this is a within-family test. These scores do not measure outage avoidance or the reliability of live commands. The comparison tests complete setups as built. It does not isolate the effect of one graph edge.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "PowerDAG: what is reproducible and what transfers?": {
+    "title": "PowerDAG: what can others check and reuse?",
+    "points": [
+      "The public benchmark provides tasks, tool descriptions, workflow records and scoring code.",
+      "Three task groups can run with the public files. Seven need private feeder/GIS data and network tools.",
+      "Reuse the idea of checking required earlier steps. Test the new tools, case state and engineering results."
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "The author README names BESS, basicPV and GFI as the three task groups that can run from the public download. The other seven need private feeder data, geographic data (GIS) and network-tool code. Public workflow records let readers inspect the work, but do not make every experiment reproducible from the public files alone. This is a distribution-study research benchmark using real feeder models. It does not show a named utility running PowerDAG in a control room. Keep the task population and score definition with every reported percentage.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "Feedback-driven simulation agents retrieve functions and options": {
+    "title": "Simulation agents find functions, run code and repair errors",
+    "points": [
+      "The IEEE TSG study finds MATLAB functions and settings for the requested task, then writes study code.",
+      "A run error triggers another search and repair. Code can still run with the wrong settings."
+    ],
+    "caption": "",
+    "excerpt": [
+      "Read the task → find functions and settings",
+      "Use toolbox knowledge → write MATLAB code",
+      "Run error → search again and repair",
+      "No error → still check the requested task"
+    ],
+    "note": "Jia, Cui and Hug test DALINE and MATPOWER simulation tasks. The paper does not identify LangGraph as its software framework. Its run-and-repair loop is an example of using feedback. The engineering check must compare the actual study and settings with the requested task. A MATLAB run without an error is not enough.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "Simulation-agent result: a graded score, not a pass fraction": {
+    "title": "Simulation-agent results: points, not a pass rate",
+    "points": [
+      "Across 34 DALINE tasks, the score averages graded attempts and penalizes extra settings. The 93.13 score is not a pass rate."
+    ],
+    "caption": "DALINE comparison reported in the author preprint, Figure 8 / section V. Each task allows up to three attempts.",
+    "excerpt": [],
+    "note": "Each attempt scores 100 when it meets every requirement without extra settings, 50 when unnecessary settings remain, and 0 when a requirement is missed. The score averages the allowed attempt slots. If attempts are unused, the last score fills those slots. The API setups use gpt-4o-2024-05-13. The built-in ChatGPT-RAG setup runs in a different product. These are comparisons of complete systems, so they do not isolate the effect of one feature. In the related MATPOWER test, the full setup scores 96.85 over 35 tasks with up to five attempts per task.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "A retry can repeat the same software error": {
+    "title": "Trying again can repeat the same software error",
+    "points": [
+      "R02 found that an agent request and its cache key both left out reactive load.",
+      "Fixing the request still returned the old result: the cache key had not changed."
+    ],
+    "caption": "Teaching sketch of the failure in R02, section IV. The cache-key notation is illustrative.",
+    "excerpt": [],
+    "note": "The paper asks for a load of 100 MW and 10 Mvar. The Mvar part is reactive load; leaving it out changes the study. A cache stores past results for reuse. Its key tells the software which inputs produced a result. If the key ignores reactive load, a corrected request can still return the old result. Asking the model to try harder will not fix that software error. Test the tool adapter and cache. The key must include every input that can affect the result, including relevant model and topology versions.",
+    "takeaway": "Reliable agents also need correct tool adapters, caches and other software.",
+    "eyebrow": ""
+  },
+  "X-GridAgent separates planning, coordination and tool actions": {
+    "title": "X-GridAgent divides a request into jobs and tool calls",
+    "points": [
+      "A planner breaks the request into jobs. A coordinator sends work to the right agent and saves results.",
+      "Action agents use eight MCP servers to call grid tools. pandapower does the numerical analysis."
+    ],
+    "caption": "",
+    "excerpt": [
+      "118-bus example: run AC flow → sort line loading",
+      "Choose line indices 6, 7 and 34 for outage studies",
+      "Start from the stated case → study each outage",
+      "Save numerical evidence → report the studied cases"
+    ],
+    "note": "The eight services cover retrieval, power flow, optimal power flow (OPF), contingencies, short circuits, topology, editing and plotting. The paper does not name LangGraph or another open workflow SDK. MCP is the tool interface. It does not calculate the electrical result or guarantee that the agent chose the right cases. This example selects three lines. Keep it separate from the paper's different query that selects five.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "X-GridAgent result: nonconvergence remains part of the answer": {
+    "title": "X-GridAgent results: report when a solver does not converge",
+    "points": [
+      "The 39-bus AC OPF converges for the base case and line outage. With doubled load, it returns no converged solution or objective value."
+    ],
+    "caption": "X-GridAgent Table I, Q10. The paper does not give objective units. A failed solve is not a zero-cost answer.",
+    "excerpt": [],
+    "note": "The reported objective rises from 41,872.3 in the base case to 42,115.34 with line 11 out of service, a difference of 243.04 in the table's unspecified units. The doubled-load AC OPF does not converge. Do not treat nonconvergence as a proof that no feasible solution exists. The authors report 100% success in their selected repeated-query test, using manually obtained conventional solutions as references. That result does not establish reliability on random tasks or in a live utility.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "GridMind 2025: typed agents around numerical solvers": {
+    "title": "GridMind 2025 connects typed agents to solvers",
+    "points": [
+      "GridMind 2025 uses PydanticAI and pandapower for AC optimal power flow (ACOPF) and outage studies.",
+      "It reports 100% ACOPF success on case 118 across six models. That does not prove complete outage coverage."
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "The 2025 paper tests 14-, 30-, 118- and 300-bus systems. Figure 3 compares ACOPF success and run time on case 118. The timing distributions use five repeats; do not invent a larger denominator for the success claim. PydanticAI supports structured, typed inputs and outputs. This system is different from the 2026 GridMind weather workflow, which uses LangGraph. Keep the year and paper title clear.",
+    "takeaway": "A correct result for one task does not validate every related task.",
+    "eyebrow": ""
+  },
+  "GridMind 2025: conflicting contingency conclusions": {
+    "title": "GridMind 2025 gives different outage conclusions",
+    "points": [
+      "On case 118, one model reports 165% maximum overload; five report 137%. They also name different critical lines.",
+      "The table has no complete independent outage reference. Agreement alone cannot tell us which answer is right."
+    ],
+    "caption": "",
+    "excerpt": [
+      "Table 1: IEEE 118-bus outage study",
+      "GPT-5 Mini → 165% max overload; includes line 9",
+      "Five other models → 137%; includes line 6",
+      "Next check → an independent, complete reference"
+    ],
+    "note": "These are the paper's tool results and interpretations, not a new experiment. The differences may reflect which cases were studied, how they were listed or how results were read. The table does not establish which answer covers every required outage. Ask for the same case definitions and an independent reference study. Do not assume the majority is right or calculate a failure probability from six different model setups.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "GridMind: dependency-aware reuse of scientific stages": {
+    "title": "GridMind 2026 reuses results when their inputs still match",
+    "points": [
+      "LangGraph coordinates five stages: weather, outages, OPF, screening and cascade analysis.",
+      "Input fingerprints identify saved results. A changed forecast makes affected results need a new run."
+    ],
+    "caption": "",
+    "excerpt": [
+      "Reported session: seven queries on synthetic Texas 2000",
+      "Change cascade fan-out k → rerun cascade",
+      "Shift forecast by 6 h → rerun all five stages",
+      "Restore the exact old inputs → reuse saved results"
+    ],
+    "note": "AERIS supplies weather data. LUMINA or pandapower runs the base OPF. A LUMINA surrogate screens cases, and EPFast uses a reduced-order DC model for cascade simulation. A surrogate is a faster approximation of a more detailed calculation. Which stages need to rerun depends on the actual inputs each stage uses. Here, the contingency stage reads outage schedules directly, so an ACOPF change alone does not require every later-looking stage to rerun. The fingerprints are content hashes of declared inputs. They can show that those inputs match; they do not prove correctness or detect changes that were never recorded.",
+    "takeaway": "Reuse a result only when the inputs it depends on still match.",
+    "eyebrow": ""
+  },
+  "GridMind: changed inputs determine which stages rerun": {
+    "title": "GridMind: which changes need a new run?",
+    "points": [
+      "Change only k: rerun cascade. Shift the forecast by six hours: rerun all five stages.",
+      "In this implementation, changing the ACOPF solver reruns ACOPF only."
+    ],
+    "caption": "Teaching view of GridMind 2026 Table 1. Only the reported affected stages are shown; no extra dependencies are assumed.",
+    "excerpt": [],
+    "note": "The five stages are line-wind, outages, ACOPF, contingency and cascade. These dependencies belong to this implementation. Its contingency stage reads outage schedules directly, rather than taking ACOPF output. Returning to exactly the same inputs can allow reuse of an earlier result. Every input that affects a result must be included in its identity; otherwise, the cache may return an out-of-date result.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "GridMind result: stage savings differ from time savings": {
+    "title": "GridMind results: fewer stages and less time are different",
+    "points": [
+      "For the same seven queries, reuse cuts stage runs by 60% and total run time by 52.7%. Some stages cost more time than others."
+    ],
+    "caption": "GridMind 2026 Table 1: full reruns in fresh workspaces versus saved-result reuse, on a synthetic 2,000-bus hurricane-risk study.",
+    "excerpt": [],
+    "note": "The 60% reduction is in stage runs, not time. The measured time reduction is about 52.7%, because stages take different amounts of time. The gain comes from the workflow and reuse of saved results; it is not just a faster language model. This is one seven-query session, with no interval for variation across repeated sessions. The study uses surrogate and reduced-order simulations. Their results still need engineering validation before utility use.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "Exercise 2: revalidate a saved weather-risk workflow": {
+    "title": "Exercise 2: check whether saved weather-risk results still apply",
+    "points": [
+      "A saved run uses forecast F0, topology v43 and cascade setting k=50. Only k changes to 200. What reruns?",
+      "Now shift the forecast by six hours. Which of the five saved stage results still apply?",
+      "A required simulation fails. What status and evidence should the operator receive?"
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "Allow 2 minutes to think alone, 2 to compare in groups, 2 for discussion and 2 for the debrief. If only k changes, rerun cascade and retain the other results that still apply. If forecast initialization shifts, rerun all five stages in the cited workflow. If a required stage fails, return an incomplete or unresolved result. Include the case and stage IDs, input versions, tool error and conclusions that remain missing. Do not issue an all-clear report. F0 and v43 are teaching labels. Another implementation may have different dependencies. Keep these answers in the speaker notes.",
+    "takeaway": "",
+    "eyebrow": "Group exercise · 8 minutes"
+  },
+  "PowerAgentBench-Dyn: repair within an explicit action space": {
+    "title": "PowerAgentBench-Dyn allows only specific model changes",
+    "points": [
+      "The Harvard-led test gives an agent a modified solar-PV dynamic model and feedback from eight DMView/PSS/E quality tests.",
+      "It may change only four REECAU1 controller gains. All other fields are locked; at most five updates are allowed."
+    ],
+    "caption": "",
+    "excerpt": [
+      "Allowed gains: Kqp, Kqi, Kvp, Kvi",
+      "Run all tests → inspect failures",
+      "Change allowed gains → rerun all tests",
+      "Pass = all tests pass within the edit and attempt limits"
+    ],
+    "note": "Authors from Harvard SEAS, Politecnico di Milano and UBITECH make the permitted changes explicit and testable. A gain is a controller setting that affects its response. This task diagnoses and repairs a simulation model; it does not authorize a utility controller change. The starting model fails all eight tests. Allowing four gains to change does not mean every other engineering property has been validated. The author repository provides a test harness, but it needs licensed PSS/E and external DMView software.",
+    "takeaway": "The agent must pass the tests and stay within the allowed changes.",
+    "eyebrow": ""
+  },
+  "PowerAgentBench-Dyn result: counts and update effort": {
+    "title": "PowerAgentBench-Dyn results: passed sessions and updates",
+    "points": [
+      "A session passes only if all eight tests pass within five allowed updates. Testing one modified model limits what we can conclude."
+    ],
+    "caption": "PowerAgentBench-Dyn Table II: model-quality task. Other tasks in this benchmark use different models and checks.",
+    "excerpt": [],
+    "note": "The three models are Opus 4.8, Sonnet 4.6 and Haiku 4.5. The reported sessions all use one modified WECC solar-PV model. There is no matched human or fixed-search baseline, so the results do not establish a comparative speedup. Show the counts to make the sample size and failures visible. The number of model updates is a different measure from total operator time. A 10/10 row still has the small-sample limits explained later.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "PowerAgentBench-Dyn also tests dynamic-security screening": {
+    "title": "PowerAgentBench-Dyn also checks grid response to faults",
+    "points": [
+      "PowerMCP and PowerFactory study ten candidate faults and identify three critical cases.",
+      "Across six models, full-workflow passes range from 0/10 to 10/10. Passing includes correct findings and allowed mitigation."
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "This dynamic-security task is different from the model-quality task. It uses Opus 4.7, not Opus 4.8. Tables III–VI report Opus 4.7 at 9/10, Sonnet 4.6 at 9/10, Haiku 4.5 at 7/10, Gemini 3.1 Pro at 10/10, GPT-5.5 at 10/10 and Qwen 2.5-Coder-7B at 0/10. A pass requires the whole workflow: execute the study, match the offline reference for critical cases, correctly flag L02–25 at 160 ms as unstable, and assess only the allowed synchronous-condenser mitigation options (section IV-C / Table IV). These counts measure more than fault selection. A run may fail during tool execution before it reaches an engineering finding. Do not combine counts from different tasks or call them field reliability.",
+    "takeaway": "Different tasks in one benchmark can fail in different ways.",
+    "eyebrow": ""
+  },
+  "Grid-Agent: modeled actions are validated in a sandbox": {
+    "title": "Grid-Agent tests proposed actions in a simulation copy",
+    "points": [
+      "One agent finds grid violations, a planner proposes actions, and an executor applies them to a simulation copy.",
+      "A checker reruns power flow. It keeps helpful modeled changes and undoes unsuccessful ones."
+    ],
+    "caption": "",
+    "excerpt": [
+      "Example actions: switch change, battery use, curtailment",
+      "Copy case → apply action → run power flow",
+      "Check the stated grid limits",
+      "Keep the modeled change or restore the copy"
+    ],
+    "note": "The paper studies voltage violations, thermal-limit violations and disconnected buses. The inspected v3 does not name the numerical solver or workflow SDK. A sandbox is an isolated simulation copy. Restoring that copy does not show that a physical switching action is reversible or authorized. Each action still needs a clear physical meaning, limits and permissions.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "Grid-Agent result: feasible repair needs a stated denominator": {
+    "title": "Grid-Agent results need the number of trials",
+    "points": [
+      "The paper reports 44%–100% scenario-resolution rates across planners, but does not give the exact total trial count.",
+      "It leaves proof of optimality and comparison with a numerical optimizer to future work."
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "The paper names seven scenarios, but does not explain repetition and averaging well enough to reconstruct successes out of seven or confidence intervals. Four planner rows report 100%, Flash-Lite 63% and GPT-4.1-Nano 44%. The prose and table give different CIGRE bus counts, so we do not repeat a precise size. Resolving a violation does not prove that the action is the best possible action. The architecture is useful, but the reporting limits prevent a broad reliability claim.",
+    "takeaway": "State the allowed actions, limits, test cases and comparison method with a control claim.",
+    "eyebrow": ""
+  },
+  "VeraGrid-Agent: an answer points to solved output": {
+    "title": "VeraGrid-Agent uses solver results to answer a question",
+    "points": [
+      "The agent writes feeder inputs, runs VeraGrid AC OPF and reads the relevant result rows.",
+      "It can repair tool errors within a fixed budget, then return a multiple-choice answer."
+    ],
+    "caption": "",
+    "excerpt": [
+      "Use a separate workspace for each test question",
+      "Write JSON input → run VeraGrid",
+      "Read the result index → open relevant rows",
+      "Answer, or report unresolved before the budget ends"
+    ],
+    "note": "The test uses one balanced, radial 8-bus feeder, 33 question templates and 150 questions: 50 at each of three difficulty levels. Reference answers come from the same solver and circuit. The repository provides a test harness and saved reports. Its current interfaces do not prove which SDK the original paper used. AC OPF is AC optimal power flow, a constrained numerical study. Reading its output to answer a question is different from learning a general policy for feeder control.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "VeraGrid-Agent result: computation changes matched-model answers": {
+    "title": "VeraGrid-Agent results: the same models with and without tools",
+    "points": [
+      "All 150 questions use one fixed feeder. Better multiple-choice answers do not prove general dispatch or field performance."
+    ],
+    "caption": "VeraGrid-Agent Table I: selected comparisons using the same model. Missing or badly formatted answers count as incorrect.",
+    "excerpt": [],
+    "note": "The no-tool setup receives feeder and distributed-energy-resource information. The agent adds solver runs, reading tools and repeated feedback. This compares complete systems, not equal amounts of computation. The paper gives correct-answer counts out of 150, but no estimate of variation across repeated runs. Running the solver and interpreting its results are separate steps that can fail. The paper records some remaining agent errors.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "AgentiGrid: inspect the experimental unit": {
+    "title": "AgentiGrid: what does one reported run mean?",
+    "points": [
+      "The September 2026 paper tests four models on three applications, using one 200-bus system.",
+      "The 12 searches are 12 different setups, not 12 repeats of one task.",
+      "ExaGO does the numerical analysis. The agent chooses changes and explains the results."
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "The three applications are dispatch exploration, outage screening and studies with uncertain inputs. A run with no fatal JSON errors has not necessarily completed its task correctly. Check whether the agent stayed within the allowed changes, studied every required case and described solver evidence correctly. This paper studies one prototype on a modeled grid. It is not a live-utility reliability study.",
+    "takeaway": "Explain what one run represents before reporting a success rate.",
+    "eyebrow": ""
+  },
+  "A lower objective can solve the wrong problem": {
+    "title": "A lower cost can come from solving the wrong task",
+    "points": [
+      "R01 reports costs of 27,564 before and 17,398 after one model changed unit commitment: which units are on.",
+      "The task allowed only dispatch changes: how much power those units produce. The lower value breaks that task limit."
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "Use the paper's unspecified objective units; do not invent dollars per hour. The reported objective falls by about 36.9%, but the agent changes a type of decision outside the task. Unit commitment determines which units are on; dispatch sets their output. Other model setups keep to dispatch-only changes and report no improvement from the given base. A valid comparison checks what was changed, not just whether the objective fell.",
+    "takeaway": "Judge the objective value together with the allowed decisions.",
+    "eyebrow": ""
+  },
+  "Successful calls can still miss an infeasible contingency": {
+    "title": "Successful tool calls can still miss a critical outage",
+    "points": [
+      "All four model runs find the highest-cost outage. None finds a second outage with no feasible solution.",
+      "These are four different setups on one grid, not repeated trials that measure reliability."
+    ],
+    "caption": "Counts read from R01 Table III and section IV. Each outage label is a pair of bus numbers in this test grid.",
+    "excerpt": [],
+    "note": "All four searches identify the highest-cost outage, 187–189. Three identify infeasible outage 29–30, and none identifies infeasible outage 15–16. Infeasible means the specified study has no solution that meets its constraints. These results show gaps in case coverage. They do not give a stable failure probability for a model. Do not add binomial confidence intervals to these four different setups.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "Repeated results need counts and uncertainty": {
+    "title": "Show both trial counts and uncertainty",
+    "points": [
+      "R02 reports ten attempts per shown setup on synthetic 100- and 1,000-bus grids.",
+      "We calculated the Wilson 95% intervals. The paper reports the counts, not these intervals."
+    ],
+    "caption": "R02 Table II. L1: place a 100 MW + 10 Mvar load. L2: check reactive-power needs for 100 MW + 50 Mvar generation.",
+    "excerpt": [],
+    "note": "Six shown cells are 10/10 and two are 5/10. In the tested code version, higher-complexity tasks and larger grids have no reported numerical result cells. The authors discuss later fixes without giving a complete new set of counts. Missing results must not be plotted as zeroes. These are synthetic grids, not utility operating systems. Wilson intervals describe sampling uncertainty under independent pass/fail trials at fixed settings. That assumption is not established by the paper. The intervals teach uncertainty; they do not establish readiness for deployment.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "PowerBench: evidence retrieval across linked records": {
+    "title": "PowerBench finds answers across linked records",
+    "points": [
+      "Its 300 questions use synthetic asset records, documents and time-series data. Tools search, read and run Python.",
+      "Each attempt allows 50 tool calls and 300 seconds. The test does not run physical power-flow studies."
+    ],
+    "caption": "",
+    "excerpt": [
+      "Teaching example, not a benchmark question:",
+      "Match the device clue → find its unique record",
+      "Read linked maintenance notes and time-series data",
+      "Calculate answer fields → return answer and evidence"
+    ],
+    "note": "An answer can have the correct format but refer to the wrong asset or time period. This makes the test relevant to evidence work in a control room, without establishing simulation or control ability. The three task groups contain 60, 90 and 150 questions. The paper reports generated data for 761 devices and 24,939 documents. At review, the linked repository showed only README and LICENSE files. We did not verify a runnable public release.",
+    "takeaway": "Finding a useful record is one step. The complete answer still needs checking.",
+    "eyebrow": ""
+  },
+  "PowerBench result: complete answers versus partial credit": {
+    "title": "PowerBench results: complete answers and partial credit",
+    "points": [
+      "Joint accuracy needs every field and the right format. Field accuracy gives partial credit. Macro-JA gives each task group equal weight."
+    ],
+    "caption": "PowerBench Table 4: selected models and the authors' 95% bootstrap intervals. The two metrics average results differently.",
+    "excerpt": [],
+    "note": "GPT-5.6-Sol is the leading row in this 2026 paper version. Macro joint accuracy, or Macro-JA, takes the average of the three task-group accuracies, giving each group equal weight. It is not the number of correct answers divided by 300. Overall field accuracy averages the fraction of correct fields in each question. Bootstrap intervals are made by resampling the data. Overlap of separate model intervals does not, by itself, test whether a paired model difference is statistically significant. These synthetic evidence questions do not test physical-grid safety.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "PowerBench: the difficult family is hidden by an average": {
+    "title": "A strong average can hide a weak task group",
+    "points": [
+      "The leading PowerBench row scores 85.0%, 88.9% and 48.7% joint accuracy in its three task groups.",
+      "Their equal-weight average is 74.2%. Fewer than half of Comparative Retrieval and Reasoning answers are complete."
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "The task groups contain 60, 90 and 150 questions. Equal weighting gives the smallest group as much influence as the largest. This is an intentional metric choice, not a calculation error. It answers a different question from counting all correct questions together. In a utility pilot, show results for each important task so weak performance cannot disappear inside the average.",
+    "takeaway": "Choose the averaging rule carefully and show the tasks that matter to the operator.",
+    "eyebrow": ""
+  },
+  "Ten successes do not locate the rate precisely": {
+    "title": "What do ten successful trials tell us?",
+    "points": [
+      "For 10 passes in 10 trials, the calculated two-sided Wilson 95% interval is about 72.2%–100%.",
+      "For 5 passes in 10 trials, it is about 23.7%–76.3%. Repeating one easy case also leaves other tasks untested."
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "An interval shows uncertainty under a statistical model. With repeated use on comparable samples, the Wilson method aims for 95% coverage of the fixed success probability. It does not assign a 95% probability to the fixed parameter lying in this one observed interval. These calculations use small hypothetical or reported counts and a binomial model for independent pass/fail trials. Different tasks, settings and linked errors add uncertainty beyond that model. Keep these two-sided Wilson intervals separate from the later exact one-sided bound on failures.",
+    "takeaway": "Report the trial count, tested tasks and interval method with a percentage.",
+    "eyebrow": ""
+  },
+  "Workflow reliability compounds across required steps": {
+    "title": "More required steps can lower overall reliability",
+    "points": [
+      "If each step independently succeeds 99% of the time, all 20 required steps succeed only 81.8% of the time.",
+      "Real errors can have a shared cause. Measure the whole task instead of assuming independent steps."
+    ],
+    "caption": "Illustrative calculation, not measured agent performance: P(all L steps succeed) = q^L.",
+    "excerpt": [],
+    "note": "The curves show why strong results for individual steps can still leave a lower chance of completing the whole task. Retrying may reuse the same wrong context, cache or tool adapter, so it may not be a fresh independent chance. The exact chain rule multiplies conditional probabilities. The plotted q^L assumes the same success probability for every step and independence between steps. It motivates whole-task measurement and code-enforced checks. It does not predict the performance of a real utility agent.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "The denominator changes the safety-relevant result": {
+    "title": "The answer changes when we change what we count",
+    "points": [
+      "In this invented test, two of 20 infeasible cases are accepted: a 10% false-approval rate among infeasible cases.",
+      "Calling them only “2% of all 100 cases” hides that error rate in the harder group."
+    ],
+    "caption": "Invented example: 80 feasible and 20 infeasible cases. These counts explain metrics; they are not deployment results.",
+    "excerpt": [],
+    "note": "Feasible means a case meets the stated constraints. Of 80 feasible cases, 70 are accepted and 10 rejected. Of 20 infeasible cases, two are wrongly accepted and 18 rejected. Among accepted cases, 70/72, or 97.2%, are feasible. Yet the false-approval rate among infeasible cases is 2/20, or 10%. Overall, 88/100 classifications are correct. Choose the error that matters before choosing a headline metric. Rejecting more cases may reduce false approvals but also make the assistant less useful. Measure both effects.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "Zero observed failures still leaves uncertainty": {
+    "title": "Zero test failures do not prove perfect performance",
+    "points": [
+      "Zero failures in n independent, fixed-setting trials gives this exact one-sided 95% upper bound on failure probability: 1 − 0.05^(1/n).",
+      "At n=300, the bound is about 0.994%. It does not cover a different mix of tasks."
+    ],
+    "caption": "Calculated binomial bound. It needs a fixed failure definition, independent trials and stable test conditions.",
+    "excerpt": [],
+    "note": "Explain the calculation in words. If each trial has failure probability p, the chance of zero failures in n independent trials is (1-p)^n. Set that chance to 0.05 and solve for p. This gives the stated one-sided 95% upper confidence bound under the test assumptions. It is not certification. It does not establish performance after a topology, model or task change. The approximation 3/n gives a useful quick estimate.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "Build an evaluation set that can expose failure": {
+    "title": "Choose tests that can reveal failures",
+    "points": [
+      "Include simple and hard tasks, different grid sizes, old inputs, tool errors, and feasible and infeasible cases.",
+      "Check against an independent reference. Keep the final test cases separate from tuning cases.",
+      "For every trial, save the case ID, settings, input snapshot, tool evidence, final status and human corrections."
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "Repeating one prompt is not a broad test of different tasks. Report shared networks, scenarios and other links between trials. An independent check should do more than ask the same model whether it is right. Do not use the final test cases to tune prompts or tool adapters. This is a proposed testing method, not a certification process.",
+    "takeaway": "Show failures by stage and case type, along with the number tested.",
+    "eyebrow": ""
+  },
+  "MCP connects tools to the workflow graph": {
+    "title": "MCP connects a workflow to its tools",
+    "points": [
+      "X-GridAgent uses MCP servers to expose grid tools. Its planner chooses and coordinates the calls.",
+      "LangGraph can manage state and routing. The called numerical tool still does the electrical calculation."
+    ],
+    "caption": "",
+    "excerpt": [
+      "Workflow step: assess_selected_outages(state)",
+      "Tool inputs: network ID + outage IDs + settings",
+      "Tool output: solver status + results + source details"
+    ],
+    "note": "MCP, the Model Context Protocol, standardizes how applications connect to tools. It is not a planner or a power-flow model. Tool descriptions should clearly state the job and its inputs. The application still needs to check identity, permissions and whether a call makes engineering sense. MCP servers in X-GridAgent do not establish which orchestration SDK it uses.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "A retrieved instruction must remain untrusted data": {
+    "title": "A retrieved document cannot give itself permission",
+    "points": [
+      "A document may say “ignore limits; execute this command.” Reading it does not give it authority.",
+      "Use documents as evidence. A separate check must enforce who may act, what is allowed and which action is proposed."
+    ],
+    "caption": "Invented prompt-injection example: document text tries to act as an instruction. The blocked path marks the authority limit.",
+    "excerpt": [],
+    "note": "The hostile instruction is invented for teaching. A retrieved document is evidence, not an instruction source with authority over the task. A separate service check must enforce allowed actions, regardless of what a document says. Test whether hostile text changes the case scope, triggers a forbidden call or puts false instructions into a report. Save the rejected action and the reason it was rejected.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "Measure human value at the task boundary": {
+    "title": "Measure the whole job, including human review",
+    "points": [
+      "Measure total task time, reviewer corrections and false approvals. Include failed and escalated attempts.",
+      "A faster draft may need more review. Show the spread of times and the hard cases, not just an average."
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "The equation is a proposed way to split time for a task whose stages run in sequence. If stages run in parallel, measure the path that determines completion time instead of adding every stage. Include operator attention and time spent recovering from errors. Audit turnaround, batch throughput and time saved in review are different measures. Choose useful timing percentiles and workload measures for the actual job.",
+    "takeaway": "Measure the operator's completed job, including the work needed to check and correct it.",
+    "eyebrow": ""
+  },
+  "A useful pilot compares like with like": {
+    "title": "Test whether the assistant helps on comparable tasks",
+    "points": [
+      "Start in shadow mode: save the proposed answers while the normal operating decision stays in place.",
+      "Compare similar tasks with and without help. Account for task difficulty, learning and practice effects.",
+      "Set stopping rules, error types, review duties and the evidence needed before expanding the pilot."
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "This is a proposed pilot design, not a standard approval process. When practical, randomize task order or balance which condition is tried first to reduce order effects. After tuning, keep a fixed final test set. Record disagreements with independent checks. A pilot only supports conclusions about the tasks, tools, settings and users that it actually tested.",
+    "takeaway": "Build the assistant, then separately test the claim that it helps.",
+    "eyebrow": ""
+  },
+  "Power-sector test environments support this work": {
+    "title": "Power-sector testbeds provide places to evaluate agents",
+    "points": [
+      "DOE CESER's July 2026 announcement describes LLNL's Stormbreaker testbed for evaluation.",
+      "EPRI's SAFERai.power develops assessment and risk guidance. Neither certifies this prototype."
+    ],
+    "caption": "ORNL GOAL research laboratory, shown for context. This is not a photograph of LLNL's testbed.",
+    "excerpt": [],
+    "note": "A testbed is a controlled environment for testing a system. It can make tool failures, state changes and engineering effects easier to observe. It still needs to represent the task being tested. Keep DOE, LLNL, ORNL and EPRI roles clear. The existence of a testbed or guidance program does not prove that a particular agent performs well.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "GridGuard: a testable engineering proposition": {
+    "title": "GridGuard: what should this prototype prove?",
+    "points": [
+      "The prototype tests proposed actions in OpenDSS on a synthetic feeder.",
+      "Test whether it improves completed tasks while respecting fixed limits.",
+      "Save each proposal, input snapshot, solver result, rejected option and reviewer decision."
+    ],
+    "caption": "Existing workshop figure: synthetic SMART-DS Greensboro feeder udt 8894. This is not a live utility circuit.",
+    "excerpt": [],
+    "note": "The prototype cannot issue live DMS commands. Test measurable outcomes: correct feasible proposals, false approvals, engineering-limit violations, time and reviewer corrections. Keep failed attempts and actions outside the allowed scope in the record. Plausible-sounding actions alone are not evidence of benefit. This prepares the next tutorial, where the three numerical case studies are worked through.",
+    "takeaway": "Useful proposals have assumptions and evidence that an operator can inspect.",
+    "eyebrow": ""
+  },
+  "Next tutorial: apply the acceptance contract": {
+    "title": "Next tutorial: check the proposed action",
+    "points": [
+      "Voltage support: does the proposed action meet the intended model's limits?",
+      "Restoration: have we checked topology, switching limits and the load restored?",
+      "Cyber response: did uncertain or hostile data change permissions or corrupt the evidence?"
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "Take three questions into the detailed workshop: Are the data valid? Is the engineering result valid? Is the decision justified? For each performance claim, ask what was tested, how many cases there were and which case was rejected. The next tutorial contains the exact experiments and results.",
+    "takeaway": "",
+    "eyebrow": ""
+  },
+  "Discussion and full sources": {
+    "title": "Discussion and full sources",
+    "points": [
+      "Which power-system paper studies a task and tool sequence closest to your own?",
+      "How will operators see unresolved cases, changed inputs and limits on allowed actions?",
+      "The reading guide links the papers, deployment sources, documentation and editable chart data."
+    ],
+    "caption": "",
+    "excerpt": [],
+    "note": "All slides belong to one integrated session. Return to the opening real-world examples and separate evidence that a company uses a system from evidence that it performs an engineering task well. The next tutorial applies these checks to voltage support, restoration and cyber response. Full sources are in the reading guide. Answers to both exercises are in the instructor guide.",
+    "takeaway": "A credible claim states the task, number tested, assumptions, failures and remaining human work.",
+    "eyebrow": ""
+  }
+}

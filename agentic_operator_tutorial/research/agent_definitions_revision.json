@@ -1,0 +1,174 @@
+{
+  "reviewed_on_local": "2026-10-17",
+  "purpose": "Literature-grounded introductory revision for the power-system agent tutorial. Definitions and teaching examples only; no new performance measurements.",
+  "editorial_position": {
+    "consensus": "Do not claim a universal definition. State which classical or LLM-engineering usage is being used.",
+    "working_definition": "Here, agentic AI means a system in which an AI model helps choose and revise actions toward a goal using feedback, within an explicitly bounded operating process.",
+    "status": "Original tutorial working definition synthesized from DEF01-DEF03, not a quotation or standardized taxonomy.",
+    "scope": "The opening must distinguish a classical agent abstraction from the narrower LLM-agent pattern studied in this tutorial. Agentic does not require multiple agents, an LLM is not required by classical agency, and the word does not establish correctness or operating authority."
+  },
+  "sources": [
+    {
+      "id": "DEF01",
+      "title": "Artificial Intelligence: A Modern Approach, Chapter 2: Intelligent Agents",
+      "authors": ["Stuart J. Russell", "Peter Norvig"],
+      "year": 2003,
+      "bibliographic_citation": "Russell, Stuart J., and Peter Norvig. Artificial Intelligence: A Modern Approach. 2nd ed. Upper Saddle River, NJ: Prentice Hall, 2003. Chapter 2, Intelligent Agents, pp. 32-58. Author-hosted chapter draft dated 2002.",
+      "type": "Canonical authored textbook; primary exposition of its agent framework",
+      "url": "https://aima.cs.berkeley.edu/2nd-ed/",
+      "full_text_url": "https://aima.cs.berkeley.edu/4th-ed/pdfs/newchap02.pdf",
+      "corroborating_author_slides_url": "https://aima.cs.berkeley.edu/4th-ed/slides-pdf/chapter02.pdf",
+      "version_note": "Despite its current /4th-ed/ URL, the verified sample chapter is the older chapter with printed pages 32-58 and 2002 directory timestamp. Do not cite this PDF as fourth-edition text. The official second-edition page identifies the edition and Prentice Hall; the final book citation is 2003.",
+      "locators": ["Section 2.1, printed pp. 32-34 / PDF pp. 1-3", "Figure 2.1, printed p. 33 / PDF p. 2", "Section 2.2, printed pp. 35-37 / PDF pp. 4-6"],
+      "paraphrased_definition": "An agent is viewed through its interaction with an environment: it receives percepts and produces actions. An agent function describes the mapping from percept history to action, while a program implements it. The text treats agency as an analytical viewpoint rather than an absolute classification.",
+      "teaching_use": "Establish the broad historical concept before introducing LLM control loops. Software files, messages and tool results can form the environment; a physical robot is unnecessary.",
+      "caveat": "Rationality is defined relative to evidence and a performance measure; it is not guaranteed success. This broad definition alone does not distinguish a modern LLM agent from ordinary software."
+    },
+    {
+      "id": "DEF02",
+      "title": "Intelligent agents: theory and practice",
+      "authors": ["Michael Wooldridge", "Nicholas R. Jennings"],
+      "year": 1995,
+      "bibliographic_citation": "Wooldridge, Michael, and Nicholas R. Jennings. Intelligent agents: theory and practice. The Knowledge Engineering Review 10, no. 2 (June 1995): 115-152. https://doi.org/10.1017/S0269888900008122.",
+      "type": "Primary theoretical/architectural research review by the authors",
+      "url": "https://doi.org/10.1017/S0269888900008122",
+      "full_text_url": "https://www.cs.ox.ac.uk/people/michael.wooldridge/pubs/ker95.pdf",
+      "author_html_url": "https://www.cs.ox.ac.uk/people/michael.wooldridge/pubs/ker95/ker95-html.html",
+      "definition_section_url": "https://www.cs.ox.ac.uk/people/michael.wooldridge/pubs/ker95/subsubsectionstar3_1_1_1.html",
+      "definition_variation_url": "https://www.cs.ox.ac.uk/people/michael.wooldridge/pubs/ker95/subsection3_1_1.html",
+      "version_note": "The author-hosted HTML is an earlier draft stamped November 1994. Use the final 1995 PDF for the bibliographic citation; the HTML makes the definition sections searchable. The final PDF is image-based in the web extractor, so section locators are safer than an unverified PDF page number.",
+      "locators": ["Section 1.1, What is an Agent?", "Section 1.1.1, A Weak Notion of Agency"],
+      "paraphrased_definition": "Their weak notion groups autonomy, interaction with others, timely response to environmental changes, and goal-directed initiative. A stronger usage additionally invokes mental-state concepts. They explicitly discuss the absence of one universally accepted definition.",
+      "teaching_use": "Use the four properties as questions about behavior, not a modern vendor certification checklist.",
+      "caveat": "These are the authors' historical conceptual distinctions. Neither multiple LLM roles nor a tool-calling interface alone demonstrates all four properties."
+    },
+    {
+      "id": "DEF03",
+      "title": "Building effective agents",
+      "authors_as_credited": ["Erik S.", "Barry Zhang"],
+      "organization": "Anthropic",
+      "date": "2024-12-19",
+      "bibliographic_citation": "Erik S. and Barry Zhang. Building effective agents. Anthropic Engineering, December 19, 2024. Live article reviewed October 17, 2026.",
+      "type": "Official practitioner architecture account by the system maintainers",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "locators": ["What are agents?", "Agents", "Workflow: Routing", "Workflow: Orchestrator-workers", "Workflow: Evaluator-optimizer"],
+      "paraphrased_definition": "Their engineering terminology places both workflows and agents under agentic systems. Workflow control follows predefined code paths; an agent lets the LLM direct its process and tool use. They acknowledge multiple meanings of agent.",
+      "caveat": "Present this as an attributed architectural convention. Their workflows can include model-based routing, dynamic worker decomposition and refinement loops, so conditional edges or a loop are not sufficient tests for agency.",
+      "version_note": "The live page now warns that tooling has changed since the original publication. Use its conceptual distinction, not its present SDK list as a claim about the 2024 implementation."
+    },
+    {
+      "id": "DEF04",
+      "title": "LangGraph overview; Tools",
+      "author": "LangChain maintainers",
+      "date": "Undated live documentation; accessed 2026-10-17",
+      "bibliographic_citation": "LangChain maintainers. LangGraph overview and Tools. Docs by LangChain, Python open-source documentation. Accessed October 17, 2026.",
+      "type": "Official framework and tool-interface documentation; two pages in one documentation collection",
+      "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+      "tools_url": "https://docs.langchain.com/oss/python/langchain/tools",
+      "locators": ["LangGraph overview: opening paragraphs and product-role list", "Tools: opening definition and Basic tool definition"],
+      "paraphrased_definition": "LangGraph is an orchestration framework/runtime for stateful execution, combining programmed and model-driven steps. A tool exposes a callable function through defined inputs and outputs; its description and schema guide invocation.",
+      "teaching_use": "Separate orchestration from decision policy and numerical computation. The same runtime can execute a fixed process or an LLM-directed loop.",
+      "caveat": "A framework's capabilities do not prove that a particular application uses them. A tool is an interface role and may wrap a complex service or another agent. Do not universally equate tool with a trivial or stateless function."
+    },
+    {
+      "id": "DEF05",
+      "title": "PowerAgent: Open-Source Agentic AI for Power Grids",
+      "author": "Power and AI Initiative, Harvard John A. Paulson School of Engineering and Applied Sciences",
+      "date": "Undated live project page; accessed 2026-10-17",
+      "bibliographic_citation": "Power and AI Initiative, Harvard SEAS. PowerAgent: Open-Source Agentic AI for Power Grids. Official project website. Accessed October 17, 2026.",
+      "type": "Official domain-platform description by its maintainers",
+      "url": "https://poweragent.seas.harvard.edu/",
+      "code_organization_url": "https://github.com/Power-Agent",
+      "locators": ["Introduction", "PowerFM / PowerMCP / PowerWF / PowerSkills component descriptions", "PowerAgent Platform"],
+      "paraphrased_definition": "The official site describes PowerAgent as an open-source community/platform developing power-domain models, software interfaces, workflows and skills.",
+      "caveat": "PowerAgent is a proper name for a domain ecosystem, not the generic definition of agent and not one fixed agent architecture. Describe the specific PowerAgent application, simulator and task when making capability claims."
+    }
+  ],
+  "distinctions": [
+    {"term": "Classical agent", "question": "What perceives and acts in this environment?", "tutorial_meaning": "A broad interaction model; implementations may use rules, planning, optimization, learning or LLMs.", "refs": ["DEF01", "DEF02"]},
+    {"term": "LLM agent", "question": "Does the model help decide the next action from observed results?", "tutorial_meaning": "A goal-directed decision component in an execution loop. Prompts, state, runtime and tool interfaces support the model; model weights alone are not the whole application.", "refs": ["DEF03", "DEF04"]},
+    {"term": "Tool", "question": "What operation can be invoked with specified arguments?", "tutorial_meaning": "Callable capability, such as a power-flow run, record read or evidence check. The caller/orchestrator determines when it runs.", "refs": ["DEF04"]},
+    {"term": "Workflow", "question": "How are steps and their dependencies arranged?", "tutorial_meaning": "An executable process may prescribe steps, branches and checks. It may contain LLM calls or agent components. A DAG expresses dependencies; cycles support repeated steps.", "refs": ["DEF03", "DEF04"]},
+    {"term": "Agentic AI / agentic system", "question": "How does the assembled system pursue the task?", "tutorial_meaning": "A system/approach label rather than an extra component beside an agent. State the adopted usage; a single agent can participate in such a system.", "refs": ["DEF02", "DEF03"]},
+    {"term": "LangGraph", "question": "What executes and persists the orchestration?", "tutorial_meaning": "A general software framework/runtime, usable for both fixed and model-directed processes.", "refs": ["DEF04"]},
+    {"term": "PowerAgent", "question": "Which domain ecosystem or application is being discussed?", "tutorial_meaning": "A named power-system community/platform. Name a concrete application for architecture or result claims.", "refs": ["DEF05"]}
+  ],
+  "power_example": {
+    "status": "Original hypothetical teaching example; not a measured paper trace or claim of deployed control authority.",
+    "request": "Investigate why the base-case AC power flow on frozen network v43 fails, then return an evidence-backed report within two retries.",
+    "environment_and_observations": "Frozen network data, solver logs, returned convergence status and validation results.",
+    "tool_call": "run_pf(network_id='v43', case_id='base')",
+    "tool_contract": "Return converged, numerical diagnostics and an artifact identifier; return an explicit error on failure. This interface is illustrative.",
+    "fixed_workflow_variant": "A programmed process always loads v43, runs the solver, validates the output and reports status. On failure it follows a predefined diagnostic branch.",
+    "agent_variant": "Within allowed read-only diagnostics and a retry budget, an LLM chooses which missing evidence to inspect next from the observed failure; it can stop, request clarification or escalate.",
+    "orchestration_role": "LangGraph could carry state, execute chosen nodes, route validation outcomes and checkpoint the process. It does not supply the electrical model or certify the diagnosis.",
+    "domain_platform_role": "PowerAgent components can provide domain interfaces or workflows; claim a particular implementation only when its paper/code identifies it.",
+    "success": "A complete report distinguishes a solved case from an unresolved failure and cites the exact evidence and network version. No live switching action is included."
+  },
+  "slide_outlines": [
+    {
+      "order": 1,
+      "title": "What is an agent? Start with an environment and actions",
+      "points": ["Classical AI studies a system through what it observes and what it does.", "An LLM is one possible decision mechanism; agency predates LLMs."],
+      "example": "A study assistant observes solver logs and acts by requesting another diagnostic run or reporting a result.",
+      "note": "Use Russell/Norvig's broad lens first; avoid saying all older automation fails to qualify as an agent.",
+      "refs": ["DEF01", "DEF02"]
+    },
+    {
+      "order": 2,
+      "title": "What is agentic AI in this tutorial?",
+      "points": ["We study AI-supported action selection toward a goal, revised using feedback.", "The task also has explicit permissions, budgets and stopping rules."],
+      "note": "Label this as the tutorial's working definition. Keep autonomy relative to the assigned task; it does not mean unrestricted action.",
+      "refs": ["DEF02", "DEF03"]
+    },
+    {
+      "order": 3,
+      "title": "A tool performs a call; an agent chooses what to do next",
+      "points": ["run_pf(v43, base) is a callable capability with an input/output contract.", "The agent can use its result to choose another permitted diagnostic, stop or escalate."],
+      "note": "This is a component-role distinction, not a claim that a tool can never contain another agent. Show the returned error as an observation.",
+      "refs": ["DEF03", "DEF04"]
+    },
+    {
+      "order": 4,
+      "title": "Workflow and agent describe different choices about control",
+      "points": ["A workflow can prescribe the study sequence and validation gates.", "An LLM agent can choose some next steps inside that process."],
+      "note": "Attribute fixed-code-path versus dynamic-direction terminology to Anthropic. A router, refinement loop or worker allocation can still be an engineered workflow; diagrams alone do not determine agency.",
+      "refs": ["DEF03", "DEF04"]
+    },
+    {
+      "order": 5,
+      "title": "LangGraph and PowerAgent occupy different roles",
+      "points": ["LangGraph supplies general orchestration machinery.", "PowerAgent names a power-domain ecosystem; its particular applications combine models, tools and workflows."],
+      "note": "Do not call either a numerical grid solver. Do not assume every PowerAgent component uses LangGraph. State the actual paper implementation later.",
+      "refs": ["DEF04", "DEF05"]
+    },
+    {
+      "order": 6,
+      "title": "Describe the engineering contract before judging the agent",
+      "points": ["Name the goal, observed evidence, permitted actions and success test.", "Keep model choice, tool behavior and orchestration behavior separately inspectable."],
+      "example": "For v43, accept an evidenced diagnosis or an explicit unresolved report; do not silently reuse v42 results.",
+      "note": "Original bridge into the existing simulator, checkpoint and validation material. A credible system description is more informative than an agentic label.",
+      "refs": ["DEF01", "DEF04"]
+    }
+  ],
+  "diagram_suggestion": {
+    "make_now": false,
+    "suggested_stem": "power_agent_roles",
+    "title": "The decision loop and the machinery around it",
+    "purpose": "Give one concrete, legible distinction between agent, tool, orchestration and domain environment.",
+    "sketch": "Left: Goal 'diagnose base case v43'. Center: one 'LLM decision' node. Right: 'run_pf(v43, base)' tool, then a 'frozen case + solver' environment. Orthogonal return arrow labeled 'convergence / error / artifact' feeds the decision node. A thin enclosing bracket labeled 'LangGraph: state and execution' surrounds the decision/tool loop. Below, one terminal 'report or escalate' node. Put PowerAgent in the caption as a domain ecosystem, not as a nested physical layer or a claim of this implementation.",
+    "layout": "Use the existing 14.2 x 4.2 cm native TikZ style, 12.5 pt main labels, a single horizontal action path with a bottom feedback return, no table or UI-card grid.",
+    "caption": "Original teaching abstraction. Agent names the decision role; tool names the callable interface; orchestration executes the process. The proposed v43 example is illustrative.",
+    "assumptions": ["A tool's internals may be complex.", "No claim that PowerAgent always uses LangGraph.", "Read-only study diagnostics, no live switching or new performance result."],
+    "refs": ["DEF01", "DEF03", "DEF04", "DEF05"]
+  },
+  "avoid_claims": [
+    "There is one universally accepted definition of agentic AI.",
+    "An agent must be an LLM or a multi-agent team.",
+    "Any tool call, feedback loop or graph automatically makes an application an LLM agent.",
+    "A tool is necessarily simple, stateless, deterministic or incapable of wrapping an agent.",
+    "LangGraph supplies domain reasoning or numerical grid correctness.",
+    "PowerAgent is one agent architecture, or every PowerAgent application uses LangGraph.",
+    "Autonomy means unrestricted physical authority, or self-reflection guarantees learning and correctness."
+  ]
+}

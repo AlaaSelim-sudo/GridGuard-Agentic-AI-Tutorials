@@ -1,0 +1,27 @@
+\definecolor{IEEEBlue}{HTML}{00629B}
+\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}
+\definecolor{Slate}{HTML}{526470}
+\definecolor{AlertRed}{HTML}{B83136}
+\definecolor{Amber}{HTML}{A66610}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,
+ font=\fontsize{11}{13}\selectfont,text=Navy,
+ box/.style={draw=IEEEBlue,thick,rounded corners=2pt,align=center,
+ fill=IEEEBlue!4,inner sep=3pt,minimum height=.62cm},
+ arr/.style={->,draw=IEEEBlue,line width=1pt},
+ ]
+
+\node[box,text width=2.75cm,minimum height=1.15cm] (old) at (1.6,0)
+ {12 selected actions\\MV model};
+\node[box,text width=3.00cm,draw=Cyan,fill=Cyan!8] (mv) at (6.0,.90)
+ {MV check: 12/12 PASS};
+\node[box,text width=3.00cm,draw=AlertRed,fill=AlertRed!4] (ac) at (6.0,-.90)
+ {Same-action AC: 0/12 PASS};
+\node[box,text width=3.00cm] (new) at (10.9,-.90)
+ {Separate AC MPC\\12/12 first actions PASS};
+\draw[arr] (old.east)--(mv.west);
+\draw[arr,draw=AlertRed] (old.east)--(ac.west);
+\draw[arr,draw=Amber] (ac.east)--node[above] {replan}(new.west);
+\node[align=center] at (10.9,.90) {Broader equations\\and network coverage};
+
+\end{tikzpicture}

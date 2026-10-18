@@ -1,0 +1,153 @@
+{
+  "kind": "Original educational concept diagrams requested for the tutorial",
+  "credit": "Original tutorial illustrations. Editable TikZ source accompanies each SVG.",
+  "source": "Author-created for this tutorial, not a vendor product diagram or deployment claim",
+  "required_tikz_libraries": [
+    "arrows.meta",
+    "positioning",
+    "calc"
+  ],
+  "inclusion": "Each .tex is an unconditional tikzpicture fragment. Colors and styles are scoped inside its picture. Include with input and optional resizebox.",
+  "coordinate_size_cm": [
+    14.3,
+    3.6
+  ],
+  "svg_size_px": [
+    1280,
+    335
+  ],
+  "items": [
+    {
+      "id": "agent_loop",
+      "title": "The agent loop",
+      "description": "A goal prompts a model to choose a tool. Observations update the plan and can branch to operator review. The separate authority diagram explains permission before consequential execution.",
+      "tikz": "agent_loop.tex",
+      "svg": "agent_loop.svg",
+      "source_refs": [
+        "T01",
+        "T04"
+      ]
+    },
+    {
+      "id": "evidence_path",
+      "title": "The evidence path",
+      "description": "Event logs, historian data, and procedures feed a brief that preserves timestamps and source links for operator review.",
+      "tikz": "evidence_path.tex",
+      "svg": "evidence_path.svg",
+      "source_refs": [
+        "O01"
+      ]
+    },
+    {
+      "id": "authority",
+      "title": "Levels of authority",
+      "description": "Reading, recommending, and preparing a draft are distinct permissions. Execution crosses an explicit human authorization boundary.",
+      "tikz": "authority.tex",
+      "svg": "authority.svg",
+      "source_refs": [
+        "T09"
+      ]
+    },
+    {
+      "id": "rag_tools",
+      "title": "Retrieval and calculation",
+      "description": "A grounded proposal combines documentary evidence with engineering tool results. Neither source replaces the other.",
+      "tikz": "rag_tools.tex",
+      "svg": "rag_tools.svg",
+      "source_refs": [
+        "L01"
+      ]
+    },
+    {
+      "id": "state_resume",
+      "title": "State, review, and resume",
+      "description": "A checkpoint preserves workflow state. Before resuming, the system checks whether inputs and authority remain current.",
+      "tikz": "state_resume.tex",
+      "svg": "state_resume.svg",
+      "source_refs": [
+        "T01",
+        "T03"
+      ]
+    },
+    {
+      "id": "evaluation",
+      "title": "Evaluation before review",
+      "description": "A candidate passes domain checks and evidence checks before operator review. Failed or stale inputs trigger a request for new data.",
+      "tikz": "evaluation.tex",
+      "svg": "evaluation.svg",
+      "source_refs": [
+        "R02",
+        "T14"
+      ]
+    },
+    {
+      "id": "framework_layers",
+      "title": "The application stack",
+      "description": "The operator application delegates workflow control to an orchestrator. Typed tools mediate access to utility data and engineering simulators.",
+      "tikz": "framework_layers.tex",
+      "svg": "framework_layers.svg",
+      "source_refs": [
+        "T01",
+        "T02",
+        "T04",
+        "T06"
+      ]
+    },
+    {
+      "id": "exercise_packet",
+      "title": "Input freshness exercise",
+      "description": "At the 15:05 review, telemetry is 30 minutes old, the study is 25 minutes old, and the alarm is 3 minutes old. Check whether the inputs describe the post-event state. Request fresh data or justification for using earlier data. No fixed age threshold is implied.",
+      "tikz": "exercise_packet.tex",
+      "svg": "exercise_packet.svg",
+      "source_refs": []
+    },
+    {
+      "id": "aes_audit",
+      "title": "AES audit review workflow",
+      "description": "Simplified teaching reconstruction of the published AES case: documents feed coordinated review agents, which prepare a score and report for human review.",
+      "tikz": "aes_audit.tex",
+      "svg": "aes_audit.svg",
+      "source_refs": [
+        "U01",
+        "V02"
+      ],
+      "teaching_reconstruction": true,
+      "external_references": [
+        "https://cloud.google.com/customers/aes"
+      ],
+      "disclosure": "Original simplified teaching illustration based on the cited case. Not a vendor-provided architecture or measured execution trace."
+    },
+    {
+      "id": "tc_piper",
+      "title": "TC Energy Piper workflow",
+      "description": "Simplified teaching reconstruction: Textract extracts records, Claude and Strands agents support cross-checks, and engineers review outputs. Bedrock AgentCore hosts agents and tools. AWS Step Functions coordinates processing.",
+      "tikz": "tc_piper.tex",
+      "svg": "tc_piper.svg",
+      "source_refs": [
+        "U04"
+      ],
+      "teaching_reconstruction": true,
+      "external_references": [
+        "https://aws.amazon.com/solutions/case-studies/tcenergy-bedrock/"
+      ],
+      "disclosure": "Original simplified teaching illustration based on the cited case. Not a vendor-provided architecture or measured execution trace."
+    },
+    {
+      "id": "duke_study",
+      "title": "Duke Energy study workflow",
+      "description": "Simplified teaching reconstruction: workflow agents prepare a case and coordinate existing engineering tools. An engineer confirms the case before the simulator study and reviews the report.",
+      "tikz": "duke_study.tex",
+      "svg": "duke_study.svg",
+      "source_refs": [
+        "U02",
+        "U03"
+      ],
+      "teaching_reconstruction": true,
+      "external_references": [
+        "https://press.aboutamazon.com/aws/2026/9/aws-launches-agentic-grid-planning-program-to-accelerate-interconnection-studies",
+        "https://aws.amazon.com/energy-utilities/agentic-grid-planning/"
+      ],
+      "disclosure": "Original simplified teaching illustration based on the cited case. Not a vendor-provided architecture or measured execution trace."
+    }
+  ]
+}

@@ -1,0 +1,359 @@
+{
+  "items": [
+    {
+      "credit": "Original worked teaching illustration",
+      "id": "snapshot_consistency",
+      "title": "A topology event invalidates the old study context",
+      "caption": "Illustrative two-feeder topology, not an electrical solution. Switch S is closed in snapshot v42 at 14:35, opens at 15:02, and produces state v43. The 14:40 study used v42. At 15:05, the operator must revalidate its applicability to v43 before relying on it.",
+      "assumptions": "Version identifiers and times are invented for teaching. No load, voltage, current, protection, or switching action recommendation is calculated.",
+      "source_refs": [],
+      "tikz": "snapshot_consistency.tex",
+      "svg": "snapshot_consistency.svg",
+      "pdf": "snapshot_consistency.pdf"
+    },
+    {
+      "credit": "Original worked teaching illustration",
+      "id": "executed_trace",
+      "title": "A typed stale-data result changes the next action",
+      "caption": "Illustrative execution trace with concrete arguments and typed results. Asset resolution returns id 447. The measurement service returns quality STALE for the requested 15:00–15:05 window. The supported continuation requests fresh data. A solver call using this unresolved stale response has no evidence basis.",
+      "assumptions": "This is a simulated teaching trace, not a live product log or a claim that these APIs were executed against a utility.",
+      "source_refs": [
+        "T04"
+      ],
+      "tikz": "executed_trace.tex",
+      "svg": "executed_trace.svg",
+      "pdf": "executed_trace.pdf"
+    },
+    {
+      "credit": "Original worked teaching illustration",
+      "id": "typed_contract",
+      "title": "A valid number can still violate the tool contract",
+      "caption": "Illustrative typed contract. A solver expecting per-unit voltage and topology v43 rejects 12.47 kV and v42. A request with voltage 1.00 pu on base 12.47 kV and topology v43 can pass those checks. Unit conversion requires an explicit, matching voltage base and convention. Topology consistency is a separate requirement.",
+      "assumptions": "The 12.47 kV example only illustrates unit normalization on the same voltage basis. It is not an electrical feasibility check or a full sufficient solver contract.",
+      "source_refs": [
+        "T04"
+      ],
+      "tikz": "typed_contract.tex",
+      "svg": "typed_contract.svg",
+      "pdf": "typed_contract.pdf"
+    },
+    {
+      "credit": "Original worked teaching illustration",
+      "id": "trust_boundary",
+      "title": "Retrieved instructions cannot acquire command authority",
+      "caption": "Illustrative prompt-injection mechanism. A retrieved document contains an instruction to ignore limits and execute. Its contents remain data for retrieval and proposal formation. An independent policy and permission gate stands before the command service. The direct path from document text to command execution is blocked.",
+      "assumptions": "The malicious text is a teaching example, not an instruction to the presenter or an operational command. The diagram specifies an intended boundary, not proof that a system enforces it.",
+      "source_refs": [
+        "T09"
+      ],
+      "tikz": "trust_boundary.tex",
+      "svg": "trust_boundary.svg",
+      "pdf": "trust_boundary.pdf"
+    },
+    {
+      "credit": "Original worked teaching illustration",
+      "id": "cache_key_failure",
+      "title": "An omitted perturbation makes the retry ineffective",
+      "caption": "Schematic teaching reconstruction of the reactive-load cache defect reported in R02. A first call at P=100 MW, Q=0 Mvar caches R0. A corrected call at Q=10 Mvar maps to the same schematic key because Q is omitted, so it returns R0 rather than evaluating the corrected request. key(grid,P) is illustrative, not the implementation's actual API or complete cache key. A corrective cache identity must cover topology, model, all perturbations, and other relevant solver configuration.",
+      "assumptions": "Invented key notation and R0 label illustrate the reported omitted-Q mechanism. No solver result or power-flow solution is invented.",
+      "source_refs": [
+        "R02"
+      ],
+      "tikz": "cache_key_failure.tex",
+      "svg": "cache_key_failure.svg",
+      "pdf": "cache_key_failure.pdf"
+    },
+    {
+      "title": "A fault-record DAG follows the data prerequisites",
+      "caption": "Original teaching adaptation of DrAgent's domain tools, not its measured execution trace. A frozen COMTRADE record R17 feeds independent find_fault_inception and find_max_fault_current computations (abbreviated in the drawing). The inception sample and sampling rate feed a time conversion; the report waits for both numerical results.",
+      "assumptions": "R17 is an invented identifier; no waveform or numerical result is invented. The simple n_f/f_s conversion assumes constant sampling rate and a zero-based index relative to record start. Production conversion must respect actual COMTRADE timestamps, indexing and rate changes. Parallel scheduling is a teaching adaptation, not a claim that the paper ran these tools concurrently.",
+      "source_refs": [
+        "D01"
+      ],
+      "source_url": "https://www.manuscriptlink.com/society/kics/media?key=kics%2Fconference%2Ficaiic2025%2Fpresentation%2F1571098105.pdf",
+      "source_locator": "DrAgent Section III.B / Figure 3; Listing 2, PDF pp.4 and7",
+      "id": "power_fault_dag",
+      "tex": "power_fault_dag.tex",
+      "svg": "power_fault_dag.svg",
+      "pdf": "power_fault_dag.pdf",
+      "file": "power_fault_dag.svg",
+      "credit": "Original editable TikZ teaching diagram; see caption for source and assumptions"
+    },
+    {
+      "title": "A stateful graph routes the next step using validation",
+      "caption": "Original LangGraph educational pattern. A plan invokes a power-flow tool and validates its returned evidence. Valid evidence finishes; invalid evidence with retries left decrements the counter and replans; exhausted retries escalate. Two retries are an explicit application policy, not a LangGraph default.",
+      "assumptions": "Illustrative tool run_pf(F12,v43), state fields and budget. No tool is executed. Routing checks tool status, evidence and domain acceptance criteria; a completed graph alone does not establish electrical feasibility.",
+      "source_refs": [
+        "LG01"
+      ],
+      "source_url": "https://docs.langchain.com/oss/python/langgraph/graph-api",
+      "id": "power_stateful_route",
+      "tex": "power_stateful_route.tex",
+      "svg": "power_stateful_route.svg",
+      "pdf": "power_stateful_route.pdf",
+      "file": "power_stateful_route.svg",
+      "credit": "Original editable TikZ teaching diagram; see caption for source and assumptions"
+    },
+    {
+      "title": "A checkpoint preserves execution state, not evidence freshness",
+      "caption": "Original educational checkpoint/resume example. A checkpoint stores execution state and solver evidence for topology v42. A topology event creates v43 during the pause. On resume, an explicit application check compares the evidence context with the current topology and recomputes affected evidence before reuse.",
+      "assumptions": "Topology versions and event are invented. Persistence does not automatically refresh solver evidence or validate domain assumptions. The diagram shows one mismatch branch; an unchanged context could pass a separately defined reuse check.",
+      "source_refs": [
+        "LG02",
+        "LG03"
+      ],
+      "source_url": "https://docs.langchain.com/oss/python/langgraph/persistence",
+      "id": "power_checkpoint_revalidation",
+      "tex": "power_checkpoint_revalidation.tex",
+      "svg": "power_checkpoint_revalidation.svg",
+      "pdf": "power_checkpoint_revalidation.pdf",
+      "file": "power_checkpoint_revalidation.svg",
+      "credit": "Original editable TikZ teaching diagram; see caption for source and assumptions"
+    },
+    {
+      "title": "A contingency join preserves missing results",
+      "caption": "Original teaching fan-out/fan-in pattern. Cases C1, C2 and C3 start from separate copies of the same frozen network v43. C2 returns a tool error. The join retains all case statuses and produces an INCOMPLETE report rather than treating the two completed cases as complete contingency coverage.",
+      "assumptions": "Invented case identifiers and statuses; no power-flow measurements or contingency ranking is claimed. Independent copies prevent branch mutations from leaking between cases. Completion is distinct from a pass against operating limits.",
+      "source_refs": [
+        "LG01"
+      ],
+      "source_url": "https://docs.langchain.com/oss/python/langgraph/graph-api",
+      "id": "power_contingency_join",
+      "tex": "power_contingency_join.tex",
+      "svg": "power_contingency_join.svg",
+      "pdf": "power_contingency_join.pdf",
+      "file": "power_contingency_join.svg",
+      "credit": "Original editable TikZ teaching diagram; see caption for source and assumptions"
+    },
+    {
+      "title": "A changed input determines the stages that rerun",
+      "caption": "Original affected-stage diagram derived from GridMind 2026 Table 1, PDF p.4. Changing cascade fan-out k from 50 to 200 reruns cascade only. Shifting forecast initialization by six hours reruns all five stages: line-wind, outages, ACOPF, contingency and cascade. These are reported dependency effects, not a newly executed workflow.",
+      "assumptions": "The diagram shows affected sets, not invented stage-to-stage edges. In this implementation contingency consumes the outage schedule directly, not the ACOPF result. Reuse requires matching declared inputs; an artifact hash does not prove numerical correctness or freshness beyond those inputs.",
+      "source_refs": [
+        "P03"
+      ],
+      "source_url": "https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.pdf",
+      "source_locator": "Table 1 and Section 4.2, PDF p.4",
+      "id": "power_gridmind_invalidation",
+      "tex": "power_gridmind_invalidation.tex",
+      "svg": "power_gridmind_invalidation.svg",
+      "pdf": "power_gridmind_invalidation.pdf",
+      "file": "power_gridmind_invalidation.svg",
+      "credit": "Original editable TikZ teaching diagram; see caption for source and assumptions"
+    },
+    {
+      "title": "The agent chooses; the tool executes a capability",
+      "caption": "Original teaching abstraction for diagnosing a frozen base case v43. An LLM agent chooses a tool call, the callable interface runs against the case and solver, and returned evidence informs the next choice. LangGraph is shown as a possible orchestration runtime for state and execution, not as a grid solver or a claim about a particular PowerAgent implementation.",
+      "assumptions": "The v43 case, run_pf(v43, base) interface and feedback fields are illustrative; no tool was executed and no numerical outcome is asserted. Tool and agent name interface/decision roles; a tool may internally wrap another agent or a complex service. The outer framework marker does not establish the correctness of any electrical result. No PowerAgent SDK relationship is claimed.",
+      "source_refs": [
+        "DEF01",
+        "DEF03",
+        "DEF04",
+        "LG01"
+      ],
+      "source_urls": [
+        "https://aima.cs.berkeley.edu/4th-ed/pdfs/newchap02.pdf",
+        "https://www.anthropic.com/engineering/building-effective-agents",
+        "https://docs.langchain.com/oss/python/langgraph/overview",
+        "https://docs.langchain.com/oss/python/langchain/tools"
+      ],
+      "source_locator": "Russell/Norvig Section 2.1; Anthropic 'What are agents?' and 'Agents'; official LangGraph overview and Tools opening definitions.",
+      "id": "revision_agent_roles",
+      "tex": "revision_agent_roles.tex",
+      "pdf": "revision_agent_roles.pdf",
+      "svg": "revision_agent_roles.svg",
+      "file": "revision_agent_roles.svg",
+      "credit": "Original native TikZ educational diagram; source and assumptions in caption"
+    },
+    {
+      "title": "Check the prerequisite before executing a state-dependent tool",
+      "caption": "Original teaching adaptation of PowerDAG v4, Section IV-C, PDF p.5. A planner proposes a voltage-violation check. A prerequisite gate blocks execution and returns the missing solve to the planner when the required solved network state is unavailable; otherwise the check proceeds. This is neither exact source code nor the complete/minimal workflow DAG.",
+      "assumptions": "The v43 identifier and call wording are illustrative. The figure strengthens the teaching condition to a solution for the current named network. The paper's formal supervisor tests required Write-tool names against executed-tool names; do not infer from that alone a version-aware freshness/invalidation guarantee. Rule coverage is curated rather than exhaustive, and unruled tools remain executable. A blocked call leaves environment state unchanged; passing this prerequisite is not a numerical feasibility or safety proof.",
+      "source_refs": [
+        "PD01"
+      ],
+      "source_url": "https://arxiv.org/pdf/2603.17418v4",
+      "source_locator": "Section IV-C, PDF p.5, voltage-violation example and Eqs. (8)-(10); Algorithm 1. Figure 2, PDF p.3, locates the supervisor between planner and executor.",
+      "id": "revision_powerdag_gate",
+      "tex": "revision_powerdag_gate.tex",
+      "pdf": "revision_powerdag_gate.pdf",
+      "svg": "revision_powerdag_gate.svg",
+      "file": "revision_powerdag_gate.svg",
+      "credit": "Original native TikZ educational diagram; source and assumptions in caption"
+    },
+    {
+      "title": "One agent within a complete study process",
+      "caption": "Original illustrative system: a goal guides one AI agent, tools produce study evidence, an explicit check controls the report, and a human receives the result. Observations and failed checks can return the process to the agent. Multiple agents are not required.",
+      "assumptions": "Conceptual advisory-study process, not a measured implementation. The check is application-defined; no control authority or numerical guarantee follows from the diagram.",
+      "source_refs": [
+        "DEF03",
+        "DEF04"
+      ],
+      "source_url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "source_locator": "What are agents?; Agents; original teaching synthesis.",
+      "id": "va_system_overview",
+      "tex": "va_system_overview.tex",
+      "pdf": "va_system_overview.pdf",
+      "svg": "va_system_overview.svg",
+      "file": "va_system_overview.svg",
+      "credit": "Original editable TikZ teaching diagram; source and assumptions in caption"
+    },
+    {
+      "title": "A generative-model call produces content",
+      "caption": "Original example of a single generative-model call: a prompt and selected records produce a draft report for review. This illustrates one use of generative AI, not a universal boundary around the technology; the same kind of model can also participate in an agent.",
+      "assumptions": "No external-action feedback loop is shown in this particular example. Draft content is not established engineering evidence or permission to operate equipment.",
+      "source_refs": [
+        "DEF03"
+      ],
+      "source_url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "source_locator": "When (and when not) to use agents; original teaching contrast.",
+      "id": "va_generation_call",
+      "tex": "va_generation_call.tex",
+      "pdf": "va_generation_call.pdf",
+      "svg": "va_generation_call.svg",
+      "file": "va_generation_call.svg",
+      "credit": "Original editable TikZ teaching diagram; source and assumptions in caption"
+    },
+    {
+      "title": "An agent observes and acts in an environment",
+      "caption": "Original grid-study illustration of the classical observation/action abstraction. A software environment supplies case files and solver logs; an agent selects study actions or asks for evidence. The agent need not be an LLM.",
+      "assumptions": "Illustrative software environment, not a physical control implementation. Actions can include information gathering; a closed loop does not by itself establish rationality or successful results.",
+      "source_refs": [
+        "DEF01",
+        "DEF02"
+      ],
+      "source_url": "https://aima.cs.berkeley.edu/4th-ed/pdfs/newchap02.pdf",
+      "source_locator": "Russell/Norvig Section 2.1, Figure 2.1; verified older author-hosted chapter sample, not fourth-edition text.",
+      "id": "va_classical_agent",
+      "tex": "va_classical_agent.tex",
+      "pdf": "va_classical_agent.pdf",
+      "svg": "va_classical_agent.svg",
+      "file": "va_classical_agent.svg",
+      "credit": "Original editable TikZ teaching diagram; source and assumptions in caption"
+    },
+    {
+      "title": "Programmed steps and model-directed choices",
+      "caption": "Original comparison of control allocation. The top study sequence is prescribed in code. In the lower example an LLM chooses an allowed tool using returned evidence, or finishes. These are useful engineering patterns rather than mutually exclusive universal categories; programmed workflows can also contain feedback loops.",
+      "assumptions": "Illustrative routes, not a measured workflow or a hierarchy of maturity. Both paths need application-defined budgets, checks and stop conditions.",
+      "source_refs": [
+        "DEF03",
+        "DEF04"
+      ],
+      "source_url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "source_locator": "What are agents?; Workflow: Routing; Workflow: Evaluator-optimizer; Agents.",
+      "id": "va_workflow_agent",
+      "tex": "va_workflow_agent.tex",
+      "pdf": "va_workflow_agent.pdf",
+      "svg": "va_workflow_agent.svg",
+      "file": "va_workflow_agent.svg",
+      "credit": "Original editable TikZ teaching diagram; source and assumptions in caption"
+    },
+    {
+      "title": "Study autonomy stops at an operating authority boundary",
+      "caption": "Original advisory-study example. The agent performs allowed studies and returns evidence for operator review. In this explicitly defined process, only the authorized operator approves an operating action; review may instead require revision or a stop.",
+      "assumptions": "An illustrative allocation of authority, not a universal claim about every automation system or a representation of a particular utility's switching procedure. No live action is executed.",
+      "source_refs": [
+        "DEF02",
+        "DEF01"
+      ],
+      "source_url": "https://www.cs.ox.ac.uk/people/michael.wooldridge/pubs/ker95.pdf",
+      "source_locator": "Historical agency properties inform the distinction; the illustrated authority boundary is an original application policy.",
+      "id": "va_authority",
+      "tex": "va_authority.tex",
+      "pdf": "va_authority.pdf",
+      "svg": "va_authority.svg",
+      "file": "va_authority.svg",
+      "credit": "Original editable TikZ teaching diagram; source and assumptions in caption"
+    },
+    {
+      "title": "Three graphs with different meanings",
+      "caption": "Original schematics: undirected physical equipment connections, directed calculation prerequisites with fork/join dependencies, and runtime execution routes with a retry cycle. The physical network and all labels are illustrative; the diagrams are not a minimal DAG or a measured paper trace.",
+      "assumptions": "Physical edges describe connectivity, not instruction order. Task edges describe required outputs, not transmission lines. Runtime edges route execution; an execution cycle and an acyclic dependency graph can describe different views of the same application.",
+      "source_refs": [
+        "LG01",
+        "D01"
+      ],
+      "source_url": "https://docs.langchain.com/oss/python/langgraph/graph-api",
+      "source_locator": "Official LangGraph graph model; original teaching comparison with the existing fault-record dependency example.",
+      "id": "va_three_graphs",
+      "tex": "va_three_graphs.tex",
+      "pdf": "va_three_graphs.pdf",
+      "svg": "va_three_graphs.svg",
+      "file": "va_three_graphs.svg",
+      "credit": "Original editable TikZ teaching diagram; source and assumptions in caption"
+    },
+    {
+      "title": "One PowerWF grid-impact study",
+      "source_refs": [
+        "PA06",
+        "PA03"
+      ],
+      "caption": "Teaching diagram of the author-maintained PowerWF Grid Impact Evaluation example. LangGraph stores the study state; the analysis steps request PowerWorld tools. Baseline and added-load studies run in the documented order.",
+      "assumptions": "The internal tool-call/return routing and completion flags are simplified. No performance or deployed-utility claim is made. This is one documented PowerWF example, not a claim that every PowerAgent component uses LangGraph.",
+      "id": "va_powerwf",
+      "tex": "va_powerwf.tex",
+      "pdf": "va_powerwf.pdf",
+      "svg": "va_powerwf.svg",
+      "file": "va_powerwf.svg",
+      "credit": "Original editable teaching diagram based on the cited primary source"
+    },
+    {
+      "title": "DrAgent plans calls to domain tools",
+      "source_refs": [
+        "D01"
+      ],
+      "caption": "Teaching view of DrAgent: the plan selects tools for the question. Recorded-signal tools supply measurements; manual search supplies product information. The manual path is needed only for relevant questions.",
+      "assumptions": "This is a high-level adaptation rather than the paper’s exact graph. The two branches do not imply parallel execution or that both are required for every answer. No numerical fault result is invented.",
+      "id": "va_dragent",
+      "tex": "va_dragent.tex",
+      "pdf": "va_dragent.pdf",
+      "svg": "va_dragent.svg",
+      "file": "va_dragent.svg",
+      "credit": "Original editable teaching diagram based on the cited primary source"
+    },
+    {
+      "title": "Simulation code with an error-feedback loop",
+      "source_refs": [
+        "E02"
+      ],
+      "caption": "Simplified study-generation workflow from Jia, Cui and Hug. Execution errors return to retrieval and code repair. A run without a software error still needs a check against the requested study settings.",
+      "assumptions": "The diagram does not claim that the paper includes an automatic proof that the code meets every engineering requirement. Grading and numerical task validity remain separate from error-free MATLAB execution.",
+      "id": "va_simulation_feedback",
+      "tex": "va_simulation_feedback.tex",
+      "pdf": "va_simulation_feedback.pdf",
+      "svg": "va_simulation_feedback.svg",
+      "file": "va_simulation_feedback.svg",
+      "credit": "Original editable teaching diagram based on the cited primary source"
+    },
+    {
+      "title": "X-GridAgent coordinates specialized services",
+      "source_refs": [
+        "E01"
+      ],
+      "caption": "Teaching view of X-GridAgent’s planner, coordinator and tool services. Eight MCP servers cover the paper’s listed functions. Pandapower supplies numerical studies; other services also read, edit and plot data.",
+      "assumptions": "This is an architecture summary, not the exact runtime trace. Only numerical calls are shown passing to pandapower; the illustration does not claim that all eight services are solvers or that X-GridAgent uses LangGraph.",
+      "id": "va_xgrid",
+      "tex": "va_xgrid.tex",
+      "pdf": "va_xgrid.pdf",
+      "svg": "va_xgrid.svg",
+      "file": "va_xgrid.svg",
+      "credit": "Original editable teaching diagram based on the cited primary source"
+    },
+    {
+      "title": "MCP is the connection to a callable tool",
+      "source_refs": [
+        "T08",
+        "T09",
+        "E01"
+      ],
+      "caption": "Original teaching view of the MCP client/server connection. The application chooses a call, the client sends it to a server, and the server invokes the allowed capability. The returned result is evidence for the next step.",
+      "assumptions": "This is a conceptual interface diagram, not a network-security guarantee or one application’s exact deployment. The application must still check permissions, arguments, case versions and the meaning of returned results.",
+      "id": "va_mcp",
+      "tex": "va_mcp.tex",
+      "pdf": "va_mcp.pdf",
+      "svg": "va_mcp.svg",
+      "file": "va_mcp.svg",
+      "credit": "Original editable teaching diagram based on the cited primary source"
+    }
+  ]
+}

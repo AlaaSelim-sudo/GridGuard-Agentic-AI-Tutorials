@@ -1,0 +1,31 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rc,anchor=west] at (0.3,3.45) {\#1: P=100 MW, Q=0 Mvar};
+\draw[rf] (5.4,3.45) -- (6.4,3.45);
+\node[rc] at (8.0,3.45) {key(grid,P)};
+\draw[rf] (9.65,3.45) -- (11.25,3.45);
+\node[rl] at (12.5,3.45) {cached R0};
+\node[rc,anchor=west] at (0.3,2.05) {\#2: P=100 MW, Q=10 Mvar};
+\draw[rf] (5.4,2.05) -- (6.4,2.05);
+\node[rc,text=rOrange] at (8.0,2.05) {key(grid,P)};
+\draw[rw] (9.65,2.05) -- (11.25,2.05);
+\node[rl,text=rOrange] at (12.5,2.05) {returns R0};
+\draw[draw=rOrange,line width=1pt,densely dashed] (8.0,3.15) -- (8.0,2.35);
+\node[rn,text=rOrange,anchor=west] at (8.35,2.75) {same key};
+\node[rl,text=rOrange] at (7.1,1.05) {Q changed, but the cache identity did not};
+\node[rn] at (7.1,0.3) {Corrective key: topology + model + every perturbation + solver settings};
+
+\end{tikzpicture}

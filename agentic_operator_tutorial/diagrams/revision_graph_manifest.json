@@ -1,0 +1,42 @@
+{
+  "revision_agent_roles": {
+    "title": "The agent chooses; the tool executes a capability",
+    "caption": "Original teaching abstraction for diagnosing a frozen base case v43. An LLM agent chooses a tool call, the callable interface runs against the case and solver, and returned evidence informs the next choice. LangGraph is shown as a possible orchestration runtime for state and execution, not as a grid solver or a claim about a particular PowerAgent implementation.",
+    "assumptions": "The v43 case, run_pf(v43, base) interface and feedback fields are illustrative; no tool was executed and no numerical outcome is asserted. Tool and agent name interface/decision roles; a tool may internally wrap another agent or a complex service. The outer framework marker does not establish the correctness of any electrical result. No PowerAgent SDK relationship is claimed.",
+    "source_refs": [
+      "DEF01",
+      "DEF03",
+      "DEF04",
+      "LG01"
+    ],
+    "source_urls": [
+      "https://aima.cs.berkeley.edu/4th-ed/pdfs/newchap02.pdf",
+      "https://www.anthropic.com/engineering/building-effective-agents",
+      "https://docs.langchain.com/oss/python/langgraph/overview",
+      "https://docs.langchain.com/oss/python/langchain/tools"
+    ],
+    "source_locator": "Russell/Norvig Section 2.1; Anthropic 'What are agents?' and 'Agents'; official LangGraph overview and Tools opening definitions.",
+    "id": "revision_agent_roles",
+    "tex": "revision_agent_roles.tex",
+    "pdf": "revision_agent_roles.pdf",
+    "svg": "revision_agent_roles.svg",
+    "file": "revision_agent_roles.svg",
+    "credit": "Original native TikZ educational diagram; source and assumptions in caption"
+  },
+  "revision_powerdag_gate": {
+    "title": "Check the prerequisite before executing a state-dependent tool",
+    "caption": "Original teaching adaptation of PowerDAG v4, Section IV-C, PDF p.5. A planner proposes a voltage-violation check. A prerequisite gate blocks execution and returns the missing solve to the planner when the required solved network state is unavailable; otherwise the check proceeds. This is neither exact source code nor the complete/minimal workflow DAG.",
+    "assumptions": "The v43 identifier and call wording are illustrative. The figure strengthens the teaching condition to a solution for the current named network. The paper's formal supervisor tests required Write-tool names against executed-tool names; do not infer from that alone a version-aware freshness/invalidation guarantee. Rule coverage is curated rather than exhaustive, and unruled tools remain executable. A blocked call leaves environment state unchanged; passing this prerequisite is not a numerical feasibility or safety proof.",
+    "source_refs": [
+      "PD01"
+    ],
+    "source_url": "https://arxiv.org/pdf/2603.17418v4",
+    "source_locator": "Section IV-C, PDF p.5, voltage-violation example and Eqs. (8)-(10); Algorithm 1. Figure 2, PDF p.3, locates the supervisor between planner and executor.",
+    "id": "revision_powerdag_gate",
+    "tex": "revision_powerdag_gate.tex",
+    "pdf": "revision_powerdag_gate.pdf",
+    "svg": "revision_powerdag_gate.svg",
+    "file": "revision_powerdag_gate.svg",
+    "credit": "Original native TikZ educational diagram; source and assumptions in caption"
+  }
+}

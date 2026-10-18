@@ -1,0 +1,292 @@
+\section{Voltage support}
+
+\begin{frame}[t]{Voltage support: problem, workflow and comparison}
+\operatorneed{Keep PV production high while improving voltage regulation and respecting the modeled voltage, current and inverter limits.}
+The selected three-phase LinDistFlow starting point is already feasible:
+\[
+v_{\max}=1.0480\ {\rm p.u.},\qquad
+\max_{\ell,\phi}|I_{\ell\phi}|/I^{\rm rated}_{\ell\phi}=60.8\%.
+\]
+\footnotesize $v_{\max}$ is the largest modeled node-phase voltage magnitude; p.u. means divided by its voltage base. $\ell$ indexes lines and $\phi$ their modeled conductors/phases; $I$ and $I^{\rm rated}$ are current magnitude and nominal rating in amperes.\par\normalsize
+\small\textbf{Case sequence:} P/Q and model audit (V1--V3), MPC/SAC (V4--V5), initial supervision (A1--A2), complete refinement and matched comparison (P2--P3).
+\sources{Executed snapshot: \texttt{results/standard\_formulations.json}; phase model: \href{https://arxiv.org/abs/1406.3054}{Gan and Low (2014)}.}
+\note{35--37 minutes. Start with the operator's objective, not an alarm from a different model. The classroom route is MV-only LinDistFlow. Its full-PV baseline already passes its voltage/current screen, so do not call this solve a repair of an MV violation. Ask which quantities the operator would want in a final report. The later OpenDSS audit provides a separate scope test. Bridge: before asking an optimizer for a setpoint, understand the two inverter controls it can change.}
+\end{frame}
+
+\begin{frame}[t]{Two controls share one inverter capability}
+\ask{At active participation $p/S=1$, can the inverter also supply reactive power?}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{0.49\linewidth}
+\begin{tikzpicture}[scale=0.75,>=stealth]
+\draw[->] (-0.1,0)--(2.0,0) node[right]{$p/S$};
+\draw[->] (0,-1.6)--(0,1.8) node[above]{$q/S$};
+\draw[teal,thick] (0,-1.45) arc[start angle=-90,end angle=90,radius=1.45];
+\draw[slate,dashed] (1.45,-.1)--(1.45,1.6);
+\node[below] at (1.45,0){1};
+\node[right] at (.15,1.45){$p^2+q^2\leq S^2$};
+\uncover<2->{\fill[orange] (1.13,.91) circle(2pt);
+\draw[orange,->,thick] (1.42,.1)--(1.16,.8);}
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.47\linewidth}
+\textbf{Active power $p$ (kW):} delivered PV production; nonnegative here.
+
+\medskip
+\textbf{Reactive power $q$ (kvar):} injection if positive, absorption if negative. Both affect voltage and current.
+
+\medskip
+$S$ (kVA) is the inverter rating; $p/S$ and $q/S$ are dimensionless. The circle is a device limit, not a network-feasibility test.
+\end{column}
+\end{columns}
+\answer{No. More reactive support can require less active output. We must check the resulting network currents as well as voltage.}
+\sources{Implemented device domain: \texttt{src/standard\_formulations.py}; physical model: \href{https://opendss.epri.com/PowerFlow.html}{EPRI OpenDSS}. Diagram illustrates capability, not a measured point.}
+\note{37--39 minutes. Ask for a prediction before advancing the overlay. The drawing shows the positive-active-power half of the normalized capability circle, with equal axis scales. Positive generator q means injection and negative q absorption. Neither sign universally improves every constraint. The orange point illustrates a tradeoff, not a measured operating point. Bridge: convert these engineering limits and preferences into an optimization problem.}
+\end{frame}
+
+\begin{frame}[t]{Turn the operating request into a checkable problem}
+\small
+\textbf{General Volt/VAR OPF:} choose active/reactive setpoints $p,q$ to minimize
+\[
+ C_{\rm PV}(p)+C_v(v)+C_q(q),\qquad
+ v_{\min}\leq v_{i\phi}\leq v_{\max},\quad
+ |I_{\ell\phi}|\leq\rho I^{\rm rated}_{\ell\phi},\quad
+ p_g^2+q_g^2\leq S_g^2 .
+\]
+The selected three-phase power-flow equations also hold; $0\leq p_g\leq p_g^{\rm av}$ and device reactive bounds apply.
+\footnotesize
+\begin{tabular}{@{}p{.24\linewidth}p{.68\linewidth}@{}}
+\toprule Symbol & Definition and physical interpretation \\
+\midrule
+$i,\phi,\ell,g$ & Bus, available phase, line/conductor, and inverter indices. \\
+$v_{i\phi}$, $v_{\min},v_{\max}$ & Voltage magnitude and allowed bounds (p.u.); here $0.95$ and $1.05$. \\
+$I_{\ell\phi}$, $I^{\rm rated}_{\ell\phi}$ & Predicted current magnitude and nominal rating (A). $\rho\in(0,1]$ is the permitted rating fraction. \\
+$p_g,q_g,S_g,p_g^{\rm av}$ & Active output (kW), reactive output (kvar), rating (kVA), and available PV (kW). \\
+$C_{\rm PV},C_v,C_q$ & Weighted penalties for curtailment, voltage deviation and reactive effort; weights reconcile units and state the preference. \\
+\bottomrule
+\end{tabular}
+\smallskip\par\small\textbf{Agent boundary:} preserve the objective, limits and permissions; numerical tools compute and check the setpoints.
+\sources{General three-phase formulation: Gan and Low (2014), \url{https://arxiv.org/abs/1406.3054}. Full objective, units and constraints are in the mathematical appendix.}
+\note{39--41 minutes. C\_PV penalizes curtailed PV power; C\_v penalizes voltage deviation from a declared target; C\_q can penalize reactive effort. Explain each symbol next to its use. Phi labels a phase, i a bus, ell a branch and g an inverter. Available PV and per-device reactive limits also constrain the problem and remain in the implementation. Ask whether a very good objective permits violating current: no. Bridge: the general formulation may have many device variables; we use a transparent two-variable reduction for this experiment.}
+\end{frame}
+
+\begin{frame}[t]{What does this teaching experiment actually control?}
+\small
+All 930 inverters share \textbf{two dimensionless controls}; this is a reduced continuous OPF:
+\[
+p_g=aS_g,\quad q_g=bS_g,\qquad
+0\leq a\leq1,\quad |b|\leq0.44,\quad a^2+b^2\leq1.
+\]
+Here $g$ identifies an inverter, $S_g$ is its kVA rating, $p_g$ is kW, and $q_g$ is kvar. The high-irradiance overlay assumes available active power equals rated kVA.
+\[
+C(a,b)=\underbrace{(1-a)^2}_{\text{PV curtailment}}+
+\underbrace{0.05b^2}_{\text{reactive effort}}+
+\underbrace{\frac{10}{N_v}\sum_{j=1}^{N_v}(v_j-1.01)^2}_{\text{voltage regulation}}.
+\]
+\footnotesize $C$ is a dimensionless teaching cost, not money; its coefficients are declared preferences. $v_j$ is the $j$th modeled energized node-phase voltage in p.u.; $N_v$ counts those samples; $1.01$ p.u. is the target.
+\smallskip\par\small
+\textbf{How it is solved:} finite differences form local sensitivities; bounded QP steps use an inscribed 32-sided capability polygon. A fresh backend solve checks each candidate. A feasible local improvement is not a global AC optimum.
+\sources{Teaching implementation: \texttt{src/standard\_formulations.py}; general phase-coupled formulation: \href{https://arxiv.org/abs/1406.3054}{Gan and Low (2014)}.}
+\note{41--43 minutes. Walk through the three underbraces: normalized curtailment, reactive effort and mean squared voltage deviation. The coefficients are teaching preferences rather than calibrated economic prices. All 930 devices share the two factors; this is not independent per-inverter optimal control. The declared high-irradiance overlay makes available active power equal to rated kVA. Device kvar bounds and an inner capability polygon are enforced. The algorithm is a sequence of local QPs, not a global nonlinear optimality proof. Bridge: run it and inspect the returned control and fresh check.}
+\end{frame}
+
+\begin{frame}[t]{V1: ask the optimizer for a better operating point}
+\checkpoint{V1}{Run the complete cell; this line performs the optimization.}
+\cellcode{V1}{1}{1}
+\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule Selected MV model & Total $p$ (MW) & Total $q$ (MVAr) & $v_{\max}$ (p.u.) & Current (\%)\\
+\midrule
+Before & 7.850 & 0.000 & 1.0480 & 60.8\\
+After & 7.727 & -1.249 & 1.0370 & 65.3\\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize Current = maximum line/conductor current as a percentage of nominal rating; $v_{\max}$ is the largest modeled voltage magnitude.\par\normalsize
+\observethis{The objective falls from $0.00760$ to $0.00549$. Both points pass the MV check; the optimized point trades some active power and reactive effort for voltage regulation.}
+\sources{Recorded LinDistFlow result: \texttt{results/standard\_formulations.json}; code checkpoint V1. Model: \href{https://arxiv.org/abs/1406.3054}{Gan and Low (2014)}.}
+\note{43--46 minutes. Give participants time to run V1 and find the same quantities in its returned table. These figures are from the executed selected LinDistFlow route. Negative q means absorption. Do not infer a safety improvement from an infeasible baseline: both baseline and optimized points are feasible in this model. The optimizer's accepted flag includes a fresh backend solve and dispatch-tracking checks. Ask how much P was reduced and whether current moved in the expected direction. Bridge: extrema summarize a point, but a plot makes the simultaneous changes easier to see.}
+\end{frame}
+
+\begin{frame}[t]{V2: better voltage can come with higher current}
+\checkpoint{V2}{Run the plot and compare the two curves in each panel.}
+\begin{center}
+\includegraphics[width=.95\linewidth,height=.43\textheight,keepaspectratio]{\figfile{workshop_voltage_lindistflow3.png}}
+\end{center}
+\observethis{Voltage moves toward the target; current increases. Both remain within the \textbf{modeled} limits.}
+\sources{Actual snapshot plot: \texttt{results/workshop\_run\_lindistflow3.json}, checkpoint V2. Model: \href{https://arxiv.org/abs/1406.3054}{Gan and Low (2014)}.}
+\note{46--48 minutes. Ask participants to identify the baseline and optimized curve before explaining. Horizontal positions are sorted samples, not geographic bus positions. The limit lines use the selected MV model's normal ratings. The plot demonstrates a tradeoff, not a universal sign rule for reactive power. Bridge: hold active power fixed and predict the effect of changing only reactive power.}
+\end{frame}
+
+\begin{frame}[t]{Hold active power fixed; change only reactive power}
+\exercise{3}{Predict first: how will absorption affect voltage and current at the same active output?}
+\begin{enumerate}
+\item Create a scratch \texttt{PQBackend(BACKEND)} for the selected model.
+\item Solve $u_1=(0.8,0)$, then $u_2=(0.8,-0.1)$ using that scratch model.
+\item Compare achieved P/Q, maximum voltage and current; keep V1's result unchanged.
+\end{enumerate}
+\small The dimensionless vector $u=(a,b)$ sets active and reactive participation; $u_1,u_2$ label the two trials. Explain the observed tradeoff in one sentence. A point with lower voltage can still have higher current.
+\sources{Exercise uses \texttt{src/standard\_formulations.py}; models: \href{https://opendss.epri.com/PowerFlow.html}{EPRI OpenDSS} / \href{https://arxiv.org/abs/1406.3054}{Gan and Low (2014)}.}
+\note{48--51 minutes. Compare two exact points in a scratch PQBackend without changing stored V1 or V2 output. Both settings satisfy the fleet capability circle. Calling the same scratch model twice permits a controlled P/Q comparison. Do not pass a new load multiplier to the older snapshot LinDistFlow adapter, which intentionally rejects that argument. A prediction need not be right; report what the selected backend returns. Bridge: would the same control pass a wider model boundary?}
+\end{frame}
+
+\begin{frame}[t]{V3: does the same control pass a fuller audit?}
+\checkpoint{V3}{Read the recorded comparison; do not change the control between checks.}
+\ask{Does an MV-only pass establish an acceptable full-feeder AC result?}
+The same aggregate PV outputs are $p=7.727$ MW and $q=-1.249$ MVAr; negative $q$ means absorption.
+\small
+\begin{tabular}{@{}lrrl@{}}
+\toprule Evaluation of that point & Max. voltage (p.u.) & Nominal current (\%) & Result\\
+\midrule
+MV-only LinDistFlow & 1.037 & 65.3 & Pass\\
+\uncover<2->{Full-feeder OpenDSS audit} & \uncover<2->{1.087} & \uncover<2->{288.2} & \uncover<2->{Fail}\\
+\bottomrule
+\end{tabular}
+\normalsize
+\answer{No. The MV model omits LV constraints. The full OpenDSS optimizer finds a different checked point: $2.904$ MW and $0.346$ MVAr.}
+\sources{Identical-control audit and separate optimized AC point: \texttt{results/standard\_formulations.json}; \href{https://opendss.epri.com/PowerFlow.html}{EPRI OpenDSS}.}
+\note{51--53 minutes. Let participants predict before advancing. The audit evaluates identical controls; its failure is not a secret repair. The separate OpenDSS optimized point has maximum voltage 1.043224 pu and current 99.8913 percent, with zero checked violations. These are recorded comparisons, not a claim that V1 ran both backends. Explain why larger permitted PV in an MV-only model is not automatically a superior full-feeder control result. Bridge: we have considered one instant; the next experiment keeps continuous P/Q controls and adds a planning horizon.}
+\end{frame}
+
+\begin{frame}[t]{MPC chooses a continuous P/Q sequence}
+\small
+\textbf{Model predictive control (MPC)} plans $H=3$ quasistatic steps jointly, then proposes the first move:
+\[
+\min_{u_0,u_1,u_2}\ \sum_{k=0}^{2}\gamma^k\ell_k,\qquad
+\ell_k=(1-a_k)^2+0.05b_k^2+
+\frac{10}{N_v}\sum_{j=1}^{N_v}(v_{j,k}-1.01)^2+0.05\|u_k-u_{k-1}\|_2^2 .
+\]
+\footnotesize
+\renewcommand{\arraystretch}{1.02}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.26\linewidth}>{\raggedright\arraybackslash}p{.66\linewidth}@{}}
+\toprule Quantity & Meaning / declared value \\
+\midrule
+$k,H,u_k=(a_k,b_k)$ & Step index, horizon length, and continuous dimensionless inverter settings. $u_{-1}$ is the given previous command. \\
+$\gamma=0.98$, $\ell_k$ & Dimensionless discount and stage cost. Movement is the squared Euclidean change in $(a,b)$ between commands. \\
+$v_{j,k}$, $N_v$ & Predicted voltage of modeled node-phase $j$ at step $k$ (p.u.); number of voltage samples. Target: $1.01$ p.u. \\
+Forecast and limits & Known load multipliers; every planned step obeys voltage, allowed current and device constraints. No storage dynamics are included. \\
+Numerical method & Local sensitivity QPs, bounded steps and fresh horizon checks; retain the last feasible improvement if a step fails. \\
+\bottomrule
+\end{tabular}
+\par\textbf{Interpretation:} one coupled horizon problem, not three unrelated OPFs. This experiment inspects one planning decision; it neither demonstrates closed-loop stability nor certifies a local/global optimum.
+\sources{MPC: Rawlings, Mayne and Diehl (2017); distribution voltage MPC: \href{https://doi.org/10.1109/TSTE.2020.3001115}{Maharjan et al. (2021)}. Actual implementation: \texttt{src/continuous\_control.py}.}
+\note{53--56 minutes. A horizon is one constrained optimization over a sequence, not three unrelated optimal points. The movement term links neighboring controls. The tool freshly checks all planned stages against the chosen model. The workflow's common gate later evaluates the proposed first action. We inspect one planning decision; no closed-loop stability or recursive-feasibility theorem is claimed. This implementation uses continuous fleet participation factors and local sequential QPs, not the earlier discrete-cap demonstration.}
+\end{frame}
+
+\begin{frame}[t]{SAC maps the operating state to continuous controls}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.35cm,minimum height=1.25cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (state) at (0,0) {\textbf{Observed state}\\Forecasts and prior $u$\\Current limit\\Remaining horizon};
+\node[box,fill=mint!25] (actor) at (4.7,0) {\textbf{Saved SAC actor}\\Two real-valued\\normalized commands};
+\node[box] (control) at (9.4,0) {\textbf{Engineering map}\\Fleet participation\\$u=(a,b)$};
+\draw[flow] (state.east)--(actor.west); \draw[flow] (actor.east)--(control.west);
+\end{tikzpicture}
+\end{center}
+\[
+a=\frac{z_1+1}{2},\qquad
+b=z_2\min\!\left(0.44,\sqrt{1-a^2}\right),\qquad z_1,z_2\in[-1,1].
+\]
+\footnotesize $z_1,z_2$ are the actor's dimensionless normalized outputs; $a=p/S$ and $b=q/S$ are fleet participation ratios. The square root limits reactive headroom as active output rises; $0.44$ is the declared reactive-ratio bound.\par
+\smallskip $u=(a,b)$ is the previous/current command; current allowance is a fraction of nominal rating. All seven policy inputs are dimensionless: three remaining load multipliers, previous $a,b$, allowance, and remaining horizon divided by three.\par
+\small\textbf{Boundary:} the map respects inverter capability; fresh electrical checks determine network feasibility.
+\sources{SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}. Exact action map and observation: \texttt{src/continuous\_control.py}.}
+\note{56--59 minutes. SAC means Soft Actor-Critic. It learns a policy from rewards; inference does not run the MPC optimizer. The observation contains three forecast values, previous a and b, a current-allowance fraction, and the remaining normalized horizon. The deterministic saved actor supplies two real-valued commands without rounding them into a cap catalog. The engineering map is part of the training environment. SAC's entropy is defined in its normalized action coordinates, not claimed to be entropy in the nonlinear physical coordinates.}
+\end{frame}
+
+\begin{frame}[t]{What does SAC learn to reward?}
+\deepdive
+\footnotesize
+The training reward uses the same engineering stage cost plus penalties on a fitted response surface:
+\[
+r_t=-\ell_t-40(e_v/0.05)^2-10e_I^2-2\,\mathbf1\{e_v>0\ \text{or}\ e_I>0\},
+\quad e_v=[0.95-\widehat v_{\min}]_++[\widehat v_{\max}-1.05]_+,\quad e_I=[\widehat\iota-1]_+.
+\]
+At training step $t$, $r_t$ is dimensionless reward and $\ell_t$ penalizes curtailment, reactive effort, voltage deviation and movement. $e_v$ is voltage-band excess (p.u.); $e_I$ is current-ratio excess. Hats denote surrogate predictions; $\widehat\iota$ is maximum current divided by nominal rating. $[x]_+=\max(x,0)$; indicator $\mathbf1$ equals one for a violation, otherwise zero.
+\[
+\max_\pi\ \mathbb E_\pi\!\left[\sum_{t=0}^{2}\gamma^t\{r_t+\alpha\mathcal H(\pi(\cdot\mid o_t))\}\right],
+\qquad \gamma=0.98,\quad\alpha=0.005.
+\]
+$\pi$ is the stochastic normalized-action policy; $o_t$ is its seven-value observation; $\mathbb E_\pi$ averages trajectories. $\mathcal H$ is differential entropy in normalized-action coordinates; $\alpha$ weights exploration and $\gamma$ discounts future reward. Both constants are fixed for this run.
+\smallskip\par\small
+\textbf{Learning mechanism:} an actor proposes actions; twin critics estimate return from replayed transitions. Training samples actions; evaluation uses $\tanh$ of the Gaussian mean. Penalty learning does not prove constraint satisfaction.
+\sources{SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}; exact reward and configuration: \texttt{src/continuous\_control.py}, \texttt{models/continuous\_sac/training.json}.}
+\note{About one minute within the existing 59--61-minute training explanation. This frame supplies the precise reward and entropy interpretation before the learning curves. The training environment has three-step episodes and nominal current allowance only. Its fitted mean-square voltage response supplies the stage cost; no optimal MPC action labels enter replay. Clarify that entropy is in normalized z coordinates, before the nonlinear actuator map. Twin-critic learning and entropy aid learning; neither is an electrical safety certificate.}
+\end{frame}
+
+\begin{frame}[t]{Training reward and fresh engineering checks answer different questions}
+\deepdive
+\begin{center}
+\IfFileExists{\figfile{continuous_training.png}}{%
+\includegraphics[width=.94\linewidth,height=.31\textheight,keepaspectratio]{\figfile{continuous_training.png}}%
+}{%
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.4cm,minimum height=1.35cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (fit) at (0,0) {OpenDSS samples\\fit a response surface};
+\node[box] (learn) at (4.6,0) {SAC learns from\\reward and replay};
+\node[box] (check) at (9.2,0) {Saved proposals receive\\fresh backend checks};
+\draw[flow] (fit.east)--(learn.west);\draw[flow] (learn.east)--(check.west);
+\end{tikzpicture}%
+}
+\end{center}
+\plainidea{The reward penalizes operating cost and predicted violations. Fresh OpenDSS or LinDistFlow solves evaluate each proposed action independently.}
+\footnotesize Actual run: 12,000 reward interactions, 11,400 gradient updates, seed 23. The cubic response surface uses 240 AC fit points and 48 separate fit-validation points; current-fraction MAE is 0.041.\par
+\smallskip Training uses nominal current allowance and loads in $[0.7,1.2]$ times base demand. The 80\% allowance test changes that constraint; no MPC action labels are used.
+\sources{SAC learning: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}. Executed training provenance: \texttt{models/continuous\_sac/training.json}; reward: \texttt{src/continuous\_control.py}.}
+\note{59--61 minutes. When the actual plot is present, first identify return on the left and surrogate violations on the right. Neither curve measures fresh AC feasibility. The reward combines the same operating preferences with penalties for predicted voltage/current violations. Training uses nominal current allowance, while the reserve fixture changes that allowance; transfer to the MV-only backend also changes the model. Report raw-policy outcomes separately from the common checker and any MPC fallback. This is a single checkpoint, not a broad benchmark of SAC.}
+\end{frame}
+
+\begin{frame}[t]{Why SAC here, and where would PPO fit?}
+\deepdive
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.25\linewidth}>{\raggedright\arraybackslash}p{.33\linewidth}>{\raggedright\arraybackslash}p{.33\linewidth}@{}}
+\toprule & SAC & PPO \\
+\midrule
+Experience & Reuses a replay buffer & Trains from collected policy rollouts \\
+Learning principle & Reward plus entropy regularization & A clipped policy-update objective \\
+Continuous P/Q & Continuous actor is implemented & A continuous policy is possible \\
+Evidence here & Saved trained actor and fresh tests & Discussed alternative; not executed \\
+\bottomrule
+\end{tabular}
+\takeaway{The workflow contract can accept another policy. A method name does not bypass the common verifier.}
+\sources{SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}. PPO: \href{https://arxiv.org/abs/1707.06347}{Schulman et al. (2017)}. Executed policy provenance: \texttt{models/continuous\_sac/training.json}.}
+\note{61--62 minutes. This comparison explains algorithm roles rather than ranking algorithms. The SAC actor uses off-policy reward training and replay. PPO is a reasonable continuous-policy alternative, but no PPO training or performance comparison was run in this package. A clipped objective is not a hard network-safety guarantee. The downstream common verifier makes replacing the proposal method an explicit, testable change.}
+\end{frame}
+
+\begin{frame}[t]{V4: produce an MPC plan and a SAC proposal}
+\checkpoint{V4}{Run the complete cell for the three authored operating cases.}
+\cellcode{V4}{1}{3}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=4.2cm,minimum height=1.15cm,font=\small}]
+\node[box] at (0,0) {\textbf{MPC output}\\Three continuous controls\\and fresh horizon evidence};
+\node[box] at (6.0,0) {\textbf{SAC output}\\One continuous proposal\\from the saved actor};
+\end{tikzpicture}
+\end{center}
+\observethis{Find $a$, $b$, the model scope, and the method that produced each value before comparing outcomes.}
+\sources{Actual numerical study: \texttt{results/continuous\_control.json}; code: \texttt{src/continuous\_control.py}. SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}.}
+\note{62--66 minutes. The operating cases are nominal load, a changing load trajectory, and an eighty-percent current allowance. They were authored before training but use the same feeder and declared domain, not an unseen utility network. Both model routes use the same saved actor. Compare raw controls first; the next checkpoint tells us whether they pass. Setup/training, model solves and online policy inference are different costs and should not be conflated.}
+\end{frame}
+
+\begin{frame}[t]{V5: a continuous proposal still needs a fresh check}
+\checkpoint{V5}{Solve the exact SAC point in the selected model and inspect its failed checks.}
+\cellcode{V5}{3}{3}
+\begin{center}
+\IfFileExists{\figfile{workshop_continuous_lindistflow3.png}}{%
+\includegraphics[width=.95\linewidth,height=.42\textheight,keepaspectratio]{\figfile{workshop_continuous_lindistflow3.png}}%
+}{%
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.25cm,minimum height=1.1cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (u) at (0,0) {Exact proposed $a,b$};
+\node[box] (solve) at (4.6,0) {Fresh selected\\model solve};
+\node[box] (result) at (9.2,0) {Pass or explicit\\constraint failure};
+\draw[flow] (u.east)--(solve.west);\draw[flow] (solve.east)--(result.west);
+\end{tikzpicture}%
+}
+\end{center}
+\small Read each backend separately. A pass applies to the first action and that model's scope.
+\sources{Fresh evaluation: \texttt{results/continuous\_control.json}; common checks: \texttt{src/continuous\_control.py}. Model references: \href{https://opendss.epri.com/PowerFlow.html}{EPRI} / \href{https://arxiv.org/abs/1406.3054}{Gan and Low (2014)}.}
+\note{66--69 minutes. Inspect the actual returned voltage/current/action/dispatch check, rather than inferring success from an actor's output. The plotted controls are measured tool outputs once the numerical study is available. An MV-only pass and a full-feeder AC pass cover different constraints. The workflow's first-action gate does not enforce an arbitrary MPC value-gap threshold and does not establish recursive feasibility. The actual response should distinguish raw policy, model check, and any future fallback.}
+\end{frame}
+
+\begin{frame}[t]{Now follow the same controls through the agent workflow}
+\deepdive
+\bridge{MPC and SAC produce continuous P/Q proposals. The selected model supplies fresh evidence, and the shared verifier decides acceptance.}{How does the supervisor respond to that evidence and return a useful decision to the operator?}
+\small State the candidate, the model coverage, and the reason to accept, repair or review it.
+\sources{Numerical provenance: \texttt{results/continuous\_control.json}; role implementation: \texttt{src/continuous\_workflow.py}; tool feedback: \href{https://arxiv.org/abs/2210.03629}{Yao et al., ReAct (2023)}.}
+\note{69--70 minutes. The audience now knows the architecture and has seen the tools. Ask for a one-sentence operator report naming the method, proposed controls and evaluated scope. The next block follows actual Planner, Recovery and Explanation responses around the same numerical work. It tests coordination, not whether an LLM can calculate power flow.}
+\end{frame}

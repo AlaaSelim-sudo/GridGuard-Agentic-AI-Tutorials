@@ -1,0 +1,60 @@
+\begin{frame}[t]{Restoration: execute all five proposal stages}
+\checkpoint{P4--P5}{Follow the same five responsibilities through this use case.}
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.20\linewidth}>{\raggedright\arraybackslash}p{.28\linewidth}>{\raggedright\arraybackslash}p{.44\linewidth}@{}}\toprule Stage & Specific method & Observed output \\ \midrule
+Awareness & Fault/topology + load summary & Fault isolated; short tie 100 A; PV off; long tie barred. \\
+Planning & Priority-weighted catalog search & Initial shedding fractions 0.50 and 0.90. \\
+Simulation & Fresh AC or three-phase MV solve & Served load, critical service, voltage and current. \\
+Verification & Topology + thermal + policy checks & Reject overload; preserve all declared critical service. \\
+LLM Optimizer & Repair + candidate ranking & Try 0.75 and 0.65; retain the better feasible plan. \\\bottomrule\end{tabular}\takeaway{Every changed candidate gets new numerical evidence and a new gate decision.}
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. Restoration formulation: \href{https://doi.org/10.1109/TPWRS.2017.2720122}{Chen et al. (2018)}. This feeder experiment uses a bounded catalog, not a full-feeder MILP.}
+\note{This is the new proposal-complete experiment, not the earlier fallback trace. Read each stage as a specific input/method/output responsibility. The language model chooses bounded tools and states an explanation; numerical methods produce and evaluate controls. All six settings contain actual calls for critique, refinement and ranking. A final independent recheck precedes any recommendation. No equipment is operated.}
+\end{frame}
+
+\begin{frame}[t]{Restoration: see the refinement loop change the shortlist}
+\checkpoint{P4--P5}{Read trial order, feasible cost and final selection together.}
+\begin{center}\includegraphics[width=.98\linewidth,height=.57\textheight,keepaspectratio]{\figfile{proposal_restoration_search.png}}\end{center}
+\small Both models and supervisors retain 0.75 shedding: 1,843.61 kW served, including 474.04 kW critical load. The 0.65 trial fails.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. Restoration formulation: \href{https://doi.org/10.1109/TPWRS.2017.2720122}{Chen et al. (2018)}. This feeder experiment uses a bounded catalog, not a full-feeder MILP.}
+\note{The vertical axis is the best feasible cost so far, so rejected trials cannot make the curve worse. Blank first values mean no seed has passed yet, not zero cost. The final independent recheck is outside the four search evaluations. For restoration the cost is negative weighted served nominal kW, and shedding is a fraction of ordered noncritical load objects. For voltage it is the current-step objective, not the full MPC horizon cost. Report five numerical ties and one worse Llama outcome across the entire suite.}
+\end{frame}
+
+\begin{frame}[t]{Restoration: what Llama actually returned}
+\begin{block}{OPENDSS --- SHED\_075; 1.250 s}
+\footnotesize The candidate E02 has a low cost of -5509.13524, but it is not clear if this is the global optimum. The permitted refinement SHED\_075 could potentially improve the cost by testing a 75\% disconnection of the ordered noncritical load objects.\end{block}
+\begin{block}{LINDISTFLOW3 --- SHED\_075; 1.259 s}
+\footnotesize The candidate E01 has a thermal failure, and the lowest cost passed candidate E02 has a cost of -5509.135240000002. Selecting SHED\_075 will test 75\% disconnection of the ordered noncritical load objects, which may improve the cost.\end{block}\small Public explanations are recorded text; the verifier and objective supply the numerical verdict.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. Restoration formulation: \href{https://doi.org/10.1109/TPWRS.2017.2720122}{Chen et al. (2018)}. This feeder experiment uses a bounded catalog, not a full-feeder MILP.}
+\note{These are verbatim public reason fields from actual local llama3.1:8b calls in the revised protocol. Timings measure the local HTTP model call and include its server work, not an isolated token generation benchmark. Read the responses critically: they may include unsupported causal claims or confusion about costs. No hidden chain of thought is requested or shown. Later replies and the complete candidate evidence are in the P notebook and journal.}
+\end{frame}
+
+\begin{frame}[t]{P4--P5: a ranking guard corrects a language error}
+\checkpoint{P4--P5}{Compare the returned language order with the numerical feasible order.}
+\small
+\begin{tabular}{@{}lcc@{}}\toprule Restoration candidate & Cost $J$ & Served nominal kW \\\midrule
+E02: 0.90 shedding & $-5509.13524$ & 1242.78 \\
+E03: 0.75 shedding & $-6109.97130$ & 1843.61 \\\bottomrule\end{tabular}
+\par\medskip Both Llama restoration calls returned E02 before E03. The cost rule requires E03 before E02 because $-6109.97<-5509.14$.
+\plainidea{A valid list of feasible IDs can still be ordered incorrectly. Check feasibility and objective order separately.}
+\small The numerical guard selects E03, then performs a fresh final simulation and verification.
+\sources{Actual AC and MV ranking replies: \texttt{results/proposal\_complete\_workflow.json}. Guard: \texttt{src/proposal\_workflow.py}, lines 267--297.}
+\note{The ranking schema proves only that every supplied feasible ID appears once. It does not prove correct objective ordering. Both real restoration rankings in this experiment invert the two negative costs; language_order_agrees_with_cost is false. The selection rule uses the independently computed numerical order. This is a concrete safety-of-interface mechanism, not a claim that language-generated rankings are reliable. The final status can recommend because the declared numerical selection and final engineering check pass; the language error remains visible.}
+\end{frame}
+
+\begin{frame}[t]{Restoration: compare with the same numerical tools}
+\small\begin{tabular}{@{}lrrr@{}}\toprule Setting & Fixed cost & Llama cost & Workflow seconds: fixed / Llama \\\midrule
+OPENDSS & -6109.97 & -6109.97 & 0.947 / 5.720 \\
+LINDISTFLOW3 & -6109.97 & -6109.97 & 0.306 / 5.232 \\\bottomrule\end{tabular}\par\medskip\begin{tabular}{@{}lcc@{}} & Fixed & Llama \\ Same two seeds and numerical tools & \yesmark & \yesmark \\ Two refinement trials executed & \yesmark & \yesmark \\ Fresh final check and all modeled gates pass & \yesmark & \yesmark \\ Returned language critique & \nomark & \yesmark \\\end{tabular}\par\medskip\small \textbf{What improved:} both searches restore 600.84 kW more than the conservative seed while retaining critical service. \textbf{Llama increment:} explanations and tool selection; no extra served load.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. Restoration formulation: \href{https://doi.org/10.1109/TPWRS.2017.2720122}{Chen et al. (2018)}. This feeder experiment uses a bounded catalog, not a full-feeder MILP.}
+\note{Each row is one observed local workflow interval, including awareness, candidate preparation, simulation, checking and any language calls. It excludes adapter construction/imports and earlier SAC training. Different model scopes prevent interpreting the AC/MV cost gap as a solver-accuracy result. A tick records an executed mechanism; it does not mean superiority, guaranteed safety or utility deployment. The matched baseline is the deterministic search using the same tools and maximum budget. An unchecked seed is an ablation, not faithful conventional practice.}
+\end{frame}
+
+\begin{frame}[t]{Restoration: connect the notebook to the actual implementation}
+\deepdive
+\checkpoint{P4}{Run the complete case cell; inspect the returned stage, candidate and language tables.}
+\cellall{P4}
+\par\smallskip\small The same saved record supplies these slides and the operator dashboard. Toggle the explicit live option in P1 to make a new experiment.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. Restoration formulation: \href{https://doi.org/10.1109/TPWRS.2017.2720122}{Chen et al. (2018)}. This feeder experiment uses a bounded catalog, not a full-feeder MILP.}
+\note{Optional code detail. These are literal notebook-cell extracts, synchronized with hashes by sync_from_notebook.py. The displayed helper reads the actual case records, shows both supervisors, all stage events and exact public responses. In live mode P1 first executes a complete new suite; the case cell then displays those new records. Do not mistake saved record durations for the time to render this table.}
+\end{frame}
+

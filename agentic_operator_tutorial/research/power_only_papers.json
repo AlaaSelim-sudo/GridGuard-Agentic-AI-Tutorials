@@ -1,0 +1,792 @@
+{
+  "scope": "Primary power-system agent studies and official LangGraph documentation for an integrated engineering tutorial; no experiments executed.",
+  "reviewed": "2026-10-17",
+  "status": "Verified from full primary papers; code availability is reported separately from paper architecture.",
+  "source_map_entries": {
+    "E01": {
+      "id": "E01",
+      "title": "X-GridAgent: An LLM-Powered Agentic AI System for Assisting Power Grid Analysis",
+      "authors": "Yihan (Logon) Wen, Xin Chen",
+      "publisher": "arXiv preprint",
+      "date": "2025-12-23 (v1)",
+      "url": "https://arxiv.org/pdf/2512.20789v1",
+      "metadata_url": "https://arxiv.org/abs/2512.20789v1",
+      "evidence_type": "Original research; full v1 PDF",
+      "short": "X-GridAgent"
+    },
+    "E01V": {
+      "id": "E01V",
+      "title": "X-GridAgent demonstration video",
+      "authors": "Xin Chen, Yihan Wen",
+      "publisher": "Author demonstration linked in paper reference 33",
+      "date": "2025; paper reports access on 2025-12-17",
+      "url": "https://www.youtube.com/watch?v=JUqpwO6NncY",
+      "evidence_type": "Demonstration link verified in primary paper; video not inspected",
+      "short": "X-GridAgent demo"
+    },
+    "E02": {
+      "id": "E02",
+      "title": "Enhancing LLMs for Power System Simulations: A Feedback-Driven Multi-Agent Framework",
+      "authors": "Mengshuo Jia, Zeyu Cui, Gabriela Hug",
+      "publisher": "IEEE Transactions on Smart Grid, volume 16, issue 6, pages 5556–5572",
+      "date": "Published online 2025-07-18; issue November 2025; inspected full arXiv v3 dated 2025-05-19",
+      "url": "https://doi.org/10.1109/TSG.2025.3589114",
+      "full_text_url": "https://arxiv.org/pdf/2411.16707v3",
+      "metadata_url": "https://ieeexplore.ieee.org/document/11086353/",
+      "evidence_type": "Published original research; publisher metadata and full author preprint inspected",
+      "short": "Feedback-driven simulation agents"
+    },
+    "LG01": {
+      "id": "LG01",
+      "local_request_label": "L01",
+      "title": "LangGraph Graph API overview",
+      "authors": "LangChain documentation maintainers",
+      "publisher": "Official LangChain documentation",
+      "date": "Accessed 2026-10-17; live documentation",
+      "url": "https://docs.langchain.com/oss/python/langgraph/graph-api",
+      "evidence_type": "Official Python runtime documentation",
+      "short": "LangGraph graph API"
+    },
+    "LG02": {
+      "id": "LG02",
+      "local_request_label": "L02",
+      "title": "LangGraph Persistence",
+      "authors": "LangChain documentation maintainers",
+      "publisher": "Official LangChain documentation",
+      "date": "Accessed 2026-10-17; live documentation",
+      "url": "https://docs.langchain.com/oss/python/langgraph/persistence",
+      "evidence_type": "Official Python runtime documentation",
+      "short": "LangGraph persistence"
+    },
+    "LG03": {
+      "id": "LG03",
+      "local_request_label": "L03",
+      "title": "LangGraph Interrupts",
+      "authors": "LangChain documentation maintainers",
+      "publisher": "Official LangChain documentation",
+      "date": "Accessed 2026-10-17; live documentation",
+      "url": "https://docs.langchain.com/oss/python/langgraph/interrupts",
+      "evidence_type": "Official Python runtime documentation",
+      "short": "LangGraph interrupt and resume"
+    },
+    "E03": {
+      "id": "E03",
+      "title": "Grid-Agent: An LLM-Powered Multi-Agent System for Power Grid Control",
+      "authors": "Yan Zhang, Ahmad Mohammad Saber, Amr Youssef, Deepa Kundur",
+      "publisher": "arXiv preprint",
+      "date": "2025-09-08 (v3); first submitted 2025-08-07",
+      "evidence_type": "Original research; full v3 PDF",
+      "url": "https://arxiv.org/pdf/2508.05702v3",
+      "metadata_url": "https://arxiv.org/abs/2508.05702",
+      "short": "Grid-Agent v3"
+    },
+    "E04": {
+      "id": "E04",
+      "title": "VeraGrid-Agent: Tool-Augmented LLMs for Distribution Optimal Power Flow at the Grid Edge",
+      "authors": "Shivanshu Tripathi, Hamed Mohsenian-Rad, Maziar Raissi",
+      "publisher": "arXiv preprint",
+      "date": "2026-07-28 (v1)",
+      "evidence_type": "Original research; full v1 PDF",
+      "url": "https://arxiv.org/pdf/2607.25155v1",
+      "metadata_url": "https://arxiv.org/abs/2607.25155",
+      "short": "VeraGrid-Agent"
+    },
+    "E04C": {
+      "id": "E04C",
+      "title": "Shivanshu-11/veragrid-llm-benchmark",
+      "authors": "Shivanshu Tripathi / VeraGrid-Agent authors",
+      "publisher": "Author GitHub repository",
+      "date": "Reviewed 2026-10-17",
+      "evidence_type": "Author implementation, benchmark and recorded-run repository",
+      "url": "https://github.com/Shivanshu-11/veragrid-llm-benchmark",
+      "short": "VeraGrid-Agent code"
+    }
+  },
+  "source_id_note": "Existing source_map.json already has L01/L02 for GridGuard. Use collision-safe LG01/LG02/LG03 globally; local_request_label retains the requested L01... names without overwriting existing sources.",
+  "papers": [
+    {
+      "id": "E01",
+      "architecture": "A planner decomposes a request into ordered server objectives; a coordinator routes tasks and stores intermediate results; action agents invoke specialized MCP tools and reflect on completion within a finite iteration budget.",
+      "architecture_locator": "Figure 2, PDF p.3; Sections II.B–E, pp.3–5",
+      "tools": [
+        "Retrieval",
+        "PowerFlow (AC/DC)",
+        "OPF",
+        "Contingency",
+        "ShortCircuit",
+        "Topology",
+        "Edit",
+        "Plot"
+      ],
+      "runtime": "GPT-5 API, MCP servers, pandapower numerical analysis and PySide6 user interface",
+      "runtime_locator": "Section IV.A, PDF p.8; eight-server description, p.3",
+      "orchestration_sdk": "No LangGraph, AutoGen or OpenAI Agents SDK implementation identified in the full v1 paper. MCP is an interface protocol, not the planner or physics validator.",
+      "execution_recipe": [
+        "Load an identified network into the numerical tool.",
+        "Run AC power flow and retrieve numerically ranked line loadings.",
+        "Initialize the same case in the contingency server.",
+        "Run each selected outage and collect solver results.",
+        "Return an evidence-linked summary; recognize unsuccessful OPF convergence instead of inventing dispatch."
+      ],
+      "trace_example": {
+        "locator": "Section II.C Query 1, PDF p.4; Section II.E illustrative tool trace, p.5 (Figure 3 is the separate prompt-refinement example on p.6)",
+        "case": "IEEE 118-bus",
+        "selected_line_indices": [
+          6,
+          7,
+          34
+        ],
+        "sequence": "AC flow → top-three loading retrieval → initialize case → run selected outage 6 → outage 7 → outage 34 → save result",
+        "scope": "Three selected outages, not exhaustive N−1 coverage. Table I Q9 is a separate top-five example."
+      },
+      "retrieval_lesson": "Schema-adaptive RAG chooses the relevant table/columns and sorts numeric fields before hybrid retrieval. Semantic similarity alone does not guarantee retrieval of a numeric maximum.",
+      "retrieval_locator": "Section III.B, Figure 4, PDF pp.6–8; synthetic Texas 2k line table has 3,992 rows and 14 fields",
+      "test_systems": [
+        "IEEE 39-bus",
+        "IEEE 118-bus",
+        "IEEE 300-bus short-circuit example",
+        "synthetic Texas 2k"
+      ],
+      "evaluation": {
+        "locator": "Section IV.B, PDF p.8; Table I, p.9",
+        "distinct_queries": 11,
+        "basic_queries": 8,
+        "multi_step_queries": 3,
+        "repetitions_per_query": 30,
+        "temperature": 0,
+        "reported_success_percent": 100,
+        "validation": "Compared by authors against manually obtained conventional solutions",
+        "denominator_caution": "330 executions of 11 selected queries are not 330 independent engineering tasks. No random-task population or matched competing-agent baseline is established."
+      },
+      "chart_ready_case_results": [
+        {
+          "name": "One selected contingency reveals undervoltage",
+          "locator": "Table I, Q6, PDF p.9",
+          "case": "IEEE 118-bus; line index 171 disconnected",
+          "bus_index": 117,
+          "voltage_pu": 0.929,
+          "minimum_pu": 0.94,
+          "shortfall_pu": 0.011,
+          "thermal_overloads": "none reported",
+          "suggestion": "One bus-voltage dot below a limit line; a reported scenario output, not an agent accuracy benchmark."
+        },
+        {
+          "name": "OPF scenario comparison must retain nonconvergence",
+          "locator": "Table I, Q10, PDF p.9",
+          "case": "IEEE 39-bus",
+          "columns": [
+            "scenario",
+            "reported_total_generation_cost",
+            "AC_OPF_converged"
+          ],
+          "rows": [
+            [
+              "base case",
+              41872.3,
+              true
+            ],
+            [
+              "line 11 out of service",
+              42115.34,
+              true
+            ],
+            [
+              "all loads doubled",
+              null,
+              false
+            ]
+          ],
+          "cost_units": "Not specified in the table; use OPF objective units rather than inventing USD/hour",
+          "reported_cost_delta": 243.04,
+          "dispatch_changes_MW": {
+            "generator_1": -100.18,
+            "generator_2": -12.55,
+            "generator_3": "approximately unchanged at 508 MW"
+          },
+          "suggestion": "Two measured objective values and a clearly marked no-convergence scenario; never draw the third as zero."
+        }
+      ],
+      "code_status": "No author code repository linked in full v1 or verified in targeted search. Paper reference 33 links a demonstration video; a demo is not reproducible source.",
+      "code_url": null,
+      "limits": "Steady-state prototype studies, selected queries and author checking. Transient/dynamic studies are future work; neither GPT reflection nor MCP transport certifies engineering validity or live-control safety.",
+      "limits_locator": "Section V, PDF p.9",
+      "slide_suggestions": [
+        {
+          "title": "Delegate the workflow; keep the physics in tools",
+          "visual": "Original planning/coordinator/action schematic with eight named numerical-service roles",
+          "evidence": "Figure 2"
+        },
+        {
+          "title": "Top-loaded means numeric sorting, then selected outages",
+          "visual": "Three selected line-index branches and their returned violations",
+          "evidence": "Section II.C–E and Figure 4; distinguish Table I Q9 top five"
+        },
+        {
+          "title": "A nonconverged scenario has no trustworthy dispatch",
+          "visual": "Q10 objective values plus nonconvergence marker",
+          "evidence": "Table I Q10"
+        }
+      ]
+    },
+    {
+      "id": "E02",
+      "architecture": "Retrieval planning separates function and option needs; structured tool knowledge and reasoning guide MATLAB code generation; execution errors trigger a new report, retrieval and code-repair cycle.",
+      "architecture_locator": "Figure 1, PDF p.2; Algorithm 2, p.8",
+      "tools": [
+        "DALINE data-driven power-flow linearization toolbox",
+        "MATPOWER MATLAB power-system simulations",
+        "parallel document retrieval",
+        "MATLAB code execution"
+      ],
+      "orchestration_sdk": "Paper-specific multi-agent architecture; no named LangGraph SDK implementation verified in full v3.",
+      "execution_recipe": [
+        "Extract function and option subqueries.",
+        "Retrieve matching function, parameter and dependency knowledge.",
+        "Generate simulation code with task-specific parameters.",
+        "Execute in MATLAB.",
+        "On an execution error, retrieve again and regenerate within budget; save code/result or report failure."
+      ],
+      "task_counts": {
+        "DALINE": 34,
+        "MATPOWER": 35,
+        "MATPOWER_complex": 8,
+        "MATPOWER_standard": 27
+      },
+      "task_locator": "Section V.A, PDF pp.8–9",
+      "test_system_examples": [
+        "IEEE 9, 14, 30, 57, 118 and 145 buses",
+        "39-bus New England",
+        "51-bus radial",
+        "60-bus Nordic",
+        "IEEE RTS 24-bus"
+      ],
+      "task_scope": "DALINE data generation/noise/outliers/regression and comparisons; MATPOWER AC/DC flow, OPF, continuation power flow and solver/parameter configuration.",
+      "attempt_budgets": {
+        "DALINE": 3,
+        "MATPOWER": 5
+      },
+      "main_backbone": "gpt-4o-2024-05-13",
+      "settings": {
+        "temperature": 0.1,
+        "max_output_tokens": 4096
+      },
+      "metric": {
+        "paper_name": "success rate",
+        "recommended_axis_label": "Paper-defined attempt-averaged score (%)",
+        "locator": "Section V.A, PDF p.9",
+        "points": {
+          "100": "All requirements met with no irrelevant settings",
+          "50": "All requirements met but unnecessary settings present",
+          "0": "At least one requirement unmet"
+        },
+        "aggregation": "Sum points over allowed attempt slots and tasks, divide by 100 times total attempt slots, then multiply by 100%. Unused slots repeat the last executed attempt score.",
+        "grading": "Human experts manually graded code/task fulfillment",
+        "not_binary": true,
+        "ci_warning": "Do not use binomial confidence intervals or infer a completed-task numerator from the aggregate score."
+      },
+      "main_chart": {
+        "dataset": "34 DALINE tasks, maximum three attempts each",
+        "backbone": "API schemes: gpt-4o-2024-05-13; CGPT4o-R: ChatGPT4o product, exact snapshot not established",
+        "metric": "Paper-defined attempt-averaged score (%)",
+        "columns": [
+          "scheme",
+          "reported_score_percent"
+        ],
+        "rows": [
+          [
+            "GPT4o-Sole",
+            0.0
+          ],
+          [
+            "GPT4o-SR (standard RAG)",
+            31.37
+          ],
+          [
+            "CGPT4o-R (ChatGPT RAG)",
+            33.82
+          ],
+          [
+            "GPT4o-Full",
+            93.13
+          ]
+        ],
+        "locator": "Section V.B, PDF p.9; Figure 8, p.11",
+        "caption": "Reported graded scores for complete systems on DALINE; this compares different prompt/retrieval packages, not isolated one-variable causal effects."
+      },
+      "main_results": {
+        "DALINE_all": 93.13,
+        "MATPOWER_all": 96.85,
+        "MATPOWER_complex": 93.75,
+        "MATPOWER_standard": 97.77
+      },
+      "feedback_lesson": "An execution-error feedback loop can repair syntax/API errors. Wrong but executable parameter settings or omitted requirements can terminate without an error; retries alone do not enforce task semantics.",
+      "feedback_lesson_locator": "Section V.E, PDF p.14",
+      "sft_comparison_warning": "Section V.D / Table III uses gpt-4o-2024-08-06, a different backbone version from main results. DALINE SFT deliberately includes all 34 evaluation tasks plus 16 extra tasks; this is not a held-out comparison.",
+      "timing_cost": {
+        "locator": "Table IV, PDF p.15",
+        "columns": [
+          "environment",
+          "seconds_per_task",
+          "input_tokens",
+          "output_tokens",
+          "API_USD_per_task"
+        ],
+        "rows": [
+          [
+            "DALINE",
+            29.446,
+            7882.294,
+            168.353,
+            0.014
+          ],
+          [
+            "MATPOWER",
+            32.703,
+            5338.514,
+            274.371,
+            0.013
+          ]
+        ],
+        "scope": "Reported whole research workflow including retrieval, generation, execution, aggregation and required correction. API-era token costs, not current pricing or control-room latency guarantees."
+      },
+      "code_status": "Full inspected v3 promises supporting materials (870 coding files) upon acceptance. Publication is verified, but no public framework repository was located through the author page/targeted primary search; do not state that reproducible code was verified.",
+      "code_url": null,
+      "limits": "Small, author-designed research tasks; human grading and a score penalizing unnecessary code settings. Completion and simulator convergence do not prove engineering validity across arbitrary networks or field readiness.",
+      "slide_suggestions": [
+        {
+          "title": "Retrieve functions and options separately",
+          "visual": "Original split-query → structured dependency knowledge → code pipeline",
+          "evidence": "Figures 1–4"
+        },
+        {
+          "title": "Tool feedback helps, but executable can still be wrong",
+          "visual": "Error feedback loop with separate task-requirements check",
+          "evidence": "Algorithm 2 and Section V.E"
+        },
+        {
+          "title": "Read the metric before trusting the percentage",
+          "visual": "Four DALINE scores with explicit attempt-averaged-score axis and 34-task setup",
+          "evidence": "Section V.A–B; Figure 8"
+        }
+      ]
+    },
+    {
+      "id": "E03",
+      "architecture_locator": "Section IV, Algorithm 1, PDF p.4; Figure 1 and rollback design, p.5",
+      "architecture": "Topology agent establishes violations; planner returns JSON action calls; executor applies them to a sandbox; validator recomputes violations and rolls back unsuccessful changes; summarizer records outcomes. State drives the next planning cycle.",
+      "tools": [
+        "update_switch_status",
+        "add_battery",
+        "curtail_load"
+      ],
+      "solver": "Numerical power-flow solver; implementation brand not identified in full v3 paper",
+      "orchestration_sdk": "Not identified; do not label this LangGraph, AutoGen or OpenAI Agents SDK",
+      "execution_recipe": [
+        "Copy network into sandbox and analyze violations.",
+        "Construct full-component or semantic-graph context.",
+        "Ask planner for allowed structured actions.",
+        "Execute actions and rerun power flow.",
+        "Validate improvement, revert failures, repeat within iteration budget."
+      ],
+      "task": "Resolve voltage, thermal and disconnected-bus violations using switching, battery placement/dispatch and load curtailment.",
+      "test_systems": [
+        "IEEE 30-bus",
+        "CIGRE MV",
+        "IEEE 69-bus"
+      ],
+      "setup_locator": "Section V.A–C, Tables I–II, PDF pp.5–6",
+      "named_scenario_count": 7,
+      "attempt_denominator": null,
+      "denominator_caveat": "Seven named scenarios are described; exact aggregate trial count and repetition/weighting protocol are undisclosed. Do not convert percentages into successes/7.",
+      "result_locator": "Section V.D, PDF p.6; Figure 2a, PDF p.7",
+      "metric": "Reported percentage of fully resolved violation scenarios",
+      "raw_chart_columns": [
+        "planner_model",
+        "reported_success_percent"
+      ],
+      "raw_chart_rows": [
+        [
+          "gemini-2.5-pro",
+          100
+        ],
+        [
+          "gemini-2.5-flash",
+          100
+        ],
+        [
+          "gemini-2.5-flash-lite",
+          63
+        ],
+        [
+          "gpt-4.1",
+          100
+        ],
+        [
+          "gpt-4.1-mini",
+          100
+        ],
+        [
+          "gpt-4.1-nano",
+          44
+        ]
+      ],
+      "baseline": "Different LLM planners inside the same architecture; no numerical-optimizer comparator established",
+      "uncertainty": "No confidence interval supplied for these percentages",
+      "limits": "Prototype simulation evidence; formal optimality and comparison against mixed-integer nonlinear OPF are future work (Section VI, p.9). Simulation rollback does not establish reversible physical switching.",
+      "reporting_ambiguities": [
+        "CIGRE MV is described as 15-bus in prose but Table I lists 14 buses.",
+        "Action-efficiency Figure 3 is conditional on successful runs.",
+        "Older search metadata uses the original Semantic Reasoning title and mentions reinforcement learning; cite current v3 title/architecture."
+      ],
+      "code_status": "No author code repository linked in the full v3 PDF or arXiv record; targeted search did not verify one. Author website links the preprint only.",
+      "author_page": "https://claudezss.com/",
+      "slide_suggestions": [
+        {
+          "title": "Plan, simulate, validate, then keep or revert",
+          "visual": "Original five-role state-cycle schematic with a rollback edge",
+          "evidence": "Figure 1; Algorithm 1"
+        },
+        {
+          "title": "A reported 100% needs its denominator",
+          "visual": "Optional reported-rate chart, clearly labeled exact trial n undisclosed",
+          "evidence": "Figure 2a"
+        },
+        {
+          "title": "Feasible repair and optimal repair are different claims",
+          "visual": "Action set beside solver validation; label optimizer comparison as future work",
+          "evidence": "Section VI"
+        }
+      ],
+      "teaching_priority": "Use for architecture and reporting limitations; weaker quantitative evidence than E04."
+    },
+    {
+      "id": "E04",
+      "architecture_locator": "Figure 2 and Section II.C–D, PDF pp.2–3",
+      "architecture": "ReAct controller writes JSON feeder input, executes VeraGrid AC-OPF, receives metadata and a results table of contents, reads selected output lines, and chooses an MCQ option. Each question has an isolated workspace; errors may trigger correction and retry within a finite budget.",
+      "tools": [
+        "read_file(path,start,end)",
+        "write_file(name,content)",
+        "execute_veragrid / run_veragrid"
+      ],
+      "task": "Numerical questions about solved voltages, flows, dispatch, losses and DER behavior",
+      "network": {
+        "buses": 8,
+        "generators": 4,
+        "topology": "single balanced radial feeder",
+        "load_MW": 185,
+        "base_MVA": 100
+      },
+      "network_locator": "Section IV, PDF p.3; Figure 3, p.4",
+      "benchmark": {
+        "name": "VeraGrid-MCQ-150",
+        "questions": 150,
+        "options": 4,
+        "easy": 50,
+        "medium": 50,
+        "hard": 50,
+        "templates": 33,
+        "ground_truth": "VeraGrid solution on the same circuit"
+      },
+      "benchmark_locator": "Section III, PDF p.3",
+      "metric": "Correct MCQ options / 150; missing or malformed answers count incorrect",
+      "result_locator": "Table I, PDF p.4",
+      "raw_chart_columns": [
+        "model",
+        "no_tool_correct",
+        "agent_correct",
+        "denominator"
+      ],
+      "raw_chart_rows": [
+        [
+          "GPT-5.2",
+          64,
+          149,
+          150
+        ],
+        [
+          "Claude Sonnet 4.5",
+          71,
+          149,
+          150
+        ],
+        [
+          "Gemini 3 Flash",
+          74,
+          150,
+          150
+        ],
+        [
+          "Grok 4.3",
+          69,
+          150,
+          150
+        ],
+        [
+          "Grok 4.5",
+          67,
+          150,
+          150
+        ],
+        [
+          "Composer 2.5",
+          67,
+          146,
+          150
+        ],
+        [
+          "Opus 4.8",
+          62,
+          148,
+          150
+        ]
+      ],
+      "raw_tier_columns": [
+        "model",
+        "no_tool_easy",
+        "no_tool_medium",
+        "no_tool_hard",
+        "agent_easy",
+        "agent_medium",
+        "agent_hard",
+        "tier_n"
+      ],
+      "raw_tier_rows": [
+        [
+          "GPT-5.2",
+          18,
+          28,
+          18,
+          50,
+          50,
+          49,
+          50
+        ],
+        [
+          "Claude Sonnet 4.5",
+          18,
+          34,
+          19,
+          50,
+          50,
+          49,
+          50
+        ],
+        [
+          "Gemini 3 Flash",
+          20,
+          33,
+          21,
+          50,
+          50,
+          50,
+          50
+        ],
+        [
+          "Grok 4.3",
+          24,
+          27,
+          18,
+          50,
+          50,
+          50,
+          50
+        ],
+        [
+          "Grok 4.5",
+          20,
+          28,
+          19,
+          50,
+          50,
+          50,
+          50
+        ],
+        [
+          "Composer 2.5",
+          19,
+          30,
+          18,
+          50,
+          50,
+          46,
+          50
+        ],
+        [
+          "Opus 4.8",
+          19,
+          29,
+          14,
+          50,
+          50,
+          48,
+          50
+        ]
+      ],
+      "featured_result": {
+        "model": "GPT-5.2",
+        "no_tool": "64/150 = 42.7% reported",
+        "agent": "149/150 = 99.3% reported",
+        "calculated_delta_percentage_points": 56.6666666667,
+        "delta_method": "100*(149-64)/150; 56.7 points rounded"
+      },
+      "baseline": "Same model answering from feeder/DER description without solver access; agent includes iteration and tool feedback",
+      "repetitions": "Unspecified; do not infer run-to-run uncertainty",
+      "limits": "Single balanced feeder; template-derived questions share one solved circuit. MCQ success is not dispatch-policy optimality, restoration performance, field reliability or a valid percentage across arbitrary feeders.",
+      "limits_locator": "Conclusion, PDF p.5",
+      "reporting_ambiguities": [
+        "Abstract gives no-tool range 42.7–49.3%, while Table I includes Opus 4.8 at 41.3%; use table counts.",
+        "System-prompt example mentions buses 17 and 30 despite the evaluated 8-bus feeder; do not copy this example as its exact case definition.",
+        "Table II includes one no-tool-use failure for Composer 2.5; do not claim every error is interpretation after successful execution."
+      ],
+      "failure_locator": "Table II, PDF p.4",
+      "code": {
+        "url": "https://github.com/Shivanshu-11/veragrid-llm-benchmark",
+        "status": "Author repository verified; source-inspected, not executed",
+        "runtime": "README uses Cursor Agent CLI; optional Claude Code backend. These are repository execution interfaces, not an SDK named by the paper.",
+        "files": [
+          "mcq_questions.web.json",
+          "eval_circuit.web.json",
+          "opf_results.web.json",
+          "benchmark_runner.py",
+          "web_opf_agent.py",
+          "benchmark_results/raw/"
+        ],
+        "reproduce_existing_reports": "python benchmark_report.py; python benchmark_appendix_report.py",
+        "rerun_example": "python benchmark_runner.py --models gpt-5.2 --modes no_tool agent --workers 1",
+        "setup": "Install requirements.txt with VeraGridEngine; make cursor-agent available and authenticated. Existing JSONL supports report generation without new model calls.",
+        "solver_url": "https://github.com/SanPen/VeraGrid"
+      },
+      "slide_suggestions": [
+        {
+          "title": "An answer must point to a solved output",
+          "visual": "JSON write → VeraGrid solve → table of contents → targeted read → answer",
+          "evidence": "Figure 2"
+        },
+        {
+          "title": "The same model gains access to computation",
+          "visual": "GPT-5.2 correct-count bars:64/150 versus149/150",
+          "evidence": "Table I"
+        },
+        {
+          "title": "Successful execution can still yield the wrong answer",
+          "visual": "Distinguish solver execution from interpreting loss, dispatch and curtailment",
+          "evidence": "Table II and Section IV.B–C"
+        }
+      ],
+      "teaching_priority": "Prefer as the additional measured tool-access study because numerator and denominator are explicit."
+    }
+  ],
+  "langgraph": {
+    "source_refs": [
+      "LG01",
+      "LG02",
+      "LG03"
+    ],
+    "verified_features": [
+      {
+        "feature": "StateGraph",
+        "evidence": "A user-defined state schema plus nodes and edges forms a stateful workflow. Nodes may call an LLM or ordinary Python. Compile performs structural checks and configures runtime features.",
+        "locator": "Graph API: StateGraph; Compiling your graph; State"
+      },
+      {
+        "feature": "State updates",
+        "evidence": "Nodes return partial state updates. Each state key has a reducer; without a custom reducer an update replaces the previous value.",
+        "locator": "Graph API: Reducers"
+      },
+      {
+        "feature": "Conditional routing",
+        "evidence": "A routing function reads current state and returns destination node(s) or termination. Multiple outgoing static edges execute their destinations in the next parallel superstep.",
+        "locator": "Graph API: Edges; Conditional edges"
+      },
+      {
+        "feature": "Cycles",
+        "evidence": "LangGraph explicitly supports looping workflows, including routing back to the same/earlier node. It is not synonymous with a directed acyclic graph.",
+        "locator": "Graph API: opening overview and RemainingSteps examples"
+      },
+      {
+        "feature": "Checkpoints and stores",
+        "evidence": "A checkpointer saves within-thread execution state; a store supports application-defined data across threads. Persistence requires an appropriate backend and thread identity.",
+        "locator": "Persistence: Checkpointer; Store"
+      },
+      {
+        "feature": "Human interrupt and resume",
+        "evidence": "interrupt pauses for input; invoke with Command(resume=...) and the same thread_id. The interrupted node starts again from its beginning, re-executing code before the interrupt.",
+        "locator": "Interrupts: Pause using interrupt; Resuming interrupts; Rules of interrupts"
+      },
+      {
+        "feature": "Replay and side effects",
+        "evidence": "Use idempotent effects, move effects after interrupt or into separate nodes. A saved approval value is application data; authorization and engineering freshness checks remain application responsibilities.",
+        "locator": "Interrupts: Side effects called before interrupt must be idempotent; final sentence is engineering interpretation"
+      }
+    ],
+    "dag_definition": "A directed acyclic graph has no directed cycle. A fixed one-attempt dependency plan may be a DAG even when its enclosing repair workflow is cyclic. A physical grid topology graph represents buses/lines, not execution order.",
+    "engineering_example_is_illustrative": true,
+    "illustrative_state_fields": [
+      "case_id",
+      "topology_hash",
+      "model_revision",
+      "measurement_quality",
+      "candidate_id",
+      "evidence_ids",
+      "status",
+      "attempts",
+      "approval"
+    ],
+    "illustrative_dag": "Freeze case → AC power flow → selected contingency branches in parallel → aggregate violations → report",
+    "illustrative_conditional_workflow": "Candidate → numerical solve → deterministic limit/requirements checks; pass → operator review; fail with budget → repair → solve; invalid input or budget exhausted → stop",
+    "do_not_claim": [
+      "A compiled graph proves physics correctness.",
+      "A checkpoint proves the case is fresh.",
+      "A human interrupt alone grants authority to actuate.",
+      "All workflow graphs are DAGs.",
+      "The reviewed E01–E04 papers use LangGraph unless separately documented."
+    ],
+    "suggested_integrated_slides": [
+      {
+        "title": "Three graphs, three meanings",
+        "visual": "Physical topology beside task DAG beside cyclic control flow",
+        "refs": [
+          "LG01"
+        ]
+      },
+      {
+        "title": "A DAG makes dependencies explicit",
+        "visual": "Frozen case → flow → parallel selected outages → evidence report",
+        "refs": [
+          "LG01",
+          "E01"
+        ]
+      },
+      {
+        "title": "LangGraph adds state and conditional repair",
+        "visual": "State ledger plus check/repair back-edge and budget stop",
+        "refs": [
+          "LG01"
+        ]
+      },
+      {
+        "title": "Pause, resume, then revalidate",
+        "visual": "Checkpoint → operator decision → same thread resume → freshness check",
+        "refs": [
+          "LG02",
+          "LG03"
+        ]
+      },
+      {
+        "title": "Replay changes where side effects belong",
+        "visual": "Interrupted review node separate from any authorized downstream action",
+        "refs": [
+          "LG03"
+        ]
+      }
+    ]
+  },
+  "recommended_selection": "Use E01 for MCP decomposition/numeric retrieval, E02 for execution-feedback versus semantic correctness, E03 for state/validation/rollback architecture, E04 for an explicit same-model no-tool/tool comparison. These complement existing R01/R02/P01–P04 rather than replace numerical-solvers or become field-deployment proof.",
+  "plotting_rules": [
+    "No cross-paper ranking: tasks and metrics differ.",
+    "Show named study setup and exact metric on every result chart.",
+    "Do not infer missing denominators for E03 or confidence intervals for E02 graded scores.",
+    "For E04 show counts out of150 and single-feeder caveat; repeat-run uncertainty is unspecified.",
+    "Reproduced values are author-reported. Original diagrams explain architecture; they are not reproduced experimental data."
+  ]
+}

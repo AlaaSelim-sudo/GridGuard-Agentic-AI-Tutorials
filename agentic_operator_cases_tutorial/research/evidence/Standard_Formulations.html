@@ -1,0 +1,871 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Standard Formulations · agent workflow lab</title>
+<style>
+:root{--ink:#17324d;--teal:#087e8b;--muted:#536978;--line:#d6e1e5}*{box-sizing:border-box}body{margin:0;color:var(--ink);font:17px/1.65 system-ui,Arial;background:#fff}nav{position:fixed;width:248px;inset:0 auto 0 0;padding:34px 24px;border-right:1px solid var(--line);overflow:auto;background:#f5f9fa}nav strong{font-size:14px;display:block;margin-bottom:25px;letter-spacing:.04em}nav a{display:block;margin:0 0 17px;line-height:1.4;font-size:13px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--teal)}main{max-width:1230px;margin-left:248px;padding:42px 52px 80px}h1{font-size:42px;line-height:1.15;letter-spacing:-.03em;margin:36px 0 15px}h2{font-size:29px;line-height:1.3;margin-top:70px;padding-top:22px;border-top:2px solid var(--line);scroll-margin-top:16px}h3{font-size:22px;margin-top:38px;line-height:1.4}a{color:var(--teal)}p,li{max-width:960px}.notice{background:#eef7f7;padding:18px 22px;border-left:4px solid var(--teal);font-size:14px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f1f5f7;padding:20px;font:13px/1.6 ui-monospace,Consolas,monospace;max-height:440px;overflow:auto;border-radius:4px}code{background:#eef3f5;font-size:.9em}pre code{background:transparent}details{margin:26px 0 14px;border:1px solid var(--line);border-radius:5px;padding:12px 18px}summary{cursor:pointer;color:var(--teal);font-size:14px;font-weight:600}.table-wrap{max-width:100%;overflow:auto;margin:20px 0}table{border-collapse:collapse;display:block;overflow:auto;width:100%;font-size:14px;line-height:1.5;margin:20px 0}td,th{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left!important;vertical-align:top}th{background:#edf4f5;color:var(--ink);font-weight:650}tr:nth-child(even){background:#f8fafb}figure{margin:30px 0}img{max-width:100%;height:auto}mjx-container[display="true"]{overflow:auto;max-width:100%;padding:12px 0}.footer{font-size:13px;color:var(--muted);margin-top:70px}
+@media(max-width:1000px){nav{position:static;width:auto;border-right:0;border-bottom:1px solid var(--line);padding:20px 25px}nav a{display:inline-block;margin:5px 15px 5px 0}nav strong{margin:0 0 10px}main{margin:0;padding:25px}h1{font-size:33px}}@media print{nav,details{display:none}main{margin:0;padding:0}h2{break-after:avoid}table,figure{break-inside:avoid}.notice{font-size:11px}}
+</style><script>window.MathJax={tex:{inlineMath:[['\\(','\\)'],['$','$']],displayMath:[['\\[','\\]'],['$$','$$']]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script></head><body><nav><strong>THREE-HOUR WORKSHOP</strong><a href="Operator_Dashboard.html"><strong>Open operator dashboard</strong></a><a href="Standard_Formulations.html">Three use cases: OPF, MILP and WLS</a><a href="Workflow_OpenDSS.html">OpenDSS workflow lab</a><a href="Workflow_LinDistFlow3.html">LinDistFlow workflow lab</a><a href="#general-optimization-contract">General optimization contract</a><a href="#use-case-1-voltage-support">Use case 1: Voltage support</a><a href="#use-case-2-restoration">Use case 2: Restoration</a><a href="#use-case-3-cyber-attack-response">Use case 3: Cyber-attack response</a><a href="#the-same-methods-inside-the-agent-workflow">The same methods inside the agent workflow</a><a href="#scientific-interpretation-and-references">Scientific interpretation and references</a></nav><main><div class="notice"><a href="Workshop_Step_by_Step.html"><strong>Open the revised step-by-step notebook and matching LaTeX slides</strong></a><br><strong>Three use cases: voltage support, restoration, and cyber-attack response</strong><br><a href="Standard_Formulations.html">Run established OPF, MILP and WLS methods</a> · <a href="Operator_Dashboard.html">Operator dashboard</a> · <a href="Grid_Operator_Workflow.html#7-1-compare-complete-workflows-under-two-prediction-models">Compare complete model workflows</a> · <a href="Workflow_OpenDSS.html">OpenDSS lab</a> · <a href="Workflow_LinDistFlow3.html">LinDistFlow lab</a><br>Read here or run the companion <a href="Standard_Formulations.ipynb">Jupyter notebook</a>. Figures and results are embedded. Equation typesetting loads MathJax when online; mathematical source remains readable offline. <a href="latex_slides/Agentic_Grid_Workshop.pdf">Presentation</a> · <a href="Instructor_Guide.md">Instructor guide</a></div><h1>Three use cases with established numerical methods</h1>
+<h3 id="voltage-support-restoration-and-cyber-attack-response">Voltage support, restoration, and cyber-attack response</h3>
+<p>This is the mathematical and experimental companion to the <a href="Grid_Operator_Workflow.html">three-hour workshop</a>. It provides the conventional tools that an agentic framework should call. Run each section during its corresponding use-case block, rather than adding another workshop.</p>
+<p><strong>Choose your scope before you run.</strong> Voltage support uses the actual supplied synthetic Greensboro feeder with either OpenDSS or coupled Python three-phase LinDistFlow. Restoration uses a small six-node graph so binary decisions and connectivity are inspectable. Cyber response uses an observable four-bus DC measurement/control example so WLS and stealth corruption are inspectable. The latter two examples do not represent full-feeder Greensboro optimization or state estimation.</p>
+<p>The closing section shows actual stage responses from a separate fixed-versus-Llama run that invokes these numerical tools. The earlier 32-run workflow study remains unchanged. No result below is an assertion that Llama improves the underlying optimum.</p>
+<p><strong>Prerequisites:</strong> install your selected audience requirements, including SciPy. Running the numerical cells requires no language-model service. Running a new agentic trace explicitly requires local Ollama and Llama. Supplied stage traces are clearly labeled recorded observations.</p>
+<details class="code"><summary>Code · cell 1</summary><pre>from pathlib import Path
+import json
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from IPython.display import display, HTML
+import html
+from src.standard_formulations import run_voltvar, solve_restoration_milp, run_wls_demo
+
+ROOT = Path.cwd()
+assert (ROOT / 'data/lindistflow3_network.json').exists(), 'Launch from the tutorial folder.'
+BACKEND = 'lindistflow3'  # Change to 'opendss' in the full environment.
+assert BACKEND in ('lindistflow3', 'opendss')
+plt.rcParams.update({'font.size': 11, 'axes.spines.top': False, 'axes.spines.right': False})
+print('LIVE NUMERICAL EXPERIMENTS | selected voltage model:', BACKEND)
+print('Restoration: six-node graph. Cyber: four-bus DC state-estimation/control example.')</pre></details><pre class="output">LIVE NUMERICAL EXPERIMENTS | selected voltage model: lindistflow3
+Restoration: six-node graph. Cyber: four-bus DC state-estimation/control example.
+</pre><h2 id="general-optimization-contract">General optimization contract</h2>
+<p>At each decision time, the numerical tool receives the estimated state, forecast, approved objectives and equipment permissions. For application $s$, prediction model $m$ and horizon $H$, write:</p>
+<p>\[
+\begin{aligned}
+\min_{x_{0:H-1},\,u_{0:H-1},\,z_{0:H-1}}\quad
+&amp;\sum_{k=0}^{H-1}\ell_s(x_k,u_k,z_k;d_k)\\
+\text{subject to}\quad
+&amp;h_m(x_k,u_k,z_k;d_k)=0,\\
+&amp;g_s(x_k,u_k,z_k;d_k)\leq0,\quad u_k\in\mathcal U_s,\quad z_k\in\{0,1\}^{n_z}.
+\end{aligned}
+\]</p>
+<p>$x$ denotes electrical states, $u$ continuous controls, $z$ switching/pickup decisions, and $d$ supplied operating data. Power-flow equations are $h_m$; electrical limits, device capability and task restrictions are $g_s$. Add initialized state-transition equations, and any terminal cost or terminal constraint, when modeling a dynamic state such as battery energy. Set $H=1$ for a snapshot. Omit binary variables when equipment positions are fixed. The objective, units and weights are specified separately for each use case.</p>
+<p>OpenDSS evaluates nonlinear unbalanced AC power flow. Python LinDistFlow supplies approximate coupled MV phase equations. <strong>A power-flow simulator is not itself an optimizer:</strong> a numerical optimization routine selects the controls and invokes or approximates the electrical model. A fresh model solve checks the candidate before review.</p>
+<p>The LLM neither sets safety limits nor proves feasibility. A proposed reinterpretation of a priority or limit requires explicit readback. A fair fixed-versus-agentic comparison holds the numerical objective, model, information, checks and attempt budget constant. Otherwise a better optimizer could be mistaken for a benefit of the agent framework.</p>
+<h2 id="use-case-1-voltage-support">Use case 1: Voltage support</h2>
+<h3 id="established-formulation-three-phase-volt-var-opf-within-mpc">Established formulation: three-phase Volt/VAR OPF within MPC</h3>
+<p>The operator wants acceptable phase voltages and branch currents while retaining available PV production. The usual decision variables include inverter active power $p^g$ and reactive power $q^g$; taps and capacitors can be added when their actual capabilities and switching limits are available. A representative normalized objective is</p>
+<p>\[
+\min\sum_{k=0}^{H-1}\left[
+\alpha_v\sum_{i,\phi}(v_{i\phi,k}-v^\star)^2
++\alpha_c\sum_g\frac{p^{av}_{g,k}-p^g_{g,k}}{S_g}
++\alpha_q\sum_g\left(\frac{q^g_{g,k}}{S_g}\right)^2
++\alpha_\Delta\|\widetilde u_k-\widetilde u_{k-1}\|_2^2\right].
+\]</p>
+<p>Here $v$ is voltage magnitude in per unit, $p,q,S$ share compatible power units, and $\widetilde u$ contains normalized controls. Positive weights express declared engineering priorities; there is no universal weight set. Constraints include three-phase power balance, $v_{min}\leq v\leq v_{max}$, $|I_\ell|\leq I^{max}_\ell$, $0\leq p^g\leq p^{av}$ and $(p^g)^2+(q^g)^2\leq S_g^2$, plus actual reactive and ramp limits. Only the first move of a feasible MPC plan is used before the next measurement update.</p>
+<p>This is an established optimization family. The sources explain <a href="https://research-hub.nlr.gov/en/publications/optimal-energy-dispatch-of-distributed-pvs-for-the-next-generatio-2/">optimal active/reactive inverter dispatch</a> and <a href="https://arxiv.org/abs/1406.3054">multiphase OPF approximations</a>. They motivate the formulation, rather than prescribing our teaching coefficients.</p>
+<h3 id="executed-reduction-two-continuous-inverter-participation-controls">Executed reduction: two continuous inverter participation controls</h3>
+<p>The numerical experiment sets $p_i=aS_i$ and $q_i=bS_i$ for every PV inverter. Available active power is set to rated kVA for this declared high-irradiance overlay. The two variables $a,b$ couple all devices; this is a restricted continuous OPF. Actual per-device kvar limits and a conservative 32-sided polygon inside $a^2+b^2\leq1$ limit capability.</p>
+<p>Each iteration solves a local convex sensitivity QP with SciPy&#39;s SLSQP algorithm. The objective is $(1-a)^2+0.05b^2+10\,\mathrm{mean}[(v-1.01)^2]$. Local voltage/current sensitivities, a step bound and fresh backend validation control the iteration. The optimization uses small declared numerical margins; these are not a proof against uncertain disturbances. A local QP solution is not a global AC-optimality certificate.</p>
+<p>The baseline has $a=1,b=0$, meaning no curtailment and no commanded reactive support. It isolates the effect of optimization. For attributing agent benefits, compare fixed and agentic supervisors using the <strong>same</strong> optimizer in the closing section. Local Volt/VAR droop is a distinct comparator that has not been evaluated here.</p>
+<p><strong>Predict:</strong> can reactive absorption improve voltage while increased current still requires active-power curtailment?</p>
+<details class="code"><summary>Code · cell 2</summary><pre>voltage = run_voltvar(BACKEND)
+columns = ['p_actual_kw', 'q_actual_kvar', 'vmin', 'vmax',
+           'max_line_utilization_pct', 'objective', 'accepted']
+display(pd.DataFrame({name: {key: voltage[name][key] for key in columns}
+                      for name in ('baseline', 'optimized')}).T)
+display({'formulation': voltage['formulation'], 'validation': voltage['validation'],
+         'violations_after': voltage['optimized']['violations'], 'scope': voltage['scope']})
+recorded_methods = json.loads((ROOT / 'results/standard_formulations.json').read_text(encoding='utf-8'))
+model_rows = []
+for backend, record in recorded_methods['voltvar'].items():
+    for kind in ('baseline', 'optimized', 'reference_full_ac_audit'):
+        if kind not in record:
+            continue
+        point = record[kind]
+        model_rows.append({'prediction_model': backend, 'evaluation': kind,
+                           **{k: point[k] for k in ['vmin', 'vmax', 'max_line_utilization_pct', 'accepted']}})
+print('Recorded model comparison and separate full-AC audit (not new local solves):')
+display(pd.DataFrame(model_rows))</pre></details><div class="table-wrap"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>p_actual_kw</th>
+      <th>q_actual_kvar</th>
+      <th>vmin</th>
+      <th>vmax</th>
+      <th>max_line_utilization_pct</th>
+      <th>objective</th>
+      <th>accepted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>baseline</th>
+      <td>7850.446571</td>
+      <td>0.0</td>
+      <td>1.03</td>
+      <td>1.048024</td>
+      <td>60.82223</td>
+      <td>0.007605</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>optimized</th>
+      <td>7727.470994</td>
+      <td>-1248.591988</td>
+      <td>1.022481</td>
+      <td>1.037013</td>
+      <td>65.329358</td>
+      <td>0.005486</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><pre class="output">{'formulation': {'kind': 'continuous one-step P/Q participation OPF via local convex sensitivity QPs',
+  'variables': 'a in [0,1], b in common inverter kvar/kVA bounds; p_i=a*S_i, q_i=b*S_i',
+  'objective': '(1-a)^2 + 0.05*b^2 + 10*mean((v_pred-1.01)^2)',
+  'inverter_capability': '32-side inscribed polygon within a^2+b^2&lt;=1',
+  'linear_constraints': '0.9502&lt;=v_pred&lt;=1.0498; I_pred/I_rating&lt;=0.995',
+  'physical_checks': '0.95&lt;=v&lt;=1.05; actual I/I_rating&lt;=1; inverter circle',
+  'solver': 'SciPy SLSQP solving quadratic objective with linear constraints',
+  'finite_difference_step': 0.001,
+  'trust_radius': 0.3,
+  'available_p_kw': 7850.446570972884,
+  'inverter_count': 930},
+ 'validation': {'fresh_backend_accepted': True, 'backend_solves': 28},
+ 'violations_after': {'voltage_low': 0,
+  'voltage_high': 0,
+  'line_current': 0,
+  'inverter_capability': 0,
+  'dispatch_tracking': 0},
+ 'scope': 'MV phases only'}</pre><pre class="output">Recorded model comparison and separate full-AC audit (not new local solves):
+</pre><div class="table-wrap"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>prediction_model</th>
+      <th>evaluation</th>
+      <th>vmin</th>
+      <th>vmax</th>
+      <th>max_line_utilization_pct</th>
+      <th>accepted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>opendss</td>
+      <td>baseline</td>
+      <td>1.019639</td>
+      <td>1.108207</td>
+      <td>283.036633</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>opendss</td>
+      <td>optimized</td>
+      <td>1.004723</td>
+      <td>1.043224</td>
+      <td>99.891299</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>lindistflow3</td>
+      <td>baseline</td>
+      <td>1.030000</td>
+      <td>1.048024</td>
+      <td>60.822230</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>lindistflow3</td>
+      <td>optimized</td>
+      <td>1.022481</td>
+      <td>1.037013</td>
+      <td>65.329358</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>lindistflow3</td>
+      <td>reference_full_ac_audit</td>
+      <td>1.010868</td>
+      <td>1.087074</td>
+      <td>288.237096</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><details class="code"><summary>Code · cell 3</summary><pre>fig, axes = plt.subplots(1, 2, figsize=(11, 3.6))
+for key, color in [('baseline', '#c77630'), ('optimized', '#007f83')]:
+    point = voltage[key]
+    axes[0].plot(np.sort(point['voltages_pu']), color=color, label=key)
+    axes[1].plot(np.sort(point['current_pu']) * 100, color=color, label=key)
+for bound in (.95, 1.05): axes[0].axhline(bound, color='#a7353d', ls='--', lw=1)
+axes[1].axhline(100, color='#a7353d', ls='--', lw=1)
+axes[0].set(xlabel='Sorted phase sample', ylabel='Voltage (p.u.)', title=BACKEND + ': ' + voltage['scope'])
+axes[1].set(xlabel='Sorted line sample', ylabel='Rated-current utilization (%)', title='Same-model current validation')
+for ax in axes: ax.legend()
+fig.tight_layout()
+plt.show()</pre></details><pre class="output">C:\Users\f00863x\AppData\Local\Temp\ipykernel_33912\262554514.py:12: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+</pre><p><strong>Interpretation.</strong> Read current utilization together with voltage. Report whether the fresh selected-backend check accepted the candidate, then state the modeled scope. For LinDistFlow, a successful MV check says nothing about omitted LV constraints. Read optimizer status and the rejected-iteration trace before claiming convergence or optimality.</p>
+<p><strong>Exercise, 3 minutes:</strong> change <code>load_mult</code> to 0.7, rerun the numerical call and plot, and explain whether the binding constraint changed. Use the original finite-action MPC section of the main tutorial to study a horizon and the DQN proposal. This new continuous P/Q experiment is one-step optimization.</p>
+<p><strong>Recorded comparison:</strong> the linear proposal passes MV checks but fails the separate full-AC audit (maximum voltage about 1.087 p.u. and line utilization about 288.2%). Its baseline was already MV-feasible. The AC no-support baseline has a smaller unconstrained cost but violates limits; restoring feasibility can increase cost. The two objectives average voltage deviation over different model coverage, so neither their costs nor optimized controls isolate approximation error alone.</p>
+<h2 id="use-case-2-restoration">Use case 2: Restoration</h2>
+<h3 id="established-formulation-mixed-integer-service-restoration">Established formulation: mixed-integer service restoration</h3>
+<p>Let $y_i$ be binary load pickup, $z_\ell$ binary branch status, and $p_i^d$ nominal demand in kW. A common snapshot objective is</p>
+<p>\[
+\max\ \sum_i w_i p_i^d y_i-\lambda_{sw}\sum_\ell d_\ell,
+\qquad d_\ell\geq z_\ell-z_\ell^0,\quad d_\ell\geq z_\ell^0-z_\ell.
+\]</p>
+<p>The weights $w_i$ encode approved service priorities. Require $d_\ell\geq0$ and $\lambda_{sw}&gt;0$; the penalty has weighted-kW units per operation. A weighted sum does not guarantee strict critical-load-first service; use a lexicographic objective if that is the requirement. For a time sequence, integrate served power over interval durations and model pickup order explicitly.</p>
+<p>Power balance, voltage/current limits, equipment availability and source connectivity constrain pickup. Faulted branches stay open. Commodity-flow connectivity plus an appropriate energized-edge count enforces a rooted radial network; an edge count alone is insufficient. With linearized power flow and polyhedral equipment limits the problem is a <strong>MILP</strong>. A conic formulation instead gives a <strong>MISOCP</strong>. Full nonlinear AC feasibility needs a separate check. See <a href="https://www.osti.gov/servlets/purl/1402471">Chen et al., sequential restoration</a> and <a href="https://arxiv.org/abs/1912.05185">Wang et al., radiality constraints</a>.</p>
+<h3 id="executed-reduction-graph-milp-with-independent-verification">Executed reduction: graph MILP with independent verification</h3>
+<p>This six-node example chooses binary energized buses, picked-up loads and energized branches. Signed active-power flow obeys each branch&#39;s kW capacity. A fictitious commodity delivers one unit to every energized non-source bus, proving source connectivity; the edge count then enforces a tree. The isolated fault remains unavailable.</p>
+<p>The first optimization maximizes priority-weighted served kW. A second optimization preserves that optimum and minimizes energized-branch count with a deterministic tie-break. This second objective is not a switching sequence or a count of changes from a pre-fault topology. An independent exhaustive enumeration checks the primary optimum on this small graph.</p>
+<p>The example omits reactive flow, voltage drops and protection. The general formulation includes them; the existing Greensboro R1/R2 workflow checks its separately restricted configuration catalog in the selected electrical model.</p>
+<details class="code"><summary>Code · cell 4</summary><pre>restoration = {label: solve_restoration_milp(capacity)
+               for label, capacity in [('normal', 220.), ('limited', 100.)]}
+display(pd.DataFrame([{'case': label, 'tie_04_capacity_kw': next(edge['capacity_kw'] for edge in row['graph']['edges'] if edge['name'] == 'tie_04'),
+                       **{k: row['milp'][k] for k in ['served_kw', 'critical_served_kw', 'objective', 'mip_gap']},
+                       'enumeration_agrees': row['agreement']}
+                      for label, row in restoration.items()]))
+display(pd.DataFrame(restoration['limited']['graph']['edges']))
+display({'load_blocks_kw': restoration['limited']['graph']['demand_kw'],
+         'priorities': restoration['limited']['graph']['priority'],
+         'limited_pickup': restoration['limited']['milp']['pickup'],
+         'closed_edges': restoration['limited']['milp']['closed_edges']})</pre></details><div class="table-wrap"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>case</th>
+      <th>tie_04_capacity_kw</th>
+      <th>served_kw</th>
+      <th>critical_served_kw</th>
+      <th>objective</th>
+      <th>mip_gap</th>
+      <th>enumeration_agrees</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>normal</td>
+      <td>220.0</td>
+      <td>250.0</td>
+      <td>90.0</td>
+      <td>1060.0</td>
+      <td>0.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>limited</td>
+      <td>100.0</td>
+      <td>200.0</td>
+      <td>90.0</td>
+      <td>1010.0</td>
+      <td>0.0</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="table-wrap"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>u</th>
+      <th>v</th>
+      <th>capacity_kw</th>
+      <th>available</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>source_healthy</td>
+      <td>0</td>
+      <td>1</td>
+      <td>300.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>faulted_segment</td>
+      <td>1</td>
+      <td>2</td>
+      <td>250.0</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>section_23</td>
+      <td>2</td>
+      <td>3</td>
+      <td>250.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>section_34</td>
+      <td>3</td>
+      <td>4</td>
+      <td>250.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>section_25</td>
+      <td>2</td>
+      <td>5</td>
+      <td>250.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>tie_04</td>
+      <td>0</td>
+      <td>4</td>
+      <td>100.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>tie_15</td>
+      <td>1</td>
+      <td>5</td>
+      <td>100.0</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><pre class="output">{'load_blocks_kw': [0.0, 40.0, 60.0, 70.0, 50.0, 30.0],
+ 'priorities': [0.0, 1.0, 10.0, 1.0, 1.0, 10.0],
+ 'limited_pickup': [0, 1, 1, 1, 0, 1],
+ 'closed_edges': ['source_healthy',
+  'section_34',
+  'section_25',
+  'tie_04',
+  'tie_15']}</pre><details class="code"><summary>Code · cell 5</summary><pre>fig, ax = plt.subplots(figsize=(7, 3.5))
+loads = np.array(restoration['normal']['graph']['demand_kw'])[1:]
+positions = np.arange(len(loads))
+for offset, (label, row) in zip([-.18, .18], restoration.items()):
+    picked = np.array(row['milp']['pickup'])[1:]
+    ax.bar(positions + offset, loads * picked, width=.36, label=label)
+ax.set(xticks=positions, xticklabels=[str(i) for i in range(1, len(loads)+1)],
+       xlabel='Load-block node', ylabel='Picked-up nominal load (kW)', title='MILP pickup under two capacity limits')
+ax.legend()
+fig.tight_layout()
+plt.show()</pre></details><pre class="output">C:\Users\f00863x\AppData\Local\Temp\ipykernel_33912\3237890838.py:11: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+</pre><p><strong>Exercise, 3 minutes:</strong> reduce capacity to 80 kW or change the allowed graph in a separate copy. Identify which pickup changes and whether the solver still matches exhaustive enumeration. The critical-load weight is a declared preference, not a utility priority inferred by the LLM. Do not translate a final graph into physical switching orders without additional operational checks.</p>
+<h2 id="use-case-3-cyber-attack-response">Use case 3: Cyber-attack response</h2>
+<h3 id="established-foundation-state-estimation-and-bad-data-detection">Established foundation: state estimation and bad-data detection</h3>
+<p>For measurements $z=h(x)+a+e$, $e\sim\mathcal N(0,R)$ describes the assumed noise, and $a$ a possible corruption. The conventional WLS estimate is</p>
+<p>\[
+\widehat x=\arg\min_x(z-h(x))^\top R^{-1}(z-h(x)).
+\]</p>
+<p>For the full-rank linear teaching model $h(x)=Hx$ with known covariance, use residual $r=z-H\widehat x$, statistic $J=r^\top R^{-1}r$ and threshold $\chi^2_{m-n,1-\alpha}$, where $n$ counts identifiable free states after reference constraints. The normalized residual uses its own covariance $\Omega=R-H(H^\top R^{-1}H)^{-1}H^\top$: $r_i^N=|r_i|/\sqrt{\Omega_{ii}}$ when that variance is positive. Threshold calibration assumes the stated model and noise. An alarm indicates inconsistency, not proof of malicious intent. See the <a href="https://electa-git.github.io/PowerModelsDistributionStateEstimation.jl/v0.4/bad_data/">PMDSE authors&#39; bad-data documentation</a>.</p>
+<p><strong>Response is a second decision.</strong> Quarantine only measurements justified by the response policy, restore observability from independently trusted measurements, estimate again, and call the voltage-support OPF with confirmed device permissions. If trusted data cannot support an observable estimate and a feasible plan, stop for operator review. Authentication, source provenance and permissions are separate controls; an LLM cannot manufacture them.</p>
+<p>The key negative control is $a=Hc$: under the exact linear model, the estimate shifts by $c$ while the residual is unchanged. A residual detector can therefore miss a structured false-data injection. See <a href="https://reitermk.github.io/papers/2009/CCS1.pdf">Liu, Ning and Reiter</a>. This limitation is demonstrated in the notebook rather than hidden by testing only easy attacks.</p>
+<h3 id="executed-reduction-observable-dc-wls-and-constrained-redispatch">Executed reduction: observable DC WLS and constrained redispatch</h3>
+<p>The state consists of three non-reference bus angles in radians. The measurement model combines four line flows, three nodal injections and one angle, with explicitly stated independent Gaussian noise. Three scenarios share the same noise realization: nominal data, one corrupted flow measurement, and a structured $Hc$ shift. Inspect the known synthetic state error as well as the residual alarm.</p>
+<p>An assumed protected set supplies three independent angle measurements for recovery. This restores observability but has zero residual redundancy, so no chi-square detection claim applies to that set. Trust is an explicit experimental assumption; the code does not authenticate sensors.</p>
+<p>The recovery estimate actually enters a scalar convex DC redispatch problem: minimize half the square of a flexible injection, bound it between 0 and 0.5 p.u., and keep predicted line flows within the stated limits with a 0.01 p.u. engineering margin. The slack balances that injection. The known synthetic state provides a separate toy-model check. This demonstrates the estimator-to-controller link on the small DC network, not AC cyber resilience of the Greensboro feeder.</p>
+<details class="code"><summary>Code · cell 6</summary><pre>cyber = run_wls_demo()
+display(pd.DataFrame([{'case': row['name'], 'state_error_rad': row['state_error_norm'],
+                       **row['chi_square'], 'control_status': row['control']['status'],
+                       'actual_toy_violations': row['control'].get('actual_violation_count')}
+                      for row in cyber['cases']]))
+display({'measurement_model': cyber['measurement_model'],
+         'suspect_sensor_index': cyber['isolated_removal']['removed_index'],
+         'trusted_recovery': cyber['trusted_recovery']})</pre></details><div class="table-wrap"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>case</th>
+      <th>state_error_rad</th>
+      <th>statistic</th>
+      <th>degrees_of_freedom</th>
+      <th>alpha</th>
+      <th>threshold</th>
+      <th>alarm</th>
+      <th>control_status</th>
+      <th>actual_toy_violations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>nominal_noise</td>
+      <td>0.000237</td>
+      <td>3.920222</td>
+      <td>5</td>
+      <td>0.01</td>
+      <td>15.086272</td>
+      <td>False</td>
+      <td>PROPOSE</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>isolated_corruption</td>
+      <td>0.005933</td>
+      <td>277.497447</td>
+      <td>5</td>
+      <td>0.01</td>
+      <td>15.086272</td>
+      <td>True</td>
+      <td>HOLD</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>stealth_Hc</td>
+      <td>0.026780</td>
+      <td>3.920222</td>
+      <td>5</td>
+      <td>0.01</td>
+      <td>15.086272</td>
+      <td>False</td>
+      <td>PROPOSE</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><pre class="output">{'measurement_model': {'H': [[-10.0, 0.0, 0.0],
+   [8.0, -8.0, 0.0],
+   [0.0, 10.0, -10.0],
+   [0.0, 0.0, -5.0],
+   [18.0, -8.0, 0.0],
+   [-8.0, 18.0, -10.0],
+   [0.0, -10.0, 15.0],
+   [1.0, 0.0, 0.0]],
+  'sigma': [0.004, 0.004, 0.004, 0.004, 0.006, 0.006, 0.006, 0.0005],
+  'true_state': [-0.02, -0.05, -0.04],
+  'state': 'three non-slack DC voltage angles in radians',
+  'measurements': ['flow01',
+   'flow12',
+   'flow23',
+   'flow03',
+   'injection1',
+   'injection2',
+   'injection3',
+   'angle1'],
+  'noise_seed': 11,
+  'attack_sensor_index': 1,
+  'isolated_bias': 0.08,
+  'stealth_shift': [0.01, 0.025, 0.0],
+  'stealth_attack': [-0.1,
+   -0.12000000000000001,
+   0.25,
+   0.0,
+   -0.020000000000000007,
+   0.37,
+   -0.25,
+   0.01]},
+ 'suspect_sensor_index': 1,
+ 'trusted_recovery': {'protected_H': [[1.0, 0.0, 0.0],
+   [0.0, 1.0, 0.0],
+   [0.0, 0.0, 1.0]],
+  'protected_measurements': [-0.019982061329599805,
+   -0.04992446613459283,
+   -0.04008931656186556],
+  'protected_sigma': [5e-05, 5e-05, 5e-05],
+  'noise_seed': 21,
+  'estimate': [-0.019982061329599805,
+   -0.04992446613459283,
+   -0.04008931656186556],
+  'covariance': [[2.5e-09, 0.0, 0.0],
+   [0.0, 2.5e-09, 0.0],
+   [0.0, 0.0, 2.5e-09]],
+  'rank': 3,
+  'residual': [0.0, 0.0, 0.0],
+  'normalized_residuals': [None, None, None],
+  'undefined_normalized_residual_indices': [0, 1, 2],
+  'chi_square': {'statistic': 0.0,
+   'degrees_of_freedom': 0,
+   'alpha': 0.01,
+   'threshold': None,
+   'alarm': None},
+  'largest_normalized_residual': None,
+  'control': {'status': 'PROPOSE',
+   'flexible_injection_pu': 0.12169366726990237,
+   'predicted_flows_pu': [0.13028137485605382,
+    0.16999999999999998,
+    -0.046197066897314544,
+    0.14829215397936965],
+   'actual_toy_model_flows_pu': [0.1304607615600558,
+    0.1704607615600558,
+    -0.047845571170041824,
+    0.14784557117004185],
+   'line_limits_pu': [0.35, 0.18, 0.35, 0.35],
+   'planning_margin_pu': 0.01,
+   'actual_violation_count': 0,
+   'objective': 0.007404674326798854,
+   'model': 'Three-state DC network, not the distribution-feeder AC model'}}}</pre><details class="code"><summary>Code · cell 7</summary><pre>fig, axes = plt.subplots(1, 2, figsize=(11, 3.6))
+labels = ['Noise', 'Isolated corruption', 'Stealth Hc']
+axes[0].bar(labels, [row['chi_square']['statistic'] for row in cyber['cases']], color=['#007f83', '#c77630', '#a7353d'])
+axes[0].axhline(cyber['cases'][0]['chi_square']['threshold'], color='black', ls='--', label='1% false-alarm threshold')
+axes[0].set(ylabel='Weighted residual statistic', title='Detection can miss structured corruption')
+axes[0].tick_params(axis='x', rotation=12)
+axes[0].legend()
+recovered = cyber['trusted_recovery']['control']
+axes[1].bar(np.arange(4), np.abs(recovered['actual_toy_model_flows_pu']), color='#007f83', label='After trusted recovery')
+axes[1].plot(np.arange(4), recovered['line_limits_pu'], 'o--', color='#a7353d', label='Line limit')
+axes[1].set(xticks=np.arange(4), xticklabels=['01', '12', '23', '03'], xlabel='DC model branch', ylabel='Absolute active flow (p.u.)', title='Trusted estimate enters constrained redispatch')
+axes[1].legend()
+fig.tight_layout()
+plt.show()</pre></details><pre class="output">C:\Users\f00863x\AppData\Local\Temp\ipykernel_33912\3932624953.py:14: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+</pre><p><strong>Exercise, 3 minutes:</strong> compare the nominal and stealth residual statistics. Explain how both can pass while their state errors and resulting control decisions differ. Then remove one protected angle measurement in a copy of the experiment: an unobservable retained set must require review. A scalar margin is not a general uncertainty guarantee. These individual fixtures do not estimate an operational attack-detection rate.</p>
+<h2 id="the-same-methods-inside-the-agent-workflow">The same methods inside the agent workflow</h2>
+<p>The separate stage demonstration invokes these numerical tools for four specifications: voltage support with each electrical backend, limited-capacity restoration, and trusted DC recovery. Both fixed and agentic supervisors receive the same structured task and numerical parameters. Llama selects the tool family and gives a separately labeled explanation. An incompatible selection or failed numerical check requires review. Each run permits one numerical attempt; it does not claim recovery from arbitrary tool failures.</p>
+<p>The table and traces below are <strong>recorded actual experiments</strong> in <code>results/standard_agent_workflow.json</code>. Reading this cell makes no model calls. The run journal preserves exact prompts, schema, responses and model identity. Select any agentic row to inspect all eight stages. The general production-style framework and the current reduced numerical scope must remain distinct in the interpretation.</p>
+<details class="code"><summary>Code · cell 8</summary><pre>standard_stages = json.loads((ROOT / 'results/standard_agent_workflow.json').read_text(encoding='utf-8'))
+display(pd.DataFrame([{'case': row['case'], 'model': row['backend'], 'supervisor': row['supervisor'],
+                       'status': row['status'], 'seconds': round(row['seconds'], 3),
+                       'objective': (row['summary']['objective'] if 'objective' in row['summary']
+                                     else row['summary'].get('control', {}).get('objective'))}
+                      for row in standard_stages['runs']]))
+print('Recorded actual Llama calls:', standard_stages['metadata']['actual_llama_calls'])
+example = next(row for row in standard_stages['runs'] if row['case'] == 'restoration' and row['supervisor'] == 'agentic')
+display(pd.DataFrame([{k: step[k] for k in ['stage', 'method', 'status']} for step in example['trace']]))
+for step in example['trace']:
+    exact = html.escape(json.dumps(step['response'], indent=2, ensure_ascii=False))
+    label = html.escape(step['stage'] + ' — ' + step['status'])
+    display(HTML('&lt;details&gt;&lt;summary&gt;' + label + ': inspect the exact response&lt;/summary&gt;&lt;pre&gt;' + exact + '&lt;/pre&gt;&lt;/details&gt;'))</pre></details><div class="table-wrap"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>case</th>
+      <th>model</th>
+      <th>supervisor</th>
+      <th>status</th>
+      <th>seconds</th>
+      <th>objective</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>voltage</td>
+      <td>opendss</td>
+      <td>fixed</td>
+      <td>MODEL_RECOMMEND</td>
+      <td>6.845</td>
+      <td>0.397513</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>voltage</td>
+      <td>opendss</td>
+      <td>agentic</td>
+      <td>MODEL_RECOMMEND</td>
+      <td>12.490</td>
+      <td>0.397513</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>voltage</td>
+      <td>lindistflow3</td>
+      <td>fixed</td>
+      <td>MODEL_RECOMMEND</td>
+      <td>1.437</td>
+      <td>0.005486</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>voltage</td>
+      <td>lindistflow3</td>
+      <td>agentic</td>
+      <td>MODEL_RECOMMEND</td>
+      <td>7.384</td>
+      <td>0.005486</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>restoration</td>
+      <td>separate_reduced_teaching_model</td>
+      <td>fixed</td>
+      <td>MODEL_RECOMMEND</td>
+      <td>0.010</td>
+      <td>1010.000000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>restoration</td>
+      <td>separate_reduced_teaching_model</td>
+      <td>agentic</td>
+      <td>REVIEW</td>
+      <td>6.102</td>
+      <td>1010.000000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>cyber</td>
+      <td>separate_reduced_teaching_model</td>
+      <td>fixed</td>
+      <td>MODEL_RECOMMEND</td>
+      <td>0.002</td>
+      <td>0.007405</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>cyber</td>
+      <td>separate_reduced_teaching_model</td>
+      <td>agentic</td>
+      <td>REVIEW</td>
+      <td>5.935</td>
+      <td>0.007405</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><pre class="output">Recorded actual Llama calls: 8
+</pre><div class="table-wrap"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>stage</th>
+      <th>method</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Awareness</td>
+      <td>Declared scenario/schema and model-coverage ch...</td>
+      <td>PASS</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Planning</td>
+      <td>RESTORATION_MILP with fixed parameters</td>
+      <td>SOLVED</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Execution proposal</td>
+      <td>Extract the numerical solution; no physical ac...</td>
+      <td>PROPOSED</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Simulation</td>
+      <td>Independent graph enumeration</td>
+      <td>EVALUATED</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Verification</td>
+      <td>Declared numerical success and modeled-constra...</td>
+      <td>PASS</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Recovery</td>
+      <td>One numerical attempt; unsuccessful verificati...</td>
+      <td>NOT_NEEDED</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Explanation</td>
+      <td>Numerical metric card and separately labeled e...</td>
+      <td>REVIEW</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Operator acknowledgment</td>
+      <td>Human review of immutable result identity</td>
+      <td>PENDING</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="table-wrap"><details><summary>Awareness — PASS: inspect the exact response</summary><pre>{
+  &quot;use_case&quot;: &quot;restoration&quot;,
+  &quot;authorized_tool&quot;: &quot;RESTORATION_MILP&quot;,
+  &quot;scope&quot;: &quot;Six-node synthetic graph, active-power transport capacities, no voltage model&quot;,
+  &quot;backend&quot;: &quot;separate_reduced_teaching_model&quot;,
+  &quot;approved_inputs&quot;: &quot;Supplied transparent simulation fixtures; no live utility measurements&quot;
+}</pre></details></div><div class="table-wrap"><details><summary>Planning — SOLVED: inspect the exact response</summary><pre>{
+  &quot;routing&quot;: {
+    &quot;choice&quot;: &quot;RESTORATION_MILP&quot;,
+    &quot;reason&quot;: &quot;The use case is restoration, and the authorized tool is RESTORATION_MILP, which is suitable for load pickup and energized tree selection in a restoration scenario.&quot;,
+    &quot;call_id&quot;: 5,
+    &quot;seconds&quot;: 2.883081100007985,
+    &quot;provenance&quot;: &quot;actual_local_llama&quot;,
+    &quot;error&quot;: null
+  },
+  &quot;numerical_plan&quot;: {
+    &quot;objective&quot;: 1010.0,
+    &quot;served_kw&quot;: 200.0,
+    &quot;critical_served_kw&quot;: 90.0,
+    &quot;pickup&quot;: [
+      0,
+      1,
+      1,
+      1,
+      0,
+      1
+    ],
+    &quot;closed_edges&quot;: [
+      &quot;source_healthy&quot;,
+      &quot;section_34&quot;,
+      &quot;section_25&quot;,
+      &quot;tie_04&quot;,
+      &quot;tie_15&quot;
+    ],
+    &quot;mip_gap&quot;: 0.0,
+    &quot;scope&quot;: &quot;Six-node synthetic graph, active-power transport capacities, no voltage model&quot;
+  }
+}</pre></details></div><div class="table-wrap"><details><summary>Execution proposal — PROPOSED: inspect the exact response</summary><pre>{
+  &quot;objective&quot;: 1010.0,
+  &quot;served_kw&quot;: 200.0,
+  &quot;critical_served_kw&quot;: 90.0,
+  &quot;pickup&quot;: [
+    0,
+    1,
+    1,
+    1,
+    0,
+    1
+  ],
+  &quot;closed_edges&quot;: [
+    &quot;source_healthy&quot;,
+    &quot;section_34&quot;,
+    &quot;section_25&quot;,
+    &quot;tie_04&quot;,
+    &quot;tie_15&quot;
+  ],
+  &quot;mip_gap&quot;: 0.0,
+  &quot;scope&quot;: &quot;Six-node synthetic graph, active-power transport capacities, no voltage model&quot;
+}</pre></details></div><div class="table-wrap"><details><summary>Simulation — EVALUATED: inspect the exact response</summary><pre>{
+  &quot;solver_success&quot;: true,
+  &quot;independent_enumeration_agreement&quot;: true,
+  &quot;scope&quot;: &quot;Discrete pickup and graph-flow constraints only; no AC voltage or protection check&quot;
+}</pre></details></div><div class="table-wrap"><details><summary>Verification — PASS: inspect the exact response</summary><pre>{
+  &quot;solver_success&quot;: true,
+  &quot;independent_enumeration_agreement&quot;: true,
+  &quot;scope&quot;: &quot;Discrete pickup and graph-flow constraints only; no AC voltage or protection check&quot;
+}</pre></details></div><div class="table-wrap"><details><summary>Recovery — NOT_NEEDED: inspect the exact response</summary><pre>{
+  &quot;additional_attempts&quot;: 0
+}</pre></details></div><div class="table-wrap"><details><summary>Explanation — REVIEW: inspect the exact response</summary><pre>{
+  &quot;choice&quot;: &quot;REVIEW&quot;,
+  &quot;reason&quot;: &quot;The provided JSON object indicates that the numerical workflow has completed successfully, with a served load of 200 kW and a critical served load of 90 kW. The &#x27;passed_modeled_checks&#x27; field is also true, indicating that the modeled checks have been passed. Therefore, the choice is to review the results of the numerical workflow.&quot;,
+  &quot;call_id&quot;: 6,
+  &quot;seconds&quot;: 3.207767700019758,
+  &quot;provenance&quot;: &quot;actual_local_llama&quot;,
+  &quot;error&quot;: null
+}</pre></details></div><div class="table-wrap"><details><summary>Operator acknowledgment — PENDING: inspect the exact response</summary><pre>{
+  &quot;acknowledged&quot;: false,
+  &quot;dispatch_authorized&quot;: false,
+  &quot;equipment_operated&quot;: false
+}</pre></details></div><p><strong>Read the stopping decision separately from feasibility.</strong> In the supplied run, the numerical restoration and trusted-DC recovery checks passed, but the explanation stage selected <code>REVIEW</code>. That wording is broad in the model&#39;s choice schema. The wrapper treats it as a request to withhold a recommendation; it is not evidence that the numerical plan is infeasible. The response and final status are preserved. This experiment demonstrates integration and exposes an interface limitation, rather than claiming an agentic performance advantage.</p>
+<h3 id="optional-new-live-stage-run">Optional new live stage run</h3>
+<p>Set <code>RUN_LIVE_AGENT=True</code> to make new local Llama calls and invoke the selected numerical tool again. Leave it false to finish the numerical workshop without another call. The saved display above remains a recorded trace. The local operator-review dashboard illustrates acknowledgment for the separately frozen feeder-workflow records; it does not acknowledge the new result automatically.</p>
+<details class="code"><summary>Code · cell 9</summary><pre>RUN_LIVE_AGENT = False
+if RUN_LIVE_AGENT:
+    from datetime import datetime, timezone
+    from src.standard_agent_workflow import MethodLlama, run_case
+    journal = ROOT / 'results' / ('classroom_standard_llama_' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ') + '.json')
+    live = run_case('voltage', BACKEND, 'agentic', MethodLlama(journal))
+    display(pd.DataFrame(live['trace']))
+else:
+    print('No new Llama calls requested. Numerical cells above ran live; the stage table is recorded.')</pre></details><pre class="output">No new Llama calls requested. Numerical cells above ran live; the stage table is recorded.
+</pre><h2 id="scientific-interpretation-and-references">Scientific interpretation and references</h2>
+<p>The method experiments establish numerical behavior within their declared reductions. The matched stage runs show which tools the workflow actually invoked and whether their checks passed. They do not establish a better optimum, reduced operator workload, calibrated population detection rates, or field safety. Compare the existing authored-request experiment separately when discussing language-interface coverage.</p>
+<p>Use <a href="appendix/General_Optimization_Formulations.md">the formulation appendix</a> for full equations, constraints, units and primary references. The <a href="Grid_Operator_Workflow.html">main tutorial</a> connects the three use cases to MPC, DQN, conventional comparisons, actual Llama errors and <a href="Operator_Dashboard.html">operator acknowledgment</a>.</p>
+<p>Numerical implementation: <code>src/standard_formulations.py</code>. Stage integration: <code>src/standard_agent_workflow.py</code>. Baseline and new comparison records are separate from the earlier frozen studies. To regenerate all conventional-method records, run <code>python -m src.standard_formulations</code>. To explicitly repeat both-supervisor stage runs, run <code>python -m src.standard_agent_workflow</code> with both electrical dependencies and Ollama available. New stage runs keep separate journal directories.</p>
+<p class="footer">Synthetic Greensboro case study · OpenDSS and three-phase LinDistFlow · explicit agent stages · see scientific notes for assumptions and sources.</p></main></body></html>

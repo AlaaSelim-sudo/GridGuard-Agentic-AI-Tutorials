@@ -1,0 +1,86 @@
+[
+  {
+    "checkpoint": "G0",
+    "cell_index_zero_based": 2,
+    "source": "import os, time, json, uuid\nfrom importlib.metadata import version\nfrom typing import Annotated, TypedDict\nfrom operator import add\nos.environ[\"LANGSMITH_TRACING\"] = \"false\"\nos.environ[\"LANGCHAIN_TRACING_V2\"] = \"false\"\nfrom langgraph.graph import StateGraph, START, END\nfrom langgraph.checkpoint.memory import InMemorySaver\nfrom langgraph.types import interrupt, Command\nfrom src.graph_workflow_lab import initial_state, recommendation_id, summary\nversions = {name: version(name) for name in (\"langgraph\", \"langgraph-checkpoint\", \"langchain-core\")}\nprint(versions)\nprint(\"Rule-driven toy graph. No LLM, network call or electrical-model validation.\")",
+    "line_count": 13,
+    "source_sha256": "3806398cc87fd9432dfd9d71de2e53fed3d8c3449ee7c0d844600a229ad0ce22",
+    "execution_count": 1,
+    "execution": {
+      "iopub.execute_input": "2026-10-17T13:52:21.025212Z",
+      "iopub.status.busy": "2026-10-17T13:52:21.025212Z",
+      "iopub.status.idle": "2026-10-17T13:52:21.507411Z",
+      "shell.execute_reply": "2026-10-17T13:52:21.507411Z"
+    }
+  },
+  {
+    "checkpoint": "G1",
+    "cell_index_zero_based": 4,
+    "source": "class TrialState(TypedDict):\n    command: float\n    limit: float\n    attempts: int\n    max_repairs: int\n    current: float\n    passed: bool\n    status: str\n    acknowledged: bool\n    trace: Annotated[list[str], add]\n\nseed = initial_state(command=0.75, limit=0.80, max_repairs=2)\nprint(\"Append reducer:\", add([\"simulate\"], [\"verify\"]))\nprint(\"Initial validated state:\", seed)",
+    "line_count": 14,
+    "source_sha256": "0b7d9da5f0b73005bd11ef063635f3b98b6cc8ab51191c57dda78b1ef8a9eea5",
+    "execution_count": 2,
+    "execution": {
+      "iopub.execute_input": "2026-10-17T13:52:21.508416Z",
+      "iopub.status.busy": "2026-10-17T13:52:21.508416Z",
+      "iopub.status.idle": "2026-10-17T13:52:21.511653Z",
+      "shell.execute_reply": "2026-10-17T13:52:21.511653Z"
+    }
+  },
+  {
+    "checkpoint": "G2",
+    "cell_index_zero_based": 6,
+    "source": "def simulate(s):\n    value = 0.4 + 0.8 * s[\"command\"]\n    return {\"current\": value, \"trace\": [f\"simulate: {value:.3f}\"]}\n\ndef verify(s):\n    ok = s[\"current\"] <= s[\"limit\"] + 1e-12\n    return {\"passed\": ok, \"trace\": [f\"verify: {ok}\"]}\n\ndef repair(s):\n    return {\"command\": max(0., s[\"command\"] - 0.25),\n            \"attempts\": s[\"attempts\"] + 1, \"trace\": [\"repair: -0.25\"]}\n\ndef ready(s):\n    return {\"status\": \"TOY_READY\", \"trace\": [\"report: ready\"]}\n\ndef hold(s):\n    return {\"status\": \"TOY_HOLD\", \"trace\": [\"hold: budget exhausted\"]}\n\ndef route(s):\n    if s[\"passed\"]:\n        return \"report\"\n    return \"repair\" if s[\"attempts\"] < s[\"max_repairs\"] else \"hold\"",
+    "line_count": 22,
+    "source_sha256": "163241c9080fe39c1b64cbe33defa310e21332b0f0327227473d8ff3e99fd1cb",
+    "execution_count": 3,
+    "execution": {
+      "iopub.execute_input": "2026-10-17T13:52:21.512658Z",
+      "iopub.status.busy": "2026-10-17T13:52:21.512658Z",
+      "iopub.status.idle": "2026-10-17T13:52:21.515464Z",
+      "shell.execute_reply": "2026-10-17T13:52:21.515464Z"
+    }
+  },
+  {
+    "checkpoint": "G3",
+    "cell_index_zero_based": 8,
+    "source": "def build_graph(report_node=ready, checkpointer=None):\n    builder = StateGraph(TrialState)\n    nodes = {\"simulate\": simulate, \"verify\": verify, \"repair\": repair,\n             \"report\": report_node, \"hold\": hold}\n    for name, function in nodes.items():\n        builder.add_node(name, function)\n    builder.add_edge(START, \"simulate\")\n    builder.add_edge(\"simulate\", \"verify\")\n    builder.add_conditional_edges(\"verify\", route,\n        {\"report\": \"report\", \"repair\": \"repair\", \"hold\": \"hold\"})\n    builder.add_edge(\"repair\", \"simulate\")\n    builder.add_edge(\"report\", END)\n    builder.add_edge(\"hold\", END)\n    return builder.compile(checkpointer=checkpointer)\n\napp = build_graph()\nprint(\"Compiled nodes:\", sorted(app.get_graph().nodes))",
+    "line_count": 17,
+    "source_sha256": "e04377a5f0498646c3336e975d5786ef7144cdb92d35ce3c039f790cdbcb0ed2",
+    "execution_count": 4,
+    "execution": {
+      "iopub.execute_input": "2026-10-17T13:52:21.516470Z",
+      "iopub.status.busy": "2026-10-17T13:52:21.516470Z",
+      "iopub.status.idle": "2026-10-17T13:52:21.520758Z",
+      "shell.execute_reply": "2026-10-17T13:52:21.520758Z"
+    }
+  },
+  {
+    "checkpoint": "G4",
+    "cell_index_zero_based": 10,
+    "source": "cases = {\"passing\": (0.25, 0.80, 2), \"repair\": (0.75, 0.80, 2),\n         \"exhausted\": (0.90, 0.50, 1)}\nresults, elapsed_ms = {}, {}\nfor name, args in cases.items():\n    started = time.perf_counter()\n    results[name] = app.invoke(initial_state(*args), {\"recursion_limit\": 40})\n    elapsed_ms[name] = 1000 * (time.perf_counter() - started)\n    print(name, json.dumps(summary(results[name])), f\"{elapsed_ms[name]:.3f} ms\")\n\nassert [results[k][\"status\"] for k in cases] == [\"TOY_READY\", \"TOY_READY\", \"TOY_HOLD\"]\nassert [results[k][\"attempts\"] for k in cases] == [0, 1, 1]\nassert results[\"repair\"][\"trace\"] == [\"simulate: 1.000\", \"verify: False\",\n    \"repair: -0.25\", \"simulate: 0.800\", \"verify: True\", \"report: ready\"]\n\nfrom src.graph_workflow_lab import fixed_baseline\nfor name, args in cases.items():\n    baseline = fixed_baseline(initial_state(*args), simulate, verify, repair, route, ready, hold)\n    assert summary(baseline) == summary(results[name])\nprint(\"Direct Python baseline matches every command, outcome and trace: 3/3.\")",
+    "line_count": 19,
+    "source_sha256": "6cf13db05b721b2155110c668836883fdf6736cb3036195febc3ea8a8dc14666",
+    "execution_count": 5,
+    "execution": {
+      "iopub.execute_input": "2026-10-17T13:52:21.521763Z",
+      "iopub.status.busy": "2026-10-17T13:52:21.521763Z",
+      "iopub.status.idle": "2026-10-17T13:52:21.529763Z",
+      "shell.execute_reply": "2026-10-17T13:52:21.529763Z"
+    }
+  },
+  {
+    "checkpoint": "G5",
+    "cell_index_zero_based": 13,
+    "source": "def human_review(s):\n    token = recommendation_id(s)\n    reply = interrupt({\"recommendation_id\": token, \"command\": s[\"command\"],\n                       \"toy_current\": s[\"current\"], \"scope\": \"invented toy equation only\"})\n    accepted = (isinstance(reply, dict) and reply.get(\"approve\") is True\n                and reply.get(\"recommendation_id\") == token)\n    return {\"acknowledged\": accepted,\n            \"status\": \"TOY_ACKNOWLEDGED\" if accepted else \"TOY_HOLD\",\n            \"trace\": [f\"human review: {accepted}\"]}\n\nreview_app = build_graph(human_review, InMemorySaver())\nconfig = {\"configurable\": {\"thread_id\": \"student-\" + uuid.uuid4().hex}, \"recursion_limit\": 40}\npause = review_app.invoke(initial_state(0.75, 0.80, 2), config)\nsnapshot = review_app.get_state(config)\nprint(\"Pending node:\", snapshot.next, \"| acknowledged:\", snapshot.values[\"acknowledged\"])\nprint(\"Interrupt payload:\", pause[\"__interrupt__\"][0].value)\nassert snapshot.next == (\"report\",) and not snapshot.values[\"acknowledged\"]\nresponse = {\"approve\": True, \"recommendation_id\": recommendation_id(snapshot.values)}\nresumed = review_app.invoke(Command(resume=response), config)\nprint(\"After simulated readback:\", summary(resumed))\nassert resumed[\"acknowledged\"] and review_app.get_state(config).next == ()",
+    "line_count": 21,
+    "source_sha256": "f418f22213a433e10cea5e419b867157254ad4866ce754ac28f005a4295c0f1e",
+    "execution_count": 6,
+    "execution": {
+      "iopub.execute_input": "2026-10-17T13:52:21.530933Z",
+      "iopub.status.busy": "2026-10-17T13:52:21.530933Z",
+      "iopub.status.idle": "2026-10-17T13:52:21.541006Z",
+      "shell.execute_reply": "2026-10-17T13:52:21.541006Z"
+    }
+  }
+]

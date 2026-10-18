@@ -1,0 +1,402 @@
+{
+  "scenario": "R2",
+  "method": "multi_agent",
+  "seed": 303,
+  "budget": 4,
+  "candidate_slots": 4,
+  "simulation_calls": 4,
+  "llm_calls": 7,
+  "elapsed_s": 19.89459319999878,
+  "awareness_seconds": 0.10799540000152774,
+  "awareness_solves": 1,
+  "verified_candidate_count": 0,
+  "success": false,
+  "best_action": null,
+  "best_score": null,
+  "best_metrics": null,
+  "history": [
+    {
+      "scenario": "R2",
+      "action_id": "short_all",
+      "precheck_failures": [],
+      "simulated": true,
+      "verified": false,
+      "failure_reasons": [
+        "thermal"
+      ],
+      "score": 9013.82531,
+      "metrics": {
+        "converged": true,
+        "voltage_violations": 0,
+        "vmin": 0.9854964048421673,
+        "vmax": 1.0299996591224663,
+        "voltage_severity": 0,
+        "overloaded_lines": 1,
+        "max_line_pct": 234.45393128470923,
+        "missing_line_ratings": 0,
+        "mv_cycles": 0,
+        "topology_hash": "0cc8511b3aca9cb1",
+        "served_kw": 4747.46756,
+        "unserved_kw": 0.0,
+        "nominal_kw": 4747.46756,
+        "critical_served_kw": 474.03975,
+        "critical_total_kw": 474.03975,
+        "pv_kw": 0.0,
+        "losses_kw": 181.27015043482064,
+        "tie_loading_pct": 234.45393128470923,
+        "load_mult": 1,
+        "pv_cap": 0,
+        "tie": "short",
+        "shed_fraction": 0,
+        "physical_load_disconnects": 0,
+        "elapsed_s": 0.13258780000614934
+      },
+      "iteration": 1,
+      "rationale": "Use short tie to supply critical loads and test supply capacity"
+    },
+    {
+      "scenario": "R2",
+      "action_id": "short_shed_25",
+      "precheck_failures": [],
+      "simulated": true,
+      "verified": false,
+      "failure_reasons": [
+        "thermal"
+      ],
+      "score": 8246.457735,
+      "metrics": {
+        "converged": true,
+        "voltage_violations": 0,
+        "vmin": 0.9888249304282821,
+        "vmax": 1.0299997292395007,
+        "voltage_severity": 0,
+        "overloaded_lines": 1,
+        "max_line_pct": 203.37519304035365,
+        "missing_line_ratings": 0,
+        "mv_cycles": 0,
+        "topology_hash": "0cc8511b3aca9cb1",
+        "served_kw": 3980.0999850000003,
+        "unserved_kw": 767.3675749999998,
+        "nominal_kw": 4747.46756,
+        "critical_served_kw": 474.03975,
+        "critical_total_kw": 474.03975,
+        "pv_kw": 0.0,
+        "losses_kw": 148.0265291845758,
+        "tie_loading_pct": 203.37519304035365,
+        "load_mult": 1,
+        "pv_cap": 0,
+        "tie": "short",
+        "shed_fraction": 0.25,
+        "physical_load_disconnects": 489,
+        "elapsed_s": 0.11006540000380483
+      },
+      "iteration": 2,
+      "rationale": "Reduce PV cap to 20 and shed 25% of load to avoid thermal failure on short_all"
+    },
+    {
+      "scenario": "R2",
+      "action_id": "short_shed_50",
+      "precheck_failures": [],
+      "simulated": true,
+      "verified": false,
+      "failure_reasons": [
+        "thermal"
+      ],
+      "score": 7347.923705,
+      "metrics": {
+        "converged": true,
+        "voltage_violations": 0,
+        "vmin": 0.9958361936882413,
+        "vmax": 1.02999981463045,
+        "voltage_severity": 0,
+        "overloaded_lines": 1,
+        "max_line_pct": 157.6535906055711,
+        "missing_line_ratings": 0,
+        "mv_cycles": 0,
+        "topology_hash": "0cc8511b3aca9cb1",
+        "served_kw": 3081.565955,
+        "unserved_kw": 1665.901605,
+        "nominal_kw": 4747.46756,
+        "critical_served_kw": 474.03975,
+        "critical_total_kw": 474.03975,
+        "pv_kw": 0.0,
+        "losses_kw": 112.82551647305232,
+        "tie_loading_pct": 157.6535906055711,
+        "load_mult": 1,
+        "pv_cap": 0,
+        "tie": "short",
+        "shed_fraction": 0.5,
+        "physical_load_disconnects": 978,
+        "elapsed_s": 0.11043260000587907
+      },
+      "iteration": 3,
+      "rationale": "Try a different tie configuration as suggested by critic feedback, and shed 50% of load to reduce thermal stress on short tie"
+    },
+    {
+      "scenario": "R2",
+      "action_id": "short_shed_50",
+      "precheck_failures": [],
+      "simulated": true,
+      "verified": false,
+      "failure_reasons": [
+        "thermal"
+      ],
+      "score": 7347.923705,
+      "metrics": {
+        "converged": true,
+        "voltage_violations": 0,
+        "vmin": 0.9958361936882413,
+        "vmax": 1.02999981463045,
+        "voltage_severity": 0,
+        "overloaded_lines": 1,
+        "max_line_pct": 157.6535906055711,
+        "missing_line_ratings": 0,
+        "mv_cycles": 0,
+        "topology_hash": "0cc8511b3aca9cb1",
+        "served_kw": 3081.565955,
+        "unserved_kw": 1665.901605,
+        "nominal_kw": 4747.46756,
+        "critical_served_kw": 474.03975,
+        "critical_total_kw": 474.03975,
+        "pv_kw": 0.0,
+        "losses_kw": 112.82551647305232,
+        "tie_loading_pct": 157.6535906055711,
+        "load_mult": 1,
+        "pv_cap": 0,
+        "tie": "short",
+        "shed_fraction": 0.5,
+        "physical_load_disconnects": 978,
+        "elapsed_s": 0.1088196999990032
+      },
+      "iteration": 4,
+      "rationale": "Preserve critical loads and test supply capacity. Reduce PV cap to 10 to avoid thermal failure on short tie."
+    }
+  ],
+  "trace": [
+    {
+      "agent": "Awareness",
+      "event": "structured state",
+      "data": {
+        "scenario": {
+          "id": "R2",
+          "kind": "restoration",
+          "description": "Outage, no PV, short tie limited to 100 A, long tie unavailable",
+          "load_mult": 1,
+          "fault": true,
+          "capacity": 100,
+          "pv_available": false,
+          "long_available": false
+        },
+        "measurements": {
+          "vmin": 1.03,
+          "vmax": 1.0300000000000002,
+          "voltage_violations": 0,
+          "overloaded_lines": 0,
+          "unserved_kw": 4747.46756,
+          "critical_total_kw": 474.03975
+        },
+        "actions": [
+          {
+            "id": "hold",
+            "pv_cap": 20,
+            "tie": "none",
+            "shed_fraction": 0
+          },
+          {
+            "id": "short_all",
+            "pv_cap": 20,
+            "tie": "short",
+            "shed_fraction": 0
+          },
+          {
+            "id": "long_all",
+            "pv_cap": 20,
+            "tie": "long",
+            "shed_fraction": 0
+          },
+          {
+            "id": "short_shed_25",
+            "pv_cap": 20,
+            "tie": "short",
+            "shed_fraction": 0.25
+          },
+          {
+            "id": "short_shed_50",
+            "pv_cap": 20,
+            "tie": "short",
+            "shed_fraction": 0.5
+          },
+          {
+            "id": "short_shed_65",
+            "pv_cap": 20,
+            "tie": "short",
+            "shed_fraction": 0.65
+          },
+          {
+            "id": "short_shed_75",
+            "pv_cap": 20,
+            "tie": "short",
+            "shed_fraction": 0.75
+          },
+          {
+            "id": "short_shed_90",
+            "pv_cap": 20,
+            "tie": "short",
+            "shed_fraction": 0.9
+          },
+          {
+            "id": "both_ties",
+            "pv_cap": 20,
+            "tie": "both",
+            "shed_fraction": 0
+          },
+          {
+            "id": "reclose_fault",
+            "pv_cap": 20,
+            "tie": "fault",
+            "shed_fraction": 0
+          }
+        ],
+        "rules": {
+          "voltage_band": [
+            0.95,
+            1.05
+          ],
+          "line_limit_percent": 100,
+          "fault_quarantined": true,
+          "long_tie_available": false,
+          "priority_weight": 10,
+          "radial_medium_voltage": true
+        }
+      }
+    },
+    {
+      "agent": "Planning",
+      "event": "candidate",
+      "data": {
+        "id": "short_all",
+        "rationale": "Use short tie to supply critical loads and test supply capacity"
+      }
+    },
+    {
+      "agent": "Simulation / Verification",
+      "event": "result",
+      "data": {
+        "action": "short_all",
+        "verified": false,
+        "failures": [
+          "thermal"
+        ],
+        "score": 9013.82531,
+        "voltage_violations": 0,
+        "overloaded_lines": 1,
+        "max_line_pct": 234.45393128470923,
+        "served_kw": 4747.46756,
+        "critical_served_kw": 474.03975,
+        "mv_cycles": 0
+      }
+    },
+    {
+      "agent": "Constraint critic",
+      "event": "repair feedback",
+      "data": {
+        "critique": "Thermal failure on short_all, consider reducing PV cap or shedding load",
+        "repair_hint": "short_shed_25"
+      }
+    },
+    {
+      "agent": "Planning",
+      "event": "candidate",
+      "data": {
+        "id": "short_shed_25",
+        "rationale": "Reduce PV cap to 20 and shed 25% of load to avoid thermal failure on short_all"
+      }
+    },
+    {
+      "agent": "Simulation / Verification",
+      "event": "result",
+      "data": {
+        "action": "short_shed_25",
+        "verified": false,
+        "failures": [
+          "thermal"
+        ],
+        "score": 8246.457735,
+        "voltage_violations": 0,
+        "overloaded_lines": 1,
+        "max_line_pct": 203.37519304035365,
+        "served_kw": 3980.0999850000003,
+        "critical_served_kw": 474.03975,
+        "mv_cycles": 0
+      }
+    },
+    {
+      "agent": "Constraint critic",
+      "event": "repair feedback",
+      "data": {
+        "critique": "Thermal failure on short tie",
+        "repair_hint": "Try a different tie configuration"
+      }
+    },
+    {
+      "agent": "Planning",
+      "event": "candidate",
+      "data": {
+        "id": "short_shed_50",
+        "rationale": "Try a different tie configuration as suggested by critic feedback, and shed 50% of load to reduce thermal stress on short tie"
+      }
+    },
+    {
+      "agent": "Simulation / Verification",
+      "event": "result",
+      "data": {
+        "action": "short_shed_50",
+        "verified": false,
+        "failures": [
+          "thermal"
+        ],
+        "score": 7347.923705,
+        "voltage_violations": 0,
+        "overloaded_lines": 1,
+        "max_line_pct": 157.6535906055711,
+        "served_kw": 3081.565955,
+        "critical_served_kw": 474.03975,
+        "mv_cycles": 0
+      }
+    },
+    {
+      "agent": "Constraint critic",
+      "event": "repair feedback",
+      "data": {
+        "critique": "Thermal failure on short tie",
+        "repair_hint": "Try reducing PV cap to 10 or lower"
+      }
+    },
+    {
+      "agent": "Planning",
+      "event": "candidate",
+      "data": {
+        "id": "short_shed_50",
+        "rationale": "Preserve critical loads and test supply capacity. Reduce PV cap to 10 to avoid thermal failure on short tie."
+      }
+    },
+    {
+      "agent": "Simulation / Verification",
+      "event": "result",
+      "data": {
+        "action": "short_shed_50",
+        "verified": false,
+        "failures": [
+          "thermal"
+        ],
+        "score": 7347.923705,
+        "voltage_violations": 0,
+        "overloaded_lines": 1,
+        "max_line_pct": 157.6535906055711,
+        "served_kw": 3081.565955,
+        "critical_served_kw": 474.03975,
+        "mv_cycles": 0
+      }
+    }
+  ]
+}

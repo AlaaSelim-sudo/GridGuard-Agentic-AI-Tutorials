@@ -1,0 +1,5 @@
+display(model_comparison().round(5))
+fig = plot_model_comparison()
+plt.show()
+display(pd.DataFrame(analysis['ac_transfer']['summaries'])[columns].round(6))
+display(pd.DataFrame(analysis['ac_transfer']['paired_comparison']))

@@ -1,0 +1,33 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  teachPoint/.style={circle,draw=teachBlue,fill=white,line width=1.2pt,minimum size=5.7mm,inner sep=0pt},
+  teachDot/.style={circle,fill=teachBlue,minimum size=3.5mm,inner sep=0pt},
+  teachLabel/.style={align=center,text=teachNavy,font=\sffamily\bfseries\fontsize{13}{15}\selectfont},
+  teachNote/.style={align=center,text=teachNavy,font=\sffamily\fontsize{11}{13}\selectfont},
+  teachFlow/.style={-{Latex[length=2.2mm,width=1.6mm]},draw=teachBlue,line width=1.15pt,shorten >=1.5pt,shorten <=1.5pt},
+  teachWarn/.style={-{Latex[length=2.2mm,width=1.6mm]},draw=teachOrange,line width=1.15pt,shorten >=1.5pt,shorten <=1.5pt}]
+\definecolor{teachBlue}{HTML}{00629B}
+\definecolor{teachCyan}{HTML}{00A8C8}
+\definecolor{teachNavy}{HTML}{003B5C}
+\definecolor{teachOrange}{HTML}{B65B14}
+\definecolor{teachGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.3,3.6);
+
+\node[teachPoint,draw=teachOrange] (telemetry) at (1.45,1.85) {};
+\node[teachPoint,draw=teachOrange] (study) at (5.2,1.85) {};
+\node[teachPoint] (alarm) at (9.0,1.85) {};
+\node[teachPoint,draw=teachCyan] (review) at (12.8,1.85) {};
+\draw[teachFlow] (telemetry) -- (study);
+\draw[teachFlow] (study) -- (alarm);
+\draw[teachFlow] (alarm) -- (review);
+\node[teachLabel] at (1.45,2.65) {Telemetry\\14:35};
+\node[teachLabel] at (5.2,2.65) {Study\\14:40};
+\node[teachLabel] at (9.0,2.65) {Alarm\\15:02};
+\node[teachLabel] at (12.8,2.65) {Review now\\15:05};
+\node[teachNote,text=teachOrange] at (1.45,1.15) {30 min old};
+\node[teachNote,text=teachOrange] at (5.2,1.15) {25 min old};
+\node[teachNote] at (9.0,1.15) {3 min old};
+\node[teachNote] at (12.8,1.15) {decision time};
+\node[teachLabel] at (7.15,0.3) {Post-event state: what needs checking?};
+
+\end{tikzpicture}

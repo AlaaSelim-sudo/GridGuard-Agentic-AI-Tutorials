@@ -1,0 +1,2643 @@
+{
+  "protocol": {
+    "schema": "selector_analysis_protocol_v1",
+    "frozen_utc": "2026-09-27T21:19:06.588580+00:00",
+    "dataset_protocol_hash": "b3527aca462e157522a421d3b891ee37ee7051c17205dc85fbcbc9833a8b21e4",
+    "sources": {
+      "response_selector.py": "99e62a91a13c72560d02de47800e908525d8d3e830f15ca42143a4e8462501f1",
+      "selector_pilot_analysis.py": "22ce5f77a64e81e31373634ae6d906c558cccd10203886ee31a91c8dc9496231"
+    },
+    "operation_ids": [
+      "INCREASE_PV_0025",
+      "RELAX_Q_10_PERCENT",
+      "DECREASE_PV_0025",
+      "KEEP_INCUMBENT"
+    ],
+    "algorithm": "Linear contextual-action LinUCB",
+    "alpha": 0.5,
+    "regularization": 1.0,
+    "primary_seed": 270927,
+    "training_seeds": [
+      270927,
+      270928,
+      270929,
+      270930,
+      270931
+    ],
+    "training_orders": {
+      "270927": [
+        "train_12",
+        "train_22",
+        "train_05",
+        "train_11",
+        "train_06",
+        "train_04",
+        "train_09",
+        "train_01",
+        "train_21",
+        "train_13",
+        "train_19",
+        "train_10",
+        "train_16",
+        "train_02",
+        "train_20",
+        "train_08",
+        "train_24",
+        "train_18",
+        "train_15",
+        "train_03",
+        "train_23",
+        "train_14",
+        "train_07",
+        "train_17"
+      ],
+      "270928": [
+        "train_02",
+        "train_14",
+        "train_20",
+        "train_06",
+        "train_07",
+        "train_10",
+        "train_04",
+        "train_15",
+        "train_18",
+        "train_11",
+        "train_09",
+        "train_01",
+        "train_12",
+        "train_03",
+        "train_17",
+        "train_08",
+        "train_24",
+        "train_19",
+        "train_16",
+        "train_21",
+        "train_23",
+        "train_13",
+        "train_05",
+        "train_22"
+      ],
+      "270929": [
+        "train_23",
+        "train_17",
+        "train_09",
+        "train_15",
+        "train_01",
+        "train_10",
+        "train_02",
+        "train_08",
+        "train_22",
+        "train_06",
+        "train_07",
+        "train_21",
+        "train_18",
+        "train_03",
+        "train_19",
+        "train_12",
+        "train_20",
+        "train_24",
+        "train_16",
+        "train_14",
+        "train_13",
+        "train_11",
+        "train_04",
+        "train_05"
+      ],
+      "270930": [
+        "train_16",
+        "train_17",
+        "train_19",
+        "train_03",
+        "train_07",
+        "train_20",
+        "train_01",
+        "train_21",
+        "train_08",
+        "train_13",
+        "train_09",
+        "train_06",
+        "train_12",
+        "train_04",
+        "train_10",
+        "train_15",
+        "train_14",
+        "train_05",
+        "train_23",
+        "train_02",
+        "train_18",
+        "train_22",
+        "train_24",
+        "train_11"
+      ],
+      "270931": [
+        "train_05",
+        "train_18",
+        "train_03",
+        "train_01",
+        "train_24",
+        "train_06",
+        "train_21",
+        "train_07",
+        "train_20",
+        "train_17",
+        "train_14",
+        "train_16",
+        "train_09",
+        "train_04",
+        "train_10",
+        "train_15",
+        "train_02",
+        "train_08",
+        "train_11",
+        "train_19",
+        "train_13",
+        "train_23",
+        "train_12",
+        "train_22"
+      ]
+    },
+    "training": "One pass per training seed; one revealed chosen outcome/update per eligible training context",
+    "validation": "Report frozen-policy validation; no hyperparameter or checkpoint selection",
+    "test": "Frozen greedy predicted-reward selector; no exploration bonus and no updates",
+    "reward": {
+      "improvement_scale": 0.01,
+      "simulation_trial_penalty": 0.01,
+      "rejection_penalty": 1.0,
+      "feasible": "clip(max(0,J_inc-J_trial)/0.01,0,1)-0.01",
+      "rejected": "-1.0-0.01",
+      "scope": "Planning-model objective and gate only; AC audit is excluded"
+    },
+    "fixed_numerical_operation": "INCREASE_PV_0025",
+    "uniform_primary_seed": 91127,
+    "uniform_sensitivity_seeds": [
+      91127,
+      91128,
+      91129,
+      91130,
+      91131
+    ],
+    "majority_tie_rule": "Lexicographically smallest canonical SHA-256 operation ID",
+    "voting_terminology": "Most-voted (plurality) operation; a three-way tie has no strict majority",
+    "best_of_all": "Extra-budget audit reference over all unique actual response actions",
+    "latency": "Accounted serial components, not measured online end-to-end deployment latency",
+    "claims": "Small illustrative single-feeder pilot; no promised learned or language-model advantage"
+  },
+  "training": [
+    {
+      "seed": 270927,
+      "updates": 24,
+      "frozen": true,
+      "checkpoint": "selector_models\\linucb_seed_270927.json",
+      "checkpoint_sha256": "db26fae83953abc93c02f65ef02a4e164efdca2a55f613f3aabf9b16f0f88984",
+      "records": [
+        {
+          "context_id": "train_12",
+          "status": "UPDATED",
+          "decision_id": 1,
+          "candidate_id": "op_b1aec9c7c2efdab6ebba32b730f739f76825fcad1e8d66f9308603bc7328be8e",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": 0.0,
+          "uncertainty_before_feedback": 2.178515441966679,
+          "selected_reward": -0.007808513482169118,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03255485204814226,
+          "incumbent_score": 0.03257676691332057,
+          "updates_after": 1
+        },
+        {
+          "context_id": "train_22",
+          "status": "UPDATED",
+          "decision_id": 2,
+          "candidate_id": "op_77d90dc0b6323c3048963b9556f5baf2b417728f4044e01752aa906d7bbf0849",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.0068253943511852825,
+          "uncertainty_before_feedback": 1.0152645138006178,
+          "selected_reward": -0.007694238325569166,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03378958043193944,
+          "incumbent_score": 0.03381263804868375,
+          "updates_after": 2
+        },
+        {
+          "context_id": "train_05",
+          "status": "UPDATED",
+          "decision_id": 3,
+          "candidate_id": "op_a6d4d6c6090c68d2a978d5fe99bf373ea95a1e80fee374d8912597383dfdc43f",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.00036150039185338145,
+          "uncertainty_before_feedback": 2.1029519762844235,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031930301823171164,
+          "incumbent_score": 0.031917336590930906,
+          "updates_after": 3
+        },
+        {
+          "context_id": "train_11",
+          "status": "UPDATED",
+          "decision_id": 4,
+          "candidate_id": "op_2e39e9ef36b728a4dc2adace3852f25ddd7d56a43ae8a119c093cdb9f8f21c7c",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007276193819947528,
+          "uncertainty_before_feedback": 0.7054607128101612,
+          "selected_reward": -0.008053064753499031,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.0316074403342934,
+          "incumbent_score": 0.03162690968675841,
+          "updates_after": 4
+        },
+        {
+          "context_id": "train_06",
+          "status": "UPDATED",
+          "decision_id": 5,
+          "candidate_id": "op_579333b77580fc3001326b38f90e4a69b66f9e2e880750793bd9f12fc22236bf",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.008383354188992055,
+          "uncertainty_before_feedback": 0.9353889966280121,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.030770575089657654,
+          "incumbent_score": 0.030757595397693915,
+          "updates_after": 5
+        },
+        {
+          "context_id": "train_04",
+          "status": "UPDATED",
+          "decision_id": 6,
+          "candidate_id": "op_08c3f9d7801e9ddc11d1fcdddb8aa46d68b50840c1f1029aad17aad7e5b1a076",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.0005770536332746375,
+          "uncertainty_before_feedback": 2.1259171138079718,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.034549541496437575,
+          "incumbent_score": 0.034549541496437575,
+          "updates_after": 6
+        },
+        {
+          "context_id": "train_09",
+          "status": "UPDATED",
+          "decision_id": 7,
+          "candidate_id": "op_0511d8a84a32d515ec8f2490f8df013f4b907f2067953fba934175d7f0eed506",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007721126051919051,
+          "uncertainty_before_feedback": 0.5841461332397382,
+          "selected_reward": -0.0076417470599607264,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.02902784461657172,
+          "incumbent_score": 0.029051427145972114,
+          "updates_after": 7
+        },
+        {
+          "context_id": "train_01",
+          "status": "UPDATED",
+          "decision_id": 8,
+          "candidate_id": "op_ccff081aa6c4d3a5e0aea1ceb784557a43e7d55db9e6bd160b1fbb9fcb953fd7",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007585275268408253,
+          "uncertainty_before_feedback": 0.5076158579458633,
+          "selected_reward": -0.007529770560163176,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.033743520225747156,
+          "incumbent_score": 0.033768222520145524,
+          "updates_after": 8
+        },
+        {
+          "context_id": "train_21",
+          "status": "UPDATED",
+          "decision_id": 9,
+          "candidate_id": "op_5c759b8377b31ea4f08d0a9de3ebaf9fe3a75d068b9874d33dd26e9332086f48",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.00820216360988653,
+          "uncertainty_before_feedback": 0.9026601109580092,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03270247115892423,
+          "incumbent_score": 0.03270247115892423,
+          "updates_after": 9
+        },
+        {
+          "context_id": "train_13",
+          "status": "UPDATED",
+          "decision_id": 10,
+          "candidate_id": "op_d4f727d762bcf583729b3b7c09d9bed2c012280122dc2e08ac1a9f15c27a976c",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.008881247708649497,
+          "uncertainty_before_feedback": 0.6659493263866615,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031558244103651836,
+          "incumbent_score": 0.03154553904881223,
+          "updates_after": 10
+        },
+        {
+          "context_id": "train_19",
+          "status": "UPDATED",
+          "decision_id": 11,
+          "candidate_id": "op_40a5578faf4f3c6ed34cc22d4552fdce1830e7bc38b8e83efb41e873b221e9fc",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.009116187899598472,
+          "uncertainty_before_feedback": 0.6819530132664073,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.0332682116264188,
+          "incumbent_score": 0.0332682116264188,
+          "updates_after": 11
+        },
+        {
+          "context_id": "train_10",
+          "status": "UPDATED",
+          "decision_id": 12,
+          "candidate_id": "op_ae52bdcb9aaffb2545a7fad37fcdc3320bedf84044f1ef268aec2f5d7ef45465",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.006147960394654454,
+          "uncertainty_before_feedback": 0.6598677687937182,
+          "selected_reward": -0.007820650696125217,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.034629390445572256,
+          "incumbent_score": 0.034651183938611003,
+          "updates_after": 12
+        },
+        {
+          "context_id": "train_16",
+          "status": "UPDATED",
+          "decision_id": 13,
+          "candidate_id": "op_a74f0804e8cd594c13300a41854f27a841af79602758bed7db79efaa3cecebde",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007881574492131914,
+          "uncertainty_before_feedback": 0.43645210045207566,
+          "selected_reward": -0.008476583212439484,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031419606964150276,
+          "incumbent_score": 0.03143484113202588,
+          "updates_after": 13
+        },
+        {
+          "context_id": "train_02",
+          "status": "UPDATED",
+          "decision_id": 14,
+          "candidate_id": "op_6341f56c583f1afbfafd1962feadc53ccd3e2957fdf449fff181da6912a811d1",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009305539565692474,
+          "uncertainty_before_feedback": 0.5554704807747921,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03068029253959013,
+          "incumbent_score": 0.030667614011336383,
+          "updates_after": 14
+        },
+        {
+          "context_id": "train_20",
+          "status": "UPDATED",
+          "decision_id": 15,
+          "candidate_id": "op_33ec9fe30bfc54ac6d6b92431bb3b83fc8dc7faa5d9a978b302580da2a989760",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009524291686385633,
+          "uncertainty_before_feedback": 0.49453286967307936,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.029658243458430482,
+          "incumbent_score": 0.029645593812028633,
+          "updates_after": 15
+        },
+        {
+          "context_id": "train_08",
+          "status": "UPDATED",
+          "decision_id": 16,
+          "candidate_id": "op_c6f119daf4d4742d2ec7a29e16fef704068299614b0f357e8efb0bafda2f15f6",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.009359199626862252,
+          "uncertainty_before_feedback": 0.5688638270730725,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03368114505316163,
+          "incumbent_score": 0.03368114505316163,
+          "updates_after": 16
+        },
+        {
+          "context_id": "train_24",
+          "status": "UPDATED",
+          "decision_id": 17,
+          "candidate_id": "op_8922b67d8cdf606df23f715e5ecae75931f0e00a042d6131b55075be6e7b8852",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.008068147195375594,
+          "uncertainty_before_feedback": 0.4143809845003215,
+          "selected_reward": -0.00746035131653471,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.029965338770165134,
+          "incumbent_score": 0.029990735256999787,
+          "updates_after": 17
+        },
+        {
+          "context_id": "train_18",
+          "status": "UPDATED",
+          "decision_id": 18,
+          "candidate_id": "op_10f2fd79aae9189de65682684528532b61bb10a3dc18ea8cff8289afb2981781",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007863062127230553,
+          "uncertainty_before_feedback": 0.3732711239908767,
+          "selected_reward": -0.007723855714253788,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.0357764228155633,
+          "incumbent_score": 0.03579918425842076,
+          "updates_after": 18
+        },
+        {
+          "context_id": "train_15",
+          "status": "UPDATED",
+          "decision_id": 19,
+          "candidate_id": "op_66f6f84a6d5efab6c3ab5a2583dfb4f0bb23af2437293508925ec8c6070cc6f5",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007898700635778232,
+          "uncertainty_before_feedback": 0.37913896551928405,
+          "selected_reward": -0.007046694562515684,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.030863106387855485,
+          "incumbent_score": 0.030892639442230328,
+          "updates_after": 19
+        },
+        {
+          "context_id": "train_03",
+          "status": "UPDATED",
+          "decision_id": 20,
+          "candidate_id": "op_59d04671db195d8f1259c2fcfb0e73146e5e6fa98534b01a6f5a442dbad39507",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007737984286964973,
+          "uncertainty_before_feedback": 0.34665067877711814,
+          "selected_reward": -0.008329200473492357,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03704928882580167,
+          "incumbent_score": 0.037065996821066746,
+          "updates_after": 20
+        },
+        {
+          "context_id": "train_23",
+          "status": "UPDATED",
+          "decision_id": 21,
+          "candidate_id": "op_fdda50af0be333b9f8284f1d6500f6a9fa294b2f75bba923d3f963b11f171d67",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007883178110877702,
+          "uncertainty_before_feedback": 0.32716286444619486,
+          "selected_reward": -0.007548442496410337,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03287186407452648,
+          "incumbent_score": 0.03289637964956238,
+          "updates_after": 21
+        },
+        {
+          "context_id": "train_14",
+          "status": "UPDATED",
+          "decision_id": 22,
+          "candidate_id": "op_2c0487e06c8c81d161b6374168c73aa2c7850446883e6e1617db4e642080a844",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.006590645049886291,
+          "uncertainty_before_feedback": 0.5277729240013443,
+          "selected_reward": -0.008791094387658174,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03271732925099376,
+          "incumbent_score": 0.032729418307117175,
+          "updates_after": 22
+        },
+        {
+          "context_id": "train_07",
+          "status": "UPDATED",
+          "decision_id": 23,
+          "candidate_id": "op_e1865ae1d58d97a391cc44a1cb8f1a33f448a35720579903393bd6ea936682db",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009538934282890887,
+          "uncertainty_before_feedback": 0.43649723410170377,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03328289408893055,
+          "incumbent_score": 0.03326987143190131,
+          "updates_after": 23
+        },
+        {
+          "context_id": "train_17",
+          "status": "UPDATED",
+          "decision_id": 24,
+          "candidate_id": "op_acdd8d2e3b843dbc650b7832539092158307b6dfd68dad8878a17f7b63b26fb3",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009723476295815393,
+          "uncertainty_before_feedback": 0.4052696676644525,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.02946112515475621,
+          "incumbent_score": 0.029448513072267153,
+          "updates_after": 24
+        }
+      ],
+      "selected_feedback_accesses": [
+        {
+          "context_id": "train_12",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_12_RELAX_Q_10_PERCENT.json",
+          "sha256": "ce8461330344b472242152b8d9684af3e926fb1328cd3911dfcf25b37cc92590"
+        },
+        {
+          "context_id": "train_22",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_22_RELAX_Q_10_PERCENT.json",
+          "sha256": "ec7d5c38cc288ee5fda4fe1a0e5dbf3c31505d8edb4fb3426a0460ec9f15d9a5"
+        },
+        {
+          "context_id": "train_05",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_05_INCREASE_PV_0025.json",
+          "sha256": "54bcdc806a6c503f5da36f68acce68416afbc84a7b5c637fcf48bac43c88c60b"
+        },
+        {
+          "context_id": "train_11",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_11_RELAX_Q_10_PERCENT.json",
+          "sha256": "cbe8ad7c45aa482908655789fb2582b717130e440c9ef8a251be0a74723b03e1"
+        },
+        {
+          "context_id": "train_06",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_06_INCREASE_PV_0025.json",
+          "sha256": "172032c42ed8176c6cd3bf0af31780083a68730eff77cf22faf33d2e7de3ce21"
+        },
+        {
+          "context_id": "train_04",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_04_KEEP_INCUMBENT.json",
+          "sha256": "1996560f210f2023db21e47255b5a247201b16d9de3ed6a6ecc0f85e74716ab5"
+        },
+        {
+          "context_id": "train_09",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_09_RELAX_Q_10_PERCENT.json",
+          "sha256": "0b9881d2cd19da0c80a29d60fb8b48786da2aa4cd31ec0a6edf057d04a362290"
+        },
+        {
+          "context_id": "train_01",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_01_RELAX_Q_10_PERCENT.json",
+          "sha256": "c78e307381330e548b4aa09d73a349c23f357475c04f38cadd957c025f6e9612"
+        },
+        {
+          "context_id": "train_21",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_21_KEEP_INCUMBENT.json",
+          "sha256": "74a6abbb6f4402c04bdde8cc0fa30e2fae4b29371ce1cd5f22a73a13644cf912"
+        },
+        {
+          "context_id": "train_13",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_13_INCREASE_PV_0025.json",
+          "sha256": "5dad5441385d120966533ce375ee79f78809fad218cb91166c337a14d1912b5f"
+        },
+        {
+          "context_id": "train_19",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_19_KEEP_INCUMBENT.json",
+          "sha256": "76895bf8e7bb5681058d3824b8711c53fe2481373a92387b5ab2f699ef54efda"
+        },
+        {
+          "context_id": "train_10",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_10_RELAX_Q_10_PERCENT.json",
+          "sha256": "0ede61fab42aa7317006575dddac804bc1989e5f5ad7ed23bccf82a5e70a7e6d"
+        },
+        {
+          "context_id": "train_16",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_16_RELAX_Q_10_PERCENT.json",
+          "sha256": "1b5161ef9d451bb01afd1b3546c019af409d656ca8e2faea73d9ddde27992604"
+        },
+        {
+          "context_id": "train_02",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_02_INCREASE_PV_0025.json",
+          "sha256": "c218b2b424755882336ae8b472352dfcba3d5b893c1f38a12a9a9eea9741506e"
+        },
+        {
+          "context_id": "train_20",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_20_INCREASE_PV_0025.json",
+          "sha256": "178c05d95ea6f3138198f24bacfa0a80db59916b0d32db04d8ddbbe93e5a90aa"
+        },
+        {
+          "context_id": "train_08",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_08_KEEP_INCUMBENT.json",
+          "sha256": "2703bc44661e595e315f47916f21de2daca36bed0e18abfe5a8bb7c79dd56308"
+        },
+        {
+          "context_id": "train_24",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_24_RELAX_Q_10_PERCENT.json",
+          "sha256": "76f7b7f0ef06de9523b44b6f64b6b631b1c404cd0e8810e0ab3b5fc7dd8683d1"
+        },
+        {
+          "context_id": "train_18",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_18_RELAX_Q_10_PERCENT.json",
+          "sha256": "928962bc314cc05aa55c9ff8085345cef83c8c84c969993574ffaf072f75b008"
+        },
+        {
+          "context_id": "train_15",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_15_RELAX_Q_10_PERCENT.json",
+          "sha256": "a490c0fae6a600a50e3a3998b28b8023bb9fc659642a7dd3900e30604c629b76"
+        },
+        {
+          "context_id": "train_03",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_03_RELAX_Q_10_PERCENT.json",
+          "sha256": "04a443a0d22cb0c6846072b138e38fcd1df62b1a4d11a85e79a888dd117b5473"
+        },
+        {
+          "context_id": "train_23",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_23_RELAX_Q_10_PERCENT.json",
+          "sha256": "c5cd31c9e852d9096a633462ba0f85bd86aede10b50aa2ef4b8023aad46a89fc"
+        },
+        {
+          "context_id": "train_14",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_14_RELAX_Q_10_PERCENT.json",
+          "sha256": "4d859666f2d0511d91ac32e5ddc650d0225f0499be61da0b2d8a517c65acc907"
+        },
+        {
+          "context_id": "train_07",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_07_INCREASE_PV_0025.json",
+          "sha256": "e5d444d827b3d241422ee5b7dacd74fcb4082e6e189921f768ceaafc48110327"
+        },
+        {
+          "context_id": "train_17",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_17_INCREASE_PV_0025.json",
+          "sha256": "a8e93abd7432065809e073a1b819e58e4bdf31abf87feaad4496f5dc1b717acb"
+        }
+      ]
+    },
+    {
+      "seed": 270928,
+      "updates": 24,
+      "frozen": true,
+      "checkpoint": "selector_models\\linucb_seed_270928.json",
+      "checkpoint_sha256": "3e0e50884ad27ec638f03053a9ee84d558da8f580c6e1e0db8748c093517f0c8",
+      "records": [
+        {
+          "context_id": "train_02",
+          "status": "UPDATED",
+          "decision_id": 1,
+          "candidate_id": "op_6341f56c583f1afbfafd1962feadc53ccd3e2957fdf449fff181da6912a811d1",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": 0.0,
+          "uncertainty_before_feedback": 2.1089336155379548,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03068029253959013,
+          "incumbent_score": 0.030667614011336383,
+          "updates_after": 1
+        },
+        {
+          "context_id": "train_14",
+          "status": "UPDATED",
+          "decision_id": 2,
+          "candidate_id": "op_2c0487e06c8c81d161b6374168c73aa2c7850446883e6e1617db4e642080a844",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.00020396337987725908,
+          "uncertainty_before_feedback": 2.1002127140975797,
+          "selected_reward": -0.008791094387658174,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03271732925099376,
+          "incumbent_score": 0.032729418307117175,
+          "updates_after": 2
+        },
+        {
+          "context_id": "train_20",
+          "status": "UPDATED",
+          "decision_id": 3,
+          "candidate_id": "op_e939701f90ece6446a47622f4bef80d5ca8b0814fa860b74c57f0335f681ba16",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007644415830966594,
+          "uncertainty_before_feedback": 0.9949534225113031,
+          "selected_reward": -0.007919141306433957,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.029624785225092973,
+          "incumbent_score": 0.029645593812028633,
+          "updates_after": 3
+        },
+        {
+          "context_id": "train_06",
+          "status": "UPDATED",
+          "decision_id": 4,
+          "candidate_id": "op_579333b77580fc3001326b38f90e4a69b66f9e2e880750793bd9f12fc22236bf",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.008367709715739862,
+          "uncertainty_before_feedback": 0.9262531319596716,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.030770575089657654,
+          "incumbent_score": 0.030757595397693915,
+          "updates_after": 4
+        },
+        {
+          "context_id": "train_07",
+          "status": "UPDATED",
+          "decision_id": 5,
+          "candidate_id": "op_8e5ec33332a228cea9357d9f5da713b447fe6a24f3bd167faa4581dc7252f225",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007730672066317175,
+          "uncertainty_before_feedback": 0.7042286426591047,
+          "selected_reward": -0.007380745743031511,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03324367888933163,
+          "incumbent_score": 0.03326987143190131,
+          "updates_after": 5
+        },
+        {
+          "context_id": "train_10",
+          "status": "UPDATED",
+          "decision_id": 6,
+          "candidate_id": "op_3e75c0fd4542d087a5bdc85e2fc3b98851a1750bfeee5ce12ec45d02581d3b62",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.000393763519045579,
+          "uncertainty_before_feedback": 2.1046673802355573,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.034651183938611003,
+          "incumbent_score": 0.034651183938611003,
+          "updates_after": 6
+        },
+        {
+          "context_id": "train_04",
+          "status": "UPDATED",
+          "decision_id": 7,
+          "candidate_id": "op_08c3f9d7801e9ddc11d1fcdddb8aa46d68b50840c1f1029aad17aad7e5b1a076",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.008313505242523,
+          "uncertainty_before_feedback": 0.9148520987861276,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.034549541496437575,
+          "incumbent_score": 0.034549541496437575,
+          "updates_after": 7
+        },
+        {
+          "context_id": "train_15",
+          "status": "UPDATED",
+          "decision_id": 8,
+          "candidate_id": "op_66f6f84a6d5efab6c3ab5a2583dfb4f0bb23af2437293508925ec8c6070cc6f5",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.008370277728372599,
+          "uncertainty_before_feedback": 0.7290766535838354,
+          "selected_reward": -0.007046694562515684,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.030863106387855485,
+          "incumbent_score": 0.030892639442230328,
+          "updates_after": 8
+        },
+        {
+          "context_id": "train_18",
+          "status": "UPDATED",
+          "decision_id": 9,
+          "candidate_id": "op_10f2fd79aae9189de65682684528532b61bb10a3dc18ea8cff8289afb2981781",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007858022895831797,
+          "uncertainty_before_feedback": 0.5938849891898786,
+          "selected_reward": -0.007723855714253788,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.0357764228155633,
+          "incumbent_score": 0.03579918425842076,
+          "updates_after": 9
+        },
+        {
+          "context_id": "train_11",
+          "status": "UPDATED",
+          "decision_id": 10,
+          "candidate_id": "op_2e39e9ef36b728a4dc2adace3852f25ddd7d56a43ae8a119c093cdb9f8f21c7c",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007750922736988778,
+          "uncertainty_before_feedback": 0.5064299949674976,
+          "selected_reward": -0.008053064753499031,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.0316074403342934,
+          "incumbent_score": 0.03162690968675841,
+          "updates_after": 10
+        },
+        {
+          "context_id": "train_09",
+          "status": "UPDATED",
+          "decision_id": 11,
+          "candidate_id": "op_0511d8a84a32d515ec8f2490f8df013f4b907f2067953fba934175d7f0eed506",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007909369361416743,
+          "uncertainty_before_feedback": 0.45188622297380204,
+          "selected_reward": -0.0076417470599607264,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.02902784461657172,
+          "incumbent_score": 0.029051427145972114,
+          "updates_after": 11
+        },
+        {
+          "context_id": "train_01",
+          "status": "UPDATED",
+          "decision_id": 12,
+          "candidate_id": "op_ccff081aa6c4d3a5e0aea1ceb784557a43e7d55db9e6bd160b1fbb9fcb953fd7",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007746975139026073,
+          "uncertainty_before_feedback": 0.4274804478999352,
+          "selected_reward": -0.007529770560163176,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.033743520225747156,
+          "incumbent_score": 0.033768222520145524,
+          "updates_after": 12
+        },
+        {
+          "context_id": "train_12",
+          "status": "UPDATED",
+          "decision_id": 13,
+          "candidate_id": "op_5789f5a5afdb8c4d3427c8788e26fdca6004390dfbf552bd60bc91f7a5e5faca",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.008933336321991347,
+          "uncertainty_before_feedback": 0.670883263967113,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03257676691332057,
+          "incumbent_score": 0.03257676691332057,
+          "updates_after": 13
+        },
+        {
+          "context_id": "train_03",
+          "status": "UPDATED",
+          "decision_id": 14,
+          "candidate_id": "op_59d04671db195d8f1259c2fcfb0e73146e5e6fa98534b01a6f5a442dbad39507",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007817246185468278,
+          "uncertainty_before_feedback": 0.39403007744531365,
+          "selected_reward": -0.008329200473492357,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03704928882580167,
+          "incumbent_score": 0.037065996821066746,
+          "updates_after": 14
+        },
+        {
+          "context_id": "train_17",
+          "status": "UPDATED",
+          "decision_id": 15,
+          "candidate_id": "op_acdd8d2e3b843dbc650b7832539092158307b6dfd68dad8878a17f7b63b26fb3",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009032947829609185,
+          "uncertainty_before_feedback": 0.6713115813475751,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.02946112515475621,
+          "incumbent_score": 0.029448513072267153,
+          "updates_after": 15
+        },
+        {
+          "context_id": "train_08",
+          "status": "UPDATED",
+          "decision_id": 16,
+          "candidate_id": "op_c6f119daf4d4742d2ec7a29e16fef704068299614b0f357e8efb0bafda2f15f6",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.009395131523878253,
+          "uncertainty_before_feedback": 0.573637419071026,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03368114505316163,
+          "incumbent_score": 0.03368114505316163,
+          "updates_after": 16
+        },
+        {
+          "context_id": "train_24",
+          "status": "UPDATED",
+          "decision_id": 17,
+          "candidate_id": "op_8922b67d8cdf606df23f715e5ecae75931f0e00a042d6131b55075be6e7b8852",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.008002220029670312,
+          "uncertainty_before_feedback": 0.3698070187308111,
+          "selected_reward": -0.00746035131653471,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.029965338770165134,
+          "incumbent_score": 0.029990735256999787,
+          "updates_after": 17
+        },
+        {
+          "context_id": "train_19",
+          "status": "UPDATED",
+          "decision_id": 18,
+          "candidate_id": "op_fa593b9aa68927e712c33b34b9879f2e7a40ba0b9297a5705caacd2b95f7064c",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009356130252071779,
+          "uncertainty_before_feedback": 0.561341017643924,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.033281379421882695,
+          "incumbent_score": 0.0332682116264188,
+          "updates_after": 18
+        },
+        {
+          "context_id": "train_16",
+          "status": "UPDATED",
+          "decision_id": 19,
+          "candidate_id": "op_a74f0804e8cd594c13300a41854f27a841af79602758bed7db79efaa3cecebde",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007870211977709506,
+          "uncertainty_before_feedback": 0.33833929215530023,
+          "selected_reward": -0.008476583212439484,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031419606964150276,
+          "incumbent_score": 0.03143484113202588,
+          "updates_after": 19
+        },
+        {
+          "context_id": "train_21",
+          "status": "UPDATED",
+          "decision_id": 20,
+          "candidate_id": "op_5c759b8377b31ea4f08d0a9de3ebaf9fe3a75d068b9874d33dd26e9332086f48",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.009446669682553466,
+          "uncertainty_before_feedback": 0.4929028469886298,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03270247115892423,
+          "incumbent_score": 0.03270247115892423,
+          "updates_after": 20
+        },
+        {
+          "context_id": "train_23",
+          "status": "UPDATED",
+          "decision_id": 21,
+          "candidate_id": "op_fdda50af0be333b9f8284f1d6500f6a9fa294b2f75bba923d3f963b11f171d67",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007949450893613918,
+          "uncertainty_before_feedback": 0.33562762214129627,
+          "selected_reward": -0.007548442496410337,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03287186407452648,
+          "incumbent_score": 0.03289637964956238,
+          "updates_after": 21
+        },
+        {
+          "context_id": "train_13",
+          "status": "UPDATED",
+          "decision_id": 22,
+          "candidate_id": "op_132059a9c32a2d6e116da5c2d65469700c6f034043c25de30db8827bd9f11122",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.006803076330763022,
+          "uncertainty_before_feedback": 0.5003871630891662,
+          "selected_reward": -0.007711345344980627,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031522652502262036,
+          "incumbent_score": 0.03154553904881223,
+          "updates_after": 22
+        },
+        {
+          "context_id": "train_05",
+          "status": "UPDATED",
+          "decision_id": 23,
+          "candidate_id": "op_a6d4d6c6090c68d2a978d5fe99bf373ea95a1e80fee374d8912597383dfdc43f",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009357833978411596,
+          "uncertainty_before_feedback": 0.49833500727625063,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031930301823171164,
+          "incumbent_score": 0.031917336590930906,
+          "updates_after": 23
+        },
+        {
+          "context_id": "train_22",
+          "status": "UPDATED",
+          "decision_id": 24,
+          "candidate_id": "op_77d90dc0b6323c3048963b9556f5baf2b417728f4044e01752aa906d7bbf0849",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007895491884242455,
+          "uncertainty_before_feedback": 0.30593930254466156,
+          "selected_reward": -0.007694238325569166,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03378958043193944,
+          "incumbent_score": 0.03381263804868375,
+          "updates_after": 24
+        }
+      ],
+      "selected_feedback_accesses": [
+        {
+          "context_id": "train_02",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_02_INCREASE_PV_0025.json",
+          "sha256": "c218b2b424755882336ae8b472352dfcba3d5b893c1f38a12a9a9eea9741506e"
+        },
+        {
+          "context_id": "train_14",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_14_RELAX_Q_10_PERCENT.json",
+          "sha256": "4d859666f2d0511d91ac32e5ddc650d0225f0499be61da0b2d8a517c65acc907"
+        },
+        {
+          "context_id": "train_20",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_20_RELAX_Q_10_PERCENT.json",
+          "sha256": "e1868c48c8a817167d64dcef8720aa7dc1e1db44ef8bc3a555283fe7aa44e4fd"
+        },
+        {
+          "context_id": "train_06",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_06_INCREASE_PV_0025.json",
+          "sha256": "172032c42ed8176c6cd3bf0af31780083a68730eff77cf22faf33d2e7de3ce21"
+        },
+        {
+          "context_id": "train_07",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_07_RELAX_Q_10_PERCENT.json",
+          "sha256": "5a57e927b7a854811381e152b6672fdf30d65865ccd0b2bcdd84ce227a1654c8"
+        },
+        {
+          "context_id": "train_10",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_10_KEEP_INCUMBENT.json",
+          "sha256": "f44fcfaafd30414e1188cdc3660c6c2f97ac84838f7e85b739136cf0a9d04483"
+        },
+        {
+          "context_id": "train_04",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_04_KEEP_INCUMBENT.json",
+          "sha256": "1996560f210f2023db21e47255b5a247201b16d9de3ed6a6ecc0f85e74716ab5"
+        },
+        {
+          "context_id": "train_15",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_15_RELAX_Q_10_PERCENT.json",
+          "sha256": "a490c0fae6a600a50e3a3998b28b8023bb9fc659642a7dd3900e30604c629b76"
+        },
+        {
+          "context_id": "train_18",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_18_RELAX_Q_10_PERCENT.json",
+          "sha256": "928962bc314cc05aa55c9ff8085345cef83c8c84c969993574ffaf072f75b008"
+        },
+        {
+          "context_id": "train_11",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_11_RELAX_Q_10_PERCENT.json",
+          "sha256": "cbe8ad7c45aa482908655789fb2582b717130e440c9ef8a251be0a74723b03e1"
+        },
+        {
+          "context_id": "train_09",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_09_RELAX_Q_10_PERCENT.json",
+          "sha256": "0b9881d2cd19da0c80a29d60fb8b48786da2aa4cd31ec0a6edf057d04a362290"
+        },
+        {
+          "context_id": "train_01",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_01_RELAX_Q_10_PERCENT.json",
+          "sha256": "c78e307381330e548b4aa09d73a349c23f357475c04f38cadd957c025f6e9612"
+        },
+        {
+          "context_id": "train_12",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_12_KEEP_INCUMBENT.json",
+          "sha256": "867cfaccb766e44b37b71193128c48733937e3256b353bc5a8cb8cbd7dadee1c"
+        },
+        {
+          "context_id": "train_03",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_03_RELAX_Q_10_PERCENT.json",
+          "sha256": "04a443a0d22cb0c6846072b138e38fcd1df62b1a4d11a85e79a888dd117b5473"
+        },
+        {
+          "context_id": "train_17",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_17_INCREASE_PV_0025.json",
+          "sha256": "a8e93abd7432065809e073a1b819e58e4bdf31abf87feaad4496f5dc1b717acb"
+        },
+        {
+          "context_id": "train_08",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_08_KEEP_INCUMBENT.json",
+          "sha256": "2703bc44661e595e315f47916f21de2daca36bed0e18abfe5a8bb7c79dd56308"
+        },
+        {
+          "context_id": "train_24",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_24_RELAX_Q_10_PERCENT.json",
+          "sha256": "76f7b7f0ef06de9523b44b6f64b6b631b1c404cd0e8810e0ab3b5fc7dd8683d1"
+        },
+        {
+          "context_id": "train_19",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_19_INCREASE_PV_0025.json",
+          "sha256": "64dbbc658398cd2925e49747e56d629d5122bbfde047636c400c5323fb1ae820"
+        },
+        {
+          "context_id": "train_16",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_16_RELAX_Q_10_PERCENT.json",
+          "sha256": "1b5161ef9d451bb01afd1b3546c019af409d656ca8e2faea73d9ddde27992604"
+        },
+        {
+          "context_id": "train_21",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_21_KEEP_INCUMBENT.json",
+          "sha256": "74a6abbb6f4402c04bdde8cc0fa30e2fae4b29371ce1cd5f22a73a13644cf912"
+        },
+        {
+          "context_id": "train_23",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_23_RELAX_Q_10_PERCENT.json",
+          "sha256": "c5cd31c9e852d9096a633462ba0f85bd86aede10b50aa2ef4b8023aad46a89fc"
+        },
+        {
+          "context_id": "train_13",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_13_RELAX_Q_10_PERCENT.json",
+          "sha256": "45011046257fab2e271a04fac2f952e95ca9c99c27e124f647e5a4ec0a25779f"
+        },
+        {
+          "context_id": "train_05",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_05_INCREASE_PV_0025.json",
+          "sha256": "54bcdc806a6c503f5da36f68acce68416afbc84a7b5c637fcf48bac43c88c60b"
+        },
+        {
+          "context_id": "train_22",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_22_RELAX_Q_10_PERCENT.json",
+          "sha256": "ec7d5c38cc288ee5fda4fe1a0e5dbf3c31505d8edb4fb3426a0460ec9f15d9a5"
+        }
+      ]
+    },
+    {
+      "seed": 270929,
+      "updates": 24,
+      "frozen": true,
+      "checkpoint": "selector_models\\linucb_seed_270929.json",
+      "checkpoint_sha256": "c156cdfe033b66afc8897a621d4f44e07c39003cf0e67acc4e0846274d7bffcf",
+      "records": [
+        {
+          "context_id": "train_23",
+          "status": "UPDATED",
+          "decision_id": 1,
+          "candidate_id": "op_fdda50af0be333b9f8284f1d6500f6a9fa294b2f75bba923d3f963b11f171d67",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": 0.0,
+          "uncertainty_before_feedback": 2.3482630084211475,
+          "selected_reward": -0.007548442496410337,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03287186407452648,
+          "incumbent_score": 0.03289637964956238,
+          "updates_after": 1
+        },
+        {
+          "context_id": "train_17",
+          "status": "UPDATED",
+          "decision_id": 2,
+          "candidate_id": "op_acdd8d2e3b843dbc650b7832539092158307b6dfd68dad8878a17f7b63b26fb3",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.00038624754380621923,
+          "uncertainty_before_feedback": 2.1275138959173745,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.02946112515475621,
+          "incumbent_score": 0.029448513072267153,
+          "updates_after": 2
+        },
+        {
+          "context_id": "train_09",
+          "status": "UPDATED",
+          "decision_id": 3,
+          "candidate_id": "op_0511d8a84a32d515ec8f2490f8df013f4b907f2067953fba934175d7f0eed506",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.006422214524052117,
+          "uncertainty_before_feedback": 0.912667160280094,
+          "selected_reward": -0.0076417470599607264,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.02902784461657172,
+          "incumbent_score": 0.029051427145972114,
+          "updates_after": 3
+        },
+        {
+          "context_id": "train_15",
+          "status": "UPDATED",
+          "decision_id": 4,
+          "candidate_id": "op_66f6f84a6d5efab6c3ab5a2583dfb4f0bb23af2437293508925ec8c6070cc6f5",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.00700678698092667,
+          "uncertainty_before_feedback": 0.6855954778562591,
+          "selected_reward": -0.007046694562515684,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.030863106387855485,
+          "incumbent_score": 0.030892639442230328,
+          "updates_after": 4
+        },
+        {
+          "context_id": "train_01",
+          "status": "UPDATED",
+          "decision_id": 5,
+          "candidate_id": "op_ccff081aa6c4d3a5e0aea1ceb784557a43e7d55db9e6bd160b1fbb9fcb953fd7",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.006857371118257093,
+          "uncertainty_before_feedback": 0.5801707264987385,
+          "selected_reward": -0.007529770560163176,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.033743520225747156,
+          "incumbent_score": 0.033768222520145524,
+          "updates_after": 5
+        },
+        {
+          "context_id": "train_10",
+          "status": "UPDATED",
+          "decision_id": 6,
+          "candidate_id": "op_3e75c0fd4542d087a5bdc85e2fc3b98851a1750bfeee5ce12ec45d02581d3b62",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.0005993609722916625,
+          "uncertainty_before_feedback": 2.1032679509345313,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.034651183938611003,
+          "incumbent_score": 0.034651183938611003,
+          "updates_after": 6
+        },
+        {
+          "context_id": "train_02",
+          "status": "UPDATED",
+          "decision_id": 7,
+          "candidate_id": "op_edea20fa74ce5a374279beff23a499211b7ee67e37ec82c682c5a266845cb63c",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.008264578619525698,
+          "uncertainty_before_feedback": 0.9057053272588774,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.030667614011336383,
+          "incumbent_score": 0.030667614011336383,
+          "updates_after": 7
+        },
+        {
+          "context_id": "train_08",
+          "status": "UPDATED",
+          "decision_id": 8,
+          "candidate_id": "op_c6f119daf4d4742d2ec7a29e16fef704068299614b0f357e8efb0bafda2f15f6",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.009134299452797156,
+          "uncertainty_before_feedback": 0.6855204938324511,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03368114505316163,
+          "incumbent_score": 0.03368114505316163,
+          "updates_after": 8
+        },
+        {
+          "context_id": "train_22",
+          "status": "UPDATED",
+          "decision_id": 9,
+          "candidate_id": "op_77d90dc0b6323c3048963b9556f5baf2b417728f4044e01752aa906d7bbf0849",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007178730321663566,
+          "uncertainty_before_feedback": 0.4909059722974406,
+          "selected_reward": -0.007694238325569166,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03378958043193944,
+          "incumbent_score": 0.03381263804868375,
+          "updates_after": 9
+        },
+        {
+          "context_id": "train_06",
+          "status": "UPDATED",
+          "decision_id": 10,
+          "candidate_id": "op_579333b77580fc3001326b38f90e4a69b66f9e2e880750793bd9f12fc22236bf",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.008384461566255833,
+          "uncertainty_before_feedback": 0.9163323393801095,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.030770575089657654,
+          "incumbent_score": 0.030757595397693915,
+          "updates_after": 10
+        },
+        {
+          "context_id": "train_07",
+          "status": "UPDATED",
+          "decision_id": 11,
+          "candidate_id": "op_e1865ae1d58d97a391cc44a1cb8f1a33f448a35720579903393bd6ea936682db",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.008927670867315794,
+          "uncertainty_before_feedback": 0.6628254234084524,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03328289408893055,
+          "incumbent_score": 0.03326987143190131,
+          "updates_after": 11
+        },
+        {
+          "context_id": "train_21",
+          "status": "UPDATED",
+          "decision_id": 12,
+          "candidate_id": "op_5c759b8377b31ea4f08d0a9de3ebaf9fe3a75d068b9874d33dd26e9332086f48",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.00931506307236488,
+          "uncertainty_before_feedback": 0.5630699686237035,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03270247115892423,
+          "incumbent_score": 0.03270247115892423,
+          "updates_after": 12
+        },
+        {
+          "context_id": "train_18",
+          "status": "UPDATED",
+          "decision_id": 13,
+          "candidate_id": "op_10f2fd79aae9189de65682684528532b61bb10a3dc18ea8cff8289afb2981781",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007258948866645737,
+          "uncertainty_before_feedback": 0.4449712209647156,
+          "selected_reward": -0.007723855714253788,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.0357764228155633,
+          "incumbent_score": 0.03579918425842076,
+          "updates_after": 13
+        },
+        {
+          "context_id": "train_03",
+          "status": "UPDATED",
+          "decision_id": 14,
+          "candidate_id": "op_59d04671db195d8f1259c2fcfb0e73146e5e6fa98534b01a6f5a442dbad39507",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.0072965089795286,
+          "uncertainty_before_feedback": 0.4243846710686329,
+          "selected_reward": -0.008329200473492357,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03704928882580167,
+          "incumbent_score": 0.037065996821066746,
+          "updates_after": 14
+        },
+        {
+          "context_id": "train_19",
+          "status": "UPDATED",
+          "decision_id": 15,
+          "candidate_id": "op_164a83a7cab46a7bb411b3cabfb73ee0aa987b2af531aebf25a637d8de61eed2",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.005875493688208972,
+          "uncertainty_before_feedback": 0.6839193882599716,
+          "selected_reward": -0.007711547408293237,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03324532710050173,
+          "incumbent_score": 0.0332682116264188,
+          "updates_after": 15
+        },
+        {
+          "context_id": "train_12",
+          "status": "UPDATED",
+          "decision_id": 16,
+          "candidate_id": "op_5789f5a5afdb8c4d3427c8788e26fdca6004390dfbf552bd60bc91f7a5e5faca",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.009427783752923854,
+          "uncertainty_before_feedback": 0.48794948316553144,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03257676691332057,
+          "incumbent_score": 0.03257676691332057,
+          "updates_after": 16
+        },
+        {
+          "context_id": "train_20",
+          "status": "UPDATED",
+          "decision_id": 17,
+          "candidate_id": "op_33ec9fe30bfc54ac6d6b92431bb3b83fc8dc7faa5d9a978b302580da2a989760",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009306867230603253,
+          "uncertainty_before_feedback": 0.5589756772827237,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.029658243458430482,
+          "incumbent_score": 0.029645593812028633,
+          "updates_after": 17
+        },
+        {
+          "context_id": "train_24",
+          "status": "UPDATED",
+          "decision_id": 18,
+          "candidate_id": "op_8922b67d8cdf606df23f715e5ecae75931f0e00a042d6131b55075be6e7b8852",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007740483313976276,
+          "uncertainty_before_feedback": 0.36938601397459975,
+          "selected_reward": -0.00746035131653471,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.029965338770165134,
+          "incumbent_score": 0.029990735256999787,
+          "updates_after": 18
+        },
+        {
+          "context_id": "train_16",
+          "status": "UPDATED",
+          "decision_id": 19,
+          "candidate_id": "op_a74f0804e8cd594c13300a41854f27a841af79602758bed7db79efaa3cecebde",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007621247089882202,
+          "uncertainty_before_feedback": 0.34660089191864074,
+          "selected_reward": -0.008476583212439484,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031419606964150276,
+          "incumbent_score": 0.03143484113202588,
+          "updates_after": 19
+        },
+        {
+          "context_id": "train_14",
+          "status": "UPDATED",
+          "decision_id": 20,
+          "candidate_id": "op_2c0487e06c8c81d161b6374168c73aa2c7850446883e6e1617db4e642080a844",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.0063874289356249375,
+          "uncertainty_before_feedback": 0.5614202664507196,
+          "selected_reward": -0.008791094387658174,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03271732925099376,
+          "incumbent_score": 0.032729418307117175,
+          "updates_after": 20
+        },
+        {
+          "context_id": "train_13",
+          "status": "UPDATED",
+          "decision_id": 21,
+          "candidate_id": "op_d4f727d762bcf583729b3b7c09d9bed2c012280122dc2e08ac1a9f15c27a976c",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009299833622526529,
+          "uncertainty_before_feedback": 0.48691338013290036,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031558244103651836,
+          "incumbent_score": 0.03154553904881223,
+          "updates_after": 21
+        },
+        {
+          "context_id": "train_11",
+          "status": "UPDATED",
+          "decision_id": 22,
+          "candidate_id": "op_2e39e9ef36b728a4dc2adace3852f25ddd7d56a43ae8a119c093cdb9f8f21c7c",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007727527221235637,
+          "uncertainty_before_feedback": 0.3228855531521301,
+          "selected_reward": -0.008053064753499031,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.0316074403342934,
+          "incumbent_score": 0.03162690968675841,
+          "updates_after": 22
+        },
+        {
+          "context_id": "train_04",
+          "status": "UPDATED",
+          "decision_id": 23,
+          "candidate_id": "op_9c40844cec3f5bcf8c2440a4e745106b29a59a17f862698b4729c9522e81fdcf",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007057660231225024,
+          "uncertainty_before_feedback": 0.4886106601993634,
+          "selected_reward": -0.008696981441516363,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03453651131085274,
+          "incumbent_score": 0.034549541496437575,
+          "updates_after": 23
+        },
+        {
+          "context_id": "train_05",
+          "status": "UPDATED",
+          "decision_id": 24,
+          "candidate_id": "op_a6d4d6c6090c68d2a978d5fe99bf373ea95a1e80fee374d8912597383dfdc43f",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009504032745386769,
+          "uncertainty_before_feedback": 0.4497080698322145,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031930301823171164,
+          "incumbent_score": 0.031917336590930906,
+          "updates_after": 24
+        }
+      ],
+      "selected_feedback_accesses": [
+        {
+          "context_id": "train_23",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_23_RELAX_Q_10_PERCENT.json",
+          "sha256": "c5cd31c9e852d9096a633462ba0f85bd86aede10b50aa2ef4b8023aad46a89fc"
+        },
+        {
+          "context_id": "train_17",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_17_INCREASE_PV_0025.json",
+          "sha256": "a8e93abd7432065809e073a1b819e58e4bdf31abf87feaad4496f5dc1b717acb"
+        },
+        {
+          "context_id": "train_09",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_09_RELAX_Q_10_PERCENT.json",
+          "sha256": "0b9881d2cd19da0c80a29d60fb8b48786da2aa4cd31ec0a6edf057d04a362290"
+        },
+        {
+          "context_id": "train_15",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_15_RELAX_Q_10_PERCENT.json",
+          "sha256": "a490c0fae6a600a50e3a3998b28b8023bb9fc659642a7dd3900e30604c629b76"
+        },
+        {
+          "context_id": "train_01",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_01_RELAX_Q_10_PERCENT.json",
+          "sha256": "c78e307381330e548b4aa09d73a349c23f357475c04f38cadd957c025f6e9612"
+        },
+        {
+          "context_id": "train_10",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_10_KEEP_INCUMBENT.json",
+          "sha256": "f44fcfaafd30414e1188cdc3660c6c2f97ac84838f7e85b739136cf0a9d04483"
+        },
+        {
+          "context_id": "train_02",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_02_KEEP_INCUMBENT.json",
+          "sha256": "0421c565056e3212d20d96785773333700951b47f65bbacbe4fcb090c3344e5e"
+        },
+        {
+          "context_id": "train_08",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_08_KEEP_INCUMBENT.json",
+          "sha256": "2703bc44661e595e315f47916f21de2daca36bed0e18abfe5a8bb7c79dd56308"
+        },
+        {
+          "context_id": "train_22",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_22_RELAX_Q_10_PERCENT.json",
+          "sha256": "ec7d5c38cc288ee5fda4fe1a0e5dbf3c31505d8edb4fb3426a0460ec9f15d9a5"
+        },
+        {
+          "context_id": "train_06",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_06_INCREASE_PV_0025.json",
+          "sha256": "172032c42ed8176c6cd3bf0af31780083a68730eff77cf22faf33d2e7de3ce21"
+        },
+        {
+          "context_id": "train_07",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_07_INCREASE_PV_0025.json",
+          "sha256": "e5d444d827b3d241422ee5b7dacd74fcb4082e6e189921f768ceaafc48110327"
+        },
+        {
+          "context_id": "train_21",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_21_KEEP_INCUMBENT.json",
+          "sha256": "74a6abbb6f4402c04bdde8cc0fa30e2fae4b29371ce1cd5f22a73a13644cf912"
+        },
+        {
+          "context_id": "train_18",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_18_RELAX_Q_10_PERCENT.json",
+          "sha256": "928962bc314cc05aa55c9ff8085345cef83c8c84c969993574ffaf072f75b008"
+        },
+        {
+          "context_id": "train_03",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_03_RELAX_Q_10_PERCENT.json",
+          "sha256": "04a443a0d22cb0c6846072b138e38fcd1df62b1a4d11a85e79a888dd117b5473"
+        },
+        {
+          "context_id": "train_19",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_19_RELAX_Q_10_PERCENT.json",
+          "sha256": "1005373379a0add2559671f90d2cc8fa2a8203bae1a531c6040a88bf94411aa3"
+        },
+        {
+          "context_id": "train_12",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_12_KEEP_INCUMBENT.json",
+          "sha256": "867cfaccb766e44b37b71193128c48733937e3256b353bc5a8cb8cbd7dadee1c"
+        },
+        {
+          "context_id": "train_20",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_20_INCREASE_PV_0025.json",
+          "sha256": "178c05d95ea6f3138198f24bacfa0a80db59916b0d32db04d8ddbbe93e5a90aa"
+        },
+        {
+          "context_id": "train_24",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_24_RELAX_Q_10_PERCENT.json",
+          "sha256": "76f7b7f0ef06de9523b44b6f64b6b631b1c404cd0e8810e0ab3b5fc7dd8683d1"
+        },
+        {
+          "context_id": "train_16",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_16_RELAX_Q_10_PERCENT.json",
+          "sha256": "1b5161ef9d451bb01afd1b3546c019af409d656ca8e2faea73d9ddde27992604"
+        },
+        {
+          "context_id": "train_14",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_14_RELAX_Q_10_PERCENT.json",
+          "sha256": "4d859666f2d0511d91ac32e5ddc650d0225f0499be61da0b2d8a517c65acc907"
+        },
+        {
+          "context_id": "train_13",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_13_INCREASE_PV_0025.json",
+          "sha256": "5dad5441385d120966533ce375ee79f78809fad218cb91166c337a14d1912b5f"
+        },
+        {
+          "context_id": "train_11",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_11_RELAX_Q_10_PERCENT.json",
+          "sha256": "cbe8ad7c45aa482908655789fb2582b717130e440c9ef8a251be0a74723b03e1"
+        },
+        {
+          "context_id": "train_04",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_04_RELAX_Q_10_PERCENT.json",
+          "sha256": "9214f338be99af9eb2fd31cc8f7455d3bcbdb2f5cd826faa2f8e6ac95295f432"
+        },
+        {
+          "context_id": "train_05",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_05_INCREASE_PV_0025.json",
+          "sha256": "54bcdc806a6c503f5da36f68acce68416afbc84a7b5c637fcf48bac43c88c60b"
+        }
+      ]
+    },
+    {
+      "seed": 270930,
+      "updates": 24,
+      "frozen": true,
+      "checkpoint": "selector_models\\linucb_seed_270930.json",
+      "checkpoint_sha256": "857ec8943b376a09a6b90e54d01a2034113bd73c27c10e4251b32ddb39c0f68d",
+      "records": [
+        {
+          "context_id": "train_16",
+          "status": "UPDATED",
+          "decision_id": 1,
+          "candidate_id": "op_a74f0804e8cd594c13300a41854f27a841af79602758bed7db79efaa3cecebde",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": 0.0,
+          "uncertainty_before_feedback": 2.3256234587138693,
+          "selected_reward": -0.008476583212439484,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031419606964150276,
+          "incumbent_score": 0.03143484113202588,
+          "updates_after": 1
+        },
+        {
+          "context_id": "train_17",
+          "status": "UPDATED",
+          "decision_id": 2,
+          "candidate_id": "op_acdd8d2e3b843dbc650b7832539092158307b6dfd68dad8878a17f7b63b26fb3",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.000440901450864143,
+          "uncertainty_before_feedback": 2.1274477078994316,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.02946112515475621,
+          "incumbent_score": 0.029448513072267153,
+          "updates_after": 2
+        },
+        {
+          "context_id": "train_19",
+          "status": "UPDATED",
+          "decision_id": 3,
+          "candidate_id": "op_40a5578faf4f3c6ed34cc22d4552fdce1830e7bc38b8e83efb41e873b221e9fc",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.0006031129539368435,
+          "uncertainty_before_feedback": 2.1333522664107023,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.0332682116264188,
+          "incumbent_score": 0.0332682116264188,
+          "updates_after": 3
+        },
+        {
+          "context_id": "train_03",
+          "status": "UPDATED",
+          "decision_id": 4,
+          "candidate_id": "op_59d04671db195d8f1259c2fcfb0e73146e5e6fa98534b01a6f5a442dbad39507",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007284813542079159,
+          "uncertainty_before_feedback": 0.9164454615161917,
+          "selected_reward": -0.008329200473492357,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03704928882580167,
+          "incumbent_score": 0.037065996821066746,
+          "updates_after": 4
+        },
+        {
+          "context_id": "train_07",
+          "status": "UPDATED",
+          "decision_id": 5,
+          "candidate_id": "op_e1865ae1d58d97a391cc44a1cb8f1a33f448a35720579903393bd6ea936682db",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.008212311743633611,
+          "uncertainty_before_feedback": 0.8952809809244509,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03328289408893055,
+          "incumbent_score": 0.03326987143190131,
+          "updates_after": 5
+        },
+        {
+          "context_id": "train_20",
+          "status": "UPDATED",
+          "decision_id": 6,
+          "candidate_id": "op_e939701f90ece6446a47622f4bef80d5ca8b0814fa860b74c57f0335f681ba16",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.006996861555819212,
+          "uncertainty_before_feedback": 0.7054398052267875,
+          "selected_reward": -0.007919141306433957,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.029624785225092973,
+          "incumbent_score": 0.029645593812028633,
+          "updates_after": 6
+        },
+        {
+          "context_id": "train_01",
+          "status": "UPDATED",
+          "decision_id": 7,
+          "candidate_id": "op_ccff081aa6c4d3a5e0aea1ceb784557a43e7d55db9e6bd160b1fbb9fcb953fd7",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007942213808172487,
+          "uncertainty_before_feedback": 0.588197187818668,
+          "selected_reward": -0.007529770560163176,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.033743520225747156,
+          "incumbent_score": 0.033768222520145524,
+          "updates_after": 7
+        },
+        {
+          "context_id": "train_21",
+          "status": "UPDATED",
+          "decision_id": 8,
+          "candidate_id": "op_5c759b8377b31ea4f08d0a9de3ebaf9fe3a75d068b9874d33dd26e9332086f48",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.008200683430150808,
+          "uncertainty_before_feedback": 0.8966535434785431,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03270247115892423,
+          "incumbent_score": 0.03270247115892423,
+          "updates_after": 8
+        },
+        {
+          "context_id": "train_08",
+          "status": "UPDATED",
+          "decision_id": 9,
+          "candidate_id": "op_c6f119daf4d4742d2ec7a29e16fef704068299614b0f357e8efb0bafda2f15f6",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.009081382617189888,
+          "uncertainty_before_feedback": 0.6830808055807269,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03368114505316163,
+          "incumbent_score": 0.03368114505316163,
+          "updates_after": 9
+        },
+        {
+          "context_id": "train_13",
+          "status": "UPDATED",
+          "decision_id": 10,
+          "candidate_id": "op_132059a9c32a2d6e116da5c2d65469700c6f034043c25de30db8827bd9f11122",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.006318623431763349,
+          "uncertainty_before_feedback": 0.6704864392672238,
+          "selected_reward": -0.007711345344980627,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031522652502262036,
+          "incumbent_score": 0.03154553904881223,
+          "updates_after": 10
+        },
+        {
+          "context_id": "train_09",
+          "status": "UPDATED",
+          "decision_id": 11,
+          "candidate_id": "op_0511d8a84a32d515ec8f2490f8df013f4b907f2067953fba934175d7f0eed506",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.008163465785906402,
+          "uncertainty_before_feedback": 0.48697244636318043,
+          "selected_reward": -0.0076417470599607264,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.02902784461657172,
+          "incumbent_score": 0.029051427145972114,
+          "updates_after": 11
+        },
+        {
+          "context_id": "train_06",
+          "status": "UPDATED",
+          "decision_id": 12,
+          "candidate_id": "op_579333b77580fc3001326b38f90e4a69b66f9e2e880750793bd9f12fc22236bf",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009179986133450212,
+          "uncertainty_before_feedback": 0.6853518567520049,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.030770575089657654,
+          "incumbent_score": 0.030757595397693915,
+          "updates_after": 12
+        },
+        {
+          "context_id": "train_12",
+          "status": "UPDATED",
+          "decision_id": 13,
+          "candidate_id": "op_5789f5a5afdb8c4d3427c8788e26fdca6004390dfbf552bd60bc91f7a5e5faca",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.009227370386888688,
+          "uncertainty_before_feedback": 0.5565750057167008,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03257676691332057,
+          "incumbent_score": 0.03257676691332057,
+          "updates_after": 13
+        },
+        {
+          "context_id": "train_04",
+          "status": "UPDATED",
+          "decision_id": 14,
+          "candidate_id": "op_9c40844cec3f5bcf8c2440a4e745106b29a59a17f862698b4729c9522e81fdcf",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.006816879134325714,
+          "uncertainty_before_feedback": 0.5617541091280915,
+          "selected_reward": -0.008696981441516363,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03453651131085274,
+          "incumbent_score": 0.034549541496437575,
+          "updates_after": 14
+        },
+        {
+          "context_id": "train_10",
+          "status": "UPDATED",
+          "decision_id": 15,
+          "candidate_id": "op_f173f12c608bb977ebca215c489af73057a21ef36b1d11f5f1d5ddb32eff9760",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009231990554557623,
+          "uncertainty_before_feedback": 0.5569475488392689,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03466442775928072,
+          "incumbent_score": 0.034651183938611003,
+          "updates_after": 15
+        },
+        {
+          "context_id": "train_15",
+          "status": "UPDATED",
+          "decision_id": 16,
+          "candidate_id": "op_66f6f84a6d5efab6c3ab5a2583dfb4f0bb23af2437293508925ec8c6070cc6f5",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.00825105143310779,
+          "uncertainty_before_feedback": 0.44993803647748704,
+          "selected_reward": -0.007046694562515684,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.030863106387855485,
+          "incumbent_score": 0.030892639442230328,
+          "updates_after": 16
+        },
+        {
+          "context_id": "train_14",
+          "status": "UPDATED",
+          "decision_id": 17,
+          "candidate_id": "op_7df0439685e6d859726fc122ac8767821c796c36a4167c15f438ec26be38acdb",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.00937706066743118,
+          "uncertainty_before_feedback": 0.5056055255372024,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.032729418307117175,
+          "incumbent_score": 0.032729418307117175,
+          "updates_after": 17
+        },
+        {
+          "context_id": "train_05",
+          "status": "UPDATED",
+          "decision_id": 18,
+          "candidate_id": "op_a6d4d6c6090c68d2a978d5fe99bf373ea95a1e80fee374d8912597383dfdc43f",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.00939903404171924,
+          "uncertainty_before_feedback": 0.49356701748858234,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031930301823171164,
+          "incumbent_score": 0.031917336590930906,
+          "updates_after": 18
+        },
+        {
+          "context_id": "train_23",
+          "status": "UPDATED",
+          "decision_id": 19,
+          "candidate_id": "op_fdda50af0be333b9f8284f1d6500f6a9fa294b2f75bba923d3f963b11f171d67",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.008093482653764921,
+          "uncertainty_before_feedback": 0.40559466183131304,
+          "selected_reward": -0.007548442496410337,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03287186407452648,
+          "incumbent_score": 0.03289637964956238,
+          "updates_after": 19
+        },
+        {
+          "context_id": "train_02",
+          "status": "UPDATED",
+          "decision_id": 20,
+          "candidate_id": "op_a0eee591f148f74e4550e54f0b5259644f73e82f6033181db01cba8dac60e60a",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007063191295845434,
+          "uncertainty_before_feedback": 0.46900068948735274,
+          "selected_reward": -0.007998957867316808,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03064760359000955,
+          "incumbent_score": 0.030667614011336383,
+          "updates_after": 20
+        },
+        {
+          "context_id": "train_18",
+          "status": "UPDATED",
+          "decision_id": 21,
+          "candidate_id": "op_10f2fd79aae9189de65682684528532b61bb10a3dc18ea8cff8289afb2981781",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007985749701338089,
+          "uncertainty_before_feedback": 0.3685049879871388,
+          "selected_reward": -0.007723855714253788,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.0357764228155633,
+          "incumbent_score": 0.03579918425842076,
+          "updates_after": 21
+        },
+        {
+          "context_id": "train_22",
+          "status": "UPDATED",
+          "decision_id": 22,
+          "candidate_id": "op_77d90dc0b6323c3048963b9556f5baf2b417728f4044e01752aa906d7bbf0849",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007976306198544768,
+          "uncertainty_before_feedback": 0.3422935550699779,
+          "selected_reward": -0.007694238325569166,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03378958043193944,
+          "incumbent_score": 0.03381263804868375,
+          "updates_after": 22
+        },
+        {
+          "context_id": "train_24",
+          "status": "UPDATED",
+          "decision_id": 23,
+          "candidate_id": "op_8922b67d8cdf606df23f715e5ecae75931f0e00a042d6131b55075be6e7b8852",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.008048989810426116,
+          "uncertainty_before_feedback": 0.32954851134187896,
+          "selected_reward": -0.00746035131653471,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.029965338770165134,
+          "incumbent_score": 0.029990735256999787,
+          "updates_after": 23
+        },
+        {
+          "context_id": "train_11",
+          "status": "UPDATED",
+          "decision_id": 24,
+          "candidate_id": "op_2e39e9ef36b728a4dc2adace3852f25ddd7d56a43ae8a119c093cdb9f8f21c7c",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007789290300735687,
+          "uncertainty_before_feedback": 0.31319204522818755,
+          "selected_reward": -0.008053064753499031,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.0316074403342934,
+          "incumbent_score": 0.03162690968675841,
+          "updates_after": 24
+        }
+      ],
+      "selected_feedback_accesses": [
+        {
+          "context_id": "train_16",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_16_RELAX_Q_10_PERCENT.json",
+          "sha256": "1b5161ef9d451bb01afd1b3546c019af409d656ca8e2faea73d9ddde27992604"
+        },
+        {
+          "context_id": "train_17",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_17_INCREASE_PV_0025.json",
+          "sha256": "a8e93abd7432065809e073a1b819e58e4bdf31abf87feaad4496f5dc1b717acb"
+        },
+        {
+          "context_id": "train_19",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_19_KEEP_INCUMBENT.json",
+          "sha256": "76895bf8e7bb5681058d3824b8711c53fe2481373a92387b5ab2f699ef54efda"
+        },
+        {
+          "context_id": "train_03",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_03_RELAX_Q_10_PERCENT.json",
+          "sha256": "04a443a0d22cb0c6846072b138e38fcd1df62b1a4d11a85e79a888dd117b5473"
+        },
+        {
+          "context_id": "train_07",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_07_INCREASE_PV_0025.json",
+          "sha256": "e5d444d827b3d241422ee5b7dacd74fcb4082e6e189921f768ceaafc48110327"
+        },
+        {
+          "context_id": "train_20",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_20_RELAX_Q_10_PERCENT.json",
+          "sha256": "e1868c48c8a817167d64dcef8720aa7dc1e1db44ef8bc3a555283fe7aa44e4fd"
+        },
+        {
+          "context_id": "train_01",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_01_RELAX_Q_10_PERCENT.json",
+          "sha256": "c78e307381330e548b4aa09d73a349c23f357475c04f38cadd957c025f6e9612"
+        },
+        {
+          "context_id": "train_21",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_21_KEEP_INCUMBENT.json",
+          "sha256": "74a6abbb6f4402c04bdde8cc0fa30e2fae4b29371ce1cd5f22a73a13644cf912"
+        },
+        {
+          "context_id": "train_08",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_08_KEEP_INCUMBENT.json",
+          "sha256": "2703bc44661e595e315f47916f21de2daca36bed0e18abfe5a8bb7c79dd56308"
+        },
+        {
+          "context_id": "train_13",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_13_RELAX_Q_10_PERCENT.json",
+          "sha256": "45011046257fab2e271a04fac2f952e95ca9c99c27e124f647e5a4ec0a25779f"
+        },
+        {
+          "context_id": "train_09",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_09_RELAX_Q_10_PERCENT.json",
+          "sha256": "0b9881d2cd19da0c80a29d60fb8b48786da2aa4cd31ec0a6edf057d04a362290"
+        },
+        {
+          "context_id": "train_06",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_06_INCREASE_PV_0025.json",
+          "sha256": "172032c42ed8176c6cd3bf0af31780083a68730eff77cf22faf33d2e7de3ce21"
+        },
+        {
+          "context_id": "train_12",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_12_KEEP_INCUMBENT.json",
+          "sha256": "867cfaccb766e44b37b71193128c48733937e3256b353bc5a8cb8cbd7dadee1c"
+        },
+        {
+          "context_id": "train_04",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_04_RELAX_Q_10_PERCENT.json",
+          "sha256": "9214f338be99af9eb2fd31cc8f7455d3bcbdb2f5cd826faa2f8e6ac95295f432"
+        },
+        {
+          "context_id": "train_10",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_10_INCREASE_PV_0025.json",
+          "sha256": "6eaf56d82eaeaa2d02dfdf369f8688f35d42b4c7340c00caa8ded70623023c1f"
+        },
+        {
+          "context_id": "train_15",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_15_RELAX_Q_10_PERCENT.json",
+          "sha256": "a490c0fae6a600a50e3a3998b28b8023bb9fc659642a7dd3900e30604c629b76"
+        },
+        {
+          "context_id": "train_14",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_14_KEEP_INCUMBENT.json",
+          "sha256": "6232d69207b888655af290509f30d773f1a9748b0f97863b54b1cd9cfc5d6453"
+        },
+        {
+          "context_id": "train_05",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_05_INCREASE_PV_0025.json",
+          "sha256": "54bcdc806a6c503f5da36f68acce68416afbc84a7b5c637fcf48bac43c88c60b"
+        },
+        {
+          "context_id": "train_23",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_23_RELAX_Q_10_PERCENT.json",
+          "sha256": "c5cd31c9e852d9096a633462ba0f85bd86aede10b50aa2ef4b8023aad46a89fc"
+        },
+        {
+          "context_id": "train_02",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_02_RELAX_Q_10_PERCENT.json",
+          "sha256": "e62d11f8a7b2d466a6555602eb76998e5e6c07290f760059e5780b514aca69db"
+        },
+        {
+          "context_id": "train_18",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_18_RELAX_Q_10_PERCENT.json",
+          "sha256": "928962bc314cc05aa55c9ff8085345cef83c8c84c969993574ffaf072f75b008"
+        },
+        {
+          "context_id": "train_22",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_22_RELAX_Q_10_PERCENT.json",
+          "sha256": "ec7d5c38cc288ee5fda4fe1a0e5dbf3c31505d8edb4fb3426a0460ec9f15d9a5"
+        },
+        {
+          "context_id": "train_24",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_24_RELAX_Q_10_PERCENT.json",
+          "sha256": "76f7b7f0ef06de9523b44b6f64b6b631b1c404cd0e8810e0ab3b5fc7dd8683d1"
+        },
+        {
+          "context_id": "train_11",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_11_RELAX_Q_10_PERCENT.json",
+          "sha256": "cbe8ad7c45aa482908655789fb2582b717130e440c9ef8a251be0a74723b03e1"
+        }
+      ]
+    },
+    {
+      "seed": 270931,
+      "updates": 24,
+      "frozen": true,
+      "checkpoint": "selector_models\\linucb_seed_270931.json",
+      "checkpoint_sha256": "de6fb021b2e5cc539864155dbe7dd07b77bda1c48518bb10d8b4553fde81d3a7",
+      "records": [
+        {
+          "context_id": "train_05",
+          "status": "UPDATED",
+          "decision_id": 1,
+          "candidate_id": "op_bf9c2723bedc7f094f09acdc00f29590325744f8cbcfbe138de874e444026ecf",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": 0.0,
+          "uncertainty_before_feedback": 2.184916742468649,
+          "selected_reward": -0.00852880888025139,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03190262467973342,
+          "incumbent_score": 0.031917336590930906,
+          "updates_after": 1
+        },
+        {
+          "context_id": "train_18",
+          "status": "UPDATED",
+          "decision_id": 2,
+          "candidate_id": "op_10f2fd79aae9189de65682684528532b61bb10a3dc18ea8cff8289afb2981781",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.0073947115479125886,
+          "uncertainty_before_feedback": 1.0175174724218565,
+          "selected_reward": -0.007723855714253788,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.0357764228155633,
+          "incumbent_score": 0.03579918425842076,
+          "updates_after": 2
+        },
+        {
+          "context_id": "train_03",
+          "status": "UPDATED",
+          "decision_id": 3,
+          "candidate_id": "op_59d04671db195d8f1259c2fcfb0e73146e5e6fa98534b01a6f5a442dbad39507",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007543658792548508,
+          "uncertainty_before_feedback": 0.7175188441652406,
+          "selected_reward": -0.008329200473492357,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03704928882580167,
+          "incumbent_score": 0.037065996821066746,
+          "updates_after": 3
+        },
+        {
+          "context_id": "train_01",
+          "status": "UPDATED",
+          "decision_id": 4,
+          "candidate_id": "op_ccff081aa6c4d3a5e0aea1ceb784557a43e7d55db9e6bd160b1fbb9fcb953fd7",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.0077082777991873035,
+          "uncertainty_before_feedback": 0.5827577424180685,
+          "selected_reward": -0.007529770560163176,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.033743520225747156,
+          "incumbent_score": 0.033768222520145524,
+          "updates_after": 4
+        },
+        {
+          "context_id": "train_24",
+          "status": "UPDATED",
+          "decision_id": 5,
+          "candidate_id": "op_8922b67d8cdf606df23f715e5ecae75931f0e00a042d6131b55075be6e7b8852",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007910896262297396,
+          "uncertainty_before_feedback": 0.527853385483137,
+          "selected_reward": -0.00746035131653471,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.029965338770165134,
+          "incumbent_score": 0.029990735256999787,
+          "updates_after": 5
+        },
+        {
+          "context_id": "train_06",
+          "status": "UPDATED",
+          "decision_id": 6,
+          "candidate_id": "op_579333b77580fc3001326b38f90e4a69b66f9e2e880750793bd9f12fc22236bf",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.00037109297130091595,
+          "uncertainty_before_feedback": 2.149187878623395,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.030770575089657654,
+          "incumbent_score": 0.030757595397693915,
+          "updates_after": 6
+        },
+        {
+          "context_id": "train_21",
+          "status": "UPDATED",
+          "decision_id": 7,
+          "candidate_id": "op_5c759b8377b31ea4f08d0a9de3ebaf9fe3a75d068b9874d33dd26e9332086f48",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.000520087284125064,
+          "uncertainty_before_feedback": 2.104210986581294,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03270247115892423,
+          "incumbent_score": 0.03270247115892423,
+          "updates_after": 7
+        },
+        {
+          "context_id": "train_07",
+          "status": "UPDATED",
+          "decision_id": 8,
+          "candidate_id": "op_e1865ae1d58d97a391cc44a1cb8f1a33f448a35720579903393bd6ea936682db",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.0081310961099559,
+          "uncertainty_before_feedback": 0.8899514673684615,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03328289408893055,
+          "incumbent_score": 0.03326987143190131,
+          "updates_after": 8
+        },
+        {
+          "context_id": "train_20",
+          "status": "UPDATED",
+          "decision_id": 9,
+          "candidate_id": "op_33ec9fe30bfc54ac6d6b92431bb3b83fc8dc7faa5d9a978b302580da2a989760",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009021563797749871,
+          "uncertainty_before_feedback": 0.6719140092381439,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.029658243458430482,
+          "incumbent_score": 0.029645593812028633,
+          "updates_after": 9
+        },
+        {
+          "context_id": "train_17",
+          "status": "UPDATED",
+          "decision_id": 10,
+          "candidate_id": "op_acdd8d2e3b843dbc650b7832539092158307b6dfd68dad8878a17f7b63b26fb3",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009361295456079824,
+          "uncertainty_before_feedback": 0.5588489688824019,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.02946112515475621,
+          "incumbent_score": 0.029448513072267153,
+          "updates_after": 10
+        },
+        {
+          "context_id": "train_14",
+          "status": "UPDATED",
+          "decision_id": 11,
+          "candidate_id": "op_7df0439685e6d859726fc122ac8767821c796c36a4167c15f438ec26be38acdb",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.008195693697349246,
+          "uncertainty_before_feedback": 0.9133228704141647,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.032729418307117175,
+          "incumbent_score": 0.032729418307117175,
+          "updates_after": 11
+        },
+        {
+          "context_id": "train_16",
+          "status": "UPDATED",
+          "decision_id": 12,
+          "candidate_id": "op_a74f0804e8cd594c13300a41854f27a841af79602758bed7db79efaa3cecebde",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007830571610664269,
+          "uncertainty_before_feedback": 0.44965453872968364,
+          "selected_reward": -0.008476583212439484,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031419606964150276,
+          "incumbent_score": 0.03143484113202588,
+          "updates_after": 12
+        },
+        {
+          "context_id": "train_09",
+          "status": "UPDATED",
+          "decision_id": 13,
+          "candidate_id": "op_0511d8a84a32d515ec8f2490f8df013f4b907f2067953fba934175d7f0eed506",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.00792149553394364,
+          "uncertainty_before_feedback": 0.41775271335488345,
+          "selected_reward": -0.0076417470599607264,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.02902784461657172,
+          "incumbent_score": 0.029051427145972114,
+          "updates_after": 13
+        },
+        {
+          "context_id": "train_04",
+          "status": "UPDATED",
+          "decision_id": 14,
+          "candidate_id": "op_08c3f9d7801e9ddc11d1fcdddb8aa46d68b50840c1f1029aad17aad7e5b1a076",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.009145733627923277,
+          "uncertainty_before_feedback": 0.6811219245832337,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.034549541496437575,
+          "incumbent_score": 0.034549541496437575,
+          "updates_after": 14
+        },
+        {
+          "context_id": "train_10",
+          "status": "UPDATED",
+          "decision_id": 15,
+          "candidate_id": "op_ae52bdcb9aaffb2545a7fad37fcdc3320bedf84044f1ef268aec2f5d7ef45465",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.006404236535453654,
+          "uncertainty_before_feedback": 0.6279323504281561,
+          "selected_reward": -0.007820650696125217,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.034629390445572256,
+          "incumbent_score": 0.034651183938611003,
+          "updates_after": 15
+        },
+        {
+          "context_id": "train_15",
+          "status": "UPDATED",
+          "decision_id": 16,
+          "candidate_id": "op_66f6f84a6d5efab6c3ab5a2583dfb4f0bb23af2437293508925ec8c6070cc6f5",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.008021652005836625,
+          "uncertainty_before_feedback": 0.39915200996280004,
+          "selected_reward": -0.007046694562515684,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.030863106387855485,
+          "incumbent_score": 0.030892639442230328,
+          "updates_after": 16
+        },
+        {
+          "context_id": "train_02",
+          "status": "UPDATED",
+          "decision_id": 17,
+          "candidate_id": "op_edea20fa74ce5a374279beff23a499211b7ee67e37ec82c682c5a266845cb63c",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.00930832062578438,
+          "uncertainty_before_feedback": 0.5584013386685918,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.030667614011336383,
+          "incumbent_score": 0.030667614011336383,
+          "updates_after": 17
+        },
+        {
+          "context_id": "train_08",
+          "status": "UPDATED",
+          "decision_id": 18,
+          "candidate_id": "op_c6f119daf4d4742d2ec7a29e16fef704068299614b0f357e8efb0bafda2f15f6",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.009563889923292995,
+          "uncertainty_before_feedback": 0.5056186408449034,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03368114505316163,
+          "incumbent_score": 0.03368114505316163,
+          "updates_after": 18
+        },
+        {
+          "context_id": "train_11",
+          "status": "UPDATED",
+          "decision_id": 19,
+          "candidate_id": "op_2e39e9ef36b728a4dc2adace3852f25ddd7d56a43ae8a119c093cdb9f8f21c7c",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007780965497252209,
+          "uncertainty_before_feedback": 0.34970628334700926,
+          "selected_reward": -0.008053064753499031,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.0316074403342934,
+          "incumbent_score": 0.03162690968675841,
+          "updates_after": 19
+        },
+        {
+          "context_id": "train_19",
+          "status": "UPDATED",
+          "decision_id": 20,
+          "candidate_id": "op_164a83a7cab46a7bb411b3cabfb73ee0aa987b2af531aebf25a637d8de61eed2",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.006796916171575822,
+          "uncertainty_before_feedback": 0.5408519554424904,
+          "selected_reward": -0.007711547408293237,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03324532710050173,
+          "incumbent_score": 0.0332682116264188,
+          "updates_after": 20
+        },
+        {
+          "context_id": "train_13",
+          "status": "UPDATED",
+          "decision_id": 21,
+          "candidate_id": "op_d4f727d762bcf583729b3b7c09d9bed2c012280122dc2e08ac1a9f15c27a976c",
+          "operation_id": "INCREASE_PV_0025",
+          "prediction_before_feedback": -0.009305051278922179,
+          "uncertainty_before_feedback": 0.4869097759938456,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.031558244103651836,
+          "incumbent_score": 0.03154553904881223,
+          "updates_after": 21
+        },
+        {
+          "context_id": "train_23",
+          "status": "UPDATED",
+          "decision_id": 22,
+          "candidate_id": "op_fdda50af0be333b9f8284f1d6500f6a9fa294b2f75bba923d3f963b11f171d67",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007999983195061181,
+          "uncertainty_before_feedback": 0.3403000445976222,
+          "selected_reward": -0.007548442496410337,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03287186407452648,
+          "incumbent_score": 0.03289637964956238,
+          "updates_after": 22
+        },
+        {
+          "context_id": "train_12",
+          "status": "UPDATED",
+          "decision_id": 23,
+          "candidate_id": "op_5789f5a5afdb8c4d3427c8788e26fdca6004390dfbf552bd60bc91f7a5e5faca",
+          "operation_id": "KEEP_INCUMBENT",
+          "prediction_before_feedback": -0.009511660615667735,
+          "uncertainty_before_feedback": 0.44052893365082624,
+          "selected_reward": -0.01,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03257676691332057,
+          "incumbent_score": 0.03257676691332057,
+          "updates_after": 23
+        },
+        {
+          "context_id": "train_22",
+          "status": "UPDATED",
+          "decision_id": 24,
+          "candidate_id": "op_77d90dc0b6323c3048963b9556f5baf2b417728f4044e01752aa906d7bbf0849",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "prediction_before_feedback": -0.007902261553178257,
+          "uncertainty_before_feedback": 0.31309082817248174,
+          "selected_reward": -0.007694238325569166,
+          "selected_trial_feasible": true,
+          "selected_trial_score": 0.03378958043193944,
+          "incumbent_score": 0.03381263804868375,
+          "updates_after": 24
+        }
+      ],
+      "selected_feedback_accesses": [
+        {
+          "context_id": "train_05",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_05_RELAX_Q_10_PERCENT.json",
+          "sha256": "d2516c196e3c075733418bd8b84a909f05d57feac6c291223e5f83aa358b61df"
+        },
+        {
+          "context_id": "train_18",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_18_RELAX_Q_10_PERCENT.json",
+          "sha256": "928962bc314cc05aa55c9ff8085345cef83c8c84c969993574ffaf072f75b008"
+        },
+        {
+          "context_id": "train_03",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_03_RELAX_Q_10_PERCENT.json",
+          "sha256": "04a443a0d22cb0c6846072b138e38fcd1df62b1a4d11a85e79a888dd117b5473"
+        },
+        {
+          "context_id": "train_01",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_01_RELAX_Q_10_PERCENT.json",
+          "sha256": "c78e307381330e548b4aa09d73a349c23f357475c04f38cadd957c025f6e9612"
+        },
+        {
+          "context_id": "train_24",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_24_RELAX_Q_10_PERCENT.json",
+          "sha256": "76f7b7f0ef06de9523b44b6f64b6b631b1c404cd0e8810e0ab3b5fc7dd8683d1"
+        },
+        {
+          "context_id": "train_06",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_06_INCREASE_PV_0025.json",
+          "sha256": "172032c42ed8176c6cd3bf0af31780083a68730eff77cf22faf33d2e7de3ce21"
+        },
+        {
+          "context_id": "train_21",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_21_KEEP_INCUMBENT.json",
+          "sha256": "74a6abbb6f4402c04bdde8cc0fa30e2fae4b29371ce1cd5f22a73a13644cf912"
+        },
+        {
+          "context_id": "train_07",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_07_INCREASE_PV_0025.json",
+          "sha256": "e5d444d827b3d241422ee5b7dacd74fcb4082e6e189921f768ceaafc48110327"
+        },
+        {
+          "context_id": "train_20",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_20_INCREASE_PV_0025.json",
+          "sha256": "178c05d95ea6f3138198f24bacfa0a80db59916b0d32db04d8ddbbe93e5a90aa"
+        },
+        {
+          "context_id": "train_17",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_17_INCREASE_PV_0025.json",
+          "sha256": "a8e93abd7432065809e073a1b819e58e4bdf31abf87feaad4496f5dc1b717acb"
+        },
+        {
+          "context_id": "train_14",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_14_KEEP_INCUMBENT.json",
+          "sha256": "6232d69207b888655af290509f30d773f1a9748b0f97863b54b1cd9cfc5d6453"
+        },
+        {
+          "context_id": "train_16",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_16_RELAX_Q_10_PERCENT.json",
+          "sha256": "1b5161ef9d451bb01afd1b3546c019af409d656ca8e2faea73d9ddde27992604"
+        },
+        {
+          "context_id": "train_09",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_09_RELAX_Q_10_PERCENT.json",
+          "sha256": "0b9881d2cd19da0c80a29d60fb8b48786da2aa4cd31ec0a6edf057d04a362290"
+        },
+        {
+          "context_id": "train_04",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_04_KEEP_INCUMBENT.json",
+          "sha256": "1996560f210f2023db21e47255b5a247201b16d9de3ed6a6ecc0f85e74716ab5"
+        },
+        {
+          "context_id": "train_10",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_10_RELAX_Q_10_PERCENT.json",
+          "sha256": "0ede61fab42aa7317006575dddac804bc1989e5f5ad7ed23bccf82a5e70a7e6d"
+        },
+        {
+          "context_id": "train_15",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_15_RELAX_Q_10_PERCENT.json",
+          "sha256": "a490c0fae6a600a50e3a3998b28b8023bb9fc659642a7dd3900e30604c629b76"
+        },
+        {
+          "context_id": "train_02",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_02_KEEP_INCUMBENT.json",
+          "sha256": "0421c565056e3212d20d96785773333700951b47f65bbacbe4fcb090c3344e5e"
+        },
+        {
+          "context_id": "train_08",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_08_KEEP_INCUMBENT.json",
+          "sha256": "2703bc44661e595e315f47916f21de2daca36bed0e18abfe5a8bb7c79dd56308"
+        },
+        {
+          "context_id": "train_11",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_11_RELAX_Q_10_PERCENT.json",
+          "sha256": "cbe8ad7c45aa482908655789fb2582b717130e440c9ef8a251be0a74723b03e1"
+        },
+        {
+          "context_id": "train_19",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_19_RELAX_Q_10_PERCENT.json",
+          "sha256": "1005373379a0add2559671f90d2cc8fa2a8203bae1a531c6040a88bf94411aa3"
+        },
+        {
+          "context_id": "train_13",
+          "operation_id": "INCREASE_PV_0025",
+          "file": "counterfactuals\\train_13_INCREASE_PV_0025.json",
+          "sha256": "5dad5441385d120966533ce375ee79f78809fad218cb91166c337a14d1912b5f"
+        },
+        {
+          "context_id": "train_23",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_23_RELAX_Q_10_PERCENT.json",
+          "sha256": "c5cd31c9e852d9096a633462ba0f85bd86aede10b50aa2ef4b8023aad46a89fc"
+        },
+        {
+          "context_id": "train_12",
+          "operation_id": "KEEP_INCUMBENT",
+          "file": "counterfactuals\\train_12_KEEP_INCUMBENT.json",
+          "sha256": "867cfaccb766e44b37b71193128c48733937e3256b353bc5a8cb8cbd7dadee1c"
+        },
+        {
+          "context_id": "train_22",
+          "operation_id": "RELAX_Q_10_PERCENT",
+          "file": "counterfactuals\\train_22_RELAX_Q_10_PERCENT.json",
+          "sha256": "ec7d5c38cc288ee5fda4fe1a0e5dbf3c31505d8edb4fb3426a0460ec9f15d9a5"
+        }
+      ]
+    }
+  ],
+  "scope": "Selected-feedback training replay only; held-out evaluation will follow after distinct final rechecks are available."
+}

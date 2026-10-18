@@ -1,0 +1,70 @@
+{
+  "algorithm": "Stable-Baselines3 SAC",
+  "seed": 23,
+  "steps": 12000,
+  "gamma": 0.98,
+  "learning_rate": 0.0003,
+  "batch_size": 128,
+  "buffer_size": 30000,
+  "learning_starts": 600,
+  "tau": 0.005,
+  "ent_coef": 0.005,
+  "net_arch": [
+    64,
+    64
+  ],
+  "training": "continuous physical-response surrogate; reward only, no MPC labels",
+  "train_load_range": [
+    0.7,
+    1.2
+  ],
+  "train_current_allowance": 1.0,
+  "episode_length": 3,
+  "reward": "-stage_cost -40*(voltage_excess/0.05)^2 -10*current_excess^2 -2*any_violation",
+  "base_cost": "(1-a)^2 +0.05*b^2 +10*mean((v-1.01)^2) +0.05*||u-u_previous||\u00b2",
+  "action_space": "continuous normalized Box[-1,1]^2 mapped into fleet inverter capability",
+  "heldout_cases": [
+    {
+      "id": "P1_nominal",
+      "forecast_loads": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rating_fraction": 1.0,
+      "previous": [
+        0.25,
+        0.0
+      ]
+    },
+    {
+      "id": "P2_load_change",
+      "forecast_loads": [
+        0.78,
+        1.08,
+        0.93
+      ],
+      "rating_fraction": 1.0,
+      "previous": [
+        0.5,
+        -0.1
+      ]
+    },
+    {
+      "id": "P3_current_reserve",
+      "forecast_loads": [
+        1.0,
+        0.94,
+        1.06
+      ],
+      "rating_fraction": 0.8,
+      "previous": [
+        0.25,
+        0.0
+      ]
+    }
+  ],
+  "freeze_utc": "2026-09-27T14:52:10.405272+00:00",
+  "source_sha256": "b20f42aff7afb2a8b3466fcfe1cdb8f8cb47562b9e3dd9deb6aab532032f7359",
+  "surface_sha256": "6be378c71bdb99e20765c442dcaf2b1e1bfdb1255c381169a01b306a4b81847c"
+}

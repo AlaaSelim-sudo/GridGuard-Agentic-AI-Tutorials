@@ -1,0 +1,36 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  teachPoint/.style={circle,draw=teachBlue,fill=white,line width=1.2pt,minimum size=5.7mm,inner sep=0pt},
+  teachDot/.style={circle,fill=teachBlue,minimum size=3.5mm,inner sep=0pt},
+  teachLabel/.style={align=center,text=teachNavy,font=\sffamily\bfseries\fontsize{13}{15}\selectfont},
+  teachNote/.style={align=center,text=teachNavy,font=\sffamily\fontsize{11}{13}\selectfont},
+  teachFlow/.style={-{Latex[length=2.2mm,width=1.6mm]},draw=teachBlue,line width=1.15pt,shorten >=1.5pt,shorten <=1.5pt},
+  teachWarn/.style={-{Latex[length=2.2mm,width=1.6mm]},draw=teachOrange,line width=1.15pt,shorten >=1.5pt,shorten <=1.5pt}]
+\definecolor{teachBlue}{HTML}{00629B}
+\definecolor{teachCyan}{HTML}{00A8C8}
+\definecolor{teachNavy}{HTML}{003B5C}
+\definecolor{teachOrange}{HTML}{B65B14}
+\definecolor{teachGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.3,3.6);
+
+\node[teachPoint] (snapshot) at (1.15,1.8) {};
+\node[teachPoint] (tool) at (3.25,1.8) {};
+\node[teachPoint] (checkpoint) at (5.65,1.8) {};
+\node[teachPoint] (human) at (8.05,1.8) {};
+\node[teachPoint] (fresh) at (10.45,1.8) {};
+\node[teachPoint] (resume) at (12.85,1.8) {};
+\draw[teachFlow] (snapshot) -- (tool);
+\draw[teachFlow] (tool) -- (checkpoint);
+\draw[teachFlow] (checkpoint) -- (human);
+\draw[teachFlow] (human) -- (fresh);
+\draw[teachFlow] (fresh) -- (resume);
+\node[teachLabel] at (1.15,2.5) {Snapshot};
+\node[teachLabel] at (3.25,2.5) {Tool call};
+\node[teachLabel] at (5.65,2.5) {Checkpoint};
+\node[teachLabel] at (8.05,2.6) {Human\\review};
+\node[teachLabel] at (10.45,2.6) {Freshness\\check};
+\node[teachLabel] at (12.85,2.5) {Resume};
+\draw[teachWarn] (fresh.south) -- (10.45,0.5) -- (3.25,0.5) -- (tool.south);
+\node[teachNote,text=teachOrange,fill=white,inner sep=2pt] at (6.9,0.5) {stale inputs: refresh or stop};
+
+\end{tikzpicture}

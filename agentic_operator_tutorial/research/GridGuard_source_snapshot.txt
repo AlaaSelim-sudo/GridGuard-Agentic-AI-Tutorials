@@ -1,0 +1,111 @@
+GridGuard project snapshot, 17 October 2026
+OPRO_Optimizer.py SHA256: cf388739d3e53506cdc2bfb08a7c4a5061656f3062ce2b5966a1dced2bf4105b
+
+# GridGuard
+
+GridGuard is a physics-informed decision-support prototype for distribution-grid operation. It uses a local Llama model through Ollama to propose switching actions and DER or utility-device setpoints. A typed LangGraph `StateGraph` evaluates every proposal with OpenDSS before the desktop app can accept it.
+
+## Workflow
+
+1. `initialize` compiles the feeder, solves the baseline, captures telemetry, discovers admissible controls, and records topology and load-service state.
+2. `plan` builds an OPRO prompt from the best prior solutions, recent evaluations, current violations, and repair feedback.
+3. `verify` checks the action schema, device names, telemetry freshness, quarantined targets, OpenDSS convergence, topology, restored load, voltage, thermal loading, and objective improvement.
+4. A certified candidate goes to `accept`. The node updates the operating state and OPRO history.
+5. Rejected candidates go to `repair`. The node groups failure modes and returns actionable feedback to the next planning iteration.
+6. `finalize` records the final recommendation and research metrics in a JSON run file.
+
+The graph's shared `GridGuardState` carries the feeder model, telemetry, admissible controls, candidate actions, simulation outputs, violation summaries, verification results, and feedback history.
+
+## Certification policy
+
+A candidate passes only when all of these conditions hold:
+
+- Every action uses the supported schema and an admissible device or bus.
+- The telemetry timestamp is fresh, the topology hash matches, and no target is quarantined.
+- OpenDSS converges after applying the candidate.
+- Isolated loads, isolated branches, topology loops, and served load do not regress.
+- Voltage violations and thermal overloads do not worsen.
+- The composite objective improves.
+
+Passing an iteration-level certificate does not necessarily mean that all feeder violations have cleared. The run record separately reports `operating_goal_satisfied` when the final state converges with no voltage-violation buses and no overloaded lines.
+
+## Evaluation outputs
+
+Each `gridguard_run_*.json` file reports:
+
+- certified-action rate
+- reduction in voltage severity, voltage-violation buses, and overloaded lines
+- restored baseline load in kW
+- accepted switching effort
+- invalid-action rejection count and rate
+- iterations executed and iterations to the first certified action
+
+Restored load counts only baseline loads that changed from unserved to served. New loads created during an experiment do not count as restoration.
+
+## Run
+
+Use Python 3.10 or later. For the desktop app, install `requirements.txt`, start
+Ollama with a compatible Llama model, and run:
+
+```powershell
+python OPRO_Optimizer.py
+```
+
+Select the OpenDSS feeder root, solve the baseline, choose the allowed control families, and run the GridGuard certification graph. SMART-DS feeders work when the selected case directory contains a discoverable master DSS file. For formal experiments, provide outage and telemetry commands in the baseline command box and retain the generated JSON run records.
+
+For a headless run on the supplied full SMART-DS Greensboro export, Qt and
+matplotlib are not required:
+
+```powershell
+python -m pip install -r requirements-headless.txt
+python scripts/build_smartds_compat.py
+python scripts/run_gridguard_headless.py --no-prefer-utility-first
+```
+
+The runner defaults to
+`SMARTDS_GSO_solar_extreme_batt_high_peak_opendss` and its generated,
+non-destructive compatibility master. Use `--help` to change the evaluation
+budget, control families, voltage limits, case path, or output directory.
+
+## Current scope
+
+The topology check is a relative non-regression check against the loaded
+baseline; it does not prove that a pre-existing meshed or islanded case is
+radial. Line thermal limits are checked, while transformer/protection
+coordination and field switching authorization remain outside this prototype.
+The app supports research screening and operator decision support; it does not
+issue commands to a live distribution management system.
+
+
+Graph build excerpt (lines 3680-3711)
+    def build(self):
+        if StateGraph is None:
+            raise RuntimeError(
+                "GridGuard requires LangGraph. Install the dependencies in requirements.txt, then restart the app."
+            )
+        graph = StateGraph(GridGuardState)
+        graph.add_node("initialize", self.initialize_node)
+        graph.add_node("plan", self.planner_node)
+        graph.add_node("verify", self.verification_node)
+        graph.add_node("repair", self.repair_node)
+        graph.add_node("critic", self.critic_node)
+        graph.add_node("accept", self.accept_node)
+        graph.add_node("finalize", self.finalize_node)
+        graph.add_edge(START, "initialize")
+        graph.add_conditional_edges(
+            "initialize", lambda state: state["route"], {"plan": "plan", "finalize": "finalize"}
+        )
+        graph.add_edge("plan", "verify")
+        graph.add_conditional_edges(
+            "verify", lambda state: state["route"], {"accept": "accept", "repair": "repair"}
+        )
+        graph.add_conditional_edges(
+            "accept", lambda state: state["route"], {"plan": "plan", "finalize": "finalize"}
+        )
+        graph.add_conditional_edges(
+            "repair", lambda state: state["route"],
+            {"critic": "critic", "plan": "plan", "finalize": "finalize"}
+        )
+        graph.add_edge("critic", "plan")
+        graph.add_edge("finalize", END)
+        return graph.compile()

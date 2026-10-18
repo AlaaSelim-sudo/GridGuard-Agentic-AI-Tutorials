@@ -1,0 +1,26 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\fontsize{11}{13}\selectfont,>=stealth]
+\definecolor{IEEEBlue}{HTML}{00629B}
+\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}
+\definecolor{Slate}{HTML}{526470}
+\definecolor{Amber}{HTML}{A66610}
+\path[use as bounding box] (0,0) rectangle (13,3.5);
+\fill[Cyan!10] (2.282,.65) rectangle (7.2,2.8);
+\draw[->,Slate] (.7,.65)--(7.45,.65) node[right] {$u$};
+\draw[->,Slate] (.7,.65)--(.7,3.13);
+\node[anchor=west,text=Navy] at (1,3.08) {Effort $\frac12u^2$};
+\node[text=Cyan!70!black] at (3.85,2.7) {feasible $u$};
+\draw[IEEEBlue,line width=1.5pt,domain=0:.5,samples=60] plot ({.7+13*\x},{.65+8*\x*\x});
+\draw[Cyan,line width=1pt] (2.282,.65)--(2.282,2.79);
+\fill[IEEEBlue] (2.282,.7685) circle (.085);
+\draw[->,Amber] (4.8,1.75)--(2.37,.86);
+\node[text=Amber,align=center] at (5.65,2.12) {Least effort\\feasible point};
+\node[below,text=Slate] at (.7,.53) {$0$};
+\node[below,text=Navy] at (2.282,.53) {$0.121694$};
+\node[below,text=Slate] at (7.2,.53) {$0.5$};
+\draw[Slate!35] (8.05,.45)--(8.05,3.1);
+\node[anchor=west,text=Navy] at (8.5,2.9) {All four branches:};
+\node[anchor=west,text=Navy] at (8.5,2.13) {$|\hat f(u)|\leq\ell-0.01$};
+\node[anchor=west,text=Slate] at (8.5,1.36) {$0\leq u\leq0.5$ p.u.};
+\node[anchor=west,text=Slate] at (8.5,.61) {Fixed DC sensitivities};
+\end{tikzpicture}%

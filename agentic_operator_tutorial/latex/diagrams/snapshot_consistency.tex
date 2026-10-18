@@ -1,0 +1,41 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rl] at (3.1,3.75) {14:35 snapshot: v42};
+\node[rl] at (10.7,3.75) {15:02 event: v43};
+\node[rp] (a1) at (0.85,2.65) {A};
+\node[rp] (b1) at (5.35,2.65) {B};
+\node[rp] (a2) at (8.25,2.65) {A};
+\node[rp] (b2) at (12.75,2.65) {B};
+\draw[draw=rBlue,line width=1.2pt] (a1.east) -- (2.6,2.65);
+\draw[draw=rBlue,line width=1.2pt] (3.6,2.65) -- (b1.west);
+\fill[rBlue] (2.6,2.65) circle (1.7pt);
+\fill[rBlue] (3.6,2.65) circle (1.7pt);
+\draw[draw=rBlue,line width=1.6pt] (2.6,2.65) -- (3.6,2.65);
+\draw[draw=rBlue,line width=1.2pt] (a2.east) -- (10.0,2.65);
+\draw[draw=rBlue,line width=1.2pt] (11.0,2.65) -- (b2.west);
+\fill[rOrange] (10.0,2.65) circle (1.7pt);
+\fill[rOrange] (11.0,2.65) circle (1.7pt);
+\draw[draw=rOrange,line width=1.6pt] (10.0,2.65) -- (10.85,3.18);
+\draw[rf] (6.1,2.65) -- (7.5,2.65);
+\node[rn] at (6.8,3.15) {S opens};
+\node[rl] at (3.1,1.95) {S closed};
+\node[rl,text=rOrange] at (10.5,1.95) {S open};
+\node[rn] at (3.1,1.1) {14:40 study uses v42};
+\node[rn] at (10.5,1.1) {15:05 review sees v43};
+\draw[draw=rOrange,line width=1.0pt] (2.2,0.7) -- (12.1,0.7);
+\node[rl,text=rOrange] at (7.1,0.22) {Old result needs revalidation against the changed topology};
+
+\end{tikzpicture}

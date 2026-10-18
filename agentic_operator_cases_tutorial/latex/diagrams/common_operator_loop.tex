@@ -1,0 +1,13 @@
+\begin{tikzpicture}[font=\sffamily\fontsize{12}{14}\selectfont,x=1cm,y=1cm,
+b/.style={draw=IEEEBlue,fill=white,align=center,minimum height=.9cm,text width=1.85cm,inner sep=5pt},
+a/.style={IEEEBlue,very thick,-{Latex}}]
+\node[b] (i) at (1.0,2.1) {Freeze\\inputs};
+\node[b] (p) at (3.65,2.1) {Propose\\candidate};
+\node[b] (s) at (6.3,2.1) {Run\\solver};
+\node[b] (v) at (8.95,2.1) {Verify\\evidence};
+\node[b] (h) at (11.6,2.1) {Operator\\review};
+\draw[a](i)--(p);\draw[a](p)--(s);\draw[a](s)--(v);\draw[a](v)--(h);
+\draw[Amber,very thick,-{Latex}] (v.south)--(8.95,.3)--(3.65,.3)--(p.south);
+\node[fill=white,text=Amber] at (6.3,.3) {bounded repair or HOLD};
+\node[text=Navy] at (6.3,3.15) {The agent organizes work. Numerical tools supply engineering evidence.};
+\end{tikzpicture}

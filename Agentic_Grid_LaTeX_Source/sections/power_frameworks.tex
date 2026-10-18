@@ -1,0 +1,94 @@
+% Three related-work frames. Literature checked 2026-09-27.
+% The reference tutorial row denotes the executed five-stage P1--P8 edition;
+% the new selector extension must report its own experiment separately.
+
+\begin{frame}[t]{Grid-agent research already offers several useful mechanisms}
+\begingroup
+\fontsize{8.7}{10.4}\selectfont
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.21\linewidth}>{\raggedright\arraybackslash}p{.44\linewidth}>{\raggedright\arraybackslash}p{.29\linewidth}@{}}
+\toprule Work & Distinctive mechanism & What we learn from it \\
+\midrule
+\textbf{PowerAgent}\newline Zhang \& Xie, 2025
+& Domain models + standardized tool interfaces + reusable workflows
+& Connect engineering software; preserve human review. \\
+\textbf{PowerDAG}\newline Badmus \& Pandey, 2026
+& Adaptive exemplar retrieval; deterministic checks of tool prerequisites
+& Prevent calls on stale or uninitialized state. \\
+\textbf{Grid-Agent}\newline Zhang et al., 2025
+& Five agents; sandbox power flow, validation and rollback
+& Recheck changed actions and retain a valid incumbent. \\
+\textbf{X-GridAgent}\newline Wen \& Chen, 2025
+& Planning--coordination--action hierarchy; structured retrieval and prompt refinement
+& Make tool handoffs and task completion explicit. \\
+\textbf{PowerAgentBench-SS}\newline Mylonas et al., 2026
+& Shared tools/budgets; hidden physical revalidation of submitted claims
+& Evaluate evidence, action quality and cost separately. \\
+\bottomrule
+\end{tabular}
+\par\medskip
+\textbf{Our teaching objective:} combine these lessons with transparent numerical controllers and reproducible comparisons.
+\endgroup
+\sources{[1] \href{https://poweragent.seas.harvard.edu/}{PowerAgent, official ecosystem} / \href{https://doi.org/10.1109/MPE.2025.3579718}{IEEE roadmap}; [2] \href{https://arxiv.org/abs/2603.17418}{PowerDAG}; [3] \href{https://arxiv.org/abs/2508.05702}{Grid-Agent v2}; [4] \href{https://arxiv.org/abs/2512.20789}{X-GridAgent}; [5] \href{https://arxiv.org/abs/2606.18789}{PowerAgentBench-SS}. [2--5]: cited preprints.}
+\note{Place this after the general agentic-patterns slide. The user specifically requested PowerDAG and PowerAgent; these are the verified names. PowerAgent is a published roadmap plus an evolving ecosystem, rather than a single fixed controller. PowerDAG guards tool dependencies and state, which is a concrete reliability mechanism distinct from checking every physical limit. Grid-Agent is a close architectural precedent: it has Topology, Planner, Executor, Validator and Summarizer agents. Do not claim that our five-module workflow or use of numerical verification is unprecedented. X-GridAgent contributes hierarchical tool orchestration and structured retrieval. PowerAgentBench-SS is an evaluation framework, not another control algorithm. We have inspected these sources, not rerun their benchmarks.}
+\end{frame}
+
+\begin{frame}[t]{Compare the capabilities reported in each source}
+\begingroup
+\fontsize{7.6}{8.8}\selectfont
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.30}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.235\linewidth}*{6}{>{\centering\arraybackslash}p{.113\linewidth}}@{}}
+\toprule
+Work & Plans / tools & Simulation feedback & Electrical checks & RL response selector & Multi-LLM vote & Human review \\
+\midrule
+PowerAgent ecosystem [1] & \yesmark & \yesmark & \partmark & NR & NR & \yesmark \\
+PowerDAG [2] & \yesmark & \yesmark & \partmark & NR & NR & NR \\
+Grid-Agent [3] & \yesmark & \yesmark & \yesmark & NR & NR & \partmark \\
+X-GridAgent [4] & \yesmark & \yesmark & \partmark & NR & NR & \partmark \\
+PowerAgentBench-SS [5] & \yesmark & \yesmark & \yesmark & NR & NR & \partmark \\
+\textbf{Tutorial: P1--P8}\newline executed reference & \yesmark & \yesmark & \yesmark & \nomark & \nomark & \yesmark \\
+\textbf{Voltage pilot: E1--E8} & \yesmark & \yesmark & \yesmark & \yesmark & \yesmark & \partmark \\
+\bottomrule
+\end{tabular}
+\par\medskip
+\yesmark\ documented; \partmark\ qualified scope; NR not reported in the inspected work; \nomark\ absent from this reference implementation.
+\par\smallskip
+\textbf{Qualifications:} [1] workflow-specific tools; [2] explicit state-prerequisite guard, not a universal electrical certificate; [3] operator oversight proposed for deployment; [4] solver checks and human prompt refinement; [5] DC pilot and optional approval mode.
+\par\smallskip
+\textbf{P reference:} local readback; one Llama backbone. \textbf{E pilot:} actual three-model pools and learned operation selection; advisory operator report. Learning ties voting here.
+\endgroup
+\sources{Primary sources [1--5]: \href{https://poweragent.seas.harvard.edu/}{PowerAgent}; \href{https://arxiv.org/html/2603.17418v1}{PowerDAG, IV--V}; \href{https://arxiv.org/html/2508.05702v2}{Grid-Agent, IV / VI}; \href{https://arxiv.org/html/2512.20789v1}{X-GridAgent, II--IV}; \href{https://arxiv.org/html/2606.18789v1}{PowerAgentBench-SS, II--IV}. Tutorial evidence: \texttt{Proposal\_Complete\_Workflow.ipynb}.}
+\note{Read this as a scope map, not a leaderboard. NR means the feature is not reported in the inspected source; it does not claim that no later version could include it. A triangle is intentional. PowerDAG has a genuine deterministic guard, but its prerequisite checks are not equivalent to a comprehensive physical acceptance contract. X-GridAgent uses numerical constraint tools and reflection; human assistance concerns prompt construction. Grid-Agent discusses RL time-series control as future work, not as an implemented LLM-response selector. PowerAgentBench-SS describes human-supervised submission, while its reported pilot compares scripted and LLM agents. The P row is the earlier executed reference. The E row has 168 actual model calls and five frozen bandit training-order checkpoints on the voltage pilot. Its human output is an advisory report, not a new implemented acknowledgment UI. The selector chooses canonical proposed operations, not which LLM to call. No superiority is established. The new extension receives separate evidence and comparisons later.}
+\end{frame}
+
+\begin{frame}[t]{Which response deserves the next simulation trial?}
+\deepdive
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=2.45cm,minimum height=1.7cm,inner sep=4pt,font=\fontsize{8.5}{10}\selectfont},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (candidate) at (0,0) {\textbf{Numerical candidates}\\MPC plan\\SAC action};
+\node[box] (language) at (3.4,0) {\textbf{LLM responses}\\Allowed choices\\Brief reasons};
+\node[box,fill=mint!25] (selection) at (6.8,0) {\textbf{Selection methods}\\Voting baseline\\RL choice};
+\node[box] (gate) at (10.2,0) {\textbf{Engineering evidence}\\Simulate trial\\Check limits};
+\draw[flow] (candidate.east)--(language.west);
+\draw[flow] (language.east)--(selection.west);
+\draw[flow] (selection.east)--(gate.west);
+\end{tikzpicture}
+\end{center}
+\par\smallskip
+\fontsize{8.7}{10.4}\selectfont
+\textbf{Design question:} can learning select a better trial than fixed choice, one LLM or voting?
+\par\medskip
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.27\linewidth}>{\raggedright\arraybackslash}p{.67\linewidth}@{}}
+\toprule Inherited mechanisms & New evaluation required \\
+\midrule
+Feedback + checks & Same candidate pool, constraints and numerical evaluation budget. \\
+Several models & Compare individual models, voting and learned selection on held-out cases. \\
+Candidate scores & Learn from declared rewards; separate training, testing and inference latency. \\
+\bottomrule
+\end{tabular}
+\par\medskip
+\textbf{Two different learned policies:} SAC proposes a physical control; the response selector chooses among LLM outputs. A contextual bandit learns one-step selection, not a long-horizon control policy.
+\sources{Prior mechanisms: \href{https://arxiv.org/abs/2603.17418}{PowerDAG}; \href{https://arxiv.org/abs/2508.05702}{Grid-Agent}; evaluation: \href{https://arxiv.org/abs/2606.18789}{PowerAgentBench-SS}. SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al., ICML 2018}. Selection design and experimental scope: this tutorial extension.}
+\note{Optional related-work bridge. This frame introduces the extension design and its evaluation obligations. It does not claim that the earlier optimizer was trained by reinforcement learning: that optimizer performed bounded language-guided search. Explain that the continuous SAC policy and the model-response selector have different observations, actions and rewards. A one-step contextual bandit is a valid simple reinforcement-learning formulation for selection, but it should not be advertised as a sequential deep-RL controller. Numerical methods produce candidate controls. LLM responses choose permitted trial actions and supply public explanations; the selected response receives a numerical trial and engineering checks afterward. It is not already electrically verified when selected. Neither a majority vote nor learned reward can override electrical rejection. A changed candidate must return to simulation and verification, and the final recommendation is freshly checked. The experimental section must disclose trained selector parameters, splits, baseline budgets, actual model outputs and measured latency before claiming a benefit.}
+\end{frame}

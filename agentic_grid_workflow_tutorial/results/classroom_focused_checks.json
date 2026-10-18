@@ -1,0 +1,75 @@
+{
+  "evidence_identity_and_mutation": "pass",
+  "invalid_request_rejected": "4/4",
+  "acknowledgment_scope_id_name": "pass; no dispatch",
+  "fresh_changed_voltage_case": {
+    "forecast": [
+      1.0617665301392512,
+      1.0554862350687206,
+      1.0507251028187368
+    ],
+    "rating_fraction": 0.75,
+    "table": [
+      {
+        "method": "MPC",
+        "feasible": true,
+        "current_step_J": 0.030567828466215263,
+        "a": 0.9606210792540386,
+        "b": -0.10569589348294361,
+        "vmin": 1.022697280103998,
+        "vmax": 1.0375537894720261,
+        "max_allowed_current_pct": 73.97547450780408,
+        "failures": "none"
+      },
+      {
+        "method": "saved SAC actor",
+        "feasible": true,
+        "current_step_J": 0.43278276560907486,
+        "a": 0.3428162932395935,
+        "b": 0.026003858298063277,
+        "vmin": 1.0124517874896337,
+        "vmax": 1.03,
+        "max_allowed_current_pct": 58.9322416201208,
+        "failures": "none"
+      }
+    ]
+  },
+  "restoration_priority_tradeoff": "weighted130total/90critical vs unweighted140total/30critical at40kW",
+  "cyber_stealth_and_trust_gate": "pass",
+  "optional_OpenDSS_route": {
+    "executed_separately": true,
+    "observed_rounded_results": [
+      {
+        "model": "MV",
+        "same_MV_action": true,
+        "passes": true,
+        "vmax": 1.038709,
+        "allowed_current_pct": 73.661582
+      },
+      {
+        "model": "OpenDSS",
+        "same_MV_action": true,
+        "passes": false,
+        "vmax": 1.089828,
+        "allowed_current_pct": 347.253022
+      },
+      {
+        "model": "OpenDSS",
+        "new_AC_MPC": true,
+        "passes": true,
+        "vmax": 1.033002,
+        "allowed_current_pct": 99.872739
+      }
+    ]
+  },
+  "optional_local_llama": {
+    "choice": "RELAX_Q_10_PERCENT",
+    "reason": "The current incumbent has a score of 0.031103819352072536, but the RELAX_Q_10_PERCENT operation has the potential to reduce reactive effort magnitude by ten percent, which may improve the cost. The incumbent's control is [0.9603066164910677, -0.11111388575888505], and the operation's parameters are {'control': [0.9603066164910677, -0.10000249718299654]}. This operation is a bounded local search, and its tool is BOUNDED_LOCAL_SEARCH.",
+    "call_id": 1,
+    "seconds": 34.11281940000481,
+    "source": "actual_local_llm",
+    "error": null,
+    "journal": "results\\classroom_optional_llama_validation.json",
+    "context": "original archived test_01; current live call; no numeric result inferred"
+  }
+}

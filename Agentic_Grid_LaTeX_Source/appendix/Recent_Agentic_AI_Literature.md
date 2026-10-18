@@ -1,0 +1,61 @@
+# Recent agentic-AI literature and this tutorial's design
+
+Base reading map checked on **2026-09-27**; teaching refresh added on **2026-10-17**. This is a focused reading map, not a systematic review. Publication status below refers to the cited source. Preprint findings are explicitly identified, and no external benchmark was reproduced for this tutorial.
+
+**Start with the October teaching update:** [Agentic_AI_Research_2026.md](Agentic_AI_Research_2026.md) documents newly checked primary sources, ten teachable mechanisms, direct code connections and explicit limits. It adds recent work on uncertainty-aware orchestration, reusable skills, external governance, evidence-based evaluation and the costs of agent coordination. References for the four near-end classroom research slides are also provided in [Frontier_References.bib](Frontier_References.bib) for reuse. The broader historical reading map below remains available; its older access dates are not silently relabeled as new checks.
+
+## What the implemented architecture is
+
+The executed reference study P1–P8 has **five core modules: Awareness, Planning, Simulation, Verification and LLM Optimizer**. Numerical functions perform estimation, optimization, SAC inference, simulation and engineering checks. One local Llama backbone serves several language roles; a separate Qwen run checks portability. Supporting execution, explanation and human acknowledgment do not add extra core modules. Role separation does not remove correlated errors, and a fresh solve can share the planner's physical assumptions.
+
+The revised voltage lesson adds MPC and SAC as initial candidates, multiple local-model responses, canonical operation voting and a separately trained contextual-bandit selector. Its data, splits and timing are distinct from P1–P8. The selector chooses a trial before its simulated outcome is exposed. Final admissibility still comes from numerical checks. Restoration and cyber remain their documented case-specific experiments; no trained response selector is claimed for those cases.
+
+The closest power-system frameworks are compared in [Power_Frameworks_Comparison.md](Power_Frameworks_Comparison.md): **PowerAgent, PowerDAG, Grid-Agent, X-GridAgent and PowerAgentBench-SS**. The foundation slides now include their mechanisms and a compact qualified capability matrix. Checkmarks indicate documented scope, not performance scores.
+
+The current Grid-Agent reference is [arXiv:2508.05702v3](https://arxiv.org/html/2508.05702v3), revised 8 September 2025. It describes Topology, Planner, Executor, Validator and Summarizer roles with sandbox validation and rollback. Human oversight is proposed beyond the simulation experiments; a trained RL response selector is not demonstrated in the inspected methods. v2's numbered VI-D RL subsection is not present in v3 and is not used to support the current comparison. These architectural precedents preclude a novelty claim based only on five roles or numerical verification.
+
+We implement the workflow directly in Python. ReAct, AutoGen, MetaGPT, Magentic-One, and LangGraph inform the comparison of design patterns; their packages, teams, or benchmark results are not embedded in this implementation.
+
+## General methods and orchestration infrastructure
+
+| Primary work and status | Mechanism and specific potential advantage | What we adopt; what remains unproved |
+|---|---|---|
+| Shunyu Yao et al., **ReAct: Synergizing Reasoning and Acting in Language Models**, ICLR 2023; initial preprint 2022. [Paper](https://arxiv.org/abs/2210.03629), [author repository](https://github.com/ysymyth/ReAct). | Interleaved language steps, actions, and environment observations allow later tool choices to use returned evidence. | We return numerical findings to bounded language roles. A generated explanation is not a physical proof or a direct record of inaccessible internal model reasoning. |
+| Qingyun Wu et al., **AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation**, 2023 preprint. [Primary paper](https://arxiv.org/abs/2308.08155). | Customizable agents combine LLMs, tools, human input, and programmable conversation patterns. The practical contribution is reusable interaction structure. | We separate responsibilities and tool permissions. We do not run AutoGen, unrestricted conversations or parallel distributed control. The new response-pool vote is an explicitly defined local baseline, not independent expert consensus. |
+| Sirui Hong et al., **MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework**, ICLR 2024; initial preprint 2023. [Paper](https://arxiv.org/abs/2308.00352), [conference record](https://openreview.net/forum?id=VtmBAGCN7o). | Standard operating procedures, specialized roles, and intermediate artifacts structure collaborative software work. | Typed outputs and explicit handoffs serve a similar organizational purpose here. Reported software-task results do not establish improved grid feasibility or operator workload. |
+| Adam Fourney et al., **Magentic-One: A Generalist Multi-Agent System for Solving Complex Tasks**, 2024 preprint. [Primary paper](https://arxiv.org/abs/2411.04468), [full text](https://arxiv.org/html/2411.04468v1). | An orchestrator tracks task/progress records and replans for specialist agents. Its accompanying evaluation supports repetitions and isolation. | We retain stage evidence and permit bounded recovery. We do not deploy its browser/file/coding agents or claim generalist benchmark performance. |
+| **LangGraph**, official maintainer documentation, accessed 2026-09-27. [Overview](https://docs.langchain.com/oss/python/langgraph/overview), [interrupt API](https://reference.langchain.com/python/langgraph/types/interrupt). | Explicit state graphs, persistence/checkpoints, and interrupts support resumable execution and a defined human-review boundary. This is software documentation, not a peer-reviewed power-grid experiment. | Our explicit states and readback record illustrate related concepts. There is no LangGraph dependency, durable distributed runtime, or authenticated utility interface in the workshop. |
+
+These advantages concern mechanisms. Whether they improve correctness, speed, cost, or usability depends on the application and its comparator. More roles can also increase coordination errors and unnecessary escalation.
+
+## Power-system applications and evaluation
+
+| Primary work and status | Task and paper-reported evidence | Transferable lesson and boundary |
+|---|---|---|
+| Mengshuo Jia, Zeyu Cui, and Gabriela Hug, **Enhancing LLMs for Power System Simulations: A Feedback-driven Multi-agent Framework**. Initial preprint 2024; cited revision v3, 2025. [Primary paper](https://arxiv.org/abs/2411.16707). | Retrieval, reasoning, and execution-error feedback support simulation assistance. The abstract reports 69 tasks involving Daline and MATPOWER and improved task completion. | Feed actual execution errors back to the workflow. Completing a simulation task is a different endpoint from correct operator intent, electrical feasibility, or safe field operation. |
+| Mohamed Shamseldein, **Grid-Mind: An LLM-Orchestrated Multi-Fidelity Agent for Automated Connection Impact Assessment**, 2026 preprint. [Primary paper](https://arxiv.org/abs/2602.20683). | An eleven-tool registry and simulation-grounded checks address connection-impact assessment. The abstract separately reports parsing and tool-selection performance on IEEE 118-bus scenarios. | Score schema validity, tool choice, and physical conclusions separately. The reported setting and model differ from this feeder tutorial; we do not reproduce its results or infer utility readiness. |
+| Riccardo Mansutti, Andrea Pomarico, Robert Jakob, Qian Zhang, Alberto Berizzi, and Kevin O'Sullivan, **RestoreBench: Can AI Agents Restore Power Flow Convergence?**, 2026 preprint, submitted 2026-08-31. [Primary paper](https://arxiv.org/abs/2609.00384), [author code](https://github.com/Mansutti081/RestoreBench). | The abstract defines chatbot, single-agent, and multi-agent comparisons on two grids with 46 non-convergence cases per grid. | Define observation/action spaces and matched architecture comparisons. Restoring solver convergence is not restoring disconnected load, and convergence alone does not certify all operating constraints. |
+
+The application summaries above use verified primary abstracts. Detailed benchmark numbers, unseen ablations, causal claims, or full-text findings that were not inspected are intentionally not imported into the workshop.
+
+## What our own evidence can support
+
+The numerical tools supply feasible candidates within their stated model scopes. Llama can interpret supported wording, select a permitted route, request a bounded retry, and identify a focus for human review. The workshop exposes actual outputs rather than substituting a templated sentence for a model response.
+
+The studies remain distinct: the continuous SAC/MPC runs, the small-formulation agent traces, the prospective language-confirmation set, and the historical feeder-catalog comparison use different protocols. A completion gain in language intake is not a gain in physical control quality. A fresh AC check can still pass a candidate under an incorrectly interpreted current limit. Additional language review can also escalate a numerically acceptable result unnecessarily.
+
+For the next experiment, hold tool implementations, physical models, permissions, observations, and retry budgets fixed. Predeclare unseen requests and repeated seeds/calls. Report exact semantic completion, wrong READY interpretations, valid abstentions, numerical violations, objective values, and end-to-end cost separately. A claim about reduced human workload or better operator decisions requires a human study. The present tutorial provides no field-deployment or independent-agent-consensus claim.
+
+## Teaching use
+
+The current classroom route teaches mechanisms and tool contracts during minutes 0–40, including the first executable contract exercise. The four-slide research/evaluation section near the end revisits coordination, reusable skills, external authority and matched evidence. Detailed source metrics remain optional reading. Use a concrete code change and returned artifact to explain each mechanism; avoid narrating every table cell. Define the symbols needed for each case before running its experiment, and return to actual recorded Llama responses before stating a benefit. Keep prior experiment protocols distinct from the fresh `Classroom_Labs.ipynb` exercises.
+
+
+## Learning to select a response
+
+- Li, Chu, Langford and Schapire, [A Contextual-Bandit Approach to Personalized News Article Recommendation](https://arxiv.org/abs/1003.0146), WWW 2010. LinUCB introduces context-dependent reward prediction with an exploration bonus. The application is recommendation, not electrical control.
+- Poon et al., [Online Multi-LLM Selection via Contextual Bandits under Unstructured Context Evolution](https://arxiv.org/abs/2506.17670), cited 2025 preprint. It studies sequential model choice when prompts evolve and feedback is limited. Its theoretical assumptions do not establish feeder safety.
+- Wei et al., [Learning to Route LLMs from Bandit Feedback: One Policy, Many Trade-offs](https://arxiv.org/abs/2510.07429), 2025. It treats model routing with partial feedback and a performance/cost preference. Our shared-pool response selection pays for every generated response, which differs from routing a prompt to only one model.
+- Ong et al., [RouteLLM: Learning to Route LLMs from Preference Data](https://arxiv.org/abs/2406.18665), ICLR 2025. Preference-trained routing is relevant prior art, but learned routing alone should not automatically be labeled reinforcement learning.
+
+The voltage pilot uses a transparent linear contextual-action policy. It is one-step reward learning, separate from the continuous SAC actor and from LLM fine-tuning. A future sequential PPO router would require state transitions, a multi-step return and independent training evidence. Same-pool majority, uniform and fixed-model selectors help test whether learning adds value; the conventional numerical alternative tests whether generating the pool was worthwhile at all.

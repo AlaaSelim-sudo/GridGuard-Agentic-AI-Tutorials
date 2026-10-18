@@ -1,0 +1,35 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rp] (question) at (1.3,2.1) {};
+\node[rl] at (1.3,2.82) {Question};
+\node[rp] (plan) at (4.35,2.1) {};
+\node[rl] at (4.35,2.82) {Plan};
+\draw[rf] (question.east) -- (plan.west);
+\node[rp] (fault) at (8.1,3.15) {};
+\node[rl] at (8.1,3.85) {Signal tools};
+\node[rn] at (8.1,2.62) {COMTRADE record};
+\node[rp] (manual) at (8.1,.95) {};
+\node[rl] at (8.1,1.55) {Manual search};
+\node[rn] at (8.1,.35) {product documents};
+\draw[rf] (plan.east) -- (5.6,2.1) |- (fault.west);
+\draw[rf,dashed] (plan.east) -- (5.6,2.1) |- (manual.west);
+\node[rp] (answer) at (12.35,2.1) {};
+\node[rl] at (12.35,2.82) {Answer};
+\node[rn] at (12.35,1.48) {with evidence};
+\draw[rf] (fault.east) -- (10.55,3.15) |- (answer.west);
+\draw[rf,dashed] (manual.east) -- (10.55,.95) |- (answer.west);
+
+\end{tikzpicture}

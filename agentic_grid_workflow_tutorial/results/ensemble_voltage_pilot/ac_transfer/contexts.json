@@ -1,0 +1,4714 @@
+[
+  {
+    "id": "test_01",
+    "split": "test",
+    "case": {
+      "id": "test_01",
+      "forecast_loads": [
+        1.0112062191802391,
+        1.005224985779734,
+        1.0006905741130825
+      ],
+      "rating_fraction": 0.7995473229563319,
+      "previous": [
+        0.2696261713643143,
+        0.0
+      ]
+    },
+    "status": "READY",
+    "numerical_record": "numerical\\test_01.json",
+    "incumbent": {
+      "candidate": {
+        "tool": "CONTINUOUS_MPC",
+        "control": [
+          0.3060522326419636,
+          0.027696908967886763
+        ],
+        "operation": "INITIAL_MPC"
+      },
+      "backend": "opendss",
+      "candidate_hash": "76e85ec890e5425cbc5c61d30124bbbbee619a980287df360194e5c0e3f5bb54",
+      "evidence_hash": "2b040a0c3d0843cc834b3de84a26b4bbb5b61bfbe8ee765bff62b97c76836579",
+      "summary": {
+        "control": [
+          0.3060522326419636,
+          0.027696908967886763
+        ],
+        "p_actual_kw": 2402.6467002858303,
+        "q_actual_kvar": 217.4331040333442,
+        "vmin": 1.0005276166702253,
+        "vmax": 1.0330024384102277,
+        "max_line_utilization_pct": 79.85298089339787,
+        "max_allowed_current_pct": 99.87273873689041,
+        "accepted": true,
+        "violations": {
+          "voltage_low": 0,
+          "voltage_high": 0,
+          "line_current": 0,
+          "inverter_capability": 0,
+          "dispatch_tracking": 0
+        },
+        "scope": "full supplied MV/LV feeder",
+        "backend": "opendss",
+        "load_mult": 1.0112062191802391,
+        "rating_fraction": 0.7995473229563319
+      },
+      "failures": [],
+      "feasible": true,
+      "score": 0.4818731743211942,
+      "seconds": 0.42651680001290515,
+      "error": null
+    },
+    "pretrial_features": {
+      "case_family": "voltage",
+      "planning_backend": "opendss",
+      "load_mean": 1.0057072596910186,
+      "load_span": 0.010515645067156631,
+      "current_margin": 0.001272612631095904,
+      "voltage_margin": 0.016997561589772392,
+      "incumbent_cost": 0.4818731743211942,
+      "remaining_budget": 1
+    },
+    "catalog": {
+      "INCREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3085522326419636,
+            0.027696908967886763
+          ]
+        }
+      },
+      "RELAX_Q_10_PERCENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3060522326419636,
+            0.024927218071098087
+          ]
+        }
+      },
+      "DECREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.30355223264196357,
+            0.027696908967886763
+          ]
+        }
+      },
+      "KEEP_INCUMBENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3060522326419636,
+            0.027696908967886763
+          ]
+        }
+      }
+    },
+    "public_context": {
+      "case_id": "test_01",
+      "model_scope": "Full supplied MV/LV feeder",
+      "case": {
+        "id": "test_01",
+        "forecast_loads": [
+          1.0112062191802391,
+          1.005224985779734,
+          1.0006905741130825
+        ],
+        "rating_fraction": 0.7995473229563319,
+        "previous": [
+          0.2696261713643143,
+          0.0
+        ]
+      },
+      "objective": "Current-step J=(1-a)^2+0.05*b^2+10*mean((V-1.01)^2)+0.05*||u-u_previous||^2",
+      "initial_candidates": [
+        {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.3060522326419636,
+              0.027696908967886763
+            ],
+            "operation": "INITIAL_MPC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "76e85ec890e5425cbc5c61d30124bbbbee619a980287df360194e5c0e3f5bb54",
+          "evidence_hash": "2b040a0c3d0843cc834b3de84a26b4bbb5b61bfbe8ee765bff62b97c76836579",
+          "summary": {
+            "control": [
+              0.3060522326419636,
+              0.027696908967886763
+            ],
+            "p_actual_kw": 2402.6467002858303,
+            "q_actual_kvar": 217.4331040333442,
+            "vmin": 1.0005276166702253,
+            "vmax": 1.0330024384102277,
+            "max_line_utilization_pct": 79.85298089339787,
+            "max_allowed_current_pct": 99.87273873689041,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 1.0112062191802391,
+            "rating_fraction": 0.7995473229563319
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.4818731743211942,
+          "seconds": 0.42651680001290515,
+          "error": null
+        },
+        {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.3400939702987671,
+              0.014049073606729507
+            ],
+            "operation": "INITIAL_SAC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "d62d1fd646076bb64ec668033d6ff168f330d3d0a6dbabbbb95eaa2edd994236",
+          "evidence_hash": "d87fff5559870bef798893c0b998043197f7a1731d0437585f62332c08926168",
+          "summary": {
+            "control": [
+              0.3400939702987671,
+              0.014049073606729507
+            ],
+            "p_actual_kw": 2669.8895429436006,
+            "q_actual_kvar": 110.29150172118796,
+            "vmin": 1.0011846795646644,
+            "vmax": 1.0354512557455933,
+            "max_line_utilization_pct": 90.36362268787077,
+            "max_allowed_current_pct": 113.01847944878438,
+            "accepted": false,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 2,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 1.0112062191802391,
+            "rating_fraction": 0.7995473229563319
+          },
+          "failures": [
+            "thermal"
+          ],
+          "feasible": false,
+          "score": null,
+          "seconds": 0.14235760000883602,
+          "error": null
+        }
+      ],
+      "incumbent": {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3060522326419636,
+            0.027696908967886763
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "76e85ec890e5425cbc5c61d30124bbbbee619a980287df360194e5c0e3f5bb54",
+        "evidence_hash": "2b040a0c3d0843cc834b3de84a26b4bbb5b61bfbe8ee765bff62b97c76836579",
+        "summary": {
+          "control": [
+            0.3060522326419636,
+            0.027696908967886763
+          ],
+          "p_actual_kw": 2402.6467002858303,
+          "q_actual_kvar": 217.4331040333442,
+          "vmin": 1.0005276166702253,
+          "vmax": 1.0330024384102277,
+          "max_line_utilization_pct": 79.85298089339787,
+          "max_allowed_current_pct": 99.87273873689041,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.0112062191802391,
+          "rating_fraction": 0.7995473229563319
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4818731743211942,
+        "seconds": 0.42651680001290515,
+        "error": null
+      },
+      "remaining_candidate_evaluations": 1,
+      "operations": {
+        "INCREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3085522326419636,
+              0.027696908967886763
+            ]
+          }
+        },
+        "RELAX_Q_10_PERCENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3060522326419636,
+              0.024927218071098087
+            ]
+          }
+        },
+        "DECREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.30355223264196357,
+              0.027696908967886763
+            ]
+          }
+        },
+        "KEEP_INCUMBENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3060522326419636,
+              0.027696908967886763
+            ]
+          }
+        }
+      },
+      "operation_meanings": {
+        "INCREASE_PV_0025": "Increase active participation a by 0.0025 to reduce curtailment; a fresh check may reject it",
+        "RELAX_Q_10_PERCENT": "Reduce reactive effort magnitude by ten percent; recheck voltages and currents",
+        "DECREASE_PV_0025": "Reduce active participation by 0.0025 to add possible headroom at curtailment cost",
+        "KEEP_INCUMBENT": "Retain the already checked numerical incumbent; final fresh check still required"
+      },
+      "instruction": "Choose one permitted operation and give a brief evidence-based public reason. Do not invent future trial outcomes."
+    },
+    "initial_evaluations": [
+      {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3060522326419636,
+            0.027696908967886763
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "76e85ec890e5425cbc5c61d30124bbbbee619a980287df360194e5c0e3f5bb54",
+        "evidence_hash": "2b040a0c3d0843cc834b3de84a26b4bbb5b61bfbe8ee765bff62b97c76836579",
+        "summary": {
+          "control": [
+            0.3060522326419636,
+            0.027696908967886763
+          ],
+          "p_actual_kw": 2402.6467002858303,
+          "q_actual_kvar": 217.4331040333442,
+          "vmin": 1.0005276166702253,
+          "vmax": 1.0330024384102277,
+          "max_line_utilization_pct": 79.85298089339787,
+          "max_allowed_current_pct": 99.87273873689041,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.0112062191802391,
+          "rating_fraction": 0.7995473229563319
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4818731743211942,
+        "seconds": 0.42651680001290515,
+        "error": null
+      },
+      {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.3400939702987671,
+            0.014049073606729507
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "d62d1fd646076bb64ec668033d6ff168f330d3d0a6dbabbbb95eaa2edd994236",
+        "evidence_hash": "d87fff5559870bef798893c0b998043197f7a1731d0437585f62332c08926168",
+        "summary": {
+          "control": [
+            0.3400939702987671,
+            0.014049073606729507
+          ],
+          "p_actual_kw": 2669.8895429436006,
+          "q_actual_kvar": 110.29150172118796,
+          "vmin": 1.0011846795646644,
+          "vmax": 1.0354512557455933,
+          "max_line_utilization_pct": 90.36362268787077,
+          "max_allowed_current_pct": 113.01847944878438,
+          "accepted": false,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 2,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.0112062191802391,
+          "rating_fraction": 0.7995473229563319
+        },
+        "failures": [
+          "thermal"
+        ],
+        "feasible": false,
+        "score": null,
+        "seconds": 0.14235760000883602,
+        "error": null
+      }
+    ],
+    "planning_seconds_reused": 12.956186800001888,
+    "context_hash": "54a6aecaa9df69cb6df9cb2fd30b057e7edd1fbfdc80c38afcd11f0746bb8d0a"
+  },
+  {
+    "id": "test_02",
+    "split": "test",
+    "case": {
+      "id": "test_02",
+      "forecast_loads": [
+        0.9273945168495327,
+        0.9152511230193203,
+        0.9651700106687189
+      ],
+      "rating_fraction": 0.861091374083999,
+      "previous": [
+        0.25638232765157826,
+        0.0
+      ]
+    },
+    "status": "READY",
+    "numerical_record": "numerical\\test_02.json",
+    "incumbent": {
+      "candidate": {
+        "tool": "CONTINUOUS_MPC",
+        "control": [
+          0.3215718469405695,
+          0.014549237227311424
+        ],
+        "operation": "INITIAL_MPC"
+      },
+      "backend": "opendss",
+      "candidate_hash": "45af99cfd061d02d4db12e7d6c581b84bc9c08d41deef42090a3ae8e4db7c89e",
+      "evidence_hash": "c311970544657590e6c55917ded231293b104260b6b39933de18ce6aae8a215f",
+      "summary": {
+        "control": [
+          0.3215718469405695,
+          0.014549237227311424
+        ],
+        "p_actual_kw": 2524.482603136801,
+        "q_actual_kvar": 114.21800950144458,
+        "vmin": 1.004324811484437,
+        "vmax": 1.0365799731958056,
+        "max_line_utilization_pct": 85.84174716814515,
+        "max_allowed_current_pct": 99.68947518428088,
+        "accepted": true,
+        "violations": {
+          "voltage_low": 0,
+          "voltage_high": 0,
+          "line_current": 0,
+          "inverter_capability": 0,
+          "dispatch_tracking": 0
+        },
+        "scope": "full supplied MV/LV feeder",
+        "backend": "opendss",
+        "load_mult": 0.9273945168495327,
+        "rating_fraction": 0.861091374083999
+      },
+      "failures": [],
+      "feasible": true,
+      "score": 0.4608207190362834,
+      "seconds": 0.14547130001301412,
+      "error": null
+    },
+    "pretrial_features": {
+      "case_family": "voltage",
+      "planning_backend": "opendss",
+      "load_mean": 0.9359385501791907,
+      "load_span": 0.04991888764939856,
+      "current_margin": 0.003105248157191154,
+      "voltage_margin": 0.013420026804194407,
+      "incumbent_cost": 0.4608207190362834,
+      "remaining_budget": 1
+    },
+    "catalog": {
+      "INCREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3240718469405695,
+            0.014549237227311424
+          ]
+        }
+      },
+      "RELAX_Q_10_PERCENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3215718469405695,
+            0.013094313504580282
+          ]
+        }
+      },
+      "DECREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3190718469405695,
+            0.014549237227311424
+          ]
+        }
+      },
+      "KEEP_INCUMBENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3215718469405695,
+            0.014549237227311424
+          ]
+        }
+      }
+    },
+    "public_context": {
+      "case_id": "test_02",
+      "model_scope": "Full supplied MV/LV feeder",
+      "case": {
+        "id": "test_02",
+        "forecast_loads": [
+          0.9273945168495327,
+          0.9152511230193203,
+          0.9651700106687189
+        ],
+        "rating_fraction": 0.861091374083999,
+        "previous": [
+          0.25638232765157826,
+          0.0
+        ]
+      },
+      "objective": "Current-step J=(1-a)^2+0.05*b^2+10*mean((V-1.01)^2)+0.05*||u-u_previous||^2",
+      "initial_candidates": [
+        {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.3215718469405695,
+              0.014549237227311424
+            ],
+            "operation": "INITIAL_MPC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "45af99cfd061d02d4db12e7d6c581b84bc9c08d41deef42090a3ae8e4db7c89e",
+          "evidence_hash": "c311970544657590e6c55917ded231293b104260b6b39933de18ce6aae8a215f",
+          "summary": {
+            "control": [
+              0.3215718469405695,
+              0.014549237227311424
+            ],
+            "p_actual_kw": 2524.482603136801,
+            "q_actual_kvar": 114.21800950144458,
+            "vmin": 1.004324811484437,
+            "vmax": 1.0365799731958056,
+            "max_line_utilization_pct": 85.84174716814515,
+            "max_allowed_current_pct": 99.68947518428088,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9273945168495327,
+            "rating_fraction": 0.861091374083999
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.4608207190362834,
+          "seconds": 0.14547130001301412,
+          "error": null
+        },
+        {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.3271929919719696,
+              0.007306058630347252
+            ],
+            "operation": "INITIAL_SAC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "3d9eed52c611420f401e86f611520cd892a25c5b5140281b3d48debb2f077636",
+          "evidence_hash": "e95c06d3abf05b40cfcc07fbac528cefecf5213b4f641df866dbd802c5f3acc0",
+          "summary": {
+            "control": [
+              0.3271929919719696,
+              0.007306058630347252
+            ],
+            "p_actual_kw": 2568.611101871477,
+            "q_actual_kvar": 57.35582292194758,
+            "vmin": 1.0041372012951222,
+            "vmax": 1.0363818328014403,
+            "max_line_utilization_pct": 87.65044989549399,
+            "max_allowed_current_pct": 101.78995230179106,
+            "accepted": false,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 2,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9273945168495327,
+            "rating_fraction": 0.861091374083999
+          },
+          "failures": [
+            "thermal"
+          ],
+          "feasible": false,
+          "score": null,
+          "seconds": 0.16969950000930112,
+          "error": null
+        }
+      ],
+      "incumbent": {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3215718469405695,
+            0.014549237227311424
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "45af99cfd061d02d4db12e7d6c581b84bc9c08d41deef42090a3ae8e4db7c89e",
+        "evidence_hash": "c311970544657590e6c55917ded231293b104260b6b39933de18ce6aae8a215f",
+        "summary": {
+          "control": [
+            0.3215718469405695,
+            0.014549237227311424
+          ],
+          "p_actual_kw": 2524.482603136801,
+          "q_actual_kvar": 114.21800950144458,
+          "vmin": 1.004324811484437,
+          "vmax": 1.0365799731958056,
+          "max_line_utilization_pct": 85.84174716814515,
+          "max_allowed_current_pct": 99.68947518428088,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9273945168495327,
+          "rating_fraction": 0.861091374083999
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4608207190362834,
+        "seconds": 0.14547130001301412,
+        "error": null
+      },
+      "remaining_candidate_evaluations": 1,
+      "operations": {
+        "INCREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3240718469405695,
+              0.014549237227311424
+            ]
+          }
+        },
+        "RELAX_Q_10_PERCENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3215718469405695,
+              0.013094313504580282
+            ]
+          }
+        },
+        "DECREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3190718469405695,
+              0.014549237227311424
+            ]
+          }
+        },
+        "KEEP_INCUMBENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3215718469405695,
+              0.014549237227311424
+            ]
+          }
+        }
+      },
+      "operation_meanings": {
+        "INCREASE_PV_0025": "Increase active participation a by 0.0025 to reduce curtailment; a fresh check may reject it",
+        "RELAX_Q_10_PERCENT": "Reduce reactive effort magnitude by ten percent; recheck voltages and currents",
+        "DECREASE_PV_0025": "Reduce active participation by 0.0025 to add possible headroom at curtailment cost",
+        "KEEP_INCUMBENT": "Retain the already checked numerical incumbent; final fresh check still required"
+      },
+      "instruction": "Choose one permitted operation and give a brief evidence-based public reason. Do not invent future trial outcomes."
+    },
+    "initial_evaluations": [
+      {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3215718469405695,
+            0.014549237227311424
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "45af99cfd061d02d4db12e7d6c581b84bc9c08d41deef42090a3ae8e4db7c89e",
+        "evidence_hash": "c311970544657590e6c55917ded231293b104260b6b39933de18ce6aae8a215f",
+        "summary": {
+          "control": [
+            0.3215718469405695,
+            0.014549237227311424
+          ],
+          "p_actual_kw": 2524.482603136801,
+          "q_actual_kvar": 114.21800950144458,
+          "vmin": 1.004324811484437,
+          "vmax": 1.0365799731958056,
+          "max_line_utilization_pct": 85.84174716814515,
+          "max_allowed_current_pct": 99.68947518428088,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9273945168495327,
+          "rating_fraction": 0.861091374083999
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4608207190362834,
+        "seconds": 0.14547130001301412,
+        "error": null
+      },
+      {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.3271929919719696,
+            0.007306058630347252
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "3d9eed52c611420f401e86f611520cd892a25c5b5140281b3d48debb2f077636",
+        "evidence_hash": "e95c06d3abf05b40cfcc07fbac528cefecf5213b4f641df866dbd802c5f3acc0",
+        "summary": {
+          "control": [
+            0.3271929919719696,
+            0.007306058630347252
+          ],
+          "p_actual_kw": 2568.611101871477,
+          "q_actual_kvar": 57.35582292194758,
+          "vmin": 1.0041372012951222,
+          "vmax": 1.0363818328014403,
+          "max_line_utilization_pct": 87.65044989549399,
+          "max_allowed_current_pct": 101.78995230179106,
+          "accepted": false,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 2,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9273945168495327,
+          "rating_fraction": 0.861091374083999
+        },
+        "failures": [
+          "thermal"
+        ],
+        "feasible": false,
+        "score": null,
+        "seconds": 0.16969950000930112,
+        "error": null
+      }
+    ],
+    "planning_seconds_reused": 17.458697399997618,
+    "context_hash": "c07b669e50ff85c60a680dbc71f76095a4acb52d79d5f9ee2636c5fa5ad5b33c"
+  },
+  {
+    "id": "test_03",
+    "split": "test",
+    "case": {
+      "id": "test_03",
+      "forecast_loads": [
+        1.0306790115340023,
+        1.0586596220438345,
+        1.0052888924343486
+      ],
+      "rating_fraction": 0.8799153873517805,
+      "previous": [
+        0.22471662582316207,
+        0.0
+      ]
+    },
+    "status": "READY",
+    "numerical_record": "numerical\\test_03.json",
+    "incumbent": {
+      "candidate": {
+        "tool": "CONTINUOUS_MPC",
+        "control": [
+          0.3308927755538754,
+          0.04783389415871378
+        ],
+        "operation": "INITIAL_MPC"
+      },
+      "backend": "opendss",
+      "candidate_hash": "31496a1aab82119eef24a63d800a044930db9f55e7afe604d252220b00816369",
+      "evidence_hash": "1c9f2c6f988d1d636021e0efc0d1851795f60eb72eff7770bf5f3914681aac62",
+      "summary": {
+        "control": [
+          0.3308927755538754,
+          0.04783389415871378
+        ],
+        "p_actual_kw": 2597.656055206462,
+        "q_actual_kvar": 375.5174303746223,
+        "vmin": 1.001874703103975,
+        "vmax": 1.0378714308325807,
+        "max_line_utilization_pct": 87.65257775824176,
+        "max_allowed_current_pct": 99.61478003247967,
+        "accepted": true,
+        "violations": {
+          "voltage_low": 0,
+          "voltage_high": 0,
+          "line_current": 0,
+          "inverter_capability": 0,
+          "dispatch_tracking": 0
+        },
+        "scope": "full supplied MV/LV feeder",
+        "backend": "opendss",
+        "load_mult": 1.0306790115340023,
+        "rating_fraction": 0.8799153873517805
+      },
+      "failures": [],
+      "feasible": true,
+      "score": 0.4487474990128818,
+      "seconds": 0.14911130000837147,
+      "error": null
+    },
+    "pretrial_features": {
+      "case_family": "voltage",
+      "planning_backend": "opendss",
+      "load_mean": 1.0315425086707286,
+      "load_span": 0.053370729609485856,
+      "current_margin": 0.0038521996752032273,
+      "voltage_margin": 0.012128569167419334,
+      "incumbent_cost": 0.4487474990128818,
+      "remaining_budget": 1
+    },
+    "catalog": {
+      "INCREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3333927755538754,
+            0.04783389415871378
+          ]
+        }
+      },
+      "RELAX_Q_10_PERCENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3308927755538754,
+            0.0430505047428424
+          ]
+        }
+      },
+      "DECREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3283927755538754,
+            0.04783389415871378
+          ]
+        }
+      },
+      "KEEP_INCUMBENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3308927755538754,
+            0.04783389415871378
+          ]
+        }
+      }
+    },
+    "public_context": {
+      "case_id": "test_03",
+      "model_scope": "Full supplied MV/LV feeder",
+      "case": {
+        "id": "test_03",
+        "forecast_loads": [
+          1.0306790115340023,
+          1.0586596220438345,
+          1.0052888924343486
+        ],
+        "rating_fraction": 0.8799153873517805,
+        "previous": [
+          0.22471662582316207,
+          0.0
+        ]
+      },
+      "objective": "Current-step J=(1-a)^2+0.05*b^2+10*mean((V-1.01)^2)+0.05*||u-u_previous||^2",
+      "initial_candidates": [
+        {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.3308927755538754,
+              0.04783389415871378
+            ],
+            "operation": "INITIAL_MPC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "31496a1aab82119eef24a63d800a044930db9f55e7afe604d252220b00816369",
+          "evidence_hash": "1c9f2c6f988d1d636021e0efc0d1851795f60eb72eff7770bf5f3914681aac62",
+          "summary": {
+            "control": [
+              0.3308927755538754,
+              0.04783389415871378
+            ],
+            "p_actual_kw": 2597.656055206462,
+            "q_actual_kvar": 375.5174303746223,
+            "vmin": 1.001874703103975,
+            "vmax": 1.0378714308325807,
+            "max_line_utilization_pct": 87.65257775824176,
+            "max_allowed_current_pct": 99.61478003247967,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 1.0306790115340023,
+            "rating_fraction": 0.8799153873517805
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.4487474990128818,
+          "seconds": 0.14911130000837147,
+          "error": null
+        },
+        {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.3377324640750885,
+              0.011627424657344818
+            ],
+            "operation": "INITIAL_SAC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "b5533f0b666f14dc2b273d62991510e4bab2a52d1c88b0465975fa6898be71fe",
+          "evidence_hash": "883beffe795abc3400db2a9203f490045de3146fe169ee5386a70bdd27b262e0",
+          "summary": {
+            "control": [
+              0.3377324640750885,
+              0.011627424657344818
+            ],
+            "p_actual_kw": 2651.3506645054226,
+            "q_actual_kvar": 91.2804760305118,
+            "vmin": 1.0000285067633747,
+            "vmax": 1.0341113631787067,
+            "max_line_utilization_pct": 89.3812085469427,
+            "max_allowed_current_pct": 101.5793220936243,
+            "accepted": false,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 2,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 1.0306790115340023,
+            "rating_fraction": 0.8799153873517805
+          },
+          "failures": [
+            "thermal"
+          ],
+          "feasible": false,
+          "score": null,
+          "seconds": 0.14387519999581855,
+          "error": null
+        }
+      ],
+      "incumbent": {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3308927755538754,
+            0.04783389415871378
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "31496a1aab82119eef24a63d800a044930db9f55e7afe604d252220b00816369",
+        "evidence_hash": "1c9f2c6f988d1d636021e0efc0d1851795f60eb72eff7770bf5f3914681aac62",
+        "summary": {
+          "control": [
+            0.3308927755538754,
+            0.04783389415871378
+          ],
+          "p_actual_kw": 2597.656055206462,
+          "q_actual_kvar": 375.5174303746223,
+          "vmin": 1.001874703103975,
+          "vmax": 1.0378714308325807,
+          "max_line_utilization_pct": 87.65257775824176,
+          "max_allowed_current_pct": 99.61478003247967,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.0306790115340023,
+          "rating_fraction": 0.8799153873517805
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4487474990128818,
+        "seconds": 0.14911130000837147,
+        "error": null
+      },
+      "remaining_candidate_evaluations": 1,
+      "operations": {
+        "INCREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3333927755538754,
+              0.04783389415871378
+            ]
+          }
+        },
+        "RELAX_Q_10_PERCENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3308927755538754,
+              0.0430505047428424
+            ]
+          }
+        },
+        "DECREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3283927755538754,
+              0.04783389415871378
+            ]
+          }
+        },
+        "KEEP_INCUMBENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3308927755538754,
+              0.04783389415871378
+            ]
+          }
+        }
+      },
+      "operation_meanings": {
+        "INCREASE_PV_0025": "Increase active participation a by 0.0025 to reduce curtailment; a fresh check may reject it",
+        "RELAX_Q_10_PERCENT": "Reduce reactive effort magnitude by ten percent; recheck voltages and currents",
+        "DECREASE_PV_0025": "Reduce active participation by 0.0025 to add possible headroom at curtailment cost",
+        "KEEP_INCUMBENT": "Retain the already checked numerical incumbent; final fresh check still required"
+      },
+      "instruction": "Choose one permitted operation and give a brief evidence-based public reason. Do not invent future trial outcomes."
+    },
+    "initial_evaluations": [
+      {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3308927755538754,
+            0.04783389415871378
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "31496a1aab82119eef24a63d800a044930db9f55e7afe604d252220b00816369",
+        "evidence_hash": "1c9f2c6f988d1d636021e0efc0d1851795f60eb72eff7770bf5f3914681aac62",
+        "summary": {
+          "control": [
+            0.3308927755538754,
+            0.04783389415871378
+          ],
+          "p_actual_kw": 2597.656055206462,
+          "q_actual_kvar": 375.5174303746223,
+          "vmin": 1.001874703103975,
+          "vmax": 1.0378714308325807,
+          "max_line_utilization_pct": 87.65257775824176,
+          "max_allowed_current_pct": 99.61478003247967,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.0306790115340023,
+          "rating_fraction": 0.8799153873517805
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4487474990128818,
+        "seconds": 0.14911130000837147,
+        "error": null
+      },
+      {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.3377324640750885,
+            0.011627424657344818
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "b5533f0b666f14dc2b273d62991510e4bab2a52d1c88b0465975fa6898be71fe",
+        "evidence_hash": "883beffe795abc3400db2a9203f490045de3146fe169ee5386a70bdd27b262e0",
+        "summary": {
+          "control": [
+            0.3377324640750885,
+            0.011627424657344818
+          ],
+          "p_actual_kw": 2651.3506645054226,
+          "q_actual_kvar": 91.2804760305118,
+          "vmin": 1.0000285067633747,
+          "vmax": 1.0341113631787067,
+          "max_line_utilization_pct": 89.3812085469427,
+          "max_allowed_current_pct": 101.5793220936243,
+          "accepted": false,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 2,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.0306790115340023,
+          "rating_fraction": 0.8799153873517805
+        },
+        "failures": [
+          "thermal"
+        ],
+        "feasible": false,
+        "score": null,
+        "seconds": 0.14387519999581855,
+        "error": null
+      }
+    ],
+    "planning_seconds_reused": 12.55365420000453,
+    "context_hash": "27757a1625f99ddeb20ce2f4580abe0c8ae04dc988faf17b3335f79fe41abcb2"
+  },
+  {
+    "id": "test_04",
+    "split": "test",
+    "case": {
+      "id": "test_04",
+      "forecast_loads": [
+        1.007185451747088,
+        0.9299540397447777,
+        1.0100917332604347
+      ],
+      "rating_fraction": 0.8443668558333007,
+      "previous": [
+        0.2403804745550989,
+        0.0
+      ]
+    },
+    "status": "READY",
+    "numerical_record": "numerical\\test_04.json",
+    "incumbent": {
+      "candidate": {
+        "tool": "CONTINUOUS_MPC",
+        "control": [
+          0.3197918201577041,
+          0.024390272584525474
+        ],
+        "operation": "INITIAL_MPC"
+      },
+      "backend": "opendss",
+      "candidate_hash": "0b56acc06cd2eaa8af6cda5979fc5b1f33d76c8abbb8f45836392d7eacbe15b0",
+      "evidence_hash": "c9f8e60d0e7f309a482ba84e8de8a6e6cc4a6d2eb8763a0a1cbd889b85b711e0",
+      "summary": {
+        "control": [
+          0.3197918201577041,
+          0.024390272584525474
+        ],
+        "p_actual_kw": 2510.5085979843784,
+        "q_actual_kvar": 191.47453177627511,
+        "vmin": 1.0011120126515614,
+        "vmax": 1.0344174568447189,
+        "max_line_utilization_pct": 84.13470344603924,
+        "max_allowed_current_pct": 99.64235671354864,
+        "accepted": true,
+        "violations": {
+          "voltage_low": 0,
+          "voltage_high": 0,
+          "line_current": 0,
+          "inverter_capability": 0,
+          "dispatch_tracking": 0
+        },
+        "scope": "full supplied MV/LV feeder",
+        "backend": "opendss",
+        "load_mult": 1.007185451747088,
+        "rating_fraction": 0.8443668558333007
+      },
+      "failures": [],
+      "feasible": true,
+      "score": 0.4632451884773763,
+      "seconds": 0.14571779999823775,
+      "error": null
+    },
+    "pretrial_features": {
+      "case_family": "voltage",
+      "planning_backend": "opendss",
+      "load_mean": 0.9824104082507668,
+      "load_span": 0.08013769351565692,
+      "current_margin": 0.00357643286451359,
+      "voltage_margin": 0.015582543155281181,
+      "incumbent_cost": 0.4632451884773763,
+      "remaining_budget": 1
+    },
+    "catalog": {
+      "INCREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3222918201577041,
+            0.024390272584525474
+          ]
+        }
+      },
+      "RELAX_Q_10_PERCENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3197918201577041,
+            0.021951245326072927
+          ]
+        }
+      },
+      "DECREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3172918201577041,
+            0.024390272584525474
+          ]
+        }
+      },
+      "KEEP_INCUMBENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3197918201577041,
+            0.024390272584525474
+          ]
+        }
+      }
+    },
+    "public_context": {
+      "case_id": "test_04",
+      "model_scope": "Full supplied MV/LV feeder",
+      "case": {
+        "id": "test_04",
+        "forecast_loads": [
+          1.007185451747088,
+          0.9299540397447777,
+          1.0100917332604347
+        ],
+        "rating_fraction": 0.8443668558333007,
+        "previous": [
+          0.2403804745550989,
+          0.0
+        ]
+      },
+      "objective": "Current-step J=(1-a)^2+0.05*b^2+10*mean((V-1.01)^2)+0.05*||u-u_previous||^2",
+      "initial_candidates": [
+        {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.3197918201577041,
+              0.024390272584525474
+            ],
+            "operation": "INITIAL_MPC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "0b56acc06cd2eaa8af6cda5979fc5b1f33d76c8abbb8f45836392d7eacbe15b0",
+          "evidence_hash": "c9f8e60d0e7f309a482ba84e8de8a6e6cc4a6d2eb8763a0a1cbd889b85b711e0",
+          "summary": {
+            "control": [
+              0.3197918201577041,
+              0.024390272584525474
+            ],
+            "p_actual_kw": 2510.5085979843784,
+            "q_actual_kvar": 191.47453177627511,
+            "vmin": 1.0011120126515614,
+            "vmax": 1.0344174568447189,
+            "max_line_utilization_pct": 84.13470344603924,
+            "max_allowed_current_pct": 99.64235671354864,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 1.007185451747088,
+            "rating_fraction": 0.8443668558333007
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.4632451884773763,
+          "seconds": 0.14571779999823775,
+          "error": null
+        },
+        {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.3393947333097458,
+              0.023738088756799697
+            ],
+            "operation": "INITIAL_SAC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "e4e073ea839f182fafafefd9ae6ff034273fbdd9fea1941ebaabe9a3898e8bbe",
+          "evidence_hash": "07ff4e539bb132bdc0d8c4cead34ee4f7651d588d759ece8f5754994d71fe709",
+          "summary": {
+            "control": [
+              0.3393947333097458,
+              0.023738088756799697
+            ],
+            "p_actual_kw": 2664.4002203176806,
+            "q_actual_kvar": 186.3545974822444,
+            "vmin": 1.0019157445807,
+            "vmax": 1.0366882813899492,
+            "max_line_utilization_pct": 90.17864840847365,
+            "max_allowed_current_pct": 106.80031764093447,
+            "accepted": false,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 2,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 1.007185451747088,
+            "rating_fraction": 0.8443668558333007
+          },
+          "failures": [
+            "thermal"
+          ],
+          "feasible": false,
+          "score": null,
+          "seconds": 0.14699360000668094,
+          "error": null
+        }
+      ],
+      "incumbent": {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3197918201577041,
+            0.024390272584525474
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "0b56acc06cd2eaa8af6cda5979fc5b1f33d76c8abbb8f45836392d7eacbe15b0",
+        "evidence_hash": "c9f8e60d0e7f309a482ba84e8de8a6e6cc4a6d2eb8763a0a1cbd889b85b711e0",
+        "summary": {
+          "control": [
+            0.3197918201577041,
+            0.024390272584525474
+          ],
+          "p_actual_kw": 2510.5085979843784,
+          "q_actual_kvar": 191.47453177627511,
+          "vmin": 1.0011120126515614,
+          "vmax": 1.0344174568447189,
+          "max_line_utilization_pct": 84.13470344603924,
+          "max_allowed_current_pct": 99.64235671354864,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.007185451747088,
+          "rating_fraction": 0.8443668558333007
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4632451884773763,
+        "seconds": 0.14571779999823775,
+        "error": null
+      },
+      "remaining_candidate_evaluations": 1,
+      "operations": {
+        "INCREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3222918201577041,
+              0.024390272584525474
+            ]
+          }
+        },
+        "RELAX_Q_10_PERCENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3197918201577041,
+              0.021951245326072927
+            ]
+          }
+        },
+        "DECREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3172918201577041,
+              0.024390272584525474
+            ]
+          }
+        },
+        "KEEP_INCUMBENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3197918201577041,
+              0.024390272584525474
+            ]
+          }
+        }
+      },
+      "operation_meanings": {
+        "INCREASE_PV_0025": "Increase active participation a by 0.0025 to reduce curtailment; a fresh check may reject it",
+        "RELAX_Q_10_PERCENT": "Reduce reactive effort magnitude by ten percent; recheck voltages and currents",
+        "DECREASE_PV_0025": "Reduce active participation by 0.0025 to add possible headroom at curtailment cost",
+        "KEEP_INCUMBENT": "Retain the already checked numerical incumbent; final fresh check still required"
+      },
+      "instruction": "Choose one permitted operation and give a brief evidence-based public reason. Do not invent future trial outcomes."
+    },
+    "initial_evaluations": [
+      {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3197918201577041,
+            0.024390272584525474
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "0b56acc06cd2eaa8af6cda5979fc5b1f33d76c8abbb8f45836392d7eacbe15b0",
+        "evidence_hash": "c9f8e60d0e7f309a482ba84e8de8a6e6cc4a6d2eb8763a0a1cbd889b85b711e0",
+        "summary": {
+          "control": [
+            0.3197918201577041,
+            0.024390272584525474
+          ],
+          "p_actual_kw": 2510.5085979843784,
+          "q_actual_kvar": 191.47453177627511,
+          "vmin": 1.0011120126515614,
+          "vmax": 1.0344174568447189,
+          "max_line_utilization_pct": 84.13470344603924,
+          "max_allowed_current_pct": 99.64235671354864,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.007185451747088,
+          "rating_fraction": 0.8443668558333007
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4632451884773763,
+        "seconds": 0.14571779999823775,
+        "error": null
+      },
+      {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.3393947333097458,
+            0.023738088756799697
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "e4e073ea839f182fafafefd9ae6ff034273fbdd9fea1941ebaabe9a3898e8bbe",
+        "evidence_hash": "07ff4e539bb132bdc0d8c4cead34ee4f7651d588d759ece8f5754994d71fe709",
+        "summary": {
+          "control": [
+            0.3393947333097458,
+            0.023738088756799697
+          ],
+          "p_actual_kw": 2664.4002203176806,
+          "q_actual_kvar": 186.3545974822444,
+          "vmin": 1.0019157445807,
+          "vmax": 1.0366882813899492,
+          "max_line_utilization_pct": 90.17864840847365,
+          "max_allowed_current_pct": 106.80031764093447,
+          "accepted": false,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 2,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.007185451747088,
+          "rating_fraction": 0.8443668558333007
+        },
+        "failures": [
+          "thermal"
+        ],
+        "feasible": false,
+        "score": null,
+        "seconds": 0.14699360000668094,
+        "error": null
+      }
+    ],
+    "planning_seconds_reused": 16.63866880000569,
+    "context_hash": "77554b2443eaa14b9b2ab500baf4b05354479dd3089c64ab8a4cca4686d64d84"
+  },
+  {
+    "id": "test_05",
+    "split": "test",
+    "case": {
+      "id": "test_05",
+      "forecast_loads": [
+        0.9519348067682635,
+        0.9384225632938461,
+        1.0939486725259326
+      ],
+      "rating_fraction": 0.7959876754030413,
+      "previous": [
+        0.20496228366444308,
+        0.0
+      ]
+    },
+    "status": "READY",
+    "numerical_record": "numerical\\test_05.json",
+    "incumbent": {
+      "candidate": {
+        "tool": "CONTINUOUS_MPC",
+        "control": [
+          0.30186344159897127,
+          0.01975224450343796
+        ],
+        "operation": "INITIAL_MPC"
+      },
+      "backend": "opendss",
+      "candidate_hash": "4a46d71ddc894707ee207f11b1c607073834c681640a6c87fd84dd21118e8869",
+      "evidence_hash": "354b24c6262b74dc39d567d9046ede9f779cb16322906fe0fca80a2f410f80ea",
+      "summary": {
+        "control": [
+          0.30186344159897127,
+          0.01975224450343796
+        ],
+        "p_actual_kw": 2369.762820001533,
+        "q_actual_kvar": 155.06394013111378,
+        "vmin": 1.0026478617806165,
+        "vmax": 1.033879860630074,
+        "max_line_utilization_pct": 79.37835065991922,
+        "max_allowed_current_pct": 99.72309008393465,
+        "accepted": true,
+        "violations": {
+          "voltage_low": 0,
+          "voltage_high": 0,
+          "line_current": 0,
+          "inverter_capability": 0,
+          "dispatch_tracking": 0
+        },
+        "scope": "full supplied MV/LV feeder",
+        "backend": "opendss",
+        "load_mult": 0.9519348067682635,
+        "rating_fraction": 0.7959876754030413
+      },
+      "failures": [],
+      "feasible": true,
+      "score": 0.48812827231176686,
+      "seconds": 0.1658216999931028,
+      "error": null
+    },
+    "pretrial_features": {
+      "case_family": "voltage",
+      "planning_backend": "opendss",
+      "load_mean": 0.9947686808626809,
+      "load_span": 0.15552610923208654,
+      "current_margin": 0.0027690991606534876,
+      "voltage_margin": 0.016120139369925957,
+      "incumbent_cost": 0.48812827231176686,
+      "remaining_budget": 1
+    },
+    "catalog": {
+      "INCREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3043634415989713,
+            0.01975224450343796
+          ]
+        }
+      },
+      "RELAX_Q_10_PERCENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.30186344159897127,
+            0.017777020053094165
+          ]
+        }
+      },
+      "DECREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.29936344159897127,
+            0.01975224450343796
+          ]
+        }
+      },
+      "KEEP_INCUMBENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.30186344159897127,
+            0.01975224450343796
+          ]
+        }
+      }
+    },
+    "public_context": {
+      "case_id": "test_05",
+      "model_scope": "Full supplied MV/LV feeder",
+      "case": {
+        "id": "test_05",
+        "forecast_loads": [
+          0.9519348067682635,
+          0.9384225632938461,
+          1.0939486725259326
+        ],
+        "rating_fraction": 0.7959876754030413,
+        "previous": [
+          0.20496228366444308,
+          0.0
+        ]
+      },
+      "objective": "Current-step J=(1-a)^2+0.05*b^2+10*mean((V-1.01)^2)+0.05*||u-u_previous||^2",
+      "initial_candidates": [
+        {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.30186344159897127,
+              0.01975224450343796
+            ],
+            "operation": "INITIAL_MPC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "4a46d71ddc894707ee207f11b1c607073834c681640a6c87fd84dd21118e8869",
+          "evidence_hash": "354b24c6262b74dc39d567d9046ede9f779cb16322906fe0fca80a2f410f80ea",
+          "summary": {
+            "control": [
+              0.30186344159897127,
+              0.01975224450343796
+            ],
+            "p_actual_kw": 2369.762820001533,
+            "q_actual_kvar": 155.06394013111378,
+            "vmin": 1.0026478617806165,
+            "vmax": 1.033879860630074,
+            "max_line_utilization_pct": 79.37835065991922,
+            "max_allowed_current_pct": 99.72309008393465,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9519348067682635,
+            "rating_fraction": 0.7959876754030413
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.48812827231176686,
+          "seconds": 0.1658216999931028,
+          "error": null
+        },
+        {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.3276722729206085,
+              0.03585219174623489
+            ],
+            "operation": "INITIAL_SAC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "0ea1d3125c5e3aac316201f09c57b9d83a62f97572bbecc57e786c67b2a44217",
+          "evidence_hash": "d0fdd213b68c24714d01b2e610d9f8904daf961f675237ca0c3036c9e8f0b3d8",
+          "summary": {
+            "control": [
+              0.3276722729206085,
+              0.03585219174623489
+            ],
+            "p_actual_kw": 2572.3736713526596,
+            "q_actual_kvar": 281.4557157561643,
+            "vmin": 1.0047008844283123,
+            "vmax": 1.0390058230334933,
+            "max_line_utilization_pct": 87.4979694869859,
+            "max_allowed_current_pct": 109.92377418743584,
+            "accepted": false,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 2,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9519348067682635,
+            "rating_fraction": 0.7959876754030413
+          },
+          "failures": [
+            "thermal"
+          ],
+          "feasible": false,
+          "score": null,
+          "seconds": 0.14709340000990778,
+          "error": null
+        }
+      ],
+      "incumbent": {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.30186344159897127,
+            0.01975224450343796
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "4a46d71ddc894707ee207f11b1c607073834c681640a6c87fd84dd21118e8869",
+        "evidence_hash": "354b24c6262b74dc39d567d9046ede9f779cb16322906fe0fca80a2f410f80ea",
+        "summary": {
+          "control": [
+            0.30186344159897127,
+            0.01975224450343796
+          ],
+          "p_actual_kw": 2369.762820001533,
+          "q_actual_kvar": 155.06394013111378,
+          "vmin": 1.0026478617806165,
+          "vmax": 1.033879860630074,
+          "max_line_utilization_pct": 79.37835065991922,
+          "max_allowed_current_pct": 99.72309008393465,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9519348067682635,
+          "rating_fraction": 0.7959876754030413
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.48812827231176686,
+        "seconds": 0.1658216999931028,
+        "error": null
+      },
+      "remaining_candidate_evaluations": 1,
+      "operations": {
+        "INCREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3043634415989713,
+              0.01975224450343796
+            ]
+          }
+        },
+        "RELAX_Q_10_PERCENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.30186344159897127,
+              0.017777020053094165
+            ]
+          }
+        },
+        "DECREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.29936344159897127,
+              0.01975224450343796
+            ]
+          }
+        },
+        "KEEP_INCUMBENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.30186344159897127,
+              0.01975224450343796
+            ]
+          }
+        }
+      },
+      "operation_meanings": {
+        "INCREASE_PV_0025": "Increase active participation a by 0.0025 to reduce curtailment; a fresh check may reject it",
+        "RELAX_Q_10_PERCENT": "Reduce reactive effort magnitude by ten percent; recheck voltages and currents",
+        "DECREASE_PV_0025": "Reduce active participation by 0.0025 to add possible headroom at curtailment cost",
+        "KEEP_INCUMBENT": "Retain the already checked numerical incumbent; final fresh check still required"
+      },
+      "instruction": "Choose one permitted operation and give a brief evidence-based public reason. Do not invent future trial outcomes."
+    },
+    "initial_evaluations": [
+      {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.30186344159897127,
+            0.01975224450343796
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "4a46d71ddc894707ee207f11b1c607073834c681640a6c87fd84dd21118e8869",
+        "evidence_hash": "354b24c6262b74dc39d567d9046ede9f779cb16322906fe0fca80a2f410f80ea",
+        "summary": {
+          "control": [
+            0.30186344159897127,
+            0.01975224450343796
+          ],
+          "p_actual_kw": 2369.762820001533,
+          "q_actual_kvar": 155.06394013111378,
+          "vmin": 1.0026478617806165,
+          "vmax": 1.033879860630074,
+          "max_line_utilization_pct": 79.37835065991922,
+          "max_allowed_current_pct": 99.72309008393465,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9519348067682635,
+          "rating_fraction": 0.7959876754030413
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.48812827231176686,
+        "seconds": 0.1658216999931028,
+        "error": null
+      },
+      {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.3276722729206085,
+            0.03585219174623489
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "0ea1d3125c5e3aac316201f09c57b9d83a62f97572bbecc57e786c67b2a44217",
+        "evidence_hash": "d0fdd213b68c24714d01b2e610d9f8904daf961f675237ca0c3036c9e8f0b3d8",
+        "summary": {
+          "control": [
+            0.3276722729206085,
+            0.03585219174623489
+          ],
+          "p_actual_kw": 2572.3736713526596,
+          "q_actual_kvar": 281.4557157561643,
+          "vmin": 1.0047008844283123,
+          "vmax": 1.0390058230334933,
+          "max_line_utilization_pct": 87.4979694869859,
+          "max_allowed_current_pct": 109.92377418743584,
+          "accepted": false,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 2,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9519348067682635,
+          "rating_fraction": 0.7959876754030413
+        },
+        "failures": [
+          "thermal"
+        ],
+        "feasible": false,
+        "score": null,
+        "seconds": 0.14709340000990778,
+        "error": null
+      }
+    ],
+    "planning_seconds_reused": 19.22154749999754,
+    "context_hash": "3715beb35fe20912b15f8081e3928c9c0ae3eb627d677abb8c7e7647e4b7bb8e"
+  },
+  {
+    "id": "test_06",
+    "split": "test",
+    "case": {
+      "id": "test_06",
+      "forecast_loads": [
+        0.9095981424022597,
+        0.9272387956686774,
+        1.0626218735220867
+      ],
+      "rating_fraction": 0.837633644021894,
+      "previous": [
+        0.22699988576212196,
+        0.0
+      ]
+    },
+    "status": "READY",
+    "numerical_record": "numerical\\test_06.json",
+    "incumbent": {
+      "candidate": {
+        "tool": "CONTINUOUS_MPC",
+        "control": [
+          0.3098768771733355,
+          0.019017036839254507
+        ],
+        "operation": "INITIAL_MPC"
+      },
+      "backend": "opendss",
+      "candidate_hash": "6feb9afc8fd0734ed3e75c94e50919c71dc572958d6e7fef1ed9a8cc4278d745",
+      "evidence_hash": "b98bf8c79aa1bc30f9ec97a5cb91f10e3ca09b6c9b930e243870101cad7d1b1b",
+      "summary": {
+        "control": [
+          0.3098768771733355,
+          0.019017036839254507
+        ],
+        "p_actual_kw": 2432.6718678318084,
+        "q_actual_kvar": 149.29223164487155,
+        "vmin": 1.0049153065875949,
+        "vmax": 1.0364134267675467,
+        "max_line_utilization_pct": 82.47589468235574,
+        "max_allowed_current_pct": 98.46296799439445,
+        "accepted": true,
+        "violations": {
+          "voltage_low": 0,
+          "voltage_high": 0,
+          "line_current": 0,
+          "inverter_capability": 0,
+          "dispatch_tracking": 0
+        },
+        "scope": "full supplied MV/LV feeder",
+        "backend": "opendss",
+        "load_mult": 0.9095981424022597,
+        "rating_fraction": 0.837633644021894
+      },
+      "failures": [],
+      "feasible": true,
+      "score": 0.4770055652920158,
+      "seconds": 0.14764110000396613,
+      "error": null
+    },
+    "pretrial_features": {
+      "case_family": "voltage",
+      "planning_backend": "opendss",
+      "load_mean": 0.966486270531008,
+      "load_span": 0.15302373111982703,
+      "current_margin": 0.015370320056055542,
+      "voltage_margin": 0.01358657323245338,
+      "incumbent_cost": 0.4770055652920158,
+      "remaining_budget": 1
+    },
+    "catalog": {
+      "INCREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3123768771733355,
+            0.019017036839254507
+          ]
+        }
+      },
+      "RELAX_Q_10_PERCENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3098768771733355,
+            0.01711533315532906
+          ]
+        }
+      },
+      "DECREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3073768771733355,
+            0.019017036839254507
+          ]
+        }
+      },
+      "KEEP_INCUMBENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3098768771733355,
+            0.019017036839254507
+          ]
+        }
+      }
+    },
+    "public_context": {
+      "case_id": "test_06",
+      "model_scope": "Full supplied MV/LV feeder",
+      "case": {
+        "id": "test_06",
+        "forecast_loads": [
+          0.9095981424022597,
+          0.9272387956686774,
+          1.0626218735220867
+        ],
+        "rating_fraction": 0.837633644021894,
+        "previous": [
+          0.22699988576212196,
+          0.0
+        ]
+      },
+      "objective": "Current-step J=(1-a)^2+0.05*b^2+10*mean((V-1.01)^2)+0.05*||u-u_previous||^2",
+      "initial_candidates": [
+        {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.3098768771733355,
+              0.019017036839254507
+            ],
+            "operation": "INITIAL_MPC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "6feb9afc8fd0734ed3e75c94e50919c71dc572958d6e7fef1ed9a8cc4278d745",
+          "evidence_hash": "b98bf8c79aa1bc30f9ec97a5cb91f10e3ca09b6c9b930e243870101cad7d1b1b",
+          "summary": {
+            "control": [
+              0.3098768771733355,
+              0.019017036839254507
+            ],
+            "p_actual_kw": 2432.6718678318084,
+            "q_actual_kvar": 149.29223164487155,
+            "vmin": 1.0049153065875949,
+            "vmax": 1.0364134267675467,
+            "max_line_utilization_pct": 82.47589468235574,
+            "max_allowed_current_pct": 98.46296799439445,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9095981424022597,
+            "rating_fraction": 0.837633644021894
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.4770055652920158,
+          "seconds": 0.14764110000396613,
+          "error": null
+        },
+        {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.31958676874637604,
+              0.02312188982963562
+            ],
+            "operation": "INITIAL_SAC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "18c949b6acafac27a521fb67c98b90f958fc98a072fdf8cee64921a3d91bbb5c",
+          "evidence_hash": "13f57b4b145c8216806bfed512ac5ee79c1e8f8459c1b75bd08c728724e83bc9",
+          "summary": {
+            "control": [
+              0.31958676874637604,
+              0.02312188982963562
+            ],
+            "p_actual_kw": 2508.898852833312,
+            "q_actual_kvar": 181.51716072749318,
+            "vmin": 1.0055702500551948,
+            "vmax": 1.0380646746965476,
+            "max_line_utilization_pct": 85.4815036731768,
+            "max_allowed_current_pct": 102.0511822599887,
+            "accepted": false,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 2,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9095981424022597,
+            "rating_fraction": 0.837633644021894
+          },
+          "failures": [
+            "thermal"
+          ],
+          "feasible": false,
+          "score": null,
+          "seconds": 0.16248519999498967,
+          "error": null
+        }
+      ],
+      "incumbent": {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3098768771733355,
+            0.019017036839254507
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "6feb9afc8fd0734ed3e75c94e50919c71dc572958d6e7fef1ed9a8cc4278d745",
+        "evidence_hash": "b98bf8c79aa1bc30f9ec97a5cb91f10e3ca09b6c9b930e243870101cad7d1b1b",
+        "summary": {
+          "control": [
+            0.3098768771733355,
+            0.019017036839254507
+          ],
+          "p_actual_kw": 2432.6718678318084,
+          "q_actual_kvar": 149.29223164487155,
+          "vmin": 1.0049153065875949,
+          "vmax": 1.0364134267675467,
+          "max_line_utilization_pct": 82.47589468235574,
+          "max_allowed_current_pct": 98.46296799439445,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9095981424022597,
+          "rating_fraction": 0.837633644021894
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4770055652920158,
+        "seconds": 0.14764110000396613,
+        "error": null
+      },
+      "remaining_candidate_evaluations": 1,
+      "operations": {
+        "INCREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3123768771733355,
+              0.019017036839254507
+            ]
+          }
+        },
+        "RELAX_Q_10_PERCENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3098768771733355,
+              0.01711533315532906
+            ]
+          }
+        },
+        "DECREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3073768771733355,
+              0.019017036839254507
+            ]
+          }
+        },
+        "KEEP_INCUMBENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3098768771733355,
+              0.019017036839254507
+            ]
+          }
+        }
+      },
+      "operation_meanings": {
+        "INCREASE_PV_0025": "Increase active participation a by 0.0025 to reduce curtailment; a fresh check may reject it",
+        "RELAX_Q_10_PERCENT": "Reduce reactive effort magnitude by ten percent; recheck voltages and currents",
+        "DECREASE_PV_0025": "Reduce active participation by 0.0025 to add possible headroom at curtailment cost",
+        "KEEP_INCUMBENT": "Retain the already checked numerical incumbent; final fresh check still required"
+      },
+      "instruction": "Choose one permitted operation and give a brief evidence-based public reason. Do not invent future trial outcomes."
+    },
+    "initial_evaluations": [
+      {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3098768771733355,
+            0.019017036839254507
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "6feb9afc8fd0734ed3e75c94e50919c71dc572958d6e7fef1ed9a8cc4278d745",
+        "evidence_hash": "b98bf8c79aa1bc30f9ec97a5cb91f10e3ca09b6c9b930e243870101cad7d1b1b",
+        "summary": {
+          "control": [
+            0.3098768771733355,
+            0.019017036839254507
+          ],
+          "p_actual_kw": 2432.6718678318084,
+          "q_actual_kvar": 149.29223164487155,
+          "vmin": 1.0049153065875949,
+          "vmax": 1.0364134267675467,
+          "max_line_utilization_pct": 82.47589468235574,
+          "max_allowed_current_pct": 98.46296799439445,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9095981424022597,
+          "rating_fraction": 0.837633644021894
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4770055652920158,
+        "seconds": 0.14764110000396613,
+        "error": null
+      },
+      {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.31958676874637604,
+            0.02312188982963562
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "18c949b6acafac27a521fb67c98b90f958fc98a072fdf8cee64921a3d91bbb5c",
+        "evidence_hash": "13f57b4b145c8216806bfed512ac5ee79c1e8f8459c1b75bd08c728724e83bc9",
+        "summary": {
+          "control": [
+            0.31958676874637604,
+            0.02312188982963562
+          ],
+          "p_actual_kw": 2508.898852833312,
+          "q_actual_kvar": 181.51716072749318,
+          "vmin": 1.0055702500551948,
+          "vmax": 1.0380646746965476,
+          "max_line_utilization_pct": 85.4815036731768,
+          "max_allowed_current_pct": 102.0511822599887,
+          "accepted": false,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 2,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9095981424022597,
+          "rating_fraction": 0.837633644021894
+        },
+        "failures": [
+          "thermal"
+        ],
+        "feasible": false,
+        "score": null,
+        "seconds": 0.16248519999498967,
+        "error": null
+      }
+    ],
+    "planning_seconds_reused": 17.696991199991317,
+    "context_hash": "582940a42943e92df1f403b3f64c10154caa6ef8f779b39a3f459d12766bc7af"
+  },
+  {
+    "id": "test_07",
+    "split": "test",
+    "case": {
+      "id": "test_07",
+      "forecast_loads": [
+        0.9451693815495624,
+        0.9798981508749453,
+        0.9815132947499592
+      ],
+      "rating_fraction": 0.8306016843566784,
+      "previous": [
+        0.20150833493524078,
+        0.0
+      ]
+    },
+    "status": "READY",
+    "numerical_record": "numerical\\test_07.json",
+    "incumbent": {
+      "candidate": {
+        "tool": "CONTINUOUS_MPC",
+        "control": [
+          0.31182574160612486,
+          0.030067290737847138
+        ],
+        "operation": "INITIAL_MPC"
+      },
+      "backend": "opendss",
+      "candidate_hash": "23b7cc483f46101f86ccfb53c4047de9bf301d3a74d6a416bbf0648929e9ec76",
+      "evidence_hash": "8849f3e848f0bbfc4e245786f99260d22392418519dc0a26bc7a2d90ff5f497a",
+      "summary": {
+        "control": [
+          0.31182574160612486,
+          0.030067290737847138
+        ],
+        "p_actual_kw": 2447.9713239358316,
+        "q_actual_kvar": 236.0416594711873,
+        "vmin": 1.0039977964673361,
+        "vmax": 1.0366122955261685,
+        "max_line_utilization_pct": 82.6354629904216,
+        "max_allowed_current_pct": 99.48867736094807,
+        "accepted": true,
+        "violations": {
+          "voltage_low": 0,
+          "voltage_high": 0,
+          "line_current": 0,
+          "inverter_capability": 0,
+          "dispatch_tracking": 0
+        },
+        "scope": "full supplied MV/LV feeder",
+        "backend": "opendss",
+        "load_mult": 0.9451693815495624,
+        "rating_fraction": 0.8306016843566784
+      },
+      "failures": [],
+      "feasible": true,
+      "score": 0.4745999887945533,
+      "seconds": 0.1725299000099767,
+      "error": null
+    },
+    "pretrial_features": {
+      "case_family": "voltage",
+      "planning_backend": "opendss",
+      "load_mean": 0.9688602757248223,
+      "load_span": 0.03634391320039676,
+      "current_margin": 0.005113226390519254,
+      "voltage_margin": 0.01338770447383153,
+      "incumbent_cost": 0.4745999887945533,
+      "remaining_budget": 1
+    },
+    "catalog": {
+      "INCREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.31432574160612486,
+            0.030067290737847138
+          ]
+        }
+      },
+      "RELAX_Q_10_PERCENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.31182574160612486,
+            0.027060561664062423
+          ]
+        }
+      },
+      "DECREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.30932574160612486,
+            0.030067290737847138
+          ]
+        }
+      },
+      "KEEP_INCUMBENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.31182574160612486,
+            0.030067290737847138
+          ]
+        }
+      }
+    },
+    "public_context": {
+      "case_id": "test_07",
+      "model_scope": "Full supplied MV/LV feeder",
+      "case": {
+        "id": "test_07",
+        "forecast_loads": [
+          0.9451693815495624,
+          0.9798981508749453,
+          0.9815132947499592
+        ],
+        "rating_fraction": 0.8306016843566784,
+        "previous": [
+          0.20150833493524078,
+          0.0
+        ]
+      },
+      "objective": "Current-step J=(1-a)^2+0.05*b^2+10*mean((V-1.01)^2)+0.05*||u-u_previous||^2",
+      "initial_candidates": [
+        {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.31182574160612486,
+              0.030067290737847138
+            ],
+            "operation": "INITIAL_MPC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "23b7cc483f46101f86ccfb53c4047de9bf301d3a74d6a416bbf0648929e9ec76",
+          "evidence_hash": "8849f3e848f0bbfc4e245786f99260d22392418519dc0a26bc7a2d90ff5f497a",
+          "summary": {
+            "control": [
+              0.31182574160612486,
+              0.030067290737847138
+            ],
+            "p_actual_kw": 2447.9713239358316,
+            "q_actual_kvar": 236.0416594711873,
+            "vmin": 1.0039977964673361,
+            "vmax": 1.0366122955261685,
+            "max_line_utilization_pct": 82.6354629904216,
+            "max_allowed_current_pct": 99.48867736094807,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9451693815495624,
+            "rating_fraction": 0.8306016843566784
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.4745999887945533,
+          "seconds": 0.1725299000099767,
+          "error": null
+        },
+        {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.33034220337867737,
+              0.012487465143203735
+            ],
+            "operation": "INITIAL_SAC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "35f42a35bdd43cf6e4a03216be4b7b6c3e86b6b25825de7301acd0bfdd89446c",
+          "evidence_hash": "a1f3ea49cedb74749585c460808fb127b2e0c2129c4933a5761c529b6f373933",
+          "summary": {
+            "control": [
+              0.33034220337867737,
+              0.012487465143203735
+            ],
+            "p_actual_kw": 2593.333817760312,
+            "q_actual_kvar": 98.0321779136084,
+            "vmin": 1.0037518557951928,
+            "vmax": 1.0366851770837944,
+            "max_line_utilization_pct": 88.30852962600108,
+            "max_allowed_current_pct": 106.31874614412591,
+            "accepted": false,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 2,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9451693815495624,
+            "rating_fraction": 0.8306016843566784
+          },
+          "failures": [
+            "thermal"
+          ],
+          "feasible": false,
+          "score": null,
+          "seconds": 0.15208729999721982,
+          "error": null
+        }
+      ],
+      "incumbent": {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.31182574160612486,
+            0.030067290737847138
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "23b7cc483f46101f86ccfb53c4047de9bf301d3a74d6a416bbf0648929e9ec76",
+        "evidence_hash": "8849f3e848f0bbfc4e245786f99260d22392418519dc0a26bc7a2d90ff5f497a",
+        "summary": {
+          "control": [
+            0.31182574160612486,
+            0.030067290737847138
+          ],
+          "p_actual_kw": 2447.9713239358316,
+          "q_actual_kvar": 236.0416594711873,
+          "vmin": 1.0039977964673361,
+          "vmax": 1.0366122955261685,
+          "max_line_utilization_pct": 82.6354629904216,
+          "max_allowed_current_pct": 99.48867736094807,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9451693815495624,
+          "rating_fraction": 0.8306016843566784
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4745999887945533,
+        "seconds": 0.1725299000099767,
+        "error": null
+      },
+      "remaining_candidate_evaluations": 1,
+      "operations": {
+        "INCREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.31432574160612486,
+              0.030067290737847138
+            ]
+          }
+        },
+        "RELAX_Q_10_PERCENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.31182574160612486,
+              0.027060561664062423
+            ]
+          }
+        },
+        "DECREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.30932574160612486,
+              0.030067290737847138
+            ]
+          }
+        },
+        "KEEP_INCUMBENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.31182574160612486,
+              0.030067290737847138
+            ]
+          }
+        }
+      },
+      "operation_meanings": {
+        "INCREASE_PV_0025": "Increase active participation a by 0.0025 to reduce curtailment; a fresh check may reject it",
+        "RELAX_Q_10_PERCENT": "Reduce reactive effort magnitude by ten percent; recheck voltages and currents",
+        "DECREASE_PV_0025": "Reduce active participation by 0.0025 to add possible headroom at curtailment cost",
+        "KEEP_INCUMBENT": "Retain the already checked numerical incumbent; final fresh check still required"
+      },
+      "instruction": "Choose one permitted operation and give a brief evidence-based public reason. Do not invent future trial outcomes."
+    },
+    "initial_evaluations": [
+      {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.31182574160612486,
+            0.030067290737847138
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "23b7cc483f46101f86ccfb53c4047de9bf301d3a74d6a416bbf0648929e9ec76",
+        "evidence_hash": "8849f3e848f0bbfc4e245786f99260d22392418519dc0a26bc7a2d90ff5f497a",
+        "summary": {
+          "control": [
+            0.31182574160612486,
+            0.030067290737847138
+          ],
+          "p_actual_kw": 2447.9713239358316,
+          "q_actual_kvar": 236.0416594711873,
+          "vmin": 1.0039977964673361,
+          "vmax": 1.0366122955261685,
+          "max_line_utilization_pct": 82.6354629904216,
+          "max_allowed_current_pct": 99.48867736094807,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9451693815495624,
+          "rating_fraction": 0.8306016843566784
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4745999887945533,
+        "seconds": 0.1725299000099767,
+        "error": null
+      },
+      {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.33034220337867737,
+            0.012487465143203735
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "35f42a35bdd43cf6e4a03216be4b7b6c3e86b6b25825de7301acd0bfdd89446c",
+        "evidence_hash": "a1f3ea49cedb74749585c460808fb127b2e0c2129c4933a5761c529b6f373933",
+        "summary": {
+          "control": [
+            0.33034220337867737,
+            0.012487465143203735
+          ],
+          "p_actual_kw": 2593.333817760312,
+          "q_actual_kvar": 98.0321779136084,
+          "vmin": 1.0037518557951928,
+          "vmax": 1.0366851770837944,
+          "max_line_utilization_pct": 88.30852962600108,
+          "max_allowed_current_pct": 106.31874614412591,
+          "accepted": false,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 2,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9451693815495624,
+          "rating_fraction": 0.8306016843566784
+        },
+        "failures": [
+          "thermal"
+        ],
+        "feasible": false,
+        "score": null,
+        "seconds": 0.15208729999721982,
+        "error": null
+      }
+    ],
+    "planning_seconds_reused": 14.911831600009464,
+    "context_hash": "298bf2552d5f5d185d3a8978a359fa8c443d82710ae8804b8ba83a004b17bb8e"
+  },
+  {
+    "id": "test_08",
+    "split": "test",
+    "case": {
+      "id": "test_08",
+      "forecast_loads": [
+        1.079038478822834,
+        1.0374959548515565,
+        0.9158872629222965
+      ],
+      "rating_fraction": 0.8305271911502631,
+      "previous": [
+        0.20726011441123074,
+        0.0
+      ]
+    },
+    "status": "READY",
+    "numerical_record": "numerical\\test_08.json",
+    "incumbent": {
+      "candidate": {
+        "tool": "CONTINUOUS_MPC",
+        "control": [
+          0.3192508727216442,
+          0.017526696020809043
+        ],
+        "operation": "INITIAL_MPC"
+      },
+      "backend": "opendss",
+      "candidate_hash": "7728e4063737efbdc1353d50f34c54e2a48f49672e1c599cf3378520c7fc14ce",
+      "evidence_hash": "c10a89cd8d2e039ca9798af182c9fdf8b4c7c9b6fed7a6a2e36f070932b6fe4d",
+      "summary": {
+        "control": [
+          0.3192508727216442,
+          0.017526696020809043
+        ],
+        "p_actual_kw": 2506.261919040037,
+        "q_actual_kvar": 137.59239067695364,
+        "vmin": 0.997306437372354,
+        "vmax": 1.0306842520724928,
+        "max_line_utilization_pct": 82.91689675946901,
+        "max_allowed_current_pct": 99.83646248189758,
+        "accepted": true,
+        "violations": {
+          "voltage_low": 0,
+          "voltage_high": 0,
+          "line_current": 0,
+          "inverter_capability": 0,
+          "dispatch_tracking": 0
+        },
+        "scope": "full supplied MV/LV feeder",
+        "backend": "opendss",
+        "load_mult": 1.079038478822834,
+        "rating_fraction": 0.8305271911502631
+      },
+      "failures": [],
+      "feasible": true,
+      "score": 0.464225059028768,
+      "seconds": 0.15397060000395868,
+      "error": null
+    },
+    "pretrial_features": {
+      "case_family": "voltage",
+      "planning_backend": "opendss",
+      "load_mean": 1.0108072321988957,
+      "load_span": 0.1631512159005375,
+      "current_margin": 0.00163537518102419,
+      "voltage_margin": 0.019315747927507232,
+      "incumbent_cost": 0.464225059028768,
+      "remaining_budget": 1
+    },
+    "catalog": {
+      "INCREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3217508727216442,
+            0.017526696020809043
+          ]
+        }
+      },
+      "RELAX_Q_10_PERCENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3192508727216442,
+            0.01577402641872814
+          ]
+        }
+      },
+      "DECREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3167508727216442,
+            0.017526696020809043
+          ]
+        }
+      },
+      "KEEP_INCUMBENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3192508727216442,
+            0.017526696020809043
+          ]
+        }
+      }
+    },
+    "public_context": {
+      "case_id": "test_08",
+      "model_scope": "Full supplied MV/LV feeder",
+      "case": {
+        "id": "test_08",
+        "forecast_loads": [
+          1.079038478822834,
+          1.0374959548515565,
+          0.9158872629222965
+        ],
+        "rating_fraction": 0.8305271911502631,
+        "previous": [
+          0.20726011441123074,
+          0.0
+        ]
+      },
+      "objective": "Current-step J=(1-a)^2+0.05*b^2+10*mean((V-1.01)^2)+0.05*||u-u_previous||^2",
+      "initial_candidates": [
+        {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.3192508727216442,
+              0.017526696020809043
+            ],
+            "operation": "INITIAL_MPC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "7728e4063737efbdc1353d50f34c54e2a48f49672e1c599cf3378520c7fc14ce",
+          "evidence_hash": "c10a89cd8d2e039ca9798af182c9fdf8b4c7c9b6fed7a6a2e36f070932b6fe4d",
+          "summary": {
+            "control": [
+              0.3192508727216442,
+              0.017526696020809043
+            ],
+            "p_actual_kw": 2506.261919040037,
+            "q_actual_kvar": 137.59239067695364,
+            "vmin": 0.997306437372354,
+            "vmax": 1.0306842520724928,
+            "max_line_utilization_pct": 82.91689675946901,
+            "max_allowed_current_pct": 99.83646248189758,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 1.079038478822834,
+            "rating_fraction": 0.8305271911502631
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.464225059028768,
+          "seconds": 0.15397060000395868,
+          "error": null
+        },
+        {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.35668662190437317,
+              0.010455230325460434
+            ],
+            "operation": "INITIAL_SAC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "c5585b82aac9df45b4312d088b7ee10ae218c570b69c19b6baa33a14a91973a2",
+          "evidence_hash": "ded9fc39e68d044e2520c9f1cff10c892e04901b60af5ee5fb7665e7c284b992",
+          "summary": {
+            "control": [
+              0.35668662190437317,
+              0.010455230325460434
+            ],
+            "p_actual_kw": 2800.1492678406003,
+            "q_actual_kvar": 82.07822705726383,
+            "vmin": 0.9985048771692611,
+            "vmax": 1.0343404013419506,
+            "max_line_utilization_pct": 94.58291564455335,
+            "max_allowed_current_pct": 113.88298499120538,
+            "accepted": false,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 3,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 1.079038478822834,
+            "rating_fraction": 0.8305271911502631
+          },
+          "failures": [
+            "thermal"
+          ],
+          "feasible": false,
+          "score": null,
+          "seconds": 0.15613529999973252,
+          "error": null
+        }
+      ],
+      "incumbent": {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3192508727216442,
+            0.017526696020809043
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "7728e4063737efbdc1353d50f34c54e2a48f49672e1c599cf3378520c7fc14ce",
+        "evidence_hash": "c10a89cd8d2e039ca9798af182c9fdf8b4c7c9b6fed7a6a2e36f070932b6fe4d",
+        "summary": {
+          "control": [
+            0.3192508727216442,
+            0.017526696020809043
+          ],
+          "p_actual_kw": 2506.261919040037,
+          "q_actual_kvar": 137.59239067695364,
+          "vmin": 0.997306437372354,
+          "vmax": 1.0306842520724928,
+          "max_line_utilization_pct": 82.91689675946901,
+          "max_allowed_current_pct": 99.83646248189758,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.079038478822834,
+          "rating_fraction": 0.8305271911502631
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.464225059028768,
+        "seconds": 0.15397060000395868,
+        "error": null
+      },
+      "remaining_candidate_evaluations": 1,
+      "operations": {
+        "INCREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3217508727216442,
+              0.017526696020809043
+            ]
+          }
+        },
+        "RELAX_Q_10_PERCENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3192508727216442,
+              0.01577402641872814
+            ]
+          }
+        },
+        "DECREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3167508727216442,
+              0.017526696020809043
+            ]
+          }
+        },
+        "KEEP_INCUMBENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3192508727216442,
+              0.017526696020809043
+            ]
+          }
+        }
+      },
+      "operation_meanings": {
+        "INCREASE_PV_0025": "Increase active participation a by 0.0025 to reduce curtailment; a fresh check may reject it",
+        "RELAX_Q_10_PERCENT": "Reduce reactive effort magnitude by ten percent; recheck voltages and currents",
+        "DECREASE_PV_0025": "Reduce active participation by 0.0025 to add possible headroom at curtailment cost",
+        "KEEP_INCUMBENT": "Retain the already checked numerical incumbent; final fresh check still required"
+      },
+      "instruction": "Choose one permitted operation and give a brief evidence-based public reason. Do not invent future trial outcomes."
+    },
+    "initial_evaluations": [
+      {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3192508727216442,
+            0.017526696020809043
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "7728e4063737efbdc1353d50f34c54e2a48f49672e1c599cf3378520c7fc14ce",
+        "evidence_hash": "c10a89cd8d2e039ca9798af182c9fdf8b4c7c9b6fed7a6a2e36f070932b6fe4d",
+        "summary": {
+          "control": [
+            0.3192508727216442,
+            0.017526696020809043
+          ],
+          "p_actual_kw": 2506.261919040037,
+          "q_actual_kvar": 137.59239067695364,
+          "vmin": 0.997306437372354,
+          "vmax": 1.0306842520724928,
+          "max_line_utilization_pct": 82.91689675946901,
+          "max_allowed_current_pct": 99.83646248189758,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.079038478822834,
+          "rating_fraction": 0.8305271911502631
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.464225059028768,
+        "seconds": 0.15397060000395868,
+        "error": null
+      },
+      {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.35668662190437317,
+            0.010455230325460434
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "c5585b82aac9df45b4312d088b7ee10ae218c570b69c19b6baa33a14a91973a2",
+        "evidence_hash": "ded9fc39e68d044e2520c9f1cff10c892e04901b60af5ee5fb7665e7c284b992",
+        "summary": {
+          "control": [
+            0.35668662190437317,
+            0.010455230325460434
+          ],
+          "p_actual_kw": 2800.1492678406003,
+          "q_actual_kvar": 82.07822705726383,
+          "vmin": 0.9985048771692611,
+          "vmax": 1.0343404013419506,
+          "max_line_utilization_pct": 94.58291564455335,
+          "max_allowed_current_pct": 113.88298499120538,
+          "accepted": false,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 3,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.079038478822834,
+          "rating_fraction": 0.8305271911502631
+        },
+        "failures": [
+          "thermal"
+        ],
+        "feasible": false,
+        "score": null,
+        "seconds": 0.15613529999973252,
+        "error": null
+      }
+    ],
+    "planning_seconds_reused": 17.88688039999397,
+    "context_hash": "ca9bf9fca240cb06b1bdb01980765fca7e57c633cd1b48d6e9317100623155d9"
+  },
+  {
+    "id": "test_09",
+    "split": "test",
+    "case": {
+      "id": "test_09",
+      "forecast_loads": [
+        1.0736817467120685,
+        1.001578842611654,
+        1.0422972681716605
+      ],
+      "rating_fraction": 0.8290756892588292,
+      "previous": [
+        0.20405365576200402,
+        0.0
+      ]
+    },
+    "status": "READY",
+    "numerical_record": "numerical\\test_09.json",
+    "incumbent": {
+      "candidate": {
+        "tool": "CONTINUOUS_MPC",
+        "control": [
+          0.3183760437424251,
+          0.00369523421751676
+        ],
+        "operation": "INITIAL_MPC"
+      },
+      "backend": "opendss",
+      "candidate_hash": "bd8142a69062406738a5df72402acbfd561218f000814dc9d1544353624d2258",
+      "evidence_hash": "24e91a11e31a4bdb712fdba1a84f51fbc0c09edc9fd948bc3fc324d5e4d97764",
+      "summary": {
+        "control": [
+          0.3183760437424251,
+          0.00369523421751676
+        ],
+        "p_actual_kw": 2499.394120876761,
+        "q_actual_kvar": 29.009238791867602,
+        "vmin": 0.9966976640384779,
+        "vmax": 1.0299997988067484,
+        "max_line_utilization_pct": 82.89157836923036,
+        "max_allowed_current_pct": 99.98071279032816,
+        "accepted": true,
+        "violations": {
+          "voltage_low": 0,
+          "voltage_high": 0,
+          "line_current": 0,
+          "inverter_capability": 0,
+          "dispatch_tracking": 0
+        },
+        "scope": "full supplied MV/LV feeder",
+        "backend": "opendss",
+        "load_mult": 1.0736817467120685,
+        "rating_fraction": 0.8290756892588292
+      },
+      "failures": [],
+      "feasible": true,
+      "score": 0.46542108076498045,
+      "seconds": 0.17448630000581034,
+      "error": null
+    },
+    "pretrial_features": {
+      "case_family": "voltage",
+      "planning_backend": "opendss",
+      "load_mean": 1.039185952498461,
+      "load_span": 0.07210290410041442,
+      "current_margin": 0.00019287209671847716,
+      "voltage_margin": 0.020000201193251632,
+      "incumbent_cost": 0.46542108076498045,
+      "remaining_budget": 1
+    },
+    "catalog": {
+      "INCREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3208760437424251,
+            0.00369523421751676
+          ]
+        }
+      },
+      "RELAX_Q_10_PERCENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3183760437424251,
+            0.0033257107957650844
+          ]
+        }
+      },
+      "DECREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3158760437424251,
+            0.00369523421751676
+          ]
+        }
+      },
+      "KEEP_INCUMBENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3183760437424251,
+            0.00369523421751676
+          ]
+        }
+      }
+    },
+    "public_context": {
+      "case_id": "test_09",
+      "model_scope": "Full supplied MV/LV feeder",
+      "case": {
+        "id": "test_09",
+        "forecast_loads": [
+          1.0736817467120685,
+          1.001578842611654,
+          1.0422972681716605
+        ],
+        "rating_fraction": 0.8290756892588292,
+        "previous": [
+          0.20405365576200402,
+          0.0
+        ]
+      },
+      "objective": "Current-step J=(1-a)^2+0.05*b^2+10*mean((V-1.01)^2)+0.05*||u-u_previous||^2",
+      "initial_candidates": [
+        {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.3183760437424251,
+              0.00369523421751676
+            ],
+            "operation": "INITIAL_MPC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "bd8142a69062406738a5df72402acbfd561218f000814dc9d1544353624d2258",
+          "evidence_hash": "24e91a11e31a4bdb712fdba1a84f51fbc0c09edc9fd948bc3fc324d5e4d97764",
+          "summary": {
+            "control": [
+              0.3183760437424251,
+              0.00369523421751676
+            ],
+            "p_actual_kw": 2499.394120876761,
+            "q_actual_kvar": 29.009238791867602,
+            "vmin": 0.9966976640384779,
+            "vmax": 1.0299997988067484,
+            "max_line_utilization_pct": 82.89157836923036,
+            "max_allowed_current_pct": 99.98071279032816,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 1.0736817467120685,
+            "rating_fraction": 0.8290756892588292
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.46542108076498045,
+          "seconds": 0.17448630000581034,
+          "error": null
+        },
+        {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.3487008512020111,
+              0.032905957996845245
+            ],
+            "operation": "INITIAL_SAC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "a61774782d31a26534bf4d2eac11bd5d8bda15cb57b3905e4c5a6c374e2c66e1",
+          "evidence_hash": "17d3a5e173f11cabd5d3af7579743a2964b67750f1805bc4114b685832b65411",
+          "summary": {
+            "control": [
+              0.3487008512020111,
+              0.032905957996845245
+            ],
+            "p_actual_kw": 2737.4574016136316,
+            "q_actual_kvar": 258.32646512079714,
+            "vmin": 0.9997444337025072,
+            "vmax": 1.0363197726858349,
+            "max_line_utilization_pct": 92.17300226717582,
+            "max_allowed_current_pct": 111.1756181749533,
+            "accepted": false,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 2,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 1.0736817467120685,
+            "rating_fraction": 0.8290756892588292
+          },
+          "failures": [
+            "thermal"
+          ],
+          "feasible": false,
+          "score": null,
+          "seconds": 0.15467759998864494,
+          "error": null
+        }
+      ],
+      "incumbent": {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3183760437424251,
+            0.00369523421751676
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "bd8142a69062406738a5df72402acbfd561218f000814dc9d1544353624d2258",
+        "evidence_hash": "24e91a11e31a4bdb712fdba1a84f51fbc0c09edc9fd948bc3fc324d5e4d97764",
+        "summary": {
+          "control": [
+            0.3183760437424251,
+            0.00369523421751676
+          ],
+          "p_actual_kw": 2499.394120876761,
+          "q_actual_kvar": 29.009238791867602,
+          "vmin": 0.9966976640384779,
+          "vmax": 1.0299997988067484,
+          "max_line_utilization_pct": 82.89157836923036,
+          "max_allowed_current_pct": 99.98071279032816,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.0736817467120685,
+          "rating_fraction": 0.8290756892588292
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.46542108076498045,
+        "seconds": 0.17448630000581034,
+        "error": null
+      },
+      "remaining_candidate_evaluations": 1,
+      "operations": {
+        "INCREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3208760437424251,
+              0.00369523421751676
+            ]
+          }
+        },
+        "RELAX_Q_10_PERCENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3183760437424251,
+              0.0033257107957650844
+            ]
+          }
+        },
+        "DECREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3158760437424251,
+              0.00369523421751676
+            ]
+          }
+        },
+        "KEEP_INCUMBENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3183760437424251,
+              0.00369523421751676
+            ]
+          }
+        }
+      },
+      "operation_meanings": {
+        "INCREASE_PV_0025": "Increase active participation a by 0.0025 to reduce curtailment; a fresh check may reject it",
+        "RELAX_Q_10_PERCENT": "Reduce reactive effort magnitude by ten percent; recheck voltages and currents",
+        "DECREASE_PV_0025": "Reduce active participation by 0.0025 to add possible headroom at curtailment cost",
+        "KEEP_INCUMBENT": "Retain the already checked numerical incumbent; final fresh check still required"
+      },
+      "instruction": "Choose one permitted operation and give a brief evidence-based public reason. Do not invent future trial outcomes."
+    },
+    "initial_evaluations": [
+      {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3183760437424251,
+            0.00369523421751676
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "bd8142a69062406738a5df72402acbfd561218f000814dc9d1544353624d2258",
+        "evidence_hash": "24e91a11e31a4bdb712fdba1a84f51fbc0c09edc9fd948bc3fc324d5e4d97764",
+        "summary": {
+          "control": [
+            0.3183760437424251,
+            0.00369523421751676
+          ],
+          "p_actual_kw": 2499.394120876761,
+          "q_actual_kvar": 29.009238791867602,
+          "vmin": 0.9966976640384779,
+          "vmax": 1.0299997988067484,
+          "max_line_utilization_pct": 82.89157836923036,
+          "max_allowed_current_pct": 99.98071279032816,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.0736817467120685,
+          "rating_fraction": 0.8290756892588292
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.46542108076498045,
+        "seconds": 0.17448630000581034,
+        "error": null
+      },
+      {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.3487008512020111,
+            0.032905957996845245
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "a61774782d31a26534bf4d2eac11bd5d8bda15cb57b3905e4c5a6c374e2c66e1",
+        "evidence_hash": "17d3a5e173f11cabd5d3af7579743a2964b67750f1805bc4114b685832b65411",
+        "summary": {
+          "control": [
+            0.3487008512020111,
+            0.032905957996845245
+          ],
+          "p_actual_kw": 2737.4574016136316,
+          "q_actual_kvar": 258.32646512079714,
+          "vmin": 0.9997444337025072,
+          "vmax": 1.0363197726858349,
+          "max_line_utilization_pct": 92.17300226717582,
+          "max_allowed_current_pct": 111.1756181749533,
+          "accepted": false,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 2,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 1.0736817467120685,
+          "rating_fraction": 0.8290756892588292
+        },
+        "failures": [
+          "thermal"
+        ],
+        "feasible": false,
+        "score": null,
+        "seconds": 0.15467759998864494,
+        "error": null
+      }
+    ],
+    "planning_seconds_reused": 16.57652450000751,
+    "context_hash": "e9cb13bd9fe36563f27a74d25a91891b0c050c4410a4e8f4b15b60d205a8d1be"
+  },
+  {
+    "id": "test_10",
+    "split": "test",
+    "case": {
+      "id": "test_10",
+      "forecast_loads": [
+        0.9602211359244239,
+        0.9366060854349991,
+        0.9047253704937963
+      ],
+      "rating_fraction": 0.7955440270747085,
+      "previous": [
+        0.2567267671468691,
+        0.0
+      ]
+    },
+    "status": "READY",
+    "numerical_record": "numerical\\test_10.json",
+    "incumbent": {
+      "candidate": {
+        "tool": "CONTINUOUS_MPC",
+        "control": [
+          0.3021977738953355,
+          0.02376320777705286
+        ],
+        "operation": "INITIAL_MPC"
+      },
+      "backend": "opendss",
+      "candidate_hash": "65a7c0b670b6586ce063a45402e0ccd3b18647aba2ba4fa23f81544fc69d1422",
+      "evidence_hash": "f99c65c9b869182f2db5e90e849858e9d550074914fb718fdd86e3b180517f71",
+      "summary": {
+        "control": [
+          0.3021977738953355,
+          0.02376320777705286
+        ],
+        "p_actual_kw": 2372.387477831599,
+        "q_actual_kvar": 186.55179300870358,
+        "vmin": 1.0025127122915853,
+        "vmax": 1.034075902977762,
+        "max_line_utilization_pct": 79.37686457652984,
+        "max_allowed_current_pct": 99.77683431098863,
+        "accepted": true,
+        "violations": {
+          "voltage_low": 0,
+          "voltage_high": 0,
+          "line_current": 0,
+          "inverter_capability": 0,
+          "dispatch_tracking": 0
+        },
+        "scope": "full supplied MV/LV feeder",
+        "backend": "opendss",
+        "load_mult": 0.9602211359244239,
+        "rating_fraction": 0.7955440270747085
+      },
+      "failures": [],
+      "feasible": true,
+      "score": 0.4873122568568111,
+      "seconds": 0.1533627000026172,
+      "error": null
+    },
+    "pretrial_features": {
+      "case_family": "voltage",
+      "planning_backend": "opendss",
+      "load_mean": 0.9338508639510731,
+      "load_span": 0.05549576543062762,
+      "current_margin": 0.0022316568901136202,
+      "voltage_margin": 0.01592409702223807,
+      "incumbent_cost": 0.4873122568568111,
+      "remaining_budget": 1
+    },
+    "catalog": {
+      "INCREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3046977738953355,
+            0.02376320777705286
+          ]
+        }
+      },
+      "RELAX_Q_10_PERCENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3021977738953355,
+            0.021386886999347574
+          ]
+        }
+      },
+      "DECREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.2996977738953355,
+            0.02376320777705286
+          ]
+        }
+      },
+      "KEEP_INCUMBENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3021977738953355,
+            0.02376320777705286
+          ]
+        }
+      }
+    },
+    "public_context": {
+      "case_id": "test_10",
+      "model_scope": "Full supplied MV/LV feeder",
+      "case": {
+        "id": "test_10",
+        "forecast_loads": [
+          0.9602211359244239,
+          0.9366060854349991,
+          0.9047253704937963
+        ],
+        "rating_fraction": 0.7955440270747085,
+        "previous": [
+          0.2567267671468691,
+          0.0
+        ]
+      },
+      "objective": "Current-step J=(1-a)^2+0.05*b^2+10*mean((V-1.01)^2)+0.05*||u-u_previous||^2",
+      "initial_candidates": [
+        {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.3021977738953355,
+              0.02376320777705286
+            ],
+            "operation": "INITIAL_MPC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "65a7c0b670b6586ce063a45402e0ccd3b18647aba2ba4fa23f81544fc69d1422",
+          "evidence_hash": "f99c65c9b869182f2db5e90e849858e9d550074914fb718fdd86e3b180517f71",
+          "summary": {
+            "control": [
+              0.3021977738953355,
+              0.02376320777705286
+            ],
+            "p_actual_kw": 2372.387477831599,
+            "q_actual_kvar": 186.55179300870358,
+            "vmin": 1.0025127122915853,
+            "vmax": 1.034075902977762,
+            "max_line_utilization_pct": 79.37686457652984,
+            "max_allowed_current_pct": 99.77683431098863,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9602211359244239,
+            "rating_fraction": 0.7955440270747085
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.4873122568568111,
+          "seconds": 0.1533627000026172,
+          "error": null
+        },
+        {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.3401932269334793,
+              0.0031782887503504754
+            ],
+            "operation": "INITIAL_SAC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "6207dbb634d8002ade737ee52816585528281516242f5c882dbaf3ffd170f592",
+          "evidence_hash": "79fa824317b5032532f1315e0c350b79162964dcb8949bc47620029c9f529e82",
+          "summary": {
+            "control": [
+              0.3401932269334793,
+              0.0031782887503504754
+            ],
+            "p_actual_kw": 2670.6687518487643,
+            "q_actual_kvar": 24.950986021737364,
+            "vmin": 1.0029228524158837,
+            "vmax": 1.0361540447425792,
+            "max_line_utilization_pct": 91.26696279768811,
+            "max_allowed_current_pct": 114.72270508181109,
+            "accepted": false,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 3,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9602211359244239,
+            "rating_fraction": 0.7955440270747085
+          },
+          "failures": [
+            "thermal"
+          ],
+          "feasible": false,
+          "score": null,
+          "seconds": 0.15495180001016706,
+          "error": null
+        }
+      ],
+      "incumbent": {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3021977738953355,
+            0.02376320777705286
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "65a7c0b670b6586ce063a45402e0ccd3b18647aba2ba4fa23f81544fc69d1422",
+        "evidence_hash": "f99c65c9b869182f2db5e90e849858e9d550074914fb718fdd86e3b180517f71",
+        "summary": {
+          "control": [
+            0.3021977738953355,
+            0.02376320777705286
+          ],
+          "p_actual_kw": 2372.387477831599,
+          "q_actual_kvar": 186.55179300870358,
+          "vmin": 1.0025127122915853,
+          "vmax": 1.034075902977762,
+          "max_line_utilization_pct": 79.37686457652984,
+          "max_allowed_current_pct": 99.77683431098863,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9602211359244239,
+          "rating_fraction": 0.7955440270747085
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4873122568568111,
+        "seconds": 0.1533627000026172,
+        "error": null
+      },
+      "remaining_candidate_evaluations": 1,
+      "operations": {
+        "INCREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3046977738953355,
+              0.02376320777705286
+            ]
+          }
+        },
+        "RELAX_Q_10_PERCENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3021977738953355,
+              0.021386886999347574
+            ]
+          }
+        },
+        "DECREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.2996977738953355,
+              0.02376320777705286
+            ]
+          }
+        },
+        "KEEP_INCUMBENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3021977738953355,
+              0.02376320777705286
+            ]
+          }
+        }
+      },
+      "operation_meanings": {
+        "INCREASE_PV_0025": "Increase active participation a by 0.0025 to reduce curtailment; a fresh check may reject it",
+        "RELAX_Q_10_PERCENT": "Reduce reactive effort magnitude by ten percent; recheck voltages and currents",
+        "DECREASE_PV_0025": "Reduce active participation by 0.0025 to add possible headroom at curtailment cost",
+        "KEEP_INCUMBENT": "Retain the already checked numerical incumbent; final fresh check still required"
+      },
+      "instruction": "Choose one permitted operation and give a brief evidence-based public reason. Do not invent future trial outcomes."
+    },
+    "initial_evaluations": [
+      {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3021977738953355,
+            0.02376320777705286
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "65a7c0b670b6586ce063a45402e0ccd3b18647aba2ba4fa23f81544fc69d1422",
+        "evidence_hash": "f99c65c9b869182f2db5e90e849858e9d550074914fb718fdd86e3b180517f71",
+        "summary": {
+          "control": [
+            0.3021977738953355,
+            0.02376320777705286
+          ],
+          "p_actual_kw": 2372.387477831599,
+          "q_actual_kvar": 186.55179300870358,
+          "vmin": 1.0025127122915853,
+          "vmax": 1.034075902977762,
+          "max_line_utilization_pct": 79.37686457652984,
+          "max_allowed_current_pct": 99.77683431098863,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9602211359244239,
+          "rating_fraction": 0.7955440270747085
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4873122568568111,
+        "seconds": 0.1533627000026172,
+        "error": null
+      },
+      {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.3401932269334793,
+            0.0031782887503504754
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "6207dbb634d8002ade737ee52816585528281516242f5c882dbaf3ffd170f592",
+        "evidence_hash": "79fa824317b5032532f1315e0c350b79162964dcb8949bc47620029c9f529e82",
+        "summary": {
+          "control": [
+            0.3401932269334793,
+            0.0031782887503504754
+          ],
+          "p_actual_kw": 2670.6687518487643,
+          "q_actual_kvar": 24.950986021737364,
+          "vmin": 1.0029228524158837,
+          "vmax": 1.0361540447425792,
+          "max_line_utilization_pct": 91.26696279768811,
+          "max_allowed_current_pct": 114.72270508181109,
+          "accepted": false,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 3,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9602211359244239,
+          "rating_fraction": 0.7955440270747085
+        },
+        "failures": [
+          "thermal"
+        ],
+        "feasible": false,
+        "score": null,
+        "seconds": 0.15495180001016706,
+        "error": null
+      }
+    ],
+    "planning_seconds_reused": 18.54768290001084,
+    "context_hash": "2eb1e1bc7c478f9efe8a4d2e06706b818fdc4e49eafa388dece5a37603a608ee"
+  },
+  {
+    "id": "test_11",
+    "split": "test",
+    "case": {
+      "id": "test_11",
+      "forecast_loads": [
+        0.9224172116677065,
+        1.0768141092511938,
+        1.0614438101310033
+      ],
+      "rating_fraction": 0.8000499638048314,
+      "previous": [
+        0.2962796014938557,
+        0.0
+      ]
+    },
+    "status": "READY",
+    "numerical_record": "numerical\\test_11.json",
+    "incumbent": {
+      "candidate": {
+        "tool": "CONTINUOUS_MPC",
+        "control": [
+          0.30006364004887853,
+          0.02963070109494939
+        ],
+        "operation": "INITIAL_MPC"
+      },
+      "backend": "opendss",
+      "candidate_hash": "c317c5ff129a8bfe27023a98fd1633df6728b7570e252c8a8a925c3889cfa4f9",
+      "evidence_hash": "e0ca94458d23d7eec33348cb429b5b030f52643d280194da97530751ab43f61b",
+      "summary": {
+        "control": [
+          0.30006364004887853,
+          0.02963070109494939
+        ],
+        "p_actual_kw": 2355.6335740941095,
+        "q_actual_kvar": 232.61423580637813,
+        "vmin": 1.004526903552385,
+        "vmax": 1.036043988003796,
+        "max_line_utilization_pct": 79.3380336219924,
+        "max_allowed_current_pct": 99.1663486173803,
+        "accepted": true,
+        "violations": {
+          "voltage_low": 0,
+          "voltage_high": 0,
+          "line_current": 0,
+          "inverter_capability": 0,
+          "dispatch_tracking": 0
+        },
+        "scope": "full supplied MV/LV feeder",
+        "backend": "opendss",
+        "load_mult": 0.9224172116677065,
+        "rating_fraction": 0.8000499638048314
+      },
+      "failures": [],
+      "feasible": true,
+      "score": 0.49033751681814935,
+      "seconds": 0.15545159998873714,
+      "error": null
+    },
+    "pretrial_features": {
+      "case_family": "voltage",
+      "planning_backend": "opendss",
+      "load_mean": 1.0202250436833011,
+      "load_span": 0.1543968975834873,
+      "current_margin": 0.008336513826197045,
+      "voltage_margin": 0.01395601199620411,
+      "incumbent_cost": 0.49033751681814935,
+      "remaining_budget": 1
+    },
+    "catalog": {
+      "INCREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.30256364004887853,
+            0.02963070109494939
+          ]
+        }
+      },
+      "RELAX_Q_10_PERCENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.30006364004887853,
+            0.026667630985454452
+          ]
+        }
+      },
+      "DECREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.29756364004887853,
+            0.02963070109494939
+          ]
+        }
+      },
+      "KEEP_INCUMBENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.30006364004887853,
+            0.02963070109494939
+          ]
+        }
+      }
+    },
+    "public_context": {
+      "case_id": "test_11",
+      "model_scope": "Full supplied MV/LV feeder",
+      "case": {
+        "id": "test_11",
+        "forecast_loads": [
+          0.9224172116677065,
+          1.0768141092511938,
+          1.0614438101310033
+        ],
+        "rating_fraction": 0.8000499638048314,
+        "previous": [
+          0.2962796014938557,
+          0.0
+        ]
+      },
+      "objective": "Current-step J=(1-a)^2+0.05*b^2+10*mean((V-1.01)^2)+0.05*||u-u_previous||^2",
+      "initial_candidates": [
+        {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.30006364004887853,
+              0.02963070109494939
+            ],
+            "operation": "INITIAL_MPC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "c317c5ff129a8bfe27023a98fd1633df6728b7570e252c8a8a925c3889cfa4f9",
+          "evidence_hash": "e0ca94458d23d7eec33348cb429b5b030f52643d280194da97530751ab43f61b",
+          "summary": {
+            "control": [
+              0.30006364004887853,
+              0.02963070109494939
+            ],
+            "p_actual_kw": 2355.6335740941095,
+            "q_actual_kvar": 232.61423580637813,
+            "vmin": 1.004526903552385,
+            "vmax": 1.036043988003796,
+            "max_line_utilization_pct": 79.3380336219924,
+            "max_allowed_current_pct": 99.1663486173803,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9224172116677065,
+            "rating_fraction": 0.8000499638048314
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.49033751681814935,
+          "seconds": 0.15545159998873714,
+          "error": null
+        },
+        {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.3173329383134842,
+              0.002906731180846691
+            ],
+            "operation": "INITIAL_SAC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "a94b4d8e8401c8fb9fca4ddfbb7ce11559f289d6e93e62d1548ea4bcc457f551",
+          "evidence_hash": "1956420e41d36518ab942cb3a7e00630567a5b580dca7f62ff362e9aae700c8b",
+          "summary": {
+            "control": [
+              0.3173329383134842,
+              0.002906731180846691
+            ],
+            "p_actual_kw": 2491.2052774403455,
+            "q_actual_kvar": 22.81913783141619,
+            "vmin": 1.003688208660095,
+            "vmax": 1.034868725116671,
+            "max_line_utilization_pct": 84.74979102547782,
+            "max_allowed_current_pct": 105.9306229106363,
+            "accepted": false,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 2,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9224172116677065,
+            "rating_fraction": 0.8000499638048314
+          },
+          "failures": [
+            "thermal"
+          ],
+          "feasible": false,
+          "score": null,
+          "seconds": 0.17817559999821242,
+          "error": null
+        }
+      ],
+      "incumbent": {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.30006364004887853,
+            0.02963070109494939
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "c317c5ff129a8bfe27023a98fd1633df6728b7570e252c8a8a925c3889cfa4f9",
+        "evidence_hash": "e0ca94458d23d7eec33348cb429b5b030f52643d280194da97530751ab43f61b",
+        "summary": {
+          "control": [
+            0.30006364004887853,
+            0.02963070109494939
+          ],
+          "p_actual_kw": 2355.6335740941095,
+          "q_actual_kvar": 232.61423580637813,
+          "vmin": 1.004526903552385,
+          "vmax": 1.036043988003796,
+          "max_line_utilization_pct": 79.3380336219924,
+          "max_allowed_current_pct": 99.1663486173803,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9224172116677065,
+          "rating_fraction": 0.8000499638048314
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.49033751681814935,
+        "seconds": 0.15545159998873714,
+        "error": null
+      },
+      "remaining_candidate_evaluations": 1,
+      "operations": {
+        "INCREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.30256364004887853,
+              0.02963070109494939
+            ]
+          }
+        },
+        "RELAX_Q_10_PERCENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.30006364004887853,
+              0.026667630985454452
+            ]
+          }
+        },
+        "DECREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.29756364004887853,
+              0.02963070109494939
+            ]
+          }
+        },
+        "KEEP_INCUMBENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.30006364004887853,
+              0.02963070109494939
+            ]
+          }
+        }
+      },
+      "operation_meanings": {
+        "INCREASE_PV_0025": "Increase active participation a by 0.0025 to reduce curtailment; a fresh check may reject it",
+        "RELAX_Q_10_PERCENT": "Reduce reactive effort magnitude by ten percent; recheck voltages and currents",
+        "DECREASE_PV_0025": "Reduce active participation by 0.0025 to add possible headroom at curtailment cost",
+        "KEEP_INCUMBENT": "Retain the already checked numerical incumbent; final fresh check still required"
+      },
+      "instruction": "Choose one permitted operation and give a brief evidence-based public reason. Do not invent future trial outcomes."
+    },
+    "initial_evaluations": [
+      {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.30006364004887853,
+            0.02963070109494939
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "c317c5ff129a8bfe27023a98fd1633df6728b7570e252c8a8a925c3889cfa4f9",
+        "evidence_hash": "e0ca94458d23d7eec33348cb429b5b030f52643d280194da97530751ab43f61b",
+        "summary": {
+          "control": [
+            0.30006364004887853,
+            0.02963070109494939
+          ],
+          "p_actual_kw": 2355.6335740941095,
+          "q_actual_kvar": 232.61423580637813,
+          "vmin": 1.004526903552385,
+          "vmax": 1.036043988003796,
+          "max_line_utilization_pct": 79.3380336219924,
+          "max_allowed_current_pct": 99.1663486173803,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9224172116677065,
+          "rating_fraction": 0.8000499638048314
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.49033751681814935,
+        "seconds": 0.15545159998873714,
+        "error": null
+      },
+      {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.3173329383134842,
+            0.002906731180846691
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "a94b4d8e8401c8fb9fca4ddfbb7ce11559f289d6e93e62d1548ea4bcc457f551",
+        "evidence_hash": "1956420e41d36518ab942cb3a7e00630567a5b580dca7f62ff362e9aae700c8b",
+        "summary": {
+          "control": [
+            0.3173329383134842,
+            0.002906731180846691
+          ],
+          "p_actual_kw": 2491.2052774403455,
+          "q_actual_kvar": 22.81913783141619,
+          "vmin": 1.003688208660095,
+          "vmax": 1.034868725116671,
+          "max_line_utilization_pct": 84.74979102547782,
+          "max_allowed_current_pct": 105.9306229106363,
+          "accepted": false,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 2,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9224172116677065,
+          "rating_fraction": 0.8000499638048314
+        },
+        "failures": [
+          "thermal"
+        ],
+        "feasible": false,
+        "score": null,
+        "seconds": 0.17817559999821242,
+        "error": null
+      }
+    ],
+    "planning_seconds_reused": 9.94987179999589,
+    "context_hash": "373e110b736652ce973b2eadd50be38d4ebc770770eead7f74060c05024d8da7"
+  },
+  {
+    "id": "test_12",
+    "split": "test",
+    "case": {
+      "id": "test_12",
+      "forecast_loads": [
+        0.9537037861721832,
+        0.9456456606417233,
+        1.042641406568428
+      ],
+      "rating_fraction": 0.8734441194820267,
+      "previous": [
+        0.21951652891153733,
+        0.0
+      ]
+    },
+    "status": "READY",
+    "numerical_record": "numerical\\test_12.json",
+    "incumbent": {
+      "candidate": {
+        "tool": "SAC",
+        "control": [
+          0.3260287642478943,
+          0.02180355578660965
+        ],
+        "operation": "INITIAL_SAC"
+      },
+      "backend": "opendss",
+      "candidate_hash": "ec2aefbd17683fb59b9ab98e92f57dc38fc6f114ee51960d2470193dba500d1e",
+      "evidence_hash": "ecf8937ebf83b27501059edb93d13cc508a34fa71c6174bc5e9c104e9bb836b2",
+      "summary": {
+        "control": [
+          0.3260287642478943,
+          0.02180355578660965
+        ],
+        "p_actual_kw": 2559.471394327059,
+        "q_actual_kvar": 171.16764976011018,
+        "vmin": 1.0037206891625192,
+        "vmax": 1.036953343793332,
+        "max_line_utilization_pct": 86.82453582577149,
+        "max_allowed_current_pct": 99.40479750125346,
+        "accepted": true,
+        "violations": {
+          "voltage_low": 0,
+          "voltage_high": 0,
+          "line_current": 0,
+          "inverter_capability": 0,
+          "dispatch_tracking": 0
+        },
+        "scope": "full supplied MV/LV feeder",
+        "backend": "opendss",
+        "load_mult": 0.9537037861721832,
+        "rating_fraction": 0.8734441194820267
+      },
+      "failures": [],
+      "feasible": true,
+      "score": 0.4551537799825989,
+      "seconds": 0.15459979999286588,
+      "error": null
+    },
+    "pretrial_features": {
+      "case_family": "voltage",
+      "planning_backend": "opendss",
+      "load_mean": 0.9806636177941114,
+      "load_span": 0.09699574592670468,
+      "current_margin": 0.0059520249874654985,
+      "voltage_margin": 0.013046656206668006,
+      "incumbent_cost": 0.4551537799825989,
+      "remaining_budget": 1
+    },
+    "catalog": {
+      "INCREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3285287642478943,
+            0.02180355578660965
+          ]
+        }
+      },
+      "RELAX_Q_10_PERCENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3260287642478943,
+            0.019623200207948686
+          ]
+        }
+      },
+      "DECREASE_PV_0025": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3235287642478943,
+            0.02180355578660965
+          ]
+        }
+      },
+      "KEEP_INCUMBENT": {
+        "tool": "BOUNDED_LOCAL_SEARCH",
+        "parameters": {
+          "control": [
+            0.3260287642478943,
+            0.02180355578660965
+          ]
+        }
+      }
+    },
+    "public_context": {
+      "case_id": "test_12",
+      "model_scope": "Full supplied MV/LV feeder",
+      "case": {
+        "id": "test_12",
+        "forecast_loads": [
+          0.9537037861721832,
+          0.9456456606417233,
+          1.042641406568428
+        ],
+        "rating_fraction": 0.8734441194820267,
+        "previous": [
+          0.21951652891153733,
+          0.0
+        ]
+      },
+      "objective": "Current-step J=(1-a)^2+0.05*b^2+10*mean((V-1.01)^2)+0.05*||u-u_previous||^2",
+      "initial_candidates": [
+        {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.3234424540671227,
+              0.050092504875604675
+            ],
+            "operation": "INITIAL_MPC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "3ebe0054883a764c57d73c09bb4f344a73462c3f6e0040cd786bcb1810dc1f2d",
+          "evidence_hash": "52897f49aeb945ca2a6d666d1001d23fd3f0b561168c0e51a8f980abb2702a74",
+          "summary": {
+            "control": [
+              0.3234424540671227,
+              0.050092504875604675
+            ],
+            "p_actual_kw": 2539.167704436377,
+            "q_actual_kvar": 393.24853313210343,
+            "vmin": 1.0052759773725324,
+            "vmax": 1.0403129577641168,
+            "max_line_utilization_pct": 86.56246726189796,
+            "max_allowed_current_pct": 99.1047570544428,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9537037861721832,
+            "rating_fraction": 0.8734441194820267
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.4589736706661116,
+          "seconds": 0.15606780000962317,
+          "error": null
+        },
+        {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.3260287642478943,
+              0.02180355578660965
+            ],
+            "operation": "INITIAL_SAC"
+          },
+          "backend": "opendss",
+          "candidate_hash": "ec2aefbd17683fb59b9ab98e92f57dc38fc6f114ee51960d2470193dba500d1e",
+          "evidence_hash": "ecf8937ebf83b27501059edb93d13cc508a34fa71c6174bc5e9c104e9bb836b2",
+          "summary": {
+            "control": [
+              0.3260287642478943,
+              0.02180355578660965
+            ],
+            "p_actual_kw": 2559.471394327059,
+            "q_actual_kvar": 171.16764976011018,
+            "vmin": 1.0037206891625192,
+            "vmax": 1.036953343793332,
+            "max_line_utilization_pct": 86.82453582577149,
+            "max_allowed_current_pct": 99.40479750125346,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "backend": "opendss",
+            "load_mult": 0.9537037861721832,
+            "rating_fraction": 0.8734441194820267
+          },
+          "failures": [],
+          "feasible": true,
+          "score": 0.4551537799825989,
+          "seconds": 0.15459979999286588,
+          "error": null
+        }
+      ],
+      "incumbent": {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.3260287642478943,
+            0.02180355578660965
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "ec2aefbd17683fb59b9ab98e92f57dc38fc6f114ee51960d2470193dba500d1e",
+        "evidence_hash": "ecf8937ebf83b27501059edb93d13cc508a34fa71c6174bc5e9c104e9bb836b2",
+        "summary": {
+          "control": [
+            0.3260287642478943,
+            0.02180355578660965
+          ],
+          "p_actual_kw": 2559.471394327059,
+          "q_actual_kvar": 171.16764976011018,
+          "vmin": 1.0037206891625192,
+          "vmax": 1.036953343793332,
+          "max_line_utilization_pct": 86.82453582577149,
+          "max_allowed_current_pct": 99.40479750125346,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9537037861721832,
+          "rating_fraction": 0.8734441194820267
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4551537799825989,
+        "seconds": 0.15459979999286588,
+        "error": null
+      },
+      "remaining_candidate_evaluations": 1,
+      "operations": {
+        "INCREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3285287642478943,
+              0.02180355578660965
+            ]
+          }
+        },
+        "RELAX_Q_10_PERCENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3260287642478943,
+              0.019623200207948686
+            ]
+          }
+        },
+        "DECREASE_PV_0025": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3235287642478943,
+              0.02180355578660965
+            ]
+          }
+        },
+        "KEEP_INCUMBENT": {
+          "tool": "BOUNDED_LOCAL_SEARCH",
+          "parameters": {
+            "control": [
+              0.3260287642478943,
+              0.02180355578660965
+            ]
+          }
+        }
+      },
+      "operation_meanings": {
+        "INCREASE_PV_0025": "Increase active participation a by 0.0025 to reduce curtailment; a fresh check may reject it",
+        "RELAX_Q_10_PERCENT": "Reduce reactive effort magnitude by ten percent; recheck voltages and currents",
+        "DECREASE_PV_0025": "Reduce active participation by 0.0025 to add possible headroom at curtailment cost",
+        "KEEP_INCUMBENT": "Retain the already checked numerical incumbent; final fresh check still required"
+      },
+      "instruction": "Choose one permitted operation and give a brief evidence-based public reason. Do not invent future trial outcomes."
+    },
+    "initial_evaluations": [
+      {
+        "candidate": {
+          "tool": "CONTINUOUS_MPC",
+          "control": [
+            0.3234424540671227,
+            0.050092504875604675
+          ],
+          "operation": "INITIAL_MPC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "3ebe0054883a764c57d73c09bb4f344a73462c3f6e0040cd786bcb1810dc1f2d",
+        "evidence_hash": "52897f49aeb945ca2a6d666d1001d23fd3f0b561168c0e51a8f980abb2702a74",
+        "summary": {
+          "control": [
+            0.3234424540671227,
+            0.050092504875604675
+          ],
+          "p_actual_kw": 2539.167704436377,
+          "q_actual_kvar": 393.24853313210343,
+          "vmin": 1.0052759773725324,
+          "vmax": 1.0403129577641168,
+          "max_line_utilization_pct": 86.56246726189796,
+          "max_allowed_current_pct": 99.1047570544428,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9537037861721832,
+          "rating_fraction": 0.8734441194820267
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4589736706661116,
+        "seconds": 0.15606780000962317,
+        "error": null
+      },
+      {
+        "candidate": {
+          "tool": "SAC",
+          "control": [
+            0.3260287642478943,
+            0.02180355578660965
+          ],
+          "operation": "INITIAL_SAC"
+        },
+        "backend": "opendss",
+        "candidate_hash": "ec2aefbd17683fb59b9ab98e92f57dc38fc6f114ee51960d2470193dba500d1e",
+        "evidence_hash": "ecf8937ebf83b27501059edb93d13cc508a34fa71c6174bc5e9c104e9bb836b2",
+        "summary": {
+          "control": [
+            0.3260287642478943,
+            0.02180355578660965
+          ],
+          "p_actual_kw": 2559.471394327059,
+          "q_actual_kvar": 171.16764976011018,
+          "vmin": 1.0037206891625192,
+          "vmax": 1.036953343793332,
+          "max_line_utilization_pct": 86.82453582577149,
+          "max_allowed_current_pct": 99.40479750125346,
+          "accepted": true,
+          "violations": {
+            "voltage_low": 0,
+            "voltage_high": 0,
+            "line_current": 0,
+            "inverter_capability": 0,
+            "dispatch_tracking": 0
+          },
+          "scope": "full supplied MV/LV feeder",
+          "backend": "opendss",
+          "load_mult": 0.9537037861721832,
+          "rating_fraction": 0.8734441194820267
+        },
+        "failures": [],
+        "feasible": true,
+        "score": 0.4551537799825989,
+        "seconds": 0.15459979999286588,
+        "error": null
+      }
+    ],
+    "planning_seconds_reused": 9.368217700000969,
+    "context_hash": "830d6fa07a92dd610ba3556d15ade99c480a3c29fa795156b33407246ed77f86"
+  }
+]

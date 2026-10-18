@@ -1,0 +1,215 @@
+\appendix
+\section{Reference equations}
+\begin{frame}[t]{Optional reference: coupled three-phase LinDistFlow}
+\referencefont
+\[
+S_{ij}=s_j+\sum_{k:j\to k}S_{jk},\qquad
+w_j=w_i-2\operatorname{Re}\{\overline D_\beta Z_{ij}D_\beta\overline S_{ij}\}.
+\]
+\referencefont
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.24\linewidth}>{\raggedright\arraybackslash}p{.69\linewidth}@{}}
+\toprule Symbol / domain & Meaning and units \\
+\midrule
+$i,j,k$; $j\to k$ & Parent bus, child bus and downstream child; sum over the outgoing branches of bus $j$. \\
+$S_{ij}\in\mathbb C^{n_\phi}$ & Branch phase powers $P_{ij}+\mathrm{i}Q_{ij}$ in VA (real parts W, imaginary parts var); $n_\phi$ is the branch's number of present phases. \\
+$s_j\in\mathbb C^{n_\phi}$ & Net complex consumption at bus $j$, positive for consumption and negative for injection, in VA. \\
+$w_i,w_j\in\mathbb R_+^{n_\phi}$ & Squared phase-to-neutral voltage magnitudes $|V|^2$, in V$^2$; the solver later converts magnitudes to per unit. \\
+$Z_{ij}\in\mathbb C^{n_\phi\times n_\phi}$ & Phase impedance matrix in $\Omega$, including mutual impedances. \\
+$D_\beta=\operatorname{diag}(\beta)$ & Nominal phase ratios $\beta=(1,e^{-\mathrm{i}2\pi/3},e^{\mathrm{i}2\pi/3})$ restricted to present phases; dimensionless. \\
+$\overline{(\cdot)},\operatorname{Re},\mathrm{i}$ & Complex conjugation, componentwise real part, and imaginary unit $\mathrm{i}^2=-1$. \\
+\bottomrule
+\end{tabular}
+\par\smallskip\textbf{Assumptions:} radial energized topology; nearly nominal phase-angle ratios; series-loss terms omitted in the balance. Balance terms use a common bus-phase ordering with absent phases zero-filled; voltage drop uses present branch phases. The export aggregates LV injections and omits internal LV constraints.
+\sources{Gan and Low (2014), Sec. V, \url{https://arxiv.org/abs/1406.3054}. Export and implementation: \texttt{src/lindistflow3.py}.}
+\note{Optional, outside the three-hour timing. Explain dimensions before the multiplication: ohms times VA gives volts squared. The displayed equation uses physical units; multiplying kVA directly by ohms without converting would be wrong. The real-part expression retains phase coupling. Approximate reported losses are separate from the lossless balance. Model coverage, approximation error and solver convergence are different questions.}
+\end{frame}
+
+\begin{frame}[t]{Optional reference: voltage-control objective and constraints}
+\referencefont
+\[
+\min_{x_k,u_k}\sum_{k,i,\phi}w_v(v_{i\phi,k}-v^{\rm ref})^2
++\sum_{k,g}\big[w_p(p^{\rm av}_{g,k}-p_{g,k})^2+w_q q_{g,k}^2\big]
+\]
+\[
+F_m(x_k,u_k;\hat d_k)=0,\quad \underline v\leq v\leq\overline v,\quad
+|I|\leq\overline I,\quad 0\leq p_g\leq p_g^{\rm av},\quad p_g^2+q_g^2\leq S_g^2.
+\]
+\referencefont
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.25\linewidth}>{\raggedright\arraybackslash}p{.68\linewidth}@{}}
+$k,i,\phi,g$ & Time-step, bus, available-phase and PV-inverter indices. Sums cover the modeled horizon, bus phases and inverters. \\
+$x_k\in\mathbb R^{n_x},u_k\in\mathbb R^{2n_g}$ & Real representation of electrical states and inverter P/Q controls; $n_x$ is the state dimension and $n_g$ the inverter count. \\
+$F_m,\hat d_k$ & Selected model $m$'s power-flow residual and forecast active/reactive demand (kW/kvar). Zero residual imposes its electrical equations. \\
+$v,v^{\rm ref},\underline v,\overline v$ & Voltage magnitude, target and bounds in pu; $I,\overline I$ are phase-current magnitude and allowed limit in A. Inequalities are componentwise. \\
+$p_g,p_g^{\rm av},q_g,S_g$ & Active output/availability (kW), reactive output (kvar), apparent rating (kVA). \\
+$w_v,w_p,w_q\geq0$ & Objective weights; their units or input normalization must make the summed objective consistent. \\
+\end{tabular}
+\par\smallskip\textbf{Executed snapshot reduction:} $p_g=aS_g$, $q_g=bS_g$ with dimensionless $a\in[0,1]$, $b\in[-.44,.44]$ and $a^2+b^2\leq1$. It minimizes the dimensionless cost $(1-a)^2+.05b^2+10\operatorname{mean}[(v-1.01)^2]$ across modeled voltage entries.
+\sources{Maharjan et al. (2021), \url{https://doi.org/10.1109/TSTE.2020.3001115}. Restricted snapshot: \texttt{src/standard\_formulations.py}.}
+\note{Optional. The first equations describe a general problem; the final paragraph defines the actual two-variable reduction. Available P equals rated S only under the supplied high-irradiance overlay. A sequential local sensitivity solve, inscribed capability polygon and fresh checks do not provide global AC optimality. The general model can be extended to individual inverter decisions, but that larger optimization was not executed here.}
+\end{frame}
+
+\begin{frame}[t]{Optional reference: the executed continuous horizon plan}
+\referencefont
+\[
+\min_{u_0,u_1,u_2}\sum_{k=0}^{2}\gamma^k\ell_k,\quad
+\ell_k=(1-a_k)^2+.05b_k^2+\frac{10}{N_v}\sum_{r=1}^{N_v}(v_{r,k}-1.01)^2
++.05\|u_k-u_{k-1}\|_2^2.
+\]
+\referencefont
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.25\linewidth}>{\raggedright\arraybackslash}p{.68\linewidth}@{}}
+\toprule Symbol / value & Meaning and implementation \\
+\midrule
+$H=3$, $k\in\{0,1,2\}$ & Three forecast steps. No physical step duration or dynamic energy state is specified in this quasistatic teaching model. \\
+$u_k=(a_k,b_k)\in\mathbb R^2$ & Dimensionless fleet participation; $p_g=a_kS_g$ kW and $q_g=b_kS_g$ kvar for inverter rating $S_g$ in kVA. \\
+$u_{-1}$ & Declared previous fleet command; the Euclidean squared norm penalizes changes from it or from the preceding planned step. \\
+$v_{r,k}$; $N_v$ & Per-unit voltage magnitude at modeled bus-phase entry $r$; number of such entries in the selected model. \\
+$\gamma=.98$, $\ell_k$ & Dimensionless discount and dimensionless engineering stage cost. Numeric coefficients are declared teaching weights, not fitted monetary costs. \\
+$\rho\in(0,1]$ & Permitted nominal-current fraction: each predicted phase current must satisfy $|I|\leq\rho I^{\rm rated}$ (A). \\
+\bottomrule
+\end{tabular}
+\par\smallskip\textbf{Algorithm:} rebuild local voltage/current sensitivities, solve a constrained QP step, and retain only a nonincreasing-cost horizon passing fresh model checks. The 32-sided inscribed capability polygon is conservative. The tool proposes $u_0$; this study inspects a horizon decision rather than an executed closed-loop rollout of MPC.
+\sources{Rawlings, Mayne and Diehl, \emph{Model Predictive Control}, 2nd ed. (2017), \url{https://sites.engineering.ucsb.edu/~jbraw/mpc/}. Executed plan: \texttt{src/continuous\_control.py}.}
+\note{Optional. Six real control variables are optimized. The three forecast loads and movement penalty couple the stages, but storage dynamics are absent. Fresh horizon feasibility is tool evidence; the common workflow gate checks the chosen first action. There is no recursive-feasibility, stability, uncertainty-robustness or global-optimality certificate. A small voltage-objective value on an MV-only model cannot certify LV service voltage.}
+\end{frame}
+
+\begin{frame}[t]{Optional reference: SAC objective, action mapping and reward}
+\referencefont
+\setlength{\abovedisplayskip}{0pt}\setlength{\belowdisplayskip}{1pt}\setlength{\abovedisplayshortskip}{0pt}\setlength{\belowdisplayshortskip}{1pt}
+\[
+\max_\pi\;\mathbb E_\pi\!\left[\sum_{t=0}^{2}\gamma^t\{r_t+\alpha\mathcal H(\pi(\cdot\mid o_t))\}\right],\quad
+a=\tfrac12(z_1+1),\quad b=z_2\min\{.44,\sqrt{1-a^2}\}.
+\]
+\[
+r_t=-\ell_t-40(e_v/.05)^2-10e_I^2-2\mathbf1\{e_v>0\text{ or }e_I>0\}.
+\]
+\[
+e_v=[.95-\hat v_{\min}]_++[\hat v_{\max}-1.05]_+,\qquad e_I=[\hat\iota-1]_+.
+\]
+\referencefont
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.24\linewidth}>{\raggedright\arraybackslash}p{.69\linewidth}@{}}
+$\pi$; $z\in[-1,1]^2$; $a,b$ & Policy, normalized action with components $z_1,z_2$, and dimensionless fleet P/Q participation. Evaluation uses tanh of the Gaussian mean before mapping. \\
+$o_t\in\mathbb R^7$ & Three forecast demand multipliers, previous $a,b$, allowed current fraction, remaining horizon/3; all dimensionless. \\
+$\mathbb E_\pi,\mathcal H,\alpha=.005$ & Expectation under the policy/environment; differential entropy in normalized action coordinates (natural logarithm); fixed entropy coefficient. \\
+$t,\gamma=.98,r_t,\ell_t$ & Training step, discount, reward and engineering cost. Training predicts its voltage-MSE term directly with the fitted response surface. Reward/cost are dimensionless. \\
+$e_v,\hat v_{\min},\hat v_{\max}$ & Voltage excess and predicted minimum/maximum voltage, in pu. A hat denotes a fitted response; $[x]_+=\max(x,0)$. \\
+$e_I,\hat\iota$ & Dimensionless current excess and predicted maximum line-phase current/rating ratio. Each line-phase uses its own rating; training fixes allowed fraction $\rho=1$. \\
+$\mathbf1\{\cdot\}$ & Indicator: one when any stated surrogate violation occurs, zero otherwise. \\
+\end{tabular}
+\par\textbf{Protocol:} seed 23; 12,000 reward-only transitions; two 64-unit hidden layers; no MPC labels. Fresh network checks remain necessary.
+\sources{Haarnoja et al. (2018), \url{https://proceedings.mlr.press/v80/haarnoja18b.html}. Protocol: \texttt{models/continuous\_sac/training\_protocol.json}; optional \texttt{Continuous\_SAC\_Training.ipynb}.}
+\note{Optional. The entropy coefficient is fixed, not automatically learned. The actor and critic optimize the declared surrogate environment. Training return, fit-validation error and fresh physical evaluation are different evidence sets. The action map enforces the device circle but cannot enforce voltage or line-current constraints. The nominal current used in the training penalty is intentional; it makes the reserve case a distribution shift.}
+\end{frame}
+
+\begin{frame}[t]{Optional reference: restoration MILP variables and topology}
+\referencefont
+\[
+\max\sum_{i\ne0}w_iP_i^d s_i,\quad s_i\leq y_i,\quad
+-\overline P_{ij}z_{ij}\leq P_{ij}\leq\overline P_{ij}z_{ij},\quad
+\sum_jP_{ji}-\sum_jP_{ij}=P_i^d s_i\quad(i\ne0).
+\]
+\[
+\sum_j f_{ji}-\sum_j f_{ij}=y_i\quad(i\ne0),\quad |f_{ij}|\leq5z_{ij},\quad
+\sum_{(i,j)\in E}z_{ij}=\sum_{i\in N}y_i-1.
+\]
+\referencefont
+\renewcommand{\arraystretch}{.98}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.25\linewidth}>{\raggedright\arraybackslash}p{.68\linewidth}@{}}
+$N,E,i,j$ & Fixture's six buses and candidate edges, with source bus $0$; each edge has one arbitrary reference orientation. Signed flows may oppose it. \\
+$s_i,y_i,z_{ij}\in\{0,1\}$ & Load picked up, bus energized, and branch energized. $s_i\leq y_i$ permits an energized transit bus with its load disconnected. \\
+$P_i^d\geq0,\overline P_{ij}\geq0,P_{ij}\in\mathbb R$ & Demand, branch capacity and signed active flow, all in kW. Source export equals total picked-up demand. \\
+$w_i>0$ & Dimensionless service weight: 10 for the two critical loads, 1 otherwise. The objective is weighted kW; finite weights are not lexicographic priority. \\
+$f_{ij}\in\mathbb R$ & Dimensionless connectivity commodity; each energized non-source bus consumes one unit. Source exports $\sum_{i\ne0}y_i$; 5 bounds its total. \\
+$y_0=1$, $z_{ij}\leq y_i,y_j$ & Source remains energized; an energized edge requires energized endpoints. Unavailable edges have $z_{ij}=0$. \\
+\end{tabular}
+\par\textbf{Why radial:} connectivity plus the displayed edge count enforces a tree; edge count alone permits disconnected cycles. A second solve fixes weighted service and minimizes energized branch count.
+\sources{Chen et al. (2018), \url{https://doi.org/10.1109/TPWRS.2017.2720122}; Wang et al. (2020), \url{https://arxiv.org/abs/1912.05185}. This is the six-node active-power fixture, not the feeder catalog.}
+\note{Optional. The balance sign follows the chosen edge orientation, with outgoing flow subtracted from incoming flow at non-source buses. Binary y, s and z have different meanings. Edge count alone would permit a disconnected cycle; the commodity constraints exclude it. Capacity is active power here, not a three-phase thermal calculation. The secondary objective is not switch operations from a prior topology.}
+\end{frame}
+
+\begin{frame}[t]{Optional reference: WLS, residual covariance and calibration}
+\referencefont
+\[
+\hat x=\arg\min_{x\in\mathbb R^n}(z-Hx)^\top R^{-1}(z-Hx),\quad r=z-H\hat x,
+\quad\Omega=R-H(H^\top R^{-1}H)^{-1}H^\top.
+\]
+\[
+r_i^N=|r_i|/\sqrt{\Omega_{ii}},\qquad J=r^\top R^{-1}r,\qquad
+J>\chi^2_{m-n,\,1-\alpha}\ \Longrightarrow\ \text{residual alarm}.
+\]
+\referencefont
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.23\linewidth}>{\raggedright\arraybackslash}p{.70\linewidth}@{}}
+$x,\hat x\in\mathbb R^n$ & True and estimated non-source voltage angles (radians), $n=3$ in the four-bus DC fixture. \\
+$z\in\mathbb R^m,H\in\mathbb R^{m\times n}$ & $m=8$ measurements and their linear map: four branch flows, three injections (pu), and one angle (rad). Each row of $H$ maps rad to that channel's units. \\
+$R\succ0,\Omega\in\mathbb R^{m\times m}$ & Noise and residual covariance matrices, with channel-dependent squared/cross units. $R$ is diagonal for the stated independent noise. \\
+$r,r_i,r_i^N$ & Residual vector, its channel $i$ component in native units, and dimensionless normalized magnitude. Defined only for $\Omega_{ii}>0$. \\
+$J,\chi^2_{\nu,1-\alpha},\nu=m-n$ & Dimensionless weighted residual statistic, chi-square quantile and degrees of freedom; $\alpha=.01$, $\nu=5$, threshold 15.0863. \\
+$\top$, $R^{-1}$ & Matrix transpose and inverse. Implementation uses weighted least squares/linear solves; the inverse notation states the mathematics. \\
+\end{tabular}
+\par\smallskip\textbf{Calibration assumptions:} correct linear model, full column rank $\operatorname{rank}(H)=n$, and Gaussian noise with the stated covariance. A residual alarm signals inconsistency; it does not identify malicious intent. Recheck rank after removing a channel.
+\sources{Schweppe and Wildes (1970), \url{https://doi.org/10.1109/TPAS.1970.292678}; Handschin et al. (1975), \url{https://doi.org/10.1109/T-PAS.1975.31858}.}
+\note{Optional. Distinguish m measurements from n unknown states, and explain whitening through R. The displayed alpha is a nominal false-alarm probability under the stated model, not a measured attack-detection rate. The largest normalized residual is a localization heuristic. Zero residual variance gives an undefined normalized statistic, and a rank-deficient retained set does not support the same estimator.}
+\end{frame}
+
+\begin{frame}[t]{Optional reference: why a coordinated corruption can be invisible}
+\referencefont
+\[
+z'=z+Hc,\qquad \hat x'=\hat x+c,\qquad z'-H\hat x'=z-H\hat x=r.
+\]
+\referencefont
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.25\linewidth}>{\raggedright\arraybackslash}p{.68\linewidth}@{}}
+\toprule Symbol / domain & Meaning in the fixed linear WLS model \\
+\midrule
+$z,z'\in\mathbb R^m$ & Original and corrupted measurement vectors, retaining each channel's native units. \\
+$H\in\mathbb R^{m\times n}$ & Known, unchanged full-column-rank measurement matrix; here $m=8,n=3$. \\
+$c\in\mathbb R^n$ & Attacker's selected angle shift (rad). The added measurement vector $Hc$ has the correct units for every channel. \\
+$\hat x,\hat x'\in\mathbb R^n$ & Original and shifted state estimates (rad); $r$ is their identical residual in measurement units. \\
+$\mathcal T,H_{\mathcal T}$ & Index set of protected measurement channels and the corresponding rows of $H$. \\
+\bottomrule
+\end{tabular}
+\par\medskip If protected channels cannot change, a corruption of this form must satisfy $H_{\mathcal T}c=0$. When $H_{\mathcal T}$ has full column rank, only $c=0$ is possible within this attack construction.
+\par\medskip\textbf{Threat assumptions:} the attacker knows $H$ and can modify every unprotected channel required by $Hc$. This does not establish that an arbitrary attacker can create the same effect. A low residual does not reject consistency under the stated model; it does not establish the truth of the measurements.
+\sources{Liu, Ning and Reiter (2009), \url{https://doi.org/10.1145/1653662.1653666}. Exact fixture: \texttt{src/standard\_formulations.py}, \texttt{run\_wls\_demo}.}
+\note{Optional. Substitute the shifted estimate directly into the residual and cancel Hc. This exact cancellation is a property of this linear model with an unchanged matrix, not a blanket statement about nonlinear AC state estimation. The protected-set rank argument rules out this particular Hc shift when the stated channels are trustworthy; it does not authenticate channels or address every attack class.}
+\end{frame}
+
+\begin{frame}[t]{Optional reference: trusted-data estimation and constrained control}
+\referencefont
+\[
+H_{\mathcal T}=I_3,\quad
+b=FB^{-1}e_2,\qquad
+\min_{0\leq u\leq .5}\tfrac12u^2
+\quad\text{s.t.}\quad |F\hat x_{\mathcal T}+bu|\leq\overline f-.01\mathbf1.
+\]
+\referencefont
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.25\linewidth}>{\raggedright\arraybackslash}p{.68\linewidth}@{}}
+$\mathcal T,H_{\mathcal T},I_3$ & Three assumed trustworthy angle channels, their measurement matrix, and the $3\times3$ identity. Additional independent angle channels make the toy state observable; this identity is not a row subset of the original eight-channel matrix. \\
+$\hat x_{\mathcal T}\in\mathbb R^3$ & Estimate from protected angles, in rad. Three measurements minus three states leave zero residual-test degrees of freedom. \\
+$u\in[0,.5]$ & Flexible active injection at bus 2, in pu, balanced by the source. The dimensionless quadratic cost selects the smallest feasible injection. \\
+$F\in\mathbb R^{4\times3},B\in\mathbb R^{3\times3}$ & DC maps from non-source angles to branch flows and nodal injections; entries convert rad to pu power. \\
+$e_2=(0,1,0)^\top$, $b\in\mathbb R^4$ & Unit selector of bus-2 injection and induced branch-flow change per unit injection. \\
+$\overline f=(.35,.18,.35,.35)^\top$ & Absolute branch-flow limits in pu for branches 01, 12, 23, 03. $\mathbf1\in\mathbb R^4$ is an all-ones vector. \\
+$F\hat x_{\mathcal T}+bu$, $.01$ & Predicted branch flows and declared planning margin, both in pu; absolute value and inequality act per branch. \\
+\end{tabular}
+\par\smallskip\textbf{Check after solving:} verify finite values, $u$ bounds and predicted constraints; then evaluate the action against the known synthetic true state. Protected-data control removes the toy overload, subject to the assumed channel trust. The margin is not a calibrated uncertainty bound.
+\sources{Estimation/attack context: \url{https://doi.org/10.1109/TPAS.1970.292678}; \url{https://doi.org/10.1145/1653662.1653666}. Constrained DC teaching response: \texttt{src/standard\_formulations.py}.}
+\note{Optional. F and B use the fixture's signed branch-incidence convention; using the same convention in both yields the action sensitivity b. The decision is a scalar DC injection, not feeder-wide AC cyber recovery. Synthetic truth is available to the evaluator, not to an actual operator. The trusted set is an explicit premise, and Llama cannot establish it.}
+\end{frame}
+
+\begin{frame}[t]{Study boundaries and the next scientific comparisons}
+\referencefont
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.27\linewidth}>{\raggedright\arraybackslash}p{.66\linewidth}@{}}
+\toprule Record & What it measures \\
+\midrule
+Proposal-complete suite & Six settings $\times$ two supervisors; 24 Llama calls, plus one separate four-call Qwen example. One disclosed development revision; five cost ties and one worse Llama outcome. \\
+Initial workshop runs & Continuous SAC/MPC proposals, checks and local Llama fallback choices under both model backends. \\
+Language confirmation & 12 authored requests; 8 clear and 4 requiring clarification, with independent semantic scoring and the same downstream tools. \\
+SAC training & 12,000 nominal-domain interactions; six authored model/case evaluations. One training seed does not quantify algorithm variability. \\
+Standard-method traces & One permitted numerical attempt around continuous P/Q, a six-node MILP or four-bus DC WLS recovery. \\
+Historical 32-run corpus & Eight finite-catalog feeder fixtures, two model backends, two supervisors and separate AC reference audits. \\
+\bottomrule
+\end{tabular}
+\par\smallskip\referencefont Language confirmation: correct completion $5/8$ for the parser and $7/8$ for selective Llama; wrong READY interpretations $1/12$ and $2/12$. Numerators count observed outcomes; denominators are clear requests (8) or all requests (12). The restoration subset does not replace the parent-study result.
+\par\smallskip\referencefont\textbf{Next comparison:} predeclare unseen cases, repeat model calls and training seeds, match tool/retry budgets, and report incorrect recommendations separately from correct abstentions. Human time and workload need a separate human study.
+\sources{Study design: \texttt{appendix/Agentic\_Advantage\_Study.md}. Recent benchmark context: Mansutti et al. (2026 preprint), \url{https://arxiv.org/abs/2609.00384}. Reading map: \texttt{appendix/Recent\_Agentic\_AI\_Literature.md}.}
+\note{Optional. Keep these experiments separate whenever stating a benefit. A successful tool call, correct intent, physical feasibility, good objective and suitable human review are different outcomes. Nothing here establishes field reliability, globally optimal AC control, an authenticated dispatch system, or human time savings. These denominators and limitations are essential to interpreting the observed Llama results in each lesson.}
+\end{frame}

@@ -1,0 +1,110 @@
+{
+  "scope": "Primary-paper research; historical architecture and reported results, not a modern SDK benchmark.",
+  "accessed_date": "2026-10-17",
+  "papers": [
+    {
+      "id": "F05",
+      "short_name": "AFlow",
+      "title": "AFlow: Automating Agentic Workflow Generation",
+      "dates": {"arxiv_v1": "2024-10-14", "read_version": "v4, 2025-04-15", "venue": "ICLR 2025"},
+      "urls": {
+        "paper": "https://arxiv.org/pdf/2410.10762v4",
+        "metadata": "https://arxiv.org/abs/2410.10762",
+        "publisher": "https://openreview.net/pdf?id=z5uVAKwmjf",
+        "code": "https://github.com/FoundationAgents/AFlow",
+        "entrypoint": "https://github.com/FoundationAgents/AFlow/blob/main/run.py",
+        "configuration": "https://github.com/FoundationAgents/AFlow/blob/main/config/config2.example.yaml"
+      },
+      "mechanism": "Offline search over complete executable workflows. MCTS tree nodes are whole workflows; an optimizer edits prompts and code connections. Model, temperature and output format stay fixed. Reusable operators narrow the search. Mixed uniform/score selection, repeated execution evaluation, and parent-linked experience guide subsequent edits.",
+      "mechanism_locators": ["Figure 3, p.5", "Section 4 and Algorithm 1, pp.6–7"],
+      "selection_formula": "P(i)=lambda/n+(1-lambda)*exp(alpha*(s_i-s_max))/sum_j exp(alpha*(s_j-s_max)); lambda=0.2, alpha=0.4",
+      "discovered_workflow": "MBPP: generate three programs; ensemble-select; test; return on success, otherwise repair using failure feedback.",
+      "discovered_workflow_locator": "Appendix B.1, p.22",
+      "result": {
+        "recommended_chart": "MBPP only; avoid averaging incompatible benchmark metrics.",
+        "locator": "Table 1 and Section 5.1, pp.7–8",
+        "dataset": "MBPP",
+        "metric": "pass@1 (%)",
+        "executor": "GPT-4o-mini-0718",
+        "optimizer": "Claude-3.5-sonnet",
+        "optimizer_snapshot": "Unspecified",
+        "denominator": null,
+        "denominator_note": "Exact MBPP test count undisclosed in paper. Full dataset split 20% validation/80% test, seed 42; do not substitute the standard MBPP test size.",
+        "repetitions": 3,
+        "aggregation": "mean",
+        "max_search_rounds": 20,
+        "validation_executions_per_candidate": 5,
+        "best_manual": 73.6,
+        "aflow": 83.4,
+        "delta_percentage_points": 9.8,
+        "chart_columns": ["method", "pass_at_1_percent"],
+        "chart_rows": [["IO",71.8],["CoT",71.8],["CoT SC (5-shot)",73.6],["MedPrompt",73.6],["MultiPersona",73.6],["Self Refine",69.8],["ADAS",53.4],["AFlow",83.4]]
+      },
+      "limits": "Requires numerical evaluation; validation-driven workflow discovery has search cost. Results concern benchmark workflows. Different executors may need different workflows.",
+      "limits_locators": ["Section 3.2, p.6", "Section 5.2, p.8"],
+      "repository_workflow": {
+        "status": "Source-inspected, not executed; commands require credentials and historical model availability.",
+        "steps": ["Clone FoundationAgents/AFlow; create Python 3.9 environment.", "Install requirements.txt.", "Configure models and credentials in config/config2.yaml using the example.", "Run: python run.py --dataset MBPP --max_rounds 20 --validation_rounds 5", "Evaluate saved workflows using optimizer mode Test in run.py."],
+        "source_notes": "Current run.py automatically downloads datasets. Its validation_rounds default is 1, unlike the paper's 5: pass 5 explicitly. README warns some operators may have migration bugs. Current code defaults do not establish exact paper reproduction."
+      },
+      "teaching_inference": "Treat this as outer-loop process improvement: first define a reliable score, then compare candidate procedures on held-out examples. AFlow's optimized workflow is the deployed artifact; the search tree is not the user's live task state.",
+      "slide_suggestions": [
+        {"route":"core","title":"Improve the procedure, then use it","visual":"Two loops: offline workflow candidate search across scored examples; selected workflow handles a new task.","source_locator":"Figure 3, p.5"},
+        {"route":"core","title":"A discovered procedure has concrete branches","visual":"Three generated programs converge to ensemble selection, test gate, optional repair.","source_locator":"Appendix B.1, p.22"},
+        {"route":"extension","title":"Measure the workflow, not the brand","visual":"MBPP pass@1 bars from Table 1; annotate executor, missing exact test count and three-run mean.","source_locator":"Table 1, p.8"}
+      ]
+    },
+    {
+      "id": "F04",
+      "short_name": "LATS",
+      "title": "Language Agent Tree Search Unifies Reasoning, Acting, and Planning in Language Models",
+      "dates": {"arxiv_v1": "2023-10-06", "read_version": "v3, 2024-06-06", "venue": "ICML 2024, PMLR 235, 21–27 July 2024"},
+      "urls": {
+        "paper": "https://arxiv.org/pdf/2310.04406v3",
+        "metadata": "https://arxiv.org/abs/2310.04406",
+        "publisher": "https://proceedings.mlr.press/v235/zhou24r.html",
+        "publisher_pdf": "https://raw.githubusercontent.com/mlresearch/v235/main/assets/zhou24r/zhou24r.pdf",
+        "code": "https://github.com/andyz245/LanguageAgentTreeSearch",
+        "webshop_script": "https://github.com/andyz245/LanguageAgentTreeSearch/blob/main/webshop/lats.sh",
+        "environment": "https://github.com/princeton-nlp/WebShop"
+      },
+      "mechanism": "Online trajectory search. States contain task, action history and observations. UCT selects; the LM samples actions; environment feedback plus LM/self-consistency scoring evaluates children. Simulate, backpropagate reward, and retain failed trajectories with reflections as future context. Stop on success or budget. No weight training or learned world model.",
+      "mechanism_locators": ["Section 4 and Figure 2, pp.4–6", "Algorithm 1, p.15"],
+      "formulas": ["UCT(s)=V(s)+w*sqrt(ln(N(parent))/N(s))", "V(s)=lambda*LM(s)+(1-lambda)*SC(s)"],
+      "result": {
+        "recommended_chart": "WebShop score among prompting methods; success rate is a separate metric.",
+        "locator": "Table 6 and Section 5.3, p.8; Appendix D.3, pp.16–17",
+        "dataset": "WebShop",
+        "model": "GPT-3.5; official script uses gpt-3.5-turbo",
+        "model_snapshot": "Unspecified",
+        "metric": "Task score = 100 × mean environment reward",
+        "denominator": 50,
+        "denominator_unit": "instructions/environments",
+        "repetitions": "Unspecified",
+        "search_budget": {"n_children":5,"k_trajectories":30,"depth":15,"lambda":0.8},
+        "baseline": "Reflexion",
+        "baseline_score":64.2,
+        "lats_score":75.9,
+        "delta_score_points":11.7,
+        "chart_columns": ["method","score","success_rate_percent"],
+        "chart_rows": [["ReAct",53.8,28.0],["ReAct (best of k)",59.1,32.0],["Reflexion",64.2,35.0],["LATS (ReAct)",75.9,38.0]],
+        "comparison_note": "LATS, ReAct best-of-k and Reflexion share k=30, not equal model-call/token budgets. Other Table 6 training/human rows are not controlled same-model comparisons."
+      },
+      "limits": "Higher inference cost than simpler prompting; requires reverting environments to earlier states. Benchmarks simplify real-world interaction.",
+      "limits_locator": "Appendix B, p.14",
+      "repository_workflow": {
+        "status": "Source-inspected, not executed; requires API credentials and local environment.",
+        "steps": ["Clone andyz245/LanguageAgentTreeSearch and enter webshop.", "Install and start Princeton WebShop locally following its repository.", "Install webshop/requirements.txt; set OPENAI_API_KEY.", "Set the local WebShop URL in lats.py.", "Run: sh lats.sh"],
+        "script_parameters": "gpt-3.5-turbo, task indices 0:50, n_generate_sample=5, n_evaluate_sample=1, temperature=1.0, iterations=30",
+        "reproducibility_note": "README states WebShop/HotPotQA trajectories were too large to upload. Its LangGraph/LlamaIndex links are later implementations; do not present those libraries as the paper architecture."
+      },
+      "teaching_inference": "For a utility operator, branch and replay in a simulator or reversible workspace. Search over draft actions; commit real-world changes only after selecting an outcome. The paper does not establish safe rollback of irreversible external actions.",
+      "slide_suggestions": [
+        {"route":"core","title":"Try alternatives before choosing a path","visual":"Small search tree over an example shopping request; each edge is an action, each node includes the returned observation.","source_locator":"Figure 2, p.5"},
+        {"route":"extension","title":"Searching buys score at a cost","visual":"WebShop prompting-method score bars; show 50 tasks and 30-trajectory budget, plus reversible-environment requirement.","source_locator":"Table 6, p.8; Appendix B, p.14"},
+        {"route":"extension","title":"An operator needs a place to replay","visual":"Draft/simulated action tree feeds one selected action sequence; external commitment is a separate tutorial design step.","source_locator":"Appendix B, p.14; tutorial inference"}
+      ]
+    }
+  ],
+  "synthesis": "AFlow searches for the procedure used across tasks; LATS searches alternative paths within a task. An orchestration SDK can implement either control structure but does not automatically supply its evaluator, budget, reversible environment or evidence of improvement."
+}

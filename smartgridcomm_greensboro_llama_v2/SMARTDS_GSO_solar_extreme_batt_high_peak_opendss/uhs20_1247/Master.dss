@@ -1,0 +1,40 @@
+Clear
+
+New Circuit.substation_uhs20_69 bus1=uhs20_69 pu=1.0 basekV=69.0 R1=1e-05 X1=1e-05 R0=1e-05 X0=1e-05
+
+Redirect LineCodes.dss
+Redirect uhs20_1247--udt5173/LineCodes.dss
+Redirect uhs20_1247--udt8894/LineCodes.dss
+Redirect uhs20_1247--udt9897/LineCodes.dss
+Redirect Lines.dss
+Redirect uhs20_1247--udt5173/Lines.dss
+Redirect uhs20_1247--udt8894/Lines.dss
+Redirect uhs20_1247--udt9897/Lines.dss
+Redirect Transformers.dss
+Redirect uhs20_1247--udt5173/Transformers.dss
+Redirect uhs20_1247--udt8894/Transformers.dss
+Redirect uhs20_1247--udt9897/Transformers.dss
+Redirect Regulators.dss
+Redirect uhs20_1247--udt5173/Loads.dss
+Redirect uhs20_1247--udt8894/Loads.dss
+Redirect uhs20_1247--udt9897/Loads.dss
+Redirect uhs20_1247--udt5173/Capacitors.dss
+Redirect uhs20_1247--udt8894/Capacitors.dss
+Redirect uhs20_1247--udt9897/Capacitors.dss
+Redirect Storage.dss
+Redirect uhs20_1247--udt5173/Storage.dss
+Redirect uhs20_1247--udt8894/Storage.dss
+Redirect uhs20_1247--udt9897/Storage.dss
+Redirect uhs20_1247--udt5173/PVSystems.dss
+Redirect uhs20_1247--udt8894/PVSystems.dss
+Redirect uhs20_1247--udt9897/PVSystems.dss
+
+Set Voltagebases=[0.12, 0.208, 0.24, 0.48, 7.2, 12.47, 69.0]
+
+Calcvoltagebases
+
+Buscoords Buscoords.dss
+set maxcontroliter=50
+
+Solve
+Plot Profile Phases=All

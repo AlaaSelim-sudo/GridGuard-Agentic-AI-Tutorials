@@ -1,0 +1,7 @@
+\begin{tikzpicture}[font=\sffamily\fontsize{12}{14}\selectfont,x=1cm,y=1cm]
+\foreach \y/\case/\failure/\repair in {2.8/Voltage/Broader model fails/Replan and recheck,1.4/Restoration/Network or rating changes/Rerun the current case,0/Cyber/Trust remains unresolved/Independent evidence or escalate}{
+\node[anchor=west,font=\bfseries,text=IEEEBlue] at (0,\y) {\case};
+\node[anchor=west,text=Navy] at (2.9,\y) {\failure};
+\draw[IEEEBlue,very thick,-{Latex}] (8.0,\y)--(8.8,\y);
+\node[anchor=west,align=left,text width=4cm,text=Navy] at (9.1,\y) {\repair};}
+\end{tikzpicture}

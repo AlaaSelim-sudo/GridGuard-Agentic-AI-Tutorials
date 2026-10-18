@@ -1,0 +1,156 @@
+\section{Restoration}
+\begin{frame}[t]{After a fault, reconnecting service is a discrete decision}
+
+\begin{center}\begin{tikzpicture}[x=2.1cm,y=.8cm,every node/.style={font=\small},n/.style={circle,draw=forest,minimum size=7mm}]
+\node[n] (a) at (0,0) {0};\node[n] (b) at (1,0) {1};\node[n] (c) at (2,0) {2};\node[n] (d) at (3,0) {3};\node[n] (e) at (4,0) {4};\node[n] (f) at (2,1.5) {5};
+\draw[thick] (a)--(b);\draw[thick,orange,dashed] (b)--node[below]{fault}(c);\draw[thick] (c)--(d)--(e);\draw[thick] (c)--(f);
+\uncover<2->{\draw[thick,forest,dashed] (b) to[bend left=20] node[above left]{100 kW tie} (f);
+\draw[thick,forest,dashed] (a) to[bend right=25] node[below]{variable-capacity tie} (e);}
+\node[above] at (a.north) {source};\node[below] at (b.south) {40};\node[below,fill=white,inner sep=1pt] at (c.south) {\textbf{60 critical}};\node[above] at (d.north) {70};\node[above] at (e.north) {50};\node[right] at (f.east) {\textbf{30 critical}};
+\end{tikzpicture}\end{center}
+\small Loads and tie capacities are in kW. This transparent six-node teaching graph is separate from the Greensboro feeder.
+\par\medskip\textbf{Predict:} Can bus 4 carry power onward while its own load remains disconnected?
+\uncover<3->{\par\medskip\textbf{Yes.} Energizing a bus and picking up its load are different decisions.}
+
+\slidetransition{How do we express pickup, energization and connectivity?}
+\sources{Chen et al., \href{https://doi.org/10.1109/TPWRS.2017.2720122}{IEEE TPWRS (2018)}; Wang et al., \href{https://arxiv.org/abs/1912.05185}{radiality constraints (2020)}.}
+\note{92--95 min. Resume from the break with a physical question. Draw attention to node 4 as a transit node. Ask for predictions before revealing. The faulted edge is unavailable, not merely expensive. Dashed green ties are choices, not a preselected solution. Spoken bridge: How do we express pickup, energization and connectivity?}
+\end{frame}
+
+\begin{frame}[t]{Restoration MILP: choose service while preserving a source path}
+
+\footnotesize\setlength{\abovedisplayskip}{4pt}\setlength{\belowdisplayskip}{4pt}
+\textbf{Three binary choices:} $s_i$ picks up load $i$; $y_i$ energizes its bus; $z_e$ closes edge $e$. Demand $d_i$ is in kW; priority $w_i=10$ for critical loads and $1$ otherwise. Source $y_0=1$.
+\uncover<2->{\[
+\underbrace{\max\sum_i w_i d_i s_i}_{\text{weighted service}},\qquad
+\underbrace{s_i\leq y_i,\quad z_{ij}\leq y_i,y_j}_{\text{pickup and edges need energized buses}},\quad z_{\rm fault}=0.
+\]}
+\uncover<3->{\footnotesize $P_e$ is signed active flow; $\overline P_e$ is edge capacity (kW); $A$ is the node-edge incidence matrix.
+\[
+\underbrace{\sum_e A_{ie}P_e=d_is_i\quad(i\ne0)}_{\text{power reaches each served load}},\qquad
+\underbrace{|P_e|\leq\overline P_ez_e}_{\text{open edge carries no flow}}.
+\]}
+\uncover<4->{\footnotesize $f_e$ is a fictitious connectivity commodity, not electricity; each energized non-source bus consumes one unit.
+\[
+\sum_e A_{ie}f_e=y_i\ (i\ne0),\qquad |f_e|\leq5z_e,\qquad
+\underbrace{\sum_ez_e=\sum_i y_i-1}_{\text{connectivity + edge count gives a tree}}.
+\]
+\textbf{Scope:} six-node active-power transport model; AC voltage, reactive power and switching chronology are omitted.}
+
+\slidetransition{What makes the comparison with a baseline fair?}
+\sources{Chen et al., \href{https://doi.org/10.1109/TPWRS.2017.2720122}{IEEE TPWRS (2018)}; Wang et al., \href{https://arxiv.org/abs/1912.05185}{radiality constraints (2020)}.}
+\note{95--99 min. Spend four minutes connecting each equation to the picture. Edge count alone is insufficient. Fictitious flow is a graph certificate, not electricity. The source supplies commodity and electrical balances; non-source equations shown for clarity. The exact model is solved by SciPy/HiGHS and independently enumerated. A secondary solve preserves the optimal weighted service, then minimizes energized branch count plus a 0.001 edge-index tie-break. This is not a count of switching operations relative to an initial topology. Spoken bridge: What makes the comparison with a baseline fair?}
+\end{frame}
+
+\begin{frame}[t]{A fair baseline must optimize the same feasible network}
+
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.27\linewidth}>{\raggedright\arraybackslash}p{.31\linewidth}>{\raggedright\arraybackslash}p{.33\linewidth}@{}}
+\toprule & Unweighted service baseline & Priority-weighted service \\
+\midrule
+Objective & $\max\sum_i d_i s_i$ & $\max\sum_i w_i d_i s_i$ \\
+Same constraints? & \yesmark & \yesmark \\
+Same fault / capacities? & \yesmark & \yesmark \\
+Exact solution method & Exhaustive enumeration & HiGHS MILP + enumeration check \\
+Report & Total and critical kW & Total and critical kW \\
+\bottomrule
+\end{tabular}\par
+\par\medskip
+\uncover<2->{\textbf{Interpretation:} a difference caused by priority weights is an optimization-policy effect. It is not evidence that an LLM discovered a better optimizer.}
+\par\medskip
+\uncover<3->{\textbf{Agent opportunity:} turn a documented priority instruction into a validated parameter change; preserve the fault exclusions, action permissions and evidence chain.}
+
+\slidetransition{Where should the service curve change as capacity shrinks?}
+\sources{Chen et al., \href{https://doi.org/10.1109/TPWRS.2017.2720122}{IEEE TPWRS (2018)}; Wang et al., \href{https://arxiv.org/abs/1912.05185}{radiality constraints (2020)}. Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit.}
+\note{99--102 min. The new lab baseline solves the same constraints with unit weights. It is stronger and clearer than an arbitrary greedy ordering. Finite weight ten is not a universal lexicographic priority guarantee. Ask how to implement strict critical-first priority: solve two stages or impose a verified primary objective bound. Spoken bridge: Where should the service curve change as capacity shrinks?}
+\end{frame}
+
+\begin{frame}[t]{Lab 6: predict the effect of reducing tie capacity}
+
+\checkpoint{L6}{Fresh capacity sweep; independent enumeration checks the MILP.}
+\cellcode{L6}{1}{5}
+\uncover<2->{\exercise{8}{Predict total and critical service at 40, 60, 80 and 120 kW. Run the sweep; add a tighter rating. Compare weighted and unweighted solutions. Explain a flat region in the service curve.}
+\textbf{Inspect:} picked-up loads, closed edges, critical kW, total kW and enumeration agreement.}
+\par\smallskip\par
+\textbf{Why a sweep?} One attractive topology cannot show how priorities and constraints interact.
+
+\slidetransition{Why can several ratings produce the same service?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. Chen et al., \href{https://doi.org/10.1109/TPWRS.2017.2720122}{IEEE TPWRS (2018)}; Wang et al., \href{https://arxiv.org/abs/1912.05185}{radiality constraints (2020)}.}
+\note{102--110 min. Includes the beginning of the restoration lab block. Pair exercise: one follows the source path, one checks branch capacities. Do not infer proportional service reduction from proportional capacity reduction. If ties occur, compare objective and feasibility rather than insisting on identical edge IDs. Spoken bridge: Why can several ratings produce the same service?}
+\end{frame}
+
+\begin{frame}[t]{Discrete service can stay constant while a rating changes}
+
+\begin{center}\includegraphics[width=.97\linewidth,height=.51\textheight,keepaspectratio]{\figfile{classroom_restoration.png}}\end{center}
+\small
+\uncover<2->{\textbf{Explain the sampled service levels:} loads are indivisible in this model. A tighter rating changes the solution only when it excludes a useful feasible pickup pattern.}
+\par\medskip\par
+\uncover<3->{\textbf{At 100 and 80 kW in the priority formulation:} 200 kW total, 90 kW critical. Bus 4 may remain energized while its own load is disconnected.}
+
+\slidetransition{Can this result still be used after the topology changes?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit.}
+\note{110--113 min. Plot is generated from fresh solves. Ask students to locate a capacity at which the two objectives favor different critical service, if such a point appears in the executed sweep. A tie is also an informative result; do not invent a benefit. Review one selected branch-flow constraint numerically. Spoken bridge: Can this result still be used after the topology changes?}
+\end{frame}
+
+\begin{frame}[t]{Lab 7: a changed topology needs a new evidence record}
+
+\checkpoint{L7}{Try to reuse a result after changing the case.}
+\cellcode{L7}{7}{10}
+\exercise{3}{Change a capacity or pickup request while retaining the old evidence. Predict the verifier outcome. Recompute the evidence and repeat the handoff.}
+\par\medskip
+\uncover<2->{\textbf{The safeguard:} a passing result is bound to the case, control, model and contract that were actually checked.}
+\par\medskip
+\uncover<3->{\textbf{The limit:} this cannot establish field isolation, switch availability or protection coordination. Those need separate authorized evidence.}
+
+\slidetransition{Which stage must repair a stale handoff?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. State-prerequisite guards: \href{https://arxiv.org/abs/2603.17418}{PowerDAG (2026)}.}
+\note{113--116 min. The intended outcome is rejection of stale evidence, not merely producing a warning in prose. Ask which fields should change when the topology changes. This experiment demonstrates a deterministic architectural property available to both fixed and LLM-based supervisors. Spoken bridge: Which stage must repair a stale handoff?}
+\end{frame}
+
+\begin{frame}[t]{Use every workflow stage, but attribute the benefit correctly}
+
+\small
+\begin{center}\begin{tikzpicture}[every node/.style={font=\scriptsize,align=center},b/.style={draw=forest,rounded corners=2pt,text width=2.34cm,minimum height=1.45cm,inner sep=3pt}]
+\node[b] (a) at (0,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]a.center) {Awareness};
+\uncover<1->{\node[text width=2.22cm] at ([yshift=-.16cm]a.center) {Fault + priorities\\\textcolor{forest}{available edges}};}
+\node[b] (p) at (2.82,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]p.center) {Planning};
+\uncover<1->{\node[text width=2.22cm] at ([yshift=-.16cm]p.center) {HiGHS MILP\\\textcolor{forest}{pickup + topology}};}
+\node[b] (s) at (5.64,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]s.center) {Simulation};
+\uncover<2->{\node[text width=2.22cm] at ([yshift=-.16cm]s.center) {Transport flow\\\textcolor{forest}{service + loading}};}
+\node[b] (v) at (8.46,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]v.center) {Verification};
+\uncover<2->{\node[text width=2.22cm] at ([yshift=-.16cm]v.center) {Tree + capacity\\\textcolor{forest}{case-bound result}};}
+\node[b] (o) at (11.28,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]o.center) {LLM optimizer};
+\uncover<3->{\node[text width=2.22cm] at ([yshift=-.16cm]o.center) {Bounded critique\\\textcolor{forest}{review / next tool}};}
+\draw[->,thick] (a)--(p);\draw[->,thick] (p)--(s);\draw[->,thick] (s)--(v);\draw[->,thick] (v)--(o);
+\uncover<3->{\draw[->,thick,orange] (o.south)--(11.28,-1.2)--node[below,font=\scriptsize]{new topology or capacity: recompute before handoff}(5.64,-1.2)--(s.south);}
+\end{tikzpicture}\end{center}
+\textbf{Evidence provenance:} L6--L7 freshly solve the six-node graph and test stale-evidence rejection. The five-stage Llama example is a separate recorded feeder catalog, inspected in L10.
+\par\medskip
+\uncover<4->{\textbf{Operator handoff:} review isolation, permissions and model scope. In the recorded feeder comparison, the fixed and Llama routes obtain the same service objective; explanation adds traceability and latency, not demonstrated extra restored load.}
+
+\slidetransition{Can correctly bound evidence still describe the wrong state?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. Actual recorded five-stage reference: \texttt{Proposal\_Complete\_Workflow.ipynb}, P1--P8; \texttt{results/proposal\_complete\_workflow.json}.}
+\note{116--118 min. Keep the six-node live exercise separate from the archived feeder catalog. The archived actual agent traces can be inspected in L10 later. The language model is not required to solve the MILP. The standard method establishes numerical decisions; the architecture makes handoffs and unsupported assertions inspectable. Spoken bridge: Can correctly bound evidence still describe the wrong state?}
+\end{frame}
+
+\begin{frame}[t]{From restoration to cyber response: what if the evidence is wrong?}
+
+\textbf{Established so far}\par
+We can optimize a permitted topology and reject evidence that belongs to the wrong case.
+\par\medskip
+\uncover<2->{\textbf{A harder question}\par
+What if the record matches the case, but the measurements inside it are corrupted?}
+\uncover<3->{\begin{center}\begin{tikzpicture}[every node/.style={font=\small,align=center},b/.style={draw=forest,text width=2.8cm,minimum height=.85cm}]
+\node[b] (a) at (0,0) {Correct identifier};\node[b] (b) at (3.7,0) {Consistent measurements};\node[b] (c) at (7.4,0) {True physical state};
+\draw[->,thick] (a)--node[above=5mm,font=\scriptsize]{does not prove}(b);\draw[->,thick] (b)--node[above=5mm,font=\scriptsize]{does not prove}(c);
+\end{tikzpicture}\end{center}}
+\uncover<3->{\textbf{Next experiment:} construct a measurement error that the usual residual test cannot see, then inspect its control consequence.}
+
+\slidetransition{How does an operator estimate a state from imperfect sensors?}
+\sources{Schweppe \& Wildes, \href{https://doi.org/10.1109/TPAS.1970.292678}{state estimation (1970)}; Liu, Ning \& Reiter, \href{https://doi.org/10.1145/1653662.1653666}{false-data injection, CCS 2009}.}
+\note{118--119 min. Explicit conceptual bridge. Identity, consistency and truth are different properties. The next case is a four-bus DC model designed to expose this distinction, not an attack on the full Greensboro feeder. Spoken bridge: How does an operator estimate a state from imperfect sensors?}
+\end{frame}

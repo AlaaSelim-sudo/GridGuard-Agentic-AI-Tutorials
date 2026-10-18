@@ -1,0 +1,27 @@
+\begingroup
+\hyphenpenalty=10000\exhyphenpenalty=10000
+\definecolor{IEEEBlue}{HTML}{00629B}
+\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}
+\definecolor{Slate}{HTML}{526470}
+\definecolor{RestRed}{HTML}{B83136}
+\definecolor{RestAmber}{HTML}{A66610}
+\begin{tikzpicture}[x=.90cm,y=.82cm,font=\fontsize{11}{12}\selectfont,
+  every node/.style={text=Navy},
+  flow/.style={-{Stealth[length=2mm]},line width=1pt,draw=IEEEBlue},
+  bus/.style={circle,draw=IEEEBlue,line width=1pt,minimum size=5.5mm,inner sep=1pt,fill=white},
+  textblock/.style={align=center,inner sep=1pt},
+  pass/.style={draw=Cyan,line width=2pt},
+  available/.style={draw=Slate,line width=.8pt},
+  optional/.style={draw=RestAmber,dashed,line width=1pt}]
+
+\node[textblock,anchor=west,text width=4.0cm] (q) at (0,1.9) {\textbf{Operator request}\\Restore eligible load;\\keep fault 1--2 isolated.};
+\node[textblock,anchor=west,text width=3.4cm] (c) at (4.7,1.9) {\textbf{Study contract}\\T1 + ratings\\priorities + scope};
+\node[textblock,anchor=west,text width=3.2cm] (p) at (9.0,1.9) {\textbf{Requested output}\\A checked proposal\\for operator review};
+\draw[flow] (q.east)--(c.west);
+\draw[flow] (c.east)--(p.west);
+\draw[RestRed,line width=1pt] (0,.8)--(12.3,.8);
+\node[textblock,anchor=west,text=RestRed] at (.1,.4) {Study authority only: no automatic physical switching};
+
+\end{tikzpicture}
+\endgroup

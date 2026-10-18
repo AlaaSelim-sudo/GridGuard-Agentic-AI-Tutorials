@@ -1,0 +1,84 @@
+{
+  "created_utc": "2026-09-27T18:03:52.367911+00:00",
+  "source_sha256": "e73ed7cfe911231a4e9aab877556246b1d769e03101843df337d919eae981d59",
+  "golden_calls": 10,
+  "golden_workflow_intervals": 8,
+  "negative_checks": [
+    {
+      "case": "changed_call_duration",
+      "rejected": true,
+      "reason": "Need one matching voltage journal for opendss; found 0"
+    },
+    {
+      "case": "changed_call_id",
+      "rejected": true,
+      "reason": "Need one matching voltage journal for opendss; found 0"
+    },
+    {
+      "case": "changed_stage_reason",
+      "rejected": true,
+      "reason": "Need one matching voltage journal for opendss; found 0"
+    },
+    {
+      "case": "fractional_token_count",
+      "rejected": true,
+      "reason": "eval_count must be a recorded finite nonnegative integer"
+    },
+    {
+      "case": "h06_call_exceeds_intake",
+      "rejected": true,
+      "reason": "h06 Llama interval exceeds its containing intake interval"
+    },
+    {
+      "case": "h06_machine_not_sum",
+      "rejected": true,
+      "reason": "h06 machine duration is not intake plus runtime"
+    },
+    {
+      "case": "missing_cached_count",
+      "rejected": true,
+      "reason": "prompt_eval_cached_count must be a recorded finite nonnegative integer"
+    },
+    {
+      "case": "missing_server_duration",
+      "rejected": true,
+      "reason": "total_duration must be a recorded finite nonnegative number"
+    },
+    {
+      "case": "missing_token_count",
+      "rejected": true,
+      "reason": "eval_count must be a recorded finite nonnegative integer"
+    },
+    {
+      "case": "nan_prompt_duration",
+      "rejected": true,
+      "reason": "prompt_eval_duration must be a recorded finite nonnegative number"
+    },
+    {
+      "case": "negative_server_duration",
+      "rejected": true,
+      "reason": "eval_duration must be a recorded finite nonnegative number"
+    },
+    {
+      "case": "raw_reply_disagrees_with_parsed_reply",
+      "rejected": true,
+      "reason": "Raw model reply disagrees with the parsed journal response"
+    },
+    {
+      "case": "standard_calls_exceed_workflow",
+      "rejected": true,
+      "reason": "Invalid standard interval nesting"
+    },
+    {
+      "case": "voltage_calls_exceed_workflow",
+      "rejected": true,
+      "reason": "LLM intervals exceed containing workflow interval"
+    },
+    {
+      "case": "voltage_declared_call_count_wrong",
+      "rejected": true,
+      "reason": "Declared voltage call count disagrees with the matched journal"
+    }
+  ],
+  "scope": "Read-only evidence extraction and consistency validation; no scientific model or Llama rerun."
+}

@@ -1,0 +1,1625 @@
+[
+  {
+    "id": "F01",
+    "title": "Agentic AI for grid operators",
+    "section": "Foundations",
+    "kind": "cover",
+    "kicker": "Agentic AI for grid operators · three-hour workshop",
+    "takeaway": "Build an evidence trail before asking an operator to act.",
+    "items": [
+      "Understand the workflow",
+      "Run the engineering tools",
+      "Challenge the recommendation"
+    ],
+    "visual": "control",
+    "nodes": [
+      "Operator question",
+      "Engineering evidence",
+      "Human decision"
+    ],
+    "clicks": 3,
+    "duration_seconds": 40,
+    "refs": [
+      {
+        "label": "PowerAgent roadmap · IEEE PEM 2025",
+        "url": "https://doi.org/10.1109/MPE.2025.3579718"
+      }
+    ],
+    "notes": "Begin with the operator's task rather than the software package. A recommendation becomes useful when someone can identify its inputs, inspect the calculation, and understand why it passed or failed a declared check. Ask the audience to keep one recurring question in mind: what evidence would change your decision? The workshop connects graph execution, engineering models, learned controllers, language-model responses, and human review. Each component has a different responsibility. We will use an illustrative graph first, then the existing numerical notebooks. The feeder study is a synthetic Greensboro example, not a live utility deployment. Reveal the three learning actions individually. Transition: an operator encounters three kinds of decisions, and the same evidence discipline must survive all three.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F02",
+    "title": "Three decisions; one discipline",
+    "section": "Foundations",
+    "kind": "question",
+    "kicker": "Start with the operator",
+    "takeaway": "The mathematical task changes; the requirement for traceable evidence remains.",
+    "items": [
+      "Voltage: choose a continuous inverter command",
+      "Restoration: choose permitted paths and served loads",
+      "Cyber response: decide which measurements support control"
+    ],
+    "visual": "control",
+    "nodes": [
+      "Voltage support",
+      "Restoration",
+      "Cyber response"
+    ],
+    "prompt": "What must an operator see before accepting any of these?",
+    "answer": "The exact candidate, declared model, checked limits, evidence age, and unresolved assumptions.",
+    "clicks": 3,
+    "duration_seconds": 40,
+    "refs": [
+      {
+        "label": "Tutorial notebooks · three declared case scopes",
+        "url": "../Classroom_Labs.ipynb"
+      }
+    ],
+    "notes": "Invite one short answer before revealing the three cases. Voltage support concerns continuous active and reactive control. Restoration includes discrete decisions and load priorities. Cyber response concerns the reliability of the information used to estimate and control a state. These are not three names for the same optimization problem. The tutorial therefore changes its numerical method while retaining a shared record and explicit verification. Keep the question grounded: an operator needs evidence for this candidate in this case, not a general claim that the language model is capable. Later results will include ties, rejected commands, and a model-scope mismatch. Transition: turn these practical needs into three things participants should be able to do at the end.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F03",
+    "title": "What you will be able to explain",
+    "section": "Foundations",
+    "kind": "concept",
+    "kicker": "Learning outcomes",
+    "takeaway": "Explain the graph, reproduce a decision, and defend an acceptance or hold.",
+    "items": [
+      "Trace state through every proposed stage",
+      "Match code, equations, outputs, and timing boundaries",
+      "Separate numerical benefit from workflow benefit"
+    ],
+    "prompt": "If the final objective ties the baseline, what could still improve?",
+    "answer": "Inspectability or stale-evidence rejection may improve; those benefits need their own measurements.",
+    "clicks": 3,
+    "duration_seconds": 35,
+    "refs": [
+      {
+        "label": "PowerAgentBench-SS · 2026 preprint",
+        "url": "https://arxiv.org/html/2606.18789v1"
+      }
+    ],
+    "notes": "State the assessment criteria plainly. A successful participant can point to the node that produced a value, connect a displayed equation to the notebook operation, and explain the final review status. Do not equate the presence of several agents with improved control. The workflow might organize evidence better while producing the same command as a conventional program. Conversely, it might spend more time without improving either result. This is why we separate numerical quality, trace quality, and latency. The labs deliberately include an ordinary-Python baseline and matched engineering comparisons. Use the audience question to make a null numerical result scientifically useful. Transition: show when participants will learn each concept and when they will run it.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F04",
+    "title": "A three-hour route with experiments throughout",
+    "section": "Foundations",
+    "kind": "comparison",
+    "kicker": "Predict → run → explain",
+    "takeaway": "Each case follows concepts, an executable experiment, and an evidence-based discussion.",
+    "items": [
+      "0–40 min: foundations and graph lab",
+      "40–82 min: voltage; 82–92 min: break",
+      "92–149 min: restoration and cyber response",
+      "149–180 min: evaluation and operator capstone"
+    ],
+    "columns": [
+      "Block",
+      "Work at the keyboard"
+    ],
+    "rows": [
+      [
+        "Foundations",
+        "G0–G5; L0–L1"
+      ],
+      [
+        "Voltage",
+        "L2–L5; archived and optional live Llama"
+      ],
+      [
+        "Restoration / cyber",
+        "L6–L9"
+      ],
+      [
+        "Evidence / operator",
+        "L10–L12"
+      ]
+    ],
+    "clicks": 3,
+    "duration_seconds": 35,
+    "refs": [
+      {
+        "label": "Graph laboratory",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      },
+      {
+        "label": "Engineering laboratory",
+        "url": "../Classroom_Labs.ipynb"
+      }
+    ],
+    "notes": "The course is a single teaching sequence; the technical explanations and exercises are part of the lecture. Software installation is a prerequisite, not an activity to begin during the first exercise. Ask participants to open both notebooks now while keeping their current kernels separate. The graph notebook teaches orchestration with transparent arithmetic. The classroom notebook performs the engineering experiments and reads explicitly labeled archived language-model responses. A fresh calculation, a saved actual response, and a newly generated model response are different evidence modes. Preserve those labels when discussing speed or quality. The schedule reserves time for prediction and explanation rather than continuous lecturing. Transition: before opening the first code cell, identify what makes a workflow agentic.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F05",
+    "title": "A useful agent closes a feedback loop",
+    "section": "Foundations",
+    "kind": "paper",
+    "kicker": "From answering to acting through tools",
+    "takeaway": "A returned tool result can change the next permitted operation.",
+    "items": [
+      "Observe the current evidence",
+      "Select an allowed operation",
+      "Read its result before continuing"
+    ],
+    "nodes": [
+      "Observe",
+      "Choose",
+      "Call tool",
+      "Read result"
+    ],
+    "visual": "cycle",
+    "clicks": 3,
+    "duration_seconds": 20,
+    "refs": [
+      {
+        "label": "Yao et al. · ReAct · ICLR 2023",
+        "url": "https://arxiv.org/abs/2210.03629"
+      },
+      {
+        "label": "LangGraph · workflows and agents",
+        "url": "https://docs.langchain.com/oss/python/langgraph/workflows-agents"
+      },
+      {
+        "label": "Figure and reuse license",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    ],
+    "notes": "Reveal the loop one action at a time. ReAct is an influential example of combining language-model deliberation with external actions and observations. Our teaching emphasis is the observable interface: what operation was requested, what result came back, and how the next decision used it. We do not need access to private model reasoning to inspect those steps. A predefined workflow follows known routes; an agent can choose among permitted operations using the current context. Real applications can mix both patterns. In this tutorial, deterministic routing and numerical limits constrain language-selected trials. A loop does not by itself establish reliability or intelligence. Transition: separate the component choosing an operation from the component calculating its result and the runtime coordinating both.",
+    "image": "/assets/papers/react_figure1.png",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide.",
+    "image_caption": "Yao et al. (ICLR 2023), ReAct Fig. 1, CC BY 4.0. Unchanged figure.",
+    "image_source": "https://arxiv.org/html/2210.03629v3#S1.F1",
+    "image_license_url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  {
+    "id": "F05A",
+    "title": "Tool feedback changes the next choice",
+    "section": "Foundations",
+    "kind": "flow",
+    "visual": "reactloop",
+    "kicker": "Teaching adaptation of the ReAct interaction pattern",
+    "nodes": [
+      "Observe",
+      "Choose",
+      "Call tool",
+      "Read result"
+    ],
+    "items": [
+      "A choice requests a bounded tool.",
+      "The tool returns external evidence.",
+      "New evidence can change the next choice."
+    ],
+    "takeaway": "The useful loop is a decision updated by an observation.",
+    "refs": [
+      {
+        "label": "Conceptual adaptation: Yao et al., ReAct (ICLR 2023), CC BY 4.0",
+        "url": "https://arxiv.org/html/2210.03629v3"
+      }
+    ],
+    "notes": "This original teaching diagram adapts the interaction pattern explained by ReAct. It replaces the published question-answering example with four neutral operations. Start at the current observation, identify an allowed tool action, execute that action, and read the returned evidence before choosing again. The arrows show information flow. They do not guarantee that the next choice is correct. In the grid tutorial, a numerical verifier may reject the proposed action even when the language explanation sounds plausible. The animation highlights one operation at a time on the same slide. A deterministic retry budget and explicit exit conditions are introduced later, because an unbounded feedback loop can waste computation. Transition: separate the agent making a choice from the tool doing the calculation and the orchestrator enforcing the route.",
+    "duration_seconds": 20
+  },
+  {
+    "id": "F06",
+    "title": "Tool, agent, orchestrator: three different jobs",
+    "section": "Foundations",
+    "kind": "flow",
+    "kicker": "Name the responsibility",
+    "takeaway": "Roles describe responsibilities; they do not require different language-model backbones.",
+    "items": [
+      "Agent: chooses an allowed next operation",
+      "Tool: returns a specific calculation or record",
+      "Orchestrator: runs routes and stores state"
+    ],
+    "nodes": [
+      "Agent chooses",
+      "Tool computes",
+      "Orchestrator coordinates"
+    ],
+    "visual": "roles",
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "Wu et al. · AutoGen · 2023 preprint",
+        "url": "https://arxiv.org/abs/2308.08155"
+      },
+      {
+        "label": "Tutorial implementation",
+        "url": "../src/proposal_workflow.py"
+      }
+    ],
+    "notes": "Use a concrete voltage example. A planning role proposes a candidate, a power-flow tool evaluates it, and the runtime requires a verification step before the candidate is eligible for review. The same Llama model can support several role-specific prompts. Numerical functions can perform a role without calling any language model. This distinction prevents a common confusion: five boxes are not necessarily five independent models, five independent opinions, or five levels of protection. The responsibilities are useful because their input and output contracts can be inspected separately. The engineering tutorial implements its orchestration in custom Python; the graph lab introduces LangGraph mechanics separately. Transition: a tool becomes dependable only when its request and response are sufficiently explicit to check.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F07",
+    "title": "A tool call is a small engineering contract",
+    "section": "Foundations",
+    "kind": "concept",
+    "kicker": "Make the interface inspectable",
+    "takeaway": "A result needs a candidate, units, model scope, and status.",
+    "items": [
+      "Input: case, revision, command, and limits",
+      "Output: values, units, convergence, and evidence identity",
+      "Failure: explicit error or rejected result"
+    ],
+    "visual": "tools",
+    "nodes": [
+      "Typed request",
+      "Numerical tool",
+      "Typed result"
+    ],
+    "prompt": "Does “solver converged” mean the current limit passed?",
+    "answer": "No. Convergence and operating feasibility are separate checks.",
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "MCP tools specification · 2025-11-25",
+        "url": "https://modelcontextprotocol.io/specification/2025-11-25/server/tools"
+      },
+      {
+        "label": "Classroom evidence functions",
+        "url": "../src/classroom_labs.py"
+      }
+    ],
+    "notes": "Treat the tool contract like a laboratory measurement sheet. The number 112 is unusable until its unit, location, candidate, and calculation conditions are known. A solver may converge to a state that violates an operating limit. A request may be well formed yet refer to an outdated network. The contract makes these distinctions available to later nodes; it does not resolve them automatically. The tutorial records the candidate and declared context so that verification can inspect a particular calculation. Ask participants to identify which fields a current-limit check needs. Reveal the answer only after someone distinguishes convergence from feasibility. Transition: standardized tool communication can make these contracts reusable across software, but the engineering checks still belong to the application.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F08",
+    "title": "Where MCP fits in the picture",
+    "section": "Foundations",
+    "kind": "flow",
+    "kicker": "Interoperability is a layer",
+    "takeaway": "A common tool interface helps integration; it does not certify the returned engineering result.",
+    "items": [
+      "Discover available tools",
+      "Submit structured arguments",
+      "Receive a structured result"
+    ],
+    "nodes": [
+      "Agent application",
+      "MCP interface",
+      "Engineering server"
+    ],
+    "visual": "tools",
+    "clicks": 3,
+    "duration_seconds": 35,
+    "refs": [
+      {
+        "label": "MCP tools specification · 2025-11-25",
+        "url": "https://modelcontextprotocol.io/specification/2025-11-25/server/tools"
+      },
+      {
+        "label": "PowerMCP · official repository",
+        "url": "https://github.com/Power-Agent/PowerMCP"
+      }
+    ],
+    "notes": "Explain Model Context Protocol as an interface layer that exposes tools to an application. A consistent call format can reduce integration work when different engineering packages are involved. The diagram is architectural context, not a claim that our local classroom notebook uses an MCP server. Its functions are called directly in Python. This is a useful distinction between understanding an ecosystem and reproducing a specific implementation. Ask which part would still need to know whether 112 amperes exceeds the permitted rating. That comparison remains application logic using an agreed unit and limit. A transport protocol cannot supply a missing model assumption. Transition: now place the proposal's five responsibilities above the particular tool and transport choices.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F09",
+    "title": "The complete proposed workflow has five stages",
+    "section": "Foundations",
+    "kind": "flow",
+    "kicker": "One candidate, one connected record",
+    "takeaway": "Every changed candidate must return to simulation and verification.",
+    "items": [
+      "Awareness establishes state and request",
+      "Planning proposes; simulation computes consequences",
+      "Verification checks; optimization chooses the next trial",
+      "Operator review receives supported evidence"
+    ],
+    "nodes": [
+      "Awareness",
+      "Planning",
+      "Simulation",
+      "Verification",
+      "LLM optimizer"
+    ],
+    "visual": "stages",
+    "clicks": 3,
+    "duration_seconds": 60,
+    "refs": [
+      {
+        "label": "Executed five-stage tutorial implementation",
+        "url": "../src/proposal_workflow.py"
+      },
+      {
+        "label": "Five-stage archived evidence",
+        "url": "../results/proposal_complete_workflow.json"
+      }
+    ],
+    "notes": "Use the animation to carry one candidate through all five proposed stages. Awareness establishes the case and interprets the request. Planning chooses a numerical formulation and produces a candidate. Simulation calculates modeled consequences. Verification checks the declared constraints and evidence consistency. The LLM optimizer proposes or selects permitted follow-up work, which must be evaluated again if it changes the action. Human review is the handoff after these responsibilities, not a replacement for a missing stage. All five are represented in the archived engineering trace later in the course. Some work is deterministic, some uses numerical optimization, and some uses model responses. Transition: identify which responsibility the language model can help with, and which remains a numerical calculation.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F10",
+    "title": "Give each stage the method it needs",
+    "section": "Foundations",
+    "kind": "comparison",
+    "kicker": "Language plus engineering methods",
+    "takeaway": "The language model coordinates bounded choices; numerical methods produce and check the physical evidence.",
+    "items": [
+      "Planning: MPC, restoration MILP, or estimation/control",
+      "Simulation: LinDistFlow, OpenDSS, or declared teaching model",
+      "Verification: explicit numerical and consistency checks",
+      "Selection: fixed rule, vote, or learned bandit"
+    ],
+    "columns": [
+      "Responsibility",
+      "Returned artifact"
+    ],
+    "rows": [
+      [
+        "Llama interpretation",
+        "Allowed operation + public explanation"
+      ],
+      [
+        "Numerical method",
+        "Candidate + calculated values"
+      ],
+      [
+        "Verifier",
+        "Pass/hold/reject + margins"
+      ]
+    ],
+    "clicks": 3,
+    "duration_seconds": 40,
+    "refs": [
+      {
+        "label": "Classroom methods",
+        "url": "../src/classroom_labs.py"
+      },
+      {
+        "label": "Proposal case tools",
+        "url": "../src/proposal_case_tools.py"
+      }
+    ],
+    "notes": "Avoid presenting the same algorithm as the natural solution to every case. Continuous voltage support suits the MPC and SAC comparison. Restoration uses a mixed-integer service-allocation formulation. The cyber teaching example combines estimation, anomaly evidence, and a constrained response. These methods are part of the workflow rather than competitors excluded by its design. The language model sees a bounded catalog of permitted operations and returns a choice with a public explanation. The explanation is checked against the numerical evidence; it is not treated as a proof. Learned response selection is a separate, discrete decision from SAC's continuous physical control. Transition: before reading the code, establish a visual vocabulary that clearly separates computation from the electrical network.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F11",
+    "title": "Learn four symbols before reading the graph",
+    "section": "Foundations",
+    "kind": "concept",
+    "kicker": "A small visual vocabulary",
+    "takeaway": "Workflow arrows represent dependencies, not electrical connections.",
+    "items": [
+      "Box A: an operation",
+      "Record s: current shared state",
+      "Arrow A → B: B needs A's result",
+      "Diamond r(s): choose the permitted next route"
+    ],
+    "visual": "state",
+    "symbols": [
+      {
+        "symbol": "A",
+        "meaning": "An operation or node"
+      },
+      {
+        "symbol": "s",
+        "meaning": "The current record"
+      },
+      {
+        "symbol": "A \\to B",
+        "meaning": "B requires the result from A"
+      },
+      {
+        "symbol": "r(s)",
+        "meaning": "A routing rule evaluated on state"
+      }
+    ],
+    "clicks": 3,
+    "duration_seconds": 30,
+    "refs": [
+      {
+        "label": "LangGraph graph API",
+        "url": "https://docs.langchain.com/oss/python/langgraph/graph-api"
+      }
+    ],
+    "notes": "Point to each visual symbol as it appears. A node is a unit of work. State is the record that subsequent work reads. A directed edge identifies an allowed execution dependency. A routing rule chooses a successor based on the current record. Use the same symbol meanings when the diagram becomes code later. The letters here are computational names; they do not identify buses, currents, or physical switches. This matters because later restoration figures also contain nodes and edges, but those edges represent network connections. Ask the audience what an arrow from simulation to verification requires: the verification operation must have a result to inspect. Transition: begin with the simplest dependency structure, one with no path returning to its starting node.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F12",
+    "title": "DAG means directed and acyclic",
+    "section": "Foundations",
+    "kind": "flow",
+    "kicker": "Prerequisites first",
+    "takeaway": "A DAG encodes dependencies without a backward path.",
+    "items": [
+      "A freezes the input",
+      "B and C inspect independent results",
+      "D combines both pieces of evidence"
+    ],
+    "nodes": [
+      "A · freeze",
+      "B · voltage",
+      "C · current",
+      "D · combine"
+    ],
+    "visual": "dag",
+    "equation": "G=(N,E),\\qquad N=\\{A,B,C,D\\}",
+    "symbols": [
+      {
+        "symbol": "G",
+        "meaning": "Dependency graph"
+      },
+      {
+        "symbol": "N",
+        "meaning": "Set of operations"
+      },
+      {
+        "symbol": "E",
+        "meaning": "Set of directed prerequisite edges"
+      }
+    ],
+    "clicks": 3,
+    "duration_seconds": 60,
+    "refs": [
+      {
+        "label": "NetworkX · topological sorting",
+        "url": "https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.dag.topological_sort.html"
+      }
+    ],
+    "notes": "Build the diamond-shaped dependency diagram in place. The example freezes a candidate before checking its voltage and current evidence. The final operation needs both check results. Directed means arrows have an orientation; acyclic means no sequence of arrows returns to its starting operation. Define the node set and edge set without requiring graph theory background. The two middle checks are conceptual operations on already produced evidence. This picture does not claim that two OpenDSS engines run concurrently, and it does not describe the cyclic graph used in the G lab. Let the audience trace each prerequisite with a finger. Transition: more than one valid execution order can preserve the same arrows, which gives us a short prediction exercise.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F13",
+    "title": "Which schedule respects every arrow?",
+    "section": "Foundations",
+    "kind": "question",
+    "kicker": "Predict before revealing",
+    "takeaway": "The join must follow both prerequisites, whatever their order.",
+    "items": [
+      "A, B, C, D",
+      "A, C, B, D",
+      "A, B, D, C"
+    ],
+    "visual": "dag",
+    "nodes": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "prompt": "Which two orders are valid?",
+    "answer": "The first two. The third starts D before C has supplied its result.",
+    "columns": [
+      "Order",
+      "Valid?"
+    ],
+    "rows": [
+      [
+        "A → B → C → D",
+        "✓"
+      ],
+      [
+        "A → C → B → D",
+        "✓"
+      ],
+      [
+        "A → B → D → C",
+        "✗"
+      ]
+    ],
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "NetworkX · topological sorting",
+        "url": "https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.dag.topological_sort.html"
+      }
+    ],
+    "notes": "Pause before revealing the validity marks. Ask participants to justify an answer by naming an edge, not by guessing the intended order. Both B and C depend on A, and D depends on both B and C. Therefore the middle operations may exchange positions, while the final operation cannot move ahead of either prerequisite. This is the meaning of a topological order. It describes a valid ordering, not a measured time or speedup. A real scheduler also has resource limits, tool state, and failure handling. If a participant proposes concurrent middle operations, acknowledge that dependencies permit it only when the implementation and resources permit it too. Transition: inspect what must be preserved when work actually branches and later rejoins.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F14",
+    "title": "Fan-out and join need a shared identity",
+    "section": "Foundations",
+    "kind": "flow",
+    "kicker": "Parallel work is still one experiment",
+    "takeaway": "Both branches must refer to the same frozen candidate and context.",
+    "items": [
+      "Fan-out copies a consistent input",
+      "Each branch returns its own evidence",
+      "Join checks completeness and identity"
+    ],
+    "nodes": [
+      "Frozen candidate",
+      "Voltage evidence",
+      "Current evidence",
+      "Combined verdict"
+    ],
+    "visual": "dag",
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "LangGraph graph construction examples",
+        "url": "https://docs.langchain.com/oss/python/langgraph/use-graph-api"
+      },
+      {
+        "label": "Tutorial evidence binding",
+        "url": "../src/classroom_labs.py"
+      }
+    ],
+    "notes": "Animate the same candidate identifier into both branches. Then change the identifier on one returned record conceptually and ask whether the results may still be combined. They may not establish a verdict for one common candidate. This is a simple way to teach stale or mismatched evidence without introducing complex concurrency machinery. Parallel execution can reduce elapsed time when work and resources are independent, but it can also create synchronization and merge problems. The tutorial's engineering runs should not be described as parallel simply because this diagram branches. Their timing boundary is measured separately. The visual teaches a design obligation: completeness and identity at the join. Transition: a failed verification adds another kind of edge, one that deliberately goes back for a revised calculation.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F15",
+    "title": "A repair loop is a cycle, with a budget",
+    "section": "Foundations",
+    "kind": "flow",
+    "kicker": "Bounded retries",
+    "takeaway": "A finite retry budget bounds attempts; it does not guarantee a feasible command.",
+    "items": [
+      "Pass → ready for review",
+      "Fail with budget → repair and simulate again",
+      "Fail without budget → hold"
+    ],
+    "nodes": [
+      "Simulate",
+      "Verify",
+      "Repair",
+      "Ready / hold"
+    ],
+    "visual": "cycle",
+    "equation": "\\text{repair only if } k<K",
+    "symbols": [
+      {
+        "symbol": "k",
+        "meaning": "Completed repairs"
+      },
+      {
+        "symbol": "K",
+        "meaning": "Maximum permitted repairs"
+      }
+    ],
+    "clicks": 3,
+    "duration_seconds": 60,
+    "refs": [
+      {
+        "label": "Executed retry policy · G2–G4",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      }
+    ],
+    "notes": "Trace the success path first, then reveal the backward repair edge. Once that edge exists, the program graph is cyclic and should not be called a DAG. A finite individual execution can still be drawn as a sequence of visits. The two integer symbols count used and allowed repairs. The tutorial increments the counter when it modifies the command and sends that command back through simulation. A finite count guarantees that this policy eventually stops if its tool calls return; separate timeouts would be needed for a stalled tool. Holding is a valid outcome when no admissible command is found within the budget. Transition: the router needs both the latest verdict and the counter, so these values must live in shared state.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F16",
+    "title": "State is the laboratory record carried forward",
+    "section": "Foundations",
+    "kind": "concept",
+    "kicker": "Keep facts together",
+    "takeaway": "A node reads state and returns explicit updates to the record.",
+    "items": [
+      "Candidate: command and context",
+      "Evidence: current, limit, and verdict",
+      "Control flow: attempts, budget, and status",
+      "Trace: the sequence of recorded events"
+    ],
+    "visual": "state",
+    "equation": "s_{t+1}=\\operatorname{merge}(s_t,\\Delta s_t)",
+    "symbols": [
+      {
+        "symbol": "s_t",
+        "meaning": "Record before workflow step t"
+      },
+      {
+        "symbol": "\\Delta s_t",
+        "meaning": "Returned field updates; not arithmetic subtraction"
+      }
+    ],
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "G1 state schema",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      },
+      {
+        "label": "Python TypedDict",
+        "url": "https://docs.python.org/3/library/typing.html#typing.TypedDict"
+      }
+    ],
+    "notes": "Read the displayed record as a laboratory notebook with named fields. The command identifies what was proposed, the evidence fields identify what was calculated, and the control-flow fields identify what should happen next. The merge expression is a conceptual description of applying returned updates. Delta is not a numerical difference between two entire records. The G notebook uses TypedDict to describe expected keys and types, while its initial-state function explicitly validates numerical inputs. TypedDict itself does not perform runtime value checking. A chat transcript alone is not a substitute for this engineering record because important values and units must be easy to locate and compare. Transition: different fields need different rules when new information arrives.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F17",
+    "title": "Replace a result; append an event",
+    "section": "Foundations",
+    "kind": "question",
+    "kicker": "Reducers in one example",
+    "takeaway": "The merge rule is part of the data model.",
+    "items": [
+      "Current: 1.00 then 0.80 → keep 0.80",
+      "Trace: [simulate] plus [verify] → keep both",
+      "Parallel writes need an explicit compatible rule"
+    ],
+    "visual": "state",
+    "prompt": "Should a repaired command keep the previous current as its current result?",
+    "answer": "No. Replace the current result; preserve the previous event in the trace.",
+    "equation": "R_{\\mathrm{trace}}(a,b)=a+b",
+    "symbols": [
+      {
+        "symbol": "R",
+        "meaning": "Reducer combining stored value and update"
+      },
+      {
+        "symbol": "a,b",
+        "meaning": "Existing event list and new event list"
+      }
+    ],
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "G1 · list-addition reducer",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      },
+      {
+        "label": "LangGraph · reducers",
+        "url": "https://docs.langchain.com/oss/python/langgraph/graph-api"
+      }
+    ],
+    "notes": "Use the animation to replace the scalar value while visibly extending the event list. The current field describes the latest simulated command, so retaining the old value there would be misleading. The trace field describes history, so discarding earlier events would make the repair difficult to inspect. The example's plus symbol means list concatenation, not arithmetic averaging or consensus. In the code, Annotated attaches the addition function to the trace field. An empty appended list does not erase existing events. If several branches write a field, the application needs a merge rule appropriate to that field and its ordering semantics. Transition: after updating the record, one small routing function can choose among success, repair, and hold.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F18",
+    "title": "Routing turns evidence into the next step",
+    "section": "Foundations",
+    "kind": "flow",
+    "kicker": "Three explicit branches",
+    "takeaway": "Verification computes the verdict; routing chooses what to do with it.",
+    "items": [
+      "passed = true → report",
+      "passed = false and k < K → repair",
+      "passed = false and k ≥ K → hold"
+    ],
+    "nodes": [
+      "Updated state",
+      "Route r(s)",
+      "Report",
+      "Repair",
+      "Hold"
+    ],
+    "visual": "route",
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "Exact route function · G2",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      }
+    ],
+    "notes": "Reveal the mutually exclusive conditions in order. The first condition checks whether the latest calculation passed. If it did not, the second decision is whether a repair is still permitted. The route returns a label, and the graph maps that label to a node. This policy is deliberately deterministic so that participants can reason about every execution path. A more flexible language-selected operation could be inserted elsewhere without allowing it to bypass these acceptance conditions. Ask what would happen if the counter were equal to the budget: the route must hold. The numerical verification rule and the orchestration policy remain separate functions. Transition: a report can itself pause for review, which requires saved execution state.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F19",
+    "title": "Checkpoint: remember where the workflow stopped",
+    "section": "Foundations",
+    "kind": "flow",
+    "kicker": "Persistence",
+    "takeaway": "A checkpoint associates execution state with a thread identifier.",
+    "items": [
+      "Save the current record",
+      "Keep the next node",
+      "Resume the same execution context"
+    ],
+    "nodes": [
+      "Verified proposal",
+      "Saved state",
+      "Pending review"
+    ],
+    "visual": "checkpoint",
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "LangGraph · persistence",
+        "url": "https://docs.langchain.com/oss/python/langgraph/persistence"
+      },
+      {
+        "label": "G5 · InMemorySaver example",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      }
+    ],
+    "notes": "Use a bookmark analogy, then make it precise with the stored record and pending node. In the G lab, a thread identifier associates the checkpoint with a particular execution. That identifier is not an operator credential. The example uses InMemorySaver, so the state remains available in the running process but does not provide durable recovery after the kernel disappears. This scope is sufficient for observing a pause and resume during class. Participants should inspect the snapshot before discussing its final status; otherwise a whole-cell execution can make the pause easy to miss. The upcoming exercise prints the pending node and acknowledgment flag. Transition: an interrupt exposes the question that a human or caller must answer before that execution can continue.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F20",
+    "title": "Interrupt: make the review decision visible",
+    "section": "Foundations",
+    "kind": "flow",
+    "kicker": "Human interaction",
+    "takeaway": "A review response must identify the recommendation it acknowledges.",
+    "items": [
+      "Pause with candidate and evidence scope",
+      "Inspect before responding",
+      "Resume with an explicit matching response"
+    ],
+    "nodes": [
+      "Review request",
+      "Pause",
+      "Readback",
+      "Resume"
+    ],
+    "visual": "checkpoint",
+    "clicks": 3,
+    "duration_seconds": 40,
+    "refs": [
+      {
+        "label": "LangGraph · interrupts",
+        "url": "https://docs.langchain.com/oss/python/langgraph/interrupts"
+      },
+      {
+        "label": "G5 · simulated readback",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      }
+    ],
+    "notes": "Distinguish a visible recommendation from an acknowledged recommendation. The toy sends an interrupt payload that includes a recommendation identifier, command, calculated value, and declared scope. Its scripted reply must approve the same identifier. A wrong identifier or a declined response remains distinguishable from approval. This demonstrates a record-consistency mechanism, not operator authentication or equipment dispatch. On resumption, the interrupted node can begin again, so uncontrolled side effects before the interrupt would be a design problem. The toy only records state changes. Ask participants what the operator should see if the candidate changes while review is pending. The answer motivates fresh evidence and a new identity. Transition: organize these requirements into three checks that answer different questions.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F21",
+    "title": "Typed, current, feasible: three separate claims",
+    "section": "Foundations",
+    "kind": "comparison",
+    "kicker": "Do not collapse the gates",
+    "takeaway": "Passing one check does not establish the others.",
+    "items": [
+      "Schema: are required values valid?",
+      "Binding: is this result for this candidate?",
+      "Engineering: do modeled limits pass?"
+    ],
+    "columns": [
+      "Check",
+      "A pass does not prove"
+    ],
+    "rows": [
+      [
+        "Schema ✓",
+        "Correct intent interpretation"
+      ],
+      [
+        "Binding ✓",
+        "Source authenticity"
+      ],
+      [
+        "Engineering ✓",
+        "Adequate model or field authorization"
+      ]
+    ],
+    "prompt": "The solve converged at 112 A; the limit is 100 A. Verdict?",
+    "answer": "Reject that candidate under the declared current limit.",
+    "clicks": 3,
+    "duration_seconds": 40,
+    "refs": [
+      {
+        "label": "Tutorial binding and operator checks",
+        "url": "../src/classroom_labs.py"
+      }
+    ],
+    "notes": "Keep this slide concrete rather than reading a compliance checklist. Give the current example verbally and ask for the verdict before revealing it. A converged solver result can fail a physical operating condition. A correctly shaped result can be stale. A matching hash can identify consistent data without proving who produced it. These checks are complementary because they answer different questions. Our later lab uses an explicitly illustrative payload to isolate the binding mechanism; participants must not mistake its passed field for a real feeder calculation. The final operator packet adds another distinction between evidence scope and the requested scope. Transition: ask what happens when a favorable language-model explanation conflicts with a failed numerical check.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F22",
+    "title": "A vote cannot raise a declared limit",
+    "section": "Foundations",
+    "kind": "question",
+    "kicker": "A useful failure test",
+    "takeaway": "Selection chooses a trial; verification determines whether it is admissible.",
+    "items": [
+      "Two models favor a candidate",
+      "The numerical check reports 112 A",
+      "The declared limit remains 100 A"
+    ],
+    "prompt": "Can a majority vote make this candidate acceptable?",
+    "answer": "No. Reject it, preserve the incumbent, and record the failed margin.",
+    "visual": "stages",
+    "nodes": [
+      "Model responses",
+      "Selected trial",
+      "Numerical check",
+      "Reject / retain"
+    ],
+    "clicks": 3,
+    "duration_seconds": 35,
+    "refs": [
+      {
+        "label": "Tutorial candidate verification",
+        "url": "../src/proposal_case_tools.py"
+      },
+      {
+        "label": "Grid-Agent · sandbox validation",
+        "url": "https://arxiv.org/html/2508.05702v3"
+      }
+    ],
+    "notes": "Use the fictional numbers as a fast diagnostic question. The source of a candidate and the number of models supporting it do not change its calculated current or the stated limit. The selected operation has earned a trial, not automatic acceptance. A failed trial should leave the previous admissible candidate available and should produce an inspectable rejection record. The later voltage experiment implements this separation between response selection and numerical evaluation. Multiple models may also share errors, so agreement does not establish independent evidence. This lesson is compatible with both conventional supervisors and agentic workflows. Transition: close the concept sequence by showing which existing research frameworks contribute related mechanisms, using qualified claims rather than a promotional ranking.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F23",
+    "title": "PowerAgent: connect engineering capabilities",
+    "section": "Foundations",
+    "kind": "paper",
+    "kicker": "Research lens · interoperability",
+    "takeaway": "Reusable tool interfaces and workflows reduce integration effort across applications.",
+    "items": [
+      "PowerMCP exposes engineering tools",
+      "PowerWF organizes reusable workflows",
+      "Capabilities vary with the selected application"
+    ],
+    "nodes": [
+      "Domain application",
+      "Tool interface",
+      "Engineering capability"
+    ],
+    "visual": "tools",
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "Zhang & Xie · PowerAgent · IEEE PEM 2025",
+        "url": "https://doi.org/10.1109/MPE.2025.3579718"
+      },
+      {
+        "label": "PowerAgent · official ecosystem",
+        "url": "https://poweragent.seas.harvard.edu/"
+      },
+      {
+        "label": "PowerMCP",
+        "url": "https://github.com/Power-Agent/PowerMCP"
+      }
+    ],
+    "notes": "Present PowerAgent as a roadmap and ecosystem rather than one immutable controller. Its official materials organize domain capabilities through tools and reusable workflows. The teaching connection is our tool-contract slide: a clearly defined interface can make the same numerical capability usable from different applications. The diagram on this slide is a tutorial schematic of that concept, not a reproduced architecture figure. Do not infer an ecosystem-wide acceptance guarantee from the availability of a tool. In class, ask which fields an OpenDSS wrapper should return so that a different planner can still use its result. This turns a literature example into a design exercise. Transition: a connected collection of tools still needs protection against using them in an invalid order.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F24",
+    "title": "PowerDAG: check prerequisite relationships",
+    "section": "Foundations",
+    "kind": "paper",
+    "kicker": "Research lens · dependency supervision",
+    "takeaway": "A one-shot advisory detects a covered prerequisite violation; repeated calls may proceed.",
+    "items": [
+      "Retrieve relevant workflow exemplars",
+      "Check prerequisite tool writes within covered scope",
+      "One-shot advisory; repeated calls may proceed"
+    ],
+    "nodes": [
+      "Retrieved example",
+      "Proposed tool call",
+      "Prerequisite guard",
+      "Execute / repair"
+    ],
+    "visual": "dag",
+    "clicks": 3,
+    "duration_seconds": 50,
+    "refs": [
+      {
+        "label": "Badmus & Pandey · PowerDAG · 2026 preprint",
+        "url": "https://arxiv.org/html/2603.17418v1"
+      },
+      {
+        "label": "Figure and reuse license",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      }
+    ],
+    "notes": "PowerDAG combines exemplar retrieval with deterministic checks of selected tool prerequisites. Its inspected study reports 30 unseen queries, 50 expert exemplars, and 82 tools. Section IV-C2 describes a one-shot advisory: an initial covered violation is blocked, but repeating the call is permitted. This is not an unconditional hard safety gate. Relate the mechanism to our fan-out identity example while retaining that distinction. The cited figure exposes the paper architecture; our classroom code illustrates a narrower evidence-binding idea. Ask what our own application should require after the load changes: evidence associated with the new context. Our guard rejects stale binding explicitly. Transition: the next framework emphasizes what happens after a proposed physical change fails in a sandbox.",
+    "image": "/assets/papers/powerdag_figure2.png",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide.",
+    "image_caption": "Badmus & Pandey (2026), Fig. 2, CC BY-SA 4.0. Unchanged figure.",
+    "image_source": "https://arxiv.org/html/2603.17418v1#S4.F2",
+    "image_license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  {
+    "id": "F25",
+    "title": "Grid-Agent: test a change before retaining it",
+    "section": "Foundations",
+    "kind": "paper",
+    "kicker": "Research lens · sandbox and rollback",
+    "takeaway": "A failed trial should not silently replace the incumbent.",
+    "items": [
+      "Topology, planner, executor, validator, summarizer",
+      "Evaluate actions in a simulation sandbox",
+      "Retain or roll back using returned evidence"
+    ],
+    "nodes": [
+      "Incumbent",
+      "Proposed change",
+      "Sandbox test",
+      "Retain / rollback"
+    ],
+    "visual": "cycle",
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "Zhang et al. · Grid-Agent · v3, 2025 preprint",
+        "url": "https://arxiv.org/html/2508.05702v3"
+      },
+      {
+        "label": "Figure and reuse license",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    ],
+    "notes": "The inspected Grid-Agent version describes five roles and a sandbox workflow with validation and rollback. Its role names are Topology, Planner, Executor, Validator, and Summarizer. This is close prior art for splitting grid work among specialized responsibilities, so our teaching workflow should not claim to invent five-agent grid verification. The useful classroom question is whether a rejected candidate can accidentally become the retained command. Use the paper figure to locate the validation loop, then connect it to our separate incumbent and trial records. The v3 source recommends human oversight for deployment; it does not establish that every demonstrated action underwent authenticated operator approval. Transition: another architecture separates planning from coordination and domain-tool execution, which helps explain why state handoffs matter.",
+    "image": "/assets/papers/grid_agent_figure1.png",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide.",
+    "image_caption": "Zhang et al. (2025), Grid-Agent v3, Fig. 1, CC BY 4.0. Unchanged.",
+    "image_source": "https://arxiv.org/html/2508.05702v3#S4.F1",
+    "image_license_url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  {
+    "id": "F26",
+    "title": "X-GridAgent: separate planning, coordination, and action",
+    "section": "Foundations",
+    "kind": "paper",
+    "kicker": "Research lens · hierarchy",
+    "takeaway": "A hierarchy helps organize work only when each handoff preserves the required context.",
+    "items": [
+      "Planning decomposes the requested analysis",
+      "Coordination routes and tracks tasks",
+      "Action selects domain tools and reads results"
+    ],
+    "nodes": [
+      "Planning",
+      "Coordination",
+      "Action"
+    ],
+    "visual": "stages",
+    "clicks": 3,
+    "duration_seconds": 40,
+    "refs": [
+      {
+        "label": "Wen & Chen · X-GridAgent · 2025 preprint",
+        "url": "https://arxiv.org/html/2512.20789v1"
+      }
+    ],
+    "notes": "X-GridAgent organizes power-grid analysis in three layers and exposes domain capabilities through multiple tool servers. Its study uses 11 representative queries repeated 30 times, not 330 distinct tasks. The source also describes retrieval and prompt refinement. For our teaching purpose, focus on one mechanism: a plan needs coordination, and coordination needs an action interface that returns usable evidence. Ask which information must survive all three layers. The candidate, model scope, limits, and task identity are stronger answers than an unstructured summary alone. This slide is an independently drawn teaching schematic of the conceptual hierarchy; it is not an altered paper figure. Transition: compare these mechanisms compactly while preserving the qualifications hidden by a simple checkmark.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F27",
+    "title": "Read the ticks as scope, not a league table",
+    "section": "Foundations",
+    "kind": "comparison",
+    "kicker": "✓ documented · △ qualified · NR not reported",
+    "takeaway": "Cross-paper capability marks do not establish a common performance ranking.",
+    "items": [
+      "Different tasks, models, budgets, and evaluation boundaries",
+      "Benchmark work evaluates agents; it is not a controller",
+      "Our benefit must be tested against matched baselines"
+    ],
+    "columns": [
+      "Work",
+      "Tools",
+      "Feedback",
+      "Checks",
+      "Review"
+    ],
+    "rows": [
+      [
+        "PowerAgent ecosystem",
+        "✓",
+        "✓",
+        "△",
+        "✓"
+      ],
+      [
+        "PowerDAG",
+        "✓",
+        "✓",
+        "△",
+        "NR"
+      ],
+      [
+        "Grid-Agent v3",
+        "✓",
+        "✓",
+        "✓",
+        "△"
+      ],
+      [
+        "X-GridAgent",
+        "✓",
+        "✓",
+        "△",
+        "△"
+      ],
+      [
+        "PowerAgentBench-SS",
+        "✓",
+        "✓",
+        "✓",
+        "△"
+      ],
+      [
+        "Tutorial",
+        "✓",
+        "✓",
+        "✓",
+        "✓"
+      ]
+    ],
+    "clicks": 3,
+    "duration_seconds": 70,
+    "refs": [
+      {
+        "label": "Qualified matrix and source-by-source evidence",
+        "url": "../appendix/Power_Frameworks_Comparison.md"
+      },
+      {
+        "label": "PowerAgentBench-SS · 2026 preprint",
+        "url": "https://arxiv.org/html/2606.18789v1"
+      }
+    ],
+    "notes": "Define the marks before interpreting the rows. A tick records a documented capability in the inspected source; a triangle preserves a qualification; NR means not reported in that source rather than proved absent. PowerAgent capabilities vary by workflow. PowerDAG covers selected dependencies with a one-shot advisory. Grid-Agent oversight is proposed for deployment. X-GridAgent includes solver checks and human prompt refinement. PowerAgentBench-SS supplies an evaluation protocol with hidden revalidation under a DC scope. The tutorial's review tick refers to local advisory readback, not authenticated field authorization. None of these rows forms a shared performance benchmark. Ask what would make a valid benefit claim: common scenarios, tools, budgets, outcome definitions, and timing boundaries. Transition: run a transparent graph and its ordinary-Python baseline before introducing electrical complexity.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F28",
+    "title": "Our first experiment makes every transition visible",
+    "section": "Foundations",
+    "kind": "equation",
+    "kicker": "Hands-on · Graph_Workflow_Lab.ipynb",
+    "takeaway": "Learn real graph execution with deliberately simple arithmetic.",
+    "items": [
+      "Simulate the command",
+      "Verify the limit",
+      "Repair by 0.25 or hold"
+    ],
+    "equation": "i=0.4+0.8u,\\qquad i\\leq L",
+    "symbols": [
+      {
+        "symbol": "u",
+        "meaning": "Dimensionless command"
+      },
+      {
+        "symbol": "i",
+        "meaning": "Normalized illustrative current"
+      },
+      {
+        "symbol": "L",
+        "meaning": "Declared toy limit"
+      }
+    ],
+    "visual": "cycle",
+    "nodes": [
+      "Simulate",
+      "Verify",
+      "Repair",
+      "Report / hold"
+    ],
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "G0–G5 · executed graph lab",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      }
+    ],
+    "notes": "Announce the switch from concepts to the first executable exercise. The response law is invented for teaching; it is not a feeder model, a power-flow approximation, an MPC controller, or a learned policy. Its simplicity lets participants predict each value and inspect every route. LangGraph execution is real, including the conditional edge, checkpoint, interrupt, and resume. The repair subtracts 0.25 from the command without allowing it below zero. The verification compares the resulting illustrative current with the declared limit. We will compare graph execution with a direct-Python loop using identical functions, so the experiment isolates orchestration. Transition: open the notebook and first establish which runtime is actually being used.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F29",
+    "title": "G0: confirm the runtime and the experiment boundary",
+    "section": "Foundations",
+    "kind": "code",
+    "kicker": "Run the setup cell",
+    "takeaway": "Record the installed versions before interpreting the execution.",
+    "items": [
+      "Imports the real LangGraph runtime",
+      "Disables external tracing in this lab",
+      "Prints versions and the toy scope"
+    ],
+    "code": {
+      "notebook": "Graph_Workflow_Lab.ipynb",
+      "cell": "G0",
+      "start": 5,
+      "end": 13
+    },
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "G0 source and captured execution",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      },
+      {
+        "label": "LangGraph · official overview",
+        "url": "https://docs.langchain.com/oss/python/langgraph/overview"
+      }
+    ],
+    "notes": "Run the complete G0 cell, even though the slide displays only its relevant lines. Confirm that the version dictionary appears before proceeding. The captured run used LangGraph 1.2.15, checkpoint 4.3.0, and langchain-core 1.6.12; a participant's environment may differ. The cell disables the external tracing flags used by this exercise and declares that no language-model or electrical-model validation occurs. After dependencies are installed, the toy needs no Ollama service. If imports fail, use the supplied graph-lab requirements and return to the documented setup rather than changing the experiment during class. This practical boundary keeps the graph lesson reproducible. Transition: define the record that every subsequent node will read and update.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F30",
+    "title": "G1: turn the record into a state schema",
+    "section": "Foundations",
+    "kind": "code",
+    "kicker": "Code ↔ concept",
+    "takeaway": "The schema names fields; the trace annotation selects its merge rule.",
+    "items": [
+      "command and limit describe the trial",
+      "attempts and max_repairs bound retries",
+      "Annotated[list[str], add] preserves events"
+    ],
+    "code": {
+      "notebook": "Graph_Workflow_Lab.ipynb",
+      "cell": "G1",
+      "start": 1,
+      "end": 10
+    },
+    "prompt": "After simulate and verify append one event each, how many remain?",
+    "answer": "Two events; the list-addition reducer keeps both.",
+    "clicks": 3,
+    "duration_seconds": 60,
+    "refs": [
+      {
+        "label": "G1 · exact notebook code",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      },
+      {
+        "label": "Python · TypedDict",
+        "url": "https://docs.python.org/3/library/typing.html#typing.TypedDict"
+      }
+    ],
+    "notes": "Highlight the control fields first, then the verdict fields, then the trace annotation. Run the complete G1 cell so the audience also sees the initial validated state and the list-addition example below this excerpt. TypedDict states the intended record structure; initial_state performs the example's explicit input validation. These two mechanisms should not be confused. The trace is a sequence of recorded events, not an internal chain of thought and not a cryptographically authenticated audit log. Ask participants to predict the number of trace entries before revealing the answer. This is the same replace-versus-append idea they saw conceptually. Transition: the first node uses the command to calculate a value, and the next node compares it with the limit.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F31",
+    "title": "G2: a node returns only its updates",
+    "section": "Foundations",
+    "kind": "code",
+    "kicker": "Simulation then verification",
+    "takeaway": "The calculation and the acceptance test are inspectable functions.",
+    "items": [
+      "simulate calculates the toy response",
+      "verify evaluates the declared inequality",
+      "Both append a visible event"
+    ],
+    "code": {
+      "notebook": "Graph_Workflow_Lab.ipynb",
+      "cell": "G2",
+      "start": 1,
+      "end": 7
+    },
+    "prompt": "For u = 0.75 and L = 0.80, does verification pass?",
+    "answer": "i = 1.00, so the first verification fails.",
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "G2 · exact simulate and verify functions",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      }
+    ],
+    "notes": "Read the first function as an ordinary Python calculation. It returns current and a trace update rather than reconstructing the entire state record. The next function compares that current with the limit using a small numerical tolerance. The tolerance addresses floating-point comparison in this toy; it is not an engineering margin. With command 0.75, the result is 1.00 and the limit is 0.80, so the verdict is false. That outcome is expected rather than a program error. Ask which returned field the router will inspect. Run the entire G2 cell, including the repair and terminal-node definitions that follow this excerpt. Transition: inspect the four lines that convert the verdict and budget into a route.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F32",
+    "title": "G2: the route is four readable lines",
+    "section": "Foundations",
+    "kind": "code",
+    "kicker": "The policy is explicit",
+    "takeaway": "A successful test reports; a failed test repairs only while budget remains.",
+    "items": [
+      "Read passed first",
+      "Otherwise compare attempts with max_repairs",
+      "Return one permitted node label"
+    ],
+    "code": {
+      "notebook": "Graph_Workflow_Lab.ipynb",
+      "cell": "G2",
+      "start": 19,
+      "end": 22
+    },
+    "visual": "cycle",
+    "clicks": 3,
+    "duration_seconds": 45,
+    "refs": [
+      {
+        "label": "G2 · exact conditional router",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      }
+    ],
+    "notes": "Map each code branch to the earlier route diagram. The successful branch returns report. The failed branch compares the completed repair count with the maximum and returns either repair or hold. Because the same functions will be supplied to the direct-Python baseline, any numerical difference would indicate an implementation issue rather than a more intelligent graph. Ask what happens after one repair when the maximum is one and the verification still fails. The answer is hold, since equality means the budget is exhausted. A recursion limit also appears at invocation, but that runtime limit is not the application repair policy. Transition: node functions and route labels still need connections before they form an executable graph.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F33",
+    "title": "G3: wire the functions into the diagram",
+    "section": "Foundations",
+    "kind": "code",
+    "kicker": "Build and compile",
+    "takeaway": "Edges permit execution paths; compilation does not prove the engineering assumptions.",
+    "items": [
+      "START enters simulation",
+      "Verification selects report, repair, or hold",
+      "Repair returns to simulation"
+    ],
+    "code": {
+      "notebook": "Graph_Workflow_Lab.ipynb",
+      "cell": "G3",
+      "start": 7,
+      "end": 14
+    },
+    "nodes": [
+      "START",
+      "Simulate",
+      "Verify",
+      "Report / repair / hold"
+    ],
+    "visual": "cycle",
+    "clicks": 3,
+    "duration_seconds": 60,
+    "refs": [
+      {
+        "label": "G3 · exact graph wiring",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      },
+      {
+        "label": "LangGraph · graph construction",
+        "url": "https://docs.langchain.com/oss/python/langgraph/use-graph-api"
+      }
+    ],
+    "notes": "Run G3 and confirm the compiled node list. Highlight the fixed edge from simulate to verify, the conditional edge that calls route, and the edge returning repair to simulate. The mapping translates a returned label into a permitted successor. The report and hold nodes terminate this version of the execution. Compilation checks structural requirements of the graph; it is not a proof that the chosen response law describes a feeder or that the repair rule finds an optimum. This keeps the software lesson separate from the later numerical science. Ask a participant to point to the line that makes the graph cyclic. Transition: now test three starting states whose outcomes the class can calculate by hand.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F34",
+    "title": "G4: predict, run, and trace three outcomes",
+    "section": "Foundations",
+    "kind": "lab",
+    "kicker": "Hands-on · four minutes",
+    "takeaway": "A legitimate workflow can finish ready or hold.",
+    "items": [
+      "Run G4 unchanged",
+      "Trace the repair case event by event",
+      "Try a new budget in a separate scratch cell"
+    ],
+    "columns": [
+      "Initial u",
+      "Limit L",
+      "Budget K",
+      "Expected result"
+    ],
+    "rows": [
+      [
+        "0.25",
+        "0.80",
+        "2",
+        "Ready · i = 0.60"
+      ],
+      [
+        "0.75",
+        "0.80",
+        "2",
+        "One repair · i = 0.80"
+      ],
+      [
+        "0.90",
+        "0.50",
+        "1",
+        "One repair, hold · i = 0.92"
+      ]
+    ],
+    "prompt": "Which case reaches the repair node but still must hold?",
+    "answer": "The third: u becomes 0.65, giving i = 0.92 > 0.50.",
+    "clicks": 3,
+    "duration_seconds": 240,
+    "refs": [
+      {
+        "label": "G4 · executed three-case experiment",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      }
+    ],
+    "notes": "Give participants time to predict before running. The first case passes immediately. The second begins at current 1.00, reduces the command from 0.75 to 0.50, and then reaches current 0.80. The third begins at command 0.90, repairs to 0.65, and still exceeds its 0.50 limit with current 0.92. Its single repair is exhausted, so hold is correct. Run G4 unchanged because its assertions describe these original three cases. For a new limit or repair budget, invoke the graph in a separate scratch cell. A useful extension gives the third case four repairs: it reaches command zero and current 0.40. Transition: compare the graph's outputs with the same functions in an ordinary Python supervisor.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F35",
+    "title": "G4: the conventional baseline produces the same result",
+    "section": "Foundations",
+    "kind": "code",
+    "kicker": "A controlled orchestration comparison",
+    "takeaway": "The graph matches all three commands, outcomes, and traces.",
+    "items": [
+      "Same simulation and verification functions",
+      "Same repair rule and stopping policy",
+      "3/3 outcomes and event histories match"
+    ],
+    "code": {
+      "notebook": "Graph_Workflow_Lab.ipynb",
+      "cell": "G4",
+      "start": 15,
+      "end": 19
+    },
+    "prompt": "What did the graph add in this experiment?",
+    "answer": "An explicit execution structure and reusable pause/state mechanisms; it did not improve the toy command.",
+    "clicks": 3,
+    "duration_seconds": 60,
+    "refs": [
+      {
+        "label": "G4 · direct-Python baseline assertion",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      }
+    ],
+    "notes": "Make the null numerical result a central teaching outcome. Both implementations receive the same initial state and the same node functions. The comparison asserts equality of the summary, including the command, status, and trace. Therefore the graph should not be credited with finding a better action. Its value here is making execution structure and later checkpoint mechanisms explicit. The notebook prints elapsed times from one local execution, but those values are not a statistically controlled performance benchmark. Differences at this scale depend on runtime and measurement overhead. Ask which separate experiment would support an inspectability or recovery claim. Transition: introduce the graph feature that the direct calculation alone does not yet demonstrate, a real pause with resumable review state.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F36",
+    "title": "G5: stop at the pending review node",
+    "section": "Foundations",
+    "kind": "code",
+    "kicker": "Pause and inspect",
+    "takeaway": "Before resumption, the report node is pending and acknowledgment is false.",
+    "items": [
+      "Build with a checkpointer",
+      "Invoke the graph with a thread identifier",
+      "Inspect the snapshot and interrupt payload"
+    ],
+    "code": {
+      "notebook": "Graph_Workflow_Lab.ipynb",
+      "cell": "G5",
+      "start": 11,
+      "end": 17
+    },
+    "visual": "checkpoint",
+    "clicks": 3,
+    "duration_seconds": 90,
+    "refs": [
+      {
+        "label": "G5 · captured pre-resume snapshot",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      },
+      {
+        "label": "LangGraph · persistence",
+        "url": "https://docs.langchain.com/oss/python/langgraph/persistence"
+      }
+    ],
+    "notes": "The full G5 cell both pauses and supplies a scripted response, so explain how to observe the intermediate state. For a live teaching pause, execute lines 1 through 17 first, retaining the function definition above this displayed excerpt. Inspect the printed pending node, which is report, and the false acknowledgment flag. The interrupt payload identifies the command and the invented model scope. In the captured pause, the stored status remains TOY_NEW; it should not be mislabeled TOY_READY merely because the numerical gate passed. The checkpoint exists in this kernel's memory. Participants can now see that a verified numerical result and an acknowledged recommendation are different states. Transition: resume the same execution with an explicit response tied to its recommendation identifier.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F37",
+    "title": "G5: resume with the matching readback",
+    "section": "Foundations",
+    "kind": "code",
+    "kicker": "Complete the human-interaction example",
+    "takeaway": "The scripted acknowledgment changes status without dispatching equipment.",
+    "items": [
+      "Use the same execution configuration",
+      "Approve the same recommendation identifier",
+      "Inspect TOY_ACKNOWLEDGED and the final trace"
+    ],
+    "code": {
+      "notebook": "Graph_Workflow_Lab.ipynb",
+      "cell": "G5",
+      "start": 18,
+      "end": 21
+    },
+    "prompt": "What should a declined or wrong-identifier response produce?",
+    "answer": "TOY_HOLD, with acknowledgment false.",
+    "clicks": 3,
+    "duration_seconds": 120,
+    "refs": [
+      {
+        "label": "G5 · simulated readback and final assertion",
+        "url": "../Graph_Workflow_Lab.ipynb"
+      },
+      {
+        "label": "LangGraph · interrupt/resume",
+        "url": "https://docs.langchain.com/oss/python/langgraph/interrupts"
+      }
+    ],
+    "notes": "Execute the remaining lines after the pause, or inspect both printed stages if participants ran the full cell. The response is explicitly simulated and generated by the notebook, not provided by an authenticated operator. Its identifier must match the recommendation constructed from the saved state. The resumed graph records acknowledgment and has no pending node. To discuss rejection, point to the human_review function: it requires an approval value of true and the correct identifier; otherwise it returns hold. Avoid resuming an already completed execution for this experiment; create a fresh review run before trying a different response. No equipment endpoint is present. Transition: even a correctly matched review becomes insufficient if its underlying request or candidate has changed.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F38",
+    "title": "L1: change the request; reject the old evidence",
+    "section": "Foundations",
+    "kind": "lab",
+    "kicker": "Hands-on · open Classroom_Labs.ipynb",
+    "takeaway": "Evidence consistency must be checked again after a request or command changes.",
+    "items": [
+      "Run L0, then L1",
+      "Predict three binding results",
+      "Explain what matching hashes do not establish"
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L1",
+      "start": 1,
+      "end": 5
+    },
+    "columns": [
+      "Comparison",
+      "Binding"
+    ],
+    "rows": [
+      [
+        "Same request and command",
+        "True"
+      ],
+      [
+        "Changed load, old evidence",
+        "False"
+      ],
+      [
+        "Changed command, old evidence",
+        "False"
+      ]
+    ],
+    "clicks": 3,
+    "duration_seconds": 240,
+    "refs": [
+      {
+        "label": "L0–L1 · exact binding experiment",
+        "url": "../Classroom_Labs.ipynb"
+      },
+      {
+        "label": "Tutorial binding implementation",
+        "url": "../src/classroom_labs.py"
+      }
+    ],
+    "notes": "Allow four minutes for setup, prediction, execution, and explanation. The initial request uses load scale 1.00, rating fraction 0.80, and revision one. L1 changes the load to 1.10 and revision to two, then separately tests a changed command. The expected binding results are true, false, and false. The payload is deliberately marked example_only; this is an evidence-identity experiment, not a fresh feeder solve. A matching hash establishes consistency among these recorded inputs and the bound result. It does not establish source authenticity, correct intent, or physical feasibility. Fixed supervisors can use the same guard, so the test demonstrates an implementable workflow property without claiming an exclusive LLM benefit. Transition: now choose numerical methods that can produce a meaningful physical candidate.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F39",
+    "title": "Model-based and model-free methods enter the same workflow",
+    "section": "Foundations",
+    "kind": "equation",
+    "kicker": "Methods first; use cases next",
+    "takeaway": "MPC and SAC are candidate generators that still face a common verifier.",
+    "items": [
+      "Model-based: optimize predicted behavior",
+      "Model-free: learn an action rule from experience",
+      "Voltage lab: MPC planning and saved SAC inference",
+      "PPO is discussed as an alternative, not trained here"
+    ],
+    "equation": "\\min_{u_{0:H-1}}\\sum_{k=0}^{H-1}\\ell(x_k,u_k)\\qquad\\qquad u_t=\\pi_\\theta(o_t)",
+    "symbols": [
+      {
+        "symbol": "H,k",
+        "meaning": "Planning horizon and predicted step"
+      },
+      {
+        "symbol": "x_k,u_k,\\ell",
+        "meaning": "State, control, and declared stage cost"
+      },
+      {
+        "symbol": "o_t,\\pi_\\theta",
+        "meaning": "Observation and learned policy with parameters θ"
+      },
+      {
+        "symbol": "t",
+        "meaning": "current decision time"
+      }
+    ],
+    "clicks": 3,
+    "duration_seconds": 70,
+    "refs": [
+      {
+        "label": "Rawlings, Mayne & Diehl · MPC",
+        "url": "https://sites.engineering.ucsb.edu/~jbraw/mpc/"
+      },
+      {
+        "label": "Haarnoja et al. · SAC · ICML 2018",
+        "url": "https://proceedings.mlr.press/v80/haarnoja18b.html"
+      },
+      {
+        "label": "Schulman et al. · PPO · 2017",
+        "url": "https://arxiv.org/abs/1707.06347"
+      }
+    ],
+    "notes": "Define the two broad approaches before naming the particular algorithms. Model-based control uses predicted behavior in an optimization problem; the displayed expression omits constraints for clarity, and the voltage lesson supplies them explicitly. Model-free learning trains an action rule through experience and rewards. It may obtain that experience from a simulator, so model-free does not mean no simulator was used. MPC plans over a horizon and applies its first action. SAC supplies continuous control from saved learned weights in class. PPO is a relevant continuous-action alternative but is not trained in this tutorial. Training cost and inference cost are separate. Both proposed commands must be simulated and checked under the same declared limits. Transition: leave the illustrative graph and establish a fair experiment on the selected feeder models.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  },
+  {
+    "id": "F40",
+    "title": "The graph is ready; now ask a physical question",
+    "section": "Foundations",
+    "kind": "divider",
+    "kicker": "Next · voltage support",
+    "takeaway": "Compare the same scenario, constraints, budget, and evidence boundary.",
+    "items": [
+      "MPC and SAC propose inverter commands",
+      "LinDistFlow and OpenDSS expose model-scope differences",
+      "Llama proposes bounded follow-up work",
+      "Measure objective, rejected checks, and added time"
+    ],
+    "nodes": [
+      "Request",
+      "Candidate",
+      "Numerical evidence",
+      "Reviewable decision"
+    ],
+    "visual": "control",
+    "prompt": "What can a favorable explanation never substitute for?",
+    "answer": "A fresh calculation and passing checks for the actual candidate and declared model scope.",
+    "clicks": 3,
+    "duration_seconds": 80,
+    "refs": [
+      {
+        "label": "L2–L5 · voltage experiments",
+        "url": "../Classroom_Labs.ipynb"
+      },
+      {
+        "label": "Matched evaluation principle · PowerAgentBench-SS",
+        "url": "https://arxiv.org/html/2606.18789v1"
+      }
+    ],
+    "notes": "Recap the transferable mechanisms in one sentence: state records the case, tools return evidence, routes handle success and repair, and review records a response to a particular recommendation. The G lab established those mechanisms but did not establish grid-control performance. The engineering notebook now switches to actual numerical models and recorded model responses. Keep the comparison fair by fixing the scenario, permitted controls, declared constraints, objective, and candidate budget wherever a paired comparison is claimed. Report changes in model scope explicitly rather than treating them as unexplained error. The next section introduces the electrical meaning of active and reactive control before displaying the optimization. Transition: begin voltage support with the feeder, the action variables, and the operating limits an operator actually cares about.",
+    "source_checked": "2026-10-17",
+    "animation": "Reveal the question or diagram first, then the method or result, then the takeaway; retain one slide."
+  }
+]

@@ -1,0 +1,111 @@
+{
+  "CY01": {
+    "authors": [
+      "Fred C. Schweppe",
+      "J. Wildes"
+    ],
+    "title": "Power System Static-State Estimation, Part I: Exact Model",
+    "publisher": "IEEE Transactions on Power Apparatus and Systems, PAS-89(1), pp. 120–125",
+    "date": "January 1970",
+    "url": "https://doi.org/10.1109/TPAS.1970.292678",
+    "source_type": "Foundational research paper",
+    "evidence_limit": "Bibliographic foundation for state estimation. The tutorial's exact WLS implementation and numerical claims are verified from CY04, not inferred from an inaccessible full text.",
+    "accessed": "18 October 2026"
+  },
+  "CY02": {
+    "authors": [
+      "Yao Liu",
+      "Peng Ning",
+      "Michael K. Reiter"
+    ],
+    "title": "False Data Injection Attacks against State Estimation in Electric Power Grids",
+    "publisher": "ACM Transactions on Information and System Security, 14(1), Article 13, 33 pages",
+    "date": "May 2011",
+    "url": "https://doi.org/10.1145/1952982.1952995",
+    "pdf_url": "https://reitermk.github.io/papers/2011/TISSEC2.pdf",
+    "source_locator": "Theorem 3.1 and equation (4), printed page 13:9; protected-meter discussion in Section 3.2",
+    "source_type": "Primary research paper, author-hosted full text",
+    "evidence_limit": "The residual cancellation applies to the stated linear estimator and access/model assumptions. It does not establish unrestricted access to real utility measurements.",
+    "accessed": "18 October 2026"
+  },
+  "CY03": {
+    "authors": [
+      "NIST/SEMATECH"
+    ],
+    "title": "e-Handbook of Statistical Methods, Section 1.3.6.7.4: Critical Values of the Chi-Square Distribution",
+    "publisher": "National Institute of Standards and Technology",
+    "date": "Undated online reference; accessed 18 October 2026",
+    "citation_date": "Accessed 18 October 2026",
+    "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3674.htm",
+    "source_locator": "Upper-tail table, five degrees of freedom, probability less than critical value 0.99: 15.086",
+    "source_type": "Official statistical reference",
+    "evidence_limit": "Supports the critical-value lookup and upper-tail decision rule, not the applicability of Gaussian assumptions to field utility data. The more precise 15.0862724694 value is computed in CY04."
+  },
+  "CY04": {
+    "authors": [
+      "GridGuard workshop teaching artifacts"
+    ],
+    "title": "Standard formulation companion: four-bus DC weighted least squares, residual tests and constrained redispatch",
+    "publisher": "Local reproducible teaching fixture",
+    "date": "Recorded 21 September 2026; reviewed 18 October 2026",
+    "citation_date": "21 September 2026",
+    "url": "research/evidence/src/standard_formulations.py",
+    "local_paths": [
+      "research/evidence/src/standard_formulations.py",
+      "research/evidence/results/standard_formulations.json"
+    ],
+    "source_locator": "weighted_least_squares, _redispatch and run_wls_demo; results JSON cyber section",
+    "source_type": "Local code and recorded numerical results",
+    "evidence_limit": "Four-bus, three-angle, linear DC fixture with seeded synthetic data; no AC distribution-state-estimation, authentication implementation, live utility deployment or field cyber-resilience claim. Original diagrams in this module are explanatory drawings based on this fixture."
+  },
+  "CY05": {
+    "authors": [
+      "GridGuard workshop teaching artifacts"
+    ],
+    "title": "Classroom Labs L8–L9: cyber consistency sweep and trusted response gate",
+    "publisher": "Local workshop notebook and companion lab functions",
+    "date": "Reviewed 18 October 2026",
+    "url": "research/evidence/Classroom_Labs.ipynb",
+    "local_paths": [
+      "research/evidence/Classroom_Labs.ipynb",
+      "research/evidence/src/classroom_labs.py",
+      "research/evidence/figures/classroom_cyber.png"
+    ],
+    "source_locator": "Notebook labs L8 and L9; cyber_sweep and trusted_response, companion code lines 176–208",
+    "source_type": "Local computational laboratory and actual generated figure",
+    "evidence_limit": "trusted_response assumes the supplied trusted evidence premise and returns dispatch=false. State-error charts use synthetic truth available for offline evaluation only. The figure is reused without changing data or labels."
+  },
+  "CY06": {
+    "authors": [
+      "GridGuard workshop teaching artifacts"
+    ],
+    "title": "Trusted control comparison: all-branch actual-flow audit for two four-bus DC decisions",
+    "publisher": "Local workshop computed figure",
+    "date": "Reviewed 18 October 2026",
+    "url": "research/evidence/figures/workshop_trusted_control.png",
+    "local_paths": [
+      "research/evidence/figures/workshop_trusted_control.png",
+      "research/evidence/src/workshop_display.py",
+      "research/evidence/results/standard_formulations.json"
+    ],
+    "source_locator": "plot_trusted_control; cyber.cases[2].control and cyber.trusted_recovery.control",
+    "source_type": "Actual scientific result figure from supplied fixture",
+    "evidence_limit": "Bars use actual toy-state flows after actions selected by the respective estimates. Legend names denote the decision's estimate source, not measured flow values. The figure is unchanged; caption makes this distinction explicit."
+  },
+  "CY07": {
+    "authors": [
+      "GridGuard workshop teaching artifacts"
+    ],
+    "title": "Workshop Instructor Guide and Cyber Teaching Chapter: evidence scope and operator interpretation",
+    "publisher": "Local instructor material",
+    "date": "Reviewed 18 October 2026",
+    "url": "research/evidence/Workshop_Instructor_Guide.md",
+    "local_paths": [
+      "research/evidence/Workshop_Instructor_Guide.md",
+      "research/evidence/latex_teaching/chapters/cyber.tex"
+    ],
+    "source_locator": "Cyber labs L8–L9 and source chapter C01–C18",
+    "source_type": "Local teaching guide",
+    "evidence_limit": "The short operator packet exercise and native diagrams are new teaching synthesis, grounded in the supplied fixture. They are not records of an operational control-room procedure."
+  }
+}

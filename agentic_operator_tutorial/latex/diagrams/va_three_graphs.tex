@@ -1,0 +1,60 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rl] at (2.25,3.85) {Grid connections};
+\node[rl] at (7.0,3.85) {Task DAG};
+\node[rl] at (11.8,3.85) {Workflow loop};
+\node[rp] (b1) at (.85,2.25) {};
+\node[rp] (b2) at (2.3,2.25) {};
+\node[rp] (b3) at (3.75,2.25) {};
+\node[rp] (b4) at (2.3,1.2) {};
+\draw[draw=rBlue,line width=1.15pt] (b1.east) -- (b2.west);
+\draw[draw=rBlue,line width=1.15pt] (b2.east) -- (b3.west);
+\draw[draw=rBlue,line width=1.15pt] (b2.south) -- (b4.north);
+\node[rn] at (.85,1.7) {B1};
+\node[rn] at (2.3,2.88) {B2};
+\node[rn] at (3.75,1.7) {B3};
+\node[rn] at (2.3,.7) {B4};
+\node[rn] at (2.25,.23) {equipment links};
+\node[rp] (a) at (5.25,2.25) {};
+\node[rp] (b) at (6.75,2.8) {};
+\node[rp] (c) at (6.75,1.4) {};
+\node[rp] (d) at (8.45,2.25) {};
+\coordinate (fork) at (5.9,2.25);
+\draw[draw=rBlue,line width=1.15pt] (a.east) -- (fork);
+\draw[rf] (fork) |- (b.west);
+\draw[rf] (fork) |- (c.west);
+\coordinate (join) at (7.75,2.25);
+\draw[draw=rBlue,line width=1.15pt] (b.east) -- (7.75,2.8) -- (join);
+\draw[draw=rBlue,line width=1.15pt] (c.east) -- (7.75,1.4) -- (join);
+\draw[rf] (join) -- (d.west);
+\node[rn] at (5.25,1.7) {A};
+\node[rn] at (6.75,3.28) {B};
+\node[rn] at (6.75,.85) {C};
+\node[rn] at (8.45,2.9) {D};
+\node[rn] at (7.0,.23) {needed results};
+\node[rp] (plan) at (10.15,2.25) {};
+\node[rp] (tool) at (11.65,2.25) {};
+\node[rp] (check) at (13.15,2.25) {};
+\draw[rf] (plan.east) -- (tool.west);
+\draw[rf] (tool.east) -- (check.west);
+\node[rn] at (10.15,2.94) {Plan};
+\node[rn] at (11.65,2.94) {Tool};
+\node[rn] at (13.15,2.94) {Check};
+\draw[rw] (check.south) -- (13.15,1.0) -- (10.15,1.0) -- (plan.south);
+\node[rn,text=rOrange] at (11.65,1.38) {retry};
+\node[rn] at (11.8,.23) {next software step};
+
+\end{tikzpicture}

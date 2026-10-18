@@ -1,0 +1,34 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rp] (input) at (1.45,2.75) {};
+\node[rp] (base) at (4.7,2.75) {};
+\node[rp] (load) at (8.4,2.75) {};
+\node[rp] (report) at (12.5,2.75) {};
+\node[rl] at (1.45,3.43) {Inputs};
+\node[rn] at (1.45,2.03) {case, bus, MW};
+\node[rl] at (4.7,3.65) {Baseline\\flow + N$-$1};
+\node[rl] at (8.4,3.65) {Added load\\flow + N$-$1};
+\node[rl] at (12.5,3.43) {Report};
+\node[rn] at (12.5,2.03) {compare results};
+\draw[rf] (input.east) -- (base.west);
+\draw[rf] (base.east) -- (load.west);
+\draw[rf] (load.east) -- (report.west);
+\node[rp] (tools) at (6.55,.9) {};
+\node[rl] at (6.55,.37) {PowerWorld tools};
+\draw[draw=rBlue,line width=1.1pt,{Latex[length=2mm]}-{Latex[length=2mm]}] (base.south) -- (4.7,.9) -- (tools.west);
+\draw[draw=rBlue,line width=1.1pt,{Latex[length=2mm]}-{Latex[length=2mm]}] (load.south) -- (8.4,.9) -- (tools.east);
+
+\end{tikzpicture}

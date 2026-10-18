@@ -1,0 +1,86 @@
+\begin{frame}[t]{Model-free control learns a policy from experience}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.6cm,minimum height=1.3cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (env) at (0,0) {\textbf{Before operation}\\Training environment\\States, actions, rewards};
+\node[box,fill=mint!25] (policy) at (4.65,0) {\textbf{Learned policy}\\Parameters $\theta$\\Action rule $\pi_\theta$};
+\node[box] (online) at (9.3,0) {\textbf{During operation}\\Observe state $s_t$\\Propose action $u_t$};
+\draw[flow] (env.east)--node[above,font=\scriptsize]{Train}(policy.west);
+\draw[flow] (policy.east)--node[above,font=\scriptsize]{Evaluate}(online.west);
+\end{tikzpicture}
+\end{center}
+\[
+u_t\sim\pi_\theta(\,\cdot\mid s_t),\qquad
+\text{or a deterministic actor action at evaluation.}
+\]
+\small $s_t$: observation at time $t$; $u_t$: proposed control; $\theta$: learned policy parameters.
+\plainidea{No explicit plant model is solved inside the online policy evaluation. Training still needs an environment and a reward.}
+\sources{Sutton and Barto, \href{http://incompleteideas.net/book/the-book-2nd.html}{\emph{Reinforcement Learning}, 2nd ed.} (2018); Haarnoja et al., \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{SAC} (2018); Schulman et al., \href{https://arxiv.org/abs/1707.06347}{PPO} (2017).}
+\note{General concept before voltage support. Model-free refers to the policy-learning method, not to an absence of simulation, data or physical assumptions in the whole workflow. Our SAC policy is trained in a surrogate environment and evaluated as a deterministic continuous-action actor. SAC and PPO can both represent continuous policies; PPO is introduced as an alternative and is not trained or evaluated in this tutorial. The learned action does not carry a physical feasibility certificate. Generalization, training distribution, reward design and online action checks determine whether it is useful.}
+\end{frame}
+
+\begin{frame}[t]{Model-based control predicts consequences before choosing}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.65cm,minimum height=1.12cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (state) at (0,0) {\textbf{State and forecast}\\What is happening now?};
+\node[box,fill=mint!25] (model) at (4.65,0) {\textbf{Model + optimization}\\What would each action do?};
+\node[box] (action) at (9.3,0) {\textbf{Proposed action}\\Choose the first move};
+\draw[flow] (state.east)--(model.west); \draw[flow] (model.east)--(action.west);
+\end{tikzpicture}
+\end{center}
+\[
+\min_{u_0,\ldots,u_{H-1}}\ \sum_{k=0}^{H-1}\ell(x_k,u_k)
+\quad\text{s.t.}\quad
+x_{k+1}=f(x_k,u_k),\quad g_j(x_k,u_k)\leq0,\quad x_0=\hat x.
+\]
+\small $H$: planning horizon; $k$: prediction step; $x_k,u_k$: state and action.\\
+$\ell$: operating cost; $f$: model; $g_j$: limit residual; $\hat x$: initial state estimate.
+\par\smallskip\textbf{MPC example:} optimize the horizon, apply its first action, then update and repeat.
+\sources{Rawlings, Mayne and Diehl, \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{\emph{Model Predictive Control: Theory, Computation, and Design}} (2017).}
+\note{This is a generic predictive-control template, not a claim that every case implements the same dynamic model. In the feeder MPC implementation, quasi-static power flow maps a control and a forecast to electrical outputs at each horizon point. Restoration uses topology and load-pickup constraints rather than this exact MPC problem. Cyber estimation uses a measurement model followed by constrained redispatch. Model quality, forecast error, solver behavior and calculation time all matter. Feasibility under the model does not imply robustness to unmodeled disturbances or a field safety certificate.}
+\end{frame}
+
+\begin{frame}[t]{The agent workflow can combine both method families}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.3cm,minimum height=1.1cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (policy) at (0,.8) {\textbf{Model-free proposal}\\Learned action rule};
+\node[box] (model) at (0,-.8) {\textbf{Model-based proposal}\\Physics and optimization};
+\node[box,fill=mint!25,minimum height=1.8cm] (gate) at (4.65,0) {\textbf{Shared simulation\\and verification}\\Same inputs and limits};
+\node[box] (opt) at (9.3,0) {\textbf{LLM Optimizer}\\Critique the evidence\\Select a refinement};
+\draw[flow] (policy.east)--(gate.north west); \draw[flow] (model.east)--(gate.south west);
+\draw[flow] (gate.east)--(opt.west);
+\draw[flow,orange] (opt.south)--(9.3,-1.9)--node[below,font=\scriptsize]{A changed action returns through both checks}(4.65,-1.9)--(gate.south);
+\end{tikzpicture}
+\end{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.53\linewidth}cc@{}}
+\toprule Used here & Learned policy & Predictive optimizer \\
+\midrule
+Training an action policy before inference & \yesmark & \nomark \\
+Online physics-based candidate optimization & \nomark & \yesmark \\
+Fresh acceptance gate after proposing an action & \yesmark & \yesmark \\
+\bottomrule
+\end{tabular}
+\sources{Method families: Sutton and Barto (2018); Rawlings et al. (2017). Hybrid allocation and gate: this tutorial's design.}
+\note{The table describes the policy and predictive-optimizer paths implemented here, not all possible reinforcement-learning or optimization methods. A learned policy may offer inexpensive online inference, but training and verification costs remain. A predictive optimizer can use forecasts and explicit constraints, but model error and solve time remain. Neither family is intrinsically superior for every decision. Llama coordinates permitted choices and critiques returned evidence; it does not replace either numerical method. The proposal's five modules stay the same when these tools change.}
+\end{frame}
+
+\begin{frame}[t]{Specialize the tools only after defining the physical task}
+\deepdive
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.54\linewidth}ccc@{}}
+\toprule Implemented tutorial method & Voltage & Restoration & Cyber \\
+\midrule
+Model-free continuous policy: SAC & \yesmark & \nomark & \nomark \\
+Model-based continuous planning: MPC & \yesmark & \nomark & \nomark \\
+Model-based topology/load pickup: MILP or catalog & \nomark & \yesmark & \nomark \\
+Model-based WLS screening + constrained redispatch & \nomark & \nomark & \yesmark \\
+LLM-guided critique, repair and refinement & \yesmark & \yesmark & \yesmark \\
+Fresh numerical checks + ranked operator evidence & \yesmark & \yesmark & \yesmark \\
+\bottomrule
+\end{tabular}
+\par\smallskip\scriptsize \yesmark\ implemented in the tutorial; \nomark\ not included in that case.\\
+PPO is a continuous-action alternative discussed conceptually; it is not a reported experiment.
+\plainidea{One workflow; case-specific mathematics. Do not force a control algorithm into a different physical task.}
+\sources{SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}. MPC: Rawlings et al. (2017). Executed methods: \texttt{src/continuous\_control.py}, \texttt{src/standard\_formulations.py}, \texttt{Proposal\_Complete\_Workflow.ipynb}.}
+\note{Voltage support uses the actual trained SAC actor and continuous MPC with OpenDSS or the Python three-phase LinDistFlow model. Restoration has a small MILP formulation and a separate feeder candidate catalog; their evidence and network scopes remain distinct. Cyber screening uses a four-bus DC estimation and redispatch example with explicitly assumed protected measurements. WLS means weighted least squares. The new proposal-complete experiment executes feedback-driven LLM optimization in all three cases; it does not train restoration or cyber RL agents. Method-specific equations, variables, controls, model scopes and sources appear in each use-case chapter.}
+\end{frame}

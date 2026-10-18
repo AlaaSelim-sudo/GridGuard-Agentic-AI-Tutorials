@@ -1,0 +1,25 @@
+% Editable teaching source. Compile with XeLaTeX (twice) or Tectonic.
+\input{preamble.tex}
+\begin{document}
+\section{Foundations: from an alarm to a checked action}
+\input{chapters/foundations.tex}
+\section{Voltage support: continuous control}
+\input{chapters/voltage.tex}
+\begin{frame}[t]{Ten-minute break: 80--90 minutes}
+\label{f:BREAK}
+\vspace{.7cm}
+\begin{center}\Large Keep your voltage result and its model scope.\end{center}
+\vspace{.5cm}
+\Idea{What changes after the break?}{For voltage support, we adjusted inverter controls on a given network. After a fault, some paths are unavailable. We must choose which loads the remaining paths can serve.}
+\Question{Would the largest number of restored kilowatts always be the right objective?}
+\Source{Workshop timetable. Take the full ten-minute break.}
+\Bridge{Which loads should the remaining network support?}
+\note{Take the full break. Participants do not need to install packages or run a new cell during it. Before leaving the voltage chapter, ask them to keep a note of the action, which model checked it, and which limits were evaluated. At the restart, recall that inverter settings are continuous decisions. Restoration introduces discrete load pickup and network choices. That contrast creates a reason for a different planning method instead of assigning MPC to every problem. The next case will make the priorities visible using six numbered nodes, a failed connection and two optional ties.}
+\end{frame}
+\section{Restoration: paths, capacity and priorities}
+\input{chapters/restoration.tex}
+\section{Cyber response: consistency and trustworthy evidence}
+\input{chapters/cyber.tex}
+\section{Evaluation and operator decisions}
+\input{chapters/closing.tex}
+\end{document}

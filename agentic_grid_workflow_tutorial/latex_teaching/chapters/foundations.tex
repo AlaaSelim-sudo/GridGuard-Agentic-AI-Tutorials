@@ -1,0 +1,802 @@
+% Native teaching edition: 41 frames, F01--F40 plus F05A.
+% The opening arithmetic is illustrative, not a feeder model.
+
+\begin{frame}[t]{An alarm is a question: what can the operator change?}
+\label{f:F01}
+\begin{columns}[T,onlytextwidth]
+\column{.49\textwidth}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[very thick,navy] (0,1.8)--(4.7,1.8);
+\draw[thick,navy] (.4,1.4)--(.4,2.2);
+\node[below,font=\small] at (.4,1.4) {supply};
+\draw[thick,navy] (3.9,1.8)--(3.9,.9);
+\node[box,text width=2.1cm] at (3.9,.45) {controllable\\device};
+\draw[arrow] (1,2.25)--node[above,font=\small] {current to inspect}(2.9,2.25);
+\node[draw=red,fill=red!7,rounded corners,align=center,text width=4.5cm,font=\small] at (2.4,-.5) {Alarm: a calculated current exceeds its limit.};
+\end{tikzpicture}\par
+\column{.47\textwidth}
+\Idea{A physical question}{Which permitted command reduces the loading enough, and what evidence supports it?}
+\uncover<2->{\Idea{An operator needs}{The candidate, the calculated consequence, the limit, and the model used.}}
+\end{columns}
+\medskip
+We start with one small worked decision. Its arithmetic is invented so that every step can be checked by hand; the feeder models come later.
+\Source{Teaching schematic; \href{../Graph_Workflow_Lab.ipynb}{Graph lab G0--G5} declares the toy scope.}
+\Bridge{Can we calculate the alarm with three numbers?}
+\note{Begin by asking what an operator would need before changing a command. Do not begin with a definition of an agent. The line drawing is a physical motivation, not an electrical model of the Greensboro feeder. Its purpose is to separate a proposed command from the consequence that must be checked. The upcoming arithmetic is deliberately invented and dimensionless so everyone can reproduce it without a simulator. Later, actual feeder tools will replace that arithmetic while the evidence discipline remains. Reveal the operator requirements only after one response from the room. The expected interpretation is that an alarm identifies a problem, but it does not uniquely identify an acceptable action. Next, turn the question into a fully specified calculation.}
+\end{frame}
+
+\begin{frame}[t]{Work the alarm: the proposed command gives too much current}
+\label{f:F02}
+\[
+ \underbrace{i}_{\text{toy current}}
+ =0.4+0.8\underbrace{u}_{\text{command}},
+ \qquad \underbrace{L}_{\text{toy limit}}=0.80.
+\]
+\begin{columns}[T,onlytextwidth]
+\column{.47\textwidth}
+\textbf{Proposed input:} set the dimensionless command to \(u=0.75\).
+\uncover<2->{\[
+i=0.4+0.8(0.75)=1.00.
+\]}
+\column{.49\textwidth}
+\begin{tikzpicture}[x=4.2cm,y=1cm]
+\draw[->,navy] (0,0)--(1.2,0);
+\foreach \x/\s in {0/0,.4/0.4,.8/0.8,1/1.0}
+{\draw (\x,-.05)--(\x,.05);\node[below,font=\scriptsize] at (\x,-.06) {\s};}
+\draw[dashed,teal] (.8,.05)--(.8,1.3);
+\node[above,font=\small,teal] at (.8,1.3) {\(L=0.80\)};
+\uncover<2->{\fill[red] (1,.65) circle (2pt);
+\node[above,font=\small,red] at (1,.72) {\(i=1.00\)};}
+\end{tikzpicture}\par
+\uncover<3->{\par\smallskip\textbf{Verdict:} \(1.00>0.80\), so the candidate fails. The excess is \(i-L=0.20\).}
+\end{columns}
+\medskip
+Both \(i\) and \(L\) are normalized illustrative quantities, not amperes. A correct calculation can still return an unacceptable operating point.
+\Source{Exact response and comparison used in \href{../Graph_Workflow_Lab.ipynb}{G2 and G4}.}
+\Bridge{What does one permitted repair change?}
+\note{Read each symbol aloud before substituting the numbers. The command u is dimensionless, the calculated current i is a normalized illustrative quantity, and L is its limit in the same normalization. The constants define an invented response law. Multiplication gives 0.60, so adding the offset gives 1.00. The comparison with 0.80 is a separate step from that arithmetic. Ask whether the calculation itself failed; it did not. It correctly identified an inadmissible candidate. Reveal the point on the number line, then the verdict. The expected interpretation is that simulation and verification answer different questions. A converged or correctly executed calculation is not automatically an acceptable result. Next, change the command using an explicit repair rule.}
+\end{frame}
+
+\begin{frame}[t]{Repair the command, then recalculate its consequence}
+\label{f:F03}
+\[
+u_{\mathrm{new}}=\max(0,u_{\mathrm{old}}-0.25)
+=\max(0,0.75-0.25)=0.50.
+\]
+\begin{center}
+\begin{tikzpicture}
+\node[box,text width=2.6cm] (old) at (0,0) {old command\\\(u_{\mathrm{old}}=0.75\)\\old result \(i=1.00\)};
+\node[box,text width=2.6cm] (new) at (4.5,0) {new command\\\(u_{\mathrm{new}}=0.50\)\\new result \(i=0.80\)};
+\node[box,text width=2.4cm,fill=teal!12] (ok) at (9,0) {check \(i\leq L\)\\\(0.80\leq0.80\)\\passes this toy limit};
+\draw[arrow] (old)--node[above,font=\scriptsize] {subtract \(0.25\)}(new);
+\draw[arrow] (new)--node[above,font=\scriptsize] {compare again}(ok);
+\end{tikzpicture}\par
+\end{center}
+\(u_{\mathrm{old}}\) and \(u_{\mathrm{new}}\) are the commands before and after repair. The lower bound of zero prevents a negative command.
+\medskip
+\uncover<3->{The old current belongs to the old command. Reusing it would give the wrong decision about the repaired command.}
+\Source{Repair and simulation functions: \href{../Graph_Workflow_Lab.ipynb}{G2}.}
+\Bridge{Which pieces of work did we just perform?}
+\note{Work the subtraction first and ask the class to calculate the new current. The repair produces 0.50, and the response law produces 0.80. Equality passes because the declared rule is less than or equal to the limit. The zero in the maximum is a bound on the command, not an extra simulation result. The important process lesson is that changing the command invalidates the previous current as evidence for that new command. A record may preserve the old value as history, but a new verification must use the new calculation. Reveal the last box only after the audience predicts the result. The expected interpretation is a complete candidate, calculation, and comparison sequence. Next, name those responsibilities without yet introducing software terminology.}
+\end{frame}
+
+\begin{frame}[t]{The operator's calculation already has a workflow}
+\label{f:F04}
+\begin{center}
+\begin{tikzpicture}
+\node[box,text width=2.2cm] (a) at (0,0) {Read the request\\limit \(L=0.80\)};
+\node[box,text width=2.2cm] (b) at (3.35,0) {Propose a command\\\(u=0.50\)};
+\node[box,text width=2.2cm] (c) at (6.7,0) {Calculate\\\(i=0.4+0.8u=0.80\)};
+\node[box,text width=2.2cm] (d) at (10.05,0) {Check the result\\\(i\leq L\): true};
+\draw[arrow] (a)--(b);\draw[arrow] (b)--(c);\draw[arrow] (c)--(d);
+\end{tikzpicture}\par
+\end{center}
+\Idea{A dependency}{We cannot check the consequence of this command until its calculation returns.}
+\uncover<2->{\Idea{A record}{Keep the request, command, result, limit, and verdict together.}}
+\uncover<3->{\Idea{A next decision}{A pass permits review; a failure asks for repair or a hold.}}
+\Source{Tutorial decomposition; executable functions in \href{../Graph_Workflow_Lab.ipynb}{G1--G3}.}
+\Bridge{What should the operator actually see at review?}
+\note{The four boxes are now meaningful because each contains a number the audience has already calculated. Read the arrows as requirements, not as electrical lines. The current must exist before the comparison can be performed, and the command must exist before its consequence can be calculated. These dependencies explain why a workflow is useful without relying on a vague automation claim. Ask what would be lost if only the final word pass were stored. The audience should identify the command, limit, or model assumptions that make that word interpretable. A later language model can help select permitted work, but it does not eliminate these dependencies. The expected interpretation is that the workflow organizes familiar engineering responsibilities. Next, put the results into a concrete review record.}
+\end{frame}
+
+\begin{frame}[t]{A reviewable recommendation is more than a pass label}
+\label{f:F05}
+\begin{columns}[T,onlytextwidth]
+\column{.53\textwidth}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{3.5cm}@{}}
+\textbf{Recommendation record} & \textbf{Value}\\\hline
+Candidate command & \(u=0.50\)\\
+Toy current & \(i=0.80\)\\
+Declared limit & \(L=0.80\)\\
+Model scope & invented toy equation\\
+Review identity & bound to this recommendation
+\end{tabular}\par
+\column{.43\textwidth}
+\Question{Would the same acknowledgment apply after changing \(u\)?}
+\Answer{No. A changed recommendation needs its own evidence and matching readback.}
+\end{columns}
+\medskip
+\uncover<3->{The G5 exercise records a simulated acknowledgment. It neither authenticates an operator nor sends a command to equipment.}
+\Source{Review payload and identity test: \href{../Graph_Workflow_Lab.ipynb}{G5}; engineering handoff: \href{../Classroom_Labs.ipynb}{L12}.}
+\Bridge{Where will these ideas lead during the three-hour tutorial?}
+\note{Read the recommendation record as something an operator can challenge. The command says what is proposed, the consequence says what was calculated, and the scope says how far the calculation applies. The identity field ties a response to this recommendation rather than to a vaguely remembered previous one. Ask whether a changed command should inherit the previous acknowledgment. The expected answer is no, even if the numerical difference is small. In the graph lab, the response is scripted inside the notebook and represents a simulated readback. It demonstrates state handling rather than authentication or dispatch. The later engineering packet uses the same distinction between evidence and acknowledgment. Next, place this small example within the full teaching route and its three physical cases.}
+\end{frame}
+
+\begin{frame}[t]{Three hours: understand a process, then challenge it in code}
+\label{f:F05A}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.5cm}>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{4.0cm}@{}}
+\textbf{Minutes} & \textbf{Question we will answer} & \textbf{Hands-on checkpoint}\\\hline
+0--40 & How do state, tools, and decisions connect? & G0--G5; L0--L1\\
+40--80 & Which inverter command meets the limits? & L2--L5; Llama evidence\\
+80--90 & Break & Keep the kernels available\\
+90--115 & Which permitted restoration choice serves priorities? & L6--L7\\
+115--142 & Which measurements can support a response? & L8--L9\\
+142--180 & What does the evidence justify for the operator? & L10--L12; capstone
+\end{tabular}\par
+\medskip
+\uncover<2->{Every exercise follows \textbf{predict, run, explain}. A fresh numerical result, an archived actual Llama reply, and a new Llama call have different labels.}
+\Source{Executable teaching route: \href{../Graph_Workflow_Lab.ipynb}{graph notebook} and \href{../Classroom_Labs.ipynb}{engineering notebook}.}
+\Bridge{Which repeated parts of our calculation are worth automating?}
+\note{Use the timetable to set a practical pace. Installation is a prerequisite; the class should not begin installing a large language model during the voltage exercise. Participants need the graph notebook and the classroom notebook, with the working directory set as documented. The first uses transparent arithmetic to expose execution mechanics. The second connects numerical methods, stored learned weights, and explicitly labeled language-model evidence. Preserve the difference between an archived reply and a newly generated reply when discussing latency or reproducibility. The course includes a ten-minute break and time to interpret outputs rather than continuously advance slides. The expected interpretation is a sequence of connected experiments, not a slide lecture followed by unrelated code. Next, examine which repeated responsibilities automation can make explicit.}
+\end{frame}
+
+\begin{frame}[t]{Automate the repeated work; keep its evidence visible}
+\label{f:F06}
+\begin{center}
+\begin{tikzpicture}
+\node[box,text width=3cm] (a) at (0,0) {Same calculation\\different command\\\(0.75\), then \(0.50\)};
+\node[box,text width=3cm] (b) at (4.6,0) {Same acceptance rule\\compare each new \(i\)\\with the declared \(L\)};
+\node[box,text width=3cm] (c) at (9.2,0) {Same record structure\\input, result, verdict,\\and next route};
+\draw[arrow] (a)--(b);\draw[arrow] (b)--(c);
+\end{tikzpicture}\par
+\end{center}
+\uncover<2->{A conventional program can perform all three responsibilities. An agentic design must earn its value through useful choices, clearer evidence, or adaptable task handling.}
+\medskip
+\uncover<3->{We will compare numerical outcome, recorded checks, and elapsed time separately. More model calls do not by themselves establish an advantage.}
+\Source{Matched evaluation: \href{https://arxiv.org/html/2606.18789v1}{PowerAgentBench-SS, 2026 preprint}; tutorial baseline: \href{../Graph_Workflow_Lab.ipynb}{G4}.}
+\Bridge{What do tool, agent, and orchestrator mean for this exact calculation?}
+\note{Begin with work the audience recognizes: apply the response law again, compare with a limit again, and record what happened. A fixed supervisor can automate all of it. This is important because the tutorial should not assign ordinary software benefits exclusively to language models. The agentic contribution must be identified and tested, such as selecting useful follow-up work from a bounded catalog or helping assemble an interpretable response. These contributions can be helpful while leaving the numerical action unchanged, and they can introduce latency. The graph baseline later makes this distinction concrete by matching all three toy outcomes. The expected interpretation is a testable motivation for the architecture rather than an assumption of superiority. Next, name the components by the jobs they actually perform.}
+\end{frame}
+
+\begin{frame}[t]{Three names for three jobs we have already seen}
+\label{f:F07}
+\begin{center}
+\begin{tikzpicture}
+\node[box,text width=3.9cm] (o) at (4.2,1.4) {\textbf{Orchestrator}\\runs the permitted sequence; stores state};
+\node[box,text width=3.2cm] (a) at (0,0) {\textbf{Agent role}\\chooses a permitted next trial};
+\node[box,text width=3.2cm] (t) at (8.4,0) {\textbf{Tool}\\calculates \(i=0.4+0.8u\)};
+\draw[arrow] (o.south west)--(a.north);
+\draw[arrow] (o.south east)--(t.north);
+\draw[arrow] (a)--node[above,font=\scriptsize] {structured request: \(u=0.50\)}(t);
+\draw[arrow] (t.south)--(8.4,-.9)--node[below,font=\scriptsize] {returned evidence: \(i=0.80\)}(0,-.9)--(a.south);
+\end{tikzpicture}\par
+\end{center}
+A role is a responsibility, not necessarily a separate model. A numerical node can operate without an LLM; several roles can use the same Llama backbone.
+\uncover<2->{The graph lab uses deterministic choices. The engineering workflow later adds actual bounded Llama responses.}
+\Source{Role-based systems: \href{https://arxiv.org/abs/2308.08155}{AutoGen}; tutorial separation: \href{../src/proposal_workflow.py}{workflow implementation}.}
+\Bridge{Where can a language model help without replacing the calculation?}
+\note{The diagram deliberately places the orchestrator above the interaction instead of after the tool in a false linear pipeline. Point to the request and returned evidence. The tool performs a specific calculation. The agent role chooses an allowed operation using the current context. The orchestrator makes the sequence and state management explicit. These responsibilities can be implemented in several ways, and their names do not imply independent intelligence or independent errors. The toy's choice policy is ordinary Python, so it does not become a language-model experiment when drawn as a graph. Actual Llama calls appear in the engineering records later. The expected interpretation is a clear division of responsibility. Next, show a bounded language-model decision and the numerical work that must follow it.}
+\end{frame}
+
+\begin{frame}[t]{Llama can choose follow-up work; the tool supplies the numbers}
+\label{f:F08}
+\begin{columns}[T,onlytextwidth]
+\column{.48\textwidth}
+\Idea{Illustrative language interface}{This candidate exceeds its limit. Choose an allowed repair or request a hold.}
+\begin{tabular}{@{}ll@{}}
+Allowed operation & Meaning\\\hline
+\texttt{REPAIR} & try the declared repair rule\\
+\texttt{HOLD} & stop and report the issue
+\end{tabular}\par
+\column{.48\textwidth}
+\uncover<2->{\Idea{What the tool still does}{Calculate the repaired consequence and compare it with the unchanged limit.}}
+\uncover<3->{\Idea{What we inspect}{The chosen operation, returned result, verdict, and concise public explanation.}}
+\end{columns}
+\medskip
+\textbf{This is an interface illustration, not a captured model reply.} The toy uses fixed routing; later voltage examples show actual Llama outputs and latency.
+\Source{Observe--act feedback: \href{https://arxiv.org/abs/2210.03629}{ReAct}; actual replies: \href{../Classroom_Labs.ipynb}{L3, L10, L11}.}
+\Bridge{How does this fit all five stages proposed for the grid workflow?}
+\note{Make the evidence label explicit before discussing the example. The prompt and two-operation catalog illustrate a design; they are not an actual model response and are not executed by the toy. The later engineering examples use a different declared operation catalog and contain real archived calls. The language model can help interpret a request and select bounded follow-up work. It cannot make the repaired command acceptable merely by describing it favorably. Numerical evaluation and an unchanged acceptance rule remain necessary. Public explanations can be compared with returned evidence without requesting hidden private reasoning. The expected interpretation is a constrained decision interface with inspectable inputs and outputs. Next, connect that interface to the proposal's complete sequence of responsibilities.}
+\end{frame}
+
+\begin{frame}[t]{All five proposed stages have a concrete return value}
+\label{f:F09}
+\begin{center}
+\begin{tikzpicture}
+\node[box,text width=1.75cm] (a) at (0,0) {Awareness\\request + scope};
+\node[box,text width=1.75cm] (p) at (2.45,0) {Planning\\candidate \(u\)};
+\node[box,text width=1.75cm] (s) at (4.9,0) {Simulation\\consequence \(i\)};
+\node[box,text width=1.75cm] (v) at (7.35,0) {Verification\\\(i\leq L\)?};
+\node[box,text width=1.75cm] (o) at (9.8,0) {LLM Optimizer\\next permitted trial};
+\draw[arrow] (a)--(p);\draw[arrow] (p)--(s);\draw[arrow] (s)--(v);\draw[arrow] (v)--(o);
+\uncover<2->{\draw[arrow,amber] (o.south)--(9.8,-1.15)--node[below,font=\scriptsize,text=navy] {changed candidates return to calculation and checks}(4.9,-1.15)--(s.south);}
+\end{tikzpicture}\par
+\end{center}
+\uncover<3->{\textbf{Human review} receives the selected candidate, its evidence, alternatives, and unresolved assumptions.}
+\medskip
+Planning uses a suitable numerical method for each case. The LLM Optimizer selects follow-up work; a new choice is a trial, not an already verified action.
+\Source{All five stages and recorded events: \href{../results/proposal_complete_workflow.json}{executed tutorial trace}.}
+\Bridge{Which numerical method belongs inside each case?}
+\note{Carry one candidate through the five boxes and name the returned artifact at every stage. Awareness establishes the request and model scope. Planning returns a candidate. Simulation returns modeled consequences. Verification returns numerical margins and a verdict. The LLM Optimizer chooses permitted follow-up work, and a changed candidate returns to simulation and verification. Human review occurs after this evidence is assembled. The toy variables illustrate the handoff but do not imply that the toy itself contains five LLM calls. The engineering archive later exposes all five actual stage records, including deterministic events. The expected interpretation is a complete process with an explicit return loop, not five independent votes. Next, select algorithms according to the underlying mathematical problem rather than the role name.}
+\end{frame}
+
+\begin{frame}[t]{The workflow reuses numerical methods; it does not replace them}
+\label{f:F10}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.1cm}>{\raggedright\arraybackslash}p{4.0cm}>{\raggedright\arraybackslash}p{5.3cm}@{}}
+\textbf{Case} & \textbf{Numerical work} & \textbf{What the workflow coordinates}\\\hline
+Voltage support & MPC planning; SAC continuous-action proposal & Compare candidates, simulate, check, select a bounded trial\\
+Restoration & Mixed-integer service allocation & Preserve priorities and feasible connectivity while evaluating options\\
+Cyber response & State estimation, residual tests, constrained response & Distinguish suspicious evidence, supported action, and a hold
+\end{tabular}\par
+\medskip
+\uncover<2->{A model-based method predicts behavior with an explicit model. A model-free policy learns an action rule from experience; training may still use a simulator.}
+\uncover<3->{Every candidate faces declared checks. A language-model explanation is not a numerical certificate.}
+\Source{Methods: \href{../src/classroom_labs.py}{classroom tools}; \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{MPC}; \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{SAC}.}
+\Bridge{What information must survive every handoff?}
+\note{The method should match the decision variables and evidence available in the case. Voltage control uses continuous inverter commands, so MPC and a learned continuous-action actor are natural examples. Restoration includes discrete service decisions and therefore needs a different formulation. The cyber example begins with measurement evidence and state estimation before a constrained response is considered. The framework coordinates these operations and records their results; it does not make one algorithm universally appropriate. Introduce model-based and model-free at this general level before the detailed equations later. A model-free actor can be trained using simulated experience, which is not a contradiction. The expected interpretation is methods inside the workflow. Next, inspect the common state record that prevents information from being lost between these methods.}
+\end{frame}
+
+\begin{frame}[t]{State is the record that keeps this decision coherent}
+\label{f:F11}
+\begin{columns}[T,onlytextwidth]
+\column{.47\textwidth}
+\textbf{Before the repair}\par\smallskip
+\begin{tabular}{@{}ll@{}}
+\texttt{command} & \(0.75\)\\
+\texttt{current} & \(1.00\)\\
+\texttt{limit} & \(0.80\)\\
+\texttt{passed} & false\\
+\texttt{attempts} & \(0\)
+\end{tabular}\par
+\column{.47\textwidth}
+\uncover<2->{\textbf{After repair and recalculation}\par\smallskip
+\begin{tabular}{@{}ll@{}}
+\texttt{command} & \(0.50\)\\
+\texttt{current} & \(0.80\)\\
+\texttt{limit} & \(0.80\)\\
+\texttt{passed} & true\\
+\texttt{attempts} & \(1\)
+\end{tabular}\par}
+\end{columns}
+\medskip
+\(s_t\) denotes the full record before workflow step \(t\). A node reads that record and returns field updates; unchanged fields remain available.
+\uncover<3->{The limit remains \(0.80\). Repairing the command does not authorize relaxing its acceptance criterion.}
+\Source{Exact fields and updates: \href{../Graph_Workflow_Lab.ipynb}{G1--G2}.}
+\Bridge{How can a diagram make the dependencies in this record visible?}
+\note{Use the paired tables as a before-and-after comparison. The command and calculated current change, the verdict changes, and the attempt counter increments. The limit does not change. This makes the separation between changing an action and changing the acceptance criterion concrete. State is more useful than an unstructured conversation for this purpose because each relevant field can be located and checked. The symbol s with a subscript t denotes the entire record before a computational step, not the electrical system state alone. Nodes return updates rather than rewriting unrelated fields. Ask which old value may be preserved in history but must not remain the current result. The expected answer is 1.00. Next, use a graph to display which operations need which record fields.}
+\end{frame}
+
+\begin{frame}[t]{Two graphs answer different questions}
+\label{f:F12}
+\begin{columns}[T,onlytextwidth]
+\column{.48\textwidth}
+\textbf{Workflow graph: what must run first?}
+\begin{tikzpicture}
+\node[box,text width=1.7cm] (a) at (0,0) {\(A\): calculate\\\(i=0.4+0.8u\)};
+\node[box,text width=1.7cm] (b) at (3.4,0) {\(B\): verify\\\(i\leq L\)};
+\draw[arrow] (a)--node[above,font=\scriptsize] {result}(b);
+\end{tikzpicture}\par
+Nodes are operations; \(A\rightarrow B\) means that \(B\) requires a result from \(A\).
+\column{.48\textwidth}
+\uncover<2->{\textbf{Electrical graph: what is connected?}
+\begin{tikzpicture}
+\draw[very thick,navy] (0,-.45)--(0,.45);
+\draw[very thick,navy] (4,-.45)--(4,.45);
+\draw[thick,navy] (0,0)--node[above,font=\small] {physical line}(4,0);
+\node[below,font=\small] at (0,-.5) {bus 0};
+\node[below,font=\small] at (4,-.5) {bus 1};
+\end{tikzpicture}\par
+Nodes are buses; edges are lines or other network connections. Their equations describe electrical behavior.}
+\end{columns}
+\medskip
+\uncover<3->{A tool may solve the electrical graph while the workflow graph controls when that tool runs. The two drawings describe different systems.}
+\medskip
+\(A,B\): operations; \(s\): shared record; \(r(s)\): a rule returning the next operation label. The earlier \(u,i,L\) remain the toy command, consequence, and limit.
+\Source{\href{https://docs.langchain.com/oss/python/langgraph/graph-api}{LangGraph graph API}; \href{https://opendss.epri.com/}{OpenDSS documentation}.}
+\Bridge{How can two workflow checks depend on one frozen calculation?}
+\note{Read the left and right headings before following either set of edges. The workflow graph describes computations: calculate a result, then use it in verification. The electrical graph describes physical connectivity between buses. A line in the right-hand picture does not specify a software execution order. A power-flow tool can solve equations on that network while the workflow controls when to call the tool and what to do with its output. Ask which drawing would change if an electrical switch opened, and which would change if a review step were added. This distinction will return in restoration, where topology is part of the physical decision. The expected interpretation is two graph meanings with separate node and edge definitions. Next, branch two computations from one frozen input.}
+\end{frame}
+
+\begin{frame}[t]{A DAG can branch two checks and join their evidence}
+\label{f:F13}
+\begin{center}
+\begin{tikzpicture}
+\node[box,text width=2.4cm] (a) at (0,0) {\(A\): freeze input\\\(u=0.50\)\\\(i=0.80\)};
+\node[box,text width=3cm] (b) at (4.3,.85) {\(B\): current check\\\(i\leq0.80\): true};
+\node[box,text width=3cm] (c) at (4.3,-.85) {\(C\): command bound\\\(0\leq u\leq1\): true};
+\node[box,text width=2.2cm] (d) at (9,0) {\(D\): combine\\both results};
+\draw[arrow] (a)--(b);\draw[arrow] (a)--(c);\draw[arrow] (b)--(d);\draw[arrow] (c)--(d);
+\end{tikzpicture}\par
+\end{center}
+\(\mathcal G=(N,E)\): \(N=\{A,B,C,D\}\) is the operation set; \(E\) contains the directed dependency arrows.
+\medskip
+\uncover<2->{\textbf{Directed}: arrows have direction. \textbf{Acyclic}: no directed path returns to its start. This is a DAG.}
+\uncover<3->{This teaching example is not the G-lab topology. The join requires both results for the same frozen input.}
+\Source{DAG ordering: \href{https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.dag.topological_sort.html}{NetworkX}; illustrative checks use the declared toy variables.}
+\Bridge{Which execution orders respect every dependency?}
+\note{The example now branches only after the input and calculated current have been frozen. One operation checks the current limit, and another checks the declared command range. Both use the same candidate. The final operation combines their results and must wait for both. Define the graph, node set, and edge set directly under the drawing so no symbol is unexplained. A directed acyclic graph has no path that follows arrows back to its starting node. These conceptual checks might be independent, but the picture does not claim that the engineering adapters execute concurrently. It also differs from the cyclic graph in the lab. The expected interpretation is a prerequisite structure with a genuine join. Next, ask the audience to choose valid schedules.}
+\end{frame}
+
+\begin{frame}[t]{A valid schedule puts both checks before the join}
+\label{f:F14}
+\begin{columns}[T,onlytextwidth]
+\column{.47\textwidth}
+\begin{tikzpicture}
+\node[box] (a) at (0,0) {\(A\)};
+\node[box] (b) at (2,1) {\(B\)};
+\node[box] (c) at (2,-1) {\(C\)};
+\node[box] (d) at (4,0) {\(D\)};
+\draw[arrow] (a)--(b);\draw[arrow] (a)--(c);\draw[arrow] (b)--(d);\draw[arrow] (c)--(d);
+\end{tikzpicture}\par
+\column{.49\textwidth}
+\begin{tabular}{@{}ll@{}}
+\textbf{Candidate schedule} & \textbf{Valid?}\\\hline
+\(A,B,C,D\) & \uncover<2->{Yes}\\
+\(A,C,B,D\) & \uncover<2->{Yes}\\
+\(A,B,D,C\) & \uncover<3->{No: \(D\) lacks \(C\)}
+\end{tabular}\par
+\end{columns}
+\medskip
+\(A\): freeze input; \(B\): current check; \(C\): command bound; \(D\): combine evidence.
+\medskip
+The two middle checks may exchange order. That does not establish measured speedup: execution resources and shared tool state still matter.
+\Source{Topological ordering: \href{https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.dag.topological_sort.html}{NetworkX}.}
+\Bridge{Can two completed checks still belong to different candidates?}
+\note{Pause before revealing the validity column. Ask participants to name the dependency violated by the third sequence. The final join requires the command-bound result, so it cannot run before C. The other two sequences respect every arrow. This is the practical meaning of a topological order. The braces sometimes used to group parallel tasks are not needed to answer this question; valid sequential schedules already explain the dependency. If a participant proposes parallel execution, acknowledge that the graph permits independent work but that real tools may share state or resources. The tutorial does not execute OpenDSS concurrently. The expected interpretation is ordering rather than speed. Next, show why correct order is insufficient when two results refer to different frozen inputs.}
+\end{frame}
+
+\begin{frame}[t]{The join must match the candidate, not merely collect two ticks}
+\label{f:F15}
+\begin{center}
+\begin{tikzpicture}
+\node[box,text width=3cm] (a) at (0,.95) {current result\\command \(u=0.50\)\\\(i=0.80\): pass};
+\node[box,text width=3cm] (b) at (0,-.95) {command-bound result\\command \(u=0.75\)\\in range: pass};
+\node[box,text width=3cm,draw=red,fill=red!5] (c) at (7,0) {two favorable checks\\but different inputs\\\textbf{do not combine}};
+\draw[arrow] (a)--(c);\draw[arrow] (b)--(c);
+\end{tikzpicture}\par
+\end{center}
+\uncover<2->{Both calculations can be individually correct. Together they do not establish the stated checks for one common candidate.}
+\medskip
+\uncover<3->{Bind each result to the request revision and command. In L1, changing either makes the old binding fail.}
+\Source{Exact request/candidate binding exercise: \href{../Classroom_Labs.ipynb}{L1}.}
+\Bridge{What happens when a failed check deliberately sends us backward?}
+\note{This deliberately mismatched example shows why a collection of favorable results is not automatically a complete verdict. One result belongs to command 0.50 and the other to command 0.75. Both can be mathematically correct while being inappropriate to combine as evidence for one candidate. The issue is identity, not arithmetic. Ask the class to identify the missing common condition before revealing the binding rule. The classroom implementation later binds request, candidate, and result with hashes and rejects a mismatch. That establishes consistency of recorded data, not source authenticity. The expected interpretation is that a join checks identity as well as completeness. Next, add a repair edge and distinguish the resulting cyclic workflow from the acyclic dependency example.}
+\end{frame}
+
+\begin{frame}[t]{A repair loop is a cycle, so give it a stopping rule}
+\label{f:F16}
+\begin{center}
+\begin{tikzpicture}
+\node[box,text width=2.1cm] (s) at (0,0) {Simulate\\new \(u\), new \(i\)};
+\node[box,text width=2.1cm] (v) at (4,0) {Verify\\\(i\leq L\)?};
+\node[box,text width=2.2cm] (r) at (8,1) {pass\\ready for review};
+\node[box,text width=2.2cm] (h) at (8,-1) {fail, \(k=K\)\\hold};
+\node[box,text width=2.6cm,draw=amber] (p) at (4,-1.9) {fail, \(k<K\): repair\\\(k\leftarrow k+1\)};
+\draw[arrow] (s)--(v);\draw[arrow] (v)--(r);\draw[arrow] (v)--(h);
+\uncover<2->{\draw[arrow,amber] (v)--(p);\draw[arrow,amber] (p.west)-|(s.south);}
+\end{tikzpicture}\par
+\end{center}
+\(k\): completed repairs; \(K\): maximum repairs; both are nonnegative integers. The backward edge makes the program cyclic, not a DAG.
+\uncover<3->{The budget bounds attempts if tool calls return. It guarantees neither a feasible command nor a tool timeout.}
+\Source{Exact bounded policy: \href{../Graph_Workflow_Lab.ipynb}{G2--G4}; \href{https://docs.langchain.com/oss/python/langgraph/overview}{LangGraph}.}
+\Bridge{Can we express those three routes without ambiguity?}
+\note{Trace the successful route first and then reveal the backward repair edge. The graph now contains a cycle, so calling it a DAG would be incorrect. A particular completed run can still be drawn as a sequence of visits. The counter k records completed repairs and K is the maximum permitted count. The policy repairs only while k is smaller than K; otherwise a failed verification produces hold. The finite count bounds attempts if each operation returns, but it is separate from a timeout for a stalled solver. Ask whether stopping without a feasible action means the software failed. It may be the correct policy result. The expected interpretation is bounded execution with an explicit unsuccessful outcome. Next, write the routing conditions precisely.}
+\end{frame}
+\begin{frame}[t]{Route from the verdict and the remaining budget}
+\label{f:F17}
+\[
+r(s)=
+\begin{cases}
+\texttt{report}, & \text{if passed is true},\\
+\texttt{repair}, & \text{if passed is false and } k<K,\\
+\texttt{hold}, & \text{otherwise}.
+\end{cases}
+\]
+Here \(s\) is the current record; \(r(s)\) returns one next-node label. \(k\) is the completed repair count and \(K\) is the repair budget.
+\medskip
+\Question{A failed check has \(k=1\) and \(K=1\). Which route is permitted?}
+\Answer{\texttt{hold}. The budget is exhausted; equality does not permit another repair.}
+\uncover<3->{Verification computes the verdict. Routing decides what to do with that verdict.}
+\Source{The implemented route is four Python lines in \href{../Graph_Workflow_Lab.ipynb}{G2}.}
+\Bridge{How should code describe the record that this rule reads?}
+\note{Reveal the mutually exclusive conditions in order. The first condition checks whether the latest calculation passed. If it did not, the second decision is whether a repair is still permitted. The route returns a label, and the graph maps that label to a node. This policy is deliberately deterministic so that participants can reason about every execution path. A more flexible language-selected operation could be inserted elsewhere without allowing it to bypass these acceptance conditions. Ask what would happen if the counter were equal to the budget: the route must hold. The numerical verification rule and the orchestration policy remain separate functions.}
+\end{frame}
+
+\begin{frame}[t]{A state schema names the facts each node may need}
+\label{f:F18}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}p{5.2cm}@{}}
+\textbf{Fields} & \textbf{Our example} & \textbf{Purpose}\\\hline
+\texttt{command}, \texttt{limit} & \(0.75,\ 0.80\) & identify the trial and unchanged criterion\\
+\texttt{current}, \texttt{passed} & \(1.00,\ \texttt{False}\) & store the latest calculation and comparison\\
+\texttt{attempts}, \texttt{max\_repairs} & \(0,\ 2\) & decide whether another repair is allowed\\
+\texttt{trace} & ordered event list & explain how the current record was reached
+\end{tabular}\par
+\medskip
+\uncover<2->{\(\displaystyle s_{t+1}=\operatorname{merge}(s_t,\Delta s_t)\).
+\(s_t\): record before step \(t\); \(\Delta s_t\): returned field updates, not arithmetic subtraction.}
+\medskip
+\uncover<3->{Python \texttt{TypedDict} describes expected keys and types. The tutorial's \texttt{initial\_state} function performs explicit input-value checks.}
+\Source{\href{https://docs.python.org/3/library/typing.html}{Python TypedDict}; validated inputs in \href{../src/graph_workflow_lab.py}{graph-lab helper}.}
+\Bridge{Should the next result replace a field or extend it?}
+\note{Read the displayed record as a laboratory notebook with named fields. The command identifies what was proposed, the evidence fields identify what was calculated, and the control-flow fields identify what should happen next. The merge expression is a conceptual description of applying returned updates. Delta is not a numerical difference between two entire records. The G notebook uses TypedDict to describe expected keys and types, while its initial-state function explicitly validates numerical inputs. TypedDict itself does not perform runtime value checking. A chat transcript alone is not a substitute for this engineering record because important values and units must be easy to locate and compare.}
+\end{frame}
+
+\begin{frame}[t]{A reducer states whether new information replaces or appends}
+\label{f:F19}
+\begin{columns}[T,onlytextwidth]
+\column{.46\textwidth}
+\Idea{Replace the current result}{Old current \(1.00\); new current \(0.80\). Store \(0.80\) for the repaired command.}
+\uncover<2->{\[
+R_{\mathrm{current}}(a,b)=b
+\]}
+\column{.50\textwidth}
+\Idea{Append the event history}{Old list [simulate]; new list [verify]. Store [simulate, verify].}
+\uncover<2->{\[
+R_{\mathrm{trace}}(a,b)=a+b
+\]}
+\end{columns}
+\(R\) is a reducer; \(a\) is the stored value and \(b\) the returned update. In the right-hand expression, \(+\) means list concatenation.
+\medskip
+\uncover<3->{Preserve history without pretending an old current is the result for a new command. Parallel writes also need a meaningful merge rule.}
+\Source{List reducer in \href{../Graph_Workflow_Lab.ipynb}{G1}; \href{https://docs.langchain.com/oss/python/langgraph/graph-api}{LangGraph reducers}.}
+\Bridge{What outcomes should our bounded policy produce before we run it?}
+\note{Use the animation to replace the scalar value while visibly extending the event list. The current field describes the latest simulated command, so retaining the old value there would be misleading. The trace field describes history, so discarding earlier events would make the repair difficult to inspect. The example's plus symbol means list concatenation, not arithmetic averaging or consensus. In the code, Annotated attaches the addition function to the trace field. An empty appended list does not erase existing events. If several branches write a field, the application needs a merge rule appropriate to that field and its ordering semantics.}
+\end{frame}
+
+\begin{frame}[t]{Three starting states test three distinct paths}
+\label{f:F20}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3.6cm}@{}}
+\textbf{Start \((u,L,K)\)} & \textbf{First result} & \textbf{After one repair} & \textbf{Expected outcome}\\\hline
+\((0.25,0.80,2)\) & \(i=0.60\) & not needed & \uncover<2->{ready immediately}\\
+\((0.75,0.80,2)\) & \(i=1.00\) & \(u=0.50,\ i=0.80\) & \uncover<2->{ready after repair}\\
+\((0.90,0.50,1)\) & \(i=1.12\) & \(u=0.65,\ i=0.92\) & \uncover<3->{hold: still above limit}
+\end{tabular}\par
+\medskip
+\(u\): command; \(L\): current limit; \(K\): repair budget; \(i=0.4+0.8u\). Repair subtracts \(0.25\), bounded below by zero.
+\medskip
+The final case is useful: the process stops correctly even though it does not find an acceptable command within its budget.
+\Source{These are the exact three cases executed in \href{../Graph_Workflow_Lab.ipynb}{G4}.}
+\Bridge{What does LangGraph add to these ordinary Python functions?}
+\note{Give the audience time to calculate the three first results before revealing the outcomes. The first starts within its limit and needs no repair. The second is the worked example: one subtraction produces a command of 0.50 and a current of 0.80. The third starts at 1.12, repairs to 0.92, and still exceeds its smaller limit of 0.50. Its one permitted repair has been used, so a hold is correct. We have not run code yet; these are predictions that the later assertions will test. Ask whether a more generous budget changes the third outcome. The expected interpretation is that success, successful repair, and exhausted repair are different paths worth exercising. Next, explain the runtime that connects the functions.}
+\end{frame}
+
+\begin{frame}[t]{LangGraph runs the stateful process we have already specified}
+\label{f:F21}
+\begin{center}
+\begin{tikzpicture}
+\node[box,text width=3.1cm] (f) at (0,0) {Your Python functions\\simulate, verify, repair};
+\node[box,text width=3.1cm] (g) at (4.5,0) {Your graph definition\\state + edges + route};
+\node[box,text width=3.1cm] (r) at (9,0) {LangGraph runtime\\execute, checkpoint,\\interrupt, resume};
+\draw[arrow] (f)--(g);\draw[arrow] (g)--(r);
+\end{tikzpicture}\par
+\end{center}
+\uncover<2->{The functions still contain the arithmetic. The route still contains the stopping policy. LangGraph makes their execution structure explicit.}
+\medskip
+\uncover<3->{Our G notebook uses real LangGraph without an LLM or electrical simulator. The engineering notebooks remain custom Python; this is not a claim that they were migrated to LangGraph.}
+\Source{\href{https://docs.langchain.com/oss/python/langgraph/overview}{LangGraph overview}; \href{../Graph_Workflow_Lab.ipynb}{executed G notebook}.}
+\Bridge{Can everyone confirm the same experiment boundary before running?}
+\note{Introduce the package only after the audience understands the process it will execute. LangGraph does not invent the response law or choose the acceptance rule in this example. Those remain ordinary Python functions. The graph definition supplies a state schema, nodes, edges, and a conditional route, while the runtime supports execution and later pause mechanisms. This separation makes it easier to compare the graph with a direct-Python implementation using the same functions. The G notebook is an actual LangGraph exercise, but the larger engineering notebooks use their existing custom orchestration. The expected interpretation is a precise software boundary rather than a package name attached to everything. Next, run setup and inspect the installed versions and the scope statement.}
+\end{frame}
+
+\begin{frame}[t]{G0: import the runtime and record what this experiment is}
+\label{f:F22}
+\Checkpoint{G0}{Run the full setup cell in \texttt{Graph\_Workflow\_Lab.ipynb}.}
+\lstinputlisting[style=python,firstline=5,lastline=13]{snippets/G0.py}
+\uncover<2->{The printed versions identify the environment. The last line identifies the scope: rule-driven toy execution, with no model call or electrical validation.}
+\uncover<3->{After dependencies are installed, this exercise needs neither Ollama nor OpenDSS.}
+\Source{Exact notebook lines 5--13: \href{../Graph_Workflow_Lab.ipynb}{G0}; \href{https://docs.langchain.com/oss/python/langgraph/overview}{LangGraph}.}
+\Bridge{Which record fields will the runtime carry between nodes?}
+\note{Run the complete G0 cell, even though the slide displays only its relevant lines. Confirm that the version dictionary appears before proceeding. The captured run used LangGraph 1.2.15, checkpoint 4.3.0, and langchain-core 1.6.12; a participant's environment may differ. The cell disables the external tracing flags used by this exercise and declares that no language-model or electrical-model validation occurs. After dependencies are installed, the toy needs no Ollama service. If imports fail, use the supplied graph-lab requirements and return to the documented setup rather than changing the experiment during class. This practical boundary keeps the graph lesson reproducible. The expected interpretation is to identify the input, returned evidence, and next permitted step before discussing the final status.}
+\end{frame}
+
+\begin{frame}[t]{G1: the schema is our before-and-after table in Python}
+\label{f:F23}
+\Checkpoint{G1}{Run the full cell; connect each field to the worked example.}
+\begin{columns}[T,onlytextwidth]
+\column{.47\textwidth}
+\lstinputlisting[style=python,firstline=1,lastline=10]{snippets/G1.py}
+\column{.49\textwidth}
+\Idea{Trial and gate}{\texttt{command}, \texttt{limit}, \texttt{current}, and \texttt{passed} record the comparison.}
+\uncover<2->{\Idea{Execution history}{\texttt{attempts} counts repairs. \texttt{trace} appends event lists using \texttt{add}.}}
+\uncover<3->{\texttt{TypedDict} describes the schema; input validation is performed separately.}
+\end{columns}
+\Source{Exact state schema: \href{../Graph_Workflow_Lab.ipynb}{G1}; \href{https://docs.python.org/3/library/typing.html}{TypedDict}.}
+\Bridge{Where does the formula become an executable node?}
+\note{Highlight the control fields first, then the verdict fields, then the trace annotation. Run the complete G1 cell so the audience also sees the initial validated state and the list-addition example below this excerpt. TypedDict states the intended record structure; initial\_state performs the example's explicit input validation. These two mechanisms should not be confused. The trace is a sequence of recorded events, not an internal chain of thought and not a cryptographically authenticated audit log. Ask participants to predict the number of trace entries before revealing the answer. This is the same replace-versus-append idea they saw conceptually. The expected interpretation is to identify the input, returned evidence, and next permitted step before discussing the final status.}
+\end{frame}
+
+\begin{frame}[t]{G2: simulation returns a number; verification returns a verdict}
+\label{f:F24}
+\Checkpoint{G2}{Run the whole cell; these are its first two node functions.}
+\lstinputlisting[style=python,firstline=1,lastline=7]{snippets/G2.py}
+\begin{columns}[T,onlytextwidth]
+\column{.47\textwidth}
+\uncover<2->{\Idea{Simulation update}{For \(u=0.75\), return \texttt{current = 1.00} and an event.}}
+\column{.49\textwidth}
+\uncover<3->{\Idea{Verification update}{Compare \(1.00\) with \(0.80\); return \texttt{passed = False} and another event.}}
+\end{columns}
+The \(10^{-12}\) code tolerance addresses floating-point comparison in this toy; it is not an engineering operating margin.
+\Source{Exact functions: \href{../Graph_Workflow_Lab.ipynb}{G2, lines 1--7}.}
+\Bridge{How does a failed comparison become a repair rather than an uncontrolled loop?}
+\note{Read the first function as an ordinary Python calculation. It returns current and a trace update rather than reconstructing the entire state record. The next function compares that current with the limit using a small numerical tolerance. The tolerance addresses floating-point comparison in this toy; it is not an engineering margin. With command 0.75, the result is 1.00 and the limit is 0.80, so the verdict is false. That outcome is expected rather than a program error. Ask which returned field the router will inspect. Run the entire G2 cell, including the repair and terminal-node definitions that follow this excerpt.}
+\end{frame}
+
+\begin{frame}[t]{G2: repair changes the command; routing checks the budget}
+\label{f:F25}
+\begin{columns}[T,onlytextwidth]
+\column{.50\textwidth}
+\textbf{Change the command and count the repair}
+\lstinputlisting[style=python,firstline=9,lastline=11]{snippets/G2.py}
+\column{.46\textwidth}
+\textbf{Choose the permitted next node}
+\lstinputlisting[style=python,firstline=19,lastline=22]{snippets/G2.py}
+\end{columns}
+\uncover<2->{The command drops by \(0.25\), bounded below by zero; \texttt{attempts} increases by one. Neither line changes the limit.}
+\medskip
+\uncover<3->{A pass returns \texttt{report}. Otherwise, the route returns \texttt{repair} only while the counter is smaller than its maximum.}
+\Source{Exact repair and route: \href{../Graph_Workflow_Lab.ipynb}{G2, lines 9--11 and 19--22}.}
+\Bridge{Which graph edge forces a repaired command to be simulated again?}
+\note{Read the two functions as separate responsibilities. Repair computes a changed command and records that an attempt has been used. Route reads the most recent verdict and decides which node may execute next. Neither function relaxes the current limit. With the worked starting command, one repair changes 0.75 to 0.50 and increments the counter from zero to one. The new command still requires simulation and verification before it can report ready. Ask what route is returned after a failed check with one attempt used and a maximum of one. The answer is hold. The expected interpretation is that the stopping policy is visible in four lines, rather than hidden in a prompt. Next, connect these functions using the graph's actual edges.}
+\end{frame}
+
+\begin{frame}[t]{G3: the backward edge makes every repair face a fresh calculation}
+\label{f:F26}
+\Checkpoint{G3}{Run the cell and inspect the compiled node list.}
+\lstinputlisting[style=python,firstline=7,lastline=14]{snippets/G3.py}
+\uncover<2->{\texttt{simulate} \(\rightarrow\) \texttt{verify} always calculates before checking. The conditional edge reads the label returned by \texttt{route}.}
+\uncover<3->{\texttt{repair} \(\rightarrow\) \texttt{simulate} is the return loop. Compilation checks structure; it does not prove the response law or its physical assumptions.}
+\Source{Exact graph wiring: \href{../Graph_Workflow_Lab.ipynb}{G3}; \href{https://docs.langchain.com/oss/python/langgraph/use-graph-api}{LangGraph construction}.}
+\Bridge{Do the three executions match our hand calculations?}
+\note{Run G3 and confirm the compiled node list. Highlight the fixed edge from simulate to verify, the conditional edge that calls route, and the edge returning repair to simulate. The mapping translates a returned label into a permitted successor. The report and hold nodes terminate this version of the execution. Compilation checks structural requirements of the graph; it is not a proof that the chosen response law describes a feeder or that the repair rule finds an optimum. This keeps the software lesson separate from the later numerical science. Ask a participant to point to the line that makes the graph cyclic.}
+\end{frame}
+
+\begin{frame}[t]{G4: predict, run, then explain one complete trace}
+\label{f:F27}
+\Checkpoint{G4}{Run unchanged, then use a separate scratch cell for a new budget.}
+\begin{tabular}{@{}llll@{}}
+\textbf{Case} & \textbf{Final command} & \textbf{Final current} & \textbf{Status}\\\hline
+Already admissible & \(0.25\) & \(0.60\) & \texttt{TOY\_READY}\\
+One repair & \(0.50\) & \(0.80\) & \texttt{TOY\_READY}\\
+Budget exhausted & \(0.65\) & \(0.92\) & \texttt{TOY\_HOLD}
+\end{tabular}\par
+\medskip
+\uncover<2->{\textbf{Repair trace:}
+simulate \(1.00\) \(\rightarrow\) verify false \(\rightarrow\) repair
+\(\rightarrow\) simulate \(0.80\) \(\rightarrow\) verify true \(\rightarrow\) report.}
+\medskip
+\Question{What if the exhausted case gets four repairs instead of one?}
+\Answer{It reaches \(u=0\), hence \(i=0.40\leq0.50\), and can report ready.}
+\Source{Exact outputs, trace assertion, and cases: \href{../Graph_Workflow_Lab.ipynb}{G4}.}
+\Bridge{Did graph execution improve the command over conventional Python?}
+\note{Give participants time to predict before running. The first case passes immediately. The second begins at current 1.00, reduces the command from 0.75 to 0.50, and then reaches current 0.80. The third begins at command 0.90, repairs to 0.65, and still exceeds its 0.50 limit with current 0.92. Its single repair is exhausted, so hold is correct. Run G4 unchanged because its assertions describe these original three cases. For a new limit or repair budget, invoke the graph in a separate scratch cell. A useful extension gives the third case four repairs: it reaches command zero and current 0.40. The expected interpretation is to identify the input, returned evidence, and next permitted step before discussing the final status.}
+\end{frame}
+
+\begin{frame}[t]{G4: hold the functions fixed and compare the supervisor}
+\label{f:F28}
+\lstinputlisting[style=python,firstline=15,lastline=19]{snippets/G4.py}
+\begin{columns}[T,onlytextwidth]
+\column{.47\textwidth}
+\Idea{Controlled comparison}{Same initial states, response law, repair rule, verification, and route.}
+\column{.49\textwidth}
+\uncover<2->{\Idea{Observed result}{All three commands, statuses, and event histories match the direct-Python baseline.}}
+\end{columns}
+\uncover<3->{The graph did not improve this toy control result. Its explicit structure supports inspection and the pause/resume mechanism we will test next.}
+\Source{Executable baseline equality assertion: \href{../Graph_Workflow_Lab.ipynb}{G4, lines 15--19}.}
+\Bridge{How can a ready calculation wait for a person's response?}
+\note{Make the null numerical result a central teaching outcome. Both implementations receive the same initial state and the same node functions. The comparison asserts equality of the summary, including the command, status, and trace. Therefore the graph should not be credited with finding a better action. Its value here is making execution structure and later checkpoint mechanisms explicit. The notebook prints elapsed times from one local execution, but those values are not a statistically controlled performance benchmark. Differences at this scale depend on runtime and measurement overhead. Ask which separate experiment would support an inspectability or recovery claim. The expected interpretation is to identify the input, returned evidence, and next permitted step before discussing the final status.}
+\end{frame}
+\begin{frame}[t]{A checkpoint preserves the record and the next unfinished step}
+\label{f:F29}
+\begin{center}
+\begin{tikzpicture}
+\node[box,text width=2.8cm] (a) at (0,0) {Numerical check passed\\\(u=0.50,\ i=0.80\)};
+\node[box,text width=3.3cm] (b) at (4.5,0) {Checkpoint\\state + pending \texttt{report}\\execution \texttt{thread\_id}};
+\node[box,text width=2.8cm,draw=amber] (c) at (9,0) {Waiting for review\\acknowledged = false};
+\draw[arrow] (a)--(b);\draw[arrow] (b)--(c);
+\end{tikzpicture}\par
+\end{center}
+\uncover<2->{A checkpoint is a saved execution record. A thread identifier associates a later response with that execution; it is not an operator credential.}
+\medskip
+\uncover<3->{The lab uses \texttt{InMemorySaver}. It supports a pause within the running kernel, not durable recovery after the process is lost.}
+\Source{\href{https://docs.langchain.com/oss/python/langgraph/persistence}{LangGraph persistence}; actual checkpoint inspection: \href{../Graph_Workflow_Lab.ipynb}{G5}.}
+\Bridge{What exactly is sent to the reviewer, and what response is accepted?}
+\note{Use a bookmark analogy, then make it precise with the stored record and pending node. In the G lab, a thread identifier associates the checkpoint with a particular execution. That identifier is not an operator credential. The example uses InMemorySaver, so the state remains available in the running process but does not provide durable recovery after the kernel disappears. This scope is sufficient for observing a pause and resume during class. Participants should inspect the snapshot before discussing its final status; otherwise a whole-cell execution can make the pause easy to miss. The upcoming exercise prints the pending node and acknowledgment flag.}
+\end{frame}
+
+\begin{frame}[t]{G5: interrupt with the recommendation that needs a response}
+\label{f:F30}
+\lstinputlisting[style=python,firstline=1,lastline=9]{snippets/G5.py}
+\uncover<2->{The payload states the command, toy consequence, recommendation identity, and scope. A matching approval is required to record acknowledgment.}
+\uncover<3->{On resume, the node can run again from its beginning. Do not put an uncontrolled equipment action before the interrupt.}
+\Source{Exact review function: \href{../Graph_Workflow_Lab.ipynb}{G5, lines 1--9}; \href{https://docs.langchain.com/oss/python/langgraph/interrupts}{interrupt semantics}.}
+\Bridge{Can we see the paused state before the response is supplied?}
+\note{Distinguish a visible recommendation from an acknowledged recommendation. The toy sends an interrupt payload that includes a recommendation identifier, command, calculated value, and declared scope. Its scripted reply must approve the same identifier. A wrong identifier or a declined response remains distinguishable from approval. This demonstrates a record-consistency mechanism, not operator authentication or equipment dispatch. On resumption, the interrupted node can begin again, so uncontrolled side effects before the interrupt would be a design problem. The toy only records state changes. Ask participants what the operator should see if the candidate changes while review is pending. The answer motivates fresh evidence and a new identity.}
+\end{frame}
+
+\begin{frame}[t]{G5: pause and inspect before resuming}
+\label{f:F31}
+\Checkpoint{G5}{For a visible pause, execute lines 1--17 first; then inspect the output.}
+\lstinputlisting[style=python,firstline=11,lastline=17]{snippets/G5.py}
+\uncover<2->{\textbf{Expected pre-resume output:} pending node \texttt{('report',)}; \texttt{acknowledged: False}. The payload describes the exact toy recommendation.}
+\uncover<3->{Running the full cell also supplies a scripted response afterward. Inspect both printed stages rather than overlooking the intermediate pause.}
+\Source{Exact pause and snapshot: \href{../Graph_Workflow_Lab.ipynb}{G5, lines 11--17}.}
+\Bridge{How does the matching response change the saved execution?}
+\note{The full G5 cell both pauses and supplies a scripted response, so explain how to observe the intermediate state. For a live teaching pause, execute lines 1 through 17 first, retaining the function definition above this displayed excerpt. Inspect the printed pending node, which is report, and the false acknowledgment flag. The interrupt payload identifies the command and the invented model scope. In the captured pause, the stored status remains TOY\_NEW; it should not be mislabeled TOY\_READY merely because the numerical gate passed. The checkpoint exists in this kernel's memory. Participants can now see that a verified numerical result and an acknowledged recommendation are different states.}
+\end{frame}
+
+\begin{frame}[t]{G5: resume the same execution with a matching readback}
+\label{f:F32}
+\lstinputlisting[style=python,firstline=18,lastline=21]{snippets/G5.py}
+\begin{columns}[T,onlytextwidth]
+\column{.47\textwidth}
+\uncover<2->{\Idea{Matching simulated approval}{Status becomes \texttt{TOY\_ACKNOWLEDGED}; no node remains pending.}}
+\column{.49\textwidth}
+\uncover<3->{\Idea{Decline or wrong identity}{The review function returns \texttt{TOY\_HOLD}; acknowledgment remains false.}}
+\end{columns}
+This is a state-management exercise. The scripted response does not authenticate a person, and the example sends no equipment command.
+\Source{Exact resume and final assertion: \href{../Graph_Workflow_Lab.ipynb}{G5}; \href{https://docs.langchain.com/oss/python/langgraph/interrupts}{LangGraph interrupts}.}
+\Bridge{What if the request changes while an old result remains available?}
+\note{Execute the remaining lines after the pause, or inspect both printed stages if participants ran the full cell. The response is explicitly simulated and generated by the notebook, not provided by an authenticated operator. Its identifier must match the recommendation constructed from the saved state. The resumed graph records acknowledgment and has no pending node. To discuss rejection, point to the human\_review function: it requires an approval value of true and the correct identifier; otherwise it returns hold. Avoid resuming an already completed execution for this experiment; create a fresh review run before trying a different response. No equipment endpoint is present.}
+\end{frame}
+
+\begin{frame}[t]{L1: a changed request must not reuse old evidence}
+\label{f:F33}
+\Checkpoint{L0--L1}{Open \texttt{Classroom\_Labs.ipynb}; run setup and the binding experiment.}
+\lstinputlisting[style=python,firstline=1,lastline=5]{snippets/L1.py}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{8cm}l@{}}
+Same request and same command & \uncover<2->{\texttt{True}}\\
+Changed load; old evidence & \uncover<2->{\texttt{False}}\\
+Changed command; old evidence & \uncover<2->{\texttt{False}}
+\end{tabular}\par
+\medskip
+\uncover<3->{The payload is explicitly \texttt{example\_only}. Hash binding checks consistency; it does not prove physical feasibility or source authenticity.}
+\Source{Exact inputs and expected outputs: \href{../Classroom_Labs.ipynb}{L1}; \href{../src/classroom_labs.py}{binding implementation}.}
+\Bridge{Which other checks must remain separate from evidence identity?}
+\note{Allow four minutes for setup, prediction, execution, and explanation. The initial request uses load scale 1.00, rating fraction 0.80, and revision one. L1 changes the load to 1.10 and revision to two, then separately tests a changed command. The expected binding results are true, false, and false. The payload is deliberately marked example\_only; this is an evidence-identity experiment, not a fresh feeder solve. A matching hash establishes consistency among these recorded inputs and the bound result. It does not establish source authenticity, correct intent, or physical feasibility. Fixed supervisors can use the same guard, so the test demonstrates an implementable workflow property without claiming an exclusive LLM benefit.}
+\end{frame}
+
+\begin{frame}[t]{Schema, binding, and engineering checks answer different questions}
+\label{f:F34}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2cm}>{\raggedright\arraybackslash}p{4.1cm}>{\raggedright\arraybackslash}p{5.5cm}@{}}
+\textbf{Check} & \textbf{Question} & \textbf{A pass does not establish}\\\hline
+Schema & Are required fields and values valid? & Correct interpretation of the operator's intent\\
+Binding & Does this result belong to this candidate? & Authenticity of its source\\
+Engineering & Do modeled limits pass? & Adequate model scope or field authorization
+\end{tabular}\par
+\medskip
+\Question{A solver converges at \(112\) A; the declared limit is \(100\) A. Two LLMs favor the candidate. Accept it?}
+\Answer{No. The current check fails by \(12\) A. A vote cannot raise the declared limit.}
+\Source{Tutorial evidence and limit checks: \href{../src/classroom_labs.py}{classroom tools}; \href{../src/proposal_case_tools.py}{case adapters}.}
+\Bridge{Two similar acronyms now appear: what is MCP, and what is MPC?}
+\note{Keep this slide concrete rather than reading a compliance checklist. Give the current example verbally and ask for the verdict before revealing it. A converged solver result can fail a physical operating condition. A correctly shaped result can be stale. A matching hash can identify consistent data without proving who produced it. These checks are complementary because they answer different questions. Our later lab uses an explicitly illustrative payload to isolate the binding mechanism; participants must not mistake its passed field for a real feeder calculation. The final operator packet adds another distinction between evidence scope and the requested scope.}
+\end{frame}
+
+\begin{frame}[t]{MCP connects tools; MPC computes a control plan}
+\label{f:F35}
+\begin{columns}[T,onlytextwidth]
+\column{.47\textwidth}
+\textbf{MCP: Model Context Protocol}
+\begin{tikzpicture}
+\node[box,text width=1.6cm] (a) at (0,0) {agent\\application};
+\node[box,text width=1.6cm] (b) at (2.2,0) {common\\interface};
+\node[box,text width=1.6cm] (c) at (4.4,0) {tool\\server};
+\draw[arrow] (a)--(b);\draw[arrow] (b)--(c);
+\end{tikzpicture}\par
+It standardizes tool discovery, arguments, and results. It does not determine whether a current is acceptable.
+\column{.49\textwidth}
+\uncover<2->{\textbf{MPC: Model Predictive Control}
+\begin{tikzpicture}
+\node[box,text width=1.6cm] (a) at (0,0) {observe\\state};
+\node[box,text width=1.6cm] (b) at (2.2,0) {optimize\\horizon};
+\node[box,text width=1.6cm] (c) at (4.4,0) {apply\\first action};
+\draw[arrow] (a)--(b);\draw[arrow] (b)--(c);
+\end{tikzpicture}\par
+It uses a predictive model, objective, and constraints to plan control, then replans after the next observation.}
+\end{columns}
+\medskip
+\uncover<3->{An MPC solver could be exposed through MCP. Our classroom functions are called directly in Python; the tutorial does not require an MCP server.}
+\Source{\href{https://modelcontextprotocol.io/specification/2025-11-25/server/tools}{MCP tools specification}; \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Rawlings et al., MPC}.}
+\Bridge{How do MPC and a learned policy produce candidates differently?}
+\note{Spell out both acronyms and contrast their purposes using the two drawings. MCP is a communication interface for tools. MPC is a numerical control method that predicts behavior and optimizes a sequence of actions. The similarity of their letters does not imply a mathematical connection. A solver implementing MPC can be exposed as a tool through an MCP server, but the interface does not replace the objective, constraints, or verification. Our classroom notebook calls Python functions directly and does not claim to demonstrate an MCP server. Ask which component would compute a control sequence and which would describe how to call that component. The expected interpretation is a clean separation between interoperability and control. Next, compare optimization-based planning with a learned continuous-action policy.}
+\end{frame}
+
+\begin{frame}[t]{MPC plans with a model; SAC supplies a learned continuous action}
+\label{f:F36}
+\begin{columns}[T,onlytextwidth]
+\column{.48\textwidth}
+\textbf{Model-based planning}
+\[
+\min_{u_{0:H-1}}\sum_{k=0}^{H-1}\ell(x_k,u_k)
+\]
+subject to a prediction model and operating constraints. Apply the first action, observe again, and replan.
+\column{.48\textwidth}
+\uncover<2->{\textbf{Model-free policy inference}
+\[
+u_t=\pi_\theta(o_t).
+\]
+The trained policy maps an observation to a continuous command. Class uses saved SAC weights; it does not train a new actor.}
+\end{columns}
+\small
+\(H\): planning horizon; \(k\): predicted step; \(x_k\): predicted state; \(u_k\): control; \(\ell\): stage cost. \(t\): current decision time; \(o_t\): observation; \(\pi_\theta\): policy with learned parameters \(\theta\).
+\medskip
+\uncover<3->{\textbf{Same acceptance process:} simulate both candidates and check the same declared limits. PPO is discussed as an alternative; it is not trained here.}
+\Source{\href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{MPC}; \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{SAC}; \href{https://arxiv.org/abs/1707.06347}{PPO}.}
+\Bridge{Which research frameworks already organize related grid work?}
+\note{Define the two broad approaches before naming the particular algorithms. Model-based control uses predicted behavior in an optimization problem; the displayed expression omits constraints for clarity, and the voltage lesson supplies them explicitly. Model-free learning trains an action rule through experience and rewards. It may obtain that experience from a simulator, so model-free does not mean no simulator was used. MPC plans over a horizon and applies its first action. SAC supplies continuous control from saved learned weights in class. PPO is a relevant continuous-action alternative but is not trained in this tutorial. Training cost and inference cost are separate. Both proposed commands must be simulated and checked under the same declared limits.}
+\end{frame}
+
+\begin{frame}[t]{Prior frameworks contribute mechanisms we can teach and test}
+\label{f:F37}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{4.1cm}>{\raggedright\arraybackslash}p{4.9cm}@{}}
+\textbf{Framework} & \textbf{Useful mechanism} & \textbf{Connection to our example}\\\hline
+PowerAgent ecosystem & reusable engineering interfaces and workflows & expose the calculation with inspectable inputs and outputs\\
+PowerDAG & exemplar retrieval; prerequisite advisory & detect a covered dependency problem before a tool call\\
+Grid-Agent v3 & specialized roles; sandbox validation and rollback & keep a failed trial separate from the incumbent\\
+X-GridAgent & planning--coordination--action hierarchy & preserve task context across handoffs
+\end{tabular}\par
+\medskip
+\uncover<2->{PowerDAG covers selected rules and permits repeated calls after its one-shot advisory. That mechanism is not an unconditional hard safety gate.}
+\uncover<3->{These are close prior works, not a leaderboard. Our tutorial does not claim the first multi-agent grid workflow or first use of numerical verification.}
+\Source{\href{https://poweragent.seas.harvard.edu/}{PowerAgent}; \href{https://arxiv.org/html/2603.17418v1}{PowerDAG}; \href{https://arxiv.org/html/2508.05702v3}{Grid-Agent v3}; \href{https://arxiv.org/html/2512.20789v1}{X-GridAgent}.}
+\Bridge{How can a compact comparison keep these qualifications visible?}
+\note{After the concrete examples, the audience can now connect literature mechanisms to work they understand. PowerAgent organizes domain capabilities through interfaces and workflows. PowerDAG uses retrieved exemplars and a prerequisite supervisor whose inspected version covers selected rules and allows a repeated call after a one-shot advisory. Grid-Agent separates roles and evaluates changes with validation and rollback. X-GridAgent separates planning, coordination, and action. The point is to identify design ideas rather than compare incompatible success percentages. These works are close prior art, so the tutorial should not claim to invent role decomposition or numerical checking. The expected interpretation is a mechanism-focused literature map. Next, use a small tick matrix while preserving the qualifications a tick alone could hide.}
+\end{frame}
+
+\begin{frame}[t]{A capability tick describes documented scope, not superiority}
+\label{f:F38}
+\fontsize{8.5}{10}\selectfont
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3cm}cccc>{\raggedright\arraybackslash}p{3.9cm}@{}}
+\textbf{Work} & \textbf{Tools} & \textbf{Feedback} & \textbf{Checks} & \textbf{Review} & \textbf{Qualification}\\\hline
+PowerAgent & \(\checkmark\) & \(\checkmark\) & \(\triangle\) & \(\checkmark\) & capabilities depend on workflow\\
+PowerDAG & \(\checkmark\) & \(\checkmark\) & \(\triangle\) & NR & selected rules; one-shot advisory\\
+Grid-Agent v3 & \(\checkmark\) & \(\checkmark\) & \(\checkmark\) & \(\triangle\) & sandbox; deployment oversight proposed\\
+X-GridAgent & \(\checkmark\) & \(\checkmark\) & \(\triangle\) & \(\triangle\) & solver checks; prompt refinement\\
+PowerAgentBench-SS & \(\checkmark\) & \(\checkmark\) & \(\checkmark\) & \(\triangle\) & DC benchmark; hidden revalidation\\
+Tutorial & \(\checkmark\) & \(\checkmark\) & \(\checkmark\) & \(\checkmark\) & declared models; local readback
+\end{tabular}\par
+\smallskip
+\(\checkmark\): documented; \(\triangle\): qualified or proposed; NR: not reported in the inspected source. Benchmark work evaluates agents; it is not itself a controller.
+\uncover<2->{Common scenarios, tools, budgets, and outcome definitions are needed before claiming an advantage.}
+\Source{\href{https://poweragent.seas.harvard.edu/}{PowerAgent}; \href{https://arxiv.org/html/2603.17418v1}{PowerDAG}; \href{https://arxiv.org/html/2508.05702v3}{Grid-Agent v3}; \href{https://arxiv.org/html/2512.20789v1}{X-GridAgent}; \href{https://arxiv.org/html/2606.18789v1}{PowerAgentBench-SS}.}
+\Bridge{What measurements will separate control benefit from workflow benefit?}
+\note{Define the marks before interpreting the rows. A tick records a documented capability in the inspected source; a triangle preserves a qualification; NR means not reported in that source rather than proved absent. PowerAgent capabilities vary by workflow. PowerDAG covers selected dependencies with a one-shot advisory. Grid-Agent oversight is proposed for deployment. X-GridAgent includes solver checks and human prompt refinement. PowerAgentBench-SS supplies an evaluation protocol with hidden revalidation under a DC scope. The tutorial's review tick refers to local advisory readback, not authenticated field authorization. None of these rows forms a shared performance benchmark. Ask what would make a valid benefit claim: common scenarios, tools, budgets, outcome definitions, and timing boundaries.}
+\end{frame}
+
+\begin{frame}[t]{Compare benefit in three columns, with the same experiment}
+\label{f:F39}
+\begin{columns}[T,onlytextwidth]
+\column{.31\textwidth}
+\Idea{Numerical outcome}{Objective value, served load, constraint violations, and model scope.}
+\column{.31\textwidth}
+\uncover<2->{\Idea{Workflow outcome}{Stale evidence rejected, required checks recorded, and recommendation identity preserved.}}
+\column{.31\textwidth}
+\uncover<3->{\Idea{Cost of the decision}{Solver time, model-call time, number of trials, and training cost reported separately.}}
+\end{columns}
+\medskip
+The G baseline already gives a useful null result: the commands tie exactly. That result demonstrates graph mechanics, not better physical control.
+\medskip
+For the engineering comparison, hold the scenario, available controls, objective, constraints, and trial budget fixed where a paired claim is made.
+\Source{Tutorial matched baseline: \href{../Graph_Workflow_Lab.ipynb}{G4}; evaluation design: \href{https://arxiv.org/html/2606.18789v1}{PowerAgentBench-SS}.}
+\Bridge{Which parts of this toy transfer to an actual voltage-support study?}
+\note{Ask the audience to place a claim in one of the three columns before accepting it. A smaller objective is a numerical claim. Rejection of a stale result is a workflow claim. Faster completion is a timing claim. One does not establish the others. The toy's matching commands demonstrate that graph execution can preserve a conventional policy, but do not demonstrate better control. Later comparisons must disclose common scenarios, candidate budgets, model scope, and the boundary of measured time. Training a controller and running inference are different costs, as are a saved language-model reply and a new call. The expected interpretation is a disciplined way to assess useful, null, or worse outcomes. Next, replace the invented response law with the two declared electrical models.}
+\end{frame}
+
+\begin{frame}[t]{Keep the process; replace the toy law with electrical models}
+\label{f:F40}
+\begin{center}
+\begin{tikzpicture}
+\node[box,text width=3cm] (a) at (0,0) {What stays\\request, candidate,\\evidence, checks, review};
+\node[box,text width=3cm] (b) at (4.5,0) {What changes\\feeder equations,\\controls, limits, objective};
+\node[box,text width=3cm,fill=teal!10] (c) at (9,0) {Next decision\\voltage support on\\one synthetic feeder};
+\draw[arrow] (a)--(b);\draw[arrow] (b)--(c);
+\end{tikzpicture}\par
+\end{center}
+\uncover<2->{MPC and SAC will propose inverter commands. Three-phase LinDistFlow and OpenDSS will expose differences in modeled consequences and scope.}
+\medskip
+\uncover<3->{Llama's bounded choices, public explanations, and latency will be inspected alongside numerical baselines. A favorable explanation never substitutes for a fresh check.}
+\Source{Voltage experiments and exact outputs: \href{../Classroom_Labs.ipynb}{L2--L5}; response traces: \href{../results/proposal_complete_workflow.json}{five-stage archive}.}
+\Bridge{What do active and reactive inverter commands do to feeder voltage?}
+\note{Recap the transferable mechanisms in one sentence: state records the case, tools return evidence, routes handle success and repair, and review records a response to a particular recommendation. The G lab established those mechanisms but did not establish grid-control performance. The engineering notebook now switches to actual numerical models and recorded model responses. Keep the comparison fair by fixing the scenario, permitted controls, declared constraints, objective, and candidate budget wherever a paired comparison is claimed. Report changes in model scope explicitly rather than treating them as unexplained error. The next section introduces the electrical meaning of active and reactive control before displaying the optimization.}
+\end{frame}

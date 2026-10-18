@@ -1,0 +1,795 @@
+[
+  {
+    "id": "E01",
+    "title": "What did the framework actually improve?",
+    "section": "Evaluation",
+    "kind": "question",
+    "kicker": "149–150 min · evidence before claims",
+    "takeaway": "Measure the workflow and the electrical outcome separately.",
+    "items": [
+      "Study completed?",
+      "Constraints passed?",
+      "Claims supported?",
+      "Operator decision improved?"
+    ],
+    "notes": "Ask learners to answer this using one case they just ran. A study can finish while its candidate is infeasible. A rejected candidate can demonstrate a working gate while consuming time. A numerical improvement can come from a stronger optimizer rather than the LLM. Put those observations in different columns. The tutorial establishes an executable learning workflow with visible intermediate decisions; it does not yet establish a benefit in a utility control room. Invite the audience to name the smallest extra experiment needed for their preferred claim. A claim about staff workload requires participants and a workload measure. A claim about electrical feasibility requires a stated model, operating limits and test scenarios. Transition: make the comparison fair before interpreting any score.",
+    "refs": [
+      {
+        "label": "PowerAgentBench-SS (2026), §§II–III",
+        "url": "https://arxiv.org/html/2606.18789v1"
+      },
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "prompt": "Which claim is supported by a low cost and a fluent explanation?",
+    "answer": "Only the measured cost is established; feasibility and explanation support require separate evidence.",
+    "time": [
+      149,
+      150
+    ]
+  },
+  {
+    "id": "E02",
+    "title": "Compare methods on the same task",
+    "section": "Evaluation",
+    "kind": "comparison",
+    "kicker": "150–151 min · controlled comparison",
+    "takeaway": "Give every method the same physical constraints and verification budget.",
+    "items": [
+      "Same case and admissible actions",
+      "Same candidate trial budget",
+      "Same final verifier",
+      "Separate failures from feasible costs"
+    ],
+    "notes": "Use the same demand realization, topology, operating limits, action bounds and final electrical check for a paired comparison. A method that sees more cases or gets extra simulations has received additional information or compute. Record that explicitly. The fixed baseline may use the same MPC, SAC policy and verifier as the agentic workflow; this isolates orchestration rather than changing the entire controller. Report the objective among feasible candidates and also report the failure fraction. An average objective that silently removes failed cases can favor a brittle method. In the held-out response pilot, all pool selectors paid for all three LLM calls. The learned selector therefore cannot claim the latency of only the chosen response. Transition: choose the ablation that answers the claim.",
+    "refs": [
+      {
+        "label": "PowerAgentBench-SS (2026), §§II–III",
+        "url": "https://arxiv.org/html/2606.18789v1"
+      },
+      {
+        "label": "Recorded voltage pilot: E1–E8",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "equation": "\\widehat{p}_{\\mathrm{pass}}=\\frac{1}{N}\\sum_{i=1}^{N}\\mathbf{1}[g(x_i,u_i)\\leq0]",
+    "symbols": [
+      {
+        "symbol": "N",
+        "meaning": "number of evaluated cases"
+      },
+      {
+        "symbol": "g",
+        "meaning": "vector of checked constraint violations"
+      },
+      {
+        "symbol": "1[·]",
+        "meaning": "one when every listed constraint passes"
+      },
+      {
+        "symbol": "i",
+        "meaning": "case index"
+      },
+      {
+        "symbol": "x_i",
+        "meaning": "evaluated state in case i"
+      },
+      {
+        "symbol": "u_i",
+        "meaning": "candidate control in case i"
+      }
+    ],
+    "time": [
+      150,
+      151
+    ]
+  },
+  {
+    "id": "E03",
+    "title": "Ablate one mechanism at a time",
+    "section": "Evaluation",
+    "kind": "flow",
+    "kicker": "151–152 min · experiment design",
+    "takeaway": "A useful ablation keeps the numerical tools fixed.",
+    "items": [
+      "Fixed numerical workflow",
+      "Add language interpretation",
+      "Add role-specific handoffs",
+      "Add vote or learned selection"
+    ],
+    "notes": "Build the comparison from left to right. First establish a deterministic workflow that solves the engineering problem. Add language interpretation while preserving its tool contract. Then introduce specialist handoffs and measure whether they reduce malformed requests or unsupported reports on varied tasks. Finally compare selection rules under the same candidate pool and fresh-trial budget. This is a recommended experimental design, not a claim that every ablation was run in this package. The implemented pilot directly compares several response selectors and fixed numerical refinement; the real LangGraph exercise separately checks orchestration equivalence against direct Python. Keep those scopes visible. Ask which variant would isolate the value of retrieval or a checkpoint. Transition: a recent benchmark formalizes this separation between tools and scoring.",
+    "refs": [
+      {
+        "label": "PowerAgentBench-SS (2026), §§II–III",
+        "url": "https://arxiv.org/html/2606.18789v1"
+      },
+      {
+        "label": "Executed LangGraph teaching lab: G0–G5",
+        "url": "../Graph_Workflow_Lab.html"
+      },
+      {
+        "label": "Recorded voltage pilot: E1–E8",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "nodes": [
+      "Fixed tools",
+      "Language interface",
+      "Role handoffs",
+      "Selector"
+    ],
+    "time": [
+      151,
+      152
+    ]
+  },
+  {
+    "id": "E04",
+    "title": "Frontier: evidence-backed evaluation",
+    "section": "Evaluation",
+    "kind": "flow",
+    "kicker": "152–153 min · PowerAgentBench-SS",
+    "takeaway": "The final report should survive independent recomputation.",
+    "items": [
+      "✓ Public tools and fixed budgets",
+      "✓ Hidden physical revalidation",
+      "✓ Evidence-supported submissions",
+      "Scope: DC thermal pilot"
+    ],
+    "notes": "PowerAgentBench-SS separates an agent-visible tool environment from hidden evaluation. Its instantiated pilot studies DC thermal contingency analysis, so it is useful here as an evaluation pattern rather than evidence for our voltage controller. For the classroom, draw a boundary around what the agent may observe and place the final scoring calculation outside it. Training feedback and selector features must not contain the held-out answer. A correct statement can still lack supporting evidence in the submitted trace, which is why claim support deserves its own measure. Have a learner point to the tool record supporting one numerical sentence in an operator report. If the record is absent, mark the sentence unsupported even if its value happens to be true. Transition: operating uncertainty is another dimension the workflow must expose.",
+    "refs": [
+      {
+        "label": "PowerAgentBench-SS (2026), §§II–III",
+        "url": "https://arxiv.org/html/2606.18789v1"
+      }
+    ],
+    "nodes": [
+      "Public case + tools",
+      "Bounded agent run",
+      "Submitted evidence",
+      "Hidden revalidation"
+    ],
+    "time": [
+      152,
+      153
+    ]
+  },
+  {
+    "id": "E05",
+    "title": "Frontier: request uncertainty studies",
+    "section": "Evaluation",
+    "kind": "concept",
+    "kicker": "153–154 min · CONDUCTOR",
+    "takeaway": "The orchestrator can request a stronger study when uncertainty matters.",
+    "items": [
+      "✓ Numerical engines remain explicit",
+      "✓ Uncertainty-aware study selection",
+      "✓ Corrective-dispatch tools",
+      "Measurement replay is not forecast validation"
+    ],
+    "notes": "CONDUCTOR provides a recent example of language orchestration around numerical grid-analysis engines, including uncertainty-aware analysis. Its reported measurement replay must not be described as a forecast-performance experiment. Relate that distinction to our load-scale exercise: changing a scenario is a sensitivity study, while a probability claim needs a justified distribution and calibration. A useful extension is to provide a small declared scenario set, run the same candidate through every scenario, and summarize the observed margins. That extension is proposed here; it is not an experiment already contained in the saved classroom output. Ask what additional data would justify the chosen scenarios for a real feeder. Transition: uncertainty about the grid and authority to act are separate concerns.",
+    "refs": [
+      {
+        "label": "CONDUCTOR (2026), uncertainty-aware orchestration",
+        "url": "https://arxiv.org/html/2606.24609v1"
+      },
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "time": [
+      153,
+      154
+    ]
+  },
+  {
+    "id": "E06",
+    "title": "Frontier: enforce authority in software",
+    "section": "Evaluation",
+    "kind": "flow",
+    "kicker": "154–155 min · control-room governance",
+    "takeaway": "Approval rules belong in the runtime, not only in the prompt.",
+    "items": [
+      "✓ Whitelisted tools",
+      "✓ Explicit step budgets",
+      "✓ Typed numerical facts",
+      "✓ Review before side effects"
+    ],
+    "notes": "The governance-aware TSO digital-twin paper uses an external control layer for tool permissions, budgets and approval. Its reported prototype distinguishes task success from compliance with those enforced rules. Bring that distinction into our notebook: a candidate can satisfy the advisory readback rule without becoming a field command. Conversely, a plausible language answer cannot make an unavailable permission appear. Draw the authorized path through the review gate and show the attempted bypass ending at HOLD. This is an architectural lesson, not a claim of production certification. Ask learners to identify which checks run outside the language model in L12. The answer includes candidate identity, evidence binding and required model scope. Transition: now test what the existing experiments actually support.",
+    "refs": [
+      {
+        "label": "Governance-aware TSO digital twin (2026)",
+        "url": "https://arxiv.org/html/2609.22476v1"
+      },
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "nodes": [
+      "Typed proposal",
+      "External checks",
+      "Human review",
+      "Advisory record"
+    ],
+    "visual": "control",
+    "time": [
+      154,
+      155
+    ]
+  },
+  {
+    "id": "E07",
+    "title": "L11: one optional local Llama call",
+    "section": "Evaluation",
+    "kind": "code",
+    "kicker": "155–156 min · prepare Ollama before class",
+    "takeaway": "An actual model response proposes a trial; the numerical verifier still decides admissibility.",
+    "items": [
+      "Default: no new model call",
+      "Enable RUN_LOCAL_LLAMA in L0 for a new call",
+      "The saved response is from original test_01"
+    ],
+    "notes": "Run the complete L11 cell after the earlier engineering cells. Its default branch prints that no new model call occurred. The optional path requires RUN_LOCAL_LLAMA=True in L0 and a prepared local Ollama service containing llama3.1:8b. It asks for a choice from the bounded catalog on the original test_01 context, then writes the actual response to a new journal. Do not silently apply that response to a modified classroom case. The quoted public reason comes from the separate 17 October validation and is a saved actual output, not a new live response generated by these slides. It proposes reducing reactive effort and uses cautious language about possible cost improvement. A fresh numerical trial is still required. Transition: inspect where the measured call spent its time.",
+    "refs": [
+      {
+        "label": "Ollama chat API",
+        "url": "https://docs.ollama.com/api/chat"
+      },
+      {
+        "label": "Classroom L11 and saved actual validation",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "time": [
+      155,
+      156
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L11",
+      "start": 6,
+      "end": 8
+    },
+    "prompt": "Recorded Llama reason: “has the potential to reduce reactive effort magnitude by ten percent, which may improve the cost.”",
+    "answer": "The 17 October validation chose RELAX_Q_10_PERCENT. Test it before accepting it."
+  },
+  {
+    "id": "E08",
+    "title": "Where did one Llama call spend its time?",
+    "section": "Evaluation",
+    "kind": "chart",
+    "kicker": "156–158 min · actual local call, 17 October 2026",
+    "takeaway": "Report loading, prompt processing and generation separately.",
+    "items": [
+      "Load: 16.967 s",
+      "Prompt: 15.192 s",
+      "Generation: 1.916 s",
+      "Client elapsed: 34.113 s"
+    ],
+    "notes": "This is the saved actual Llama 3.1 8B call from the optional classroom validation, not a new call made by the slide. Ollama reports its loading, prompt-processing and generation durations; the client timer includes the complete request. Small differences include server and transport overhead, so do not force the components to equal the client total exactly. The response chose RELAX_Q_10_PERCENT on the original test_01 context and requested a newly checked trial; it did not certify that future trial. Warm loading, prompt length and hardware can change latency substantially. Ask the audience whether this call belongs in a subsecond control loop or an advisory study. A deadline claim would require repeated end-to-end measurements, including failures and fallback. Transition: present this evidence in an operator-facing packet.",
+    "refs": [
+      {
+        "label": "Ollama chat API: timing fields",
+        "url": "https://docs.ollama.com/api/chat"
+      },
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "visual": "latency",
+    "bars": [
+      {
+        "label": "Load",
+        "value": 16.9670469
+      },
+      {
+        "label": "Prompt",
+        "value": 15.192012
+      },
+      {
+        "label": "Generate",
+        "value": 1.91597
+      },
+      {
+        "label": "Other client time",
+        "value": 0.0377905
+      }
+    ],
+    "time": [
+      156,
+      158
+    ]
+  },
+  {
+    "id": "O01",
+    "title": "Place the assistant beside the control-room tools",
+    "section": "Control room",
+    "kind": "flow",
+    "kicker": "158–159 min · deployment concept",
+    "takeaway": "The tutorial is an advisory sandbox with an explicit human boundary.",
+    "items": [
+      "Existing operational data interfaces",
+      "Sandboxed numerical studies",
+      "Evidence-backed recommendation",
+      "Authorized operator procedure"
+    ],
+    "notes": "Follow the data path from the existing operational applications to a read-only study context, then through numerical candidates and verification to a reviewable recommendation. This is a deployment concept. The notebooks use a synthetic feeder and teaching cases; they do not connect to a live control system. The diagram should make the human review point prominent without suggesting that a dashboard alone establishes useful human oversight. An operator needs the relevant evidence at the right time and must be able to reject or request clarification. Ask which information belongs in a structured field rather than generated prose: equipment identifiers, limits, model scope and candidate identity are strong examples. Transition: open one packet and inspect its information hierarchy.",
+    "refs": [
+      {
+        "label": "Governance-aware TSO digital twin (2026)",
+        "url": "https://arxiv.org/html/2609.22476v1"
+      },
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "nodes": [
+      "Operational applications",
+      "Study sandbox",
+      "Verified evidence",
+      "Operator review"
+    ],
+    "visual": "control",
+    "time": [
+      158,
+      159
+    ],
+    "image": "/assets/control_room_concept.png",
+    "image_caption": "Conceptual AI-generated illustration, not a utility facility or deployed system."
+  },
+  {
+    "id": "O02",
+    "title": "The operator sees scope before readback",
+    "section": "Control room",
+    "kind": "comparison",
+    "kicker": "159–160 min · saved L12 operator packets",
+    "takeaway": "Lead with action, scope, margins and unresolved issues.",
+    "items": [
+      "What action and candidate ID?",
+      "Which model and data revision?",
+      "What passed, failed or remains unknown?",
+      "What acknowledgment is required?"
+    ],
+    "notes": "Present the action and its identity first, then the supporting evidence. A reviewer should not have to reconstruct the proposal from a long chat transcript. Include the requested and verified model scope, the age of the evidence, numerical constraint margins, rejected alternatives and a concise public rationale tied to tool results. In this tutorial the most consequential scope distinction is the MV-only result versus the broader MV/LV requirement. A polished summary cannot silently expand that scope. Invite learners to remove one field and predict the resulting ambiguity. Removing the identifier obscures which candidate was reviewed; removing the scope can turn a valid limited statement into an unsupported general claim. Transition: acknowledgment changes a specific state, not the physical network.",
+    "refs": [
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Governance-aware TSO digital twin (2026)",
+        "url": "https://arxiv.org/html/2609.22476v1"
+      }
+    ],
+    "visual": "control",
+    "time": [
+      159,
+      160
+    ],
+    "columns": [
+      "Packet field",
+      "Full MV/LV request",
+      "Explicit MV teaching request"
+    ],
+    "rows": [
+      [
+        "Verified scope",
+        "MV phases only",
+        "MV phases only"
+      ],
+      [
+        "Scope matches",
+        "No",
+        "Yes"
+      ],
+      [
+        "State",
+        "HOLD",
+        "READY_FOR_READBACK"
+      ],
+      [
+        "Acknowledged",
+        "False",
+        "True"
+      ],
+      [
+        "Equipment dispatch",
+        "False",
+        "False"
+      ]
+    ],
+    "prompt": "Both packets refer to b67cff9c8eb444c2. What changes the result?",
+    "answer": "The requested scope must match the verified scope; the recorded readback remains advisory."
+  },
+  {
+    "id": "O03",
+    "title": "Acknowledgment is a guarded transition",
+    "section": "Control room",
+    "kind": "flow",
+    "kicker": "160–161 min · state-machine view",
+    "takeaway": "Only a matching, eligible packet can be acknowledged.",
+    "items": [
+      "Proposed → checked",
+      "Checked → awaiting review",
+      "Matching readback → acknowledged",
+      "Scope or identity failure → HOLD"
+    ],
+    "notes": "Animate the review path one state at a time. The conceptual sequence distinguishes calculation, review readiness and human acknowledgment. In the implementation, a full MV/LV request supported only by an MV result is held; an explicitly limited MV teaching request can become eligible for acknowledgment. The candidate identifier binds the readback to a particular packet. Emphasize that these are advisory application states. They neither authenticate a real operator nor dispatch equipment. The earlier LangGraph G5 exercise demonstrated interruption and resumption using a checkpoint, while L12 demonstrates the engineering packet checks. They teach related ideas through separate code paths. Ask the audience to identify which failure should stop the path before any readback is accepted. Transition: inspect the exact L12 statements.",
+    "refs": [
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Executed LangGraph teaching lab: G0–G5",
+        "url": "../Graph_Workflow_Lab.html"
+      },
+      {
+        "label": "LangGraph: interrupts and resume",
+        "url": "https://docs.langchain.com/oss/python/langgraph/interrupts"
+      }
+    ],
+    "nodes": [
+      "Proposed",
+      "Verified",
+      "Awaiting review",
+      "Acknowledged"
+    ],
+    "visual": "control",
+    "time": [
+      160,
+      161
+    ]
+  },
+  {
+    "id": "O04",
+    "title": "Code: bind review to the candidate",
+    "section": "Control room",
+    "kind": "code",
+    "kicker": "161–162 min · Classroom_Labs L12",
+    "takeaway": "A wrong candidate ID cannot acknowledge the packet.",
+    "items": [
+      "First request uses a wrong ID",
+      "Second reads back the packet ID",
+      "The operator label is a classroom placeholder"
+    ],
+    "notes": "Read these two notebook lines aloud. The first call deliberately supplies the wrong recommendation identifier. The second uses the identifier carried by the eligible MV teaching packet. Both calls go to ordinary Python logic, so the readback rule is inspectable independently of language-model output. The string Student operator is an instructional placeholder rather than an authentication mechanism. Keep the previously constructed packet visible: it records what was checked and under which scope. This exact excerpt comes from L12 of Classroom_Labs, and learners should run L0–L5 first so the selected-trial context exists. Ask them to predict the two outcomes before running the cell. Transition: run the full packet exercise, then inspect its assertions.",
+    "refs": [
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L12",
+      "start": 9,
+      "end": 10
+    },
+    "time": [
+      161,
+      162
+    ]
+  },
+  {
+    "id": "O05",
+    "title": "Hands-on: read back, reject, inspect",
+    "section": "Control room",
+    "kind": "lab",
+    "kicker": "162–166 min · four-minute exercise",
+    "takeaway": "Use L12 to distinguish scope, identity and acknowledgment.",
+    "items": [
+      "Run L12 after its earlier cells",
+      "Find the full-scope HOLD",
+      "Inspect the wrong-ID rejection",
+      "Confirm no equipment dispatch"
+    ],
+    "notes": "Give learners four minutes and keep this slide visible. First run the unmodified L12 cell after the earlier classroom cells. Inspect the displayed packet for the full MV/LV requirement and compare it with the explicitly MV teaching packet. Then inspect wrong_id in a scratch cell; it is intentionally not the accepted readback. Finally check the three assertions at the end of L12. Have partners explain the difference between an eligible packet and an acknowledged packet. Avoid changing the original assertion expectations during the first run. For an extension, discuss which fields would change if the requested control changed and which evidence would need to be recomputed. This is a local advisory exercise; the notebook has no equipment-dispatch endpoint. Transition: compare the predicted outcomes with the executed checks.",
+    "refs": [
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "prompt": "Which of the three outcomes is permission to dispatch equipment?",
+    "answer": "None. Even the acknowledged packet is explicitly advisory.",
+    "time": [
+      162,
+      166
+    ]
+  },
+  {
+    "id": "O06",
+    "title": "The checks distinguish three outcomes",
+    "section": "Control room",
+    "kind": "code",
+    "kicker": "166–167 min · lab debrief",
+    "takeaway": "Scope mismatch holds; wrong identity rejects; valid readback remains advisory.",
+    "items": [
+      "Full MV/LV requirement: HOLD",
+      "Wrong identifier: REJECTED",
+      "Matching MV readback: acknowledged",
+      "equipment_dispatch: false"
+    ],
+    "notes": "Show the assertions after learners have made their predictions. They are deliberately more precise than an all-purpose PASS label. The full-scope packet is held because the supporting model is narrower than the request. The wrong identifier is rejected because it does not name the current packet. The eligible MV packet can be acknowledged, yet its equipment-dispatch flag remains false. These outcomes demonstrate the logic of the teaching application, not authentication, field authorization or human comprehension. Ask a participant to explain why the first failure cannot be repaired by entering the right identifier. It requires suitable evidence for the requested scope or an explicitly changed request, followed by the corresponding review. Transition: examine what happens when the underlying request changes.",
+    "refs": [
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "code": {
+      "notebook": "Classroom_Labs.ipynb",
+      "cell": "L12",
+      "start": 13,
+      "end": 15
+    },
+    "time": [
+      166,
+      167
+    ]
+  },
+  {
+    "id": "O07",
+    "title": "A changed request needs new evidence",
+    "section": "Control room",
+    "kind": "question",
+    "kicker": "167–168 min · stale-evidence challenge",
+    "takeaway": "A hash links content; it does not establish physical truth.",
+    "items": [
+      "Change a limit or candidate",
+      "Old binding no longer matches",
+      "Recompute the affected study",
+      "Review the new packet"
+    ],
+    "notes": "Connect this question to L1 and L7, where the classroom explicitly checks stale bindings after a request or candidate changes. The binding helps detect a mismatch between saved evidence and its stated inputs. It does not prove that a sensor is trustworthy, that a model is correct or that an operator is authorized. Ask learners to identify the smallest changed field that should invalidate the old check: a current limit, load scale, topology revision or control setting all provide concrete examples. Their answer should include the affected numerical step, not only a request for a new language explanation. The important habit is to preserve evidence provenance through revision. Transition: apply this habit to three operator decision cards.",
+    "refs": [
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "prompt": "Can the old acknowledgment survive a changed control?",
+    "answer": "The changed candidate needs new checks and a new matching review record.",
+    "time": [
+      167,
+      168
+    ]
+  },
+  {
+    "id": "O08",
+    "title": "Capstone: approve review, hold or request a study?",
+    "section": "Control room",
+    "kind": "question",
+    "kicker": "168–171 min · group decision",
+    "takeaway": "Name the missing evidence and the next responsible step.",
+    "items": [
+      "A: MV PASS; full-feeder AC FAIL",
+      "B: restoration PASS; isolation record absent",
+      "C: no alarm; protected measurements absent"
+    ],
+    "notes": "Give each group one card and ask for a decision plus a concrete next step. Card A requires repair or another study at the requested model scope; a confident Llama sentence cannot override the AC failure. Card B exposes a missing operational prerequisite: a feasible mathematical switching plan is not proof of authorized isolation. Card C exposes incomplete information: an unalarmed residual alone cannot establish trustworthy state estimation under the constructed stealth attack. In each response, separate the numerical tool that can help from the authority or external evidence that the tool cannot invent. Do not assume that retaining an old setting is always safe after a changed topology or measurement regime. Use the final minute to compare the three different gaps. Transition: summarize how all five stages contribute.",
+    "refs": [
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Liu, Ning & Reiter, false-data injection, CCS 2009",
+        "url": "https://doi.org/10.1145/1653662.1653666"
+      }
+    ],
+    "prompt": "For your card, identify one missing fact and the next tool or human step.",
+    "answer": "A: broader-model repair. B: authorized isolation evidence. C: justified independent measurements or escalation.",
+    "time": [
+      168,
+      171
+    ]
+  },
+  {
+    "id": "S01",
+    "title": "Five stages, three cases, one evidence discipline",
+    "section": "Synthesis",
+    "kind": "flow",
+    "kicker": "171–173 min · transferable structure",
+    "takeaway": "Each stage contributes a method and a checkable output.",
+    "items": [
+      "Awareness: establish the study context",
+      "Planning: generate admissible candidates",
+      "Simulation + verification: test and accept",
+      "Optimizer: refine; operator: review"
+    ],
+    "notes": "Invite one learner per use case to trace a single candidate through the five proposed stages. Awareness establishes measurements, constraints and model scope. Planning calls the relevant numerical formulation. Simulation computes the consequence of candidate controls; verification checks the declared requirements and binds the result. The optimizer can request a bounded refinement or retain an incumbent, after which the relevant evidence is checked again. Human review is the subsequent authority boundary, not a sixth language agent. For voltage this includes MPC and SAC candidate comparison; restoration uses a weighted service formulation; cyber response distinguishes estimation evidence from protected-information assumptions. The methods change while the handoff discipline remains. Transition: choose how much orchestration the task actually requires.",
+    "refs": [
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Recorded voltage pilot: E1–E8",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "visual": "stages",
+    "nodes": [
+      "Awareness",
+      "Planning",
+      "Simulation",
+      "Verification",
+      "LLM optimizer"
+    ],
+    "time": [
+      171,
+      173
+    ]
+  },
+  {
+    "id": "S02",
+    "title": "Choose the simplest sufficient workflow",
+    "section": "Synthesis",
+    "kind": "comparison",
+    "kicker": "173–174 min · architecture selection",
+    "takeaway": "Add an agent only when it addresses a measured task need.",
+    "items": [
+      "Repeated calculation → fixed workflow",
+      "Varied requests → typed LLM interface",
+      "Independent studies → specialist coordination",
+      "Consequential recommendation → enforced review"
+    ],
+    "notes": "Treat this as a design decision rather than a contest between labels. A stable calculation with known inputs can be well served by a fixed workflow. Language interpretation becomes useful when users express varied requests, but the resulting tool calls still need validation. Specialist coordination can help when responsibilities and evidence streams differ; it also adds communication overhead and potential handoff failures. Recent agent-scaling research motivates testing that tradeoff instead of assuming that a larger team is better. The classroom direct-Python and LangGraph comparison is deliberately equivalent on its toy cases: orchestration structure alone should not change the mathematics. Ask participants which part of their own workflow is currently variable or error-prone. Transition: preserve enough information to make that improvement measurable.",
+    "refs": [
+      {
+        "label": "Kim et al., scaling agent systems (2026)",
+        "url": "https://arxiv.org/abs/2512.08296v3"
+      },
+      {
+        "label": "Executed LangGraph teaching lab: G0–G5",
+        "url": "../Graph_Workflow_Lab.html"
+      }
+    ],
+    "time": [
+      173,
+      174
+    ]
+  },
+  {
+    "id": "S03",
+    "title": "A reproducible result carries its context",
+    "section": "Synthesis",
+    "kind": "concept",
+    "kicker": "174–175 min · scientific reporting",
+    "takeaway": "Archive the inputs, methods, outputs and evidence mode together.",
+    "items": [
+      "Case, model scope and data revision",
+      "Solver, policy and LLM versions",
+      "Seeds, budgets and measured durations",
+      "Fresh, archived or optional-live label"
+    ],
+    "notes": "Use this checklist to prepare a reproducible scientific report, not a new permission process. The code cells already distinguish fresh numerical calculations, inference from saved SAC weights and archived actual LLM responses. The optional local Llama call is disabled by default, and its saved validation record includes a timestamp and timing fields. A screenshot of an answer is weaker than the structured record that identifies its request, model and tool results. Include failures and rejected alternatives where they affect interpretation. For the selector pilot, preserve the training, validation and held-out split and state that test-time learning was frozen. Ask learners to locate one such field in the supplied outputs. Transition: turn the remaining limitations into a clear next experiment.",
+    "refs": [
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Recorded voltage pilot: E1–E8",
+        "url": "../LLM_Response_Selection.html"
+      },
+      {
+        "label": "Ollama chat API: timing fields",
+        "url": "https://docs.ollama.com/api/chat"
+      }
+    ],
+    "time": [
+      174,
+      175
+    ]
+  },
+  {
+    "id": "S04",
+    "title": "Design your next experiment",
+    "section": "Synthesis",
+    "kind": "lab",
+    "kicker": "175–176 min · research extension",
+    "takeaway": "Change one factor and state what would falsify your claim.",
+    "items": [
+      "Hypothesis: name the expected benefit",
+      "Control: retain a strong fixed baseline",
+      "Measure: outcome, failures and latency",
+      "Boundary: state the model and task scope"
+    ],
+    "notes": "Ask every participant to write one sentence of the form: adding this mechanism improves this measurable outcome under these conditions. Good candidates include fewer stale-evidence reports, more correct tool selection for varied language requests, or a better tradeoff between objective and computation under a fixed trial budget. A weak hypothesis simply says that agentic AI is better. Require a baseline that can plausibly win and a condition under which the proposed benefit would not be supported. Suggest a held-out scenario split rather than retuning after viewing every result. If the claim concerns operator workload, the next experiment needs a human study rather than another simulation plot. Transition: use the exit ticket to show what you can explain and run now.",
+    "refs": [
+      {
+        "label": "PowerAgentBench-SS (2026), §§II–III",
+        "url": "https://arxiv.org/html/2606.18789v1"
+      },
+      {
+        "label": "Kim et al., scaling agent systems (2026)",
+        "url": "https://arxiv.org/abs/2512.08296v3"
+      }
+    ],
+    "prompt": "Write one testable benefit and one result that would refute it.",
+    "answer": "Example: fewer unsupported reports at equal tool budget; equal or higher unsupported-report rate refutes the claimed benefit.",
+    "time": [
+      175,
+      176
+    ]
+  },
+  {
+    "id": "S05",
+    "title": "Exit ticket: explain, run, interpret",
+    "section": "Synthesis",
+    "kind": "question",
+    "kicker": "176–179 min · individual reflection",
+    "takeaway": "Connect one concept, one cell and one observed result.",
+    "items": [
+      "Explain a DAG versus a bounded cycle",
+      "Name a model-based and model-free method",
+      "Interpret one failed candidate correctly",
+      "Identify the operator acknowledgment boundary"
+    ],
+    "notes": "Allow three minutes for an individual response followed by a brief exchange with a neighbor. Each learner should cite one notebook checkpoint and one actual observed result. For the graph question, a DAG has no directed cycle, while the implemented repair loop is a bounded cyclic state graph. MPC uses an explicit model during planning; the trained SAC policy supplies a continuous candidate from its learned mapping, and that action is still checked in a simulator. A failed candidate is neither proof that the entire framework failed nor proof of safety by itself; explain what the gate prevented and what remained unresolved. Finally identify why acknowledgment in the teaching dashboard does not dispatch equipment. Transition: return to the operator question that opened the tutorial.",
+    "refs": [
+      {
+        "label": "Executed LangGraph teaching lab: G0–G5",
+        "url": "../Graph_Workflow_Lab.html"
+      },
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      }
+    ],
+    "prompt": "Which checkpoint would you show a colleague to explain the framework?",
+    "answer": "Choose a checkpoint and support the explanation with its exact inputs, output and stated limitation.",
+    "time": [
+      176,
+      179
+    ]
+  },
+  {
+    "id": "S06",
+    "title": "From request to a reviewable recommendation",
+    "section": "Synthesis",
+    "kind": "flow",
+    "kicker": "179–180 min · take-home principle",
+    "takeaway": "Agentic assistance earns trust through useful tools, explicit evidence and accountable decisions.",
+    "items": [
+      "Language expresses the task",
+      "Numerical methods produce candidates",
+      "Checks determine what is supported",
+      "People retain the review boundary"
+    ],
+    "notes": "Close by asking the audience to describe the entire process in one sentence without using the word intelligent. A suitable description names the request, the numerical computation, the evidence checks and the operator review. The three cases have demonstrated different engineering formulations inside a shared orchestration pattern. They have also shown where a fixed method ties or beats a learned selector, where a reduced model misses full-feeder violations, and where a quiet residual is insufficient evidence. Those limits make the tutorial scientifically useful. Direct learners to the integrated handout for the symbol definitions, exact code references, exercise answers and citations, and to the Slidev source for the animated teaching sequence. The next step is a focused experiment on a clearly defined workflow need.",
+    "refs": [
+      {
+        "label": "Executed tutorial: Classroom_Labs, L0–L12",
+        "url": "../Classroom_Labs.html"
+      },
+      {
+        "label": "Executed LangGraph teaching lab: G0–G5",
+        "url": "../Graph_Workflow_Lab.html"
+      },
+      {
+        "label": "Recorded voltage pilot: E1–E8",
+        "url": "../LLM_Response_Selection.html"
+      }
+    ],
+    "nodes": [
+      "Request",
+      "Numerical tools",
+      "Evidence",
+      "Review"
+    ],
+    "time": [
+      179,
+      180
+    ]
+  }
+]

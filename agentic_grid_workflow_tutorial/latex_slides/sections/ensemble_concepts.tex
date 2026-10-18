@@ -1,0 +1,142 @@
+\begin{frame}[t]{MPC planning, SAC alternatives and a learned response selector}
+\fontsize{8.3}{9.7}\selectfont
+\begin{tabular}{@{}> {\raggedright\arraybackslash}p{.16\linewidth}> {\raggedright\arraybackslash}p{.37\linewidth}> {\raggedright\arraybackslash}p{.40\linewidth}@{}}
+\toprule Proposal stage & Numerical method & Stage output \\
+\midrule
+Awareness & State estimation, input validation, topology and trust checks & Versioned state, forecast, limits and permitted tools \\
+Planning & MPC computes a horizon plan; frozen SAC proposes an alternative first action & Candidate controls, plan and assumptions \\
+Simulation & Execute candidate actions in OpenDSS or three-phase LinDistFlow & Return predicted voltage, current and objective \\
+Verification & Check engineering limits, identity and policy for every candidate & PASS or rejection causes and objective \\
+LLM Optimizer & Several LLMs propose bounded operations; a contextual bandit selects the next trial & Retain each response, votes, selected operation and observed reward \\
+\bottomrule
+\end{tabular}\par
+\medskip
+\textbf{Final decision:} minimum declared cost among verified actions, followed by a fresh recheck and operator review.
+\plainidea{SAC contributes another control proposal. Simulation and numerical checks establish its admissibility within the model.}
+\sources{MPC: \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Rawlings, Mayne and Diehl}; SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}; contextual bandit: \href{https://arxiv.org/abs/1003.0146}{Li et al. (2010)}. Revised voltage experiment: \texttt{LLM\_Response\_Selection.ipynb}.}
+\note{Use this as the revised architectural anchor. The existing P1--P8 experiment remains a historical single-LLM supervisor comparison. The new E notebook makes MPC and SAC first-class initial candidates and separates response selection from physical acceptance. A contextual bandit is one-step reinforcement learning. SAC is the already trained continuous controller. Neither language voting nor the learned selector certifies an action. The pilot concerns voltage only; later slides map the same responsibilities to the other case-specific methods.}
+\end{frame}
+
+\begin{frame}[t]{The optimizer allocates a limited simulation trial}
+\begin{center}
+\begin{tikzpicture}[wfstep/.style={draw=forest,align=center,text width=2.5cm,minimum height=1.2cm,font=\fontsize{8.5}{10}\selectfont},flow/.style={->,>=stealth,thick,forest}]
+\node[wfstep] (plan) at (0,0) {MPC and SAC\\initial actions};
+\node[wfstep] (gate) at (3.2,0) {Simulate and verify\\Best feasible action};
+\node[wfstep] (pool) at (6.4,0) {Llama / Qwen\\structured proposals};
+\node[wfstep,fill=mint!25] (route) at (9.6,0) {Learned selector\\one next trial};
+\draw[flow] (plan)--(gate); \draw[flow] (gate)--(pool); \draw[flow] (pool)--(route);
+\node[wfstep,text width=4.1cm] (trial) at (8,-2.1) {Fresh simulation and gate\\Observe reward\\Keep best feasible action};
+\node[wfstep,text width=4.1cm] (human) at (1.8,-2.1) {Final recheck and scope\\Operator review and readback};
+\draw[flow] (route.east)--(11.2,0)--(11.2,-2.1)--(trial.east);
+\draw[flow] (trial.west)--(human.east);
+\draw[flow,orange,dashed] (trial.north)--node[left,font=\scriptsize]{Training feedback}(route.south west);
+\end{tikzpicture}
+\end{center}
+\small Voting and learned selection compare the \textbf{same response pool}. Their selected action still passes the same numerical gate.
+\sources{Contextual LLM routing: \href{https://arxiv.org/abs/2506.17670}{Poon et al. (2025)}; bandit feedback: \href{https://arxiv.org/abs/2510.07429}{Wei et al. (2025)}. Diagram: this tutorial's proposed integration and voltage pilot.}
+\note{Explain the order before naming algorithms. First obtain a feasible incumbent from numerical methods. Then the LLMs choose bounded structured operations using evidence already available. Selection occurs before evaluating those new actions. The dashed feedback arrow applies to training only; the evaluated policy is frozen. In the prepared dataset, separate counterfactual outcomes support paired replay and an upper reference, but they cannot enter the decision features. A deployment that calls only one model is a different routing experiment and cannot also vote over ungenerated replies.}
+\end{frame}
+
+\begin{frame}[t]{MPC and SAC solve different learning and planning problems}
+\deepdive
+\fontsize{8.5}{10}\selectfont
+\[
+U_t^*=\arg\min_{u_{0:H-1}}\sum_{h=0}^{H-1}\gamma^h\ell(x_h,u_h),\qquad
+x_{h+1}=f_\theta(x_h,u_h),\quad g(x_h,u_h)\leq0.
+\]
+\textbf{MPC:} $U_t^*$ is the planned sequence, $H$ the horizon, $\gamma$ a discount factor, $\ell$ the operating cost, $f_\theta$ the model and $g$ the constraints. Apply the first action and replan when the state changes.
+\[
+u_t^{\mathrm{SAC}}=\pi_\phi(o_t),\qquad
+\max_\phi\mathbb{E}\!\left[\sum_t\gamma^t\{r_t+\alpha_{\mathrm{SAC}}\mathcal H(\pi_\phi(\cdot\mid o_t))\}\right].
+\]
+\textbf{SAC:} $\pi_\phi$ is a policy with learned weights $\phi$, $o_t$ its observation, $r_t$ the reward, $\mathcal H$ entropy and $\alpha_{\mathrm{SAC}}$ its weight. Evaluation uses the frozen actor.\par
+\medskip
+\textbf{Voltage implementation:} $H=3$ numerical planning; the comparison scores the first action using the declared current-step cost. It does not measure improvement of the full horizon objective.
+\sources{\href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Rawlings, Mayne and Diehl, MPC}; \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al., SAC (2018)}. Exact voltage objective: \texttt{src/continuous\_control.py}.}
+\note{Optional mathematical detail. The generic dynamical MPC form introduces concepts; the actual voltage implementation uses a supplied three-step load forecast and local model sensitivities for quasi-static electrical states. Do not claim a validated dynamic feeder model or recursive feasibility theorem. SAC's entropy-regularized learning objective concerns its offline control training. The response selector has a separate reward, feature set and checkpoint. The notebook reports current-step and horizon scope explicitly.}
+\end{frame}
+
+\begin{frame}[t]{Voting compares structured operations}
+\deepdive
+\fontsize{8.5}{10}\selectfont
+\begin{tabular}{@{}p{.21\linewidth}p{.29\linewidth}p{.40\linewidth}@{}}
+\toprule Illustrative reply & Canonical operation & Meaning \\
+\midrule
+Model A & Reduce $|q|$ by 10\% & One bounded reactive-power refinement \\
+Model B & Reduce $|q|$ by 10\% & Same action, second vote \\
+Model C & Increase PV fraction & A different action to evaluate \\
+\bottomrule
+\end{tabular}\par
+\[
+n(a)=\sum_{m=1}^{M}\mathbf1\{c(y_m)=a\},\qquad
+a_{\rm vote}=\arg\max_{a\in\mathcal A} n(a).
+\]
+$y_m$: model $m$'s response; $c$: validated canonicalization; $M$: number of models; $\mathcal A$: unique permitted actions; $n(a)$: votes. Fixed ordering resolves ties.
+\medskip
+Duplicate proposals share one physical action. Invalid replies stay in the journal and receive no vote. A unanimous proposal can still fail its electrical checks.
+\sources{Tutorial ensemble definition. This example is explanatory, not an observed model response. Actual replies and canonical votes appear in the E notebook.}
+\note{Show why voting prose is ill-defined until the action schema is specified. Two phrasings or model identities do not make two distinct physical actions. The implementation canonicalizes parameters and retains each model's public reason. The majority baseline and learned selector receive identical generated responses. We do not average continuous controls proposed under different assumptions. Correlated models can agree on the same mistake, and simulated acceptance still depends on constraints.}
+\end{frame}
+
+\begin{frame}[t]{One-step reinforcement learning for response selection}
+\deepdive
+\fontsize{8.1}{9.5}\selectfont
+\[
+a_t=\arg\max_{a\in\mathcal A_t}\left[\widehat\theta^\top\varphi(s_t,a)
++\beta\sqrt{\varphi(s_t,a)^\top A^{-1}\varphi(s_t,a)}\right].
+\]
+$s_t$: pretrial context; $a$: a proposed operation; $\varphi$: permitted features; $\widehat\theta$: learned reward weights; $A$: feature-information matrix; $\beta$: exploration weight.
+\[
+A\leftarrow A+\varphi_t\varphi_t^\top,\quad
+b\leftarrow b+r_t\varphi_t,\quad \widehat\theta=A^{-1}b.
+\]
+$b$: reward-weighted feature sum; $r_t$: reward from the \textbf{selected} trial. Initialize $A=\lambda I$, $b=0$ with regularization $\lambda>0$.
+\medskip
+\begin{tabular}{@{}p{.47\linewidth}p{.47\linewidth}@{}}
+\yesmark\ Context, action identity and vote share & \nomark\ Future trial cost or PASS/FAIL as features \\
+\yesmark\ Train from selected feedback & \nomark\ Updating the selector on test outcomes \\
+\yesmark\ Freeze and save the learned policy & \nomark\ Calling this SAC, PPO or LLM fine-tuning \\
+\end{tabular}\par
+\sources{LinUCB: \href{https://arxiv.org/abs/1003.0146}{Li et al. (2010)}. Dynamic multi-LLM selection: \href{https://arxiv.org/abs/2506.17670}{Poon et al. (2025)}. Shared linear response-feature implementation: this tutorial.}
+\note{Optional derivation. This tutorial uses a shared linear contextual-action model rather than claiming to reproduce every variant of the cited algorithms. The uncertainty term explores during training. Frozen evaluation uses the learned score without test updates. This is a contextual bandit, which is a one-step reinforcement-learning problem. A sequential PPO selector would require multiple dependent tool-routing decisions, a terminal return and its own episode training evidence. The SAC controller and selector learn different tasks.}
+\end{frame}
+
+\begin{frame}[t]{Selection budgets define a fair comparison}
+\deepdive
+\fontsize{8.2}{9.6}\selectfont
+\begin{tabular}{@{}p{.32\linewidth}ccc p{.22\linewidth}@{}}
+\toprule Method & MPC/SAC seeds & LLM pool & New trials & Selection rule \\
+\midrule
+Numerical incumbent & \yesmark & \nomark & 0 & Feasible minimum \\
+Fixed numerical refinement & \yesmark & \nomark & 1 & Published operation \\
+Fixed-model response & \yesmark & \yesmark & 1 & Predeclared model \\
+Uniform selection & \yesmark & \yesmark & 1 & Random unique action \\
+Majority vote & \yesmark & \yesmark & 1 & Most model votes \\
+Learned selector & \yesmark & \yesmark & 1 & Frozen predicted reward \\
+Best of all responses & \yesmark & \yesmark & $N$ & Extra-budget reference \\
+\bottomrule
+\end{tabular}\par
+\medskip
+$N$ is the number of unique proposed actions. All pool-based methods pay for the same model calls. Report generation time, trial time and final audit separately.
+\plainidea{Once every candidate has been simulated, selecting the feasible minimum is exact. The learned policy is useful only if it allocates trials before their outcomes are known.}
+\sources{Experimental design: this tutorial. Learning with partial response feedback: \href{https://arxiv.org/abs/2510.07429}{Learning to Route LLMs from Bandit Feedback (2025)}.}
+\note{The conventional numerical baseline is essential. It can be cheaper than generating an ensemble, even when all selectors finish with the same action. Best-of-all has more candidate evaluations and is an upper reference, not an equal-budget rival. Uniform selection must average over its randomization or report repeated seeds. Cached notebook replay time is distinct from actual model-generation latency. The reward and engineering gate are separate: a high learned score cannot waive a violation.}
+\end{frame}
+
+\begin{frame}[t]{Case-specific planners under one workflow}
+\fontsize{8.1}{9.6}\selectfont
+\begin{tabular}{@{}> {\raggedright\arraybackslash}p{.15\linewidth}> {\raggedright\arraybackslash}p{.26\linewidth}> {\raggedright\arraybackslash}p{.26\linewidth}> {\raggedright\arraybackslash}p{.26\linewidth}@{}}
+\toprule Stage & Voltage support & Restoration & Cyber response \\
+\midrule
+Awareness & Voltage/current state; forecast & Faulted edges; available ties; load priority & Measurement provenance; residuals; trusted sensors \\
+Planning & $H=3$ MPC and frozen SAC & MILP method lesson; bounded feeder action catalog & Protected-state WLS and constrained redispatch QP \\
+Simulation & AC or three-phase linear power flow & Candidate topology and load pickup power flow & DC network and redispatch consequences \\
+Verification & Voltage, current, inverter capability & Connectivity, cycles, current and protected loads & Observability, trust and line-flow limits \\
+Optimizer & New multi-LLM response-selection pilot & Executed bounded Llama refinement & Executed bounded Llama refinement \\
+\bottomrule
+\end{tabular}\par
+\medskip
+\textbf{Extension path:} restoration MPC needs switching states over time. Cyber MPC needs an explicit temporal attack/response model. Learned selectors in those cases need their own training scenarios and outcomes.
+\sources{MPC: \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Rawlings et al.}; restoration: \href{https://doi.org/10.1109/TPWRS.2017.2720122}{Chen et al. (2017)}; WLS: \href{https://doi.org/10.1109/TPAS.1970.292678}{Schweppe and Wildes (1970)}. Exact executed scope: tutorial notebooks.}
+\note{Explain the common architecture while keeping case-specific methods honest. The existing restoration feeder experiment uses a restricted catalog, while the optimization lesson solves a separate six-node MILP. The cyber example is a four-bus DC fixture with protected measurement assumptions. Neither is a trained SAC controller or a receding-horizon implementation. MPC is a sensible planning family when temporal states and constraints have been formulated, but renaming a static QP or action catalog MPC would misteach the method.}
+\end{frame}

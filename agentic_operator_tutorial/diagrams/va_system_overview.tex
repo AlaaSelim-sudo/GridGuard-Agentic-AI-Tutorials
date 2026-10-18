@@ -1,0 +1,40 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rp] (goal) at (1.1,2.95) {};
+\node[rp] (agent) at (4.0,2.95) {};
+\node[rp] (tools) at (7.0,2.95) {};
+\node[rp] (check) at (10.0,2.95) {};
+\node[rp] (human) at (12.9,2.95) {};
+\node[rl] at (1.1,3.65) {Goal};
+\node[rl] at (4.0,3.65) {AI agent};
+\node[rl] at (7.0,3.65) {Tools};
+\node[rl] at (10.0,3.65) {Check};
+\node[rl] at (12.9,3.65) {Human};
+\node[rn] at (12.9,2.2) {evidence\\report};
+\draw[rf] (goal.east) -- (agent.west);
+\draw[rf] (agent.east) -- (tools.west);
+\draw[rf] (tools.east) -- (check.west);
+\draw[rf] (check.east) -- (human.west);
+\node[rn] at (11.45,3.23) {pass};
+\coordinate (return) at (4.0,1.55);
+\draw[draw=rBlue,line width=1.15pt] (tools.south) -- (7.0,1.55) -- (return);
+\node[rn] at (5.5,1.92) {results};
+\draw[rw] (check.south) -- (10.0,.55) -- (4.0,.55) -- (return);
+\node[rn,text=rOrange] at (7.0,.95) {missing evidence};
+\fill[rBlue] (return) circle (1.7pt);
+\draw[rf] (return) -- (agent.south);
+
+\end{tikzpicture}

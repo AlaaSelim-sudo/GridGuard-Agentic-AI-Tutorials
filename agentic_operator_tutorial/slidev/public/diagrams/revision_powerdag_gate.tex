@@ -1,0 +1,31 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rp] (planner) at (1.5,2.5) {};
+\node[rl] at (1.5,3.25) {Planner};
+\node[rp] (gate) at (7.0,2.5) {};
+\node[rl] at (7.0,3.5) {Gate:\\solved for v43?};
+\node[rp] (check) at (11.95,2.5) {};
+\node[rl] at (11.95,3.4) {Run voltage\\check};
+\node[rn] at (11.95,1.87) {current solution};
+\draw[rf] (planner.east) -- (gate.west);
+\node[rn] at (4.0,2.96) {propose check};
+\draw[rf] (gate.east) -- (check.west);
+\node[rn] at (9.45,2.96) {met};
+\draw[rw] (gate.south) -- (7.0,.78) -- (1.5,.78) -- (planner.south);
+\node[rn,text=rOrange,anchor=west] at (7.35,1.52) {unmet: no execution};
+\node[rn,text=rOrange] at (4.25,1.2) {missing: solve v43 first};
+
+\end{tikzpicture}

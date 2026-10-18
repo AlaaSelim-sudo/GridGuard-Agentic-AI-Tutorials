@@ -1,0 +1,57 @@
+{
+  "created_utc": "2026-10-17T13:52:22.269184+00:00",
+  "notebook": "Graph_Workflow_Lab.ipynb",
+  "runtime": "real LangGraph; rule-driven toy example",
+  "versions": {
+    "langgraph": "1.2.15",
+    "langgraph-checkpoint": "4.3.0",
+    "langgraph-prebuilt": "1.1.1",
+    "langgraph-sdk": "0.4.8",
+    "langchain-core": "1.6.12",
+    "typing-extensions": "4.16.0",
+    "pydantic": "2.14.1",
+    "nbclient": "0.11.0",
+    "nbformat": "5.11.1"
+  },
+  "code_cells": 6,
+  "all_executed_without_error": true,
+  "execution_and_validation_seconds": 2.0880839000164997,
+  "llm_calls": 0,
+  "electrical_simulations": 0,
+  "hosted_tracing_enabled": false,
+  "executed_outputs": {
+    "G0": "{'langgraph': '1.2.15', 'langgraph-checkpoint': '4.3.0', 'langchain-core': '1.6.12'}\nRule-driven toy graph. No LLM, network call or electrical-model validation.\n",
+    "G1": "Append reducer: ['simulate', 'verify']\nInitial validated state: {'command': 0.75, 'limit': 0.8, 'attempts': 0, 'max_repairs': 2, 'current': 0.0, 'passed': False, 'status': 'TOY_NEW', 'acknowledged': False, 'trace': []}\n",
+    "G2": "",
+    "G3": "Compiled nodes: ['__end__', '__start__', 'hold', 'repair', 'report', 'simulate', 'verify']\n",
+    "G4": "passing {\"command\": 0.25, \"current\": 0.6000000000000001, \"limit\": 0.8, \"attempts\": 0, \"status\": \"TOY_READY\", \"acknowledged\": false, \"trace\": [\"simulate: 0.600\", \"verify: True\", \"report: ready\"]} 2.129 ms\nrepair {\"command\": 0.5, \"current\": 0.8, \"limit\": 0.8, \"attempts\": 1, \"status\": \"TOY_READY\", \"acknowledged\": false, \"trace\": [\"simulate: 1.000\", \"verify: False\", \"repair: -0.25\", \"simulate: 0.800\", \"verify: True\", \"report: ready\"]} 1.163 ms\nexhausted {\"command\": 0.65, \"current\": 0.92, \"limit\": 0.5, \"attempts\": 1, \"status\": \"TOY_HOLD\", \"acknowledged\": false, \"trace\": [\"simulate: 1.120\", \"verify: False\", \"repair: -0.25\", \"simulate: 0.920\", \"verify: False\", \"hold: budget exhausted\"]} 1.029 ms\nDirect Python baseline matches every command, outcome and trace: 3/3.\n",
+    "G5": "Pending node: ('report',) | acknowledged: False\nInterrupt payload: {'recommendation_id': '73cfb263ed2b1016', 'command': 0.5, 'toy_current': 0.8, 'scope': 'invented toy equation only'}\nAfter simulated readback: {'command': 0.5, 'current': 0.8, 'limit': 0.8, 'attempts': 1, 'status': 'TOY_ACKNOWLEDGED', 'acknowledged': True, 'trace': ['simulate: 1.000', 'verify: False', 'repair: -0.25', 'simulate: 0.800', 'verify: True', 'human review: True']}\n"
+  },
+  "negative_checks": {
+    "declined": {
+      "status": "TOY_HOLD",
+      "acknowledged": false,
+      "pending": []
+    },
+    "wrong_id": {
+      "status": "TOY_HOLD",
+      "acknowledged": false,
+      "pending": []
+    },
+    "changed_budget": {
+      "status": "TOY_READY",
+      "attempts": 4,
+      "current": 0.4
+    },
+    "invalid_input_rejection": "3/3"
+  },
+  "source_sha256": "20aa53eefde5926633f381d7d8254dda2bdc8952c20db20035c5f8f6616ecfe5",
+  "checkpoint_scope": "InMemorySaver survives resume only within current process, not process restart",
+  "sources": [
+    "https://docs.langchain.com/oss/python/langgraph/graph-api",
+    "https://docs.langchain.com/oss/python/langgraph/interrupts",
+    "https://docs.langchain.com/oss/python/langgraph/persistence",
+    "https://reference.langchain.com/python/langgraph/types/interrupt"
+  ],
+  "direct_python_baseline_matches": "3/3 exact command, status and trace equality in G4"
+}

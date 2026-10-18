@@ -1,0 +1,183 @@
+% One complete cyber-response case, 135--165 minutes.
+\section{Cyber response}
+
+\begin{frame}[t]{Cyber response: problem, workflow and comparison}
+\noindent
+{\centering
+\begin{tikzpicture}[every node/.style={font=\small,align=center},
+ gridstage/.style={draw=forest,rounded corners,fill=black!3,minimum height=.9cm,text width=2.65cm}]
+ \node[gridstage] (a) at (0,0) {Physical grid\\\textbf{unknown state}};
+ \node[gridstage] (b) at (3.25,0) {Sensors\\\textbf{measurements}};
+ \node[gridstage] (c) at (6.5,0) {Estimator\\\textbf{estimated state}};
+ \node[gridstage] (d) at (9.75,0) {Controller\\\textbf{proposed action}};
+ \draw[->,thick,forest] (a)--(b); \draw[->,thick,forest] (b)--(c); \draw[->,thick,forest] (c)--(d);
+ \node[above=.35cm,font=\small,text=orange] (attack) at (b.north) {Possible corruption};
+ \draw[->,thick,orange] (attack)--(b);
+\end{tikzpicture}\par}
+\operatorneed{Which evidence can Planning rely on, and what must Verification reject before an operator reviews the action?}
+\small\textbf{Case sequence:} residual tests (C1--C2), trusted-data recovery (C3), initial supervision (C4), complete refinement for two attacks (P6). The numerical model has four DC buses, three unknown angles and eight original measurements.
+\sources{State estimation: Schweppe and Wildes, 1970, \url{https://doi.org/10.1109/TPAS.1970.292678}. Trust is an explicit tutorial assumption.}
+\note{135--137 minutes. Connect directly to the previous question: a model can validate a decision against the wrong estimated state. The four-bus example is separate from the Greensboro feeder. Measurements comprise four branch flows, three injections, and one angle. The three unknowns are non-slack voltage angles in radians. Synthetic truth is known to the experimenter, enabling evaluation, but an actual operator generally does not know it. No full-feeder attack detector is claimed.}
+\end{frame}
+
+\begin{frame}[t]{Fit the readings, then examine what the fit leaves unexplained}
+\small
+\textbf{Weighted least squares (WLS)} fits a physical measurement model:
+\[
+z=Hx+\epsilon,\qquad \epsilon\sim\mathcal N(0,R),\qquad
+\hat x=\arg\min_{x\in\mathbb R^3}(z-Hx)^\top R^{-1}(z-Hx).
+\]
+\footnotesize
+\renewcommand{\arraystretch}{1.02}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.22\linewidth}>{\raggedright\arraybackslash}p{.70\linewidth}@{}}
+\toprule Quantity & Meaning and units in this four-bus DC example \\
+\midrule
+$x$, $\hat x$ & True and estimated three non-reference voltage angles (rad). Reference angle is fixed at bus 0. \\
+$z\in\mathbb R^8$ & Four branch flows and three injections (p.u.), plus one angle (rad); mixed units are handled by weighting. \\
+$H\in\mathbb R^{8\times3}$ & Linear measurement sensitivity; each row maps radians into that sensor's units. Full column rank 3 is required. \\
+$\epsilon$, $R$ & Measurement noise and its covariance; here independent Gaussian noise with $R=\operatorname{diag}(\sigma_i^2)$; $\sigma_i$ is sensor standard deviation in its own units. \\
+WLS objective & Dimensionless normalized squared mismatch; smaller noise variance gives a reading greater weight. \\
+\bottomrule
+\end{tabular}
+\smallskip\par\textbf{Interpretation:} good agreement indicates consistency with the model/noise assumptions, not trustworthy measurements. The code checks observability and solves the weighted system without explicitly forming the normal-matrix inverse.
+\sources{Schweppe and Wildes, 1970: \url{https://doi.org/10.1109/TPAS.1970.292678}.}
+\note{137--140 minutes. Let the audience answer before the reveal. Explain z as the eight measurements, H as their linear dependence on the three angles, and R as the declared noise covariance. The implementation checks full column rank and uses weighted least squares, rather than explicitly inverting the normal matrix. An isolated error may fail consistency, while a coordinated error may not. The next checkpoint quantifies this distinction; the following plot makes the failure visible.}
+\end{frame}
+
+\begin{frame}[t]{From residuals to an alarm and a suspect measurement}
+\small
+After WLS, define residual $r=z-H\hat x$ in the measurements' units. The dimensionless global statistic is
+\[
+J=r^\top R^{-1}r,\qquad J>\chi^2_{\nu,0.99}=15.0863,\qquad \nu=m-n=8-3=5.
+\]
+\footnotesize $z$ is the measurement vector, $H$ the linear sensitivity, $\hat x$ the angle estimate, and $R$ the stated noise covariance. $m$ counts measurements; $n$ counts observable states. $\chi^2_{\nu,0.99}$ is the 99th percentile: a nominal 1\% false-alarm probability under the correct linear model and Gaussian noise, not a measured rate here.
+\[
+\Omega=R-H(H^\top R^{-1}H)^{-1}H^\top,\qquad
+r_i^N=\frac{|r_i|}{\sqrt{\Omega_{ii}}}\quad(\Omega_{ii}>0).
+\]
+$\Omega$ is residual covariance; $i$ is a measurement index, $r_i$ its residual, and $r_i^N$ its dimensionless normalized magnitude. The largest value localizes a suspect reading; it is not a guaranteed attacker identifier. A zero residual variance makes this score undefined.
+\smallskip\par\small
+\textbf{Before recovery:} investigate inconsistency and recheck observability after removal. Topology/model error, sensor failure and malicious corruption can all produce an alarm.
+\sources{State estimation: \href{https://doi.org/10.1109/TPAS.1970.292678}{Schweppe and Wildes (1970)}; bad-data residuals: \href{https://doi.org/10.1109/T-PAS.1975.31858}{Handschin et al. (1975)}. Exact calculation: \texttt{weighted\_least\_squares}.}
+\note{About one minute within the existing 140--143-minute detector explanation. The covariance expression explains why dividing residuals by raw sensor standard deviations is not the same localization statistic. Assumptions matter: the nominal chi-square calibration is exact for this linear full-rank Gaussian construction, not a universal guarantee for a nonlinear AC estimator. The code flags undefined residual normalizations and checks rank after removal.}
+\end{frame}
+
+\begin{frame}[t]{C1: use one detector on three measurement cases}
+\checkpoint{C1}{Run nominal noise, one biased reading, and a coordinated stealth attack.}
+\cellall{C1}
+\observethis{Compare the residual alarm with the actual control outcome. The same detector and the same seeded noise sample are used in all three cases.}
+\footnotesize $J=r^\top R^{-1}r$ is dimensionless, with residual $r=z-H\hat x$; $z$ denotes measurements, $H$ their linear model, $\hat x$ the angle estimate and $R$ the noise covariance. Alarm threshold: $15.0863$ for five residual degrees of freedom.\par
+\smallskip Isolated corruption adds 0.08 p.u. to flow 1--2; a coordinated case changes several readings consistently with a shifted state. Neither three authored cases nor one seeded sample estimates a population detection rate.
+\sources{Nominal 1\% test assumes the stated Gaussian noise and correct linear model; Handschin et al., 1975: \url{https://doi.org/10.1109/T-PAS.1975.31858}.}
+\note{140--143 minutes. The chi-square threshold uses five residual degrees of freedom and alpha 0.01. This is a nominal calibration, not a measured false-alarm rate from three trials. All cases use the same model and fixed noise sample. The isolated corruption adds 0.08 p.u. to flow 1--2, measurement index 1. Its largest normalized residual identifies that measurement in this fixture, and control is held. The stealth case uses a=Hc with c=(0.01,0.025,0) radians. Detailed residual covariance and localization equations are in the appendix.}
+\end{frame}
+
+\begin{frame}[t]{C2: a small residual can accompany a large state error}
+\checkpoint{C2}{Run the plot, then compare the two vertical axes.}
+\cellcode{C2}{1}{1}
+{\centering\includegraphics[width=.92\linewidth,height=.40\textheight,keepaspectratio]{\figfile{workshop_cyber.png}}\par}
+\textcolor{forest}{\textbf{Question:}} Why do the nominal and stealth residual statistics both equal 3.9202?\par
+\uncover<2->{\textbf{Reason:} the corruption $a=Hc$ shifts the estimated angles by $c$ while leaving the residual unchanged.}
+\par\footnotesize $a$ is the eight-value added measurement vector (sensor units); $H$ is the linear sensitivity; $c=(0.01,0.025,0)$ rad is the three-angle shift. Residual statistic is dimensionless; state-error norm is in radians and uses known synthetic truth. The attack requires access to the affected channels and knowledge of $H$.
+\sources{Stealth construction: Liu et al., 2009, \url{https://doi.org/10.1145/1653662.1653666}. Numerical evidence: \texttt{results/standard\_formulations.json}.}
+\note{143--146 minutes. Pause before the reason. The isolated statistic is 277.4974, above the 15.0863 threshold. Nominal and stealth statistics are both 3.9202, below it. Their state error norms differ: 0.000237 versus 0.026780 radians. The full identity is z'=z+Hc, xhat'=xhat+c, hence z'-H xhat'=r. The stealth construction assumes knowledge of H and access to the unprotected channels required by a. It is a designed negative control, not a detection-rate survey. The right-hand state error uses known synthetic truth.}
+\end{frame}
+
+\begin{frame}[t]{Recovery needs new evidence before it needs a new action}
+\footnotesize
+\textbf{Evidence assumption:} three additional protected angles give $H_{\mathcal T}=I_3$ (the $3\times3$ identity). This set is observable with \textbf{zero residual redundancy}; it is not a subset of the original eight readings. Sensor trust is assumed, not authenticated by WLS or Llama.
+\setlength{\abovedisplayskip}{4pt}\setlength{\belowdisplayskip}{4pt}\[
+\min_{0\leq u\leq0.5}\ \tfrac12u^2
+\quad\text{s.t.}\quad
+|f_{\rm pred}(u)|=|F\hat x_{\mathcal T}+b u|\leq\overline f-0.01.
+\]
+\footnotesize
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.22\linewidth}>{\raggedright\arraybackslash}p{.70\linewidth}@{}}
+\toprule Symbol & Physical meaning / units \\
+\midrule
+$u$ & Added active injection at node 2, balanced at the source; scalar in $[0,0.5]$ p.u. Minimize its squared effort. \\
+$\hat x_{\mathcal T}$ & Three angles estimated from protected readings (rad); their stated noise remains present. \\
+$F$, $b$ & DC angle-to-flow matrix (p.u./rad) and four-branch injection sensitivity (p.u. flow per p.u. injection). \\
+$f_{\rm pred}$, $\overline f$ & Predicted signed flows and absolute limits (p.u.). Limits: $(0.35,0.18,0.35,0.35)$, applied branch by branch. \\
+$0.01$ & Planning margin (p.u.), a declared engineering choice rather than a calibrated uncertainty bound. \\
+\bottomrule
+\end{tabular}
+\par\textbf{Check consequences:} validate both injections against the same synthetic truth. This example includes only DC active-power constraints.
+\sources{Stealth limitation: Liu, Ning, and Reiter, 2009: \url{https://doi.org/10.1145/1653662.1653666}.}
+\note{146--150 minutes. Say: The residual test cannot distinguish these two states. What additional information could break that ambiguity? Introduce the explicitly protected angle measurements with H sub T equal to I3. Full rank identifies the state, while three measurements for three unknowns gives zero residual degrees of freedom; there is no chi-square detection redundancy in this protected set. The numerical experiment assumes trust and does not implement authentication. The scalar control uses the DC flow map F and injection sensitivity F B inverse d2. Bounds, finite values, and predicted constraints are checked after the solve. The 0.01 p.u. margin is an engineering choice, not a calibrated uncertainty guarantee. This is a small DC control problem, not AC feeder redispatch.}
+\end{frame}
+
+\begin{frame}[t]{C3: compare the actions, then evaluate their consequences}
+\checkpoint{C3}{Lines 1--4 compare control from the stealth and protected estimates.}
+\cellcode{C3}{1}{4}
+{\centering
+\begin{tabular}{lrr}
+\toprule
+Estimate used & Injection $u$ (p.u.) & Actual flow $1$--$2$ (p.u.) \\
+\midrule
+Stealth-corrupted & 0 & 0.24000 \\
+Protected measurements & 0.12169 & 0.17046 \\
+\bottomrule
+\end{tabular}\par}
+\observethis{Limit: \textbf{0.18 p.u.} Only protected-data control removes this toy overload.}
+\footnotesize $u$ is added active injection at node 2, balanced at the source. Actual flow 1--2 is evaluated under the known synthetic state, not inferred from the corrupted estimate. All powers share the toy model's arbitrary fixed per-unit base.
+\sources{Estimation context: Schweppe and Wildes, 1970, \url{https://doi.org/10.1109/TPAS.1970.292678}. Control/evaluation: tutorial four-bus DC experiment.}
+\note{150--153 minutes. The corrupted estimate predicts a feasible state and chooses u=0, but actual toy flow remains 0.24 p.u. The protected estimate chooses u=0.1216936673 p.u. Its predicted flow is 0.17 p.u.; evaluation against synthetic truth gives 0.1704607616 p.u., below 0.18. The small prediction/evaluation difference is due to protected measurement noise. Explain that the experiment evaluates both actions under the same known physical toy state, which prevents a favorable result merely because an estimate reports its own constraints as feasible.}
+\end{frame}
+
+\begin{frame}[t]{C3: check every branch against its own limit}
+\checkpoint{C3}{Lines 5--6 plot the consequence and report estimator redundancy.}
+\cellcode{C3}{5}{6}
+{\centering\includegraphics[width=.94\linewidth,height=.44\textheight,keepaspectratio]{\figfile{workshop_trusted_control.png}}\par}
+\textbf{Check the consequence:} compare every bar with its branch limit.
+\sources{Stealth limitation: Liu et al., 2009, \url{https://doi.org/10.1145/1653662.1653666}. Post-control flows: \texttt{results/standard\_formulations.json}.}
+\note{153--156 minutes. Point to flow 1--2 above its limit under the stealth action and below it after protected-data redispatch. Then check the other branches. The branch limits are 0.35, 0.18, 0.35, 0.35 p.u. The chart uses known synthetic truth, not field measurements. The result omits voltage magnitudes, unbalance, reactive capability, protection, and communication authentication. The printed protected-set residual degrees of freedom are zero; this is not a detector success claim for that set.}
+\end{frame}
+
+\begin{frame}[t]{C4: the agent can explain evidence, but cannot establish trust}
+\deepdive
+\checkpoint{C4}{Inspect the recorded actual Llama response for estimation and recovery.}
+\cellall{C4}
+{\centering
+\begin{tikzpicture}[every node/.style={font=\small,align=center},
+ cresponse/.style={draw=forest,rounded corners,text width=2.7cm,minimum height=1.05cm}]
+ \node[cresponse] (a) at (0,0) {\textbf{Planning}\\Llama selects\\WLS/control tool};
+ \node[cresponse] (b) at (3.35,0) {\textbf{Verification}\\DC checks PASS\\Trust is assumed};
+ \node[cresponse] (c) at (6.7,0) {\textbf{Explanation}\\Llama: REVIEW};
+ \node[cresponse] (d) at (10.05,0) {\textbf{Human review}\\Pending: request\\further evidence};
+ \draw[->,thick,forest] (a)--(b); \draw[->,thick,forest] (b)--(c); \draw[->,thick,forest] (c)--(d);
+\end{tikzpicture}\par}
+\observethis{The fixed route recommends the same numerical result. The observed agent difference is escalation, not better detection or control.}
+\sources{Tool/observation pattern: Yao et al., 2023, \url{https://arxiv.org/abs/2210.03629}. Actual responses: \texttt{results/standard\_agent\_workflow.json}.}
+\note{156--159 minutes. This is a recorded trace, not a new Llama call. Planning call 7 selects WLS\_TRUSTED\_REDISPATCH. Explanation call 8 selects REVIEW despite the passed numerical checks. The fixed comparator returns MODEL\_RECOMMEND. The control and detector are identical, so this trial establishes no agent advantage in detection or control quality. The wrapper explicitly supplies the trusted-data branch; it does not discover which sensors deserve trust. Separate the deterministic numerical metric card from the actual model's qualitative response. This visible separation is a useful design property even when the agent escalates unnecessarily.}
+\end{frame}
+
+\begin{frame}[t]{Your decision: what evidence justifies recovery?}
+\exercise{3}{Explain why the stealth estimate passes the residual test but gives a poor action. What does the protected set add? What fails if that set loses rank? Why is \textit{no alarm} insufficient?}
+\answer{A model-consistent attack can move the estimated state without moving the residual. Trusted, observable data can identify the state; rank loss leaves it underdetermined. Without justified evidence, escalate for review.}
+\sources{Stealth limitation: Liu et al., 2009, \url{https://doi.org/10.1145/1653662.1653666}. Observability: Schweppe and Wildes, 1970, \url{https://doi.org/10.1109/TPAS.1970.292678}.}
+\note{159--162 minutes. Reserve three full minutes before revealing the answer. This follows C4, matching the notebook exercise. Expected explanation: a=Hc preserves the residual while changing the estimated angles; the chosen u=0 then leaves an overload under the true toy state. The protected H sub T=I3 is full rank, but has zero residual redundancy. Rank deficiency is rejected by the implementation. No residual alarm is a consistency statement, not proof of no attack. If the trusted evidence is missing or unobservable, the framework must not invent a state or control. Holding a previous setpoint is not automatically safe after an unknown physical change.}
+\end{frame}
+
+\input{sections/cyber_llama_evidence.tex}
+\input{sections/cyber_code_walkthrough.tex}
+
+\begin{frame}[t]{Cyber response: what improved, and compared with what?}
+\deepdive
+\small
+\begin{tabular}{@{}p{.37\linewidth}rrl@{}}
+\toprule Stealth-case route & Injection $u$ & Actual flow 1--2 & Handoff \\
+\midrule
+Residual test on corrupted data & 0 & 0.24000 & No alarm \\
+Trusted WLS/control + fixed rules & 0.12169 & 0.17046 & Recommend \\
+Same trusted tool + Llama & 0.12169 & 0.17046 & Review \\
+\bottomrule
+\end{tabular}
+\par\smallskip\scriptsize Values are per unit; branch limit 0.18. Llama's row is a provisional tool result, evaluated using synthetic truth. Its final status is REVIEW; no action is issued.
+\normalsize
+\takeaway{Trusted measurements and conventional redispatch remove this toy overload. Adding Llama changes the handoff to REVIEW; the numerical detector and control results stay the same.}
+\small\textbf{Operator handoff:} confirm data trust and model scope before acknowledging the review record.
+\sources{Numerical baseline and control: \texttt{results/standard\_formulations.json}; actual agent response: \texttt{standard\_agent\_workflow.json}. Stealth attacks: \href{https://doi.org/10.1145/1653662.1653666}{Liu et al. (2009)}.}
+\note{162--165 minutes. Close the comparison in two steps. Conventional residual-only estimation fails against this model-consistent attack. Providing trusted observable measurements and a conventional redispatch tool changes the action and removes the overload under known synthetic truth. The same engineering tool yields the same result under fixed and agentic supervision, while the recorded language explanation requests REVIEW. This is an observed escalation rather than evidence of superior detection or safer physical control. The wrapper receives the trusted branch explicitly; Llama neither authenticates nor discovers the trusted sensors. Carry the action, checks, trust condition and model scope into the operator review.}
+\end{frame}

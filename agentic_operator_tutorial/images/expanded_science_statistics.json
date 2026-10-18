@@ -1,0 +1,137 @@
+{
+  "expanded_science_tooluniverse": {
+    "file": "expanded_science_tooluniverse.png",
+    "pdf": "expanded_science_tooluniverse.pdf",
+    "svg": "expanded_science_tooluniverse.svg",
+    "title": "expanded_science_tooluniverse",
+    "caption": "ToolUniverse v3 supplementary S8, Figure S2, PDF pp.23\u201324. Matched Claude Code / Claude Opus 4.8 point estimates on 60 DbQA and 70 SeqQA questions. Same agent/base model with and without ToolUniverse. Refusals and unparsable answers count as incorrect. Values are reported percentages; do not reconstruct integer successes from them.",
+    "assumptions": "Point estimates only for this comparison; no sampling interval supplied. Biomedical tasks, not grid engineering. The overall platform effect does not isolate each module.",
+    "source_refs": [
+      "H02"
+    ],
+    "source_url": "https://arxiv.org/pdf/2509.23426v3",
+    "credit": "Original plot of author-reported paper data; full protocol and limitations in the reading guide",
+    "data": {
+      "DbQA": {
+        "n": 60,
+        "without": 56.7,
+        "with": 78.3
+      },
+      "SeqQA": {
+        "n": 70,
+        "without": 94.3,
+        "with": 99.5
+      }
+    }
+  },
+  "expanded_science_txagent": {
+    "file": "expanded_science_txagent.png",
+    "pdf": "expanded_science_txagent.pdf",
+    "svg": "expanded_science_txagent.svg",
+    "title": "expanded_science_txagent",
+    "caption": "TxAgent v1 Results, PDF p.10, Figure 1d. Open-ended DrugPC accuracy; DrugPC has 3,168 questions. TxAgent is fine-tuned Llama 3.1-8B plus ToolRAG and 211 tools; comparison models differ in training and tool access. Methods 5.2, PDF p.61: answers generated without choices are mapped back to the original multiple-choice options for scoring.",
+    "assumptions": "A system comparison, not a same-model tool ablation or direct free-text semantic grading. Rounded author percentages; no reconstructed success counts or uncertainty. Benchmark answers, not prospective clinical outcomes.",
+    "source_refs": [
+      "H06"
+    ],
+    "source_url": "https://arxiv.org/pdf/2503.10970v1",
+    "credit": "Original plot of author-reported paper data; full protocol and limitations in the reading guide",
+    "data": {
+      "n_questions": 3168,
+      "metric": "open-ended accuracy percent",
+      "models": {
+        "Llama 3.1 70B": 52.8,
+        "GPT-4o": 66.3,
+        "TxAgent 8B": 92.1
+      }
+    }
+  },
+  "expanded_science_txagent_ablation": {
+    "file": "expanded_science_txagent_ablation.png",
+    "pdf": "expanded_science_txagent_ablation.pdf",
+    "svg": "expanded_science_txagent_ablation.svg",
+    "title": "expanded_science_txagent_ablation",
+    "caption": "TxAgent v1 Results p.17; Figure 3c graphic/caption pp.27\u201328; Online Methods 6.1 pp.61\u201362. ToolUniverse services are replaced by LLMs prompted to mimic tool behavior. DrugPC is multiple-choice here: actual tools 93.8%, GPT-4o mimic 72.7%, Llama 3.1-8B mimic 68.7%.",
+    "assumptions": "Different output setting from the 92.1% open-ended score; do not combine them. Source reports other settings held unchanged; no uncertainty interval supplied. Demonstrates this benchmark comparison, not correctness of all external tools.",
+    "source_refs": [
+      "H06"
+    ],
+    "source_url": "https://arxiv.org/pdf/2503.10970v1",
+    "credit": "Original plot of author-reported paper data; full protocol and limitations in the reading guide",
+    "data": {
+      "n_questions": 3168,
+      "metric": "multiple-choice accuracy percent",
+      "conditions": {
+        "Llama 3.1 8B\nmimics tools": 68.7,
+        "GPT-4o\nmimics tools": 72.7,
+        "Actual\nToolUniverse tools": 93.8
+      }
+    }
+  },
+  "expanded_science_popper": {
+    "file": "expanded_science_popper.png",
+    "pdf": "expanded_science_popper.pdf",
+    "svg": "expanded_science_popper.svg",
+    "title": "expanded_science_popper",
+    "caption": "POPPER ICML2025 Table 3, PDF p.6: DiscoveryBench comparison, mean \u00b1 standard deviation across 5 independent runs, nominal alpha 0.1. ReAct Type-I error 0.078\u00b10.061/power 0.383\u00b10.017; no relevance check 0.134\u00b10.021/0.610\u00b10.042; POPPER0.103\u00b10.020/0.638\u00b10.066. Values multiplied by 100 for percent axes. Each run uses 86 non-null and 86 constructed-null cases; Claude-Sonnet-3.5, at most three tests per hypothesis. Repeated runs do not create 430 independent hypotheses.",
+    "assumptions": "Whiskers are standard deviations, not 95% confidence intervals. Power is rejection probability on non-null hypotheses; Type-I error is rejection on nulls. The observed POPPER mean slightly exceeds nominalalpha; theoretical control requires its assumptions. Appendix protocol constructs null tests via data permutations.",
+    "source_refs": [
+      "H09",
+      "H10"
+    ],
+    "source_url": "https://cs.stanford.edu/~jure/pubs/auto-hypothesis-validation-icml25.pdf",
+    "credit": "Original plot of author-reported paper data; full protocol and limitations in the reading guide",
+    "data": {
+      "runs": 5,
+      "alpha": 0.1,
+      "methods": {
+        "ReAct": {
+          "type1": 0.078,
+          "type1_sd": 0.061,
+          "power": 0.383,
+          "power_sd": 0.017
+        },
+        "POPPER-NoReleCheck": {
+          "type1": 0.134,
+          "type1_sd": 0.021,
+          "power": 0.61,
+          "power_sd": 0.042
+        },
+        "POPPER": {
+          "type1": 0.103,
+          "type1_sd": 0.02,
+          "power": 0.638,
+          "power_sd": 0.066
+        }
+      },
+      "nonnull_hypotheses_per_run": 86,
+      "constructed_null_cases_per_run": 86,
+      "backend": "Claude-Sonnet-3.5",
+      "max_tests_per_hypothesis": 3
+    }
+  },
+  "expanded_science_popper_failures": {
+    "file": "expanded_science_popper_failures.png",
+    "pdf": "expanded_science_popper_failures.pdf",
+    "svg": "expanded_science_popper_failures.svg",
+    "title": "expanded_science_popper_failures",
+    "caption": "POPPER AppendixD, PDF p.15, Figure 5: selected failure labels among 128 failed experiment logs. Multiple labels may occur per log. Labels generated by o1;30 labeled logs manually checked with 93.3% agreement.",
+    "assumptions": "Conditional sample of failed logs, not all attempts; percentages are not unconditional system failure probabilities and need not sum to 100. Shown five categories, not full taxonomy.",
+    "source_refs": [
+      "H10"
+    ],
+    "source_url": "https://cs.stanford.edu/~jure/pubs/auto-hypothesis-validation-icml25.pdf",
+    "credit": "Original plot of author-reported paper data; full protocol and limitations in the reading guide",
+    "data": {
+      "failed_logs": 128,
+      "labels_percent": {
+        "p-value context error": 35.9,
+        "Ineffective test": 28.1,
+        "Broken logical implication": 17.2,
+        "Implementation error": 8.6,
+        "Relevant data not found": 7.0
+      },
+      "multiple_labels": true
+    }
+  }
+}

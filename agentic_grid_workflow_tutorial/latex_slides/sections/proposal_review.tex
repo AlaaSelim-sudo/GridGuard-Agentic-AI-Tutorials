@@ -1,0 +1,69 @@
+\begin{frame}[t]{P7: audit the complete proposal across all cases}
+\checkpoint{P7}{Compare completion, candidate quality, number of calls and measured time.}
+\begin{center}\begin{tabular}{@{}lcc@{}}\toprule Executed mechanism & Fixed search & Llama search \\\midrule
+Awareness + numerical planning & \yesmark & \yesmark \\
+Fresh simulation + unchanged verification & \yesmark & \yesmark \\
+Bounded refinement + feasible ranking & \yesmark & \yesmark \\
+Final candidate independently rechecked & \yesmark & \yesmark \\
+Public language critique + language ranking & \nomark & \yesmark \\
+Equipment dispatch & \nomark & \nomark \\\bottomrule\end{tabular}\end{center}
+\takeaway{Six completed settings: five cost ties; one worse Llama result. All Llama workflows took longer in this observed run.}
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. }
+\note{Do not aggregate the differently scaled cost functions across use cases. Each case has a lower-is-better declared objective. The six settings are two voltage models, two restoration models and two DC attack fixtures. Each route executes two seeds, two refinements and one final recheck; MPC internal solves and awareness solves are extra and separately identified. This is a development demonstration after one disclosed contract revision, not a statistical test of agentic superiority.}
+\end{frame}
+
+\begin{frame}[t]{P7: a correct action does not make every explanation correct}
+\small
+\begin{block}{Actual AC-voltage critique, second refinement}
+``The current lowest-cost candidate E03 has a cost of 0.558898053918762, but the cost of candidate E02 is lower.''
+\end{block}
+\begin{center}$J(E03)=0.558898 < J(E02)=0.562644$\end{center}
+\plainidea{The quoted comparison is wrong. The immutable numerical record supplies the correction.}
+\small Llama still selected the useful MPC test. Each resulting candidate was simulated, checked and ranked using numerical cost.
+\par\smallskip\textbf{Pilot retained:} 1/6 recommendations before the interface revision; 6/6 after one revised run. This is development evidence, not held-out reliability.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. Contract change: \texttt{results/proposal\_contract\_revision.json}; pilot: \texttt{proposal\_contract\_pilot.json}.}
+\note{Read the exact error without explaining it away. The model selected a useful operation but its public explanation inverted a cost comparison. Similarly, the restoration second critique calls a rejected candidate cost null a high cost; null means unranked, not a numerical cost. The recorded pilot contains five review stops. Contract 1.1 clarifies the menu and requires one bounded trial when tools are available, then permits stopping with the incumbent. No engineering gate or candidate tool changed. All initial and revised records are retained.}
+\end{frame}
+
+\begin{frame}[t]{P3 / P7: one optional Qwen portability example}
+\deepdive
+\checkpoint{P3}{Inspect the separate model tag and recorded journal.}\small\begin{tabular}{@{}lrr@{}}\toprule MV voltage search & Final current-step cost & Workflow seconds \\ \midrule
+Fixed & 0.0326 & 3.489 \\
+Llama 3.1 8B & 0.437605 & 8.866 \\
+Qwen 2.5 7B instruct & 0.437605 & 12.598 \\\bottomrule\end{tabular}\plainidea{The role/tool interface can use another local language model. One example cannot rank model families.}\small Both language routes leave the better MPC action untested in this MV case. Different trial order gives the same final local-search action.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. Model-family context: \href{https://arxiv.org/abs/2407.21783}{Llama 3} and \href{https://arxiv.org/abs/2412.15115}{Qwen2.5}.}
+\note{Optional portability example. The exact local tag is qwen2.5:7b-instruct. The journal stores actual input, output, model duration and token counts. Cold loading, hardware, model size and a single case confound a latency comparison. Do not label this a benchmark or general equivalence result.}
+\end{frame}
+
+\begin{frame}[t]{P7: include the cost of coordination}
+\checkpoint{P7}{Read the complete interval and the actual refinement count.}
+\begin{center}\includegraphics[width=.98\linewidth,height=.56\textheight,keepaspectratio]{\figfile{proposal_latency.png}}\end{center}
+\small These are observed local wall times. Training, adapter construction and imports are excluded; awareness and MPC preparation are included.
+\sources{Actual intervals: \texttt{results/proposal\_complete\_workflow.json}. Call timing and token counts: the associated Ollama journals; plot: \texttt{src/proposal\_display.py}.}
+\note{Use both panels. Candidate counts are matched in this revised run, but a maximum budget need not always be exhausted. The large cyber latency ratio arises because the numerical DC fixture is very small while language calls take seconds. The voltage workflow includes substantial MPC preparation, unlike the earlier A/T timing study. Do not compare those intervals without matching their boundaries. One local observation per setting cannot establish real-time performance or a latency distribution.}
+\end{frame}
+
+
+\begin{frame}[t]{P8: the final recommendation comes from checked code}
+\deepdive
+\checkpoint{P8}{Inspect the actual selection and final recheck.}
+\implcode{proposal_workflow}{293}{299}
+\small The numerical feasible order was computed before this block. A failed final recheck changes the handoff to \texttt{REVIEW}.
+\par\medskip Candidate and evidence hashes are checked after verification and scoring; a changed action cannot reuse a previous pass.
+\sources{Exact executed implementation: \texttt{src/proposal\_workflow.py}. Adversarial checks and record identity audit: \texttt{appendix/Proposal\_Stage\_Coverage.md}.}
+\note{Optional implementation detail. The displayed source is copied verbatim and hash-linked to the executed suite. It selects the minimum numerical cost among verified candidates, not the first Llama-ranked ID. The final evaluate call produces another fresh numerical result and new verification event. This identity binding is an integrity property of the local record, not external telemetry authentication.}
+\end{frame}
+
+\begin{frame}[t]{P8: what the operator sees at the end}
+\checkpoint{P8}{Open Proposal\_Operator\_Dashboard.html and inspect the exact recommendation.}
+\begin{center}\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=left,text width=5.6cm,minimum height=1.2cm,font=\small}]
+\node[box,fill=mint!20] at (0,0) {\textbf{Decision card}\\Case, model, action, objective and status};
+\node[box] at (6.4,0) {\textbf{Evidence card}\\Five stages, failed trials and fresh final check};
+\node[box] at (0,-1.7) {\textbf{Language card}\\Exact critique, selected tools and measured latency};
+\node[box,fill=mint!20] at (6.4,-1.7) {\textbf{Human readback}\\Identity, limits, scope and recommendation ID};
+\end{tikzpicture}\end{center}
+\plainidea{Acknowledgment is initially pending. A browser-local readback records review of this recommendation; it does not operate equipment.}
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. Human function allocation: \href{https://doi.org/10.1109/3468.844354}{Parasuraman et al. (2000)}.}
+\note{Ask a participant to identify the selected action and one rejected alternative before using the dashboard. A local acknowledgment requires a reviewer name, the complete displayed recommendation ID and the checkboxes. Changing the case or route clears the readback. The button stays disabled for a missing or rejected final check. No human acknowledgment is invented in the numerical experiment. Authentication and utility dispatch remain outside this demonstration.}
+\end{frame}
+

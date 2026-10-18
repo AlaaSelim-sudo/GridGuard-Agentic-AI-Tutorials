@@ -1,0 +1,175 @@
+\section{Cyber response}
+\begin{frame}[t]{Cyber response begins with an estimation problem}
+
+\begin{center}\begin{tikzpicture}[every node/.style={font=\small,align=center},b/.style={draw=forest,text width=2.45cm,minimum height=1cm}]
+\node[b] (a) at (0,0) {Physical state\\unknown to operator};\node[b] (b) at (3.3,0) {Measurements\\possibly corrupted};\node[b] (c) at (6.6,0) {State estimator\\model + covariance};\node[b] (d) at (9.9,0) {Controller\\proposed action};
+\draw[->,thick] (a)--(b);\draw[->,thick] (b)--(c);\draw[->,thick] (c)--(d);
+\end{tikzpicture}\end{center}
+\par\medskip
+\textbf{Four-bus DC teaching system:} three unknown non-reference voltage angles; eight measurements of flows, injections and one angle.
+\par\medskip
+\uncover<2->{\textbf{Two cases:} an isolated biased sensor and a coordinated model-consistent perturbation.}
+\par\medskip
+\uncover<3->{The experimenter knows synthetic truth to score the outcome. The agent's operating gate does not receive that truth.}
+
+\slidetransition{What does a residual actually measure?}
+\sources{Schweppe \& Wildes, \href{https://doi.org/10.1109/TPAS.1970.292678}{state estimation (1970)}; Liu, Ning \& Reiter, \href{https://doi.org/10.1145/1653662.1653666}{false-data injection, CCS 2009}.}
+\note{119--121 min. Begin from data flow. The teacher knows the simulated state; the controller does not. The attack is confined to this numerical teaching fixture. We are studying limitations of a detector and safe handling of uncertainty, not exploiting infrastructure. Spoken bridge: What does a residual actually measure?}
+\end{frame}
+
+\begin{frame}[t]{WLS measures consistency with a model and noise assumption}
+
+\small\textbf{Symbols first:} $x\in\mathbb R^3$ contains unknown angles (rad); $z\in\mathbb R^8$ contains sensor readings; $H$ maps state to measurements. Noise $\epsilon$ has covariance $R$, which weights each sensor in its own units. WLS returns estimate $\hat x$.
+\uncover<2->{\[
+z=Hx+\epsilon,\quad\epsilon\sim\mathcal N(0,R),\qquad
+\hat x=\arg\min_x\underbrace{(z-Hx)^\top R^{-1}(z-Hx)}_{\text{weighted mismatch between readings and model}}.
+\]}
+\uncover<3->{\small The residual $r$ is the unexplained measurement mismatch; $J$ is its dimensionless weighted energy.
+\[
+r=z-H\hat x,\qquad J=r^\top R^{-1}r,\qquad
+\underbrace{J>\chi^2_{5,0.99}=15.0863}_{\text{five residual degrees of freedom: }8-3}\ \Rightarrow\ \text{alarm}.
+\]}
+\uncover<4->{\textbf{What this means:} readings inconsistent with the assumed model and noise. It does not identify malicious intent.\par\smallskip
+\small The 1\% nominal false-alarm level assumes a correct linear model, Gaussian noise and full observability. It is not a measured field false-alarm rate.}
+
+\slidetransition{Can the estimate change while the residual stays the same?}
+\sources{Schweppe \& Wildes, \href{https://doi.org/10.1109/TPAS.1970.292678}{state estimation (1970)}; Liu, Ning \& Reiter, \href{https://doi.org/10.1145/1653662.1653666}{false-data injection, CCS 2009}.}
+\note{121--124 min. Solve with weighted least squares rather than explicitly inverting a normal matrix in numerical code. Walk through the meaning of covariance. Full column rank matters before thresholding. An alarm says the readings are inconsistent with the assumptions, not which actor caused the problem. Spoken bridge: Can the estimate change while the residual stays the same?}
+\end{frame}
+
+\begin{frame}[t]{A coordinated perturbation can change the estimate without the residual}
+
+\small Define $c$ as a state displacement, $a$ as a measurement perturbation and primes as changed quantities. Choose a coordinated pattern $a=Hc$:
+\[
+z'=z+Hc.
+\]
+\uncover<2->{For the same full-rank linear WLS model, $\hat x'=\hat x+c$. Therefore
+\[
+r'=z'-H\hat x'=z+Hc-H(\hat x+c)=z-H\hat x=r.
+\]}
+\uncover<3->{\textbf{Same residual, different estimated state.}\par
+A controller can confidently choose an action for the wrong operating point. More eloquent interpretation of the same residual does not recover the missing information.}
+\par\medskip
+\small This construction assumes the attacker can alter the required measurement pattern and knows the relevant linear model. Real restrictions can limit that capability.
+
+\slidetransition{What do the residual and state-error curves look like?}
+\sources{Schweppe \& Wildes, \href{https://doi.org/10.1109/TPAS.1970.292678}{state estimation (1970)}; Liu, Ning \& Reiter, \href{https://doi.org/10.1145/1653662.1653666}{false-data injection, CCS 2009}.}
+\note{124--128 min. Match the reference teaching style: keep the same equation visible and reveal cancellation step by step. Ask learners to cancel Hc themselves before showing the answer. This is a mathematical negative control, not a claim that all attacks are stealthy or all networks are equally vulnerable. Spoken bridge: What do the residual and state-error curves look like?}
+\end{frame}
+
+\begin{frame}[t]{Lab 8: sweep the attack size and watch two different signals}
+
+\checkpoint{L8}{Fresh WLS experiment for isolated and model-consistent perturbations.}
+\cellcode{L8}{1}{5}
+\uncover<2->{\exercise{7}{Predict the residual and state-error curves for both perturbations. Run the sweep. Find an example where the residual stays below threshold while state error grows.}
+\textbf{Keep two plots separate:} a detector sees residual statistics; the experimenter evaluates estimation error using synthetic truth.}
+\par\medskip
+\textbf{Question:} what can the agent truthfully conclude from ``no residual alarm''?
+
+\slidetransition{Which plotted signal is available to the operator?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. Schweppe \& Wildes, \href{https://doi.org/10.1109/TPAS.1970.292678}{state estimation (1970)}; Liu, Ning \& Reiter, \href{https://doi.org/10.1145/1653662.1653666}{false-data injection, CCS 2009}.}
+\note{128--135 min. Seven minutes working time. Learners should not report the offline truth metric as available operational evidence. Ask them to mark the detector threshold and distinguish nominal confidence from empirical false-alarm estimation. Spoken bridge: Which plotted signal is available to the operator?}
+\end{frame}
+
+\begin{frame}[t]{A missed alarm can coexist with a large estimation error}
+
+\begin{center}\includegraphics[width=.97\linewidth,height=.52\textheight,keepaspectratio]{\figfile{classroom_cyber.png}}\end{center}
+\small
+\uncover<2->{\textbf{Read left to right:} residual consistency and state accuracy answer different questions. A model-consistent perturbation preserves the former while degrading the latter.}
+\par\medskip
+\uncover<3->{\textbf{Next requirement:} an independent, justified information source or a safe escalation path.}
+
+\slidetransition{What additional evidence can justify recovery?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. Schweppe \& Wildes, \href{https://doi.org/10.1109/TPAS.1970.292678}{state estimation (1970)}; Liu, Ning \& Reiter, \href{https://doi.org/10.1145/1653662.1653666}{false-data injection, CCS 2009}.}
+\note{135--137 min. Review the plot from the executed default sweep. Ask which part is observable in a real control room. A language model can explain the discrepancy in this fixture; it cannot conjure trustworthy sensors from the same corrupted data. Spoken bridge: What additional evidence can justify recovery?}
+\end{frame}
+
+\begin{frame}[t]{Protected measurements enable a constrained recovery action}
+
+\small\textbf{Information comes first:} $\hat x_{\mathcal T}$ is the state estimated from three explicitly protected angle readings. The fixture assumes that trust; neither WLS nor the LLM establishes it.
+\par\smallskip
+\textbf{Action and physics:} $u$ is added node-2 injection, balanced at the source (p.u.); $F$ maps angles to branch flows; $b_u$ is branch-flow sensitivity to $u$.
+\uncover<2->{\[
+\min_{0\leq u\leq0.5}\underbrace{\tfrac12u^2}_{\text{smallest corrective injection}}
+\quad\text{s.t.}\quad
+\underbrace{|F\hat x_{\mathcal T}+b_u u|}_{\text{predicted branch-flow magnitudes}}
+\leq\underbrace{\overline f-0.01}_{\text{limits minus planning margin}}.
+\]}
+\uncover<2->{\small $\overline f=(0.35,0.18,0.35,0.35)$ p.u. gives each branch's limit. The 0.01 p.u. margin is an engineering choice, not a calibrated chance constraint.}
+\par\medskip
+\textcolor{forest}{\textbf{Predict:}} Do three independent readings for three unknown states leave a residual consistency test?
+\uncover<3->{\par\textbf{No redundancy remains.} Rank 3 enables estimation, but residual degrees of freedom are zero. If the protected evidence is unavailable, preserve uncertainty and escalate.}
+
+\slidetransition{Does the recovery action remove the physical overload?}
+\sources{Schweppe \& Wildes, \href{https://doi.org/10.1109/TPAS.1970.292678}{state estimation (1970)}; Liu, Ning \& Reiter, \href{https://doi.org/10.1145/1653662.1653666}{false-data injection, CCS 2009}. Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit.}
+\note{137--140 min. Define the scalar QP and the operational meaning of u. The sensitivity is F times the inverse reduced susceptance matrix times the node-2 injection direction. Full rank permits estimation; exactly three sensors for three states leaves no residual degrees of freedom. Do not call this authentication or a universal attack defense. Spoken bridge: Does the recovery action remove the physical overload?}
+\end{frame}
+
+\begin{frame}[t]{Lab 9: verify the control consequence under the same synthetic truth}
+
+\checkpoint{L9}{Compare corrupted-state and protected-state control.}
+\cellcode{L9}{1}{2}
+\uncover<2->{\begin{tabular}{@{}lrr@{}}
+\toprule Original toy fixture & $u$ (p.u.) & Actual flow 1--2 (p.u.) \\
+\midrule
+Stealth-corrupted estimate & 0 & 0.24000 \\
+Protected estimate & 0.12169 & 0.17046 \\
+\bottomrule
+\end{tabular}\par}
+\exercise{5}{Run L9. Check the 0.18 p.u. limit and all other branches. Explain why protected information, rather than an LLM label, changes this result.}
+
+\slidetransition{How should every stage preserve the uncertainty?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. Schweppe \& Wildes, \href{https://doi.org/10.1109/TPAS.1970.292678}{state estimation (1970)}; Liu, Ning \& Reiter, \href{https://doi.org/10.1145/1653662.1653666}{false-data injection, CCS 2009}.}
+\note{140--145 min. Keep the original numeric reference distinct from any new student perturbation. Ask for a physical causal statement: state estimate changes, so constrained control changes. Remove protected information conceptually: the correct response is escalation, not inventing a trusted state or assuming a previous action stays safe. Spoken bridge: How should every stage preserve the uncertainty?}
+\end{frame}
+
+\begin{frame}[t]{The cyber workflow must preserve uncertainty at each handoff}
+
+\small
+\begin{center}\begin{tikzpicture}[every node/.style={font=\scriptsize,align=center},b/.style={draw=forest,rounded corners=2pt,text width=2.34cm,minimum height=1.45cm,inner sep=3pt}]
+\node[b] (a) at (0,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]a.center) {Awareness};
+\uncover<1->{\node[text width=2.22cm] at ([yshift=-.16cm]a.center) {Sensor provenance\\\textcolor{forest}{trust assumptions}};}
+\node[b] (p) at (2.82,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]p.center) {Planning};
+\uncover<1->{\node[text width=2.22cm] at ([yshift=-.16cm]p.center) {WLS + scalar QP\\\textcolor{forest}{state + injection}};}
+\node[b] (s) at (5.64,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]s.center) {Simulation};
+\uncover<2->{\node[text width=2.22cm] at ([yshift=-.16cm]s.center) {DC flow model\\\textcolor{forest}{predicted flows}};}
+\node[b] (v) at (8.46,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]v.center) {Verification};
+\uncover<2->{\node[text width=2.22cm] at ([yshift=-.16cm]v.center) {Rank + limits\\\textcolor{forest}{pass + caveats}};}
+\node[b] (o) at (11.28,0) {};
+\node[font=\scriptsize\bfseries] at ([yshift=.45cm]o.center) {LLM optimizer};
+\uncover<3->{\node[text width=2.22cm] at ([yshift=-.16cm]o.center) {Public rationale\\\textcolor{forest}{review / escalate}};}
+\draw[->,thick] (a)--(p);\draw[->,thick] (p)--(s);\draw[->,thick] (s)--(v);\draw[->,thick] (v)--(o);
+\uncover<3->{\draw[->,thick,orange] (o.south)--(11.28,-1.2)--node[below,font=\scriptsize]{changed estimate or action: test the new consequences}(5.64,-1.2)--(s.south);}
+\end{tikzpicture}\end{center}
+\textbf{Evidence provenance:} L8--L9 freshly evaluate the DC fixture; synthetic truth is for scoring, not given to the operating gate. L10 reads the separate archived five-stage Llama records.
+\par\medskip
+\uncover<4->{\textbf{Operator handoff:} retain the unverified trust assumptions. The recorded fixed and Llama routes use the same numerical control; improved attack detection is not established by the language layer.}
+
+\slidetransition{Which failure boundary is common across the three cases?}
+\sources{Actual recorded five-stage reference: \texttt{Proposal\_Complete\_Workflow.ipynb}, P1--P8; \texttt{results/proposal\_complete\_workflow.json}. Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit.}
+\note{145--147 min. Point out that awareness and verification are substantial computational modules even when not every stage makes an LLM call. The stage table should be read as inputs and returned outputs. L10 later exposes all recorded responses and timings; it is not a fresh language-model run. Spoken bridge: Which failure boundary is common across the three cases?}
+\end{frame}
+
+\begin{frame}[t]{The three cases teach three different failure boundaries}
+
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.22\linewidth}>{\raggedright\arraybackslash}p{.34\linewidth}>{\raggedright\arraybackslash}p{.36\linewidth}@{}}
+\toprule Case & What a naive workflow can miss & Evidence that addresses it \\
+\midrule
+Voltage & A reduced model omits a binding limit. & Broader-model validation and explicit scope. \\
+Restoration & A good plan is applied after topology changes. & Fresh case-bound simulation and permissions. \\
+Cyber & Plausible measurements describe the wrong state. & Justified trusted information or escalation. \\
+\bottomrule
+\end{tabular}\par
+\par\medskip
+\uncover<2->{\textbf{Common architecture:} choose tools, retain provenance, enforce contracts, expose limitations and involve the operator.}
+\par\medskip
+\uncover<3->{\textbf{Research question:} when does learning improve this architecture enough to justify its additional time, cost and failure modes?}
+
+\slidetransition{How should we evaluate the next generation of this framework?}
+\sources{Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit. Actual recorded voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}, E1--E8; raw calls and numerical records in \texttt{results/ensemble\_voltage\_pilot/}. Schweppe \& Wildes, \href{https://doi.org/10.1109/TPAS.1970.292678}{state estimation (1970)}; Liu, Ning \& Reiter, \href{https://doi.org/10.1145/1653662.1653666}{false-data injection, CCS 2009}.}
+\note{147--149 min. Give participants a minute to write one sentence for each case. Transition from case mechanics to current research and experimental evaluation. This is the common framework; it is not a claim that one numerical algorithm fits all tasks. Spoken bridge: How should we evaluate the next generation of this framework?}
+\end{frame}

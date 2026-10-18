@@ -1,0 +1,35 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rp] (saved) at (1.9,2.7) {};
+\node[rl] at (1.9,3.4) {Checkpoint v42};
+\node[rn] at (1.9,2.05) {state + evidence};
+\node[rp] (resume) at (6.7,2.7) {};
+\node[rl] at (6.7,3.4) {Resume};
+\draw[rf] (saved.east) -- (resume.west);
+\node[rn,fill=white,inner sep=2pt] at (4.2,2.7) {pause};
+\node[rp] (check) at (11.9,2.7) {};
+\node[rl] at (11.9,3.4) {Revalidate};
+\draw[rf] (resume.east) -- (check.west);
+\node[rn] at (9.25,2.1) {v42 != v43};
+\node[rp,draw=rOrange] (event) at (6.7,.8) {};
+\node[rn,text=rOrange] at (4.1,.8) {switch S opens};
+\node[rn,text=rOrange] at (6.7,.22) {current: v43};
+\draw[rw] (event.north) -- (resume.south);
+\node[rp,draw=rOrange] (rerun) at (11.9,.8) {};
+\draw[rw] (check.south) -- (rerun.north);
+\node[rn,text=rOrange] at (11.9,.22) {recompute on v43};
+
+\end{tikzpicture}

@@ -1,0 +1,24 @@
+\definecolor{IEEEBlue}{HTML}{00629B}
+\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}
+\definecolor{Slate}{HTML}{526470}
+\definecolor{AlertRed}{HTML}{B83136}
+\definecolor{Amber}{HTML}{A66610}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,
+ font=\fontsize{11}{13}\selectfont,text=Navy,
+ box/.style={draw=IEEEBlue,thick,rounded corners=2pt,align=center,
+ fill=IEEEBlue!4,inner sep=3pt,minimum height=.62cm},
+ arr/.style={->,draw=IEEEBlue,line width=1pt},
+ ]
+
+\node[box,text width=3.20cm,minimum height=1.60cm] (packet) at (1.9,.25)
+ {Case + command\\scope + checks\\failures + assumptions};
+\node[box,text width=3.00cm,minimum height=1.60cm] (human) at (6.5,.25)
+ {Human review\\read back packet ID};
+\node[box,text width=2.95cm,minimum height=1.60cm] (record) at (11.0,.25)
+ {Advisory record\\no equipment dispatch};
+\draw[arr] (packet)--(human);
+\draw[arr] (human)--(record);
+\node[text=AlertRed] at (6.5,-1.15) {Scope / ID / operator mismatch $\rightarrow$ HOLD};
+
+\end{tikzpicture}

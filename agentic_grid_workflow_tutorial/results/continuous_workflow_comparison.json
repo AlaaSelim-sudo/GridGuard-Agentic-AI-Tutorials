@@ -1,0 +1,82 @@
+{
+  "schema": "continuous_workshop_v1",
+  "rows": [
+    {
+      "backend": "lindistflow3",
+      "supervisor": "fixed",
+      "case": "P3_current_reserve",
+      "status": "MODEL_RECOMMEND",
+      "tool": "SAC",
+      "control_a_b": [
+        0.33693869411945343,
+        0.030701177120208742
+      ],
+      "P_kW": 2645.119215878139,
+      "Q_kvar": 241.01795064817387,
+      "max_current_pct_of_allowance": 50.9182548839353,
+      "rejected_attempts": 0,
+      "llama_calls": 0,
+      "model_scope": "MV-only phase network; internal LV constraints omitted",
+      "record_created_utc": "2026-09-27T16:11:26.979539+00:00",
+      "source": "saved classroom run"
+    },
+    {
+      "backend": "lindistflow3",
+      "supervisor": "agentic",
+      "case": "P3_current_reserve",
+      "status": "MODEL_RECOMMEND",
+      "tool": "SAC",
+      "control_a_b": [
+        0.33693869411945343,
+        0.030701177120208742
+      ],
+      "P_kW": 2645.119215878139,
+      "Q_kvar": 241.01795064817387,
+      "max_current_pct_of_allowance": 50.9182548839353,
+      "rejected_attempts": 0,
+      "llama_calls": 2,
+      "model_scope": "MV-only phase network; internal LV constraints omitted",
+      "record_created_utc": "2026-09-27T16:11:26.979539+00:00",
+      "source": "saved classroom run"
+    },
+    {
+      "backend": "opendss",
+      "supervisor": "fixed",
+      "case": "P3_current_reserve",
+      "status": "MODEL_RECOMMEND",
+      "tool": "CONTINUOUS_MPC",
+      "control_a_b": [
+        0.3040791833492598,
+        0.04149291669866676
+      ],
+      "P_kW": 2387.1573822298833,
+      "Q_kvar": 325.7379256164953,
+      "max_current_pct_of_allowance": 99.60441047658344,
+      "rejected_attempts": 1,
+      "llama_calls": 0,
+      "model_scope": "Supplied full unbalanced AC feeder; protection/transients outside this model",
+      "record_created_utc": "2026-09-27T16:12:29.530248+00:00",
+      "source": "saved classroom run"
+    },
+    {
+      "backend": "opendss",
+      "supervisor": "agentic",
+      "case": "P3_current_reserve",
+      "status": "MODEL_RECOMMEND",
+      "tool": "CONTINUOUS_MPC",
+      "control_a_b": [
+        0.3040791833492598,
+        0.04149291669866676
+      ],
+      "P_kW": 2387.1573822298833,
+      "Q_kvar": 325.7379256164953,
+      "max_current_pct_of_allowance": 99.60441047658344,
+      "rejected_attempts": 1,
+      "llama_calls": 3,
+      "model_scope": "Supplied full unbalanced AC feeder; protection/transients outside this model",
+      "record_created_utc": "2026-09-27T16:12:29.530248+00:00",
+      "source": "saved classroom run"
+    }
+  ],
+  "comparison_scope": "Same saved SAC policy and approved request; selected model coverage differs. These are classroom advisory records."
+}

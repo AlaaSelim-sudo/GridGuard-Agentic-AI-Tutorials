@@ -1,0 +1,42 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{12}{14}\selectfont,
+  line cap=round,line join=round,
+  rp/.style={circle,draw=rBlue,fill=white,minimum size=5.4mm,inner sep=0pt,line width=1.15pt},
+  rl/.style={align=center,text=rNavy,font=\sffamily\bfseries\fontsize{12.5}{14.5}\selectfont},
+  rn/.style={align=center,text=rNavy,font=\sffamily\fontsize{11.2}{13}\selectfont},
+  rc/.style={align=left,text=rNavy,font=\ttfamily\fontsize{11}{13}\selectfont},
+  rf/.style={-{Latex[length=2mm,width=1.5mm]},draw=rBlue,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt},
+  rw/.style={-{Latex[length=2mm,width=1.5mm]},draw=rOrange,line width=1.15pt,shorten >=1.4pt,shorten <=1.4pt}]
+\definecolor{rBlue}{HTML}{00629B}
+\definecolor{rCyan}{HTML}{00A8C8}
+\definecolor{rNavy}{HTML}{003B5C}
+\definecolor{rOrange}{HTML}{B65B14}
+\definecolor{rGray}{HTML}{74828C}
+\path[use as bounding box] (0,0) rectangle (14.2,4.2);
+
+\node[rl] at (1.7,3.05) {Programmed};
+\node[rp] (load) at (4.1,3.05) {};
+\node[rp] (run) at (7.25,3.05) {};
+\node[rp] (check) at (10.15,3.05) {};
+\node[rp] (report) at (13.0,3.05) {};
+\node[rn] at (4.1,3.72) {Load};
+\node[rn] at (7.25,3.72) {Run};
+\node[rn] at (10.15,3.72) {Check};
+\node[rn] at (13.0,3.72) {Report};
+\draw[rf] (load.east) -- (run.west);
+\draw[rf] (run.east) -- (check.west);
+\draw[rf] (check.east) -- (report.west);
+\node[rl] at (1.35,1.1) {Model\\directed};
+\node[rp] (llm) at (4.1,1.1) {};
+\node[rn] at (3.2,1.1) {LLM};
+\node[rp] (tool) at (7.65,1.1) {};
+\node[rn] at (7.65,1.72) {Allowed tool};
+\draw[rf] (llm.east) -- (tool.west);
+\node[rn] at (5.9,1.47) {choose};
+\draw[rf] (tool.south) -- (7.65,.28) -- (4.1,.28) -- (llm.south);
+\node[rn] at (5.9,.65) {feedback};
+\node[rp] (stop) at (11.8,1.1) {};
+\node[rn] at (13.25,1.1) {Stop /\\report};
+\draw[rf] (llm.north) -- (4.1,2.32) -- (11.8,2.32) -- (stop.north);
+\node[rn,fill=white,inner sep=2pt] at (9.8,2.32) {finish};
+
+\end{tikzpicture}

@@ -1,0 +1,80 @@
+{
+  "power_fault_dag": {
+    "title": "A fault-record DAG follows the data prerequisites",
+    "caption": "Original teaching adaptation of DrAgent's domain tools, not its measured execution trace. A frozen COMTRADE record R17 feeds independent find_fault_inception and find_max_fault_current computations (abbreviated in the drawing). The inception sample and sampling rate feed a time conversion; the report waits for both numerical results.",
+    "assumptions": "R17 is an invented identifier; no waveform or numerical result is invented. The simple n_f/f_s conversion assumes constant sampling rate and a zero-based index relative to record start. Production conversion must respect actual COMTRADE timestamps, indexing and rate changes. Parallel scheduling is a teaching adaptation, not a claim that the paper ran these tools concurrently.",
+    "source_refs": [
+      "D01"
+    ],
+    "source_url": "https://www.manuscriptlink.com/society/kics/media?key=kics%2Fconference%2Ficaiic2025%2Fpresentation%2F1571098105.pdf",
+    "source_locator": "DrAgent Section III.B / Figure 3; Listing 2, PDF pp.4 and7",
+    "id": "power_fault_dag",
+    "tex": "power_fault_dag.tex",
+    "svg": "power_fault_dag.svg",
+    "pdf": "power_fault_dag.pdf",
+    "file": "power_fault_dag.svg",
+    "credit": "Original editable TikZ teaching diagram; see caption for source and assumptions"
+  },
+  "power_stateful_route": {
+    "title": "A stateful graph routes the next step using validation",
+    "caption": "Original LangGraph educational pattern. A plan invokes a power-flow tool and validates its returned evidence. Valid evidence finishes; invalid evidence with retries left decrements the counter and replans; exhausted retries escalate. Two retries are an explicit application policy, not a LangGraph default.",
+    "assumptions": "Illustrative tool run_pf(F12,v43), state fields and budget. No tool is executed. Routing checks tool status, evidence and domain acceptance criteria; a completed graph alone does not establish electrical feasibility.",
+    "source_refs": [
+      "LG01"
+    ],
+    "source_url": "https://docs.langchain.com/oss/python/langgraph/graph-api",
+    "id": "power_stateful_route",
+    "tex": "power_stateful_route.tex",
+    "svg": "power_stateful_route.svg",
+    "pdf": "power_stateful_route.pdf",
+    "file": "power_stateful_route.svg",
+    "credit": "Original editable TikZ teaching diagram; see caption for source and assumptions"
+  },
+  "power_checkpoint_revalidation": {
+    "title": "A checkpoint preserves execution state, not evidence freshness",
+    "caption": "Original educational checkpoint/resume example. A checkpoint stores execution state and solver evidence for topology v42. A topology event creates v43 during the pause. On resume, an explicit application check compares the evidence context with the current topology and recomputes affected evidence before reuse.",
+    "assumptions": "Topology versions and event are invented. Persistence does not automatically refresh solver evidence or validate domain assumptions. The diagram shows one mismatch branch; an unchanged context could pass a separately defined reuse check.",
+    "source_refs": [
+      "LG02",
+      "LG03"
+    ],
+    "source_url": "https://docs.langchain.com/oss/python/langgraph/persistence",
+    "id": "power_checkpoint_revalidation",
+    "tex": "power_checkpoint_revalidation.tex",
+    "svg": "power_checkpoint_revalidation.svg",
+    "pdf": "power_checkpoint_revalidation.pdf",
+    "file": "power_checkpoint_revalidation.svg",
+    "credit": "Original editable TikZ teaching diagram; see caption for source and assumptions"
+  },
+  "power_contingency_join": {
+    "title": "A contingency join preserves missing results",
+    "caption": "Original teaching fan-out/fan-in pattern. Cases C1, C2 and C3 start from separate copies of the same frozen network v43. C2 returns a tool error. The join retains all case statuses and produces an INCOMPLETE report rather than treating the two completed cases as complete contingency coverage.",
+    "assumptions": "Invented case identifiers and statuses; no power-flow measurements or contingency ranking is claimed. Independent copies prevent branch mutations from leaking between cases. Completion is distinct from a pass against operating limits.",
+    "source_refs": [
+      "LG01"
+    ],
+    "source_url": "https://docs.langchain.com/oss/python/langgraph/graph-api",
+    "id": "power_contingency_join",
+    "tex": "power_contingency_join.tex",
+    "svg": "power_contingency_join.svg",
+    "pdf": "power_contingency_join.pdf",
+    "file": "power_contingency_join.svg",
+    "credit": "Original editable TikZ teaching diagram; see caption for source and assumptions"
+  },
+  "power_gridmind_invalidation": {
+    "title": "A changed input determines the stages that rerun",
+    "caption": "Original affected-stage diagram derived from GridMind 2026 Table 1, PDF p.4. Changing cascade fan-out k from 50 to 200 reruns cascade only. Shifting forecast initialization by six hours reruns all five stages: line-wind, outages, ACOPF, contingency and cascade. These are reported dependency effects, not a newly executed workflow.",
+    "assumptions": "The diagram shows affected sets, not invented stage-to-stage edges. In this implementation contingency consumes the outage schedule directly, not the ACOPF result. Reuse requires matching declared inputs; an artifact hash does not prove numerical correctness or freshness beyond those inputs.",
+    "source_refs": [
+      "P03"
+    ],
+    "source_url": "https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.pdf",
+    "source_locator": "Table 1 and Section 4.2, PDF p.4",
+    "id": "power_gridmind_invalidation",
+    "tex": "power_gridmind_invalidation.tex",
+    "svg": "power_gridmind_invalidation.svg",
+    "pdf": "power_gridmind_invalidation.pdf",
+    "file": "power_gridmind_invalidation.svg",
+    "credit": "Original editable TikZ teaching diagram; see caption for source and assumptions"
+  }
+}

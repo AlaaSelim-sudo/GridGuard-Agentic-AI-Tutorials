@@ -1,0 +1,49 @@
+\begin{frame}[t]{Voltage support: execute all five proposal stages}
+\deepdive
+\checkpoint{P2--P3}{Follow the same five responsibilities through this use case.}
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.20\linewidth}>{\raggedright\arraybackslash}p{.28\linewidth}>{\raggedright\arraybackslash}p{.44\linewidth}@{}}\toprule Stage & Specific method & Observed output \\ \midrule
+Awareness & Feeder solve + declared forecast & Load 1.0; 80\% current allowance; H=3 forecast. \\
+Planning & Continuous SAC + MPC & Two seeds; MPC first move available for refinement. \\
+Simulation & Fresh AC or three-phase MV solve & Control-specific voltages, currents and realized P/Q. \\
+Verification & Electrical + capability checks & Failed controls excluded; limits remain unchanged. \\
+LLM Optimizer & Critique + bounded tool choice & Two revised trials, feasible ranking, final recheck. \\\bottomrule\end{tabular}\takeaway{Every changed candidate gets new numerical evidence and a new gate decision.}
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. MPC: \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Rawlings, Mayne and Diehl}; SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}.}
+\note{This is the earlier P1--P8 proposal-complete experiment, not the earlier fallback trace. Read each stage as a specific input/method/output responsibility. The language model chooses bounded tools and states an explanation; numerical methods produce and evaluate controls. All six settings contain actual calls for critique, refinement and ranking. A final independent recheck precedes any recommendation. No equipment is operated.}
+\end{frame}
+
+\begin{frame}[t]{Voltage support: see the refinement loop change the shortlist}
+\deepdive
+\checkpoint{P2--P3}{Read trial order, feasible cost and final selection together.}
+\begin{center}\includegraphics[width=.98\linewidth,height=.57\textheight,keepaspectratio]{\figfile{proposal_voltage_search.png}}\end{center}
+\small AC: both finish at $J=0.484842$. MV: fixed $0.032600$ versus Llama $0.437605$; the unused MPC option matters.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. MPC: \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Rawlings, Mayne and Diehl}; SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}.}
+\note{The vertical axis is the best feasible cost so far, so rejected trials cannot make the curve worse. Blank first values mean no seed has passed yet, not zero cost. The final independent recheck is outside the four search evaluations. For restoration the cost is negative weighted served nominal kW, and shedding is a fraction of ordered noncritical load objects. For voltage it is the current-step objective, not the full MPC horizon cost. Report five numerical ties and one worse Llama outcome across the entire suite.}
+\end{frame}
+
+\begin{frame}[t]{Voltage support: what Llama actually returned}
+\begin{block}{OPENDSS --- INCREASE\_PV\_0025; 1.283 s}
+\footnotesize The current best feasible candidate E02 has a cost of 0.5626441373915289, but we can try to improve it by increasing a by 0.0025 from the best feasible action. This operation is available and selecting it will request a new simulation automatically.\end{block}
+\begin{block}{LINDISTFLOW3 --- RELAX\_Q\_10\_PERCENT; 1.388 s}
+\footnotesize The cost of candidate E01 is 0.44092109902868504, which is relatively high due to the term 10*mean((V-1.01)\textasciicircum{}2) in the objective function. Reducing |b| by 10\% from the best feasible action may help to improve the cost.\end{block}\small \textbf{Check the MV explanation:} curtailment contributes 99.7\% of E01 cost; the voltage term contributes only 0.000799. The quoted attribution is incorrect.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. MPC: \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Rawlings, Mayne and Diehl}; SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}.}
+\note{These are verbatim public reason fields from actual local llama3.1:8b calls in the revised protocol. Timings measure the local HTTP model call and include its server work, not an isolated token generation benchmark. Read the responses critically: they may include unsupported causal claims or confusion about costs. No hidden chain of thought is requested or shown. Later replies and the complete candidate evidence are in the P notebook and journal.}
+\end{frame}
+
+\begin{frame}[t]{Voltage support: compare with the same numerical tools}
+\small\begin{tabular}{@{}lrrr@{}}\toprule Setting & Fixed cost & Llama cost & Workflow seconds: fixed / Llama \\\midrule
+OPENDSS & 0.484842 & 0.484842 & 11.299 / 20.587 \\
+LINDISTFLOW3 & 0.0326 & 0.437605 & 3.489 / 8.866 \\\bottomrule\end{tabular}\par\medskip\begin{tabular}{@{}lcc@{}} & Fixed & Llama \\ Same two seeds and numerical tools & \yesmark & \yesmark \\ Two refinement trials executed & \yesmark & \yesmark \\ Fresh final check and all modeled gates pass & \yesmark & \yesmark \\ Returned language critique & \nomark & \yesmark \\\end{tabular}\par\medskip\small \textbf{What improved:} feedback refines the feasible seed. \textbf{What did not:} Llama does not beat matched fixed search; in MV it omits the much better MPC action.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. MPC: \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Rawlings, Mayne and Diehl}; SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}.}
+\note{Each row is one observed local workflow interval, including awareness, candidate preparation, simulation, checking and any language calls. It excludes adapter construction/imports and earlier SAC training. Different model scopes prevent interpreting the AC/MV cost gap as a solver-accuracy result. A tick records an executed mechanism; it does not mean superiority, guaranteed safety or utility deployment. The matched baseline is the deterministic search using the same tools and maximum budget. An unchecked seed is an ablation, not faithful conventional practice.}
+\end{frame}
+
+\begin{frame}[t]{Voltage support: connect the notebook to the actual implementation}
+\deepdive
+\checkpoint{P2}{Run the complete case cell; inspect the returned stage, candidate and language tables.}
+\cellall{P2}
+\par\smallskip\small The same saved record supplies these slides and the operator dashboard. Toggle the explicit live option in P1 to make a new experiment.
+\sources{Executed development study: \texttt{results/proposal\_complete\_workflow.json}; exact calls in its referenced journal. MPC: \href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Rawlings, Mayne and Diehl}; SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}.}
+\note{Optional code detail. These are literal notebook-cell extracts, synchronized with hashes by sync_from_notebook.py. The displayed helper reads the actual case records, shows both supervisors, all stage events and exact public responses. In live mode P1 first executes a complete new suite; the case cell then displays those new records. Do not mistake saved record durations for the time to render this table.}
+\end{frame}
+

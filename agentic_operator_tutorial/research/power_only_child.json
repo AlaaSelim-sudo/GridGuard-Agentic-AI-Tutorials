@@ -1,0 +1,111 @@
+{
+  "scope": "Two additional original power-system agent studies; primary full papers and author repository inspected. No experiments executed.",
+  "reviewed": "2026-10-17",
+  "source_map_entries": {
+    "E03": {
+      "id": "E03",
+      "title": "Grid-Agent: An LLM-Powered Multi-Agent System for Power Grid Control",
+      "authors": "Yan Zhang, Ahmad Mohammad Saber, Amr Youssef, Deepa Kundur",
+      "publisher": "arXiv preprint",
+      "date": "2025-09-08 (v3); first submitted 2025-08-07",
+      "evidence_type": "Original research; full v3 PDF",
+      "url": "https://arxiv.org/pdf/2508.05702v3",
+      "metadata_url": "https://arxiv.org/abs/2508.05702",
+      "short": "Grid-Agent v3"
+    },
+    "E04": {
+      "id": "E04",
+      "title": "VeraGrid-Agent: Tool-Augmented LLMs for Distribution Optimal Power Flow at the Grid Edge",
+      "authors": "Shivanshu Tripathi, Hamed Mohsenian-Rad, Maziar Raissi",
+      "publisher": "arXiv preprint",
+      "date": "2026-07-28 (v1)",
+      "evidence_type": "Original research; full v1 PDF",
+      "url": "https://arxiv.org/pdf/2607.25155v1",
+      "metadata_url": "https://arxiv.org/abs/2607.25155",
+      "short": "VeraGrid-Agent"
+    },
+    "E04C": {
+      "id": "E04C",
+      "title": "Shivanshu-11/veragrid-llm-benchmark",
+      "authors": "Shivanshu Tripathi / VeraGrid-Agent authors",
+      "publisher": "Author GitHub repository",
+      "date": "Reviewed 2026-10-17",
+      "evidence_type": "Author implementation, benchmark and recorded-run repository",
+      "url": "https://github.com/Shivanshu-11/veragrid-llm-benchmark",
+      "short": "VeraGrid-Agent code"
+    }
+  },
+  "papers": [
+    {
+      "id": "E03",
+      "architecture_locator": "Section IV, Algorithm 1, PDF p.4; Figure 1 and rollback design, p.5",
+      "architecture": "Topology agent establishes violations; planner returns JSON action calls; executor applies them to a sandbox; validator recomputes violations and rolls back unsuccessful changes; summarizer records outcomes. State drives the next planning cycle.",
+      "tools": ["update_switch_status", "add_battery", "curtail_load"],
+      "solver": "Numerical power-flow solver; implementation brand not identified in full v3 paper",
+      "orchestration_sdk": "Not identified; do not label this LangGraph, AutoGen or OpenAI Agents SDK",
+      "execution_recipe": ["Copy network into sandbox and analyze violations.", "Construct full-component or semantic-graph context.", "Ask planner for allowed structured actions.", "Execute actions and rerun power flow.", "Validate improvement, revert failures, repeat within iteration budget."],
+      "task": "Resolve voltage, thermal and disconnected-bus violations using switching, battery placement/dispatch and load curtailment.",
+      "test_systems": ["IEEE 30-bus", "CIGRE MV", "IEEE 69-bus"],
+      "setup_locator": "Section V.A–C, Tables I–II, PDF pp.5–6",
+      "named_scenario_count": 7,
+      "attempt_denominator": null,
+      "denominator_caveat": "Seven named scenarios are described; exact aggregate trial count and repetition/weighting protocol are undisclosed. Do not convert percentages into successes/7.",
+      "result_locator": "Section V.D, PDF p.6; Figure 2a, PDF p.7",
+      "metric": "Reported percentage of fully resolved violation scenarios",
+      "raw_chart_columns": ["planner_model", "reported_success_percent"],
+      "raw_chart_rows": [["gemini-2.5-pro",100],["gemini-2.5-flash",100],["gemini-2.5-flash-lite",63],["gpt-4.1",100],["gpt-4.1-mini",100],["gpt-4.1-nano",44]],
+      "baseline": "Different LLM planners inside the same architecture; no numerical-optimizer comparator established",
+      "uncertainty": "No confidence interval supplied for these percentages",
+      "limits": "Prototype simulation evidence; formal optimality and comparison against mixed-integer nonlinear OPF are future work (Section VI, p.9). Simulation rollback does not establish reversible physical switching.",
+      "reporting_ambiguities": ["CIGRE MV is described as 15-bus in prose but Table I lists 14 buses.", "Action-efficiency Figure 3 is conditional on successful runs.", "Older search metadata uses the original Semantic Reasoning title and mentions reinforcement learning; cite current v3 title/architecture."],
+      "code_status": "No author code repository linked in the full v3 PDF or arXiv record; targeted search did not verify one. Author website links the preprint only.",
+      "author_page": "https://claudezss.com/",
+      "slide_suggestions": [
+        {"title":"Plan, simulate, validate, then keep or revert","visual":"Original five-role state-cycle schematic with a rollback edge","evidence":"Figure 1; Algorithm 1"},
+        {"title":"A reported 100% needs its denominator","visual":"Optional reported-rate chart, clearly labeled exact trial n undisclosed","evidence":"Figure 2a"},
+        {"title":"Feasible repair and optimal repair are different claims","visual":"Action set beside solver validation; label optimizer comparison as future work","evidence":"Section VI"}
+      ],
+      "teaching_priority": "Use for architecture and reporting limitations; weaker quantitative evidence than E04."
+    },
+    {
+      "id": "E04",
+      "architecture_locator": "Figure 2 and Section II.C–D, PDF pp.2–3",
+      "architecture": "ReAct controller writes JSON feeder input, executes VeraGrid AC-OPF, receives metadata and a results table of contents, reads selected output lines, and chooses an MCQ option. Each question has an isolated workspace; errors may trigger correction and retry within a finite budget.",
+      "tools": ["read_file(path,start,end)", "write_file(name,content)", "execute_veragrid / run_veragrid"],
+      "task": "Numerical questions about solved voltages, flows, dispatch, losses and DER behavior",
+      "network": {"buses":8,"generators":4,"topology":"single balanced radial feeder","load_MW":185,"base_MVA":100},
+      "network_locator": "Section IV, PDF p.3; Figure 3, p.4",
+      "benchmark": {"name":"VeraGrid-MCQ-150","questions":150,"options":4,"easy":50,"medium":50,"hard":50,"templates":33,"ground_truth":"VeraGrid solution on the same circuit"},
+      "benchmark_locator": "Section III, PDF p.3",
+      "metric": "Correct MCQ options / 150; missing or malformed answers count incorrect",
+      "result_locator": "Table I, PDF p.4",
+      "raw_chart_columns": ["model", "no_tool_correct", "agent_correct", "denominator"],
+      "raw_chart_rows": [["GPT-5.2",64,149,150],["Claude Sonnet 4.5",71,149,150],["Gemini 3 Flash",74,150,150],["Grok 4.3",69,150,150],["Grok 4.5",67,150,150],["Composer 2.5",67,146,150],["Opus 4.8",62,148,150]],
+      "raw_tier_columns": ["model","no_tool_easy","no_tool_medium","no_tool_hard","agent_easy","agent_medium","agent_hard","tier_n"],
+      "raw_tier_rows": [["GPT-5.2",18,28,18,50,50,49,50],["Claude Sonnet 4.5",18,34,19,50,50,49,50],["Gemini 3 Flash",20,33,21,50,50,50,50],["Grok 4.3",24,27,18,50,50,50,50],["Grok 4.5",20,28,19,50,50,50,50],["Composer 2.5",19,30,18,50,50,46,50],["Opus 4.8",19,29,14,50,50,48,50]],
+      "featured_result": {"model":"GPT-5.2","no_tool":"64/150 = 42.7% reported","agent":"149/150 = 99.3% reported","calculated_delta_percentage_points":56.6666666667,"delta_method":"100*(149-64)/150; 56.7 points rounded"},
+      "baseline": "Same model answering from feeder/DER description without solver access; agent includes iteration and tool feedback",
+      "repetitions": "Unspecified; do not infer run-to-run uncertainty",
+      "limits": "Single balanced feeder; template-derived questions share one solved circuit. MCQ success is not dispatch-policy optimality, restoration performance, field reliability or a valid percentage across arbitrary feeders.",
+      "limits_locator": "Conclusion, PDF p.5",
+      "reporting_ambiguities": ["Abstract gives no-tool range 42.7–49.3%, while Table I includes Opus 4.8 at 41.3%; use table counts.", "System-prompt example mentions buses 17 and 30 despite the evaluated 8-bus feeder; do not copy this example as its exact case definition.", "Table II includes one no-tool-use failure for Composer 2.5; do not claim every error is interpretation after successful execution."],
+      "failure_locator": "Table II, PDF p.4",
+      "code": {
+        "url":"https://github.com/Shivanshu-11/veragrid-llm-benchmark",
+        "status":"Author repository verified; source-inspected, not executed",
+        "runtime":"README uses Cursor Agent CLI; optional Claude Code backend. These are repository execution interfaces, not an SDK named by the paper.",
+        "files":["mcq_questions.web.json","eval_circuit.web.json","opf_results.web.json","benchmark_runner.py","web_opf_agent.py","benchmark_results/raw/"],
+        "reproduce_existing_reports":"python benchmark_report.py; python benchmark_appendix_report.py",
+        "rerun_example":"python benchmark_runner.py --models gpt-5.2 --modes no_tool agent --workers 1",
+        "setup":"Install requirements.txt with VeraGridEngine; make cursor-agent available and authenticated. Existing JSONL supports report generation without new model calls.",
+        "solver_url":"https://github.com/SanPen/VeraGrid"
+      },
+      "slide_suggestions": [
+        {"title":"An answer must point to a solved output","visual":"JSON write → VeraGrid solve → table of contents → targeted read → answer","evidence":"Figure 2"},
+        {"title":"The same model gains access to computation","visual":"GPT-5.2 correct-count bars:64/150 versus149/150","evidence":"Table I"},
+        {"title":"Successful execution can still yield the wrong answer","visual":"Distinguish solver execution from interpreting loss, dispatch and curtailment","evidence":"Table II and Section IV.B–C"}
+      ],
+      "teaching_priority":"Prefer as the additional measured tool-access study because numerator and denominator are explicit."
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+% Twelve optional, distinct code walkthrough frames; all evidence is recorded.
+% Implementation excerpts are generated verbatim from the named source modules.
+
+\begin{frame}[t]{Voltage code 1/12: locate the work outside the supervisor}
+\deepdive
+\checkpoint{V4}{Prepare the numerical proposals before comparing supervision.}
+\cellcode{V4}{1}{3}
+\checkpoint{A1}{Pass those same objects into both routes.}
+\cellcode{A1}{1}{3}
+\cellcode{A1}{7}{8}
+\small
+\textbf{Paired inputs:} same P3 request, SAC point, MPC plan, limits and checker.\par
+\textbf{Output:} two workflow records. Their measured intervals exclude the V4 precomputation and SAC training.
+\sources{Exact notebook checkpoints V4 and A1; implementation: \texttt{src/continuous\_control.py} and \texttt{src/continuous\_workflow.py}. Paired records: \texttt{results/workshop\_run\_*.json}.}
+\note{Optional detail within the existing voltage lesson. Run V4 once and inspect the shared dictionary in A1. Line7 is inside the LIVE\_LLM branch; the complete cell also creates the timestamped client and labels replay explicitly. The dictionary shares the numerical inputs, not the mutable execution trace: the workflow deep-copies the supplied plan and proposal. No training or precomputed optimization cost is hidden inside the reported paired workflow interval. This frame establishes the controlled comparison before inspecting its internal stages.}
+\end{frame}
+
+\begin{frame}[t]{Voltage code 2/12: Awareness returns a bounded task}
+\deepdive
+\checkpoint{A1}{Inspect the request that both supervisors receive.}
+\implcode{continuous_workflow}{51}{58}
+\small
+\textbf{P3 input:} loads $(1.00,0.94,1.06)$; previous command $(0.25,0)$; current fraction 0.8.\par
+\textbf{Response:} \texttt{Awareness / PASS}. Next: screen the plan. Fixed and agentic supervision preserve this same contract; Llama cannot alter its limits.
+\sources{Exact contract: \texttt{src/continuous\_workflow.py}, lines 51--58. Actual Awareness response: \texttt{results/workshop\_run\_opendss.json}.}
+\note{Optional detail. The excerpt follows validate\_case and backend validation. Explain that current allowance 0.8 is a line-current constraint, not an80-percent PV command. The two controls are dimensionless participation factors, while P and Q are reported in kW and kvar. Provenance here states that all measurements and scenarios are synthetic. It does not authenticate a live sensor or inspect a real utility permission system. The observed benefit is a common explicit contract; it is not exclusive to language-based supervision.}
+\end{frame}
+
+\begin{frame}[t]{Voltage code 3/12: screen the MPC contingency before offering it}
+\deepdive
+\checkpoint{V4}{The numerical plan is already computed; check whether it belongs to this task.}
+\implcode{continuous_workflow}{141}{152}
+\small
+\textbf{Recorded result:} no eligibility failures; H=3 horizon cost 1.42554; first control $(0.30408,0.04149)$.\par
+\textbf{Next:} either supervisor may request this fallback's fresh first-action check. Eligibility alone does not approve it.
+\sources{Exact screening: \texttt{plan\_failures} in \texttt{src/continuous\_workflow.py}; numerical method: \texttt{optimize\_mpc} in \texttt{src/continuous\_control.py}. Actual Planning card: \texttt{workshop\_run\_opendss.json}.}
+\note{Optional detail. H equals three forecast steps. The MPC routine uses local voltage/current sensitivity QPs, an inscribed capability polygon and fresh horizon checks; the workflow does not ask Llama to solve those equations. This excerpt rejects a missing plan, failed horizon or wrong backend before presenting recovery. The remainder checks horizon lengths, first-action identity, individual limits, forecast loads and current allowance. The displayed cost is a dimensionless weighted engineering cost, not dollars. An eligible plan is a candidate source for a later fresh check; the schema/card does not itself prove a physical result. Fixed supervision receives exactly the same screened plan.}
+\end{frame}
+
+\begin{frame}[t]{Voltage code 4/12: Planning chooses a check, not a setpoint}
+\deepdive
+\checkpoint{T2}{Read the actual Planner context and returned choice.}
+\implcode{continuous_workflow}{205}{213}
+\small
+\textbf{Actual OpenDSS reply:} \texttt{VERIFY\_SAC\_FIRST}.\par
+``A numerical SAC proposal is available; its fresh first-action check has not yet been requested.''
+\par\smallskip
+\textbf{Measured call:} 0.988 s. \textbf{Next state:} \texttt{Planning / PLAN}; request SAC evaluation. The fixed route selects the same transition without an LLM call.
+\sources{Exact Planner code and response: \texttt{src/continuous\_workflow.py}; \texttt{results/continuous\_llama\_opendss\_20260927T161223523552Z.json}, call 1.}
+\note{Optional detail. The reason is the actual returned model output, not private chain-of-thought. The choice requests a fresh check; it neither creates a P/Q command nor declares one safe. The initial interface pilot omitted the actual proposal and failed to define the check's effect clearly; both agentic backends returned REVIEW before candidate simulation. Interface 1.1 includes the proposal and names each permitted effect. The old unfavorable records remain in continuous\_contract\_pilot and the change is documented in continuous\_contract\_revision.json. This is a disclosed interface-development improvement, not an unseen-case benchmark. Exact recorded Planner latency is 0.9879972000053385 seconds; temperature is zero and seed 23, which do not guarantee semantic correctness.}
+\end{frame}
+
+\begin{frame}[t]{Voltage code 5/12: SAC supplies real-valued P/Q participation}
+\deepdive
+\checkpoint{V4}{Follow the actor output through its engineering map.}
+\implcode{continuous_control}{102}{109}
+\small
+\textbf{Observation:} $(1.00,0.94,1.06,0.25,0,0.80,1)$: three forecast loads, previous $a,b$, current allowance and remaining horizon/3.
+\par\smallskip
+\textbf{Saved actor output:} $z=(-0.32612,0.06978)$; the map returns $u=(a,b)=(0.33694,0.03070)$. Here $p_g=aS_g$ and $q_g=bS_g$ for inverter rating $S_g$.
+\par\smallskip
+\textbf{Stage response:} \texttt{Execution / PROPOSE}; \texttt{physical\_dispatch=False}. The capability circle holds, but network voltage and current still need a model check.
+\sources{Exact action map: \texttt{src/continuous\_control.py}; saved P3 observation/output: \texttt{results/workshop\_run\_opendss.json}. SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}.}
+\note{Optional detail. The normalized actor outputs z are continuous and lie in the square [-1,1]^2. Q\_LIMIT equals 0.44. The nonlinear map changes that square into a device-feasible domain; no finite cap catalog or rounding is used. The seven input values are dimensionless. S\_g is kVA, p\_g is kW and q\_g is kvar. The printed observation is rounded for readability; the stored float32 record retains exact values. The same actor and same proposed u are supplied to the fixed and language routes and to both backends. Inference uses the saved deterministic actor; no Llama call computes or revises this numerical point.}
+\end{frame}
+
+\begin{frame}[t]{Voltage code 6/12: solve the exact proposal and preserve its identity}
+\deepdive
+\checkpoint{V5}{The workflow repeats a fresh first-action evaluation at A1.}
+\implcode{continuous_workflow}{230}{239}
+\small
+\textbf{Actual output:} 2,645.12 kW, 241.02 kvar; voltage 1.00256--1.03753 p.u.; current 111.97\% of allowance.\par
+\textbf{Next:} \texttt{Simulation / EVALUATED}; Verification receives this exact point.
+\sources{Exact solve and identity check: \texttt{src/continuous\_workflow.py}, lines 230--239. Actual first attempt: \texttt{results/workshop\_run\_opendss.json}. Electrical engine: \href{https://opendss.epri.com/PowerFlow.html}{EPRI OpenDSS}.}
+\note{Optional detail. The outer V5 cell explores policy and MPC points; the actual workflow does not simply reuse those earlier acceptance flags. It solves the selected point again and checks its identity against the proposal. The backend must match and every control value must agree within the implemented tolerance. Exact nominal current use is 89.57328557923499 percent; dividing by 0.8 gives 111.96660697404374 percent of the allowed rating. The displayed voltage range is acceptable, but that alone does not make the point feasible. Both supervisors use this same evaluation, so model coverage is not a language-model capability. Model or action exceptions become model\_or\_action\_failure rather than a fabricated numerical result.}
+\end{frame}
+
+\begin{frame}[t]{Voltage code 7/12: Verification computes the rejection}
+\deepdive
+\checkpoint{A2}{Inspect the engineering gate after finite-array and identity checks.}
+\implcode{continuous_control}{198}{209}
+\small
+\texttt{amps} is current/nominal rating; $\rho=0.8$ is the allowance fraction.\par
+\textbf{Actual response:} \texttt{failures=['thermal']}; two current violations. \textbf{Next:} \texttt{REJECT}, then Recovery.
+\sources{Exact gate: \texttt{verify\_control} in \texttt{src/continuous\_control.py}. Returned stage: \texttt{results/workshop\_run\_opendss.json}. Same checker is used for fixed and agentic supervision.}
+\note{Optional detail. The preceding lines validate a legal control, finite nonempty arrays, matching IDs and unique evidence identities. The following lines also check actual/requested power and per-device dispatch tracking. This excerpt isolates convergence, model scope, case binding and physical voltage/current bounds. A language reason is not an input to these comparisons. The two current violations refer to two modeled line entries exceeding the allowance, not two separate attack detections or two failed time steps. The checker covers the first action; the MPC plan has its own separately retained horizon evidence. Keeping those two scopes distinct avoids an unsupported future-safety claim.}
+\end{frame}
+
+\begin{frame}[t]{Voltage code 8/12: Recovery selects one permitted replacement}
+\deepdive
+\checkpoint{A2}{Read the failed-check input before reading the Llama reason.}
+\implcode{continuous_workflow}{253}{260}
+\small
+\textbf{Actual choice:} \texttt{USE\_MPC\_PLAN}.\par
+``The MPC plan has been generated and is eligible for a numerical check. This is the next allowed step in the recovery process.''
+\par
+\textbf{Measured call:} 0.847 s. \textbf{Next:} \texttt{REPAIR}; fresh check of $(0.30408,0.04149)$. The fixed rule requests the same fallback.
+\sources{Exact retry code: \texttt{src/continuous\_workflow.py}; actual reply: \texttt{results/continuous\_llama\_opendss\_20260927T161223523552Z.json}, call 2.}
+\note{Optional detail. Recovery is offered only after the first failed candidate and only if the MPC plan passes its eligibility checks. The containing loop has range(2), so it allows at most the original SAC point and one MPC replacement. The continue statement requests another numerical iteration; it does not dispatch equipment. If the plan is invalid or Llama chooses REVIEW, the route stops for review. The exact recorded Recovery latency is 0.8466332999960287 seconds. Llama does not optimize a new setpoint here: it selects the already computed, shared MPC contingency. This supports bounded, inspectable coordination, while the paired fixed supervisor remains an equally successful numerical comparator.}
+\end{frame}
+
+\begin{frame}[t]{Voltage code 9/12: the accepted point determines the disposition}
+\deepdive
+\checkpoint{A2}{Inspect the returned record after the candidate loop.}
+\implcode{continuous_workflow}{272}{279}
+\small
+\textbf{Actual accepted points:} OpenDSS uses MPC at 99.60\% current use; MV LinDistFlow retains SAC at 50.92\%. Both supervisors agree within each model.\par
+\textbf{Disposition:} accepted point $\rightarrow$ \texttt{MODEL\_RECOMMEND}; otherwise \texttt{REVIEW}. Model coverage stays explicit.
+\sources{Exact result construction: \texttt{src/continuous\_workflow.py}; model-specific attempts: \texttt{results/workshop\_run\_opendss.json} and \texttt{workshop\_run\_lindistflow3.json}.}
+\note{Optional detail. Status is a consequence of a numerically accepted candidate, not the positive tone of a generated sentence. For the MV route, Recovery appears as SKIPPED with reason No retry needed. For the OpenDSS route the fallback passes and yields P 2387.15738223 kW and Q 325.73792562 kvar. The percentages are rounded from 99.60441047658344 and 50.9182548839353. The MV result retains the first SAC point because the MV-only model does not cover internal LV constraints. Never describe that lower utilization as a more effective language policy. The code preserves model scope and equipment\_operated=False in the record for subsequent operator review.}
+\end{frame}
+
+\begin{frame}[t]{Voltage code 10/12: Explanation adds a focus to the evidence card}
+\deepdive
+\checkpoint{A2}{Separate the deterministic card from the actual returned reason.}
+\implcode{continuous_workflow}{280}{287}
+\small
+\textbf{Actual choice:} \texttt{REVIEW\_EVIDENCE}; measured call 0.985 s.\par
+\textbf{Reason excerpt:} ``The model has converged and the numerical evidence indicates that the control actions are within the allowed limits.''
+\par
+\textbf{Next:} human readback. This focus label differs from the stop decision \texttt{REVIEW}; service/schema errors still escalate.
+\sources{Exact Explanation handling: \texttt{src/continuous\_workflow.py}; actual response: \texttt{results/continuous\_llama\_opendss\_20260927T161223523552Z.json}, call 3.}
+\note{Optional detail. The metric card is built from the already computed status, candidate, measurements, failure list and model scope. Llama selects one of three explanation focuses; a normal focus choice does not edit the card or acknowledge the action for a person. If the model service or response schema fails, the implementation changes status to REVIEW and clears the final candidate/metrics. The actual reason is preserved verbatim; it is qualitative commentary, not a substitute for the numerical comparisons. Exact recorded latency is 0.9853947000083281 seconds. The fixed route supplies its own deterministic focus without an LLM call, while presenting the same accepted engineering point. No operator comprehension or workload improvement was measured.}
+\end{frame}
+
+\begin{frame}[t]{Voltage code 11/12: bind the operator view to this recommendation}
+\deepdive
+\checkpoint{A2}{The trace ends with a pending human acknowledgment.}
+\implcode{workshop_review}{17}{25}
+\small
+\textbf{Purpose:} preserve the same task, limits and record identity in the operator view. Later checks bind the final point and evidence card.\par
+\textbf{Readback:} 80\% allowance; 2,387.16 kW; 325.74 kvar; full AC scope. State remains \texttt{PENDING}; no equipment command.
+\sources{Exact consistency checks: \texttt{src/workshop\_review.py}. Human stage: \texttt{results/workshop\_run\_opendss.json}. Human authority: \href{https://doi.org/10.1109/3468.844354}{Parasuraman et al. (2000)}.}
+\note{Optional detail. This code runs when the saved result is prepared for the operator dashboard; A2 shows the pending human-stage contract that precedes that review. A hash binds the displayed fields to one record identity but is not a cryptographic signature proving source authenticity. The screening is record consistency, not another power-flow solve. It checks that the same allowance, case and backend accompany the candidate the operator sees. Remaining questions include model coverage, measurement trust, protection and implementation authority. The demo's local acknowledgment does not send a control command. Both fixed and agentic recommendations use the same human-review requirements.}
+\end{frame}
+
+\begin{frame}[t]{Voltage code 12/12: measure coordination cost and attribute the benefit}
+\deepdive
+\checkpoint{T3}{Compare recorded calls, workflow intervals and final actions.}
+\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule Model & Fixed workflow & Agentic workflow & Llama calls & Candidate checks \\
+\midrule
+OpenDSS &0.346 s&3.110 s&3&2 in both \\
+MV LinDistFlow &0.134 s&4.911 s&2&1 in both \\
+\bottomrule
+\end{tabular}
+\par\medskip
+\begin{tabular}{@{}lrrr@{}}
+\toprule Actual language call & Planner & Recovery & Explanation \\
+\midrule
+OpenDSS &0.988 s&0.847 s&0.985 s \\
+MV LinDistFlow &3.809 s&Not called&1.010 s \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\textbf{Timing scope:} one local run per route; excludes precomputed plans, proposals and training. Numerical stages have no separate recorded intervals here.
+\par\smallskip
+\textbf{Attribution:} verification plus MPC repairs the raw AC violation. Llama ties the fixed action and adds recorded reasons and latency. Earlier pilot REVIEW outcomes remain disclosed.
+\sources{Workflow timers: \texttt{results/workshop\_run\_*.json}. Per-call timers: current \texttt{continuous\_llama\_*\_20260927T161*.json} journals. Pilot disclosure: \texttt{results/continuous\_contract\_revision.json}.}
+\note{Optional detail, aligned with supplemental checkpoint T3. Exact fixed/agentic workflow intervals are 0.34605330000340473/3.1104542999964906 seconds in OpenDSS and0.13419599999906495/4.911368000000948 seconds in LinDistFlow. Actual language intervals sum to 2.8200252000096953 and 4.81984339999326 seconds, respectively. Their difference from total workflow time is aggregate remaining overhead, not a measured decomposition into individual simulation, verification or logging stages. Do not sum method times across unrelated records or compare these single observations as latency distributions. Models run sequentially on a local machine, and service/cache effects can influence timing. The current paired routes have identical accepted actions within each backend. This evidence supports transparent coordination and a measured cost of language calls; human-time savings, reliability and generalization require separate studies.}
+\end{frame}

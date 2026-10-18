@@ -1,0 +1,686 @@
+[
+  {
+    "slide": 2,
+    "expected_title": "What is agentic AI?",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_framework_nvidia_interaction_patterns.svg",
+      "caption": "Original NVIDIA interaction patterns. The same generative model can be part of a chat or an agentic system.",
+      "visual_height_cm": 4.3,
+      "visual_height_px": 360,
+      "eyebrow": "",
+      "points": [
+        "An agentic system uses feedback to choose and adjust actions toward a goal. One agent may be enough."
+      ]
+    },
+    "add_refs": [
+      "NV01"
+    ],
+    "source_note": "Source: NVIDIA Technical Blog, Figure 1. The three examples show interaction patterns, not a universal taxonomy or a claim that tool use alone proves autonomy. Source figure locator: Figure 1. Original source URL: https://developer.nvidia.com/blog/building-for-the-rising-complexity-of-agentic-systems-with-extreme-co-design/"
+  },
+  {
+    "slide": 4,
+    "expected_title": "What is an AI agent?",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_concept_classical_agent.png",
+      "caption": "Russell and Norvig’s original agent diagram, Figure 2.1. A software agent’s sensors and actuators can be software interfaces.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 315,
+      "layout": "source-focus",
+      "focus_height_cm": 4.65,
+      "focus_height_px": 425
+    },
+    "source_note": "The original textbook figure replaces the teaching redraw. The question mark represents the agent’s decision mechanism; observations enter through sensors and actions leave through actuators. This is the author-hosted older chapter draft, cited as second edition."
+  },
+  {
+    "slide": 5,
+    "expected_title": "An agent chooses a step. A tool runs it.",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_framework_nvidia_agent_components.svg",
+      "caption": "Original NVIDIA agent design: the core connects a request with tools, planning and memory. Other designs can combine these roles.",
+      "visual_height_cm": 3.7,
+      "visual_height_px": 310,
+      "layout": "source-focus",
+      "focus_height_cm": 4.65,
+      "focus_height_px": 425,
+      "main_ref": "NV02",
+      "points": [
+        "The agent chooses an allowed step. A tool carries out the request.",
+        "An engineering solver calculates grid behavior. The agent uses the returned evidence."
+      ]
+    },
+    "add_refs": [
+      "NV02"
+    ],
+    "source_note": "Source: NVIDIA Technical Blog, Figure 1. This is a published conceptual design; separate memory or planning modules are not required in every AI agent. Source figure locator: Figure 1: General components of an agent. Original source URL: https://developer.nvidia.com/blog/introduction-to-llm-agents/"
+  },
+  {
+    "slide": 6,
+    "expected_title": "Workflow or agent: who chooses the next step?",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_framework_langgraph_workflow_agent.svg",
+      "caption": "Original LangGraph documentation figure. The model chooses an action, receives feedback and can choose again.",
+      "visual_height_cm": 3.7,
+      "visual_height_px": 310
+    },
+    "add_refs": [
+      "LG04"
+    ],
+    "source_note": "Source: LangChain documentation maintainers, official LangGraph documentation. Accessed October 18, 2026. This documentation convention concerns LLM applications, not all classical AI agents. Source figure locator: Opening workflow comparison: selected Agent panel. Original source URL: https://docs.langchain.com/oss/python/langgraph/workflows-agents"
+  },
+  {
+    "slide": 7,
+    "expected_title": "An agent needs a clear goal and limits",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_framework_langgraph_review_detail.svg",
+      "caption": "Original LangGraph Studio review-form excerpt. This is a generic demo, not a utility interface.",
+      "visual_height_cm": 3.55,
+      "visual_height_px": 295,
+      "layout": "source-focus",
+      "focus_height_cm": 4.65,
+      "focus_height_px": 425,
+      "main_ref": "LG03"
+    },
+    "add_refs": [
+      "LG03"
+    ],
+    "source_note": "Source: LangChain documentation maintainers, official LangGraph documentation. Accessed October 18, 2026. This is a generic software demonstration, not an operator dispatch interface or a utility deployment. Source figure locator: Interrupt response schema / Studio form. Original source URL: https://docs.langchain.com/oss/python/langgraph/interrupts"
+  },
+  {
+    "slide": 9,
+    "expected_title": "PJM uses HyperQ to review connection applications",
+    "replace_visual": false,
+    "changes": {
+      "kind": "photo",
+      "image": "real_news_pjm_hyperq_header.png",
+      "caption": "Original Tapestry article and published animation still. Supplier report, June 2026.",
+      "photo_height_cm": 3.7,
+      "photo_height_px": 345
+    },
+    "add_refs": [
+      "N01"
+    ],
+    "source_note": "Tapestry, HyperQ Field Notes, June 11, 2026 Supplier report of deployment. PJM separately confirmed earlier testing. The hero is a still captured from the publisher's animation, not an independently verified live PJM application record. Original page: https://www.tapestryenergy.com/en/projects/field-notes-hyperq-deployment-in-pjm-s-cycle-1"
+  },
+  {
+    "slide": 13,
+    "expected_title": "Siemens announces agents for PSS E planning studies",
+    "replace_visual": false,
+    "changes": {
+      "kind": "photo",
+      "image": "real_news_siemens_gridscale_header.png",
+      "caption": "Original Siemens press-release header, 2026. This is an announced product capability."
+    },
+    "add_refs": [
+      "N03"
+    ],
+    "source_note": "Siemens AG, press release, May 5, 2026 Product announcement. The separately named Alliander platform migration does not prove production use of the new agentic PSS E capability. Original page: https://press.siemens.com/global/en/pressrelease/siemens-gridscale-x-redefines-system-operations-and-agentic-transmission-planning"
+  },
+  {
+    "slide": 15,
+    "expected_title": "NYPA: better data for agent use",
+    "replace_visual": false,
+    "changes": {
+      "kind": "figure",
+      "image": "real_news_nypa_webinar_detail.svg",
+      "caption": "Original Ataccama webinar artwork. The NYPA speaker appears at lower right.",
+      "layout": "source-focus",
+      "focus_height_cm": 4.4,
+      "focus_height_px": 400,
+      "points": [
+        "NYPA describes Databricks and Ataccama checks for meter data before AI uses it.",
+        "A separate demo connects Genie to Ataccama through the Model Context Protocol (MCP). Its product-data example does not establish NYPA grid control."
+      ],
+      "eyebrow": "NYPA data-quality lead / Webinar, 14 October 2026"
+    },
+    "add_refs": [
+      "N09"
+    ],
+    "source_note": "Ataccama, original webinar report with NYPA Data Quality Lead Saptaparna Gupta, October 14, 2026 NYPA discusses meter-data quality checks. The separate product/reorder demo does not establish a production NYPA grid-control agent. Original page: https://www.ataccama.com/webinar/on-demand-trust-driven-medallion-architecture"
+  },
+  {
+    "slide": 16,
+    "expected_title": "Eversource: adding agentic skills to grid studies",
+    "replace_visual": false,
+    "changes": {
+      "kind": "photo",
+      "image": "real_news_eversource_job_header.png",
+      "caption": "Original Eversource vacancy, 5 October 2026.",
+      "layout": "news-detail",
+      "image2": "real_news_eversource_agentic_line.svg",
+      "caption2": "Original requirement excerpt. Hiring and integration intent; deployment is not established.",
+      "points": [
+        "Eversource uses MATLAB and Synergi Electric for distribution-network studies.",
+        "Its October 2026 engineering vacancy asks for agentic and AI-based workflows in MATLAB. The vacancy shows hiring intent, not deployment."
+      ]
+    },
+    "add_refs": [
+      "N07"
+    ],
+    "source_note": "Eversource Energy, official engineering vacancy, October 5, 2026 Engineering skill requirement and integration intent. The posting later explicitly mentions agentic MATLAB workflows, but a vacancy does not prove deployment. Original page: https://jobs.eversource.com/job/east-berlin/distribution-system-modeling-and-automation-engineer-hybrid-schedule/7774/101576695504"
+  },
+  {
+    "slide": 19,
+    "expected_title": "Three checks for a useful recommendation",
+    "replace_visual": false,
+    "changes": {
+      "kind": "photo",
+      "image": "caiso_watch_duty.png",
+      "caption": "Real CAISO Watch Duty display. It combines fire and transmission-line information for operator awareness."
+    },
+    "add_refs": [
+      "O05"
+    ],
+    "source_note": "This original utility screenshot provides a concrete example of displayed evidence to inspect. It is conventional situational-awareness software, not an agent implementation or a claim that the slide’s three checks were measured by CAISO."
+  },
+  {
+    "slide": 20,
+    "expected_title": "A clear task makes success easier to test",
+    "replace_visual": false,
+    "changes": {
+      "kind": "photo",
+      "image": "ge_gridos_visual_intelligence.png",
+      "caption": "GE Vernova’s published GridOS Visual Intelligence screen. This product image supplies task context, not an agent result.",
+      "excerpt": []
+    },
+    "add_refs": [
+      "I09"
+    ],
+    "source_note": "The real product screen illustrates the grid information a bounded task may use. The acceptance contract on this slide remains an original teaching example."
+  },
+  {
+    "slide": 22,
+    "expected_title": "When data are stale, the next step is to stop",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_framework_anthropic_prompt_chain.svg",
+      "caption": "Original Anthropic gated workflow. In our study example, a stale input should fail the check and stop the sequence.",
+      "visual_height_cm": 3.7,
+      "visual_height_px": 310
+    },
+    "add_refs": [
+      "DEF03"
+    ],
+    "source_note": "Source: Anthropic, Building effective agents (December 19, 2024). A generic content-workflow pattern, not a physical-feasibility or utility-safety guarantee. Source figure locator: Workflow: Prompt chaining. Original source URL: https://www.anthropic.com/engineering/building-effective-agents",
+    "note_replacements": {
+      "Walk through the IDs and times in the drawing.": "Use the gate in this published figure to discuss an application check. As a spoken example, a study trace should record case IDs, data times and the returned results."
+    }
+  },
+  {
+    "slide": 25,
+    "expected_title": "A solver result depends on the problem it solves",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_framework_anthropic_routing.svg",
+      "caption": "Original Anthropic routing pattern. Choosing an engineering study also requires selecting the right problem and tool.",
+      "visual_height_cm": 3.7,
+      "visual_height_px": 310,
+      "layout": "source-focus",
+      "focus_height_cm": 4.65,
+      "focus_height_px": 425,
+      "points": [
+        "Choose the study first: power flow, optimal dispatch and dynamic simulation answer different questions.",
+        "A solver’s success flag covers that problem. Also check the requested cases, grid limits and permission to act."
+      ]
+    },
+    "add_refs": [
+      "DEF03"
+    ],
+    "source_note": "Source: Anthropic, Building effective agents (December 19, 2024). The picture illustrates routing; it does not establish an implemented power-system workflow. Source figure locator: Workflow: Routing. Original source URL: https://www.anthropic.com/engineering/building-effective-agents"
+  },
+  {
+    "slide": 27,
+    "expected_title": "Power-system papers test different tasks",
+    "replace_visual": false,
+    "changes": {
+      "kind": "photo",
+      "image": "epri_open_power_ai_grid.png",
+      "caption": "Image accompanying the EPRI Open Power AI Consortium announcement, published by NVIDIA, 20 March 2025."
+    },
+    "add_refs": [
+      "I04"
+    ],
+    "source_note": "This source photograph introduces the power-sector research context. It does not picture the paper experiments."
+  },
+  {
+    "slide": 28,
+    "expected_title": "Harvard PowerAgent: models, tools and study workflows",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_poweragent_three_layers.png",
+      "caption": "Original Harvard author roadmap: workflows, tool connections and foundation models. Three-layer excerpt.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305,
+      "layout": "source-focus",
+      "focus_height_cm": 4.6,
+      "focus_height_px": 420,
+      "points": [
+        "PowerAgent’s 2025 IEEE roadmap links AI models, power tools and study workflows.",
+        "PowerFM supports modeling. PowerMCP connects tools. PowerWF manages workflows. PowerAgentBench-Dyn is a later benchmark, not the whole initiative."
+      ]
+    },
+    "add_refs": [
+      "PA03"
+    ],
+    "source_note": "Le Xie; slides credit Le Xie and Qian Zhang; A Roadmap Towards Agentic Intelligence in Power Systems; Author presentation slide 11 Roadmap from the December2025 author presentation; not a measured deployment or a frozen specification of every current PowerAgent repository. Source locator: Author presentation slide 11; three layer panels in the left column. Original URL: https://www.ercot.com/files/docs/2025/12/01/4-Guest-Presentation-A-Roadmap-toward-Agentic-Intelligence-in-Power-Systems.pdf"
+  },
+  {
+    "slide": 29,
+    "expected_title": "PowerAgent example: what changes when load is added?",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_poweragent_impact_workflow.png",
+      "caption": "Original Harvard concept for grid-impact studies. The separate PowerWF example uses LangGraph and PowerWorld; this is not its exact graph.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305,
+      "layout": "source-focus",
+      "focus_height_cm": 4.6,
+      "focus_height_px": 420
+    },
+    "add_refs": [
+      "PA03"
+    ],
+    "source_note": "Le Xie; slides credit Le Xie and Qian Zhang; A Roadmap Towards Agentic Intelligence in Power Systems; Author presentation slide 14, right-hand grid-impact process A conceptual author demonstration. It is not an exact diagram of the later PowerWF graph.py or a utility performance trial. Source locator: Author presentation slide 14, right-hand grid-impact process. Original URL: https://www.ercot.com/files/docs/2025/12/01/4-Guest-Presentation-A-Roadmap-toward-Agentic-Intelligence-in-Power-Systems.pdf"
+  },
+  {
+    "slide": 31,
+    "expected_title": "DrAgent selects tools to answer a fault question",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_dragent_architecture.png",
+      "caption": "Original DrAgent architecture: planning, tool execution and answer generation.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305,
+      "layout": "source-focus",
+      "focus_height_cm": 4.6,
+      "focus_height_px": 420
+    },
+    "add_refs": [
+      "D01"
+    ],
+    "source_note": "Barun Kumar Saha, Aarthi V, O. D. Naidu; DrAgent: An Agentic Approach to Fault Analysis in Power Grids Using Large Language Models; Figure 1, PDF page 2 Paper architecture based on ReWOO; the picture does not establish utility deployment or autonomous command authority. Source locator: Figure 1, PDF page 2. Original URL: https://www.manuscriptlink.com/society/kics/media?key=kics%2Fconference%2Ficaiic2025%2Fpresentation%2F1571098105.pdf",
+    "note_replacements": {
+      "The excerpt is simplified teaching notation.": "The displayed picture is the paper’s original architecture. The following dependency example is a spoken teaching example."
+    }
+  },
+  {
+    "slide": 35,
+    "expected_title": "LangGraph can repeat steps when a check fails",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_framework_langgraph_static_interrupt.svg",
+      "caption": "Real LangGraph debugger screenshot. A paused run can be inspected before the next software step.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305,
+      "title": "LangGraph can pause to inspect a run",
+      "points": [
+        "A debugger can pause the graph so a developer can inspect it. A failed check can also send execution back to an earlier step.",
+        "Software routing does not check the grid model. The application still checks inputs and engineering results."
+      ],
+      "layout": "source-focus",
+      "focus_height_cm": 4.65,
+      "focus_height_px": 425
+    },
+    "add_refs": [
+      "LG03"
+    ],
+    "source_note": "Source: LangChain documentation maintainers, official LangGraph documentation. Accessed October 18, 2026. A static debug breakpoint differs from a dynamic interrupt requesting human input. Source figure locator: Debugging with interrupts. Original source URL: https://docs.langchain.com/oss/python/langgraph/interrupts"
+  },
+  {
+    "slide": 36,
+    "expected_title": "Saved state must identify the study and its evidence",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_framework_langgraph_state.svg",
+      "caption": "Original LangGraph state diagram. Software checkpoints still need grid-case, time and evidence identifiers.",
+      "visual_height_cm": 3.7,
+      "visual_height_px": 310
+    },
+    "add_refs": [
+      "LG05",
+      "LG02"
+    ],
+    "source_note": "Source: LangChain documentation maintainers, official LangGraph documentation. Accessed October 18, 2026. The extra grid identifiers are tutorial requirements; they are not fields proven by this generic illustration. Source figure locator: Get state history. Original source URL: https://docs.langchain.com/oss/python/langgraph/checkpointers",
+    "note_replacements": {
+      "These invented state fields illustrate a software contract. They are not a built-in LangGraph schema for power systems. Here, the expected set includes outage_34 but the evidence does not.": "The published figure shows generic LangGraph software state. For a spoken grid-study example, imagine an application-specific expected-case set that includes outage_34 while the returned evidence lacks that case. Those case fields are tutorial requirements, not a built-in LangGraph power-system schema."
+    }
+  },
+  {
+    "slide": 37,
+    "expected_title": "A checkpoint lets a workflow pause and resume",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_framework_langgraph_checkpoint.svg",
+      "caption": "Original LangGraph checkpoint diagram. Saving progress does not prove that the grid data still match.",
+      "visual_height_cm": 3.7,
+      "visual_height_px": 310
+    },
+    "add_refs": [
+      "LG05",
+      "LG02"
+    ],
+    "source_note": "Source: LangChain documentation maintainers, official LangGraph documentation. Accessed October 18, 2026. Saved software state does not prove that an external grid snapshot remains current. Source figure locator: Opening checkpoint illustration. Original source URL: https://docs.langchain.com/oss/python/langgraph/checkpointers"
+  },
+  {
+    "slide": 38,
+    "expected_title": "Parallel outage studies must account for every case",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_framework_anthropic_parallel.svg",
+      "caption": "Original Anthropic parallel workflow. A grid study must also account for missing or failed outage cases.",
+      "visual_height_cm": 3.7,
+      "visual_height_px": 310
+    },
+    "add_refs": [
+      "DEF03"
+    ],
+    "source_note": "Source: Anthropic, Building effective agents (December 19, 2024). The aggregator picture does not imply that missing results are automatically detected. Source figure locator: Workflow: Parallelization. Original source URL: https://www.anthropic.com/engineering/building-effective-agents",
+    "note_replacements": {
+      "If C2 fails,": "In a spoken grid-study example, if a case named C2 fails,"
+    }
+  },
+  {
+    "slide": 39,
+    "expected_title": "PowerDAG checks the steps needed before a tool runs",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_powerdag_architecture.png",
+      "caption": "Original PowerDAG v4 architecture, including the supervisor before environment execution.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305,
+      "layout": "source-focus",
+      "focus_height_cm": 4.6,
+      "focus_height_px": 420
+    },
+    "add_refs": [
+      "PD01"
+    ],
+    "source_note": "Emmanuel O. Badmus, Amritanshu Pandey; PowerDAG: Supervisory Agentic AI System for Automating Distribution Grid Analysis; Figure 2, v4 PDF page 3 This is the v4 research architecture. Formal supervision checks encoded prior Write-tool names; it does not establish all freshness, parameter or physical-safety checks. Source locator: Figure 2, v4 PDF page 3. Original URL: https://arxiv.org/pdf/2603.17418v4"
+  },
+  {
+    "slide": 43,
+    "expected_title": "Simulation agents find functions, run code and repair errors",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_daline_feedback.png",
+      "caption": "Original environmental acting module: simulation errors feed retrieval and code repair.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305
+    },
+    "add_refs": [
+      "E02"
+    ],
+    "source_note": "Mengshuo Jia, Zeyu Cui, Gabriela Hug; Enhancing LLMs for Power System Simulations: A Feedback-Driven Multi-Agent Framework; Figure 5, author-preprint PDF page 7 Published workflow module, not evidence that error-free execution satisfies the requested engineering settings. Source locator: Figure 5, author-preprint PDF page 7. Original URL: https://doi.org/10.1109/TSG.2025.3589114"
+  },
+  {
+    "slide": 45,
+    "expected_title": "Trying again can repeat the same software error",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_framework_anthropic_evaluator.svg",
+      "caption": "Original Anthropic feedback pattern. A retry must actually use the repaired code and changed inputs.",
+      "visual_height_cm": 3.7,
+      "visual_height_px": 310
+    },
+    "add_refs": [
+      "DEF03"
+    ],
+    "source_note": "Source: Anthropic, Building effective agents (December 19, 2024). An LLM evaluator does not prove grid feasibility, permission or fresh input data. Source figure locator: Workflow: Evaluator-optimizer. Original source URL: https://www.anthropic.com/engineering/building-effective-agents"
+  },
+  {
+    "slide": 46,
+    "expected_title": "X-GridAgent divides a request into jobs and tool calls",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_xgrid_architecture.png",
+      "caption": "Original X-GridAgent architecture: planning, coordination and MCP-based action services.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305
+    },
+    "add_refs": [
+      "E01"
+    ],
+    "source_note": "Yihan (Logon) Wen, Xin Chen; X-GridAgent: An LLM-Powered Agentic AI System for Assisting Power Grid Analysis; Figure 2, PDF page 3 Architecture diagram of a research assistant. MCP supplies an interface; numerical analyses use pandapower. No LangGraph SDK is inferred. Source locator: Figure 2, PDF page 3. Original URL: https://arxiv.org/pdf/2512.20789v1",
+    "note_replacements": {
+      "This example selects three lines.": "The separate numerical comparison discussed in this tutorial selects three lines; the architecture figure itself does not show that query."
+    }
+  },
+  {
+    "slide": 48,
+    "expected_title": "GridMind 2025 connects typed agents to solvers",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_gridmind2025_architecture.png",
+      "caption": "Original GridMind2025 diagram of specialized agents and numerical analysis tools.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305,
+      "layout": "source-focus",
+      "focus_height_cm": 4.6,
+      "focus_height_px": 420
+    },
+    "add_refs": [
+      "P04"
+    ],
+    "source_note": "Hongwei Jin, Kibaek Kim, Jonghwan Kwon; GridMind: LLMs-Powered Agents for Power System Analysis and Operations; Figure 2, PDF page 2 This is the2025 PydanticAI/pandapower study, not the separate2026 LangGraph weather-risk system. Source locator: Figure 2, PDF page 2. Original URL: https://arxiv.org/abs/2509.02494v1"
+  },
+  {
+    "slide": 49,
+    "expected_title": "GridMind 2025 gives different outage conclusions",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_gridmind2025_response.png",
+      "caption": "A separate published response claims no thermal overloads and flags a balance error. It is not independent ground truth.",
+      "visual_height_cm": 3.2,
+      "visual_height_px": 270,
+      "title": "GridMind: reported answers need independent checks"
+    },
+    "add_refs": [
+      "P04"
+    ],
+    "source_note": "Hongwei Jin, Kibaek Kim, Jonghwan Kwon; GridMind: LLMs-Powered Agents for Power System Analysis and Operations; Figure 8, PDF page 10, baseline and coverage portion of agent response This is an example response, not independent ground truth or the Table1 comparison. Its own output reports a power-balance issue; an answer still needs engineering review. Source locator: Figure 8, PDF page 10, baseline and coverage portion of agent response. Original URL: https://arxiv.org/abs/2509.02494v1"
+  },
+  {
+    "slide": 54,
+    "expected_title": "PowerAgentBench-Dyn allows only specific model changes",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_dynamicbench_overview.png",
+      "caption": "Original benchmark structure: input package, agentic system, tool calls and evaluation metrics.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305,
+      "layout": "source-focus",
+      "focus_height_cm": 4.6,
+      "focus_height_px": 420
+    },
+    "add_refs": [
+      "P01"
+    ],
+    "source_note": "Qian Zhang, Andrea Pomarico, Costas Mylonas, Magda Foti, Alberto Berizzi, Le Xie; PowerAgentBench-Dyn: A Benchmark for Agentic AI in Power System Dynamic Studies; Figure 1, PDF page 2 Benchmark architecture, not the full PowerAgent roadmap or an operating utility deployment. Source locator: Figure 1, PDF page 2. Original URL: https://arxiv.org/abs/2606.20401v1"
+  },
+  {
+    "slide": 57,
+    "expected_title": "Grid-Agent tests proposed actions in a simulation copy",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_gridagent_architecture.png",
+      "caption": "Original Grid-Agent concept: topology, planning, execution, validation and summary roles.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305,
+      "layout": "source-focus",
+      "focus_height_cm": 4.6,
+      "focus_height_px": 420
+    },
+    "add_refs": [
+      "E03"
+    ],
+    "source_note": "Yan Zhang, Ahmad Mohammad Saber, Amr Youssef, Deepa Kundur; Grid-Agent: An LLM-Powered Multi-Agent System for Power Grid Control; Figure 1, v3 PDF page 5 The rollback is a simulation operation. The paper does not establish permission to reverse physical switching or a live utility rollout. Source locator: Figure 1, v3 PDF page 5. Original URL: https://arxiv.org/pdf/2508.05702v3"
+  },
+  {
+    "slide": 58,
+    "expected_title": "Grid-Agent results need the number of trials",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_gridagent_reported_results.png",
+      "caption": "Original reported scenario-resolution and runtime comparison panels.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305
+    },
+    "add_refs": [
+      "E03"
+    ],
+    "source_note": "Yan Zhang, Ahmad Mohammad Saber, Amr Youssef, Deepa Kundur; Grid-Agent: An LLM-Powered Multi-Agent System for Power Grid Control; Figure 2 panels (a)–(b), v3 PDF page 7 The exact aggregate trial denominator is not disclosed. The author rates do not prove optimal control or general field reliability. Source locator: Figure 2 panels (a)–(b), v3 PDF page 7. Original URL: https://arxiv.org/pdf/2508.05702v3"
+  },
+  {
+    "slide": 59,
+    "expected_title": "VeraGrid-Agent uses solver results to answer a question",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_veragrid_agent_workflow.png",
+      "caption": "Original VeraGrid-Agent workflow: question, LLM controller, input file, AC-OPF workspace and selected result reads.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305,
+      "layout": "source-focus",
+      "focus_height_cm": 4.6,
+      "focus_height_px": 420
+    },
+    "add_refs": [
+      "E04"
+    ],
+    "source_note": "Shivanshu Tripathi, Hamed Mohsenian-Rad, Maziar Raissi; VeraGrid-Agent: Tool-Augmented LLMs for Distribution Optimal Power Flow at the Grid Edge; Figure 2, PDF page 2 A research question-answering workflow on one feeder. It is not a general feeder-control policy. Source locator: Figure 2, PDF page 2. Original URL: https://arxiv.org/pdf/2607.25155v1"
+  },
+  {
+    "slide": 61,
+    "expected_title": "AgentiGrid: what does one reported run mean?",
+    "replace_visual": true,
+    "changes": {
+      "kind": "photo",
+      "image": "real_paper_agentigrid_architecture.png",
+      "caption": "Original AgentiGrid data flow: loop controller, analysis-controller interface and ExaGO application.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305,
+      "layout": "source-focus",
+      "focus_height_cm": 4.6,
+      "focus_height_px": 420
+    },
+    "add_refs": [
+      "R01"
+    ],
+    "source_note": "Samim Konjicija, Slaven Peles; Integrating Agentic Artificial Intelligence with High-Performance Computing for Grid Planning; Figure 1, PDF page 2 Prototype architecture for modeled studies. Twelve reported searches are different backend/application settings, not twelve repeats of one task. Source locator: Figure 1, PDF page 2. Original URL: https://arxiv.org/abs/2609.04544v1"
+  },
+  {
+    "slide": 65,
+    "expected_title": "PowerBench finds answers across linked records",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_powerbench_dataset.png",
+      "caption": "Original PowerBench overview linking structured asset state, telemetry, rules, records and queries.",
+      "visual_height_cm": 3.65,
+      "visual_height_px": 305,
+      "layout": "source-focus",
+      "focus_height_cm": 4.6,
+      "focus_height_px": 420
+    },
+    "add_refs": [
+      "P02"
+    ],
+    "source_note": "Xijing Wang, Yinsheng Yao, Jinru Ding, Yidong Jiang, Ziwen Xu, Yiwen Jiang, Jie Xu, Dawei Cheng; PowerBench: A Benchmark for Agentic Retrieval and Reasoning in Power Systems; Figure 1, PDF page 4 Synthetic benchmark data, not utility operational records, simulation results or a live grid database. Source locator: Figure 1, PDF page 4. Original URL: https://arxiv.org/abs/2609.34492v1"
+  },
+  {
+    "slide": 67,
+    "expected_title": "A strong average can hide a weak task group",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_paper_powerbench_tasks.png",
+      "caption": "Original PowerBench task examples. Each task group contributes equally to the reported average.",
+      "visual_height_cm": 3.2,
+      "visual_height_px": 270
+    },
+    "add_refs": [
+      "P02"
+    ],
+    "source_note": "Xijing Wang, Yinsheng Yao, Jinru Ding, Yidong Jiang, Ziwen Xu, Yiwen Jiang, Jie Xu, Dawei Cheng; PowerBench: A Benchmark for Agentic Retrieval and Reasoning in Power Systems; Figure 2, PDF page 6 Illustrates three task families; the metric gives them equal weight even though their sizes are60,90 and150 questions. Source locator: Figure 2, PDF page 6. Original URL: https://arxiv.org/abs/2609.34492v1"
+  },
+  {
+    "slide": 73,
+    "expected_title": "MCP connects a workflow to its tools",
+    "replace_visual": true,
+    "changes": {
+      "kind": "figure",
+      "image": "real_framework_mcp_architecture.png",
+      "caption": "Original MCP architecture. Clients connect to servers; the engineering tool performs the calculation.",
+      "visual_height_cm": 3.7,
+      "visual_height_px": 310,
+      "main_ref": "T08",
+      "points": [
+        "The application hosts MCP clients. Each client connects to a server that exposes tools.",
+        "The server returns a result. The application still checks permissions, versions and engineering meaning."
+      ]
+    },
+    "add_refs": [
+      "T08"
+    ],
+    "source_note": "Source: Model Context Protocol, official documentation revision July 28, 2026. Screenshot captured October 18, 2026. A protocol architecture does not prove numerical correctness or that a utility uses this implementation. Source figure locator: Core concepts: Participants diagram. Original source URL: https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture"
+  },
+  {
+    "slide": 75,
+    "expected_title": "Measure the whole job, including human review",
+    "replace_visual": false,
+    "changes": {
+      "kind": "photo",
+      "image": "real_ops_frequency.png",
+      "caption": "Real CAISO oscillation-monitoring screens. The operator must still interpret the result and decide what to do.",
+      "photo_height_cm": 3.1,
+      "photo_height_px": 270,
+      "math_tex": "",
+      "math_html": ""
+    },
+    "add_refs": [
+      "O05"
+    ],
+    "source_note": "This original conventional monitoring screenshot illustrates the human interpretation stage. It is not evidence that an agent was used or that the tutorial’s time metric was measured at CAISO. Teaching timing identity: total task time = data preparation + agent execution + human review + rework."
+  },
+  {
+    "slide": 76,
+    "expected_title": "Test whether the assistant helps on comparable tasks",
+    "replace_visual": false,
+    "changes": {
+      "kind": "photo",
+      "image": "real_ops_training.png",
+      "caption": "California ISO’s operator-training facility. Photo: California ISO, 2025."
+    },
+    "add_refs": [
+      "O03"
+    ],
+    "source_note": "The real training-facility photograph provides context for the proposed evaluation. The slide’s matched-task comparison is a tutorial recommendation, not a reported CAISO agent trial."
+  }
+]

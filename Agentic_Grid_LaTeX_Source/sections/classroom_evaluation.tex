@@ -1,0 +1,51 @@
+\begin{frame}[t]{Latency must be measured where the work actually happens}
+
+\begin{center}\includegraphics[width=.97\linewidth,height=.47\textheight,keepaspectratio]{\figfile{selector_E7.png}}\end{center}
+\small
+\textbf{Recorded experiment:} 168 real local-model calls. MV mean accounted serial time: learned selection 8.119 s; fixed numerical refinement 3.327 s.
+\par\medskip\par
+\uncover<2->{\textbf{Separate:} solver time, LLM load/inference, retries and final verification. Cached notebook display time is not inference latency. The AC transfer reused MPC planning and reports that component separately.}
+
+\slidetransition{What can we inspect in one real local Llama call?}
+\sources{Actual recorded voltage pilot: \texttt{LLM\_Response\_Selection.ipynb}, E1--E8; raw calls and numerical records in \texttt{results/ensemble\_voltage\_pilot/}.}
+\note{157--159 min. Research frontier has occupied 149--157. Read the latency axis and distinguish actual raw call times from a sum of components. Parallel service would have different wall-clock behavior and cannot be inferred from these serial accounts. No latency confidence interval establishes production deadline compliance. Spoken bridge: What can we inspect in one real local Llama call?}
+\end{frame}
+
+\begin{frame}[t]{Lab 11: one optional local Llama call, with visible provenance}
+
+\checkpoint{L11}{Default is offline; explicitly enable the optional local call.}
+\cellcode{L11}{6}{8}
+\small
+\textbf{Actual validation, 17 October 2026:} Llama 3.1 8B chose \texttt{RELAX\_Q\_10\_PERCENT} on the original test\_01 context.
+\uncover<2->{\begin{block}{Excerpt from the returned public reason}
+\small ``the RELAX\_Q\_10\_PERCENT operation has the potential to reduce reactive effort magnitude by ten percent, which may improve the cost.''
+\end{block}}
+\uncover<3->{\textbf{Observed time:} 34.113 s client elapsed; Ollama reported 16.967 s loading, 15.192 s prompt processing and 1.916 s generation.}
+\par\medskip
+This is one call, shown from its saved record. The default L11 makes no new call. Inspect the complete response and mode in the notebook; a reason still requests a fresh trial.
+
+\slidetransition{Which outcomes must we score separately?}
+\sources{\href{https://docs.ollama.com/api/chat}{Ollama chat API}; \href{https://arxiv.org/abs/2407.21783}{Llama 3 model report (2024)}; actual record: \texttt{results/classroom\_optional\_llama\_validation.json}; Executed classroom experiment: \texttt{Classroom\_Labs.ipynb}; source: \texttt{src/classroom\_labs.py}. Teaching assumptions are explicit.}
+\note{159--161 min. Optional instructor live demo only; do not let model download consume class time. The audience can use saved real responses. Show the process boundary: this requests language output from a local runtime, not equipment dispatch. Warm/cold loading and hardware affect measured latency. Explain any invalid JSON or failure transparently. Spoken bridge: Which outcomes must we score separately?}
+\end{frame}
+
+\begin{frame}[t]{Evaluate the failure, the recovery and the final outcome separately}
+
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.23\linewidth}>{\raggedright\arraybackslash}p{.32\linewidth}>{\raggedright\arraybackslash}p{.37\linewidth}@{}}
+\toprule Metric & Question & Common mistaken conclusion \\
+\midrule
+Task completion & Did the intended study finish? & Valid JSON means success. \\
+Electrical feasibility & Which constraints passed, on which model? & Solver convergence means safe. \\
+Recovery & Was the failed attempt repaired within budget? & More retries mean intelligence. \\
+Claim support & Does each numerical statement match evidence? & A fluent reason is evidence. \\
+Operator benefit & Did correct decisions improve with acceptable workload? & A dashboard proves human benefit. \\
+\bottomrule
+\end{tabular}\par
+\par\medskip
+\textbf{Our evidence supports an executable teaching workflow.} A field claim would need broader scenarios, stronger models and a study with operators.
+
+\slidetransition{What evidence should reach the operator?}
+\sources{\href{https://arxiv.org/abs/2604.10846}{PFAgent (2026)}; \href{https://arxiv.org/abs/2606.18789}{PowerAgentBench-SS (2026)}; \href{https://arxiv.org/abs/2503.13657}{MAST failure taxonomy}.}
+\note{161--162 min. One-minute synthesis of evaluation. These dimensions should be recorded independently. A rejected trial may be evidence the guard worked, yet still consume time. A low false-alarm rate can coexist with missed stealth attacks. Move to the operator capstone. Spoken bridge: What evidence should reach the operator?}
+\end{frame}
+

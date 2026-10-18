@@ -1,0 +1,120 @@
+% Voltage-support continuation. The navigation remains in Voltage support.
+
+\begin{frame}[t]{Voltage workflow: the declared operating cases}
+\deepdive
+\small
+V4--V5 evaluate the same saved actor on three authored cases. A1--A2 examine the supervisor on \textbf{P3}, where the current allowance changes.
+\par\medskip
+\begin{tabular}{@{}lccc@{}}
+\toprule Case & Three load multipliers & Previous $(a,b)$ & Allowed current \\
+\midrule
+P1: nominal & $(1.00,1.00,1.00)$ & $(0.25,0)$ & 100\% of nominal \\
+P2: changing load & $(0.78,1.08,0.93)$ & $(0.50,-0.10)$ & 100\% of nominal \\
+P3: current reserve & $(1.00,0.94,1.06)$ & $(0.25,0)$ & 80\% of nominal \\
+\bottomrule
+\end{tabular}
+\par\medskip
+Each multiplier scales the base demand for one forecast step. The dimensionless factors $a,b$ set active and reactive participation; the same inverter capability applies in all cases.
+\par\medskip
+\textbf{Why P3 matters:} SAC training used nominal current limits. The supervisor must react to fresh evidence under the tighter constraint, using at most two numerical candidates: the common SAC proposal and one eligible MPC replacement.
+\sources{Continuous methods and protocol: \texttt{src/continuous\_control.py}, \texttt{src/continuous\_workflow.py}. ReAct: Yao et al., \url{https://arxiv.org/abs/2210.03629}.}
+\note{70--72 minutes. Reconnect to the opening architecture instead of reintroducing agent terminology. Ask what a planner needs after the current checker rejects an action. Use the actual failed-check list. An agent can select a permitted tool; the numerical tool computes its action. This is a bounded workflow, not an autonomous dispatcher.}
+\end{frame}
+
+
+
+\begin{frame}[t]{One controlled comparison: change the supervisor}
+\deepdive
+\begin{center}
+\begin{tikzpicture}[>=stealth,font=\small,
+ flowbox/.style={draw=forest,rounded corners,align=center,text width=3.7cm,minimum height=1cm}]
+\node[flowbox] (request) at (0,0) {Same P3 request\\Same saved SAC action};
+\node[flowbox] (fixed) at (4.7,.85) {Fixed adaptive rules\\retry the valid MPC plan};
+\node[flowbox] (agent) at (4.7,-.85) {Local Llama\\bounded next-step choice};
+\node[flowbox] (gate) at (9.4,0) {Same fresh model check\\Same human-review contract};
+\draw[->,thick,forest] (request)--(fixed);\draw[->,thick,forest] (request)--(agent);
+\draw[->,thick,forest] (fixed)--(gate);\draw[->,thick,forest] (agent)--(gate);
+\end{tikzpicture}
+\end{center}
+\plainidea{Both routes begin with SAC by the declared experiment design. Both may use the same MPC contingency once, or stop for review.}
+\small Independent variable: the \textbf{supervisor}. Held fixed: task, policy, MPC plan, two-candidate budget, model and checker. Outcomes: failures, checked P/Q, completion and actual tool/model calls.
+\sources{Paired protocol: \texttt{run\_continuous\_workflow}; same case, actor, MPC plan, limits and candidate budget. SAC: Haarnoja et al. (2018), PMLR 80.}
+\note{Identify the independent variable: fixed versus Llama coordination. There is no hidden override of an unrestricted language request. The allowed planning choices are VERIFY\_SAC\_FIRST and REVIEW. Llama can abstain; a good fixed recovery rule can also succeed. The comparison is paired on the same numerical problem. It tests bounded coordination after a common proposal, not unrestricted tool selection or an improved optimizer. Count actual Llama calls separately from numerical candidate evaluations: the recorded OpenDSS agentic route makes three and two respectively; its fixed route makes zero and two. The MPC plan was computed before these routing measurements, so workflow seconds are not end-to-end solver latency. One paired task is not a statistical superiority experiment.}
+\end{frame}
+
+\begin{frame}[t]{A1: run the two supervisors}
+\checkpoint{A1}{Run the complete cell. These excerpts identify the paired calls.}
+\cellcode{A1}{3}{3}
+\cellcode{A1}{7}{7}
+\observethis{Read the source label, final status and call count. Keep REVIEW visible.}
+\small Live: local Ollama with \texttt{llama3.1:8b}. Replay: saved responses; no new calls.
+\sources{Exact extracted notebook checkpoint A1; actual request/response journals: \texttt{results/continuous\_llama\_*}. Ollama: \url{https://docs.ollama.com/api/chat}.}
+\note{74--77 minutes. Execute all of A1; omitted lines build the client, journal and common inputs. Model or schema failure creates REVIEW, not an invented answer. A new run can make different choices. The supplied record is a real completed run, and every role is shown in A2.}
+\end{frame}
+
+\begin{frame}[t]{The Llama contract separates a tool choice from a control action}
+\deepdive
+\checkpoint{A2}{Match each language response to a permitted transition in the trace.}
+\small
+Let $r$ denote a workflow role, $\mathcal C$ the validated task, $\mathcal E_r$ the available evidence, and $\mathcal A_r$ that role's allowed choices.
+\[
+ d_r=\operatorname{Llama}(\mathcal C,\mathcal E_r,\mathcal A_r),
+ \qquad d_r\in\mathcal A_r.
+\]
+Here $d_r$ is a \textbf{next-step choice}. Numerical tools produce $u=(a,b)$, where $p_g=aS_g$, $q_g=bS_g$ and $S_g$ is inverter $g$'s rating.
+\par\smallskip
+\begin{tabular}{@{}p{.17\linewidth}p{.43\linewidth}p{.34\linewidth}@{}}
+\toprule Role & Permitted response & What it triggers \\
+\midrule
+Planning & \texttt{VERIFY\_SAC\_FIRST} or \texttt{REVIEW} & Check the supplied SAC point, or stop \\
+Recovery & \texttt{USE\_MPC\_PLAN} or \texttt{REVIEW} & Check the eligible MPC point, or stop \\
+Explanation & Focus on action, evidence or model limits & Choose the focus of the evidence card \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+Each reply contains \texttt{choice} and \texttt{reason}. Schema validation checks their form; deterministic checks decide numerical acceptance. Neither creates human authorization.
+\sources{Implemented interface 1.1: \texttt{src/continuous\_workflow.py}. Tool/observation reasoning: Yao et al., \url{https://arxiv.org/abs/2210.03629}.}
+\note{Use this as the contract-reading bridge before the paired experiment. Define every symbol aloud: r is a named role, C is the accepted task, E is the information already available, and A is the finite menu. The equation describes the implemented interface, not an optimality theorem. The action u contains shared real-valued active and reactive participation factors; the numerical SAC or MPC tool produces these values. The actual explanation enum values are REVIEW\_ACTION, REVIEW\_EVIDENCE and REVIEW\_MODEL\_LIMITS. In this current interface, REVIEW\_EVIDENCE is only an explanation focus, distinct from the stop choice REVIEW. The system validates JSON keys and the permitted enum, but a well-formed answer can still be wrong in meaning. The service or schema failure fallback is REVIEW. Current Llama settings are llama3.1:8b, temperature zero and seed 23; these do not establish semantic correctness or field reliability.}
+\end{frame}
+
+\begin{frame}[t]{A2: read what each stage actually returned}
+\checkpoint{A2}{Expand Planning, Verification, Recovery and Explanation.}
+\cellcode{A2}{3}{4}
+\small
+\input{snippets/live_llama_response.tex}
+\par\smallskip\footnotesize The quoted \texttt{reason} is the returned model output, not a hidden reasoning trace or a numerical safety certificate.
+\sources{Actual local Llama response: \texttt{results/workshop\_run\_opendss.json}. Full prompts and replies are retained in the journal.}
+\note{77--80 minutes. Read the actual language choice separately from the numerical evidence card. A reason can explain a choice, but the physical pass or fail comes from the deterministic verifier. The case record gives the engineering limits, first-action checks and independent planned-horizon checks. Confirm that no role acknowledged the action for the operator.}
+\end{frame}
+
+\begin{frame}[t]{A2: the same SAC action meets two different models}
+\deepdive
+\small
+\input{snippets/live_continuous_results.tex}
+\normalsize
+\plainidea{A fresh check answers a question about the model it used. The MV approximation omits internal LV constraints; a pass there cannot certify those omitted devices.}
+\sources{Current paired runs: \texttt{workshop\_run\_opendss.json} and \texttt{workshop\_run\_lindistflow3.json}. Full numerical comparison: \texttt{results/continuous\_control.json}.}
+\note{80--83 minutes. Follow the candidate identity across its proposal, failed check, permitted replacement and fresh recheck. Compare fixed and Llama outcomes before making a benefit claim. If both complete, this demonstrates a transparent recoverable workflow; it does not show Llama beats competent adaptive rules. These are first-action checks, not a closed-loop stability experiment.}
+\end{frame}
+
+\input{sections/voltage_llama_evidence.tex}
+\input{sections/voltage_code_walkthrough.tex}
+
+\begin{frame}[t]{Voltage support: what improved, and compared with what?}
+\deepdive
+\small
+\begin{tabular}{@{}p{.32\linewidth}rp{.40\linewidth}@{}}
+\toprule OpenDSS P3 route & Current use & Observed result \\
+\midrule
+Raw SAC proposal & 111.97\% & Violates the 80\% current allowance \\
+Fixed rules + MPC recovery & 99.60\% & Replacement passes the fresh AC check \\
+Llama workflow + same MPC & 99.60\% & Same replacement and numerical result \\
+\bottomrule
+\end{tabular}
+\par\smallskip\scriptsize Current use is relative to the allowed current. All three rows use the same P3 request.
+\normalsize
+\takeaway{Verification and MPC recovery improve on the unchecked SAC proposal. Llama records the routing reason and review focus, with no numerical advantage over the capable fixed supervisor in this run.}
+\small\textbf{Operator handoff:} confirm the 80\% allowance, actual P/Q action and model coverage. After the break, use the same workflow for restoration.
+\sources{Actual comparison: \texttt{results/workshop\_run\_opendss.json}; current contract revision: \texttt{continuous\_contract\_revision.json}. SAC: \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al. (2018)}; tool feedback: \href{https://arxiv.org/abs/2210.03629}{ReAct (2023)}.}
+\note{83--85 minutes. Separate two comparisons. Adding engineering verification and MPC recovery changes the raw policy outcome. Replacing a competent fixed supervisor with Llama does not improve the final numerical action in this supplied pair. Both routes recommend the same freshly checked MPC first move. The current percentage denominator is the requested eighty-percent allowance, not nominal rating. Contract revision 1.1 clarified tool effects after initial REVIEW calls; the pilot remains in the package, so this is interface development rather than a held-out improvement result. Llama latency, operator workload and field reliability are separate questions.}
+\end{frame}

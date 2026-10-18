@@ -1,0 +1,94 @@
+\begin{frame}[t]{A passed candidate can still be improved}
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=2.65cm,minimum height=1.05cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (model) at (0,0) {\textbf{Simulation}\\Predict the outcome};
+\node[box] (gate) at (3.8,0) {\textbf{Verification}\\Check limits and policy};
+\node[box,fill=mint!20] (pool) at (7.6,0) {\textbf{Feasible shortlist}\\Retain cost and evidence};
+\node[box,fill=mint!35] (opt) at (3.8,-2.0) {\textbf{LLM Optimizer}\\Repair or refine};
+\node[box] (rank) at (11.0,-2.0) {\textbf{Rank + recheck}\\Select verified lowest cost};
+\draw[flow] (model.east)--(gate.west);
+\draw[flow] (gate.east)--node[above,font=\scriptsize]{PASS}(pool.west);
+\draw[flow,orange] (gate.south)--node[left,font=\scriptsize]{REJECT}(opt.north);
+\draw[flow] (pool.south)|-node[below,pos=.74,font=\scriptsize]{Try an improvement}(opt.east);
+\draw[flow,orange] (opt.west)-|node[below,pos=.28,font=\scriptsize]{Changed candidate}(model.south);
+\draw[flow] (pool.east)-|node[right,pos=.72,font=\scriptsize]{Stop / budget}(rank.north);
+\end{tikzpicture}
+\end{center}
+\plainidea{Only accepted candidates enter the ranking. Every changed action returns to simulation and verification.}
+\sources{SmartGridComm 2026 tutorial proposal, p. 2: repair, refinement and simulation-informed ranking. Executed state machine: \texttt{src/proposal\_workflow.py}.}
+\note{Use this after the five-module overview. Awareness and Planning have already produced the initial candidates. Simulation and Verification create candidate-specific evidence. A rejected candidate supplies a reason for repair; an accepted candidate may still have poor objective value and invite refinement. The fifth proposal module handles both branches. Under contract revision 1.1, the first bounded refinement is required when valid tools are available. A later iteration may stop through KEEP_INCUMBENT, an exhausted operation set or the maximum budget. This scheduled first refinement is a shared protocol rule, not a freely selected agent behavior. Call or tool failures still lead to REVIEW. A valid shortlist is ranked, and the chosen action is simulated and verified once more before recommendation. If the process requests review or the final check fails, no recommendation is issued. The older eight named helper responsibilities organize execution and explanation; they do not replace these five core proposal modules.}
+\end{frame}
+
+\begin{frame}[t]{Optimize over tested candidates under the same maximum budget}
+\[
+\mathcal F_B=\{u\in\mathcal C_B:\ \mathrm{solved}(u),\ g_j(x(u),u)\leq0\ \forall j,\ \mathrm{policy}(u)\},
+\qquad
+u^\star\in\underset{u\in\mathcal F_B}{\arg\min}\ J(x(u),u).
+\]
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.18\linewidth}>{\raggedright\arraybackslash}p{.74\linewidth}@{}}
+$\mathcal C_B,\mathcal F_B$ & Tested search candidates and the subset passing all declared checks. \\
+$u,x(u),J$ & Action, simulated state and case-specific cost to minimize. \\
+$g_j,j,\mathrm{policy}$ & Engineering-limit residual, check index and permitted-action rules. \\
+$B,u^\star$ & Maximum new refinement evaluations; best tested feasible action. \\
+\end{tabular}
+\medskip
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.65cm,minimum height=.9cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (seeds) at (0,0) {\textbf{2 shared seeds}\\Same tools\\and constraints};
+\node[box,fill=mint!25] (refine) at (4.65,0) {\textbf{At most $B=2$ trials}\\First refinement required*};
+\node[box] (final) at (9.3,0) {\textbf{1 final recheck}\\If an action is recommended};
+\draw[flow] (seeds.east)--(refine.west); \draw[flow] (refine.east)--(final.west);
+\end{tikzpicture}
+\end{center}
+\par\scriptsize *Required when a valid refinement tool is available; later search may stop.\\
+Same maximum budget does not imply equal actual evaluations. Report actual counts and elapsed time.\\
+Internal MPC solves and the initial state snapshot are additional work, counted separately.
+\sources{Finite evaluated-set selection and matched protocol: \texttt{src/proposal\_workflow.py}, \texttt{src/proposal\_case\_tools.py}. Proposal, p. 2: best-of-$N$ and verifier-guided refinement.}
+\note{This is a common finite-search formulation, not a guarantee of the global continuous or mixed-integer optimum. The numerical adapters define J, the model and the constraints separately for each physical task. Contract revision 1.1 allows at most two refinement evaluations after two shared seed candidates and requires the first refinement when valid tools are available. Later search may stop early, so actual counts can differ. The fixed and language-guided routes share this rule; the language model chooses among permitted operations rather than freely choosing whether to perform the required first refinement. A failed call or numerical tool can stop with REVIEW. The retained initial contract pilot and revised run must not be pooled as a repeated benchmark. A final independent recheck is outside the search set and is recorded separately; it duplicates the selected physical action and does not add a new optimization candidate. Awareness and MPC preparation can call the electrical model internally, so do not label the four-candidate search cap as a four-power-flow cap. An empty feasible set or held review produces REVIEW. Compare accepted objective values, budget use, failures and full workflow cost, not ticks alone.}
+\end{frame}
+
+\begin{frame}[t]{The public Llama reason and the numerical evidence have different jobs}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.47\textwidth}
+\begin{block}{Llama response: interpret the evidence}
+\textbf{choice}: one permitted operation.\par\smallskip
+\textbf{reason}: a short returned explanation.\par\smallskip
+\textbf{ranking}: verified candidate IDs only.
+\end{block}
+\end{column}
+\begin{column}{.49\textwidth}
+\begin{block}{Numerical record: check the claim}
+Candidate and operating-contract identity.\par\smallskip
+Fresh metrics, violations and cost.\par\smallskip
+Independent ordering by numerical cost.
+\end{block}
+\end{column}
+\end{columns}
+\medskip
+\begin{center}
+\begin{tikzpicture}[box/.style={draw=forest,rounded corners,align=center,text width=3.5cm,minimum height=.92cm,font=\small},flow/.style={->,>=stealth,thick,forest}]
+\node[box] (schema) at (0,0) {Validate the choice\\and every candidate ID};
+\node[box,fill=mint!25] (audit) at (4.55,0) {Check the order\\against numerical costs};
+\node[box] (choose) at (9.1,0) {Select numerical best\\then recheck};
+\draw[flow] (schema.east)--(audit.west); \draw[flow] (audit.east)--(choose.west);
+\end{tikzpicture}
+\end{center}
+\par\small A fluent explanation is a recorded claim. Its supporting measurements and checks remain visible.
+\sources{Tool-observation feedback: \href{https://arxiv.org/abs/2210.03629}{Yao et al., ReAct (2023)}. Response validation and ranking guard: \texttt{src/proposal\_workflow.py}.}
+\note{No invented model quotation is shown on this concept slide. Later slides display actual returned reason strings and their call IDs. These are public explanations generated by Llama, not hidden internal chain-of-thought and not a physical proof. The shared contract schedules a required first refinement when valid tools are available; Llama chooses its allowed operation, not the existence of every stage. The ranking schema permits every feasible ID exactly once. The implementation records whether Llama's ordering agrees with cost, but numerical minimum cost determines the selected action; language cannot promote a rejected candidate or override the objective. Wrong structure or IDs force review. A cost-order disagreement remains visible for the operator and evaluation rather than being silently presented as correct language reasoning. Latency, token counts, model settings and errors belong to the same trace record.}
+\end{frame}
+
+\begin{frame}[t]{The control room sees an action, its alternatives and its limits}
+\begin{center}
+\begin{tikzpicture}
+\node[inner sep=0pt] at (0,0) {\includegraphics[width=9.8cm]{\figfile{proposal_control_room.png}}};
+\node[anchor=north west,align=left,text width=3.0cm,font=\small] at (-4.7,2.4) {\textbf{Read the evidence}\\\smallskip Selected action\\Operating limits\\Model scope\\Rejected alternatives};
+\node[anchor=north west,align=left,text width=3.0cm,font=\small] at (-4.7,.05) {\textbf{Operator decision}\\\smallskip Acknowledge\\Request revision\\Keep under review};
+
+\end{tikzpicture}
+\end{center}
+\par\scriptsize AI-generated concept; curves and feeder are illustrative, not experimental results or a deployed system.
+\sources{Human function allocation: \href{https://doi.org/10.1109/3468.844354}{Parasuraman, Sheridan and Wickens (2000)}. Concept image: \texttt{figures/proposal\_control\_room.png}. Operator authority remains separate from tutorial simulation.}
+\note{The editable LaTeX text explains what an operator needs to review. The image is a conceptual illustration; its curves are decorative, not numerical results, and it depicts no actual deployment. The workflow produces a recommendation record and ranked alternatives with model scope and failed candidates. Readback binds a human decision to that record. The tutorial does not authorize dispatch or operate equipment. A future utility integration would need its own telemetry contracts, authenticated authority, operating procedures and human evaluation. Keep the discussion focused on the decision: what evidence would this operator require before accepting the recommendation?}
+\end{frame}

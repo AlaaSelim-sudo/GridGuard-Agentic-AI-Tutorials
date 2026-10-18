@@ -1,0 +1,6 @@
+restoration_benefit = restoration_language_comparison()
+display(pd.DataFrame(restoration_benefit['summary']))
+print(restoration_benefit['scope_note'])
+display(pd.DataFrame(restoration_benefit['requests']))
+print('RECORDED actual h06 Llama reply:')
+print(restoration_benefit['h06_llama_response'])

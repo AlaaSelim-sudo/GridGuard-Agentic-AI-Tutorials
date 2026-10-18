@@ -1,0 +1,160 @@
+{
+  "created_before_first_call_utc": "2026-09-20T21:17:27.125222+00:00",
+  "cases": [
+    {
+      "id": "V1",
+      "task": "voltage",
+      "forecast": [
+        3,
+        2,
+        1
+      ],
+      "previous": 2,
+      "rating_fraction": 1.0,
+      "fault": false,
+      "capacity": 400.0,
+      "pv_available": true,
+      "long_available": true,
+      "attack": "none",
+      "force_dqn_first": false
+    },
+    {
+      "id": "V2",
+      "task": "voltage",
+      "forecast": [
+        3,
+        3,
+        3
+      ],
+      "previous": 2,
+      "rating_fraction": 0.8,
+      "fault": false,
+      "capacity": 400.0,
+      "pv_available": true,
+      "long_available": true,
+      "attack": "none",
+      "force_dqn_first": true
+    },
+    {
+      "id": "V3",
+      "task": "voltage",
+      "forecast": [
+        0,
+        4,
+        0
+      ],
+      "previous": 2,
+      "rating_fraction": 0.65,
+      "fault": false,
+      "capacity": 400.0,
+      "pv_available": true,
+      "long_available": true,
+      "attack": "none",
+      "force_dqn_first": false
+    },
+    {
+      "id": "R1",
+      "task": "restoration",
+      "forecast": [
+        3,
+        3,
+        3
+      ],
+      "previous": 2,
+      "rating_fraction": 1.0,
+      "fault": true,
+      "capacity": 400.0,
+      "pv_available": true,
+      "long_available": true,
+      "attack": "none",
+      "force_dqn_first": false
+    },
+    {
+      "id": "R2",
+      "task": "restoration",
+      "forecast": [
+        3,
+        3,
+        3
+      ],
+      "previous": 2,
+      "rating_fraction": 1.0,
+      "fault": true,
+      "capacity": 100.0,
+      "pv_available": false,
+      "long_available": false,
+      "attack": "none",
+      "force_dqn_first": false
+    },
+    {
+      "id": "C1",
+      "task": "voltage",
+      "forecast": [
+        3,
+        2,
+        1
+      ],
+      "previous": 2,
+      "rating_fraction": 1.0,
+      "fault": false,
+      "capacity": 400.0,
+      "pv_available": true,
+      "long_available": true,
+      "attack": "stale",
+      "force_dqn_first": false
+    },
+    {
+      "id": "C2",
+      "task": "voltage",
+      "forecast": [
+        3,
+        2,
+        1
+      ],
+      "previous": 2,
+      "rating_fraction": 1.0,
+      "fault": false,
+      "capacity": 400.0,
+      "pv_available": true,
+      "long_available": true,
+      "attack": "bias",
+      "force_dqn_first": false
+    },
+    {
+      "id": "C3",
+      "task": "voltage",
+      "forecast": [
+        3,
+        2,
+        1
+      ],
+      "previous": 2,
+      "rating_fraction": 1.0,
+      "fault": false,
+      "capacity": 400.0,
+      "pv_available": true,
+      "long_available": true,
+      "attack": "untrusted_instruction",
+      "force_dqn_first": false
+    }
+  ],
+  "backends": [
+    "opendss",
+    "lindistflow3"
+  ],
+  "methods": [
+    "fixed",
+    "agentic"
+  ],
+  "source_sha256": "b50ce4f1c94667c5adfb1a2474bb6f7390d83639de7c4ea75808b80e93c4faee",
+  "dqn_sha256": "6de729ed9356fa7233e86983ba7116617e987898681643f61ad0152cfd17f802",
+  "backend_sources_sha256": {
+    "power_tools": "7c6f0414d335d29ae745f1c6d1c5981bc598f18f18ef31224ec8dd1618eb97e6",
+    "lindistflow3": "b0e45f03df097f084aed7fec72db66fc72df1d671de754aa5b3484ea32d6ad1e"
+  },
+  "linear_network_sha256": "b39c6d250d3d9b47198f9c6635551bbab1bf9962a67b172faaa068a234f8186f",
+  "model": "llama3.1:8b",
+  "max_value_gap": 0.02,
+  "paired_design": "Same declared cases, action catalog, DQN weights, objective and constraints; each backend generates its own synthetic awareness fixture.",
+  "scope": "OpenDSS full-feeder prediction versus MV-only LinDistFlow. Separate common-domain comparison and AC audit. No field safety claim."
+}

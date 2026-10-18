@@ -1,0 +1,721 @@
+{
+  "scope": "SMART-DS Greensboro uhs20_1247; voltage lab uses udt8894 leaf",
+  "execution_mode": "deterministic OpenDSS and LangGraph; optional live LLM separately labeled",
+  "voltage_baseline": {
+    "converged": true,
+    "viol_buses": 23,
+    "viol_type": "overvoltage",
+    "deenergized_buses": 2,
+    "bus_measurement_count": 2236,
+    "bus_voltage_coverage_rate": 1.0,
+    "v_severity": 0.37608809845094093,
+    "losses_kw": 125.3078021863499,
+    "max_line_pct": 282.92965635747146,
+    "line_loading_p95_pct": 16.47259278775812,
+    "line_rating_count": 1977,
+    "line_loading_coverage_rate": 1.0,
+    "over_lines": 10,
+    "thermal_severity_pct_sum": 1145.7225731285032,
+    "served_load_kw": 4747.467560000007,
+    "unserved_load_kw": 0.0,
+    "load_multiplier": 1.0,
+    "isolated_branches": 2,
+    "isolated_loads": 0,
+    "topology_loops": 122,
+    "topology_hash": "3baea4ad5252d0eb",
+    "network_nodes": 2236,
+    "network_active_edges": 2479,
+    "network_components": 2,
+    "network_cycle_rank": 245,
+    "source_bus_count": 1,
+    "source_disconnected_loads": 0,
+    "recovery_applied": false
+  },
+  "voltage_best": {
+    "stage": "refinement",
+    "pct_pmpp": 33.125,
+    "feasible": true,
+    "viol_buses": 0,
+    "v_severity": 0.0,
+    "over_lines": 0,
+    "thermal_severity": 0.0,
+    "served_load_kw": 4747.467560000007,
+    "failure_reasons": ""
+  },
+  "voltage_candidates": [
+    {
+      "stage": "initial planning",
+      "pct_pmpp": 80,
+      "feasible": false,
+      "viol_buses": 21,
+      "v_severity": 0.28168750093717687,
+      "over_lines": 10,
+      "thermal_severity": 1009.7324143120101,
+      "served_load_kw": 4747.467560000007,
+      "failure_reasons": "voltage outside tutorial band; line normal rating exceeded"
+    },
+    {
+      "stage": "initial planning",
+      "pct_pmpp": 60,
+      "feasible": false,
+      "viol_buses": 7,
+      "v_severity": 0.08370806230190753,
+      "over_lines": 9,
+      "thermal_severity": 503.7045786202369,
+      "served_load_kw": 4747.467560000007,
+      "failure_reasons": "voltage outside tutorial band; line normal rating exceeded"
+    },
+    {
+      "stage": "initial planning",
+      "pct_pmpp": 40,
+      "feasible": false,
+      "viol_buses": 0,
+      "v_severity": 0.0,
+      "over_lines": 6,
+      "thermal_severity": 100.52119017781577,
+      "served_load_kw": 4747.467560000007,
+      "failure_reasons": "line normal rating exceeded"
+    },
+    {
+      "stage": "repair probe",
+      "pct_pmpp": 20.0,
+      "feasible": true,
+      "viol_buses": 0,
+      "v_severity": 0.0,
+      "over_lines": 0,
+      "thermal_severity": 0.0,
+      "served_load_kw": 4747.467560000007,
+      "failure_reasons": ""
+    },
+    {
+      "stage": "refinement",
+      "pct_pmpp": 30.0,
+      "feasible": true,
+      "viol_buses": 0,
+      "v_severity": 0.0,
+      "over_lines": 0,
+      "thermal_severity": 0.0,
+      "served_load_kw": 4747.467560000007,
+      "failure_reasons": ""
+    },
+    {
+      "stage": "refinement",
+      "pct_pmpp": 35.0,
+      "feasible": false,
+      "viol_buses": 0,
+      "v_severity": 0.0,
+      "over_lines": 3,
+      "thermal_severity": 11.886977509781175,
+      "served_load_kw": 4747.467560000007,
+      "failure_reasons": "line normal rating exceeded"
+    },
+    {
+      "stage": "refinement",
+      "pct_pmpp": 32.5,
+      "feasible": true,
+      "viol_buses": 0,
+      "v_severity": 0.0,
+      "over_lines": 0,
+      "thermal_severity": 0.0,
+      "served_load_kw": 4747.467560000007,
+      "failure_reasons": ""
+    },
+    {
+      "stage": "refinement",
+      "pct_pmpp": 33.75,
+      "feasible": false,
+      "viol_buses": 0,
+      "v_severity": 0.0,
+      "over_lines": 2,
+      "thermal_severity": 0.5728275691515137,
+      "served_load_kw": 4747.467560000007,
+      "failure_reasons": "line normal rating exceeded"
+    },
+    {
+      "stage": "refinement",
+      "pct_pmpp": 33.125,
+      "feasible": true,
+      "viol_buses": 0,
+      "v_severity": 0.0,
+      "over_lines": 0,
+      "thermal_severity": 0.0,
+      "served_load_kw": 4747.467560000007,
+      "failure_reasons": ""
+    }
+  ],
+  "restoration_states": [
+    {
+      "state": "Pre-contingency",
+      "served_load_kw": 18932.315979999938,
+      "restored_from_outage_kw": 4747.467559999959,
+      "watch_line_pct": 48.582425882324415,
+      "viol_buses": 22,
+      "over_lines": 61
+    },
+    {
+      "state": "Outage",
+      "served_load_kw": 14184.848419999978,
+      "restored_from_outage_kw": 0.0,
+      "watch_line_pct": 48.55840624559652,
+      "viol_buses": 19,
+      "over_lines": 50
+    },
+    {
+      "state": "Tie only",
+      "served_load_kw": 18932.315979999938,
+      "restored_from_outage_kw": 4747.467559999959,
+      "watch_line_pct": 138.83148358391745,
+      "viol_buses": 22,
+      "over_lines": 62
+    },
+    {
+      "state": "Tie + 41% charge",
+      "served_load_kw": 18932.315979999938,
+      "restored_from_outage_kw": 4747.467559999959,
+      "watch_line_pct": 99.26926728239658,
+      "viol_buses": 22,
+      "over_lines": 60
+    }
+  ],
+  "restoration_result": {
+    "method": "physics_seed",
+    "seed": 101,
+    "elapsed_seconds": 10.495784499973524,
+    "accepted_iterations": 2,
+    "run_success": true,
+    "certified_candidate_rate": 0.2,
+    "certified_per_allocated_slot": 0.2,
+    "candidate_slots_allocated": 15,
+    "simulated_candidates": 15,
+    "pre_simulation_rejections": 0,
+    "unsafe_commits": 0,
+    "llm_calls": 0,
+    "llm_prompt_tokens": 0,
+    "llm_output_tokens": 0,
+    "accepted_fleet_pct_kw": 40.8,
+    "accepted_critical_recloser_loading_pct": 99.45645200253863,
+    "adaptive_repair_critical_recloser_loading_pct": 99.46824437514844,
+    "adaptive_repair_candidates_simulated": 1,
+    "adaptive_repair_accepted": true,
+    "restored_load_kw": 4747.467559999959,
+    "restored_load_pct": 100.0,
+    "final_violating_buses": 18,
+    "final_voltage_severity": 0.42118809547029734,
+    "final_overloaded_lines": 57,
+    "final_thermal_severity": 8231.494968950941,
+    "final_max_line_pct": 528.9300729011732,
+    "final_losses_kw": 528.645464855226,
+    "best_evaluated_restored_load_kw": 4747.467559999959,
+    "rejection_taxonomy": {
+      "security": 6,
+      "objective": 4,
+      "topology": 7,
+      "restoration": 7
+    },
+    "record_path": "C:\\Users\\f00863x\\OPRO\\output\\smartgridcomm_greensboro\\results\\restoration\\raw\\gridguard_run_TII-RESTORE-physics_seed-s101_20260919_145524.json"
+  },
+  "cyber_trials": [
+    {
+      "scenario_id": "known_safe_control",
+      "layer": "control",
+      "description": "Known physics-certified tie plus storage-fleet dispatch.",
+      "expected_disposition": "certify",
+      "observed_disposition": "certify",
+      "detected": true,
+      "expected_failure_prefixes": [],
+      "failure_modes": [],
+      "failure_families": [],
+      "simulated": true,
+      "pre_simulation_rejection": false,
+      "authorized_for_commit": true,
+      "commit_node_executed": true,
+      "unsafe_commit": false,
+      "false_reject": false,
+      "supervisory_action_count": 2,
+      "physical_action_count": 437,
+      "readback_checks": 873,
+      "new_voltage_violation_count": 0,
+      "new_line_overload_count": 0,
+      "candidate_voltage_severity": 0.676407339163978,
+      "candidate_thermal_severity": 8800.283425072184,
+      "candidate_served_load_kw": 18932.315979999938,
+      "evaluation_elapsed_ms": 1140.2428000001237,
+      "langgraph_trace": [
+        "initialize",
+        "plan",
+        "verify",
+        "accept",
+        "finalize"
+      ],
+      "run_record_path": "C:\\Users\\f00863x\\OPRO\\output\\smartgridcomm_greensboro\\results\\cyber\\raw\\gridguard_run_TII-CONTROLLED-known_safe_control_20260919_145525.json"
+    },
+    {
+      "scenario_id": "unknown_action_schema",
+      "layer": "schema",
+      "description": "Unsupported raw-command action object.",
+      "expected_disposition": "reject",
+      "observed_disposition": "reject",
+      "detected": true,
+      "expected_failure_prefixes": [
+        "action[0]:unknown_type:raw_dss"
+      ],
+      "failure_modes": [
+        "action[0]:unknown_type:raw_dss"
+      ],
+      "failure_families": [
+        "admissibility"
+      ],
+      "simulated": false,
+      "pre_simulation_rejection": true,
+      "authorized_for_commit": false,
+      "commit_node_executed": false,
+      "unsafe_commit": false,
+      "false_reject": false,
+      "supervisory_action_count": 1,
+      "physical_action_count": 1,
+      "readback_checks": 0,
+      "new_voltage_violation_count": null,
+      "new_line_overload_count": null,
+      "candidate_voltage_severity": null,
+      "candidate_thermal_severity": null,
+      "candidate_served_load_kw": null,
+      "evaluation_elapsed_ms": 444.3057000171393,
+      "langgraph_trace": [
+        "initialize",
+        "plan",
+        "verify",
+        "repair",
+        "finalize"
+      ],
+      "run_record_path": "C:\\Users\\f00863x\\OPRO\\output\\smartgridcomm_greensboro\\results\\cyber\\raw\\gridguard_run_TII-CONTROLLED-unknown_action_schema_20260919_145525.json"
+    },
+    {
+      "scenario_id": "unknown_device",
+      "layer": "admissibility",
+      "description": "Well-formed DER action targeting a device absent from the catalog.",
+      "expected_disposition": "reject",
+      "observed_disposition": "reject",
+      "detected": true,
+      "expected_failure_prefixes": [
+        "action[0]:unknown_der:"
+      ],
+      "failure_modes": [
+        "action[0]:unknown_der:PVSystem.NOT_IN_CATALOG"
+      ],
+      "failure_families": [
+        "admissibility"
+      ],
+      "simulated": false,
+      "pre_simulation_rejection": true,
+      "authorized_for_commit": false,
+      "commit_node_executed": false,
+      "unsafe_commit": false,
+      "false_reject": false,
+      "supervisory_action_count": 1,
+      "physical_action_count": 1,
+      "readback_checks": 0,
+      "new_voltage_violation_count": null,
+      "new_line_overload_count": null,
+      "candidate_voltage_severity": null,
+      "candidate_thermal_severity": null,
+      "candidate_served_load_kw": null,
+      "evaluation_elapsed_ms": 447.5613000104204,
+      "langgraph_trace": [
+        "initialize",
+        "plan",
+        "verify",
+        "repair",
+        "finalize"
+      ],
+      "run_record_path": "C:\\Users\\f00863x\\OPRO\\output\\smartgridcomm_greensboro\\results\\cyber\\raw\\gridguard_run_TII-CONTROLLED-unknown_device_20260919_145526.json"
+    },
+    {
+      "scenario_id": "unsafe_vsource_attempt",
+      "layer": "admissibility",
+      "description": "Attempt to route a source-voltage edit through the DER schema.",
+      "expected_disposition": "reject",
+      "observed_disposition": "reject",
+      "detected": true,
+      "expected_failure_prefixes": [
+        "action[0]:unknown_der:Vsource.source"
+      ],
+      "failure_modes": [
+        "action[0]:unknown_der:Vsource.source"
+      ],
+      "failure_families": [
+        "admissibility"
+      ],
+      "simulated": false,
+      "pre_simulation_rejection": true,
+      "authorized_for_commit": false,
+      "commit_node_executed": false,
+      "unsafe_commit": false,
+      "false_reject": false,
+      "supervisory_action_count": 1,
+      "physical_action_count": 1,
+      "readback_checks": 0,
+      "new_voltage_violation_count": null,
+      "new_line_overload_count": null,
+      "candidate_voltage_severity": null,
+      "candidate_thermal_severity": null,
+      "candidate_served_load_kw": null,
+      "evaluation_elapsed_ms": 446.3232000125572,
+      "langgraph_trace": [
+        "initialize",
+        "plan",
+        "verify",
+        "repair",
+        "finalize"
+      ],
+      "run_record_path": "C:\\Users\\f00863x\\OPRO\\output\\smartgridcomm_greensboro\\results\\cyber\\raw\\gridguard_run_TII-CONTROLLED-unsafe_vsource_attempt_20260919_145526.json"
+    },
+    {
+      "scenario_id": "stale_telemetry",
+      "layer": "cyber",
+      "description": "Valid control evaluated against an expired external snapshot.",
+      "expected_disposition": "reject",
+      "observed_disposition": "reject",
+      "detected": true,
+      "expected_failure_prefixes": [
+        "cyber:stale_telemetry:"
+      ],
+      "failure_modes": [
+        "cyber:stale_telemetry:843159327s"
+      ],
+      "failure_families": [
+        "cyber"
+      ],
+      "simulated": false,
+      "pre_simulation_rejection": true,
+      "authorized_for_commit": false,
+      "commit_node_executed": false,
+      "unsafe_commit": false,
+      "false_reject": false,
+      "supervisory_action_count": 2,
+      "physical_action_count": 437,
+      "readback_checks": 0,
+      "new_voltage_violation_count": null,
+      "new_line_overload_count": null,
+      "candidate_voltage_severity": null,
+      "candidate_thermal_severity": null,
+      "candidate_served_load_kw": null,
+      "evaluation_elapsed_ms": 446.98299997253343,
+      "langgraph_trace": [
+        "initialize",
+        "plan",
+        "verify",
+        "repair",
+        "finalize"
+      ],
+      "run_record_path": "C:\\Users\\f00863x\\OPRO\\output\\smartgridcomm_greensboro\\results\\cyber\\raw\\gridguard_run_TII-CONTROLLED-stale_telemetry_20260919_145527.json"
+    },
+    {
+      "scenario_id": "untrusted_telemetry",
+      "layer": "cyber",
+      "description": "Valid control with the telemetry trust bit revoked.",
+      "expected_disposition": "reject",
+      "observed_disposition": "reject",
+      "detected": true,
+      "expected_failure_prefixes": [
+        "cyber:telemetry_untrusted"
+      ],
+      "failure_modes": [
+        "cyber:telemetry_untrusted"
+      ],
+      "failure_families": [
+        "cyber"
+      ],
+      "simulated": false,
+      "pre_simulation_rejection": true,
+      "authorized_for_commit": false,
+      "commit_node_executed": false,
+      "unsafe_commit": false,
+      "false_reject": false,
+      "supervisory_action_count": 2,
+      "physical_action_count": 437,
+      "readback_checks": 0,
+      "new_voltage_violation_count": null,
+      "new_line_overload_count": null,
+      "candidate_voltage_severity": null,
+      "candidate_thermal_severity": null,
+      "candidate_served_load_kw": null,
+      "evaluation_elapsed_ms": 471.002500038594,
+      "langgraph_trace": [
+        "initialize",
+        "plan",
+        "verify",
+        "repair",
+        "finalize"
+      ],
+      "run_record_path": "C:\\Users\\f00863x\\OPRO\\output\\smartgridcomm_greensboro\\results\\cyber\\raw\\gridguard_run_TII-CONTROLLED-untrusted_telemetry_20260919_145527.json"
+    },
+    {
+      "scenario_id": "quarantined_target",
+      "layer": "cyber",
+      "description": "Switch command aimed at the explicitly quarantined faulted line.",
+      "expected_disposition": "reject",
+      "observed_disposition": "reject",
+      "detected": true,
+      "expected_failure_prefixes": [
+        "action[0]:cyber_quarantined:"
+      ],
+      "failure_modes": [
+        "action[0]:cyber_quarantined:line.l(r:udt8894-uhs20_1247)_disconnect"
+      ],
+      "failure_families": [
+        "cyber"
+      ],
+      "simulated": false,
+      "pre_simulation_rejection": true,
+      "authorized_for_commit": false,
+      "commit_node_executed": false,
+      "unsafe_commit": false,
+      "false_reject": false,
+      "supervisory_action_count": 1,
+      "physical_action_count": 1,
+      "readback_checks": 0,
+      "new_voltage_violation_count": null,
+      "new_line_overload_count": null,
+      "candidate_voltage_severity": null,
+      "candidate_thermal_severity": null,
+      "candidate_served_load_kw": null,
+      "evaluation_elapsed_ms": 461.4995999727398,
+      "langgraph_trace": [
+        "initialize",
+        "plan",
+        "verify",
+        "repair",
+        "finalize"
+      ],
+      "run_record_path": "C:\\Users\\f00863x\\OPRO\\output\\smartgridcomm_greensboro\\results\\cyber\\raw\\gridguard_run_TII-CONTROLLED-quarantined_target_20260919_145528.json"
+    },
+    {
+      "scenario_id": "topology_hash_mismatch",
+      "layer": "cyber",
+      "description": "Valid control paired with a forged expected-topology fingerprint.",
+      "expected_disposition": "reject",
+      "observed_disposition": "reject",
+      "detected": true,
+      "expected_failure_prefixes": [
+        "cyber:topology_mismatch"
+      ],
+      "failure_modes": [
+        "cyber:topology_mismatch"
+      ],
+      "failure_families": [
+        "cyber"
+      ],
+      "simulated": false,
+      "pre_simulation_rejection": true,
+      "authorized_for_commit": false,
+      "commit_node_executed": false,
+      "unsafe_commit": false,
+      "false_reject": false,
+      "supervisory_action_count": 2,
+      "physical_action_count": 437,
+      "readback_checks": 0,
+      "new_voltage_violation_count": null,
+      "new_line_overload_count": null,
+      "candidate_voltage_severity": null,
+      "candidate_thermal_severity": null,
+      "candidate_served_load_kw": null,
+      "evaluation_elapsed_ms": 452.9937000479549,
+      "langgraph_trace": [
+        "initialize",
+        "plan",
+        "verify",
+        "repair",
+        "finalize"
+      ],
+      "run_record_path": "C:\\Users\\f00863x\\OPRO\\output\\smartgridcomm_greensboro\\results\\cyber\\raw\\gridguard_run_TII-CONTROLLED-topology_hash_mismatch_20260919_145528.json"
+    },
+    {
+      "scenario_id": "actuation_readback_mismatch",
+      "layer": "actuation",
+      "description": "Post-solve actuator state differs from the requested state.",
+      "expected_disposition": "reject",
+      "observed_disposition": "reject",
+      "detected": true,
+      "expected_failure_prefixes": [
+        "cyber:actuation_mismatch:"
+      ],
+      "failure_modes": [
+        "cyber:actuation_mismatch:action[0]:line.elbswitch(r:udt8894-udt9916)u_82773"
+      ],
+      "failure_families": [
+        "cyber"
+      ],
+      "simulated": true,
+      "pre_simulation_rejection": false,
+      "authorized_for_commit": false,
+      "commit_node_executed": false,
+      "unsafe_commit": false,
+      "false_reject": false,
+      "supervisory_action_count": 2,
+      "physical_action_count": 437,
+      "readback_checks": 1,
+      "new_voltage_violation_count": 0,
+      "new_line_overload_count": 0,
+      "candidate_voltage_severity": 0.676407339163978,
+      "candidate_thermal_severity": 8800.283425072184,
+      "candidate_served_load_kw": 18932.315979999938,
+      "evaluation_elapsed_ms": 1159.9460000288673,
+      "langgraph_trace": [
+        "initialize",
+        "plan",
+        "verify",
+        "repair",
+        "finalize"
+      ],
+      "run_record_path": "C:\\Users\\f00863x\\OPRO\\output\\smartgridcomm_greensboro\\results\\cyber\\raw\\gridguard_run_TII-CONTROLLED-actuation_readback_mismatch_20260919_145529.json"
+    },
+    {
+      "scenario_id": "actuation_readback_unavailable",
+      "layer": "actuation",
+      "description": "Post-solve actuator state cannot be observed.",
+      "expected_disposition": "reject",
+      "observed_disposition": "reject",
+      "detected": true,
+      "expected_failure_prefixes": [
+        "cyber:actuation_unavailable:"
+      ],
+      "failure_modes": [
+        "cyber:actuation_unavailable:action[0]:line.elbswitch(r:udt8894-udt9916)u_82773"
+      ],
+      "failure_families": [
+        "cyber"
+      ],
+      "simulated": true,
+      "pre_simulation_rejection": false,
+      "authorized_for_commit": false,
+      "commit_node_executed": false,
+      "unsafe_commit": false,
+      "false_reject": false,
+      "supervisory_action_count": 2,
+      "physical_action_count": 437,
+      "readback_checks": 1,
+      "new_voltage_violation_count": 0,
+      "new_line_overload_count": 0,
+      "candidate_voltage_severity": 0.676407339163978,
+      "candidate_thermal_severity": 8800.283425072184,
+      "candidate_served_load_kw": 18932.315979999938,
+      "evaluation_elapsed_ms": 1252.224900003057,
+      "langgraph_trace": [
+        "initialize",
+        "plan",
+        "verify",
+        "repair",
+        "finalize"
+      ],
+      "run_record_path": "C:\\Users\\f00863x\\OPRO\\output\\smartgridcomm_greensboro\\results\\cyber\\raw\\gridguard_run_TII-CONTROLLED-actuation_readback_unavailable_20260919_145530.json"
+    },
+    {
+      "scenario_id": "physical_thermal_regression",
+      "layer": "physics",
+      "description": "Executable blind tie closure restores load but creates an overload.",
+      "expected_disposition": "reject",
+      "observed_disposition": "reject",
+      "detected": true,
+      "expected_failure_prefixes": [
+        "security:thermal_regression"
+      ],
+      "failure_modes": [
+        "security:thermal_regression"
+      ],
+      "failure_families": [
+        "security"
+      ],
+      "simulated": true,
+      "pre_simulation_rejection": false,
+      "authorized_for_commit": false,
+      "commit_node_executed": false,
+      "unsafe_commit": false,
+      "false_reject": false,
+      "supervisory_action_count": 1,
+      "physical_action_count": 1,
+      "readback_checks": 1,
+      "new_voltage_violation_count": 0,
+      "new_line_overload_count": 1,
+      "candidate_voltage_severity": 0.7075462776580419,
+      "candidate_thermal_severity": 8839.6816555339,
+      "candidate_served_load_kw": 18932.315979999938,
+      "evaluation_elapsed_ms": 1196.4771000202745,
+      "langgraph_trace": [
+        "initialize",
+        "plan",
+        "verify",
+        "repair",
+        "finalize"
+      ],
+      "run_record_path": "C:\\Users\\f00863x\\OPRO\\output\\smartgridcomm_greensboro\\results\\cyber\\raw\\gridguard_run_TII-CONTROLLED-physical_thermal_regression_20260919_145532.json"
+    }
+  ],
+  "cyber_summary": {
+    "scenario_count": 11,
+    "hazard_case_count": 10,
+    "hazards_detected": 10,
+    "hazard_detection_rate": 1.0,
+    "safe_control_count": 1,
+    "false_reject_count": 0,
+    "false_reject_rate": 0.0,
+    "unsafe_commit_count": 0,
+    "pre_simulation_rejection_count": 7,
+    "post_simulation_rejection_count": 3,
+    "by_layer": [
+      {
+        "layer": "actuation",
+        "cases": 2,
+        "detected": 2,
+        "detection_rate": 1.0,
+        "pre_simulation_rejections": 0
+      },
+      {
+        "layer": "admissibility",
+        "cases": 2,
+        "detected": 2,
+        "detection_rate": 1.0,
+        "pre_simulation_rejections": 2
+      },
+      {
+        "layer": "control",
+        "cases": 1,
+        "detected": 1,
+        "detection_rate": 1.0,
+        "pre_simulation_rejections": 0
+      },
+      {
+        "layer": "cyber",
+        "cases": 4,
+        "detected": 4,
+        "detection_rate": 1.0,
+        "pre_simulation_rejections": 4
+      },
+      {
+        "layer": "physics",
+        "cases": 1,
+        "detected": 1,
+        "detection_rate": 1.0,
+        "pre_simulation_rejections": 0
+      },
+      {
+        "layer": "schema",
+        "cases": 1,
+        "detected": 1,
+        "detection_rate": 1.0,
+        "pre_simulation_rejections": 1
+      }
+    ]
+  },
+  "source_master_sha256": "ecfb415af52a189455cb36224880ed875aeab7bbbc9881c2001e5d6d1576b7cc",
+  "source_tree_sha256": "e7bde14eb782756fcfd6df8f90445d4f849068ff424ab358edf0fcdb5e8fb049",
+  "gridguard_sha256": "cf388739d3e53506cdc2bfb08a7c4a5061656f3062ce2b5966a1dced2bf4105b",
+  "limitations": [
+    "static snapshots",
+    "synthetic network",
+    "parent model has pre-existing violations",
+    "no proof of absolute radiality",
+    "no critical-load labels",
+    "no field dispatch",
+    "no live LLM performance claim from default execution"
+  ]
+}

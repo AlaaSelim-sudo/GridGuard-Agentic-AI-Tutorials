@@ -1,0 +1,82 @@
+{
+  "recorded_utc": "2026-09-27T15:14:15.146786+00:00",
+  "kind": "single_tool_interface_revision_after_disclosed_contract_pilot",
+  "original_contract": "Unversioned initial continuous-workflow interface, designated 1.0 retrospectively.",
+  "revised_contract": "1.1",
+  "original_workflow_source_sha256": "af9bf7cda19f5c6652b14d9a10949c20d6a616f351806659a11d9e095229ed2a",
+  "revised_workflow_source_sha256": "98fd3fc97d1976da287176fdf5557f998e04169c57cbd86aadb24548057278e4",
+  "observed_interface_issue": "Both initial Planner responses requested REVIEW before any candidate simulation. The Planner payload omitted the actual SAC proposal and did not define the effect of VERIFY_SAC_FIRST versus REVIEW. The original responses remain available verbatim.",
+  "changes": [
+    "Include the named role and interface version in each language context.",
+    "Include the actual SAC proposal and status in the Planner context.",
+    "Define VERIFY_SAC_FIRST as requesting fresh simulation and verification, not approving an action.",
+    "Define USE_MPC_PLAN as requesting a fresh check of the eligible MPC first action, not applying an unchecked action.",
+    "Define REVIEW as human escalation without executing a candidate route; retain it as an allowed choice.",
+    "Define explanation choices as focus selection without changing numerical outcomes or acknowledging for the operator."
+  ],
+  "unchanged": [
+    "SAC weights and proposals",
+    "MPC algorithm and saved plans",
+    "Physical models and limits",
+    "Fresh numerical verifier",
+    "Allowed candidate budget",
+    "Fixed comparator",
+    "Llama model, decoding parameters and seed",
+    "Ability to abstain"
+  ],
+  "interpretation_limit": "This is a disclosed interface-development revision after observed pilot outcomes, not a held-out improvement test. No preferred choice is directed. The original unfavorable results are retained; revised outcomes must be reported separately. No further outcome-based prompt tuning is part of this revision.",
+  "pilot_outcomes": [
+    {
+      "backend": "lindistflow3",
+      "fixed_status": "MODEL_RECOMMEND",
+      "agentic_status": "REVIEW",
+      "agentic_llm_calls": 2,
+      "agentic_candidate_evaluations": 0,
+      "planner_response": {
+        "choice": "REVIEW",
+        "reason": "Passing first-action check is not a stability or future-horizon guarantee; review MPC plan for potential issues",
+        "call_id": 1,
+        "seconds": 5.472234499990009,
+        "source": "actual_local_llama",
+        "error": null
+      }
+    },
+    {
+      "backend": "opendss",
+      "fixed_status": "MODEL_RECOMMEND",
+      "agentic_status": "REVIEW",
+      "agentic_llm_calls": 2,
+      "agentic_candidate_evaluations": 0,
+      "planner_response": {
+        "choice": "REVIEW",
+        "reason": "The numerical MPC plan has been generated, but the first-action check has not been performed yet. The protocol requires a review of the saved SAC proposal before proceeding.",
+        "call_id": 1,
+        "seconds": 1.025476199996774,
+        "source": "actual_local_llama",
+        "error": null
+      }
+    }
+  ],
+  "archived_files": [
+    {
+      "path": "results/continuous_contract_pilot/workshop_run_lindistflow3.json",
+      "sha256": "b749e2c7c7135e73ec55412509590b9d07c2fc1b8442d5cce136d9e2b3cd055f"
+    },
+    {
+      "path": "results/continuous_contract_pilot/workshop_run_opendss.json",
+      "sha256": "01180b6ced87032f02ee90ebb32b1a7194c6a9629aa08a48d2acb9fd448cb1c9"
+    },
+    {
+      "path": "results/continuous_contract_pilot/continuous_llama_lindistflow3_20260927T150915456183Z.json",
+      "sha256": "08f97b39816e4f495e767321bd34ad78b307c026ee92382fe45bb9f29f6ac3d6"
+    },
+    {
+      "path": "results/continuous_contract_pilot/continuous_llama_opendss_20260927T151019727944Z.json",
+      "sha256": "23fce207180c0efddc16c6dc5728a928e1f280bc4eca9c1dd809c5003d976040"
+    }
+  ],
+  "original_timestamped_records_also_retained": [
+    "results/continuous_classroom_20260927T150922779964Z_lindistflow3.json",
+    "results/continuous_classroom_20260927T151024401794Z_opendss.json"
+  ]
+}

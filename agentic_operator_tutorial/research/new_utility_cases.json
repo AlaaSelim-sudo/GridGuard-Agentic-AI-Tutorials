@@ -1,0 +1,53 @@
+[
+  {
+    "case_id": "AES_EHS",
+    "organization": "AES",
+    "geography": "US-based utility and power generation company; multinational operations",
+    "source_ids": ["U01"],
+    "task": "Health, environment and safety audit document review and report preparation.",
+    "agent_actions": ["Coordinate agents through model API calls", "Analyze multilingual audit documents", "Generate audit results and reports"],
+    "human_role": "Human review remains approximately half of the reported workflow.",
+    "disclosed_stack": ["Anthropic Claude on Google Cloud", "Model Garden / Google Cloud model platform", "API integration, permission levels and service accounts"],
+    "framework_limit": "Custom agent coordination is described; no named agent SDK is disclosed. Do not infer ADK.",
+    "status": "Operational agents; more than 50 agent audits reported.",
+    "date": "Publication and go-live dates not stated; reviewed 2026-10-17.",
+    "reported_outcomes": ["Audit results: 14 days to approximately one hour", "99% lower audit costs"],
+    "limits": ["Vendor case study with customer testimony, not independent evaluation", "Audit assistance, not physical grid control"],
+    "quotes": [],
+    "image_url": "https://www.gstatic.com/bricks/image/5d82990a-3b22-459f-8f99-77f2de1e41a5.jpg",
+    "image_attribution": "EHS audit framework diagram, AES / Google Cloud customer case study; attribute source, no redistribution license established."
+  },
+  {
+    "case_id": "DUKE_GRID_PLANNING",
+    "organization": "Duke Energy",
+    "geography": "United States electric utility",
+    "source_ids": ["U02", "U03"],
+    "task": "Interconnection engineering study preparation and workflow execution.",
+    "agent_actions": ["Prepare study data and coordinate analysis execution", "Use existing physics-based simulation software, grid models and scripts"],
+    "human_role": "Engineers direct studies and retain final engineering decisions; versioned, reviewable records are maintained.",
+    "disclosed_stack": ["AWS-managed specialized agents", "Existing engineering simulation software and scripts"],
+    "framework_limit": "Underlying SDK, model and runtime are not named. Do not infer Strands or AgentCore for Duke.",
+    "status": "Duke engineers already working with agents when program announced.",
+    "date": "2026-09-17",
+    "reported_outcomes": ["Duke data preparation: two weeks of manual work to hours"],
+    "limits": ["Planning workflow, not real-time dispatch", "No demonstrated queue-wide or reliability outcome"],
+    "program_detail_from_U03": "Program agents propose connection/model changes, run power-flow and contingency workflows, categorize violations, propose mitigation for approval, and draft reports. Engineers confirm or override inputs. Artifacts distinguish simulation output, AI reasoning and engineer decisions.",
+    "program_metric_caveat": "Program-wide 'up to 4x' speed and 'up to 92%' less engineer-active time are vendor claims; do not attribute them specifically to Duke.",
+    "quotes": []
+  },
+  {
+    "case_id": "TC_ENERGY_PIPELINEIQ",
+    "organization": "TC Energy",
+    "geography": "Canadian-headquartered North American energy infrastructure operator, including US operations",
+    "source_ids": ["U04"],
+    "task": "Pipeline engineering document verification and discovery through PipelineIQ.",
+    "agent_actions": ["PIPER extracts steel heat numbers and matches material reports with weld maps and pressure-test records", "SCOUT finds information across engineering documents", "Present source locations for review"],
+    "human_role": "Engineers perform final review.",
+    "disclosed_stack": ["Strands Agents SDK", "Amazon Bedrock AgentCore Runtime and Memory", "Claude on Amazon Bedrock", "AWS Step Functions", "Amazon Textract"],
+    "status": "Deployed platform with more than 100 active users.",
+    "date": "Publication and go-live dates not stated; reviewed 2026-10-17.",
+    "reported_outcomes": ["85% less document review time", "95–100% accuracy in early testing on documents up to 120 pages"],
+    "limits": ["Vendor case study; early-test accuracy lacks a full statistical protocol", "$18.7 million is expected avoided maintenance capital cost over five years, not realized savings", "Pipeline document workflow, not electric grid control"],
+    "quotes": []
+  }
+]

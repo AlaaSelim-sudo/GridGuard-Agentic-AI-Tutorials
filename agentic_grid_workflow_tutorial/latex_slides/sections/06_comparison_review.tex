@@ -1,0 +1,129 @@
+\section{Operator review}
+\begin{frame}[t]{From the advisory workflow to the control-room decision}
+\deepdive
+\noindent
+{\centering
+\begin{tikzpicture}[every node/.style={font=\small,align=center},
+ reviewstage/.style={draw=forest,rounded corners,fill=black!3,text width=2.7cm,minimum height=.95cm}]
+ \node[reviewstage] (a) at (0,0) {\textbf{Declared inputs}\\Model, topology,\\measurements};
+ \node[reviewstage] (b) at (3.35,0) {\textbf{Advisory tools}\\Numerical methods\\+ Llama roles};
+ \node[reviewstage] (c) at (6.7,0) {\textbf{Evidence record}\\Action, checks,\\scope, response};
+ \node[reviewstage] (d) at (10.05,0) {\textbf{Operator}\\Read back, clarify,\\or acknowledge};
+ \draw[->,thick,forest] (a)--(b); \draw[->,thick,forest] (b)--(c); \draw[->,thick,forest] (c)--(d);
+ \draw[->,thick,teal] ([xshift=-.7cm]d.south)--(9.35,-1.55)--node[above]{Correct input / request a check}(3.35,-1.55)--(b.south);
+ \node[reviewstage,dashed,fill=white] (e) at (10.05,-2.65) {\textbf{Field link}\\Validated\\ADMS/SCADA\\authorization};
+ \draw[->,dashed,orange] (d.south)--node[right,font=\scriptsize]{concept only}(e.north);
+ \node[align=left,text width=7.5cm] at (3.3,-2.5) {\textbf{Workshop boundary:} a local acknowledgment stores a review record. It issues no equipment command.};
+\end{tikzpicture}\par}
+\sources{Human authority: Parasuraman et al., 2000, \url{https://doi.org/10.1109/3468.844354}. ADMS testbed context: Pratt et al., 2019, \url{https://www.nlr.gov/docs/fy19osti/73705.pdf}.}
+\note{165--167 minutes. Spoken bridge: Voltage support chose setpoints, restoration chose a feasible route and load pickup, and cyber response tested the evidence behind a control action. These calculations now need to become an understandable review record. Walk through the solid arrows first, then the feedback arrow. The dashed field interface is a deployment concept outside this software demo; no utility connection has been implemented or tested here. The NLR/NREL testbed paper motivates a separate laboratory integration and validation stage, not an endorsement of this tutorial. Distinguish automation of information analysis from authority to operate equipment.}
+\end{frame}
+
+\begin{frame}[t]{F1: compare model coverage before comparing recommendations}
+\checkpoint{F1}{Compare current continuous-control records across the two model routes.}
+\cellcode{F1}{1}{3}
+\small Read the P/Q proposal, constraints, review status and model scope together. Equal actions do not establish equal coverage.
+\par\smallskip\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.20\linewidth}>{\raggedright\arraybackslash}p{.34\linewidth}>{\raggedright\arraybackslash}p{.39\linewidth}@{}}
+\toprule Comparison & Hold constant & Interpret the difference \\
+\midrule
+Fixed vs. Llama & Request, actor, MPC, model, verifier & Supervisory choice and handoff status \\
+OpenDSS vs. linear & Same request and saved actor & Model coverage \emph{and} approximation; internal LV coverage differs \\
+Raw vs. checked SAC & Same initial policy proposal & Contribution of verification and permitted recovery \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize\textbf{Historical comparison:} R2 restoration uses the older 32-run catalog corpus; it is not a SAC outcome.
+\sources{Continuous method: Haarnoja et al., 2018, \url{https://proceedings.mlr.press/v80/haarnoja18b.html}. Model-quality evaluation: Pratt et al., 2019, \url{https://www.nlr.gov/docs/fy19osti/73705.pdf}.}
+\note{167--168 minutes. The notebook compares current continuous-workflow records and separately displays historical restoration evidence. Read the actual current outputs rather than importing a result from the older corpus. In the historical R2 comparison, both backends and both supervisors selected the short bypass, zero PV, and 75 percent noncritical-object shedding, and passed the separate AC audit. That catalog result is not evidence about SAC. For current records, ask which model scopes and constraint allowances make a PASS meaningful.}
+\end{frame}
+
+\begin{frame}[t]{Each method contributes evidence for a different human decision}
+\deepdive
+\noindent
+{\centering
+\begin{tikzpicture}[every node/.style={font=\small,align=center},
+ reviewcell/.style={draw=forest,rounded corners,text width=3.65cm,minimum height=1.05cm}]
+ \node[font=\small\bfseries] at (0,.95) {Numerical method};
+ \node[font=\small\bfseries] at (4.5,.95) {Returned evidence};
+ \node[font=\small\bfseries] at (9,.95) {Operator review};
+ \node[reviewcell] (a1) at (0,0) {Voltage: SAC actor\\+ optimization};
+ \node[reviewcell] (b1) at (4.5,0) {P/Q proposal\\Reference + checks};
+ \node[reviewcell] (c1) at (9,0) {Limits + actuators\\Model coverage};
+ \node[reviewcell] (a2) at (0,-1.35) {Restoration: MILP\\or action catalog};
+ \node[reviewcell] (b2) at (4.5,-1.35) {Path + load pickup\\Capacity checks};
+ \node[reviewcell] (c2) at (9,-1.35) {Priority + isolation\\Shedding permission};
+ \node[reviewcell] (a3) at (0,-2.7) {Cyber: WLS +\\trusted-data control};
+ \node[reviewcell] (b3) at (4.5,-2.7) {Rank + alarm\\Trust + predicted flow};
+ \node[reviewcell] (c3) at (9,-2.7) {Question sensor trust\\Request evidence};
+ \draw[->,thick,forest] (a1)--(b1); \draw[->,thick,forest] (b1)--(c1);
+ \draw[->,thick,forest] (a2)--(b2); \draw[->,thick,forest] (b2)--(c2);
+ \draw[->,thick,forest] (a3)--(b3); \draw[->,thick,forest] (b3)--(c3);
+\end{tikzpicture}\par}
+\uncover<2->{\textbf{Role boundary:} Llama routes and explains; numerical checks and human authority remain distinct.}
+\sources{Method sources: Haarnoja et al., 2018, \url{https://proceedings.mlr.press/v80/haarnoja18b.html}; Chen et al., 2018, \url{https://doi.org/10.1109/TPWRS.2017.2720122}; Schweppe and Wildes, 1970, \url{https://doi.org/10.1109/TPAS.1970.292678}.}
+\note{168--170 minutes. This diagram summarizes responsibilities; it is not a new performance table. The continuous actor proposes setpoints and the numerical tools supply the comparison and checks. The restoration row explicitly preserves the difference between the small MILP and the feeder catalog. Cyber trust is supplied as an assumption, not authenticated by the LLM. All language assistance remains bounded by the permitted tool catalog and checked parameters. Point to actual outputs already seen in each chapter. Do not infer human-workload or field-reliability improvement from having an explanation.}
+\end{frame}
+
+\begin{frame}[t]{A passing calculation can still use the wrong operator restriction}
+\deepdive
+\ask{The plan passes at 100\% of nominal current. The operator asked for a 20\% reserve. Is it ready?}
+{\centering
+\begin{tikzpicture}[every node/.style={font=\small,align=center},
+ readback/.style={draw=forest,rounded corners,text width=3.6cm,minimum height=.95cm}]
+ \node[readback] (a) at (0,0) {\textbf{Operator request}\\Keep 20\% reserve};
+ \node[readback] (b) at (4.5,0) {\textbf{Misinterpreted input}\\Allow 100\% current};
+ \node[readback] (c) at (9,0) {\textbf{Model result}\\PASS under that input};
+ \draw[->,thick,forest] (a)--(b); \draw[->,thick,forest] (b)--(c);
+\end{tikzpicture}\par}
+\answer{Read back \textbf{80\% allowable current}, correct the restriction, and recompute. Recorded h05 used 87.60\% of nominal, or 109.50\% of the intended allowance.}
+\sources{Tutorial confirmation h05: \texttt{results/confirmation.json}; parser and hybrid both missed the restriction. Human/automation allocation: Parasuraman et al., 2000, \url{https://doi.org/10.1109/3468.844354}.}
+\note{170--172 minutes. Ask the audience to compute 100 minus 20 before revealing the answer. In h05 the hybrid made no Llama call because the parser had already returned READY. The offline reference evaluator exposed the violation; it was not a runtime rescue. Say: A numerical check can be consistent with a misinterpreted request. Explicit readback is a design intervention to test, not a demonstrated reduction in human error. The appropriate next step is a corrected calculation, not acceptance of the old PASS.}
+\end{frame}
+
+\begin{frame}[t]{F2: open the evidence record and read back the decision}
+\checkpoint{F2}{Save the current continuous-workflow records and open their operator dashboard.}
+\cellcode{F2}{8}{8}
+{\centering
+\begin{tikzpicture}[every node/.style={font=\small,align=center},
+ recordcard/.style={draw=forest,rounded corners,text width=3.65cm,minimum height=1.4cm}]
+ \node[recordcard] (a) at (0,0) {\textbf{Current run record}\\P/Q proposal\\Numerical checks\\Backend + source};
+ \node[recordcard] (b) at (4.5,0) {\textbf{Operator readback}\\P/Q command\\Current allowance\\Scope + limitations\\Decision reason};
+ \node[recordcard] (c) at (9,0) {\textbf{Local review record}\\Recommendation identity\\Acknowledgment or review\\No equipment command};
+ \draw[->,thick,forest] (a)--(b); \draw[->,thick,forest] (b)--(c);
+\end{tikzpicture}\par}
+\textbf{Decision rule:} request a new calculation when the readback differs from the intended task.
+\sources{Human review: Parasuraman et al., 2000, \url{https://doi.org/10.1109/3468.844354}. Current-record interface: \texttt{Workshop\_Operator\_Dashboard.html}. Diagram shows the review flow.}
+\note{172--174 minutes. Run F2 in full to create the dashboard from the current continuous-workflow records. The editable diagram explains the interaction; it is not a screenshot or a fabricated numerical result. Inspect the displayed action, allowed current, model scope, result source, failed checks, and recommendation identity. Read back both the proposed P/Q control and its engineering meaning. Local acknowledgment is not authenticated utility authorization and cannot operate equipment. Ask the participant to name a concrete reason to request more analysis, rather than treating a PASS as sufficient on its own.}
+\end{frame}
+
+\begin{frame}[t]{Your control-room review}
+\exercise{5}{Choose a current dashboard result and explain your decision to a partner.}
+\begin{enumerate}
+\item Read back the requested restriction as a number.
+\item Name the method and model that produced the candidate.
+\item Identify a passing check and an unresolved limitation.
+\item Acknowledge the local review record, or explain what must change before recomputation.
+\end{enumerate}
+\textbf{Feedback is part of the workflow:} corrected intent, better evidence, or a more complete model can start another permitted calculation.
+\sources{Human decision and action implementation are separate functions: Parasuraman, Sheridan and Wickens, 2000, \url{https://doi.org/10.1109/3468.844354}.}
+\note{174--179 minutes. Reserve five minutes. Participant A acts as the analyst and participant B as the reviewing operator, then exchange one challenge. A meaningful answer can request clarification, different model coverage, or an allowed recomputation; merely ticking a box is insufficient. This exercise illustrates interaction without measuring workload, response time, or field readiness. Never portray withholding a recommendation as proof that the present physical state remains safe. All acknowledgment remains a local review demonstration.}
+\end{frame}
+
+\begin{frame}[t]{A useful framework makes the operator's decision reviewable}
+\deepdive
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.14\linewidth}>{\raggedright\arraybackslash}p{.37\linewidth}>{\raggedright\arraybackslash}p{.41\linewidth}@{}}
+\toprule Case & Established method contributes & Recorded Llama contribution \\
+\midrule
+Voltage & SAC proposes; MPC repairs; fresh electrical checks enforce declared limits & Routes the checked candidate and explains review focus; ties fixed adaptive controls \\
+Restoration & MILP or a declared feeder catalog selects supply paths and load pickup & Interprets additional authored requests; the unchanged solver computes restoration \\
+Cyber & WLS tests consistency; supplied trusted data and redispatch recover a usable point & Selects the recovery tool, then requests REVIEW; no better detection is shown \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\textbf{Scientific evaluation:} report correct task completion, wrong interpretations, physical violations, review frequency, tool calls and latency separately. Human workload needs a participant study.
+\takeaway{The demonstrated value is a traceable decision process and some additional language coverage. A useful agent must preserve the operator's constraints and earn its benefit against a capable conventional baseline.}
+\sources{Tool/observation interaction: Yao et al., 2023, \url{https://arxiv.org/abs/2210.03629}. Human authority: Parasuraman et al., 2000, \url{https://doi.org/10.1109/3468.844354}.}
+\note{179--180 minutes. Return to the opening task and ask which component performed each function. Continuous SAC is an action proposal tool, not a replacement for electrical verification. Restoration and cyber retain the established numerical formulations taught here. The case comparisons show a language-handoff benefit on the restoration subset, equal final voltage-control results against fixed recovery, and no agent detector advantage in the cyber trace. They retain errors and unnecessary escalation; they do not establish universal advantage, reduced human workload, or field safety. End with one concrete condition under which the operator should request clarification or additional evidence. Optional references and derivations follow outside the three-hour sequence.}
+\end{frame}
+

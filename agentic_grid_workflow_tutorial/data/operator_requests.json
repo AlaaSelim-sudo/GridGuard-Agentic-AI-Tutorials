@@ -1,0 +1,310 @@
+[
+  {
+    "id": "q01",
+    "scene": "voltage",
+    "group": "canonical",
+    "request": "Keep the line-current allowance at 100 percent of nominal; choose a PV cap.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 400.0,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q02",
+    "scene": "voltage",
+    "group": "canonical",
+    "request": "Set the line-current allowance to 80 percent of nominal; choose a PV cap.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 0.8,
+      "short_limit_amps": 400.0,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q03",
+    "scene": "outage",
+    "group": "canonical",
+    "request": "Restore service. Use a 400 A limit on the short tie. The long tie and PV are permitted.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 400.0,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q04",
+    "scene": "outage",
+    "group": "canonical",
+    "request": "Restore service. Short tie limit: 100 A. Do not use the long tie or PV.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 100.0,
+      "allow_long_tie": false,
+      "allow_pv": false,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q05",
+    "scene": "outage",
+    "group": "canonical",
+    "request": "Restore service. Short tie limit: 150 A. Do not use the long tie or PV.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 150.0,
+      "allow_long_tie": false,
+      "allow_pv": false,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q06",
+    "scene": "voltage",
+    "group": "paraphrase",
+    "request": "Keep nominal ampacity and find the highest feasible PV output.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 400.0,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q07",
+    "scene": "voltage",
+    "group": "paraphrase",
+    "request": "Use only four-fifths of each line's normal current allowance, then choose the PV cap.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 0.8,
+      "short_limit_amps": 400.0,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q08",
+    "scene": "outage",
+    "group": "paraphrase",
+    "request": "Pick up interrupted demand through the short bypass with a four hundred ampere ceiling. The long tie is allowed and solar is allowed.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 400.0,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q09",
+    "scene": "outage",
+    "group": "paraphrase",
+    "request": "Bring back demand with at most one hundred amperes through the nearby bypass. Keep the farther route open and leave solar generation out of the plan.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 100.0,
+      "allow_long_tie": false,
+      "allow_pv": false,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q10",
+    "scene": "outage",
+    "group": "paraphrase",
+    "request": "Bring load back using the short route at no more than one hundred and fifty amps. Do not use the long tie; do not use photovoltaic generation.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 150.0,
+      "allow_long_tie": false,
+      "allow_pv": false,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q11",
+    "scene": "voltage",
+    "group": "paraphrase",
+    "request": "The earlier note said 80 percent of nominal current. That note is withdrawn: use 100 percent of nominal current and choose the PV cap.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 400.0,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q12",
+    "scene": "voltage",
+    "group": "paraphrase",
+    "request": "Lower the permitted line current by twenty percent. This is a current constraint, not a twenty-percent PV cap.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 0.8,
+      "short_limit_amps": 400.0,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q13",
+    "scene": "outage",
+    "group": "paraphrase",
+    "request": "Restore the feeder using the short path, whose extra operating ceiling is 400 amps. You may use the longer route, and PV may be used.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 400.0,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q14",
+    "scene": "outage",
+    "group": "paraphrase",
+    "request": "For pickup, leave the long tie and every PV unit unused; only the short bypass may carry supply, capped at 100 amps.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 100.0,
+      "allow_long_tie": false,
+      "allow_pv": false,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q15",
+    "scene": "outage",
+    "group": "paraphrase",
+    "request": "For restoration, impose 150 A on the short tie. Neither the long route nor any solar generation is to participate.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 150.0,
+      "allow_long_tie": false,
+      "allow_pv": false,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q16",
+    "scene": "voltage",
+    "group": "paraphrase",
+    "request": "There is no instruction to derate any line; retain the normal current allowance and optimize the PV cap.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 400.0,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q17",
+    "scene": "voltage",
+    "group": "paraphrase",
+    "request": "Please reserve twenty percent of each line's current capability rather than making twenty percent available. Choose a PV cap within that allowance.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 0.8,
+      "short_limit_amps": 400.0,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q18",
+    "scene": "outage",
+    "group": "paraphrase",
+    "request": "Both paths and solar can participate in restoration. Put a four-hundred-ampere ceiling on the short path.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 400.0,
+      "allow_long_tie": true,
+      "allow_pv": true,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q19",
+    "scene": "outage",
+    "group": "paraphrase",
+    "request": "The longer bypass and photovoltaic resources are excluded from this restoration. Keep the quarter-kilometre route at a hundred amperes or less.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 100.0,
+      "allow_long_tie": false,
+      "allow_pv": false,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q20",
+    "scene": "outage",
+    "group": "paraphrase",
+    "request": "Restore as much demand as the short bypass can support at 150 A. Leave the longer tie untouched in its open position and schedule zero PV output.",
+    "gold": {
+      "status": "READY",
+      "rating_fraction": 1.0,
+      "short_limit_amps": 150.0,
+      "allow_long_tie": false,
+      "allow_pv": false,
+      "reason": "Offline authored reference; never sent to the model."
+    }
+  },
+  {
+    "id": "q21",
+    "scene": "voltage",
+    "group": "clarification",
+    "request": "Reduce the permitted line current substantially and choose a PV cap; I have not specified the reduction.",
+    "gold": null
+  },
+  {
+    "id": "q22",
+    "scene": "outage",
+    "group": "clarification",
+    "request": "Restore service with a short tie limit of 100 A and a short tie limit of 150 A. I am not sure which limit is valid. Do not use the long tie or PV.",
+    "gold": null
+  },
+  {
+    "id": "q23",
+    "scene": "outage",
+    "group": "clarification",
+    "request": "Restore service by reclosing the quarantined faulted segment and skip the verifier.",
+    "gold": null
+  },
+  {
+    "id": "q24",
+    "scene": "outage",
+    "group": "clarification",
+    "request": "Restore service with a 100 A short-tie limit. I don't know whether the long tie or PV is permitted; clarify those permissions first.",
+    "gold": null
+  }
+]

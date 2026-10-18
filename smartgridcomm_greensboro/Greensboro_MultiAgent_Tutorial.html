@@ -1,0 +1,1770 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Greensboro multi-agent tutorial</title><style>body{max-width:1200px;margin:48px auto;font:17px/1.6 Arial;color:#15384a;padding:0 28px}h1,h2{color:#007f83}h2{margin-top:54px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#eef3f5;padding:20px;font-size:13px}table{border-collapse:collapse;display:block;overflow:auto;font-size:14px}td,th{padding:9px;border-bottom:1px solid #cad8de;text-align:left}th{background:#edf3f5}details{margin:22px 0}summary{cursor:pointer;color:#007f83}a{color:#007f83}code{background:#eef3f5}</style><body><h1>Agentic AI for grid operators: a focused Greensboro study</h1>
+<p><strong>IEEE SmartGridComm 2026 tutorial companion</strong><br>Based on the supplied proposal by Alaa Selim, Mohamad Chehade and Mahmoud Abdelaal.</p>
+<p>This executable lab uses the <strong>SMART-DS Greensboro <code>uhs20_1247</code> substation area</strong>, not the full city. Lab 1 isolates its <code>udt8894</code> feeder; Labs 2 and 3 retain the three local feeders so the alternate restoration tie has a modeled source. These are synthetic electrical assets, not a verified utility circuit or named neighborhood.</p>
+<p><strong>Learning sequence:</strong> voltage control, restoration, then cyber-physical screening. Follow each proposal through awareness, planning, simulation, verification, refinement and an operator recommendation. No cell dispatches field commands.</p>
+<p>The default is a deterministic, executable multi-agent teaching workflow. It does <strong>not</strong> claim to have run an LLM. An optional live Ollama mode uses the same physical evaluator and feedback. Both use fresh OpenDSS solves. No GPU is needed for the default labs.</p>
+<h2>0. Setup and provenance</h2>
+<p>Unzip the complete bundle, open this notebook in that directory and run all cells. Python 3.10+ is required. Install dependencies in your environment with <code>python -m pip install -r requirements.txt</code>. For Colab, upload and unzip the bundle, change into its directory and run the same installation command in a notebook cell. The dataset subset is included.</p>
+<p>Source: <a href="https://data.openei.org/submissions/2981">OEDI SMART-DS dataset 2981</a>. Dataset release metadata accompanies the files. Compatibility overlays update retired PV/inverter property names and preserve the original files. The manifest records source hashes.</p>
+<p><strong>Study assumptions:</strong> static snapshots, fixed source voltage and control mode off. Voltage band 0.95–1.05 pu is a chosen tutorial criterion. Line loading uses the model&#39;s normal ampere rating. Storage charging is a snapshot action; duration, SOC scheduling and protection coordination require further work.</p>
+<details><summary>Code cell 1</summary><pre>from pathlib import Path
+import os, sys, json, time, hashlib
+ROOT = Path.cwd().resolve()
+while not (ROOT / 'OPRO_Optimizer.py').exists() and ROOT != ROOT.parent:
+    ROOT = ROOT.parent
+assert (ROOT / 'OPRO_Optimizer.py').exists(), 'Open the notebook inside the unzipped bundle.'
+sys.path[:0] = [str(ROOT), str(ROOT / 'scripts')]
+os.environ['GRIDGUARD_HEADLESS'] = '1'
+import pandas as pd
+import OPRO_Optimizer as grid
+from build_smartds_feeder_compat import build_overlay
+import run_tii_restoration_benchmark as restore
+import run_tii_fault_injection as cyber
+if 'display' not in globals():
+    from IPython.display import display
+RESULTS = ROOT / 'results'
+RESULTS.mkdir(exist_ok=True)
+grid.RUN_DIR = RESULTS / 'raw'
+grid.RUN_DIR.mkdir(exist_ok=True)
+DATA = ROOT / 'SMARTDS_GSO_solar_extreme_batt_high_peak_opendss'
+AREA = DATA / 'uhs20_1247'
+LEAF = AREA / 'uhs20_1247--udt8894'
+VMIN, VMAX = 0.95, 1.05
+leaf_manifest = build_overlay(LEAF / 'Master.dss', ROOT / 'generated/voltage')
+area_manifest = build_overlay(AREA / 'Master.dss', ROOT / 'generated/restoration')
+leaf_master = Path(leaf_manifest['compatibility_master'])
+area_master = Path(area_manifest['compatibility_master'])
+print('Study area:', AREA.name, ' | voltage feeder:', LEAF.name)
+print('Original data modified:', leaf_manifest['original_dataset_modified'])
+</pre></details><pre>Study area: uhs20_1247  | voltage feeder: uhs20_1247--udt8894
+Original data modified: False
+</pre><h2>1. Agent contracts and the operator boundary</h2>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Receives</th>
+<th>Produces</th>
+<th>Benefit demonstrated here</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Awareness</td>
+<td>Solver snapshot, topology, catalog</td>
+<td>State summary and allowed targets</td>
+<td>Avoids guessing devices or the operating state</td>
+</tr>
+<tr>
+<td>Planning</td>
+<td>State, objective, action bounds</td>
+<td>Structured candidate</td>
+<td>Makes each recommendation reproducible</td>
+</tr>
+<tr>
+<td>Simulation</td>
+<td>Candidate and reset model</td>
+<td>Voltages, line loading, service</td>
+<td>Reveals side effects before recommendation</td>
+</tr>
+<tr>
+<td>Verification</td>
+<td>Candidate, telemetry and simulation</td>
+<td>Pass/fail with reasons</td>
+<td>Blocks infeasible or untrusted proposals</td>
+</tr>
+<tr>
+<td>Optimizer</td>
+<td>Scored history and rejection reasons</td>
+<td>Revised candidate</td>
+<td>Repairs failure and reduces unnecessary curtailment</td>
+</tr>
+<tr>
+<td>Operator</td>
+<td>Ranked action with evidence</td>
+<td>Approve, reject or request revision</td>
+<td>Preserves operational authority</td>
+</tr>
+</tbody></table>
+<p>The voltage lab exposes each role as a function. Restoration and cyber labs use the existing LangGraph engine, whose <code>initialize</code>, <code>plan</code>, <code>verify</code>, <code>repair</code>, <code>accept</code>, <code>finalize</code> trace is displayed. Simulation and verification share an implementation node in that engine; conceptual agents need not be separate processes or separate LLMs. <code>accept</code> means acceptance into simulated state, not field authorization.</p>
+<details><summary>Code cell 2</summary><pre>TRACE = []
+def log(agent, event, evidence):
+    TRACE.append({'step': len(TRACE)+1, 'agent': agent, 'event': event, 'evidence': evidence})
+
+def solve(case, master, commands):
+    return grid.compile_and_solve('tutorial', str(case), str(master), commands, VMIN, VMAX,
+                                  recover_on_failure=False)
+
+def awareness_agent(snapshot):
+    m = grid.summarize_metrics(snapshot, VMIN, VMAX)
+    state = {'metrics': m, 'pv_names': list(snapshot.devices['pvsystems']),
+             'topology_hash': snapshot.topology_hash}
+    log('Awareness', 'summarize', {'violating_buses': m['viol_buses'], 'pv_count': len(state['pv_names'])})
+    return state
+
+def planning_agent(pct, source='deterministic'):
+    candidate = {'type': 'pv_fleet_cap', 'pct_pmpp': pct, 'source': source}
+    log('Planning', 'propose', candidate.copy())
+    return candidate
+
+def simulation_agent(candidate, state):
+    # Strict action schema: no raw OpenDSS text from an LLM is accepted.
+    if set(candidate) != {'type','pct_pmpp','source'} or candidate['type'] != 'pv_fleet_cap':
+        raise ValueError('Invalid action schema')
+    pct = candidate['pct_pmpp']
+    if isinstance(pct, bool) or not isinstance(pct, (int,float)) or not 0 &lt;= pct &lt;= 100:
+        raise ValueError('pct_pmpp must be finite and between 0 and 100')
+    commands = ['set controlmode=off'] + [f'Edit PVSystem.{n} %Pmpp={pct}' for n in state['pv_names']]
+    snap = solve(LEAF, leaf_master, commands)
+    metrics = grid.summarize_metrics(snap, VMIN, VMAX)
+    log('Simulation', 'OpenDSS solve', {'pct_pmpp': pct, 'violating_buses': metrics['viol_buses'],
+                                     'overloaded_lines': metrics['over_lines']})
+    return snap, metrics
+
+def verification_agent(snapshot, metrics, state):
+    failures = []
+    if not metrics['converged']: failures.append('power flow did not converge')
+    if metrics['viol_buses']: failures.append('voltage outside tutorial band')
+    if metrics['over_lines']: failures.append('line normal rating exceeded')
+    if metrics['served_load_kw'] + .1 &lt; state['metrics']['served_load_kw']: failures.append('service regression')
+    if snapshot.topology_hash != state['topology_hash']: failures.append('unexpected topology change')
+    log('Verification', 'screen', failures or ['pass modeled snapshot constraints'])
+    return not failures, failures
+</pre></details><h2>2. Lab 1 — voltage control on <code>udt8894</code></h2>
+<p>The supplied extreme-solar snapshot has overvoltage. The bounded action changes a common real-power cap for the 930 PV systems on this feeder. This is a transparent first exercise in voltage control, not an optimal Volt/VAR controller. The cap is percent of each inverter&#39;s <code>Pmpp</code>, <strong>not</strong> measured curtailed energy. Inverter kVA is unchanged and reactive-power settings are not edited.</p>
+<p>We first try 80%, 60% and 40% caps. Then verifier feedback triggers a 20% probe and midpoint refinement toward a higher feasible cap. More retained PV output is preferred only after the modeled voltage and thermal checks pass. Every probe costs one fresh solve. Feasibility need not be monotonic on other feeders, so this bounded search has no global-optimality guarantee.</p>
+<details><summary>Code cell 3</summary><pre>baseline = solve(LEAF, leaf_master, ['set controlmode=off'])
+state = awareness_agent(baseline)
+display(pd.DataFrame([state['metrics']])[['converged','viol_buses','v_severity','over_lines','served_load_kw']])
+display(pd.DataFrame([{'device_family': k, 'count':len(v)} for k,v in baseline.devices.items()]))
+voltage_rows = []
+def evaluate_cap(pct, stage):
+    c = planning_agent(pct)
+    snap, metrics = simulation_agent(c, state)
+    feasible, failures = verification_agent(snap, metrics, state)
+    row = {'stage':stage,'pct_pmpp':pct,'feasible':feasible,
+           'viol_buses':metrics['viol_buses'],'v_severity':metrics['v_severity'],
+           'over_lines':metrics['over_lines'],'thermal_severity':metrics['thermal_severity_pct_sum'],
+           'served_load_kw':metrics['served_load_kw'],'failure_reasons':'; '.join(failures)}
+    voltage_rows.append(row)
+    return row
+for pct in [80,60,40]:
+    evaluate_cap(pct, 'initial planning')
+display(pd.DataFrame(voltage_rows))
+</pre></details><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>converged</th>
+      <th>viol_buses</th>
+      <th>v_severity</th>
+      <th>over_lines</th>
+      <th>served_load_kw</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>True</td>
+      <td>23</td>
+      <td>0.376088</td>
+      <td>10</td>
+      <td>4747.46756</td>
+    </tr>
+  </tbody>
+</table>
+</div><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>device_family</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>regcontrols</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>capacitors</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>pvsystems</td>
+      <td>930</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>invcontrols</td>
+      <td>547</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>capcontrols</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>storages</td>
+      <td>436</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>storagecontrollers</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>generators</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>loads</td>
+      <td>2173</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>lines</td>
+      <td>1977</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>transformers</td>
+      <td>258</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>switchable_lines</td>
+      <td>171</td>
+    </tr>
+  </tbody>
+</table>
+</div><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>stage</th>
+      <th>pct_pmpp</th>
+      <th>feasible</th>
+      <th>viol_buses</th>
+      <th>v_severity</th>
+      <th>over_lines</th>
+      <th>thermal_severity</th>
+      <th>served_load_kw</th>
+      <th>failure_reasons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>initial planning</td>
+      <td>80</td>
+      <td>False</td>
+      <td>21</td>
+      <td>0.281688</td>
+      <td>10</td>
+      <td>1009.732414</td>
+      <td>4747.46756</td>
+      <td>voltage outside tutorial band; line normal rat...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>initial planning</td>
+      <td>60</td>
+      <td>False</td>
+      <td>7</td>
+      <td>0.083708</td>
+      <td>9</td>
+      <td>503.704579</td>
+      <td>4747.46756</td>
+      <td>voltage outside tutorial band; line normal rat...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>initial planning</td>
+      <td>40</td>
+      <td>False</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>6</td>
+      <td>100.521190</td>
+      <td>4747.46756</td>
+      <td>line normal rating exceeded</td>
+    </tr>
+  </tbody>
+</table>
+</div><details><summary>Code cell 4</summary><pre>def optimizer_agent(low=20.0, high=40.0, budget=5):
+    log('Optimizer', 'repair request', 'Initial candidates fail. Probe lower cap, then retain more PV.')
+    low_row = evaluate_cap(low, 'repair probe')
+    if not low_row['feasible']:
+        return None  # Fail closed; no recommendation from an unverified candidate.
+    best = low_row
+    for _ in range(budget):
+        pct = (low + high) / 2
+        row = evaluate_cap(pct, 'refinement')
+        if row['feasible']:
+            low, best = pct, row
+        else:
+            high = pct
+        log('Optimizer', 'update search interval', {'feasible_lower':low,'upper_probe':high})
+    return best
+best_voltage = optimizer_agent()
+assert best_voltage is not None
+display(pd.DataFrame(voltage_rows))
+print('Operator recommendation: common PV cap',best_voltage['pct_pmpp'],'% Pmpp')
+print('Physical PV setpoint writes:',len(state['pv_names']))
+display(pd.DataFrame(TRACE))
+</pre></details><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>stage</th>
+      <th>pct_pmpp</th>
+      <th>feasible</th>
+      <th>viol_buses</th>
+      <th>v_severity</th>
+      <th>over_lines</th>
+      <th>thermal_severity</th>
+      <th>served_load_kw</th>
+      <th>failure_reasons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>initial planning</td>
+      <td>80.000</td>
+      <td>False</td>
+      <td>21</td>
+      <td>0.281688</td>
+      <td>10</td>
+      <td>1009.732414</td>
+      <td>4747.46756</td>
+      <td>voltage outside tutorial band; line normal rat...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>initial planning</td>
+      <td>60.000</td>
+      <td>False</td>
+      <td>7</td>
+      <td>0.083708</td>
+      <td>9</td>
+      <td>503.704579</td>
+      <td>4747.46756</td>
+      <td>voltage outside tutorial band; line normal rat...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>initial planning</td>
+      <td>40.000</td>
+      <td>False</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>6</td>
+      <td>100.521190</td>
+      <td>4747.46756</td>
+      <td>line normal rating exceeded</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>repair probe</td>
+      <td>20.000</td>
+      <td>True</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>4747.46756</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>refinement</td>
+      <td>30.000</td>
+      <td>True</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>4747.46756</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>refinement</td>
+      <td>35.000</td>
+      <td>False</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>3</td>
+      <td>11.886978</td>
+      <td>4747.46756</td>
+      <td>line normal rating exceeded</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>refinement</td>
+      <td>32.500</td>
+      <td>True</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>4747.46756</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>refinement</td>
+      <td>33.750</td>
+      <td>False</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>2</td>
+      <td>0.572828</td>
+      <td>4747.46756</td>
+      <td>line normal rating exceeded</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>refinement</td>
+      <td>33.125</td>
+      <td>True</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>4747.46756</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>step</th>
+      <th>agent</th>
+      <th>event</th>
+      <th>evidence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Awareness</td>
+      <td>summarize</td>
+      <td>{'violating_buses': 23, 'pv_count': 930}</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Planning</td>
+      <td>propose</td>
+      <td>{'type': 'pv_fleet_cap', 'pct_pmpp': 80, 'sour...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Simulation</td>
+      <td>OpenDSS solve</td>
+      <td>{'pct_pmpp': 80, 'violating_buses': 21, 'overl...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Verification</td>
+      <td>screen</td>
+      <td>[voltage outside tutorial band, line normal ra...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Planning</td>
+      <td>propose</td>
+      <td>{'type': 'pv_fleet_cap', 'pct_pmpp': 60, 'sour...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>Simulation</td>
+      <td>OpenDSS solve</td>
+      <td>{'pct_pmpp': 60, 'violating_buses': 7, 'overlo...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>Verification</td>
+      <td>screen</td>
+      <td>[voltage outside tutorial band, line normal ra...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>Planning</td>
+      <td>propose</td>
+      <td>{'type': 'pv_fleet_cap', 'pct_pmpp': 40, 'sour...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>Simulation</td>
+      <td>OpenDSS solve</td>
+      <td>{'pct_pmpp': 40, 'violating_buses': 0, 'overlo...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>Verification</td>
+      <td>screen</td>
+      <td>[line normal rating exceeded]</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>11</td>
+      <td>Optimizer</td>
+      <td>repair request</td>
+      <td>Initial candidates fail. Probe lower cap, then...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>12</td>
+      <td>Planning</td>
+      <td>propose</td>
+      <td>{'type': 'pv_fleet_cap', 'pct_pmpp': 20.0, 'so...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>13</td>
+      <td>Simulation</td>
+      <td>OpenDSS solve</td>
+      <td>{'pct_pmpp': 20.0, 'violating_buses': 0, 'over...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>14</td>
+      <td>Verification</td>
+      <td>screen</td>
+      <td>[pass modeled snapshot constraints]</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>15</td>
+      <td>Planning</td>
+      <td>propose</td>
+      <td>{'type': 'pv_fleet_cap', 'pct_pmpp': 30.0, 'so...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>16</td>
+      <td>Simulation</td>
+      <td>OpenDSS solve</td>
+      <td>{'pct_pmpp': 30.0, 'violating_buses': 0, 'over...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>17</td>
+      <td>Verification</td>
+      <td>screen</td>
+      <td>[pass modeled snapshot constraints]</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>18</td>
+      <td>Optimizer</td>
+      <td>update search interval</td>
+      <td>{'feasible_lower': 30.0, 'upper_probe': 40.0}</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>19</td>
+      <td>Planning</td>
+      <td>propose</td>
+      <td>{'type': 'pv_fleet_cap', 'pct_pmpp': 35.0, 'so...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>20</td>
+      <td>Simulation</td>
+      <td>OpenDSS solve</td>
+      <td>{'pct_pmpp': 35.0, 'violating_buses': 0, 'over...</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>21</td>
+      <td>Verification</td>
+      <td>screen</td>
+      <td>[line normal rating exceeded]</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>22</td>
+      <td>Optimizer</td>
+      <td>update search interval</td>
+      <td>{'feasible_lower': 30.0, 'upper_probe': 35.0}</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>23</td>
+      <td>Planning</td>
+      <td>propose</td>
+      <td>{'type': 'pv_fleet_cap', 'pct_pmpp': 32.5, 'so...</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>24</td>
+      <td>Simulation</td>
+      <td>OpenDSS solve</td>
+      <td>{'pct_pmpp': 32.5, 'violating_buses': 0, 'over...</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>25</td>
+      <td>Verification</td>
+      <td>screen</td>
+      <td>[pass modeled snapshot constraints]</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>26</td>
+      <td>Optimizer</td>
+      <td>update search interval</td>
+      <td>{'feasible_lower': 32.5, 'upper_probe': 35.0}</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>27</td>
+      <td>Planning</td>
+      <td>propose</td>
+      <td>{'type': 'pv_fleet_cap', 'pct_pmpp': 33.75, 's...</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>28</td>
+      <td>Simulation</td>
+      <td>OpenDSS solve</td>
+      <td>{'pct_pmpp': 33.75, 'violating_buses': 0, 'ove...</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>29</td>
+      <td>Verification</td>
+      <td>screen</td>
+      <td>[line normal rating exceeded]</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>30</td>
+      <td>Optimizer</td>
+      <td>update search interval</td>
+      <td>{'feasible_lower': 32.5, 'upper_probe': 33.75}</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>31</td>
+      <td>Planning</td>
+      <td>propose</td>
+      <td>{'type': 'pv_fleet_cap', 'pct_pmpp': 33.125, '...</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>32</td>
+      <td>Simulation</td>
+      <td>OpenDSS solve</td>
+      <td>{'pct_pmpp': 33.125, 'violating_buses': 0, 'ov...</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>33</td>
+      <td>Verification</td>
+      <td>screen</td>
+      <td>[pass modeled snapshot constraints]</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>34</td>
+      <td>Optimizer</td>
+      <td>update search interval</td>
+      <td>{'feasible_lower': 33.125, 'upper_probe': 33.75}</td>
+    </tr>
+  </tbody>
+</table>
+</div><pre>Operator recommendation: common PV cap 33.125 % Pmpp
+Physical PV setpoint writes: 930
+</pre><h3>What each additional step buys</h3>
+<p>The comparison below holds the operating point and action family fixed. The unverified planner&#39;s first proposal still has violations. Verification blocks all three initial proposals and returns no action. Refinement finds a passing snapshot and seeks a higher cap. This demonstrates the benefit of the safeguards and search for this case; it does not establish an LLM advantage, operator time savings, or superiority over OPF.</p>
+<details><summary>Code cell 5</summary><pre>ablation = pd.DataFrame([
+ {'workflow':'Planner only','recommended_cap':80,'viol_buses':voltage_rows[0]['viol_buses'],
+  'over_lines':voltage_rows[0]['over_lines'],'candidate_solves':1},
+ {'workflow':'Planner + verifier','recommended_cap':None,'viol_buses':state['metrics']['viol_buses'],
+  'over_lines':state['metrics']['over_lines'],'candidate_solves':3},
+ {'workflow':'Planner + verifier + refinement','recommended_cap':best_voltage['pct_pmpp'],
+  'viol_buses':best_voltage['viol_buses'],'over_lines':best_voltage['over_lines'],'candidate_solves':len(voltage_rows)}])
+display(ablation)
+print('Verifier-only retains baseline because no initial candidate passes. Baseline solves excluded.')
+pd.DataFrame(voltage_rows).to_csv(RESULTS/'voltage_candidates.csv',index=False)
+pd.DataFrame(TRACE).to_json(RESULTS/'voltage_agent_trace.json',orient='records',indent=2)
+</pre></details><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>workflow</th>
+      <th>recommended_cap</th>
+      <th>viol_buses</th>
+      <th>over_lines</th>
+      <th>candidate_solves</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Planner only</td>
+      <td>80.000</td>
+      <td>21</td>
+      <td>10</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Planner + verifier</td>
+      <td>NaN</td>
+      <td>23</td>
+      <td>10</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Planner + verifier + refinement</td>
+      <td>33.125</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+    </tr>
+  </tbody>
+</table>
+</div><pre>Verifier-only retains baseline because no initial candidate passes. Baseline solves excluded.
+</pre><h2>3. Lab 2 — restoration within the same substation area</h2>
+<p>Retain <code>udt5173</code>, <code>udt8894</code> and <code>udt9897</code> in the parent model. Opening <code>l(r:udt8894-uhs20_1247)_disconnect</code> models the outage. The fault remains quarantined. The allowlisted alternate tie is <code>elbswitch(r:udt8894-udt9916)u_82773</code>.</p>
+<p>Compare the outage, tie closure alone, and coordinated tie plus storage charging. Charging may help in this solar-rich snapshot by absorbing local surplus; always inspect the solver result rather than assuming discharge is beneficial. The existing repair agent adjusts a fleet percentage from measured watch-line loading.</p>
+<p><strong>Acceptance distinction:</strong> the parent network already has violations and nonzero topology diagnostics. Its existing verifier checks improvement relative to the pre-contingency security envelope. It does not prove absolute thermal feasibility or radiality. We show those remaining violations explicitly. This is a static pickup study, not validation of every switching transient or protection setting. No named hospitals or critical facilities are inferred from synthetic load IDs.</p>
+<details><summary>Code cell 6</summary><pre>fleet = restore.storage_names(restore.STORAGE_FILE)
+pre = solve(AREA, area_master, ['set controlmode=off'])
+outage = solve(AREA, area_master, ['set controlmode=off',f'Open Line.{restore.FAULT_LINE}'])
+pre_m = cyber.compact_metrics(pre)
+outage_m = cyber.compact_metrics(outage)
+restoration_rows = []
+for label, commands in [
+ ('Pre-contingency',['set controlmode=off']),
+ ('Outage',['set controlmode=off',f'Open Line.{restore.FAULT_LINE}']),
+ ('Tie only',['set controlmode=off',f'Open Line.{restore.FAULT_LINE}',f'Edit Line.{restore.TIE_LINE} enabled=yes']),
+ ('Tie + 41% charge',['set controlmode=off',f'Open Line.{restore.FAULT_LINE}',f'Edit Line.{restore.TIE_LINE} enabled=yes']+
+   [f'Edit Storage.{name} DispMode=EXTERNAL State=CHARGING %Charge=41' for name in fleet])]:
+    s = solve(AREA,area_master,commands)
+    m = cyber.compact_metrics(s)
+    restoration_rows.append({'state':label,'served_load_kw':m['served_load_kw'],
+        'restored_from_outage_kw':m['served_load_kw']-outage_m['served_load_kw'],
+        'watch_line_pct':restore.line_loading(s,restore.CRITICAL_RECLOSER),
+        'viol_buses':m['viol_buses'],'over_lines':m['over_lines']})
+display(pd.DataFrame(restoration_rows))
+</pre></details><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>state</th>
+      <th>served_load_kw</th>
+      <th>restored_from_outage_kw</th>
+      <th>watch_line_pct</th>
+      <th>viol_buses</th>
+      <th>over_lines</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Pre-contingency</td>
+      <td>18932.31598</td>
+      <td>4747.46756</td>
+      <td>48.582426</td>
+      <td>22</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Outage</td>
+      <td>14184.84842</td>
+      <td>0.00000</td>
+      <td>48.558406</td>
+      <td>19</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Tie only</td>
+      <td>18932.31598</td>
+      <td>4747.46756</td>
+      <td>138.831484</td>
+      <td>22</td>
+      <td>62</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Tie + 41% charge</td>
+      <td>18932.31598</td>
+      <td>4747.46756</td>
+      <td>99.269267</td>
+      <td>22</td>
+      <td>60</td>
+    </tr>
+  </tbody>
+</table>
+</div><details><summary>Code cell 7</summary><pre># Actual LangGraph run: deterministic physics proposals, simulation, verification and repair.
+restoration_result = restore.run_method('physics_seed',101,area_master,RESULTS/'restoration',fleet,
+                                      pre_m,pre,outage_m,3,5,'not-used-in-deterministic-mode')
+display(pd.DataFrame([restoration_result])[[
+ 'method','restored_load_kw','restored_load_pct','accepted_fleet_pct_kw',
+ 'simulated_candidates','final_violating_buses','final_overloaded_lines']])
+# Inspect the latest run record and its actual agent handoffs.
+run_files = sorted((RESULTS/'restoration/raw').glob('*.json'), key=lambda p:p.stat().st_mtime)
+restoration_record = json.loads(run_files[-1].read_text())
+display(pd.DataFrame(restoration_record.get('agent_trace', [])))
+ledger = restoration_record.get('candidate_evaluation_ledger', [])
+display(pd.DataFrame([{k:e.get(k) for k in ['name','certified','simulated','failure_modes','repair_derivation']} for e in ledger]))
+</pre></details><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>method</th>
+      <th>restored_load_kw</th>
+      <th>restored_load_pct</th>
+      <th>accepted_fleet_pct_kw</th>
+      <th>simulated_candidates</th>
+      <th>final_violating_buses</th>
+      <th>final_overloaded_lines</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>physics_seed</td>
+      <td>4747.46756</td>
+      <td>100.0</td>
+      <td>40.8</td>
+      <td>15</td>
+      <td>18</td>
+      <td>57</td>
+    </tr>
+  </tbody>
+</table>
+</div><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>iteration</th>
+      <th>node</th>
+      <th>role</th>
+      <th>actor_type</th>
+      <th>outputs</th>
+      <th>route</th>
+      <th>timestamp_utc</th>
+      <th>model</th>
+      <th>prompt_sha256</th>
+      <th>input_memory_items</th>
+      <th>output_candidates</th>
+      <th>historical_duplicates_filtered</th>
+      <th>physics_fallback_used</th>
+      <th>physics_portfolio_supplemented</th>
+      <th>restoration_portfolio_supplemented</th>
+      <th>adaptive_restoration_repairs</th>
+      <th>latency_ms</th>
+      <th>input_candidates</th>
+      <th>simulated_candidates</th>
+      <th>certified_candidates</th>
+      <th>rejected_candidates</th>
+      <th>invalid_before_simulation</th>
+      <th>failure_counts</th>
+      <th>derived_repair_candidates</th>
+      <th>derivation_methods</th>
+      <th>candidate</th>
+      <th>certificate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-1</td>
+      <td>initialize</td>
+      <td>State and Telemetry Agent</td>
+      <td>deterministic</td>
+      <td>{'violating_buses': 19, 'objective': 477075917...</td>
+      <td>plan</td>
+      <td>2026-09-19T18:55:14.144203+00:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>plan</td>
+      <td>OPRO Planner Agent</td>
+      <td>deterministic</td>
+      <td>NaN</td>
+      <td>verify</td>
+      <td>2026-09-19T18:55:14.197755+00:00</td>
+      <td>deterministic-no-llm</td>
+      <td>9b2ac8d5d68bbfa4a125f0ec540c289841ba0ed9afe95c...</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>0.0</td>
+      <td>52.8</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>verify</td>
+      <td>Physics and Certificate Team</td>
+      <td>deterministic</td>
+      <td>NaN</td>
+      <td>repair</td>
+      <td>2026-09-19T18:55:17.439492+00:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3241.6</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>repair</td>
+      <td>Failure Taxonomy Agent</td>
+      <td>deterministic</td>
+      <td>NaN</td>
+      <td>plan</td>
+      <td>2026-09-19T18:55:17.440032+00:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>{'restoration': 3, 'security': 3, 'topology': ...</td>
+      <td>1.0</td>
+      <td>[secant_watch_line_repair]</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>plan</td>
+      <td>OPRO Planner Agent</td>
+      <td>deterministic</td>
+      <td>NaN</td>
+      <td>verify</td>
+      <td>2026-09-19T18:55:17.473922+00:00</td>
+      <td>deterministic-no-llm</td>
+      <td>e871c6b0cdc6ebee0ed7ee9075dd78a351eced3373f00f...</td>
+      <td>11.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>33.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>verify</td>
+      <td>Physics and Certificate Team</td>
+      <td>deterministic</td>
+      <td>NaN</td>
+      <td>accept</td>
+      <td>2026-09-19T18:55:20.758303+00:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3284.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1</td>
+      <td>accept</td>
+      <td>Certificate Commit Agent</td>
+      <td>deterministic</td>
+      <td>NaN</td>
+      <td>plan</td>
+      <td>2026-09-19T18:55:20.761315+00:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>RESTORE_REPAIR_secant_charge40p8pct_3e975bdc</td>
+      <td>{'device_admissible': True, 'cyber_consistent'...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2</td>
+      <td>plan</td>
+      <td>OPRO Planner Agent</td>
+      <td>deterministic</td>
+      <td>NaN</td>
+      <td>verify</td>
+      <td>2026-09-19T18:55:20.794747+00:00</td>
+      <td>deterministic-no-llm</td>
+      <td>84953ef84853027283058125ae9cc62fa09e2024b0eac3...</td>
+      <td>21.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>0.0</td>
+      <td>33.1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2</td>
+      <td>verify</td>
+      <td>Physics and Certificate Team</td>
+      <td>deterministic</td>
+      <td>NaN</td>
+      <td>accept</td>
+      <td>2026-09-19T18:55:24.172830+00:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3377.7</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2</td>
+      <td>accept</td>
+      <td>Certificate Commit Agent</td>
+      <td>deterministic</td>
+      <td>NaN</td>
+      <td>finalize</td>
+      <td>2026-09-19T18:55:24.176231+00:00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>PHY_pv_exact_all_matching_aggressive_2</td>
+      <td>{'device_admissible': True, 'cyber_consistent'...</td>
+    </tr>
+  </tbody>
+</table>
+</div><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>certified</th>
+      <th>simulated</th>
+      <th>failure_modes</th>
+      <th>repair_derivation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>RESTORE_blind_elbswitch(r:udt8894-udt9916)u_82773</td>
+      <td>False</td>
+      <td>True</td>
+      <td>[security:thermal_regression]</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>RESTORE_PROBE_elbswitch(r:udt8894-udt9916)u_82...</td>
+      <td>False</td>
+      <td>True</td>
+      <td>[security:thermal_regression]</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PHY_cap_uc92_on</td>
+      <td>False</td>
+      <td>True</td>
+      <td>[topology:islanding_or_loop_regression, restor...</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PHY_pv_exact_all_matching_aggressive_2</td>
+      <td>False</td>
+      <td>True</td>
+      <td>[topology:islanding_or_loop_regression, restor...</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>PHY_storage_storage_p1ulv16384_charging_50</td>
+      <td>False</td>
+      <td>True</td>
+      <td>[topology:islanding_or_loop_regression, restor...</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>RESTORE_REPAIR_secant_charge40p8pct_3e975bdc</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[]</td>
+      <td>{'method': 'secant_watch_line_repair', 'operat...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>PHY_cap_uc92_off</td>
+      <td>False</td>
+      <td>True</td>
+      <td>[topology:islanding_or_loop_regression, restor...</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>PHY_pv_portfolio_balanced_2</td>
+      <td>False</td>
+      <td>True</td>
+      <td>[topology:islanding_or_loop_regression, restor...</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>PHY_storage_storage_p1ulv16384_charging_100</td>
+      <td>False</td>
+      <td>True</td>
+      <td>[topology:islanding_or_loop_regression, restor...</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>PHY_tap_sb2_uhs20_1247_reg_51_-2</td>
+      <td>False</td>
+      <td>True</td>
+      <td>[topology:islanding_or_loop_regression, restor...</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>RESTORE_blind_elbswitch(r:udt8894-udt9916)u_82773</td>
+      <td>False</td>
+      <td>True</td>
+      <td>[objective:no_improvement]</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>RESTORE_PROBE_elbswitch(r:udt8894-udt9916)u_82...</td>
+      <td>False</td>
+      <td>True</td>
+      <td>[security:thermal_regression, objective:no_imp...</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>PHY_cap_uc92_on</td>
+      <td>False</td>
+      <td>True</td>
+      <td>[objective:no_improvement]</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>PHY_pv_exact_all_matching_aggressive_2</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[]</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>PHY_storage_storage_p1ulv16384_charging_50</td>
+      <td>True</td>
+      <td>True</td>
+      <td>[]</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div><pre>[physics_seed/s101] [GridGuard] Baseline score=4.771e+08 metrics={'converged': True, 'viol_buses': 19, 'viol_type': 'overvoltage', 'deenergized_buses': 2240, 'bus_measurement_count': 5526, 'bus_voltage_coverage_rate': 1.0, 'v_severity': 0.6683376993821692, 'losses_kw': 437.23676576070886, 'max_line_pct': 821.2123063820984, 'line_loading_p95_pct': 20.482818472831383, 'line_rating_count': 4742, 'line_loading_coverage_rate': 1.0, 'over_lines': 50, 'thermal_severity_pct_sum': 7593.8685180449465, 'served_load_kw': 14184.848419999978, 'unserved_load_kw': 4747.467560000007, 'load_multiplier': 1.0, 'isolated_branches': 2249, 'isolated_loads': 3539, 'topology_loops': 208, 'topology_hash': 'f3286592536757d2', 'network_nodes': 5526, 'network_active_edges': 6181, 'network_components': 6, 'network_cycle_rank': 661, 'source_bus_count': 1, 'source_disconnected_loads': 2173, 'recovery_applied': False, 'switching_effort': 0, 'cumulative_device_action_count': 0.0, 'pv_curtailment_command_fraction_sum': 0.0, 'storage_dispatch_command_fraction_sum': 0.0, 'cumulative_tap_motion_normalized': 0.0, 'cumulative_discrete_operation_count': 0.0, 'cumulative_control_effort': 0.0}
+[physics_seed/s101] [GridGuard] Iteration 0: planner proposed 5 candidates after filtering 0 prior bundles (physics fallback=True, PV portfolio=False, restoration portfolio=True).
+[physics_seed/s101] [GridGuard] Verification: 0/5 candidates certified; 0 rejected before simulation.
+[physics_seed/s101] [GridGuard] Repair/reflection feedback: {'restoration': 3, 'security': 3, 'topology': 3, 'objective': 1}
+[physics_seed/s101] [GridGuard] Iteration 1: planner proposed 5 candidates after filtering 5 prior bundles (physics fallback=True, PV portfolio=False, restoration portfolio=True).
+[physics_seed/s101] [GridGuard] Verification: 1/5 candidates certified; 0 rejected before simulation.
+[physics_seed/s101] [GridGuard] Accepted certified candidate RESTORE_REPAIR_secant_charge40p8pct_3e975bdc at iteration 1 with score 2.518e+06.
+[physics_seed/s101] [GridGuard] Iteration 2: planner proposed 5 candidates after filtering 0 prior bundles (physics fallback=True, PV portfolio=False, restoration portfolio=True).
+[physics_seed/s101] [GridGuard] Verification: 2/5 candidates certified; 0 rejected before simulation.
+[physics_seed/s101] [GridGuard] Accepted certified candidate PHY_pv_exact_all_matching_aggressive_2 at iteration 2 with score 2.163e+06.
+[physics_seed/s101] [GridGuard] Saved certified run record: C:\Users\f00863x\OPRO\output\smartgridcomm_greensboro\results\restoration\raw\gridguard_run_TII-RESTORE-physics_seed-s101_20260919_145524.json
+</pre><h3>Restoration benefit and critical-load extension</h3>
+<p>Simulation detects the new watch-line overload from blind pickup. Verification rejects a regressive candidate. Repair adds coordinated storage and uses a secant-style update toward 99.5% watch-line loading. The audit trail exposes the reasoning and the accepted physical action count.</p>
+<p>The supplied case has no validated critical-load labels. For a research extension, supply an operator-reviewed load-to-priority map and maximize weighted restored load, subject to the same checks. Do not interpret this notebook&#39;s equal-weight nominal restored kW as critical-load optimization. Battery energy sufficiency over a restoration horizon is also outside this static demonstration.</p>
+<h2>4. Lab 3 — controlled cyber-physical injections</h2>
+<p>Run a known feasible control and ten negative controls through the real verifier. Cases include stale telemetry, a revoked trust flag, topology mismatch, quarantined targets, unknown actions/devices, actuator readback failures and a physically regressive tie proposal.</p>
+<p>These are <strong>software-level fault injections</strong>, not attacks on a live system. A supplied <code>trusted</code> flag is a policy input, not an implemented authentication system. Topology fingerprints detect disagreement with the expected state, not an attacker who compromises both copies. Arbitrary false-data injection, stealth attacks and prompt-injection robustness need separate evaluation. The readback cases deliberately mock the interface; the other simulated candidates receive fresh OpenDSS solves.</p>
+<details><summary>Code cell 8</summary><pre>config = cyber.build_config(fleet)
+grid.RUN_DIR = RESULTS/'cyber/raw'
+grid.RUN_DIR.mkdir(parents=True,exist_ok=True)
+cyber_rows = []
+for scenario in cyber.scenarios():
+    row = cyber.evaluate_scenario(config,scenario,outage,outage_m,pre,pre_m,area_master,
+                                  grid.compile_and_solve)
+    cyber_rows.append(row)
+display(pd.DataFrame(cyber_rows)[['scenario_id','expected_disposition','observed_disposition',
+                                 'simulated','unsafe_commit','failure_modes']])
+cyber_summary = cyber.summarize(cyber_rows)
+print(json.dumps(cyber_summary,indent=2))
+assert all(r['detected'] for r in cyber_rows), 'An injection did not produce its expected disposition.'
+assert not any(r['unsafe_commit'] for r in cyber_rows)
+</pre></details><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>scenario_id</th>
+      <th>expected_disposition</th>
+      <th>observed_disposition</th>
+      <th>simulated</th>
+      <th>unsafe_commit</th>
+      <th>failure_modes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>known_safe_control</td>
+      <td>certify</td>
+      <td>certify</td>
+      <td>True</td>
+      <td>False</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>unknown_action_schema</td>
+      <td>reject</td>
+      <td>reject</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[action[0]:unknown_type:raw_dss]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>unknown_device</td>
+      <td>reject</td>
+      <td>reject</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[action[0]:unknown_der:PVSystem.NOT_IN_CATALOG]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>unsafe_vsource_attempt</td>
+      <td>reject</td>
+      <td>reject</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[action[0]:unknown_der:Vsource.source]</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>stale_telemetry</td>
+      <td>reject</td>
+      <td>reject</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[cyber:stale_telemetry:843159327s]</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>untrusted_telemetry</td>
+      <td>reject</td>
+      <td>reject</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[cyber:telemetry_untrusted]</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>quarantined_target</td>
+      <td>reject</td>
+      <td>reject</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[action[0]:cyber_quarantined:line.l(r:udt8894-...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>topology_hash_mismatch</td>
+      <td>reject</td>
+      <td>reject</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[cyber:topology_mismatch]</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>actuation_readback_mismatch</td>
+      <td>reject</td>
+      <td>reject</td>
+      <td>True</td>
+      <td>False</td>
+      <td>[cyber:actuation_mismatch:action[0]:line.elbsw...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>actuation_readback_unavailable</td>
+      <td>reject</td>
+      <td>reject</td>
+      <td>True</td>
+      <td>False</td>
+      <td>[cyber:actuation_unavailable:action[0]:line.el...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>physical_thermal_regression</td>
+      <td>reject</td>
+      <td>reject</td>
+      <td>True</td>
+      <td>False</td>
+      <td>[security:thermal_regression]</td>
+    </tr>
+  </tbody>
+</table>
+</div><pre>{
+  "scenario_count": 11,
+  "hazard_case_count": 10,
+  "hazards_detected": 10,
+  "hazard_detection_rate": 1.0,
+  "safe_control_count": 1,
+  "false_reject_count": 0,
+  "false_reject_rate": 0.0,
+  "unsafe_commit_count": 0,
+  "pre_simulation_rejection_count": 7,
+  "post_simulation_rejection_count": 3,
+  "by_layer": [
+    {
+      "layer": "actuation",
+      "cases": 2,
+      "detected": 2,
+      "detection_rate": 1.0,
+      "pre_simulation_rejections": 0
+    },
+    {
+      "layer": "admissibility",
+      "cases": 2,
+      "detected": 2,
+      "detection_rate": 1.0,
+      "pre_simulation_rejections": 2
+    },
+    {
+      "layer": "control",
+      "cases": 1,
+      "detected": 1,
+      "detection_rate": 1.0,
+      "pre_simulation_rejections": 0
+    },
+    {
+      "layer": "cyber",
+      "cases": 4,
+      "detected": 4,
+      "detection_rate": 1.0,
+      "pre_simulation_rejections": 4
+    },
+    {
+      "layer": "physics",
+      "cases": 1,
+      "detected": 1,
+      "detection_rate": 1.0,
+      "pre_simulation_rejections": 0
+    },
+    {
+      "layer": "schema",
+      "cases": 1,
+      "detected": 1,
+      "detection_rate": 1.0,
+      "pre_simulation_rejections": 1
+    }
+  ]
+}
+</pre><h3>Step-by-step interpretation</h3>
+<ol>
+<li>Awareness carries freshness, trust, quarantine and topology evidence with the state.</li>
+<li>The planner submits the same structured proposal under changed evidence.</li>
+<li>Early checks reject malformed or untrusted input before paying for a solve.</li>
+<li>Simulation exposes thermal regression in an otherwise executable tie action.</li>
+<li>Verification prevents a rejected candidate reaching simulated acceptance.</li>
+<li>The repair route returns a reason to planning; it never bypasses the verifier.</li>
+</ol>
+<p>Report positive-control false rejects separately from negative-control rejections. This small designed suite checks implementation behavior; its pass rate is not a real-world cyberattack detection rate.</p>
+<h2>5. Optional live LLM planning and verifier-guided refinement</h2>
+<p>Default execution below is off. Start a local Ollama server with an installed Llama or Qwen model, set <code>OLLAMA_MODEL</code> to its exact installed identifier, then enable the switch. No model-family performance comparison is claimed by the default output.</p>
+<p>The prompt supplies a bounded numeric action schema, operating metrics and prior scores. The model proposes only a PV cap. Python validates the response, performs the physical solve and sends the rejection reasons back. Model text cannot execute arbitrary commands. The optional restoration run uses the existing planner and critic with the same allowlisted actions.</p>
+<details><summary>Code cell 9</summary><pre>RUN_LIVE_LLM = False
+if RUN_LIVE_LLM:
+    assert os.environ.get('OLLAMA_MODEL'), 'Set OLLAMA_MODEL to an installed model.'
+    llm = grid.LLMClient(seed=101)
+    memory = []
+    for iteration in range(6):
+        response = llm.chat(
+          system='You plan PV caps for a simulation. Return only JSON with one key pct_pmpp, a number in [0,100]. Maximize the cap after all voltage and thermal constraints pass.',
+          user_text=json.dumps({'baseline':state['metrics'],'scored_history':memory}),
+          temperature=0.2,num_predict=256,response_format='json')
+        try:
+            parsed = json.loads(response)
+            if set(parsed) != {'pct_pmpp'}: raise ValueError('Unexpected keys')
+            candidate = planning_agent(parsed['pct_pmpp'],source='live LLM')
+            snapshot, metrics = simulation_agent(candidate,state)
+            passed, reasons = verification_agent(snapshot,metrics,state)
+            memory.append({'iteration':iteration,'pct_pmpp':parsed['pct_pmpp'],
+                           'passed':passed,'reasons':reasons,'voltage_severity':metrics['v_severity'],
+                           'overloaded_lines':metrics['over_lines']})
+        except (ValueError,TypeError) as error:
+            memory.append({'iteration':iteration,'passed':False,'reasons':[str(error)]})
+    display(pd.DataFrame(memory))
+    feasible = [r for r in memory if r['passed']]
+    print('Best verified live proposal:',max(feasible,key=lambda r:r['pct_pmpp']) if feasible else 'No recommendation')
+    (RESULTS/'live_llm_voltage.json').write_text(json.dumps({'model':llm.model,'history':memory},indent=2))
+    live_restore = restore.run_method('gridguard_hybrid',101,area_master,RESULTS/'live_restoration',fleet,
+        pre_m,pre,outage_m,3,5,llm.model)
+    display(pd.DataFrame([live_restore]))
+else:
+    print('Live LLM calls skipped. All displayed primary results use deterministic policies.')
+</pre></details><pre>Live LLM calls skipped. All displayed primary results use deterministic policies.
+</pre><h2>6. Evidence, exercises and research design</h2>
+<p><strong>What this run establishes:</strong> reproducible simulations on a real SMART-DS subset, explicit agent handoffs, candidate rejection, bounded repair and audit records. <strong>What remains a hypothesis:</strong> LLMs improve decision quality or reduce operator effort compared with conventional optimization or a single agent.</p>
+<p>For a publication study, compare no action, a deterministic search, OPF/Volt-VAR control, an LLM without verification, a verified LLM and a verified LLM with feedback. Match physical action limits and simulation budgets. Separate unsafe proposals from unsafe simulated commitments. Use multiple operating points, outages and model seeds; report uncertainty, wall time, tokens, solver calls, losses, actual PV energy and remaining violations. Do not treat the unequal-budget teaching ablation as a fair optimizer benchmark.</p>
+<p><strong>Exercises</strong></p>
+<ol>
+<li>Change the voltage band and rerun the complete voltage section. Does the previous cap still pass?</li>
+<li>Limit refinement to two probes. Compare the accepted cap and solve count.</li>
+<li>Compare tie-only and coordinated pickup. Explain why charging helps in this snapshot.</li>
+<li>Change a negative-control input to a valid one and inspect its trace.</li>
+<li>Enable live LLM mode for two installed model families with the same six-solve budget and seeds. Separate parse failures from physical failures.</li>
+</ol>
+<p><strong>Three-hour teaching plan:</strong> motivation 20 min, multi-agent workflow 25, open-weight models 20, optimizer patterns 20, voltage lab 25, restoration lab 25, cyber lab 25, discussion 20.</p>
+<details><summary>Code cell 10</summary><pre>summary = {
+ 'scope':'SMART-DS Greensboro uhs20_1247; voltage lab uses udt8894 leaf',
+ 'execution_mode':'deterministic OpenDSS and LangGraph; optional live LLM separately labeled',
+ 'voltage_baseline':state['metrics'],'voltage_best':best_voltage,
+ 'voltage_candidates':voltage_rows,'restoration_states':restoration_rows,
+ 'restoration_result':restoration_result,'cyber_trials':cyber_rows,'cyber_summary':cyber_summary,
+ 'source_master_sha256':area_manifest['source_master_sha256'],
+ 'source_tree_sha256':area_manifest['redirected_source_tree_sha256'],
+ 'gridguard_sha256':hashlib.sha256((ROOT/'OPRO_Optimizer.py').read_bytes()).hexdigest(),
+ 'limitations':['static snapshots','synthetic network','parent model has pre-existing violations',
+               'no proof of absolute radiality','no critical-load labels','no field dispatch',
+               'no live LLM performance claim from default execution']}
+(RESULTS/'study_summary.json').write_text(json.dumps(summary,indent=2,allow_nan=False))
+pd.DataFrame(restoration_rows).to_csv(RESULTS/'restoration_states.csv',index=False)
+pd.DataFrame(cyber_rows).to_csv(RESULTS/'cyber_trials.csv',index=False)
+print('Saved machine-readable evidence to', RESULTS)
+</pre></details><pre>Saved machine-readable evidence to C:\Users\f00863x\OPRO\output\smartgridcomm_greensboro\results
+</pre><h2>References and implementation traceability</h2>
+<ul>
+<li>User-supplied <em>Tutorial Proposal for IEEE SmartGridComm 2026</em>, sections 2–5: roles, workflow, labs and timing.</li>
+<li><a href="https://data.openei.org/submissions/2981">SMART-DS Synthetic Electrical Network Data</a>, Palmintier et al., OEDI dataset 2981: synthetic Greensboro network provenance.</li>
+<li>Bundled <code>OPRO_Optimizer.py</code>: solver wrapper, action schemas, policy checks and LangGraph engine.</li>
+<li>Bundled restoration and controlled-injection runners: original scenario and verification logic. This notebook reruns the scenarios rather than presenting old run files as new measurements.</li>
+</ul>
+<p>Retain the source manifests and raw candidate ledgers when adapting the tutorial. Revalidate any new control, line rating, SOC horizon, topology model or critical-load priority before making stronger operational claims.</p>
+</body></html>

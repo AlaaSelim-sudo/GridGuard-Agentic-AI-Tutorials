@@ -1,0 +1,435 @@
+% Twenty-three taught foundation frames, 0--40 minutes.
+% Real LangGraph toy; main engineering workflows remain custom Python.
+% Simple TikZ only: no additional libraries.
+\section{Foundations}
+\tikzset{classstep/.style={draw=forest,rounded corners=2pt,align=center,text width=2.25cm,minimum height=.85cm,font=\small},classarrow/.style={->,>=stealth,thick,forest},classsmall/.style={draw=forest,align=center,text width=1.8cm,minimum height=.7cm,font=\small}}
+
+\begin{frame}[t]{One operator, three decisions, one evidence trail}
+\begin{columns}[T,onlytextwidth]
+\column{.48\textwidth}
+\includegraphics[width=\linewidth,height=.45\textheight,keepaspectratio]{\figfile{control_room_concept.png}}
+\par\scriptsize\color{slate}AI-generated concept illustration; not an installed control room.
+\column{.49\textwidth}\small
+\textbf{Voltage support}\par Which inverter command meets the limits?\par\medskip
+\textbf{Restoration}\par Which permitted path can restore service?\par\medskip
+\textbf{Cyber response}\par Which evidence supports the estimated state?
+\end{columns}\medskip
+\uncover<2->{\textbf{Learning goal:} follow a request through tools, decisions and checks until an operator can explain why to accept, hold or reject it.}
+\slidetransition{What will we build in three hours?}
+\sources{U.S. DOE, \href{https://www.energy.gov/sites/default/files/2024-02/11-02-2015_doe-voe-insights-into-advanced-distribution-management-systems-report_508_0.pdf}{ADMS Insights (2015)}. Illustration: \texttt{figures/AI\_Illustration\_Provenance.md}.}
+\note{0--2 min. Invite two answers: what evidence makes a recommendation reviewable? Reveal the goal after their answers. Cases use a synthetic feeder and small teaching fixtures. Spoken bridge: We will build that evidence trail in small pieces, then test it on three different decisions.}
+\end{frame}
+
+\begin{frame}[t]{A three-hour route from diagrams to operator review}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.13\linewidth}>{\raggedright\arraybackslash}p{.42\linewidth}>{\raggedright\arraybackslash}p{.36\linewidth}@{}}
+\toprule Minutes & Explain & Do \\
+\midrule
+0--40 & Graphs, state, decisions and agents & Trace a LangGraph toy; reject stale evidence \\
+40--82 & Voltage and MPC/SAC proposals & Compare controls and Llama trials \\
+82--92 & \textbf{Break} & Keep the notebook kernel ready \\
+92--119 & Restoration and discrete choices & Change tie capacity and inspect service \\
+119--149 & Cyber response and estimation & Challenge corrupted measurements \\
+149--162 & Research and scientific comparison & Compare outcomes, evidence and latency \\
+162--180 & Control-room capstone & Explain an acknowledgment or a hold \\
+\bottomrule
+\end{tabular}\par\medskip
+\textbf{Each exercise:} predict $\rightarrow$ run $\rightarrow$ explain the returned evidence.
+\par\smallskip\textbf{Labels matter:} fresh calculation, saved Llama response and live call are different experiments.
+\slidetransition{Which part of the software makes a decision?}
+\sources{Workshop route: this tutorial. Evidence evaluation: \href{https://arxiv.org/html/2606.18789v1}{PowerAgentBench-SS (2026 preprint)}.}
+\note{2--3 min. Installation is a prerequisite. Graph_Workflow_Lab teaches orchestration; Classroom_Labs contains engineering exercises. Saved responses are actual previous calls, with previous-call latency. Spoken bridge: Before using any package, distinguish a tool from the component that chooses to call it.}
+\end{frame}
+
+\begin{frame}[t]{Tool, agent and orchestrator have different jobs}
+\begin{center}\begin{tikzpicture}
+\node[classstep,fill=mint!25,text width=2.4cm,minimum height=1.4cm] (a) at (0,0) {\textbf{Agent}\\chooses an allowed\\next operation};
+\node[classstep,text width=2.4cm,minimum height=1.4cm] (t) at (5,0) {\textbf{Tool}\\calculates or retrieves\\a specific result};
+\node[classstep,text width=2.4cm,minimum height=1.4cm] (o) at (10,0) {\textbf{Orchestrator}\\runs graph\\stores state\\enforces routes};
+\draw[classarrow] (a)--node[above,align=center,font=\scriptsize]{structured\\request}(t);
+\draw[classarrow] (t.south)--(5,-1.35)--node[below,font=\scriptsize]{returned evidence}(0,-1.35)--(a.south);
+\draw[classarrow,dashed] (o)--node[above,font=\scriptsize]{execution rules}(t);
+\end{tikzpicture}\end{center}\small
+\uncover<2->{\textbf{Example:} Llama proposes a trial; a power-flow tool returns voltages; the orchestrator requires verification before a recommendation.}
+\par\medskip
+An LLM call can live inside a graph node. A numerical node can run without any LLM. Several roles can use the same Llama backbone.
+\slidetransition{How do we draw these responsibilities clearly?}
+\sources{\href{https://arxiv.org/abs/2210.03629}{Yao et al., ReAct (ICLR 2023)}; \href{https://docs.langchain.com/oss/python/langgraph/workflows-agents}{LangGraph workflows and agents}, accessed 2026-10-17.}
+\note{3--5 min. Trace request and result. Dashed line means execution rules here. Distinguish language-selected next actions from a fixed script; both can share tools and safeguards. A graph alone implies neither AI nor independent models. Spoken bridge: We need a small visual vocabulary before those boxes become a workflow.}
+\end{frame}
+
+\begin{frame}[t]{Read the diagram: operation, state, dependency and decision}
+\begin{center}\begin{tikzpicture}[every node/.style={font=\small}]
+\node[classsmall] at (0,1) {$A$: operation};
+\node[align=left,text width=8.2cm] at (6,1) {A function that consumes data and returns a result.};
+\node[draw=forest,rounded corners=7pt,fill=mint!20,minimum width=1.8cm,minimum height=.65cm] at (0,0) {$s$: state};
+\node[align=left,text width=8.2cm] at (6,0) {The current record: request, command, results and status.};
+\draw[classarrow] (-.8,-1)--(.8,-1);
+\node[align=left,text width=8.2cm] at (6,-1) {$A\to B$: finish the required result from $A$ before $B$.};
+\draw[orange,thick] (0,-1.65)--(.8,-2.1)--(0,-2.55)--(-.8,-2.1)--cycle;
+\node at (0,-2.1) {$r(s)$};
+\node[align=left,text width=8.2cm] at (6,-2.1) {$r$: routing rule; its returned label selects the next path.};
+\end{tikzpicture}\end{center}
+\uncover<2->{\small A workflow graph shows \textbf{computation dependencies}. Its edges are not the feeder's electrical lines.}
+\slidetransition{Which operations could run independently?}
+\sources{\href{https://docs.langchain.com/oss/python/langgraph/graph-api}{LangGraph Graph API}; \href{https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.dag.topological_sort.html}{NetworkX topological sort}. Tutorial schematics.}
+\note{5--6 min. Name each symbol: operation A, record s and routing rule r. Later physical figures use edges as feeder connections; these are computational arrows. Spoken bridge: Once dependencies are visible, we can see where work may branch and where it must wait.}
+\end{frame}
+
+\begin{frame}[t]{A dependency DAG can split work and join the evidence}
+\begin{center}\begin{tikzpicture}
+\node[classstep] (a) at (0,0) {$A$: freeze the\\case and candidate};
+\uncover<2->{\node[classstep,fill=mint!25] (b) at (4,1) {$B$: check\\voltage evidence};
+\node[classstep,fill=mint!25] (c) at (4,-1) {$C$: check\\current evidence};
+\draw[classarrow] (a)--(b);\draw[classarrow] (a)--(c);}
+\uncover<3->{\node[classstep] (d) at (8,0) {$D$: combine\\both check results};
+\draw[classarrow] (b)--(d);\draw[classarrow] (c)--(d);}
+\end{tikzpicture}\end{center}\small
+\textbf{DAG} = directed acyclic graph: arrows have direction; no path returns to its starting node.
+\par\smallskip $G=(N,E)$: $N=\{A,B,C,D\}$ is the node set; $E$ is the set of dependency arrows.
+\par\smallskip\uncover<3->{\textbf{Fan-out:} $B$ and $C$ receive the same frozen input. \textbf{Join:} $D$ needs both outputs.}
+\slidetransition{Which execution orders preserve every dependency?}
+\sources{\href{https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.dag.topological_sort.html}{NetworkX DAG ordering}; \href{https://docs.langchain.com/oss/python/langgraph/use-graph-api}{LangGraph joins}. Conceptual checks; not the G-lab topology.}
+\note{6--8 min. Reveal input, two checks, then join. Ask whether one branch supplies a complete verdict. Independent work may overlap; this guarantees neither speedup nor independent errors. Our engineering adapters are not claimed to run concurrently. Spoken bridge: Splitting work still leaves an ordering rule, and more than one order can satisfy it.}
+\end{frame}
+
+\begin{frame}[t]{Topological order puts every prerequisite before its consumer}
+\begin{center}\begin{tikzpicture}
+\node[classsmall] (a) at (0,0) {$A$};\node[classsmall,fill=mint!25] (b) at (3,.8) {$B$};
+\node[classsmall,fill=mint!25] (c) at (3,-.8) {$C$};\node[classsmall] (d) at (6,0) {$D$};
+\draw[classarrow] (a)--(b);\draw[classarrow] (a)--(c);\draw[classarrow] (b)--(d);\draw[classarrow] (c)--(d);
+\node[align=left,font=\small,text width=3.2cm] at (9.5,0) {$A$: freeze input\\$B$: voltage check\\$C$: current check\\$D$: combine};
+\end{tikzpicture}\end{center}\small
+\begin{tabular}{@{}l@{\hspace{1.7cm}}l@{}}
+\toprule Candidate order & Does it respect all arrows? \\
+\midrule
+$A,B,C,D$ & \uncover<2->{\yesmark\ Yes.} \\
+$A,C,B,D$ & \uncover<2->{\yesmark\ Yes; $B$ and $C$ are independent.} \\
+$A,B,D,C$ & \uncover<2->{\nomark\ No; $D$ is missing $C$'s result.} \\
+\bottomrule
+\end{tabular}\par\smallskip
+\uncover<2->{\textbf{A schedule can group $\{B,C\}$ together.} The join must still wait for both.}
+\slidetransition{What changes when a failed check requests a retry?}
+\sources{\href{https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.dag.topological_sort.html}{NetworkX topological sort}. Tutorial's four-node example.}
+\note{8--10 min. Pause before revealing. Ask why D cannot precede C. Topological order is a dependency-respecting list, not measured runtime. Braces group independent work. Spoken bridge: A repair step introduces a backward arrow, so we must change our description of the graph.}
+\end{frame}
+
+\begin{frame}[t]{A retry loop is a graph with a cycle, not a DAG}
+\begin{center}\begin{tikzpicture}
+\node[classstep] (s) at (0,0) {Simulate\\candidate};\node[classstep] (v) at (4,0) {Verify\\limits};
+\node[classstep,fill=mint!25] (r) at (8,1) {Ready for\\review};\node[classstep] (h) at (8,-1) {Hold /\\escalate};
+\draw[classarrow] (s)--(v);\draw[classarrow] (v)--node[above,font=\scriptsize]{pass}(r);
+\uncover<2->{\draw[classarrow] (v)--(h);\node[font=\scriptsize,fill=white,inner sep=1pt] at (6.6,-.25) {fail, $k=K$};
+\node[classstep,draw=orange] (p) at (4,-2) {Repair command\\$k\leftarrow k+1$};
+\draw[classarrow,orange] (v)--node[right,font=\scriptsize]{fail and $k<K$}(p);\draw[classarrow,orange] (p)-|(s);}
+\end{tikzpicture}\end{center}
+\small $k$: completed repairs; $K$: maximum allowed repairs; both non-negative integers.
+\par\smallskip\uncover<2->{Every changed candidate returns to simulation. A finite budget guarantees a stop \emph{if each tool call returns}; it does not guarantee a feasible action.}
+\slidetransition{What information must survive every node?}
+\sources{\href{https://docs.langchain.com/oss/python/langgraph/overview}{LangGraph overview}; \href{https://docs.langchain.com/oss/python/langgraph/use-graph-api}{Graph API examples}. Retry rule is the tutorial's policy.}
+\note{10--12 min. Trace success, then reveal repair and exhaustion. Identify the cyclic arrow. A finite unrolled trace can be acyclic although the program has a loop. Tool timeouts are separate from a retry count. Spoken bridge: To decide whether another retry is allowed, the next node must read a reliable shared record.}
+\end{frame}
+
+\begin{frame}[t]{Typed state is the record carried through the graph}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.23\linewidth}>{\raggedright\arraybackslash}p{.24\linewidth}>{\raggedright\arraybackslash}p{.44\linewidth}@{}}
+\toprule Field & Type / example & Why the next node needs it \\
+\midrule
+\texttt{command} & Number, $0.75$ & Exact proposed input \\
+\texttt{current}, \texttt{limit} & Numbers, same declared units & A meaningful comparison \\
+\texttt{attempts}, \texttt{max\_repairs} & Integers, $0$ and $2$ & Remaining retry budget \\
+\texttt{passed} & Boolean & Numerical gate result \\
+\texttt{trace} & List of event strings & Inspectable execution history \\
+\bottomrule
+\end{tabular}\par\medskip
+\begin{center}\begin{tikzpicture}
+\node[classstep,fill=mint!25] (a) at (0,0) {$s_t$: current record};
+\node[classstep] (b) at (4.2,0) {Node computes\\an update $\Delta s_t$};
+\node[classstep,fill=mint!25] (c) at (8.4,0) {$s_{t+1}$: next record};
+\draw[classarrow] (a)--(b);\draw[classarrow] (b)--(c);
+\end{tikzpicture}\end{center}
+\small $t$: workflow step; $\Delta s_t$: returned fields, not arithmetic subtraction.
+\slidetransition{Should a new result replace or append to a field?}
+\sources{\href{https://docs.langchain.com/oss/python/langgraph/graph-api}{LangGraph state}; \href{https://docs.python.org/3/library/typing.html\#typing.TypedDict}{Python TypedDict}. Illustrative G-lab fields.}
+\note{12--14 min. Treat state as a laboratory record, not a chat transcript. TypedDict describes keys/types but performs no runtime validation itself. Applications still check values and units. Spoken bridge: Updating a scalar result and preserving a history require different merge rules.}
+\end{frame}
+\begin{frame}[t]{A reducer states how a field absorbs new information}
+\begin{columns}[T,onlytextwidth]
+\column{.48\textwidth}\small
+\textbf{Replace a current result}\par\medskip
+\begin{tabular}{@{}ll@{}}
+Existing \texttt{current} & $1.00$ \\
+New \texttt{current} & $0.80$ \\
+\midrule
+Stored result & \uncover<2->{$0.80$} \\
+\end{tabular}\par\medskip
+Only the latest result belongs to the current command.
+\column{.48\textwidth}\small
+\textbf{Append an event to history}\par\medskip
+\texttt{[simulate]} + \texttt{[verify]}\par\medskip
+\uncover<2->{\texttt{[simulate, verify]}}\par\medskip
+The list-addition reducer preserves both events.
+\end{columns}\medskip
+\small $R_k(a,b)$: reducer for field $k$, combining stored value $a$ and returned update $b$.
+\par\smallskip\uncover<2->{\textbf{Design question:} if two parallel branches write the same field, what merge rule is valid? Never let accidental write order define the answer.}
+\slidetransition{How does the record choose the next edge?}
+\sources{\href{https://docs.langchain.com/oss/python/langgraph/graph-api}{LangGraph reducer definitions}; \href{https://docs.langchain.com/oss/python/langgraph/use-graph-api}{worked examples}. Values are illustrative.}
+\note{14--16 min. Reveal after prediction. List addition appends; it is not averaging or voting. Empty appended lists do not erase history. The G trace is sequential; parallel order needs interpretation. Concurrent writes to a non-reduced field can raise an error. Spoken bridge: Once the record is updated, a routing function can select the next permitted operation.}
+\end{frame}
+
+\begin{frame}[t]{Conditional routing makes the next action explicit}
+\begin{center}\begin{tikzpicture}[every node/.style={font=\small}]
+\node[classstep] (v) at (0,0) {Verification\\updates \texttt{passed}};
+\draw[orange,thick] (3.5,1)--(4.8,0)--(3.5,-1)--(2.2,0)--cycle;
+\node[align=center] (r) at (3.5,0) {$r(s)$\\read state};
+\node[classstep,fill=mint!25] (a) at (9,1.4) {\texttt{report}};
+\node[classstep] (b) at (9,0) {\texttt{repair}};
+\node[classstep] (c) at (9,-1.4) {\texttt{hold}};
+\draw[classarrow] (v)--(2.2,0);
+\uncover<2->{\draw[classarrow] (4.8,0)--node[pos=.65,above=3pt,font=\scriptsize,fill=white,inner sep=1pt]{passed}(a);}
+\uncover<3->{\draw[classarrow] (4.8,0)--node[pos=.7,above=3pt,font=\scriptsize,fill=white,inner sep=1pt]{failed, $k<K$}(b);
+\draw[classarrow] (4.8,0)--node[pos=.65,below=3pt,font=\scriptsize,fill=white,inner sep=1pt]{failed, $k\geq K$}(c);}
+\end{tikzpicture}\end{center}
+\small $s$: state; $r(s)$: one route label; $k$: repairs used; $K$: repair budget.
+\par\smallskip\textbf{Separate responsibilities:} verification computes admissibility; routing decides what the workflow does with that result.
+\slidetransition{Where can a human pause this process?}
+\sources{\href{https://docs.langchain.com/oss/python/langgraph/use-graph-api}{LangGraph conditional-edge examples}. Three-way policy: \texttt{Graph\_Workflow\_Lab.ipynb}, G2.}
+\note{16--18 min. Read success, remaining budget, then exhaustion as mutually exclusive branches. The G code returns report on success; the default report function records TOY_READY. G5 replaces that function with human review. Routing is deterministic here; language-selected refinements still face the same gate. Spoken bridge: A ready proposal can still require a person, so the program needs a resumable pause.}
+\end{frame}
+
+\begin{frame}[t]{A checkpoint and an interrupt make review resumable}
+\begin{center}\begin{tikzpicture}
+\node[classstep] (a) at (0,0) {Verified\\proposal};
+\node[classstep,fill=mint!25] (b) at (3.5,0) {Checkpoint\\save state};
+\node[classstep,draw=orange] (c) at (7,0) {Interrupt\\ask for review};
+\node[classstep] (d) at (10.5,0) {Resume with\\review response};
+\draw[classarrow] (a)--(b);\draw[classarrow] (b)--(c);
+\uncover<2->{\draw[classarrow] (c)--(d);}
+\end{tikzpicture}\end{center}\small
+\begin{tabular}{@{}p{.22\linewidth}p{.69\linewidth}@{}}
+\toprule Term & Meaning for this example \\
+\midrule
+Checkpoint & Saved state, associated with a \texttt{thread\_id}. \\
+Interrupt & Pause that exposes a review request to the caller. \\
+Resume value & Explicit response returned to the paused node. \\
+\bottomrule
+\end{tabular}\par\medskip
+\uncover<2->{\textbf{The review node can run again on resume.} Put no uncontrolled equipment side effect before the pause. The toy records acknowledgment only.}
+\slidetransition{How do these graph ideas map to our five stages?}
+\sources{\href{https://docs.langchain.com/oss/python/langgraph/persistence}{LangGraph persistence}; \href{https://docs.langchain.com/oss/python/langgraph/interrupts}{interrupt/resume documentation}, accessed 2026-10-17.}
+\note{18--20 min. Stop at pause before revealing resume. A thread ID groups execution state, not operator credentials. The toy's in-memory saver does not survive process loss. A repeated node must not duplicate side effects. Spoken bridge: These are software mechanisms; the proposal assigns them to five engineering responsibilities.}
+\end{frame}
+
+\begin{frame}[t]{Five proposed stages share one candidate and its evidence}
+\begin{center}\begin{tikzpicture}
+\node[classsmall,fill=mint!25] (a) at (0,0) {Awareness\\state + request};
+\node[classsmall] (p) at (2.65,0) {Planning\\candidate};
+\node[classsmall] (s) at (5.3,0) {Simulation\\consequences};
+\node[classsmall] (v) at (7.95,0) {Verification\\margins};
+\node[classsmall,fill=mint!25] (o) at (10.6,0) {LLM optimizer\\next trial};
+\draw[classarrow] (a)--(p);\draw[classarrow] (p)--(s);\draw[classarrow] (s)--(v);\draw[classarrow] (v)--(o);
+\uncover<2->{\draw[classarrow,orange] (o.south)--(10.6,-1.2)--node[below,font=\small]{Modified candidates return to simulation and verification}(5.3,-1.2)--(s.south);}
+\end{tikzpicture}\end{center}\small
+\textbf{Shared record:} case, state version, command, model scope, limits, tool result and verdict.
+\par\medskip
+\textbf{Operator handoff:} selected action, supported public explanation, alternatives and unresolved assumptions.
+\par\smallskip
+An agent is a responsibility; numerical functions can implement much of it. Execution and acknowledgment support the five stages.
+\slidetransition{Which returned facts should a verifier trust?}
+\sources{SmartGridComm 2026 tutorial proposal, pp. 1--2. Roles: \href{https://arxiv.org/abs/2308.08155}{Wu et al., AutoGen (2023 preprint)}.}
+\note{20--22 min. Trace a candidate, then reveal repair. Planners vary by case: MPC, MILP or estimation/control. Llama supports bounded interpretation and trial choice; it does not replace equations. Main implementation is custom Python, separate from the toy. Spoken bridge: A well-connected graph still needs a precise rule for accepting the facts passed between stages.}
+\end{frame}
+
+\begin{frame}[t]{Typed, current and feasible are three separate claims}
+\small
+\begin{tabular}{@{}p{.29\linewidth}p{.32\linewidth}p{.31\linewidth}@{}}
+\toprule Check & Question & What a pass does not establish \\
+\midrule
+Schema & Are required fields and values valid? & Correct interpretation of operator intent \\
+Binding & Is this result for this request and command? & Authenticity of its source \\
+Engineering gate & Does it meet modeled constraints? & Adequate model or field authorization \\
+\bottomrule
+\end{tabular}\par\medskip
+\textbf{Illustrative result:} limit $100$ A; calculated current $112$ A; solver converged.
+\par\medskip
+\uncover<2->{\textbf{Decision: REJECT.} Two favorable LLM responses cannot change the declared $100$ A limit.}
+\slidetransition{Which prior frameworks teach these mechanisms?}
+\sources{\href{https://arxiv.org/html/2603.17418v1}{PowerDAG (2026 preprint)}; \href{https://arxiv.org/html/2508.05702v3}{Grid-Agent (2025 preprint, v3)}. Current example is illustrative.}
+\note{22--23 min. Ask which check rejects the example. A schema, matching hash and converged solve answer different questions. Spoken bridge: Existing power-system frameworks contribute useful mechanisms, so our comparison should describe those contributions precisely.}
+\end{frame}
+
+\begin{frame}[t]{Recent frameworks provide mechanisms we can test}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.24\linewidth}>{\raggedright\arraybackslash}p{.34\linewidth}>{\raggedright\arraybackslash}p{.34\linewidth}@{}}
+\toprule Work & Mechanism & Classroom question \\
+\midrule
+PowerAgent / PowerMCP & Engineering-tool interfaces & Can we inspect arguments and units? \\
+PowerDAG & Retrieval and prerequisite guards & Does calculation use current state? \\
+Grid-Agent v3 & Sandbox, validation and rollback & Can rejection replace the incumbent? \\
+X-GridAgent & Planning--coordination--action hierarchy & What must survive each handoff? \\
+PowerAgentBench-SS & Matched tools; hidden revalidation & Is the reported claim supported? \\
+\bottomrule
+\end{tabular}\par\medskip
+\textbf{Research lesson:} compare mechanisms under stated scope. Five roles, tool use and verification already have close prior art.
+\slidetransition{What does a comparison checkmark actually mean?}
+\sources{\href{https://poweragent.seas.harvard.edu/}{PowerAgent}; \href{https://arxiv.org/html/2603.17418v1}{PowerDAG}; \href{https://arxiv.org/html/2508.05702v3}{Grid-Agent}; \href{https://arxiv.org/html/2512.20789v1}{X-GridAgent}; \href{https://arxiv.org/html/2606.18789v1}{PowerAgentBench-SS}. Review: 2026-10-17.}
+\note{23--24 min. Name one mechanism per row. PowerAgent is a published roadmap and ecosystem; other cited sources are preprints. The benchmark is not a controller. Skills, governance and scaling return near the end. Spoken bridge: A capability matrix is useful only when its symbols preserve these qualifications.}
+\end{frame}
+
+\begin{frame}[t]{A capability tick describes scope, not superiority}
+\fontsize{8.6}{10}\selectfont
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.23\linewidth}cccc>{\raggedright\arraybackslash}p{.30\linewidth}@{}}
+\toprule Work & Tools & Feedback & Checks & Review & Qualification \\
+\midrule
+PowerAgent ecosystem & \yesmark & \yesmark & \partmark & \yesmark & Workflow-specific capabilities \\
+PowerDAG & \yesmark & \yesmark & \partmark & NR & Guards cover selected tools \\
+Grid-Agent & \yesmark & \yesmark & \yesmark & \partmark & Sandbox; proposed oversight \\
+X-GridAgent & \yesmark & \yesmark & \partmark & \partmark & Solver checks; prompt refinement \\
+PowerAgentBench-SS & \yesmark & \yesmark & \yesmark & \partmark & DC benchmark; hidden revalidation \\
+Tutorial workflow & \yesmark & \yesmark & \yesmark & \yesmark & Declared models; local readback \\
+\bottomrule
+\end{tabular}\par\smallskip
+\yesmark\ documented \quad \partmark\ qualified / proposed \quad NR: not reported in inspected source.
+\par\medskip\small
+\textbf{Test the benefit:} same tools, scenario and trial budget; compare outcome, evidence quality and latency.
+\slidetransition{Can we run the graph mechanics without an LLM?}
+\sources{Definitions: \texttt{appendix/Power\_Frameworks\_Comparison.md}. Evaluation: \href{https://arxiv.org/html/2606.18789v1}{PowerAgentBench-SS}. Current versions checked 2026-10-17.}
+\note{24--25 min. Tools means execution, feedback means results; checks and review retain final-column qualifications. Readback is not authenticated field approval. No common cross-paper leaderboard is claimed. Spoken bridge: We can learn the control-flow machinery with transparent arithmetic before asking Llama or an electrical solver to participate.}
+\end{frame}
+
+\begin{frame}[t]{The G lab makes every state transition visible}
+\checkpoint{G0--G5}{\texttt{Graph\_Workflow\_Lab.ipynb}: a real LangGraph toy demonstrator.}
+\begin{center}\begin{tikzpicture}
+\node[classsmall] (s) at (0,0) {Simulate};\node[classsmall] (v) at (3.2,0) {Verify};
+\node[classsmall,fill=mint!25] (r) at (6.4,0) {Report / ready};\node[classsmall] (h) at (6.4,-1.5) {Hold};
+\node[classsmall,draw=orange] (p) at (3.2,-1.5) {Repair};
+\draw[classarrow] (s)--(v);\draw[classarrow] (v)--node[above,font=\scriptsize]{pass}(r);
+\draw[classarrow] (v)--node[right,font=\scriptsize]{budget used}(h);
+\draw[classarrow,orange] (v)--(p);\draw[classarrow,orange] (p)-|(s);
+\end{tikzpicture}\end{center}\small
+\textbf{Toy response:} $i=0.4+0.8u$. $u$: dimensionless command; $i$: normalized illustrative current. Pass if $i\leq L$, where $L$ is the declared limit.
+\par\smallskip\textbf{Repair:} reduce $u$ by $0.25$, bounded below by zero. This is \emph{not} a feeder model, MPC or learned policy.
+\slidetransition{How is this diagram expressed in Python state?}
+\sources{\texttt{Graph\_Workflow\_Lab.ipynb}, G1--G4; \href{https://docs.langchain.com/oss/python/langgraph/overview}{LangGraph official documentation}.}
+\note{25--26 min. G0 confirms installed version. The response law is illustrative arithmetic; execution is real LangGraph and needs neither Ollama nor OpenDSS. Main engineering notebooks are custom Python. Spoken bridge: First the code states what data exists, then it states which node may change it.}
+\end{frame}
+\begin{frame}[t]{G1: give the graph a record and an event history}
+\checkpoint{G1}{Inspect the complete state schema and the trace reducer.}
+\cellcode{G1}{1}{10}
+\small
+\textbf{Read the code:} \texttt{TypedDict} names fields; \texttt{Annotated} attaches the reducer; \texttt{add} appends event lists.
+\par\smallskip
+\uncover<2->{\textbf{Predict:} after simulate and verify both append one event, should \texttt{trace} contain one entry or two? \textbf{Two.}}
+\slidetransition{Where does the graph decide to stop or retry?}
+\sources{\texttt{Graph\_Workflow\_Lab.ipynb}, G1; \href{https://docs.python.org/3/library/typing.html\#typing.TypedDict}{Python TypedDict}; \href{https://docs.langchain.com/oss/python/langgraph/use-graph-api}{LangGraph reducers}.}
+\note{26--27 min. Run G1 and point to command, limit and trace. Trace supports debugging; it is not a private reasoning transcript or cryptographic audit log. Spoken bridge: Node functions now have a place to record facts, and a router can act on those facts.}
+\end{frame}
+
+\begin{frame}[t]{G2--G3: bind node functions to permitted routes}
+\checkpoint{G2--G3}{Read the route, then build and compile the graph.}
+\begin{columns}[T,onlytextwidth]
+\column{.48\textwidth}
+\textbf{Decision rule}\par\smallskip
+\cellcode{G2}{19}{22}
+\column{.49\textwidth}
+\textbf{Graph connections}\par\smallskip
+\cellcode{G3}{7}{14}
+\end{columns}
+\small\medskip
+\uncover<2->{\textbf{Code to diagram:} node names identify work; edges identify allowed successors; the conditional edge reads a route label.}
+\slidetransition{Will every initial command reach the ready node?}
+\sources{\texttt{Graph\_Workflow\_Lab.ipynb}, G2--G3; \href{https://docs.langchain.com/oss/python/langgraph/use-graph-api}{LangGraph construction examples}.}
+\note{27--29 min. Run full G2 then G3. Match an edge to the loop drawing. Compilation checks structural requirements; it does not prove physics or every condition. Ask what fixes the retry budget. Spoken bridge: Three initial states will show success, successful repair and a legitimate stop without success.}
+\end{frame}
+
+\begin{frame}[t]{G4: predict three paths before running the graph}
+\small
+\begin{tabular}{@{}lrrrl@{}}
+\toprule Trial & Initial $u$ & Limit $L$ & Repairs $K$ & Expected path \\
+\midrule
+Already admissible & 0.25 & 0.80 & 2 & \uncover<2->{Ready; $i=0.60$} \\
+One repair suffices & 0.75 & 0.80 & 2 & \uncover<2->{Repair once; ready at $i=0.80$} \\
+Budget exhausted & 0.90 & 0.50 & 1 & \uncover<2->{Repair once; hold at $i=0.92$} \\
+\bottomrule
+\end{tabular}\par\smallskip
+$u$: command; $L$: limit; $K$: repair budget; $i=0.4+0.8u$: toy normalized current.
+\exercise{2}{Run G4 unchanged. Follow its trace. In a separate scratch cell, invoke the graph with a new limit or repair budget; predict the route first.}
+\uncover<2->{\textbf{Actual labels:} \texttt{TOY\_READY} / \texttt{TOY\_HOLD}. The direct-Python baseline produces the same three outcomes.}
+\slidetransition{How does a ready result wait for a person?}
+\sources{Exact toy and direct-Python comparison: \texttt{Graph\_Workflow\_Lab.ipynb}, G4. Values follow the declared response law and repair rule.}
+\note{29--31 min. Allow two minutes, reveal after predictions. Repaired commands become 0.50 and 0.65. G4 assertions describe its original three cases; use a separate scratch cell for modified inputs. Comparisons use explicit tolerance. The baseline holds controller functions fixed: graph orchestration changes inspectability, not the physical solution here. Spoken bridge: Ready means eligible for the next review step, so let us make that pause observable.}
+\end{frame}
+
+\begin{frame}[t]{G5: pause, inspect the checkpoint, then resume review}
+\checkpoint{G5}{Use a checkpointer and a real interrupt; record no equipment action.}
+\cellcode{G5}{11}{19}
+\small
+\textbf{Before resume:} pending node \texttt{report}; acknowledgment is false.
+\par\smallskip\textbf{After the scripted readback:} inspect \texttt{TOY\_ACKNOWLEDGED}; retain the same \texttt{thread\_id}.
+\par\smallskip
+\uncover<2->{\textbf{Try a rejection:} it must remain distinguishable from approval. This toy does not authenticate an operator.}
+\slidetransition{Can saved evidence survive a changed request?}
+\sources{\texttt{Graph\_Workflow\_Lab.ipynb}, G5; \href{https://docs.langchain.com/oss/python/langgraph/interrupts}{LangGraph interrupts}; \href{https://docs.langchain.com/oss/python/langgraph/persistence}{persistence}.}
+\note{31--34 min. G5 contains a real interrupt and then automatically supplies a scripted simulated response in the same cell. Inspect its printed pre-resume snapshot before discussing the final output. For a live teaching pause, execute lines1--17, then18--21 separately. In-memory state lasts within the kernel. No dispatch endpoint exists. The interrupted node restarts; earlier code must tolerate replay. Paused status is TOY_NEW, not TOY_READY. Spoken bridge: Even a carefully saved result loses relevance when the request or command changes.}
+\end{frame}
+
+\begin{frame}[t]{L1: a changed request needs fresh evidence}
+\checkpoint{L0--L1}{Open \texttt{Classroom\_Labs.ipynb}; run setup, then the binding experiment.}
+\cellcode{L1}{1}{4}
+\small
+\begin{tabular}{@{}p{.64\linewidth}c@{}}
+\toprule Compare the saved record with & Expected binding result \\
+\midrule
+Same request and command & \uncover<2->{True} \\
+Changed load with old evidence & \uncover<2->{False} \\
+Changed command with old evidence & \uncover<2->{False} \\
+\bottomrule
+\end{tabular}\par\smallskip
+\textbf{Explain:} hashes bind request, candidate and result. The payload is \texttt{example\_only}; matching records do not prove physics or source authenticity.
+\slidetransition{Which method should propose the real command?}
+\sources{\texttt{Classroom\_Labs.ipynb}, L1; \href{https://arxiv.org/html/2603.17418v1}{PowerDAG (2026 preprint)}.}
+\note{34--37 min. Three minutes include setup, prediction, run and explanation. Load changes 1.00 to 1.10 and revision1 to2; command changes0.25 to0.50. Reveal after prediction. Fixed and LLM supervisors can both use this guard. Spoken bridge: Binding identifies the right calculation; we still need a numerical method that produces a useful action.}
+\end{frame}
+
+\begin{frame}[t]{Model-based planning and model-free learning supply proposals}
+\begin{columns}[T,onlytextwidth]
+\column{.48\textwidth}\small
+\textbf{Model-based: optimize with a model}\par
+\[
+\min_{u_{0:H-1}}\sum_{k=0}^{H-1}\ell(x_k,u_k)
+\]
+subject to predicted behavior and operating limits.\par\smallskip
+$H$: horizon; $k$: predicted step; $x_k$: state; $u_k$: action; $\ell$: declared cost.\par\medskip
+\textbf{Voltage example: MPC} plans several actions and uses the first.
+\column{.48\textwidth}\small
+\textbf{Model-free: learn an action rule}\par
+\[
+u_t=\pi_\theta(o_t)
+\]
+from interactions and rewards during training.\par\smallskip
+$t$: decision time; $o_t$: observation; $\pi_\theta$: policy with learned parameters $\theta$.\par\medskip
+\textbf{Voltage example: SAC} produces continuous controls from saved weights. PPO is another option.
+\end{columns}\par\medskip
+\uncover<2->{\textbf{Shared workflow:} simulate both proposals and check the same limits. Llama may select permitted follow-up work.}
+\slidetransition{What must the voltage experiment compare fairly?}
+\sources{\href{https://sites.engineering.ucsb.edu/~jbraw/mpc/}{Rawlings, Mayne and Diehl, MPC (2017)}; \href{https://proceedings.mlr.press/v80/haarnoja18b.html}{Haarnoja et al., SAC (2018)}; \href{https://arxiv.org/abs/1707.06347}{Schulman et al., PPO (2017)}.}
+\note{37--39 min. Define model predictive control, soft actor-critic and proximal policy optimization. Model-free learning may use simulator experience. Actor training cost is separate; class runs inference. Other cases need their own formulations. Spoken bridge: Both proposals can now enter one experiment with the same state and acceptance rules.}
+\end{frame}
+
+\begin{frame}[t]{From graph mechanics to a physical voltage decision}
+\begin{center}\begin{tikzpicture}
+\node[classstep] (a) at (0,0) {Accepted request\\load, limits, scope};
+\node[classstep] (b) at (3.5,0) {MPC / SAC\\candidate command};
+\node[classstep] (c) at (7,0) {Numerical solve\\and fresh checks};
+\node[classstep,fill=mint!25] (d) at (10.5,0) {Evidence for a\\next decision};
+\draw[classarrow] (a)--(b);\draw[classarrow] (b)--(c);\draw[classarrow] (c)--(d);
+\end{tikzpicture}\end{center}\small
+\textbf{Keep fixed:} scenario, candidate budget, electrical constraints and objective.
+\par\medskip
+\textbf{Measure separately:} numerical quality, failed checks, Llama's contribution and added time.
+\par\medskip
+\uncover<2->{\textbf{The next question is physical:} what do active and reactive powers do to feeder voltage and current?}
+\slidetransition{Which inverter action supports this feeder?}
+\sources{Matched budgets: \href{https://arxiv.org/html/2606.18789v1}{PowerAgentBench-SS (2026 preprint)}. Numerical experiment: \texttt{Classroom\_Labs.ipynb}, L2--L5.}
+\note{39--40 min. Ask what the G toy taught and what it could not establish. It taught state, routing, repair and pause; it did not solve a feeder. Return to custom Python and numerical models. Spoken bridge: We now leave the arithmetic demonstrator and ask the selected Greensboro feeder model to evaluate an inverter command.}
+\end{frame}

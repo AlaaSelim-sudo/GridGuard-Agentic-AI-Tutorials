@@ -1,0 +1,147 @@
+{
+  "feedback": {
+    "source_refs": [
+      "E02"
+    ],
+    "source_url": "https://arxiv.org/pdf/2411.16707v3",
+    "source_locator": "Section V.A–B, PDF p.9; Figure 8, p.11; scheme definitions Table I, p.7",
+    "caption": "DALINE graded attempt-averaged scores: GPT4o-Sole 0.00, GPT4o-SR 31.37, CGPT4o-R 33.82 and GPT4o-Full 93.13. The evaluation uses 34 tasks with a maximum of three attempts each, awarding 100/50/0 points and carrying the last executed score into unused slots. This is not a final-completion fraction.",
+    "assumptions": "Reported values preserved. API schemes use gpt-4o-2024-05-13; CGPT4o-R is the ChatGPT4o built-in-RAG product scheme. Complete-system comparison, not isolated causal effects. No binomial interval or implied completed-task count.",
+    "metric": "Paper-defined attempt-averaged score (%)",
+    "data": [
+      [
+        "GPT4o-Sole",
+        0.0
+      ],
+      [
+        "GPT4o-SR (standard RAG)",
+        31.37
+      ],
+      [
+        "CGPT4o-R (ChatGPT RAG)",
+        33.82
+      ],
+      [
+        "GPT4o-Full",
+        93.13
+      ]
+    ],
+    "setup": {
+      "tasks": 34,
+      "attempt_budget": 3,
+      "tool": "DALINE",
+      "human_grading": true
+    },
+    "id": "power_study_feedback",
+    "plot_id": "power_study_feedback",
+    "file": "power_study_feedback.png",
+    "pdf": "power_study_feedback.pdf",
+    "svg": "power_study_feedback.svg",
+    "credit": "Original plot redrawn from cited primary-paper numerical results; no experiments rerun",
+    "value_status": "author-reported",
+    "uncertainty_intervals": null
+  },
+  "veragrid": {
+    "source_refs": [
+      "E04",
+      "E04C"
+    ],
+    "source_url": "https://arxiv.org/pdf/2607.25155v1",
+    "source_locator": "Table I, PDF p.4; benchmark definition Section III, p.3",
+    "caption": "Three explicitly selected same-model comparisons from VeraGrid-MCQ-150: GPT-5.2 64/150 without tools versus 149/150 with the solver-agent; Claude Sonnet 4.5 71/150 versus 149/150; Gemini 3 Flash 74/150 versus 150/150. Questions use one balanced 8-bus feeder and a VeraGrid reference solve.",
+    "assumptions": "First three Table I rows selected for legibility, not ranked. Template-derived MCQs share one solved feeder. Repeated-run uncertainty is unspecified; results do not estimate field-control reliability or arbitrary-feeder generalization.",
+    "metric": "Correct MCQ answers / 150",
+    "columns": [
+      "model",
+      "no_tool_correct",
+      "agent_correct",
+      "denominator"
+    ],
+    "data": [
+      [
+        "GPT-5.2",
+        64,
+        149,
+        150
+      ],
+      [
+        "Claude Sonnet 4.5",
+        71,
+        149,
+        150
+      ],
+      [
+        "Gemini 3 Flash",
+        74,
+        150,
+        150
+      ]
+    ],
+    "setup": {
+      "questions": 150,
+      "tiers": {
+        "easy": 50,
+        "medium": 50,
+        "hard": 50
+      },
+      "buses": 8,
+      "generators": 4,
+      "load_MW": 185,
+      "repetitions": "unspecified"
+    },
+    "id": "power_study_veragrid",
+    "plot_id": "power_study_veragrid",
+    "file": "power_study_veragrid.png",
+    "pdf": "power_study_veragrid.pdf",
+    "svg": "power_study_veragrid.svg",
+    "credit": "Original plot redrawn from cited primary-paper numerical results; no experiments rerun",
+    "value_status": "author-reported",
+    "uncertainty_intervals": null
+  },
+  "xgrid": {
+    "source_refs": [
+      "E01"
+    ],
+    "source_url": "https://arxiv.org/pdf/2512.20789v1",
+    "source_locator": "Table I, Q10, PDF p.9",
+    "caption": "X-GridAgent's reported IEEE39 scenario outputs: base-case objective 41,872.30, line11-out objective 42,115.34, and nonconverged AC OPF when all loads are doubled. The third scenario has no objective value; it is displayed outside the numerical axis. This is a scenario output, not an accuracy comparison.",
+    "assumptions": "Objective units are not specified in the paper table; no currency/hour unit invented. The dot-plot axis is deliberately zoomed and has no zero baseline; dots encode reported values, not bars. Nonconvergence is not represented as zero.",
+    "metric": "Reported total-generation-cost OPF objective (units unspecified)",
+    "columns": [
+      "scenario",
+      "reported_total_generation_cost",
+      "AC_OPF_converged"
+    ],
+    "data": [
+      [
+        "base case",
+        41872.3,
+        true
+      ],
+      [
+        "line 11 out of service",
+        42115.34,
+        true
+      ],
+      [
+        "all loads doubled",
+        null,
+        false
+      ]
+    ],
+    "setup": {
+      "case": "IEEE 39-bus",
+      "scenarios": 3,
+      "converged": 2,
+      "nonconverged": 1
+    },
+    "id": "power_study_xgrid",
+    "plot_id": "power_study_xgrid",
+    "file": "power_study_xgrid.png",
+    "pdf": "power_study_xgrid.pdf",
+    "svg": "power_study_xgrid.svg",
+    "credit": "Original plot redrawn from cited primary-paper numerical results; no experiments rerun",
+    "value_status": "author-reported",
+    "uncertainty_intervals": null
+  }
+}

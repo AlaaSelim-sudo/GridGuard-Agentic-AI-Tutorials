@@ -1,0 +1,163 @@
+% Twelve optional code-detail frames. Exact source excerpts; no new experiments.
+% Insert after C4 evidence and before the final cyber comparison.
+\begingroup
+% Compact exact-source listings locally; subsequent deck sections retain their style.
+\renewcommand{\implcode}[3]{\lstinputlisting[style=workshoppython,basicstyle=\ttfamily\fontsize{7}{8}\selectfont,firstline=#2,lastline=#3]{snippets/impl_#1.py}}
+
+\begin{frame}[t]{Cyber code 1/12: construct a measurement problem we can audit}
+\deepdive
+\checkpoint{C1}{The notebook calls this four-bus DC fixture; it is separate from Greensboro.}
+\implcode{standard_formulations}{420}{428}
+\footnotesize
+\textbf{Read the arrays:} \texttt{incidence} links four branches to three non-reference angles. \texttt{F} maps angles to branch flows; \texttt{B} maps angles to bus injections. Stacking four flow rows, three injection rows and one angle row gives \texttt{H.shape=(8,3)}.
+\par\smallskip
+\textbf{Units and observed output:} angles are radians; powers use an arbitrary fixed per-unit base. Sensor standard deviations are 0.004 p.u. for flows, 0.006 p.u. for injections and 0.0005 rad for the angle. Seed 11 makes the shared noise sample reproducible.
+\sources{Exact implementation: \texttt{standard\_formulations.py:420--428}; recorded evidence: \texttt{results/standard\_formulations.json}, \texttt{cyber.measurement\_model}. WLS: \href{https://doi.org/10.1109/TPAS.1970.292678}{Schweppe and Wildes (1970)}.}
+\note{Optional code detail. Read C1 in the notebook first, then locate the function it invokes. The Python variable truth is known to this synthetic experiment, not to a real control-room operator. H is a fixed DC measurement sensitivity; no learned model or Llama calculation creates it. Explain that the three voltage angles omit the reference angle, making an identifiable estimate possible. The factor multiplying each incidence row is the declared branch coefficient. All three attack scenarios reuse this network and noise realization, so a changed output is attributable to changed measurements within this fixture.}
+\end{frame}
+
+\begin{frame}[t]{Cyber code 2/12: establish observability before fitting a state}
+\deepdive
+\checkpoint{C1}{Inspect the estimator called for every measurement case.}
+\implcode{standard_formulations}{373}{380}
+\footnotesize
+\textbf{Why these operations matter:} full column rank means the measurements distinguish the three modeled angles. Dividing each row and reading by its standard deviation normalizes mixed sensor units before least squares.
+\par\smallskip
+\textbf{Actual nominal case:} rank = 3; angle-error norm = 0.00023743 rad. \texttt{estimate} is the fitted angle vector; \texttt{residual} is the remaining measurement mismatch. \texttt{covariance} and \texttt{omega} quantify estimate and residual covariance under the stated linear Gaussian assumptions.
+\sources{Source: \texttt{standard\_formulations.py:373--380}; output: \texttt{cyber.cases[0]} in \texttt{results/standard\_formulations.json}. \href{https://doi.org/10.1109/TPAS.1970.292678}{Schweppe and Wildes (1970)}.}
+\note{Optional code detail. Rank deficiency raises an exception rather than producing an unidentifiable control state. The implementation uses numpy.linalg.lstsq for the estimate, rather than explicitly forming the normal-equation inverse. The covariance uses a linear solve. The nominal angle error is computed against synthetic truth for evaluation; it is not available as an online diagnostic in a real system. A full-rank estimator can still fit malicious but physically consistent data, which motivates the next checks.}
+\end{frame}
+
+\begin{frame}[t]{Cyber code 3/12: derive the residual test from its assumptions}
+\deepdive
+\checkpoint{C1}{Trace the statistic and threshold printed by the notebook.}
+\implcode{standard_formulations}{380}{387}
+\footnotesize
+\textbf{Global decision:} \texttt{statistic} is the sum of squared residuals normalized by sensor variance. With eight measurements and rank three, \texttt{dof=5}; \texttt{alpha=.01} gives threshold 15.08627247. The nominal statistic 3.92022169 produces no alarm.
+\par\smallskip
+\textbf{Localization is different:} \texttt{normalized} divides each residual by its own residual standard deviation. Zero residual variance is left undefined. The largest value identifies a suspect measurement in this example, not a guaranteed attacker.
+\sources{Source: \texttt{standard\_formulations.py:380--387}; outputs: \texttt{cyber.cases[*].chi\_square}. Residual tests: \href{https://doi.org/10.1109/T-PAS.1975.31858}{Handschin et al. (1975)}.}
+\note{Optional code detail. Explain why rank, rather than simply the number of state columns, determines the residual degrees of freedom; this implementation already requires full column rank. Alpha is a declared nominal false-alarm probability under the correct linear model and known independent Gaussian noise. Three designed cases do not estimate an empirical false-alarm or detection rate. The finite diagonal test prevents division by a residual variance too close to zero.}
+\end{frame}
+
+\begin{frame}[t]{Cyber code 4/12: an isolated bad reading stops the control route}
+\deepdive
+\checkpoint{C1}{Follow the deliberately corrupted reading through the common estimator.}
+\implcode{standard_formulations}{429}{436}
+\footnotesize
+\textbf{Actual isolated result:} adding 0.08 p.u. to measurement 1 (flow 1--2) raises the residual statistic to 277.49745, above 15.08627. The branch returns \texttt{HOLD}; no redispatch is proposed from that estimate.
+\par\smallskip
+\textbf{Useful automation:} the deterministic test prevents a downstream controller from silently using a rejected estimate. Neither this alarm nor its successful localization identifies malicious intent; measurement and model errors also cause inconsistency.
+\sources{Source: \texttt{standard\_formulations.py:429--436}; output: \texttt{cyber.cases[1]}, \texttt{results/standard\_formulations.json}. \href{https://doi.org/10.1109/T-PAS.1975.31858}{Handschin et al. (1975)}.}
+\note{Optional code detail. The loop applies one estimator and one alarm rule to the nominal, isolated and stealth measurements. The highlighted conditional is conventional deterministic control logic, not an LLM judgment. HOLD means this routine does not propose a control from the suspect estimate. It does not prove that the current physical operating point remains safe. Index 1 is zero-based and identifies the second measurement, flow 1--2.}
+\end{frame}
+
+\begin{frame}[t]{Cyber code 5/12: coordinated corruption can leave the test unchanged}
+\deepdive
+\checkpoint{C2}{Connect the unchanged residual to the attack construction, not to a plot artifact.}
+\implcode{standard_formulations}{426}{433}
+\footnotesize
+\textbf{Mechanism:} \texttt{H @ shift} adds measurements consistent with an angle shift of $(0.01,0.025,0)$ rad. WLS absorbs the shift into the estimate while leaving its residual unchanged.
+\par\smallskip
+\textbf{Actual negative control:} nominal and stealth residual statistics both equal 3.92022. The angle-error norm rises from 0.00023743 to 0.026779996 rad. The stealth estimate chooses zero injection, leaving actual flow 1--2 at 0.24 p.u., above its 0.18 limit.
+\sources{Source: \texttt{standard\_formulations.py:426--433}; output: \texttt{cyber.cases[2]}, \texttt{results/standard\_formulations.json}. False-data injection: \href{https://doi.org/10.1145/1653662.1653666}{Liu et al. (2009)}.}
+\note{Optional code detail. This is a designed Hc attack, where H is the measurement sensitivity and c is the selected angle shift. It assumes knowledge of H and access to the required unprotected channels; it is not an arbitrary sparse-attack detection result. A small residual checks consistency, not authenticity. The true-state error and actual branch violation are measurable here only because the fixture supplies known synthetic truth. The failure exists before any language-model call.}
+\end{frame}
+
+\begin{frame}[t]{Cyber code 6/12: removal and protected evidence solve different problems}
+\deepdive
+\checkpoint{C3}{The recovery branch receives additional protected angle readings explicitly.}
+\implcode{standard_formulations}{439}{446}
+\footnotesize
+\textbf{Isolated-error branch:} remove suspect index 1, then refit. Rank remains 3; seven measurements leave four residual degrees of freedom. The statistic falls to 2.32189, below its new threshold 13.27670.
+\par\smallskip
+\textbf{Protected-data branch:} three additional angles use the identity sensitivity and standard deviation 0.00005 rad. They are not a subset discovered by the LLM. Rank = 3, residual degrees of freedom = 0; the chi-square alarm is undefined, not a successful attack-detection result.
+\sources{Source: \texttt{standard\_formulations.py:439--446}; outputs: \texttt{cyber.isolated\_removal}, \texttt{cyber.trusted\_recovery}. Observability: \href{https://doi.org/10.1109/TPAS.1970.292678}{Schweppe and Wildes (1970)}.}
+\note{Optional code detail. Do not confuse deletion of an isolated suspect with recovery from a model-consistent coordinated attack. The former retains redundant measurements and recomputes rank and threshold. The latter deliberately supplies independent protected angles, then assumes their trust. These observations identify the toy state but leave no residual redundancy. Authentication, device security and the selection of trustworthy sensors are outside this demonstration. The same supplied protected evidence goes to fixed and agentic supervision.}
+\end{frame}
+
+\begin{frame}[t]{Cyber code 7/12: turn an estimated state into a constrained injection}
+\deepdive
+\checkpoint{C3}{Read the scalar DC redispatch that uses either estimate.}
+\implcode{standard_formulations}{397}{404}
+\footnotesize
+\textbf{Control meaning:} \texttt{direction} adds active power at node 2, balanced at the source. \texttt{sensitivity} gives the four branch-flow changes per unit injection. The scalar command is bounded between 0 and 0.5 p.u.; squared effort is minimized.
+\par\smallskip
+\textbf{Constraint meaning:} predicted branch flows must stay below limits $(0.35,0.18,0.35,0.35)$ p.u. with a 0.01 p.u. planning margin. That margin is an engineering choice, not a calibrated uncertainty guarantee. This is conventional optimization, not language-generated control.
+\sources{Source: \texttt{standard\_formulations.py:397--404}; control record: \texttt{cyber.trusted\_recovery.control}. State-estimation context: \href{https://doi.org/10.1109/TPAS.1970.292678}{Schweppe and Wildes (1970)}.}
+\note{Optional code detail. The four-by-three matrix F converts estimated angles to flows. B is the reduced DC nodal injection matrix; solving with B converts a node-2 injection into angle changes, and multiplication by F gives line-flow sensitivity. SLSQP solves a one-variable convex quadratic problem with linear inequalities and simple bounds in this example. All powers share one fixed toy-model per-unit base. No voltage magnitudes, inverter reactive capability or distribution-feeder unbalance are represented.}
+\end{frame}
+
+\begin{frame}[t]{Cyber code 8/12: check predicted and actual toy consequences separately}
+\deepdive
+\checkpoint{C3}{A returned command is compared with a common synthetic truth.}
+\implcode{standard_formulations}{407}{416}
+\footnotesize
+\textbf{Protected-estimate result:} injection 0.121693667 p.u.; predicted flow 1--2 = 0.170000000 p.u.; actual toy flow = 0.170460762 p.u. All four actual branch limits pass. The difference reflects protected measurement noise.
+\par\smallskip
+\textbf{Fair evaluation:} the stealth-derived zero injection is evaluated with the same physical truth and leaves one overload. This improvement comes from additional evidence plus conventional redispatch. A model checking its own corrupted estimate would conceal the failure.
+\sources{Source: \texttt{standard\_formulations.py:407--416}; actual values: \texttt{results/standard\_formulations.json}. Threat limitation: \href{https://doi.org/10.1145/1653662.1653666}{Liu et al. (2009)}.}
+\note{Optional code detail. The post-solve guard checks finite values, command bounds and predicted constraints. The returned actual_violation_count separately evaluates all branches under known synthetic truth. The standard workflow then requires that count to be zero before declaring its modeled verification PASS. The presence of truth is an experimental evaluation device, not a live operator sensor. This remains a DC demonstration with no full-feeder AC security claim.}
+\end{frame}
+
+\begin{frame}[t]{Cyber code 9/12: Llama selects a permitted method, not new trust}
+\deepdive
+\checkpoint{C4}{Follow the recorded Planner response into the application scope gate.}
+\implcode{standard_agent_workflow}{113}{120}
+\footnotesize
+\textbf{Actual call 7:} \texttt{WLS\_TRUSTED\_REDISPATCH}. Returned reason, verbatim: ``This tool is authorized for the given use case and scope, and it is designed for a specific DC redispatch example with trusted measurements.''
+\par\smallskip
+The specification already declares the authorized method and trust assumption. A wrong method or \texttt{REVIEW} stops the numerical route. In this record the permitted tool runs; Llama does not authenticate sensors or choose a better estimator.
+\sources{Source: \texttt{standard\_agent\_workflow.py:113--120}. Actual reason: \texttt{standard\_stage\_20260921T143826Z\_42d19a61/llama\_calls.json}, call 7. Bounded tool use: \href{https://arxiv.org/abs/2210.03629}{ReAct (2023)}.}
+\note{Optional code detail. This is the returned explanation text, not hidden chain-of-thought. The enum chooses a permitted next step; numerical parameters remain fixed. The historical standard-method wrapper allows one numerical attempt and does not explore arbitrary methods or recover from unavailable tools. The fixed supervisor maps the identical structured specification directly to the same tool. Therefore a correct selection here is visible functionality, not evidence of superiority over that comparator.}
+\end{frame}
+
+\begin{frame}[t]{Cyber code 10/12: the enum and the explanatory prose disagree}
+\deepdive
+\checkpoint{T6}{The actual Explanation response must retain its stopping effect.}
+\implcode{standard_agent_workflow}{134}{141}
+\footnotesize
+\textbf{Actual call 8: choice = \texttt{REVIEW}. Returned reason, verbatim:}
+\par\smallskip
+{\itshape
+The provided JSON output indicates that the numerical workflow has completed successfully, and the results are within the expected scope. The 'passed\_modeled\_checks' field is set to True, indicating that the modeled checks have been passed. Therefore, the choice is to REVIEW the results to ensure they are accurate and within the expected range.
+\par}
+\textbf{Implementation consequence:} the structured choice sets acceptance to false. The passing tool result stays provisional; the final workflow status is \texttt{REVIEW}. Favorable prose cannot override the declared stopping choice.
+\sources{Source: \texttt{standard\_agent\_workflow.py:134--141}. Exact response: \texttt{results/standard\_stage\_20260921T143826Z\_42d19a61/llama\_calls.json}, call 8; final result: \texttt{standard\_agent\_workflow.json}.}
+\note{Optional code detail. Read the enum before interpreting the prose. The local model acknowledges passed checks but chooses REVIEW for another review; the wrapper faithfully retains that escalation. There was no service or schema error on this call. We do not reclassify the output as a recommendation, rerun it until favorable, or imply that escalation improved numerical safety. This is an observed limitation of the historical bounded explanation interface, distinct from the later continuous-voltage contract revision.}
+\end{frame}
+
+\begin{frame}[t]{Cyber code 11/12: report measured latency with its actual boundary}
+\deepdive
+\checkpoint{C4}{These historical timers and token counts are read from saved calls.}
+\implcode{standard_agent_workflow}{60}{67}
+\footnotesize
+\begin{tabular}{@{}lrrrr@{}}
+\toprule Llama call & Client (s) & Server (s) & Prompt tokens & Output tokens \\
+\midrule Planning 7 & 2.699153 & 0.646972 & 193 & 46 \\
+Explanation 8 & 3.230637 & 1.158535 & 419 & 77 \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\textbf{Whole recorded workflow:} fixed 0.002146 s; agentic 5.934650 s. Client time includes the HTTP request and response/schema handling; Ollama's \texttt{total\_duration} is a narrower server measure. This run did not isolate each numerical stage or measure energy or monetary cost.
+\sources{Timer source: \texttt{standard\_agent\_workflow.py:43,60--67}; exact client/server fields: \texttt{standard\_stage\_20260921T143826Z\_42d19a61/llama\_calls.json}; whole-run \texttt{seconds}: \texttt{standard\_agent\_workflow.json}.}
+\note{Optional code detail. The timer starts immediately before the try block at line43 and stops at line62 after HTTP response decoding and schema handling; journal writing occurs after this measurement. Both actual cyber calls succeeded, so the displayed failure-path lines were not exercised. Client seconds are Python wall time; server total_duration is reported in nanoseconds and is divided by one billion for this table. prompt_eval_count and eval_count provide the two token columns. Their sums are612 prompt and123 generated tokens, not a dollar bill. Whole workflow timing includes its numerical work and agent calls but is a single local observation, not a latency distribution. Do not label the fixed workflow's2.146ms as isolated WLS time or assign unmeasured costs to individual stages.}
+\end{frame}
+
+\begin{frame}[t]{Cyber code 12/12: preserve the baseline and hand the record to a person}
+\deepdive
+\checkpoint{C4}{The stored identity binds the specification, result and stage responses.}
+\implcode{standard_agent_workflow}{149}{156}
+\footnotesize
+\begin{tabular}{@{}lrrl@{}}
+\toprule Same protected-data tool & Injection (p.u.) & Actual flow 1--2 (p.u.) & Status \\
+\midrule Fixed supervision & 0.12169 & 0.17046 & \texttt{MODEL\_RECOMMEND} \\
+Llama supervision & 0.12169 & 0.17046 & \texttt{REVIEW} \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\textbf{Operator questions:} Where did protected evidence come from? Which limits and model were checked? Why did the model request review? Numerical recovery is identical; Llama changes the handoff. A stored hash is an integrity reference, not authentication or authority to operate equipment.
+\sources{Source: \texttt{standard\_agent\_workflow.py:149--156}; exact paired records: \texttt{results/standard\_agent\_workflow.json}, cyber fixed/agentic. Human authority: \href{https://doi.org/10.1109/3468.844354}{Parasuraman et al. (2000)}.}
+\note{Optional code detail. The first excerpt line completes numerical-failure handling; lines150 onward show the universal pending-human-acknowledgment record and final disposition. A numerical candidate may be retained in summary for explanation even when final status is REVIEW. Neither route operates equipment. The proper comparison preserves identical protected measurements, DC model, optimization and checker. Trusted-data conventional recovery fixes the toy overload, while this Llama record adds latency and an escalation without improving the computed action. An operator may request clarified intent, justified trust or a wider model, rather than accepting favorable numerical text alone.}
+\end{frame}
+\endgroup
