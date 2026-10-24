@@ -30,7 +30,7 @@ he = reading.he
 def esc(value):
     value = str(value or "").replace("τ", "tau").replace("≤", "<=")
     value = value.replace("≥", ">=").replace("\u2011", "-").replace("\u202f", " ")
-    value = value.replace('•',' / ')
+    value = value.replace('•',' / ').replace('…','...')
     return (reading.esc(value).replace("≠", r"\ensuremath{\ne}")
             .replace("−", "-").replace("×", r"\ensuremath{\times}"))
 
@@ -74,6 +74,8 @@ def visual_height(s, web=False):
 def extra_tex(s):
     """Trusted math, literal excerpt and a flat statistic; never a UI card."""
     out = []
+    if s.get('action_link'):
+        out.append(r'{\large\color{IEEEBlue} '+reading.texlink(s['action_link']['url'],s['action_link']['label'])+r'\par}\medskip'+'\n')
     if s.get("callout"):
         out.append(r"{\fontsize{25}{29}\selectfont\color{IEEEBlue}\bfseries "
                    + esc(s["callout"]) + r"\par}\medskip" + "\n")
@@ -117,12 +119,12 @@ def complete_sources(refs,sources):
         for key in refs)
 
 
-def sources_tex(refs, sources, main_ref=None):
+def sources_tex(refs, sources, main_ref=None, source_label=None, notebook_url=None):
     if not refs:
         return ""
     record=sources[main_ref or refs[0]]
     return (r"{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: "
-            + reading.texlink(record['url'],full_citation(record))
+            + reading.texlink(notebook_url or record['url'],source_label or full_citation(record))
             + r"\par}" + "\n")
 
 
@@ -131,8 +133,9 @@ def render_frame(s, sources):
     # Beamer would consume a leading braced body as the optional frame subtitle.
     out = [r"\begin{frame}[t]{" + ("" if kind == "cover" else esc(s["title"])) + "}\n\\relax\n"]
     if kind == "cover":
+        title=r':\\'.join(esc(part) for part in s['title'].split(': ',1))
         out.append(r"\vspace{.55cm}{\fontsize{30}{34}\selectfont\color{IEEEBlue}"
-                   r"\bfseries Agentic AI:\\Three Operator Cases}\par\vspace{.38cm}" + "\n")
+                   r"\bfseries "+title+r"}\par\vspace{.38cm}" + "\n")
         out.extend(r"{\large " + esc(p) + r"}\par\medskip" + "\n" for p in s["points"])
         out.append(r"\vfill\includegraphics[width=4cm]{images/comsoc-lockup.png}\par"
                    r"{\tiny Independent educational material / IEEE ComSoc theme adaptation}" + "\n")
@@ -182,7 +185,7 @@ def render_frame(s, sources):
     out.append(r"\vfill" + "\n")
     if s.get("takeaway") and kind not in {"cover", "figure", "diagram"} and not s.get("diagram") and s.get('layout') not in {'source-focus','news-detail'}:
         out.append(r"{\small\color{IEEEBlue}\textbf{" + esc(s["takeaway"]) + r"}\par}\smallskip" + "\n")
-    out.append(sources_tex(s["refs"], sources,s.get('main_ref')))
+    out.append(sources_tex(s["refs"],sources,s.get('main_ref'),s.get('source_label'),s.get('notebook_url')))
     out.append(r"\note{" + esc(s.get("note", "")) + " Takeaway: " + esc(s.get("takeaway", ""))
                + '\n\n'+esc(complete_sources(s['refs'],sources))+ "}\n")
     out.append(r"\end{frame}" + "\n\n")
@@ -201,6 +204,8 @@ def picture_html(name, caption, height=None):
 
 def extra_html(s):
     out = []
+    if s.get('action_link'):
+        out.append('<p class="activity-link"><a href="'+he(s['action_link']['url'])+'">'+he(s['action_link']['label'])+'</a></p>')
     if s.get("callout"):
         out.append('<p class="callout">' + he(s["callout"]) + "</p>")
     if s.get("math_html"):
@@ -224,7 +229,7 @@ def render_slide(s, number, total, sources):
         classes.append("has-pair")
     out = ['<div class="' + " ".join(classes) + '">\n']
     if kind == "cover":
-        out.append("<h1>Agentic AI:<br>Three Operator Cases</h1>")
+        out.append('<h1>'+':<br>'.join(he(part) for part in s['title'].split(': ',1))+'</h1>')
         out.extend("<p>" + he(point) + "</p>" for point in s["points"])
         out.append('<img class="cover-logo" src="/branding/comsoc-lockup.png" alt="IEEE Communications Society lockup">'
                    "<small>Independent educational material · IEEE ComSoc theme adaptation</small>")
@@ -267,8 +272,8 @@ def render_slide(s, number, total, sources):
             out.append('<p class="reading-link"><a href="/Full_Reading_Guide.html">Open the Full Reading Guide</a></p>')
     if s["refs"]:
         record=sources[s.get('main_ref') or s['refs'][0]]
-        out.append('<div class="sources">Source: <a href="'+he(reading.href(record['url'],'slidev'))+'">'
-                   +he(full_citation(record))+'</a></div>')
+        out.append('<div class="sources">Source: <a href="'+he(reading.href(s.get('notebook_url') or record['url'],'slidev'))+'">'
+                   +he(s.get('source_label') or full_citation(record))+'</a></div>')
     if s.get("takeaway") and kind not in {"cover", "figure", "diagram"} and not s.get("diagram") and s.get('layout') not in {'source-focus','news-detail'}:
         out.append('<div class="takeaway">' + he(s["takeaway"]) + "</div>")
     out.append('<span class="pageno">' + str(number) + " / " + str(total) + "</span></div>")
@@ -310,10 +315,11 @@ def normalized_slides(content):
             raise ValueError(f"Slide {i}: provide both math_tex and math_html for equivalent editions")
         if not isinstance(s["excerpt"], list) or any(not isinstance(line, str) for line in s["excerpt"]):
             raise ValueError(f"Slide {i}: excerpt must be a list of literal text lines")
-        if s["excerpt"] and not 3 <= len(s["excerpt"]) <= 5:
-            raise ValueError(f"Slide {i}: excerpts must contain 3–5 short lines")
+        if s["excerpt"] and not 1 <= len(s["excerpt"]) <= 5:
+            raise ValueError(f"Slide {i}: excerpts must contain 1–5 short lines")
         if s.get('code_lines'):
-            assert 3 <= len(s['code_lines']) <= 12 and len(s['points']) <= 2,(i,'code panel length')
+            minimum=1 if s.get('notebook_cell') else 3
+            assert minimum <= len(s['code_lines']) <= 12 and len(s['points']) <= 2,(i,'code panel length')
         for field in ("visual_height_cm", "visual_height", "visual_height_px", "web_visual_height"):
             if field in s and (not isinstance(s[field], (int, float)) or s[field] <= 0):
                 raise ValueError(f"Slide {i}: {field} must be a positive number")

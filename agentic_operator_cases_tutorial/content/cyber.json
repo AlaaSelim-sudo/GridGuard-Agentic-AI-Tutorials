@@ -1,325 +1,347 @@
 [
   {
-    "title": "Freeze the assessment before changing control",
+    "title": "Cyber: open L8",
     "kind": "diagram",
-    "diagram": "cyber_freeze",
-    "diagram_spec": "Three parallel evidence tracks: readings and trust flags; switch states and topology; linear model and noise assumptions. A common vertical cut freezes one assessment packet. Changed input means a new assessment. Unresolved trust means HOLD. Original teaching diagram, not an implemented authentication system.",
     "points": [
-      "An unusual reading starts an investigation. It does not identify an attacker.",
-      "Keep the readings, trust assumptions, topology and model in the same assessment packet."
+      "Use the separate four-bus DC model and its supplied measurement data.",
+      "Your task: distinguish a residual alarm from evidence about the true state."
     ],
-    "minutes": 1.5,
     "refs": [
-      "CY04",
-      "CY07"
+      "H08"
     ],
-    "main_ref": "CY04",
-    "caption": "Proposed defensive assessment discipline for the four-bus teaching fixture.",
-    "note": "Set the operator problem: a network estimate suggests that no corrective action is needed, but the provenance of some measurements is unresolved. Before asking for a new control, record the reading set, its time, trust flags, topology, model H, noise scales, operating limits and proposed action. A repeated calculation on changed inputs is a new assessment. The three horizontal tracks make this shared context visible; they do not claim that a hash, an LLM or the workshop code authenticates sensors. In the laboratory, trusted_response returns HOLD and dispatch=false when an independent trusted state is unavailable. A residual alarm may reflect a bad reading, topology or model error, or an adversarial change. It alone identifies none of these causes. The upcoming Hc example is a defensive negative control on synthetic data, not a live-system test."
-  },
-  {
-    "title": "Eight readings describe three unknown angles",
-    "kind": "diagram",
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
+    "minutes": 1,
+    "note": "The four-bus model has three non-slack voltage angles and eight measurements. It is not an AC estimator, malware detector or sensor-authentication system. Synthetic truth is available only for the offline classroom comparison.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Classroom Labs · L8 · classroom-023",
     "diagram": "cyber_network",
-    "diagram_spec": "Four-bus loop with reference bus 0 at theta0=0 and three unknown angles at buses 1, 2 and 3. Branch reference arrows 0→1, 1→2, 2→3 and 0→3. Measurement composition: four flows, three injections and one angle, yielding eight rows of H and rank three.",
+    "visual_height_px": 305,
+    "visual_height_cm": 3.25,
+    "caption": "Teaching diagram of the model or check used at this notebook step."
+  },
+  {
+    "title": "Read residual and state error separately",
+    "kind": "diagram",
     "points": [
-      "The state contains three voltage angles. Eight readings provide five extra consistency checks.",
-      "This is a DC model: it does not test voltage magnitudes or reactive power."
+      "J measures consistency between readings and the fitted model.",
+      "State error compares the estimate with known synthetic truth; an operator does not get that truth."
     ],
+    "refs": [
+      "H08",
+      "CY01"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
     "minutes": 2,
-    "refs": [
-      "CY04",
-      "CY01"
-    ],
-    "main_ref": "CY04",
-    "caption": "Exact topology and measurement count in the supplied four-bus fixture. Arrows define positive flow directions.",
-    "note": "Bus 0 is the reference, with angle zero. The unknown vector is x=(theta1,theta2,theta3). The four line susceptance coefficients are 10, 8, 10 and 5 for reference branches 01, 12, 23 and 03. The linear measurement matrix stacks four flow rows F, three injection rows B, and an angle-1 row. Its rank is three. Thus m=8 measurements minus rank(H)=3 gives five residual degrees of freedom. The arrows define algebraic reference directions; actual flow can be negative. In this fixed DC approximation, active flow is linear in angle differences. It omits voltage magnitude, reactive power, losses, protection behavior and AC constraints. Do not transfer this result to the distribution-feeder model used in the voltage case. Ask participants which extra measurements provide consistency information beyond the minimum needed to solve for the angles."
-  },
-  {
-    "title": "WLS finds the best common explanation",
-    "kind": "diagram",
-    "diagram": "cyber_wls",
-    "diagram_spec": "An equal-precision scalar illustration: two readings 9 and 11 fit a common estimate 10, leaving residuals -1 and +1. Connect the number-line example to the weighted least-squares objective sum of squared residuals divided by sigma squared. Label the scalar illustration separately from the four-bus run.",
-    "points": [
-      "A residual is a reading minus the value predicted by the estimated state.",
-      "WLS gives more weight to a reading with a smaller stated noise scale."
-    ],
-    "minutes": 2.5,
-    "refs": [
-      "CY04",
-      "CY01"
-    ],
-    "main_ref": "CY04",
-    "caption": "The 9–11 example explains fitting; the network calculation estimates three angles from eight readings.",
-    "note": "Start with the scalar picture. Two equally precise readings of one quantity are 9 and 11. Choosing 10 leaves residuals -1 and +1; moving the estimate toward either reading increases the total squared mismatch. WLS extends this idea to the network predictions Hx. It minimizes the sum over readings of ((z_j-(Hx)_j)/sigma_j)^2. Here z is the reading vector, H maps angles to expected readings, and sigma_j is the assumed standard deviation of the reading noise. A smaller sigma creates a larger penalty for the same raw mismatch. It expresses the estimator's stated precision model, not a cybersecurity trust judgment. The supplied code solves the full-rank weighted problem numerically using least squares. Flow noise scales are 0.004 p.u., injection noise scales 0.006 p.u., and the angle-1 noise scale is 0.0005 rad. Do not interpret unequal weights as proof that a channel is authentic."
-  },
-  {
-    "title": "A residual alarm checks consistency",
-    "kind": "diagram",
+    "note": "The chi-square threshold is about 15.086272 for five residual degrees of freedom at a 1% significance level. This calibration depends on the stated linear model and noise assumptions. A small J does not establish that the measurements are authentic.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Classroom Labs · L8 · classroom-023",
     "diagram": "cyber_residual",
-    "diagram_spec": "A horizontal J axis places the actual nominal statistic 3.92022 below a red threshold 15.0863. Shade only the upper-tail alarm region. Show eight readings minus rank three gives five degrees of freedom and alpha=1%. Clearly separate a consistency test from sensor authenticity.",
-    "points": [
-      "Nominal J = 3.92022 is below the 15.0863 alarm threshold.",
-      "The 1% calibration assumes the correct linear model and the stated independent Gaussian noise."
-    ],
-    "minutes": 2,
-    "refs": [
-      "CY04",
-      "CY03"
-    ],
-    "main_ref": "CY04",
-    "caption": "Upper-tail consistency test with five residual degrees of freedom. A quiet alarm does not establish trustworthy data.",
-    "note": "The statistic is J=r^T R^-1 r, where r=z-Hxhat and R is the diagonal matrix of the assumed noise variances. Under the stated linear Gaussian model, correct H and covariance, and full column rank, the minimized statistic has m-rank(H)=5 degrees of freedom. The 99th percentile is 15.0862724694; use 15.0863 on the slide. Nominal J is 3.9202216910. Alpha=0.01 is a nominal upper-tail false-alarm probability under those assumptions. It is not a 99% chance that the data are safe, nor the probability that an attacker is present. An isolated +0.08 p.u. change on flow12 produces J=277.4974469045 and an alarm in this seeded run. That is evidence of inconsistency, not an identification of the cause or a guarantee that all coordinated errors will be detected."
+    "visual_height_px": 305,
+    "visual_height_cm": 3.25,
+    "caption": "Teaching diagram of the model or check used at this notebook step."
   },
   {
-    "title": "Coordinated changes can leave the residual unchanged",
-    "kind": "diagram",
-    "diagram": "cyber_stealth",
-    "diagram_spec": "Two scalar number lines: readings 9 and 11 with estimate 10, then readings 12 and 14 with estimate 13. The residual pair stays -1,+1. Under the picture, display z'=z+Hc, xhat'=xhat+c, and r'=z+Hc-H(xhat+c)=r. Label this a fixed-model explanation, not an operational attack recipe.",
-    "points": [
-      "If readings and the inferred state move together, their mismatch can stay the same.",
-      "The Hc result assumes a known fixed model and access to the required unprotected measurement channels."
-    ],
-    "minutes": 2,
-    "refs": [
-      "CY02",
-      "CY04"
-    ],
-    "main_ref": "CY02",
-    "caption": "Defensive explanation of a classical state-estimation limitation. The scalar picture illustrates the cancellation.",
-    "note": "Return to the scalar illustration: shifting both readings by three moves their best common estimate by three, while the two residuals remain -1 and +1. The linear network identity is z'=z+Hc, xhat'=xhat+c and r'=r when the same full-rank H and weights are used. Here c is a shift in the inferred angle state; Hc is the corresponding change in model predictions. Liu, Ning and Reiter establish this limitation of residual-based bad-data detection. Their result has specific access and model assumptions; it is not a claim that any attacker can alter every utility state estimate. Protected measurements restrict which changes are possible. The synthetic workshop deliberately supplies a matching coordinated perturbation as a negative control, so it can test whether a residual-only workflow mistakes consistency for trust. We do not discuss targeting real measurement channels. The operator lesson is to seek independent evidence when the trust premise is unresolved, even if the residual test is quiet."
-  },
-  {
-    "title": "A quiet residual can hide a wrong inferred state",
-    "kind": "figure",
-    "image_source_path": "research/evidence/figures/classroom_cyber.png",
-    "points": [
-      "Isolated bias raises J; the coordinated Hc change leaves J near 3.92.",
-      "The right panel uses known synthetic truth to reveal the growing state error."
-    ],
-    "minutes": 2,
-    "refs": [
-      "CY05",
-      "CY04",
-      "CY02"
-    ],
-    "main_ref": "CY05",
-    "caption": "Actual L8 sweep on the four-bus fixture. The left axis uses a symmetric-log scale; the right panel is an offline audit.",
-    "note": "Read the panels together. At scale zero both cases start from the same seeded noisy readings. Increasing one isolated flow bias raises the weighted residual and eventually crosses the threshold. The coordinated Hc changes leave J essentially unchanged while their state-error norm grows. At scale one the nominal and coordinated statistics are both 3.92022 to displayed precision, but the coordinated state error is 0.0267799957 rad, versus 0.0002374314 rad for nominal noise. The left panel's symmetric-log scale accommodates small and large statistics. The right panel compares the estimate with the known state supplied by the synthetic experiment. A real operator does not have that exact ground truth as an online test input. This is a negative-control demonstration of a detector limitation, not a statistical field evaluation, attack prevalence estimate or measurement of an LLM's detection capability."
-  },
-  {
-    "title": "Independent trusted readings change the evidence",
-    "kind": "diagram",
-    "diagram": "cyber_trusted",
-    "diagram_spec": "Three separately trusted angle readings theta1, theta2 and theta3 directly determine a three-angle state through H_T=I_3. Show rank=3 and measurement count=3, so residual redundancy=0. A separate lower path states that unavailable trusted evidence means HOLD. Explicitly mark trust as supplied externally.",
-    "points": [
-      "The fixture supplies three separately trusted angle readings; authentication is assumed.",
-      "Three readings for three angles leave no residual redundancy. J = 0 is not a new detection result."
-    ],
-    "minutes": 2,
-    "refs": [
-      "CY04",
-      "CY05"
-    ],
-    "main_ref": "CY04",
-    "caption": "Exact trusted-recovery assumption: three independent angle channels, with no redundant residual test.",
-    "note": "The protected recovery uses H_T=I_3 with three angle readings. Each has assumed noise standard deviation 0.00005 rad and a separate seeded noise realization. Because the measurement count and rank are both three, the fit is exactly determined: residual degrees of freedom are zero, the residual is zero up to numerical precision, and the code supplies no chi-square threshold or alarm. The trust argument comes from an external assumption about these channels, not their zero residual. The workshop does not implement sensor authentication, prove channel independence operationally, or ask an LLM to decide authenticity. The trusted_response wrapper returns HOLD when the protected set is unavailable. With the set available, it can return a numerical proposal, still with dispatch=false. In an operational design, the utility would need to justify provenance, independence, time alignment and applicability before using a replacement evidence set."
-  },
-  {
-    "title": "A small QP proposes a limited correction",
-    "kind": "diagram",
-    "diagram": "cyber_qp",
-    "diagram_spec": "Plot the convex effort objective 0.5u^2 against u from 0 to 0.5. Shade the feasible interval beginning at actual optimum u=0.121694 and mark that boundary as the constrained minimum. State that all four predicted branch flows must satisfy their rating minus 0.01 p.u. The control is injection at bus2 balanced at reference bus0.",
-    "points": [
-      "The quadratic program (QP) finds the smallest injection satisfying every predicted branch limit with a 0.01 p.u. margin.",
-      "The trusted estimate gives u = 0.121694 p.u.; predicted flow12 becomes 0.170000 p.u."
-    ],
-    "minutes": 2.5,
-    "refs": [
-      "CY04"
-    ],
-    "caption": "Scalar convex QP in the fixed DC model. The injection at bus 2 is balanced by reference bus 0.",
-    "note": "The optimizer chooses one nonnegative flexible injection u at bus 2, balanced by bus 0. The objective 0.5u^2 favors a smaller action. It is a quadratic program because this objective is quadratic while the flow constraints and action bounds are linear. Bounds are 0<=u<=0.5 p.u. Every predicted branch flow must lie between minus and plus its rating less a 0.01 p.u. planning margin. Ratings are [0.35,0.18,0.35,0.35] p.u. for branches 01,12,23,03. Flow changes use g=F B^-1 e2, with g12=-4/7, so increasing u reduces the positive 1-to-2 flow. For this protected noisy estimate the binding constraint is predicted flow12=0.17, producing u=0.1216936673 and objective 0.0074046743. This differs from the 0.1225 noiseless arithmetic example in the longer chapter. The code solves the small QP with SLSQP and independently rechecks finite values, action bounds and all predicted constraints. A failed solve or check produces HOLD."
-  },
-  {
-    "title": "Check the consequences on every branch",
-    "kind": "figure",
-    "image_source_path": "research/evidence/figures/workshop_trusted_control.png",
-    "points": [
-      "Using the compromised estimate selects no correction; actual toy flow12 stays at 0.240000 p.u.",
-      "Trusted recovery reduces it to 0.170461 p.u., below the 0.180000 p.u. rating."
-    ],
-    "minutes": 2,
-    "refs": [
-      "CY06",
-      "CY04"
-    ],
-    "main_ref": "CY06",
-    "caption": "Offline physical audit of the two decisions. Legend labels identify which estimate selected each action; bars show actual toy-model flows.",
-    "note": "Both sets of bars are evaluated using the known synthetic state after their respective actions, not the measurement estimates themselves. The action based on the coordinated corrupt estimate is u=0, leaving actual flow12 at 0.24, above its 0.18 rating. The trusted set selects u=0.1216936673. Its predicted flow12 is 0.170000; the independent offline physical audit gives actual flow12=0.1704607616. All four actual branch flows satisfy their physical ratings in this fixed toy network. The 0.01 planning margin accommodates the small protected-noise difference in this run; it is not a general robust uncertainty guarantee. Online, the code checks predicted constraints and finite values. Exact actual-state values are retained for experimental evaluation, not assumed to be an available online measurement or an operational authorization gate. The result demonstrates the value of better evidence plus a constrained solver, without establishing a benefit from an LLM."
-  },
-  {
-    "title": "1. Inputs: a declared four-bus DC task",
-    "kind": "figure",
-    "image_source_path": "research/screenshots/cyber_input.png",
-    "points": [
-      "The structured input authorizes WLS_TRUSTED_REDISPATCH for a four-bus DC teaching case.",
-      "Trusted sensors are assumed. The separate offline audit uses known synthetic truth."
-    ],
-    "minutes": 2,
-    "refs": [
-      "TRACE_CYBER"
-    ],
-    "main_ref": "TRACE_CYBER",
-    "caption": "Actual Awareness response containing the structured Planning input, 21 September 2026.",
-    "note": "Use one coherent archived run throughout these five slides. Source: C:/Users/f00863x/OPRO/output/agentic_grid_workflow_tutorial/results/standard_agent_workflow.json, runs entry with case='cyber' and supervisor='agentic', review_id=4a10da2aa66efaa3c1f39dae3b67372c384dbf66a297de9ed01841f6ba9c4fd9. Exact raw model journal: results/standard_stage_20260921T143826Z_42d19a61/llama_calls.json, call_id=7, context (file lines 394–401). The context contains use_case='cyber', authorized_tool='WLS_TRUSTED_REDISPATCH', scope='Four-bus DC measurement/control example with explicitly assumed trusted sensors', backend='separate_reduced_teaching_model', and approved_inputs='Supplied transparent simulation fixtures; no live utility measurements'. It is a structured specification, not a recorded natural-language request. The tool authorization is already supplied, so this run does not test discovery of the right engineering method from an ambiguous request. The second bullet explains the associated numerical fixture rather than adding fields to the model's recorded input: run_wls_demo supplies three protected angle channels, assumes their trust, and uses known synthetic truth to audit consequences. The historical standard-stage wrapper also uses that offline violation count in its teaching verification; it is not an operational truth oracle. Preserve this distinction when presenting the screenshot. The four-bus DC case omits AC voltage magnitudes, reactive power, protection, authentication and live actuation. An illustrative operator question may be spoken separately, but must not be presented as an archived prompt.",
-    "walkthrough_step": 1,
-    "visual_height_cm": 3.35,
-    "visual_height_px": 335
-  },
-  {
-    "title": "2. Agent: choose the authorized estimator",
-    "kind": "figure",
-    "image_source_path": "research/screenshots/cyber_route.png",
-    "points": [
-      "Actual model call 7 returned WLS_TRUSTED_REDISPATCH.",
-      "The wrapper checks that choice against the task's authorization before running the numerical tool."
-    ],
-    "minutes": 2,
-    "refs": [
-      "TRACE_CYBER"
-    ],
-    "main_ref": "TRACE_CYBER",
-    "caption": "Actual archived llama3.1:8b reply. Python executes the tool after checking the reply.",
-    "note": "Exact source: C:/Users/f00863x/OPRO/output/agentic_grid_workflow_tutorial/results/standard_stage_20260921T143826Z_42d19a61/llama_calls.json, call_id=7 (Planning), raw_response.message.content at line 432 and parsed response at lines 444–449. Exact reply: {\"choice\":\"WLS_TRUSTED_REDISPATCH\",\"reason\":\"This tool is authorized for the given use case and scope, and it is designed for a specific DC redispatch example with trusted measurements.\"}. The model is llama3.1:8b; the record contains the raw local Ollama response, with no error. This is an actual recorded LLM call from 21 September 2026, not a newly generated reply and not an LLM invocation when the notebook is read. The request uses http://localhost:11434/api/chat, a constrained JSON response schema, temperature 0 and seed 11; implementation is src/standard_agent_workflow.py lines 31–67. The choices are VOLTVAR_OPF, RESTORATION_MILP, WLS_TRUSTED_REDISPATCH and REVIEW. Application code requires the selected choice to equal TOOLS[case] (lines 113–120); an incompatible choice records REVIEW and leaves subsequent numerical stages NOT_RUN. Do not describe the JSON choice as a native SDK function-call event: the wrapper reads the choice and calls Python. Nor does this routing choice authenticate sensors, select which measurements to trust, set constraints or calculate an injection. In this experiment those premises and numerical parameters are fixed. The useful visible role is bounded tool routing with a preserved reply and an explicit scope gate.",
-    "walkthrough_step": 2,
-    "visual_height_cm": 3.35,
-    "visual_height_px": 335
-  },
-  {
-    "title": "3. Code: calculate the provisional correction",
+    "title": "Run L8: compare two attack patterns",
     "kind": "normal",
     "points": [
-      "The tool computes the estimate and correction; the model does not calculate the setpoint.",
-      "The wrapper records the proposal, simulation checks and verification result separately."
+      "Run the whole L8 cell with its default scale list.",
+      "Compare isolated bias with coordinated Hc in both the table and plots."
     ],
-    "code_lines": [
-      "result = run_wls_demo()",
-      "recovery = result['trusted_recovery']",
-      "control = recovery['control']"
-    ],
-    "code_caption": "src/standard_agent_workflow.py, lines 87–89. Source statements; line breaks added for readability.",
-    "code_source": {
-      "path": "research/evidence/src/standard_agent_workflow.py",
-      "start": 87,
-      "end": 89,
-      "ranges": [
-        [
-          87,
-          89
-        ]
-      ]
-    },
-    "minutes": 2,
     "refs": [
-      "TRACE_CYBER"
+      "H08"
     ],
-    "main_ref": "TRACE_CYBER",
-    "caption": "Exact executable wrapper code. The stage names are records of distinct operations, not independent language models.",
-    "note": "The three displayed statements are src/standard_agent_workflow.py lines87–89 with leading indentation removed. The builder verifies the same Python syntax tree. run_wls_demo computes WLS estimates, the protected-state correction and the offline known-state audit. The next two statements extract its trusted_recovery and control records. The original lines93–96 check rank3, PROPOSE and zero known-state toy-model violations; this historical offline check is not an online truth oracle. Protected-channel trust is assumed rather than authenticated. Both supervisors call the same method and obtain the same numerical correction. In this actual agentic run, Llama subsequently returns REVIEW and the human step remains pending. Full original function and result/journal are linked under TRACE_CYBER.",
-    "walkthrough_step": 3,
-    "visual_height_cm": 3.8,
-    "visual_height_px": 355,
-    "code_format": "same_statements"
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
+    "minutes": 2,
+    "note": "This cell runs fresh weighted-least-squares calculations. The coordinated counterexample assumes knowledge of the linear measurement matrix and access to the modeled unprotected channels. It is a declared defensive teaching model, not evidence of an incident at a utility.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Classroom Labs · L8 · classroom-023",
+    "notebook_cell": {
+      "file": "Classroom_Labs.ipynb",
+      "id": "classroom-023",
+      "start": 1,
+      "end": 5
+    }
   },
   {
-    "title": "4. Result: a bounded correction with evidence",
+    "title": "Read your two plots together",
     "kind": "figure",
-    "image_source_path": "research/screenshots/cyber_result.png",
     "points": [
-      "The tool proposes u = 0.121694 p.u.; predicted flow12 is 0.170000 p.u.",
-      "The offline audit gives flow12 = 0.170461 p.u. and no branch-rating violations in this fixture."
+      "Left: residual J and the alarm threshold. Right: offline state error.",
+      "Follow the coordinated curve across both panels before interpreting a quiet alarm."
     ],
-    "minutes": 2,
     "refs": [
-      "TRACE_CYBER"
+      "H08"
     ],
-    "main_ref": "TRACE_CYBER",
-    "caption": "Original injection and predicted-flow excerpt; branch order 01,12,23,03. Flow12 is the second array entry.",
-    "note": "Source: C:/Users/f00863x/OPRO/output/agentic_grid_workflow_tutorial/results/standard_agent_workflow.json, cyber/agentic entry, summary.control and trace Planning/Execution proposal/Simulation/Verification. Exact proposed injection is 0.12169366726990237 p.u. at bus 2, balanced at reference bus 0. The objective is 0.5u^2, giving 0.007404674326798854, with 0<=u<=0.5. Predicted flows in branch order [01,12,23,03] are [0.13028137485605382,0.16999999999999998,-0.046197066897314544,0.14829215397936965] p.u. Physical ratings are [0.35,0.18,0.35,0.35] p.u.; predicted constraints reserve 0.01 p.u. The independent known-state toy audit gives [0.1304607615600558,0.1704607615600558,-0.047845571170041824,0.14784557117004185] p.u. and actual_violation_count=0. The wrapper's modeled checks pass. Its protected estimate is [-0.019982061329599805,-0.04992446613459283,-0.04008931656186556] rad, rank three, residual degrees of freedom zero. The three protected angles are externally assumed trustworthy; their zero residual cannot supply a redundant detection test. The compromised-estimate baseline chooses u=0 and has known-state flow12=0.24 p.u., above 0.18. This improvement comes from the supplied trusted evidence and numerical redispatch. The matched fixed supervisor computes the exact same protected numerical result and returns MODEL_RECOMMEND; the agentic run will instead end at REVIEW. Do not attribute a better optimum, attack-detection advantage, sensor authentication or field safety to the LLM. The displayed correction remains a provisional tool result.",
-    "walkthrough_step": 4,
-    "visual_height_cm": 3.35,
-    "visual_height_px": 335
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
+    "minutes": 2,
+    "note": "The left plot uses a symmetric-log scale. The right plot compares the estimate with known synthetic truth. As the coordinated shift grows, the residual stays unchanged while the state error increases. These plots answer different questions; they do not express the same quantity in different units.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Classroom Labs · L8 · classroom-023",
+    "image_source_path": "images/hands_on_L8_plot.png",
+    "visual_height_px": 345,
+    "visual_height_cm": 3.65,
+    "caption": "Actual executed notebook output; source cell classroom-023. Fresh numerical calculation unless explicitly marked archived."
   },
   {
-    "title": "5. Operator: resolve trust before proceeding",
-    "kind": "figure",
-    "image_source_path": "research/screenshots/cyber_review.png",
+    "title": "At scale 1, what does the alarm miss?",
+    "kind": "diagram",
     "points": [
-      "Actual model call 8 returned REVIEW despite the passed numerical checks.",
-      "The record ends at PENDING acknowledgment. A person must decide what evidence or further study is needed."
+      "Isolated bias: J about 277.50, so the residual alarm is True.",
+      "Coordinated Hc: J about 3.92, no alarm, but offline state error is about 0.02678 rad."
     ],
-    "minutes": 2,
     "refs": [
-      "TRACE_CYBER"
+      "H08",
+      "CY02"
     ],
-    "main_ref": "TRACE_CYBER",
-    "caption": "Actual archived explanation. No human approval, dispatch authorization or equipment operation is recorded.",
-    "note": "Exact source: C:/Users/f00863x/OPRO/output/agentic_grid_workflow_tutorial/results/standard_stage_20260921T143826Z_42d19a61/llama_calls.json, call_id=8 (Explanation), context numerical_summary and passed_modeled_checks=true, raw_response.message.content, and parsed response through line 538. The actual reply is choice='REVIEW'; its reason says the numerical workflow completed successfully and passed its modeled checks, then asks to review the results. Preserve this apparently cautious or ambiguous reply rather than replacing it with an invented confident approval. In src/standard_agent_workflow.py lines 134–141, the allowed explanation choices are REPORT_LIMITS and REVIEW; REVIEW sets accepted=False. Therefore this run's final status is REVIEW even though its numerical Verification stage is PASS. This is a workflow/response-label outcome, not proof that the numerical plan is infeasible. Operator acknowledgment (lines 150–151) is PENDING with acknowledged=false, dispatch_authorized=false and equipment_operated=false. The review_id is 4a10da2aa66efaa3c1f39dae3b67372c384dbf66a297de9ed01841f6ba9c4fd9. No recorded human decision follows it. The second bullet is a proposed next human step, not an event asserted to have happened. Suggested review questions: who established the protected-channel premise, whether topology and limits are current, and what AC/protection/permission checks a real application would still require. This archived run makes two actual model calls, numbered 7 and 8 within the eight-call suite; simply viewing its executed notebook makes zero new LLM calls. The numerical method and parameters match the fixed comparator, so the record establishes no superior agentic control result or reduced operator workload.",
-    "walkthrough_step": 5,
-    "visual_height_cm": 3.35,
-    "visual_height_px": 335
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
+    "minutes": 2,
+    "note": "The diagram is a simple scalar illustration of coordinated consistency, not the numerical eight-measurement system. Read the numerical values from L8. A larger false-data shift need not increase the residual when the shift lies in the modeled measurement subspace.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Classroom Labs · L8 · classroom-023",
+    "diagram": "cyber_stealth",
+    "visual_height_px": 305,
+    "visual_height_cm": 3.25,
+    "caption": "Teaching diagram of the model or check used at this notebook step."
   },
   {
-    "title": "Exercise: HOLD or propose for operator review?",
+    "title": "Exercise 3: add a small isolated bias",
     "kind": "exercise",
     "points": [
-      "A: J = 3.92022; measurement trust unresolved; no independent trusted replacement.",
-      "B: J = 277.497; no trustworthy replacement is available.",
-      "C: independent trust assumed; current model; all QP checks pass; u = 0.121694. Choose the next step and name one reason."
+      "Add .10 to ATTACK_SCALES. Predict, then rerun L8.",
+      "At scale 0.10, read J, the alarm flag and the offline state error.",
+      "Does “no alarm” mean the reading is correct? Use the two panels to explain."
     ],
-    "minutes": 4,
     "refs": [
-      "CY04",
-      "CY05"
+      "H08"
     ],
-    "main_ref": "CY05",
-    "caption": "Work in pairs. Decide whether the evidence supports progressing an advisory study, not field dispatch.",
-    "note": "Give participants one minute to read, two minutes to compare decisions with a partner, and one minute to prepare a reason and a next evidence request. Correct answers: A is HOLD in the stated stealth-capable trust scenario; low J alone does not resolve provenance. B is HOLD and investigate the inconsistency; the statistic does not identify an attacker or authorize removal of a channel. C may be PROPOSE for operator review within this fixed DC fixture, because the trust premise is supplied externally and the current-model QP and post-solve checks pass. It is not EXECUTE. For C, all four predicted branch constraints, action bounds and finite checks matter. Expected follow-up questions include whether data are current and aligned, who established trust, whether topology or limits changed, and what operational checks the DC fixture omits. Do not reveal the answers while pairs are discussing."
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
+    "minutes": 4,
+    "note": "Allow one minute to predict, two minutes to edit and run, and one minute to report. For isolated bias at scale 0.10, J is about 10.143237, below the 15.086272 threshold. The alarm is False despite nonzero state error. The coordinated residual stays about 3.920222. This added scale remains within the notebook's plot limits.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Classroom Labs · L8 · classroom-023",
+    "excerpt": [
+      "ATTACK_SCALES = (0., .10, .25, .5, 1., 1.5)"
+    ]
   },
   {
-    "title": "Debrief: consistency, trust and permission differ",
+    "title": "Debrief: a quiet alarm is not proof of truth",
     "kind": "normal",
     "points": [
-      "A and B: HOLD. A quiet residual and an alarm give different evidence, but neither repairs missing trust.",
-      "C: propose for review. Passing numerical checks does not authorize an action.",
-      "The recovery comes from trusted readings and the constrained solver; no LLM authenticates a sensor."
+      "At scale 0.10, the isolated-bias residual is about 10.14, below the 15.09 threshold.",
+      "A threshold can miss a small inconsistency. Coordinated corruption creates a different limitation."
     ],
-    "minutes": 2,
     "refs": [
-      "CY04",
-      "CY05",
-      "CY02"
+      "H08"
     ],
-    "main_ref": "CY05",
-    "note": "Ask one pair to justify each packet. A passes a residual consistency test but has an unresolved trust premise, so the trusted_response policy holds. B fails the residual test, also without a trustworthy replacement, and holds while the discrepancy is investigated. C can progress to a human review packet after the stated current-model checks. The independent trust premise still needs a real operational justification outside this demonstration. Reinforce three separate questions: do the data fit the model; why should the channels be believed; and who is permitted to act? The three trusted angles have no residual redundancy, so their zero residual supplies no extra authenticity evidence. The comparison does not isolate an LLM detection benefit or prove operational cyber resilience. A useful agent can organize the assessment and report what a numerical tool actually checked, while failing closed when necessary evidence is absent."
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
+    "minutes": 2,
+    "note": "Separate the two mechanisms. A small isolated bias can stay below a statistical threshold. A coordinated Hc shift can preserve residual consistency by construction. Neither result establishes trusted telemetry. The state-error curve uses offline synthetic truth, not an input available to an online detector.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Classroom Labs · L8 · classroom-023",
+    "callout": "10.14 < 15.09 → no residual alarm"
   },
   {
-    "title": "Give the operator an evidence packet",
-    "kind": "diagram",
-    "diagram": "cyber_handoff",
-    "diagram_spec": "A bounded handoff: evidence packet lists current inputs/trust premise, u=0.121694 and every predicted branch check. Arrow to an operator review station with HOLD or further study / candidate for authorized process. A dashed boundary marks any live action outside the fixture. Explicitly label dispatch=false.",
+    "title": "Reset the sweep before recovery",
+    "kind": "normal",
     "points": [
-      "Show the trust premise, current model, proposed action, checked limits and remaining uncertainty together.",
-      "The fixture ends at PROPOSE with dispatch = false. Operator review is a separate decision."
+      "Restore the original ATTACK_SCALES list and rerun L8.",
+      "Next, L9 uses a fixed trusted-recovery fixture, not the scale you edited."
     ],
-    "minutes": 1.5,
     "refs": [
-      "CY05",
-      "CY07"
+      "H08"
     ],
-    "main_ref": "CY05",
-    "caption": "Proposed operator handoff. The classroom response is advisory and has no live control connection.",
-    "note": "The final packet should let the operator trace a recommendation back to its evidence, rather than accept a confident explanation. Include the current reading and topology versions, who established the trusted-channel premise, the fixed DC scope, u=0.121694, predicted flow12=0.170000, all other predicted branch checks, physical ratings, 0.01 planning margin and any failed or omitted checks. State that the offline 0.170461 actual-flow audit used synthetic truth and is not an online truth oracle. The local trusted_response function sets dispatch=false whether it holds or proposes. Any real deployment would require the utility's authorization, operating procedures and applicable additional engineering checks; these are outside this module. The agent's useful role here is to assemble the correct tool calls, preserve the evidence context, flag missing premises and explain verified results. It must not convert low residuals into trust or numerical feasibility into permission."
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
+    "minutes": 1,
+    "note": "Explain the boundary before comparing the recovery output. Changing ATTACK_SCALES changes the residual and state-error sweep. It does not change the fixed recovery scenario held inside the demo object.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Classroom Labs · L8 · classroom-023",
+    "notebook_cell": {
+      "file": "Classroom_Labs.ipynb",
+      "id": "classroom-023",
+      "start": 1,
+      "end": 3
+    }
+  },
+  {
+    "title": "L9 is a fixed recovery example",
+    "kind": "normal",
+    "points": [
+      "The same supplied recovery case is checked with and without trusted replacement channels.",
+      "Its control value does not track your L8 sweep-scale edit."
+    ],
+    "refs": [
+      "H09"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
+    "minutes": 2,
+    "note": "The helper uses the fixed run_wls_demo recovery fixture. The cyber object holds both the sweep results and this shared fixed demo. The comparison tests the trust premise under controlled conditions; it is not a controller reacting continuously to each plotted scale.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L9",
+    "eyebrow": "Classroom Labs · L9 · classroom-026"
+  },
+  {
+    "title": "Where do the trusted readings come from?",
+    "kind": "diagram",
+    "points": [
+      "The fixture assumes three independent angle readings are trustworthy.",
+      "Neither the residual test nor a language-model explanation authenticates them."
+    ],
+    "refs": [
+      "H09"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
+    "minutes": 2,
+    "note": "Three protected angle readings determine three unknown angles, leaving zero residual degrees of freedom. A zero residual in this exactly determined system provides no new detection guarantee. The trust premise must be justified outside this numerical example.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L9",
+    "eyebrow": "Classroom Labs · L9 · classroom-026",
+    "diagram": "cyber_trusted",
+    "visual_height_px": 305,
+    "visual_height_cm": 3.25,
+    "caption": "Teaching diagram of the model or check used at this notebook step."
+  },
+  {
+    "title": "Run L9: compare HOLD with PROPOSE",
+    "kind": "normal",
+    "points": [
+      "Run the full L9 cell, including its assertions.",
+      "Read status before comparing the returned injection or offline violation count."
+    ],
+    "refs": [
+      "H09"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
+    "minutes": 2,
+    "note": "The two calls use the same fixed fixture and change only protected_available. Without the trusted channels, the result is HOLD. With the assumed trusted set, it is PROPOSE. A proposal is neither an acknowledgment nor a dispatch command.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L9",
+    "eyebrow": "Classroom Labs · L9 · classroom-026",
+    "notebook_cell": {
+      "file": "Classroom_Labs.ipynb",
+      "id": "classroom-026",
+      "start": 1,
+      "end": 2
+    }
+  },
+  {
+    "title": "Read the two decision states",
+    "kind": "figure",
+    "points": [
+      "No trusted replacement channels: HOLD, with no proposed injection.",
+      "Trusted channels assumed: PROPOSE, u about 0.121694 p.u., zero offline toy-model violations."
+    ],
+    "refs": [
+      "H09"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
+    "minutes": 2,
+    "note": "Read the condition column together with the returned state. The PROPOSE outcome depends on the supplied trust assumption and fixed model. The recovery record keeps dispatch=False. It does not use the equipment_dispatch field from the separate L12 readback example.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L9",
+    "eyebrow": "Classroom Labs · L9 · classroom-026",
+    "image_source_path": "images/hands_on_L9_trust.png",
+    "visual_height_px": 325,
+    "visual_height_cm": 3.45,
+    "caption": "Actual executed notebook output; source cell classroom-026. Fresh numerical calculation unless explicitly marked archived."
+  },
+  {
+    "title": "Check the numerical correction",
+    "kind": "diagram",
+    "points": [
+      "The QP minimizes effort while enforcing the declared branch limits and 0.01 p.u. margin.",
+      "Predicted flow12 is 0.17000; offline actual is about 0.17046, below the 0.18000 rating."
+    ],
+    "refs": [
+      "H09"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
+    "minutes": 2,
+    "note": "The flexible injection is u=0.1216936673 p.u., balanced by the reference bus. The offline actual flow is an audit against synthetic truth for this fixed case. It does not guarantee unmodeled AC behavior or trustworthy field telemetry.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L9",
+    "eyebrow": "Classroom Labs · L9 · classroom-026",
+    "diagram": "cyber_qp",
+    "visual_height_px": 305,
+    "visual_height_cm": 3.25,
+    "caption": "Teaching diagram of the model or check used at this notebook step."
+  },
+  {
+    "title": "Trace what caused the improvement",
+    "kind": "diagram",
+    "points": [
+      "Independent trusted information supplies a usable estimate; the constrained solver supplies the action.",
+      "The explanation must preserve those conditions and the remaining need for review."
+    ],
+    "refs": [
+      "H09"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
+    "minutes": 2,
+    "note": "Do not attribute recovered information or numerical feasibility to confident prose. The workflow can coordinate the estimator, constrained correction and evidence checks. It cannot invent an independent trusted measurement source.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L9",
+    "eyebrow": "Classroom Labs · L9 · classroom-026",
+    "diagram": "cyber_handoff",
+    "visual_height_px": 305,
+    "visual_height_cm": 3.25,
+    "caption": "Teaching diagram of the model or check used at this notebook step."
+  },
+  {
+    "title": "Agent request, tool result, operator decision",
+    "kind": "normal",
+    "points": [
+      "Agent role: request the allowed estimator/control tool and explain its returned conditions.",
+      "Operator role: resolve the trust premise and review the bounded proposal through the authorized process."
+    ],
+    "refs": [
+      "H09"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
+    "minutes": 2,
+    "note": "The default classroom calls are deterministic Python functions. The archived model explanations shown in L10 belong to a separate historical study. A real agent implementation would need to bind an allowed request to these tools. This default route makes no new language-model decisions.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L9",
+    "eyebrow": "Classroom Labs · L9 · classroom-026"
+  },
+  {
+    "title": "Cyber checkpoint: state the condition behind PROPOSE",
+    "kind": "normal",
+    "points": [
+      "Report the measurement-trust assumption, model, proposed u and failed or passed checks.",
+      "If independent trusted information is unavailable, retain HOLD and name the missing evidence."
+    ],
+    "refs": [
+      "H09"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
+    "minutes": 2,
+    "note": "Ask pairs to state the outcome and its condition in the same sentence. For example: 'The fixture proposes u when the supplied trusted channels are available.' Do not say: 'The AI proved that the telemetry is safe.'",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L9",
+    "eyebrow": "Classroom Labs · L9 · classroom-026"
   }
 ]

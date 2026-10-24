@@ -1,78 +1,175 @@
 [
   {
-    "title": "Agentic AI: Three Operator Cases",
+    "title": "Hands-on: Three Operator Cases",
     "kind": "cover",
     "points": [
-      "Voltage support, service restoration and cyber response",
-      "120 minutes with three short group exercises",
-      "IEEE ComSoc theme / Recorded research examples and operator review"
+      "Run voltage support, service restoration and cyber response in Classroom Labs",
+      "120 minutes · one CPU notebook · three short exercises",
+      "IEEE ComSoc theme / Run, change, check and explain"
     ],
+    "refs": [
+      "H00",
+      "B01"
+    ],
+    "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
     "minutes": 0.5,
-    "refs": [
-      "B01",
-      "W00"
-    ],
-    "note": "This is the follow-on to the agentic-AI foundations tutorial. We apply the ideas to three engineering decisions, rather than repeating the literature survey. The numerical examples come from the existing GridGuard teaching studies. Their models and assumptions differ: a synthetic distribution feeder, a six-node restoration transport graph, and a four-bus DC estimation fixture. None is a live utility deployment or a permission to operate equipment. All slides belong to the session. The three exercises require discussion and a decision, not software installation."
+    "note": "Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true
   },
   {
-    "title": "Three cases test three different kinds of evidence",
-    "kind": "diagram",
-    "diagram": "common_three_cases",
-    "caption": "The same advisory process must answer a different engineering question in each case.",
-    "points": [
-      "Voltage: does the proposed control pass the required model scope?",
-      "Restoration: who receives service? Cyber: which information can support a decision?"
-    ],
-    "minutes": 1.5,
-    "refs": [
-      "W00"
-    ],
-    "note": "Ask participants to predict which evidence can fail in each case. Voltage has a model-coverage problem: a candidate can pass a reduced model and fail a broader AC audit. Restoration has an explicit objective and topology problem: maximum total load and priority service can legitimately produce different plans. Cyber has an information-trust problem: a small residual can coexist with a wrong estimated state. These are not interchangeable failure modes, so one universal success percentage is inappropriate. Keep the cases separate while reusing the habit of specifying inputs, tools, tests and the human decision."
-  },
-  {
-    "title": "An operator request becomes a checked study",
-    "kind": "diagram",
-    "diagram": "common_operator_loop",
-    "caption": "Proposed advisory workflow. Numerical checks control whether a candidate reaches human review.",
-    "points": [
-      "The agent interprets the request and chooses allowed tools. Solvers calculate the consequences.",
-      "Failed or outdated evidence returns to a bounded repair step, or the study stops."
-    ],
-    "minutes": 1.5,
-    "refs": [
-      "W00",
-      "DEF03"
-    ],
-    "note": "Read the workflow as responsibilities, not a claim that each box is a separate LLM. Awareness fixes the study state. Planning proposes an allowed action. Simulation produces numerical evidence. Verification tests the request, limits and evidence identity. The optimizer or repair step may suggest a new candidate within a fixed budget. A person receives the resulting advisory packet. This structure is a teaching synthesis informed by the existing classroom implementation. The engineering notebooks use a custom Python supervisor. Their shared responsibilities do not establish that they execute in LangGraph; the separate graph lab demonstrates that runtime independently. A numerical solver or fixed script may perform most of the work. The added walkthroughs expose the actual recorded choices, code calls, output values and pending human decisions. The voltage P3 workflow and the standard restoration/cyber workflow are separate dated studies. Each uses its original custom Python supervisor. The present GridGuard app has a separate LangGraph implementation; these archived records do not test that newer runtime."
-  },
-  {
-    "title": "Every result must stay attached to its inputs",
-    "kind": "diagram",
-    "diagram": "common_evidence_binding",
-    "caption": "Illustrative evidence identity. These version labels are teaching examples, not an operational record.",
-    "points": [
-      "Keep the case, model scope, data revision, candidate and limits together.",
-      "A matching hash detects a changed packet. It does not prove that a sensor or a model is correct."
-    ],
-    "minutes": 1.5,
-    "refs": [
-      "W00",
-      "OT01"
-    ],
-    "note": "Use a concrete example: a voltage result at load multiplier 1.00 cannot support a changed request at 1.10 without checking applicability. Likewise, a restoration capacity change or a different measurement-trust set changes the evidence context. The classroom binding routine hashes canonicalized request, candidate and result contents. That establishes local content consistency only. It is not a digital signature, sensor authentication, or a proof of physical feasibility. The operator should be able to see the relevant identity and limits directly in the report. Do not transfer all details into a cryptographic-looking identifier that nobody can inspect."
-  },
-  {
-    "title": "The three exercises end with a specific next step",
+    "title": "Open one notebook for all three cases",
     "kind": "normal",
     "points": [
-      "Work in pairs: one person proposes the next step, the other checks the evidence.",
-      "For each case, choose: continue the study, hold the recommendation, or request missing evidence.",
-      "Use one number or one failed check to explain the decision. Each discussion lasts four minutes."
+      "Open Classroom Labs using the source link below or the website’s first Colab button.",
+      "Save a copy in Drive so you can keep your parameter changes and outputs."
     ],
-    "minutes": 1,
     "refs": [
-      "W00"
+      "H00"
     ],
-    "note": "Explain the active-learning format before the first case. Give pairs one minute to read, two minutes to decide and one minute to prepare a short justification. The debrief follows as a separate slide, so the answer is not hidden behind a click or given away on the exercise slide. The choices concern progression through an advisory study, not field dispatch. Encourage participants to name the next responsible tool or human role. A valid hold decision should specify what evidence would allow progress."
+    "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
+    "minutes": 1.5,
+    "note": "Open https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/#notebooks and choose the first notebook, Classroom Labs. The LangGraph and trace notebooks are separate companions. Keep the slides in one tab and Classroom Labs in another.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "callout": "Classroom_Labs.ipynb",
+    "action_link": {
+      "label": "Open Classroom Labs in Google Colab",
+      "url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    }
+  },
+  {
+    "title": "Connect a CPU and run the setup cell",
+    "kind": "normal",
+    "points": [
+      "Connect a standard CPU runtime. Run “Set up Google Colab (CPU)” and wait for Ready.",
+      "Setup retrieves the supporting data, saved weights and records. It installs the required packages."
+    ],
+    "refs": [
+      "H00"
+    ],
+    "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
+    "minutes": 2,
+    "note": "For a paced workshop, run the setup cell first, then run each named lesson cell when prompted. Runtime > Run all also works, but it reveals later outputs before the prediction questions. The default route needs no GPU, API key or model download. If setup stops, reconnect the runtime and rerun setup before starting L0.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true
+  },
+  {
+    "title": "Find cells by L label, not by cell number",
+    "kind": "normal",
+    "points": [
+      "Use the section headings L0 through L12 to find the next task.",
+      "Run a whole code cell with its play button or Shift+Enter. Later cells use earlier variables."
+    ],
+    "refs": [
+      "H00"
+    ],
+    "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
+    "minutes": 1,
+    "note": "The added Colab setup cells changed the numerical cell positions. Use the L headings and stable cell IDs to find the same source in Colab, Jupyter and these slides. A slide shows only the relevant code fragment. Students should run the complete matching notebook cell.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true
+  },
+  {
+    "title": "Run L0: choose the classroom route",
+    "kind": "normal",
+    "points": [
+      "Keep both switches False. The class uses fresh linear-model calculations and saved model replies.",
+      "If the data check fails, rerun the setup cell before continuing."
+    ],
+    "refs": [
+      "H01"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.",
+    "minutes": 2,
+    "note": "Run all of L0 to import the helpers, configure the plots and initialize the timing record. Keep RUN_OPENDSS=False and RUN_LOCAL_LLAMA=False. These settings skip the optional full-feeder OpenDSS route and local model service. They do not make the calculations prerecorded: L2 and L4 through L9 run fresh numerical calculations or checks, while L12 checks the evidence binding and simulated readback.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L0",
+    "eyebrow": "Classroom Labs · L0 · classroom-002",
+    "notebook_cell": {
+      "file": "Classroom_Labs.ipynb",
+      "id": "classroom-002",
+      "start": 11,
+      "end": 14
+    }
+  },
+  {
+    "title": "Know which evidence you are reading",
+    "kind": "diagram",
+    "points": [
+      "FRESH: calculated now. SAVED POLICY: old weights used for a new proposal.",
+      "ARCHIVED ACTUAL LLM: a previously recorded reply, with its original input and timing."
+    ],
+    "refs": [
+      "H01"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.",
+    "minutes": 1.5,
+    "note": "The diagram shows responsibilities. Ordinary Python functions perform the engineering calculations; this notebook does not run through LangGraph. A model reply remains an archived event when displayed today. A language model does not replace the power-flow solver, MILP or state estimator.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "diagram": "common_operator_loop",
+    "visual_height_px": 305,
+    "visual_height_cm": 3.25,
+    "caption": "Teaching diagram of the model or check used at this notebook step."
+  },
+  {
+    "title": "Run L1: does old evidence still match?",
+    "kind": "figure",
+    "points": [
+      "Run the cell, then read binding_pass for all three rows.",
+      "Expect True, False, False: changing the load or command invalidates this evidence binding."
+    ],
+    "refs": [
+      "H01"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.",
+    "minutes": 1.5,
+    "note": "Treat this first check as a content-consistency test, not a physical feasibility test. The first row keeps the request and command unchanged. The next two rows change a request field or command field. A failed binding requires fresh evidence, but does not prove the changed action is infeasible. A matching hash does not authenticate a sensor.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L1",
+    "eyebrow": "Classroom Labs · L1 · classroom-004",
+    "image_source_path": "images/hands_on_L1_binding.png",
+    "visual_height_px": 345,
+    "visual_height_cm": 3.65,
+    "caption": "Actual executed notebook output; source cell classroom-004. Fresh numerical calculation unless explicitly marked archived."
+  },
+  {
+    "title": "Use the same cycle in every case",
+    "kind": "diagram",
+    "points": [
+      "Predict → run the default → read the result → change one input → rerun.",
+      "Finish by naming the permitted next step and the evidence that supports it."
+    ],
+    "refs": [
+      "H01"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.",
+    "minutes": 1,
+    "note": "Pause before showing each output. Ask pairs to write one sentence predicting the change, then compare it with the calculated result. Keep the input values and evidence together. Change only one parameter in the first experiment.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "diagram": "common_evidence_binding",
+    "visual_height_px": 305,
+    "visual_height_cm": 3.25,
+    "caption": "Teaching diagram of the model or check used at this notebook step."
+  },
+  {
+    "title": "Keep a short experiment record",
+    "kind": "normal",
+    "points": [
+      "Record the cell label and parameter value you changed.",
+      "Record one result, its model scope and your next decision: continue, recheck or HOLD."
+    ],
+    "refs": [
+      "H00"
+    ],
+    "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
+    "minutes": 1,
+    "note": "Participants can add a text cell below an output or use paper notes; no extra software is needed. Each pair should finish with one changed-input experiment that another person can repeat. Explain the result and one limit on the claim. The three cases use different networks and do not form a single utility deployment study.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true
   }
 ]

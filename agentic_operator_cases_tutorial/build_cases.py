@@ -6,10 +6,44 @@ import renderer as r
 
 ROOT=Path(__file__).resolve().parent
 WORKSHOP=Path(r'C:/Users/f00863x/OPRO/output/agentic_grid_workflow_tutorial')
+NOTEBOOK_ROOT=ROOT.parent/'agentic_grid_workflow_tutorial'
 MODULES=['opening','voltage','restoration','cyber','closing']
 
 def load(path):return json.loads(path.read_text(encoding='utf-8-sig'))
 def dump(path,value):path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+def notebook_cell_excerpt(spec,lab_label=''):
+    """Read a stable cell ID from the canonical notebook, never the archived copy."""
+    relative=Path(spec['file'])
+    base=NOTEBOOK_ROOT.resolve()
+    src=(base/relative).resolve()
+    if relative.is_absolute() or not src.is_relative_to(base) or src.suffix!='.ipynb':
+        raise ValueError('Notebook source must be a relative .ipynb path in the canonical workshop')
+    notebook=load(src)
+    matches=[(i,cell) for i,cell in enumerate(notebook['cells']) if cell.get('id')==spec['id']]
+    if len(matches)!=1:raise ValueError(('Expected one stable notebook cell ID',str(src),spec['id']))
+    index,cell=matches[0]
+    if cell.get('cell_type')!='code':raise ValueError(('Notebook excerpt must select a code cell',spec['id']))
+    source=cell.get('source',[])
+    source=source if isinstance(source,str) else ''.join(source)
+    lines=source.splitlines()
+    start,end=spec.get('start',1),spec.get('end',len(lines))
+    if not isinstance(start,int) or not isinstance(end,int) or not 1<=start<=end<=len(lines):
+        raise ValueError(('Invalid inclusive notebook source-line range',spec['id'],start,end,len(lines)))
+    label=(str(lab_label).strip()+' ') if lab_label else ''
+    return {'file':relative.as_posix(),'path':str(src),'cell_id':spec['id'],'cell_index_zero_based':index,
+            'start':start,'end':end,'code_lines':lines[start-1:end],
+            'code_caption':relative.name+' '+label+'('+spec['id']+'), source lines '+str(start)+'–'+str(end)+'.',
+            'notebook_sha256':hashlib.sha256(src.read_bytes()).hexdigest(),
+            'cell_source_sha256':hashlib.sha256(source.encode('utf-8')).hexdigest()}
+
+def module_schedule(slides):
+    labels={'opening':'Opening','voltage':'Voltage support','restoration':'Service restoration',
+            'cyber':'Cyber response','closing':'Closing'}
+    return [{'module':module,'label':labels[module],
+             'slides':sum(s['module']==module for s in slides),
+             'minutes':sum(s['minutes'] for s in slides if s['module']==module)} for module in MODULES]
+
 def resolve_local(value):
     p=Path(value)
     if not p.is_absolute():p=ROOT/p
@@ -26,7 +60,7 @@ def safe_text(value):
     replacements={'λ':'lambda','ρ':'rho','δ':'delta','σ':'sigma','χ':'chi','θ':'theta','ε':'epsilon','α':'alpha',
                   'β':'beta','∥':'||','≈':'about ','∈':' in ','∞':'infinity','∑':'sum ','₂':'2','₁':'1',
                   '₀':'0','²':'^2','³':'^3','⁻':'-','⁺':'+','𝑢':'u','ϵ':'epsilon','−':'-'}
-    text=str(value or '')
+    text=str(value or '').replace('…','...')
     for a,b in replacements.items():text=text.replace(a,b)
     return text
 
@@ -59,6 +93,8 @@ def normalize_registry():
             src,relative=resolve_local(original)
             if not src.is_file():raise FileNotFoundError((key,str(src)))
             dst=ROOT/'research/evidence'/relative;dst.parent.mkdir(parents=True,exist_ok=True)
+            # Current Colab notebooks have extra setup cells. Preserve historical snapshots.
+            if src.suffix=='.ipynb' and dst.is_file():src=dst
             if src.resolve()!=dst.resolve():shutil.copy2(src,dst)
             local.append('research/evidence/'+relative.as_posix())
             evidence_manifest.append({'file':dst.relative_to(ROOT).as_posix(),'original':str(src),
@@ -71,7 +107,7 @@ def normalize_registry():
                     'sha256':hashlib.sha256(rendered.read_bytes()).hexdigest()})
         source['packaged_evidence']=local
         if not source.get('url'):
-            source['authors']='GridGuard teaching materials'
+            source.setdefault('authors','Local teaching materials')
             source['url']='research/source_'+key+'.html'
         if local:
             intro=html.escape(r.full_citation(source))
@@ -110,7 +146,20 @@ def prepare_slides():
         if isinstance(items,dict):items=items.get('slides',items.get('items'))
         for item in items:
             s=dict(item);s['module']=module
-            if s.get('code_lines'):
+            if s.get('notebook_cell'):
+                record=notebook_cell_excerpt(s['notebook_cell'],s.get('lab_label',''))
+                filename=module+'_'+Path(record['file']).stem+'_'+record['cell_id']+'_L'+str(record['start'])+'-'+str(record['end'])+'.py'
+                dest=ROOT/'research/code'/filename;dest.parent.mkdir(parents=True,exist_ok=True)
+                dest.write_text('\n'.join(record['code_lines'])+'\n',encoding='utf-8')
+                s['code_lines']=record['code_lines'];s['code_caption']=record['code_caption']
+                s['code_file']=dest.relative_to(ROOT).as_posix();s['code_gobble']=0
+                s['notebook_source']={k:v for k,v in record.items() if k not in ['code_lines','path','code_caption']}
+                code_records.append({'module':module,'source_kind':'notebook_cell',
+                    'source':'../agentic_grid_workflow_tutorial/'+record['file'],
+                    **s['notebook_source'],'lab_label':s.get('lab_label',''),
+                    'excerpt':s['code_file'],'excerpt_sha256':hashlib.sha256(dest.read_bytes()).hexdigest(),
+                    'display_change':'Exact source lines from the identified canonical notebook cell; no statements changed.'})
+            elif s.get('code_lines'):
                 spec=s['code_source'];src,relative=resolve_local(spec['path'])
                 source_lines=src.read_text(encoding='utf-8').splitlines()
                 ranges=spec.get('ranges') or [[spec['start'],spec['end']]]
@@ -157,11 +206,16 @@ def prepare_slides():
                 screenshot=bool(s.get('walkthrough_step'))
                 images[name]={'file':name,'credit':'GridGuard project: browser capture of archived executed notebook/dashboard' if screenshot else ('Original teaching replot using existing GridGuard records' if s.get('image_transformation') else 'Existing GridGuard workshop numerical figure'),
                     'original_file':src.name if s.get('image_crop') else None,
-                    'source_page_url':'research/source_'+s['refs'][0]+'.html',
+                    'source_page_url':s.get('image_source_url') or s.get('notebook_url') or 'research/source_'+s['refs'][0]+'.html',
                     'direct_image_url':'research/evidence/'+relative_source.as_posix(),
                     'asset_type':'Actual local GridGuard screenshot' if screenshot else ('Recorded numerical teaching figure' if 'feeder' not in name else 'Synthetic feeder visualization'),
                     'transformation':s.get('image_transformation') or ('Existing HTML rendered in a browser; selected element crop; text enlarged without changing recorded values. Full provenance: research/screenshots/capture_manifest.json.' if screenshot else ('Selected original panel without changing plotted values.' if s.get('image_crop') else 'Unchanged original plot.')),
                     'evidence_limit':s.get('caption',''),'sha256':hashlib.sha256(target.read_bytes()).hexdigest()}
+                if name.startswith('hands_on_'):
+                    images[name].update(credit='Classroom Labs: actual executed notebook output, Python 3.12',
+                        source_page_url='research/hands_on/index.html',
+                        asset_type='Executed notebook plot or browser capture',
+                        transformation='Exact PNG output or documented HTML output selection; see research/hands_on/hands_on_manifest.json.')
                 s['image']=name
                 if s['kind']!='exercise':s['kind']='figure'
             if s.get('diagram'):
@@ -187,12 +241,14 @@ def prepare_slides():
     return slides
 
 def teaching_guide(slides,sources):
-    sections=[('How to teach this follow-on session',[
-        ('Format','59 static slides / 120 minutes. Opening 6 minutes; each case 36 minutes including a four-minute exercise; closing 6 minutes.'),
-        ('Prerequisite','Use the restored foundations tutorial first. The follow-on starts with concrete operating questions and assumes the terms agent, tool, solver and workflow are already familiar.'),
-        ('Evidence modes','Recorded numerical studies, archived genuine LLM replies, and illustrative workflow/version diagrams are labeled separately. No live utility control, new field evaluation, new training or live model call is performed by the deck.'),
-        ('Preparation','Present the built Slidev version or the PDF. No model account or installation is needed. Exercises use the supplied slide evidence. Full notebook/source records are available in the source package.'),
-        ('Facilitation','For each four-minute exercise: one minute to read, two minutes in pairs, one minute to prepare a decision and one supporting check. The next slide supplies the debrief.')],[])]
+    schedule=module_schedule(slides)
+    route='; '.join(item['label']+': '+str(item['slides'])+' slides / '+str(item['minutes'])+' minutes' for item in schedule)+'.'
+    sections=[('How to teach this hands-on session',[
+        ('Format',str(len(slides))+' static slides / '+str(sum(s['minutes'] for s in slides))+' minutes. '+route),
+        ('Prerequisite','Use the foundations tutorial first. This session follows the current Classroom Labs notebook through voltage support, service restoration and cyber response.'),
+        ('Evidence modes','Run the selected numerical cells to calculate results for your inputs. Archived model-response pools and historical evaluation records remain separately labeled. Editing L2 does not change the archived test_01 used by L3–L5, and editing the L8 sweep does not change the fixed L9 recovery fixture. No default cell calls an LLM or operates equipment.'),
+        ('Preparation','Open the linked notebook in Google Colab, sign in and use a standard CPU runtime. Run the first setup cell, wait for Ready, then follow the L labels in order. Keep optional OpenDSS and local-model switches at the stated defaults. The default route needs no API key, model download or GPU.'),
+        ('Facilitation','Follow each slide’s lab label and stable cell ID. Read the code, predict the result, run it, change the stated parameter and explain what changed. Each exercise has its own timed prompt; answers belong in the teacher notes and following debrief.')],[])]
     elapsed=0
     for i,s in enumerate(slides,1):
         end=elapsed+s['minutes']
@@ -203,15 +259,20 @@ def teaching_guide(slides,sources):
         if s.get('image'):fields.append(('Figure asset','images/'+s['image']))
         if s.get('code_file'):
             fields.append(('Exact source excerpt',s['code_caption']+'\n'+'\n'.join(s['code_lines'])))
-            fields.append(('Source alignment','research/code_manifest.json records source hashes, original line ranges and syntax-tree equivalence checks. research/code/ contains the readable display fragment. The complete original file is preserved in research/evidence/src/.'))
+            if s.get('notebook_cell'):
+                fields.append(('Source alignment','This excerpt is selected by stable cell ID from the canonical sibling notebook, not the preserved historical notebook. research/code_manifest.json records the notebook SHA-256, cell ID, current index and inclusive source-line range. research/code/ contains the unchanged selected lines.'))
+            else:
+                fields.append(('Source alignment','research/code_manifest.json records source hashes, original line ranges and syntax-tree equivalence checks. research/code/ contains the readable display fragment. The complete historical source remains preserved in research/evidence/src/.'))
+        if s.get('source_label'):fields.append(('Notebook / source locator',s['source_label']))
         links=[('['+key+'] '+r.full_citation(sources[key]),sources[key]['url']) for key in s['refs']]
+        if s.get('notebook_url'):links.insert(0,('Open the notebook',s['notebook_url']))
         sections.append((str(i)+'. '+s['title'],fields,links));elapsed=end
     used=list(dict.fromkeys(key for s in slides for key in s['refs']))
     sections+=r.reading.reading_sections(used,sources,slides,r.reading.load_json(ROOT/'images/image_manifest.json'))
     md,web,tex=r.reading.reading_guides(sections)
     for a,b in [('Full Reading Guide','Teaching and Source Guide'),
-                ('Agentic AI for Utility Operators — introductory lecture.','Agentic AI: Three Operator Cases — follow-on tutorial.'),
-                ('Agentic AI for Utility Operators','Agentic AI: Three Operator Cases')]:
+                ('Agentic AI for Utility Operators — introductory lecture.','Hands-on: Three Operator Cases — notebook-aligned tutorial.'),
+                ('Agentic AI for Utility Operators','Hands-on: Three Operator Cases')]:
         md=md.replace(a,b);web=web.replace(a,b);tex=tex.replace(a,b)
     # Notes may span pages. Keep headings with their first paragraph without boxing the whole lesson.
     tex=tex.replace(r'\setbox\readingEntry=\vbox\bgroup\hsize=\linewidth\subsection*{',r'\subsection*{')
@@ -221,24 +282,30 @@ def teaching_guide(slides,sources):
     (ROOT/'latex/teaching_guide.tex').write_text(tex,encoding='utf-8')
 
 def alignment_guide(slides,sources):
-    out=['<!doctype html><meta charset="utf-8"><title>GridGuard: code and recorded results</title><style>body{font:20px/1.55 Arial;color:#003b5c;max-width:1080px;margin:40px auto;padding:0 28px}h1,h2{color:#00629b}h2{border-top:3px solid #00a6b2;padding-top:28px;margin-top:50px}pre{font:19px/1.5 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f7fa;padding:22px}a{color:#00629b;overflow-wrap:anywhere}li{margin:12px 0}.source{font-size:16px;color:#526470}</style><h1>GridGuard: code and recorded results</h1><p>These are the actual tutorial supervisors and preserved records used in the presentation. Each model reply selects a permitted workflow step; Python numerical tools calculate and check the action.</p><p>The archived workshop uses custom Python supervisors. The separate current GridGuard application uses LangGraph. These records establish the behavior of the dated tutorial runs.</p>']
-    for module,key,label in [('voltage','TRACE_VOLT','Voltage / P3 OpenDSS / 27 September 2026'),('restoration','TRACE_REST','Restoration / six-node graph / 21 September 2026'),('cyber','TRACE_CYBER','Cyber / four-bus DC / 21 September 2026')]:
-        items=[(i,s) for i,s in enumerate(slides,1) if s['module']==module and s.get('walkthrough_step')]
-        out.append('<h2>'+html.escape(label)+'</h2><ol>')
-        for i,s in items:
-            out.append('<li><b>Slide '+str(i)+': '+html.escape(s['title'].split('. ',1)[-1])+'</b><br>'+html.escape(' '.join(s['points']))+'</li>')
-        out.append('</ol>')
-        s=next(s for _,s in items if s.get('code_file'));spec=s['code_source']
-        _,relative=resolve_local(spec['path']);full='research/evidence/'+relative.as_posix()
-        out.append('<p>'+html.escape(s['code_caption'])+'</p><pre>'+html.escape('\n'.join(s['code_lines']))+'</pre><p><a href="'+html.escape(full)+'">Read the complete original Python file</a> · <a href="research/source_'+key+'.html">Open the executed notebook, raw call journal and result record</a></p>')
-        out.append('<p class="source">'+html.escape(r.full_citation(sources[key]))+'</p>')
-    out.append('<h2>Check the alignment</h2><p><a href="research/code_manifest.json">Code manifest</a> records original source hashes, line ranges and verified equivalent Python statements. Display line breaks and indentation improve readability. The surrounding function is in the complete source.</p><p><a href="research/screenshots/capture_manifest.json">Screenshot manifest</a> records original HTML hashes, selected regions and unchanged output text. Screenshots show real archived notebook or dashboard views; they do not imply field deployment or a new live run.</p><p>The original model prompts and raw replies are linked in each source index. Opening a saved record makes no model call. The archived operator acknowledgment remains pending in all three walkthroughs.</p>')
+    out=['<!doctype html><meta charset="utf-8"><title>Three Operator Cases: notebook cells and results</title><style>body{font:20px/1.55 Arial;color:#003b5c;max-width:1080px;margin:40px auto;padding:0 28px}h1,h2{color:#00629b}h2{border-top:3px solid #00a6b2;padding-top:28px;margin-top:50px}pre{font:19px/1.5 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f7fa;padding:22px}a{color:#00629b;overflow-wrap:anywhere}li{margin:12px 0}.source{font-size:16px;color:#526470}</style><h1>Three Operator Cases: notebook cells and results</h1><p>Follow the current notebook by L label and stable cell ID. Selected source lines below come directly from the canonical notebook. Run the cells to calculate results for the stated inputs; distinguish those calculations from the separately labeled archived reply pools and evaluation records.</p><p>Adding a setup cell can change a numerical cell index. Stable cell IDs, source-line ranges and notebook hashes identify the exact source used to build these slides. Historical snapshots in research/evidence remain unchanged.</p>']
+    for i,s in enumerate(slides,1):
+        if not (s.get('lab_label') or s.get('notebook_cell') or s.get('code_file')):continue
+        out.append('<h2 id="slide-'+str(i)+'">Slide '+str(i)+': '+html.escape(s['title'])+'</h2>')
+        if s.get('lab_label'):out.append('<p><b>Notebook step: '+html.escape(str(s['lab_label']))+'</b></p>')
+        out.append('<p>'+html.escape(' '.join(s['points']))+'</p>')
+        if s.get('notebook_cell'):
+            spec=s['notebook_cell'];record=s['notebook_source']
+            out.append('<p>'+html.escape(s['code_caption'])+'</p><pre>'+html.escape('\n'.join(s['code_lines']))+'</pre>')
+            out.append('<p class="source">Notebook SHA-256: '+html.escape(record['notebook_sha256'])+'<br>Stable cell ID: '+html.escape(spec['id'])+'; current zero-based index: '+str(record['cell_index_zero_based'])+'; source lines '+str(record['start'])+'–'+str(record['end'])+' inclusive.</p>')
+        elif s.get('code_file'):
+            out.append('<p>'+html.escape(s['code_caption'])+'</p><pre>'+html.escape('\n'.join(s['code_lines']))+'</pre>')
+        key=s.get('main_ref') or (s['refs'][0] if s['refs'] else None)
+        url=s.get('notebook_url') or (sources[key]['url'] if key else None)
+        if url:out.append('<p><a href="'+html.escape(url)+'">Open the notebook or source</a></p>')
+        if s.get('source_label'):out.append('<p class="source">'+html.escape(s['source_label'])+'</p>')
+        if key:out.append('<p class="source">'+html.escape(r.full_citation(sources[key]))+'</p>')
+    out.append('<h2>Check the alignment</h2><p><a href="research/code_manifest.json">Code manifest</a> records each canonical notebook SHA-256, stable cell ID and inclusive source-line range. The selected code statements are unchanged. Older Python-file excerpts, when used, retain their own source hashes and syntax-tree equivalence checks.</p><p>Classroom numerical cells perform fresh calculations when run. Displaying archived model replies does not call an LLM. Editing an earlier classroom parameter does not automatically change an independent archived study or fixed recovery fixture. The notebook and slide notes explain those boundaries.</p>')
     (ROOT/'Code_and_Record_Guide.html').write_text('\n'.join(out),encoding='utf-8')
 
 def main():
     for folder in ['research','images','latex/images','latex/diagrams','slidev/public/images','slidev/public/diagrams','slidev/public/branding']:
         (ROOT/folder).mkdir(parents=True,exist_ok=True)
-    r.reading.REVIEWED='18 October 2026'
+    r.reading.REVIEWED='24 October 2026'
     original_escape=r.reading.esc
     r.reading.esc=lambda value:readable_tex_escape(original_escape,value)
     sources=normalize_registry()
@@ -250,8 +317,8 @@ def main():
     frames=''.join(r.render_frame(s,sources) for s in slides).replace('{reading_guide.pdf}','{teaching_guide.pdf}')
     front='''---
 theme: default
-title: Agentic AI — Three Operator Cases
-info: Voltage support, service restoration and cyber response, with operator workflows and three exercises
+title: Hands-on — Three Operator Cases
+info: Follow Classroom Labs through voltage support, service restoration and cyber response, with three exercises
 author: GridGuard teaching tutorial
 transition: none
 aspectRatio: 16/9
@@ -267,6 +334,7 @@ download: false
 ---
 
 '''
+    front=front.replace('title: Hands-on — Three Operator Cases','title: '+json.dumps(slides[0]['title'],ensure_ascii=False))
     web=front+'\n---\ntransition: none\n---\n\n'.join(r.render_slide(s,i,len(slides),sources) for i,s in enumerate(slides,1))
     web=web.replace('Separate reading-guide PDF','Teaching and source guide PDF')
     for token in ['What to notice','v-click','v-motion',r'\pause',r'\uncover<',r'\transfade','<table',r'\begin{tabular}']:
@@ -274,7 +342,8 @@ download: false
     (ROOT/'latex/frames.tex').write_text(frames,encoding='utf-8')
     (ROOT/'slidev/slides.md').write_text(web,encoding='utf-8')
     dump(ROOT/'lesson_content.json',slides)
-    notes='# Instructor Guide: Three Operator Cases\n\n59 static slides / 120 minutes. Each case includes a five-step recorded walkthrough, a four-minute exercise and its debrief. No tables, transitions, click reveals or What to notice labels. All numerical evidence is from the labeled local teaching records.\n\n'
+    route='; '.join(item['label']+': '+str(item['slides'])+' slides / '+str(item['minutes'])+' minutes' for item in module_schedule(slides))
+    notes='# Instructor Guide: Hands-on Three Operator Cases\n\n'+str(len(slides))+' static slides / '+str(sum(s['minutes'] for s in slides))+' minutes. '+route+'. Follow the L labels and stable notebook cell IDs; predict, run, edit and interpret each result. The three exercises have separate teacher notes and debriefs. Numerical calculations and archived model replies remain distinct. No tables, transitions or click reveals.\n\n'
     elapsed=0
     for i,s in enumerate(slides,1):
         end=elapsed+s['minutes']
@@ -300,9 +369,11 @@ download: false
     shutil.copytree(ROOT/'research',ROOT/'slidev/public/research',dirs_exist_ok=True)
     shutil.copy2(ROOT/'Full_Reading_Guide.html',ROOT/'slidev/public/Full_Reading_Guide.html')
     shutil.copy2(ROOT/'Code_and_Record_Guide.html',ROOT/'slidev/public/Code_and_Record_Guide.html')
-    manifest={'edition':'three-operator-cases','main_slides':len(slides),'minutes':sum(s['minutes'] for s in slides),
-        'exercise_slides':[i for i,s in enumerate(slides,1) if s['kind']=='exercise'],
-        'exercise_minutes':4,'tables':0,'transitions':'none','click_reveals':0,'viewing_cues':0,
+    exercise_slides=[i for i,s in enumerate(slides,1) if s['kind']=='exercise']
+    manifest={'edition':'hands-on-notebook-aligned','main_slides':len(slides),'minutes':sum(s['minutes'] for s in slides),
+        'exercise_slides':exercise_slides,'exercise_count':len(exercise_slides),
+        'exercise_minutes':{str(i):s['minutes'] for i,s in enumerate(slides,1) if s['kind']=='exercise'},
+        'tables':0,'transitions':'none','click_reveals':0,'viewing_cues':0,
         'used_images':list(dict.fromkeys(s['image'] for s in slides if s['image'])),
         'used_diagrams':list(dict.fromkeys(s['diagram'] for s in slides if s['diagram'])),
         'reading_source_ids':list(dict.fromkeys(key for s in slides for key in s['refs']))}
@@ -310,6 +381,12 @@ download: false
     manifest['recorded_walkthroughs']={case:[i for i,s in enumerate(slides,1) if s['module']==case and s.get('walkthrough_step')] for case in ['voltage','restoration','cyber']}
     manifest['code_slides']=[i for i,s in enumerate(slides,1) if s.get('code_file')]
     manifest['real_screenshots']=[s['image'] for s in slides if s.get('walkthrough_step') and s.get('image')]
+    manifest['module_schedule']=module_schedule(slides)
+    manifest['notebook_actions']=[{'slide':i,'module':s['module'],'lab_label':s.get('lab_label',''),
+        **s['notebook_source'],'excerpt':s['code_file'],'notebook_url':s.get('notebook_url')}
+        for i,s in enumerate(slides,1) if s.get('notebook_cell')]
+    manifest['lab_slides']=[{'slide':i,'lab_label':s['lab_label'],'notebook_url':s.get('notebook_url')}
+        for i,s in enumerate(slides,1) if s.get('lab_label')]
     dump(ROOT/'build_manifest.json',manifest)
     print(json.dumps({k:manifest[k] for k in ['main_slides','minutes','exercise_slides','visual_slides']},ensure_ascii=False))
 
