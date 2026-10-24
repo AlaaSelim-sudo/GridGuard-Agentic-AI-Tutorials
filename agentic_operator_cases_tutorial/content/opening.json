@@ -3,9 +3,9 @@
     "title": "Hands-on: Three Operator Cases",
     "kind": "cover",
     "points": [
-      "Run voltage support, service restoration and cyber response in Classroom Labs",
-      "120 minutes · one CPU notebook · three short exercises",
-      "IEEE ComSoc theme / Run, change, check and explain"
+      "Run three cases and see how Llama choices connect to engineering checks.",
+      "180 minutes · one CPU notebook · three short exercises",
+      "IEEE ComSoc theme / Predict, run, change and explain"
     ],
     "refs": [
       "H00",
@@ -13,16 +13,146 @@
     ],
     "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
     "minutes": 0.5,
-    "note": "Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence.",
+    "note": "Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence. The deck uses the IEEE ComSoc theme. The classroom cycle is run, change, check and explain. This expanded edition includes a new L10B replay and a proposed control-room advisory pilot. The scheduled teaching time is 180 minutes; allow breaks outside that total.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true
+  },
+  {
+    "title": "What would an operator ask an assistant to do?",
+    "kind": "diagram",
+    "diagram": "bridge_request",
+    "points": [
+      "Ask for a study: compare allowed options and show the checks needed for a decision.",
+      "The assistant returns a reviewable proposal linked to the input data and tool results."
+    ],
+    "note": "Start with the operator’s job, not the model name. Read the illustrative request aloud. Ask participants to name the information they would need before making the study. This is a teaching design for an advisory assistant. The classroom notebook provides numerical counterparts for selected steps, not a live control-room connection.",
+    "refs": [
+      "DEF03",
+      "H00"
+    ],
+    "minutes": 2.5,
+    "caption": "Illustrative study request and review path. The operator retains the decision.",
+    "visual_height_px": 330,
+    "visual_height_cm": 3.55
+  },
+  {
+    "title": "What makes this an LLM agent?",
+    "kind": "diagram",
+    "diagram": "bridge_script_agent",
+    "points": [
+      "A fixed script follows choices written in code. An LLM agent can choose a permitted next tool.",
+      "Both can branch and use the same solvers. We must test whether model choice adds value."
+    ],
+    "note": "Use Anthropic’s attributed architectural distinction. A conventional program can contain feedback, branches, rules and sophisticated optimization. Those alone do not demonstrate an LLM agent. A generative model can also just write an explanation. In these records Llama makes bounded choices from an allowed list, receives tool evidence and may select another step. This is narrow agency, not unrestricted autonomy. The default class replays those choices.",
+    "refs": [
+      "DEF03",
+      "LR0"
+    ],
+    "minutes": 2.5,
+    "caption": "Same engineering tools, different source of the next-step choice. Both paths require checks.",
+    "visual_height_px": 330,
+    "visual_height_cm": 3.55
+  },
+  {
+    "title": "Llama, Python and the operator have different jobs",
+    "kind": "diagram",
+    "diagram": "bridge_llama_tools",
+    "points": [
+      "Llama chooses and explains. Python calculates, checks limits and rejects failed proposals.",
+      "The operator reviews the evidence and decides whether another study or review is needed."
+    ],
+    "note": "Llama is the language model, Ollama is the local service used to run it, and the application controls which tools can execute. Our recorded wrappers return schema-constrained JSON choices. They do not use Ollama’s native tool_calls protocol. Python validates and interprets the choice before calling numerical functions. Good JSON formatting does not make a claim physically correct. No classroom cell sends an equipment command.",
+    "refs": [
+      "LR0",
+      "OLL1",
+      "DEF03"
+    ],
+    "minutes": 2.5,
+    "caption": "Roles in the recorded teaching workflow. The classroom route shows saved Llama choices.",
+    "visual_height_px": 330,
+    "visual_height_cm": 3.55
+  },
+  {
+    "title": "An agent needs a goal, tools and a place to stop",
+    "kind": "diagram",
+    "diagram": "bridge_agent_parts",
+    "points": [
+      "Give the agent approved data, a small tool list and a saved record of what has been tried.",
+      "After each result, let it choose the next permitted step within explicit check and stop rules."
+    ],
+    "note": "Walk around the loop once. State means the saved case record: input snapshot, selected candidate, tool outcomes and remaining study budget. A tool is an application function, such as running a power-flow check or solving a restoration problem. The engineering model, allowed actions, limits and stop conditions belong to the application. A model can request REVIEW when the permitted route cannot resolve a problem. In the original P3 record only two candidate checks are allowed.",
+    "refs": [
+      "DEF03",
+      "LRV"
+    ],
+    "minutes": 2.5,
+    "caption": "Teaching model of a bounded agent. Each result updates the case record before the next choice.",
+    "visual_height_px": 330,
+    "visual_height_cm": 3.55
+  },
+  {
+    "title": "A useful explanation makes a claim we can check",
+    "kind": "diagram",
+    "diagram": "bridge_reason_check",
+    "points": [
+      "Read the returned reason. Identify its evidence and the tool result that could support it.",
+      "A clear explanation can still be wrong. Keep the numerical check and the original reply."
+    ],
+    "note": "We show only the public reasons returned in the recorded JSON. We do not expose or infer private internal reasoning. Ask whether the statement matches the input, respects the allowed choices and survives the numerical check. Later the restoration reply says it sorted costs correctly while returning the wrong order. That specific error is an opportunity to inspect the application’s guard.",
+    "refs": [
+      "LR0",
+      "LRR"
+    ],
+    "minutes": 2.5,
+    "caption": "Check the explanation against the recorded facts and tool output.",
+    "visual_height_px": 330,
+    "visual_height_cm": 3.55
+  },
+  {
+    "title": "Six terms we will use in the notebook",
+    "kind": "diagram",
+    "diagram": "bridge_words",
+    "points": [
+      "Each term describes one job. The language model chooses among tools that do these jobs.",
+      "A passing result applies only to the inputs, limits and parts of the network that were checked."
+    ],
+    "note": "MPC plans controls using a forecast. SAC supplies a proposal from a previously trained controller. MILP chooses whole loads while respecting the stated constraints. WLS finds the state that best fits the weighted readings. Evidence binding checks that inputs and command still match a stored result. Model scope means which network parts and physical effects were included. Also define p.u. as a value divided by its stated base: 1.0 p.u. is that base value. A thermal limit here is a current or flow limit. The objective or cost is the numerical score to optimize after required checks pass.",
+    "refs": [
+      "H02",
+      "H06",
+      "H08",
+      "H12"
+    ],
+    "minutes": 2.5,
+    "caption": "Plain-language meanings. The detailed equations stay in the notebooks and source guide.",
+    "visual_height_px": 330,
+    "visual_height_cm": 3.55
+  },
+  {
+    "title": "Know what is running and what is being replayed",
+    "kind": "diagram",
+    "diagram": "bridge_modes",
+    "points": [
+      "Green: run a numerical calculation now. Amber: read an actual saved Llama reply in L10B.",
+      "Blue: discuss a proposed advisory pilot for a control room after the hands-on work."
+    ],
+    "note": "Point to these evidence modes throughout the session. Default classroom cells calculate fresh results without a live language-model call. L10B displays verified historical Llama choices, original reasons and associated recorded results. Changing your L2 or L6 input does not change those old replies. The final control-room diagrams are a proposed teaching design, not evidence of a deployed utility platform. No new equipment operation occurs in any of these modes.",
+    "refs": [
+      "H00",
+      "LR0",
+      "OT01"
+    ],
+    "minutes": 2.5,
+    "caption": "Three explicitly labeled teaching modes used throughout this workshop.",
+    "visual_height_px": 330,
+    "visual_height_cm": 3.55
   },
   {
     "title": "Open one notebook for all three cases",
     "kind": "normal",
     "points": [
-      "Open Classroom Labs using the source link below or the website’s first Colab button.",
-      "Save a copy in Drive so you can keep your parameter changes and outputs."
+      "Open Classroom Labs from the source link or the website’s first Colab button.",
+      "Save a copy in Drive to keep your changes and results."
     ],
     "refs": [
       "H00"
@@ -39,27 +169,27 @@
     }
   },
   {
-    "title": "Connect a CPU and run the setup cell",
+    "title": "Connect a CPU and run setup",
     "kind": "normal",
     "points": [
-      "Connect a standard CPU runtime. Run “Set up Google Colab (CPU)” and wait for Ready.",
-      "Setup retrieves the supporting data, saved weights and records. It installs the required packages."
+      "Choose a standard CPU. Run “Set up Google Colab (CPU)” and wait for Ready.",
+      "Setup gets the data, saved model weights and records, then installs the needed packages."
     ],
     "refs": [
       "H00"
     ],
     "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
     "minutes": 2,
-    "note": "For a paced workshop, run the setup cell first, then run each named lesson cell when prompted. Runtime > Run all also works, but it reveals later outputs before the prediction questions. The default route needs no GPU, API key or model download. If setup stops, reconnect the runtime and rerun setup before starting L0.",
+    "note": "For a paced workshop, run the setup cell first, then run each named lesson cell when prompted. Runtime > Run all also works, but it reveals later outputs before the prediction questions. The default route needs no GPU, API key or LLM download. If setup stops, reconnect the runtime and rerun setup before starting L0.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true
   },
   {
-    "title": "Find cells by L label, not by cell number",
+    "title": "Find each task by its L label",
     "kind": "normal",
     "points": [
-      "Use the section headings L0 through L12 to find the next task.",
-      "Run a whole code cell with its play button or Shift+Enter. Later cells use earlier variables."
+      "Use the headings L0 through L12 to find each task.",
+      "Run the whole cell with its play button or Shift+Enter. Later cells need earlier results."
     ],
     "refs": [
       "H00"
@@ -74,8 +204,8 @@
     "title": "Run L0: choose the classroom route",
     "kind": "normal",
     "points": [
-      "Keep both switches False. The class uses fresh linear-model calculations and saved model replies.",
-      "If the data check fails, rerun the setup cell before continuing."
+      "Keep both switches False: new numerical checks, saved controller and archived model replies.",
+      "If the data check fails, rerun setup before continuing."
     ],
     "refs": [
       "H01"
@@ -95,38 +225,38 @@
     }
   },
   {
-    "title": "Know which evidence you are reading",
+    "title": "New results, saved controller, old replies",
     "kind": "diagram",
     "points": [
-      "FRESH: calculated now. SAVED POLICY: old weights used for a new proposal.",
-      "ARCHIVED ACTUAL LLM: a previously recorded reply, with its original input and timing."
+      "FRESH means calculated now. SAVED POLICY uses old weights to make a new control proposal.",
+      "ARCHIVED ACTUAL LLM means an old model reply, shown with its original input and timing."
     ],
     "refs": [
       "H01"
     ],
     "source_label": "Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.",
     "minutes": 1.5,
-    "note": "The diagram shows responsibilities. Ordinary Python functions perform the engineering calculations; this notebook does not run through LangGraph. A model reply remains an archived event when displayed today. A language model does not replace the power-flow solver, MILP or state estimator.",
+    "note": "A script follows rules written in code. An LLM agent can choose the next allowed tool from a task and the returned results. The diagram shows proposed responsibilities, not a live agent run in this notebook. Ordinary Python functions do the engineering calculations here; the notebook does not run through LangGraph. A saved policy uses learned weights to calculate a new proposal without retraining. Displaying an old language-model reply does not make a new model call. A language model does not replace the power-flow calculation, load-selection solver or state estimator.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "diagram": "common_operator_loop",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "Proposed roles in an advisory workflow; the default notebook uses Python and saved records."
   },
   {
-    "title": "Run L1: does old evidence still match?",
+    "title": "Run L1: does the evidence still match?",
     "kind": "figure",
     "points": [
-      "Run the cell, then read binding_pass for all three rows.",
-      "Expect True, False, False: changing the load or command invalidates this evidence binding."
+      "Read binding_pass: does the record match the same inputs and command?",
+      "Expect True, False, False. Changing the load or command breaks that match."
     ],
     "refs": [
       "H01"
     ],
     "source_label": "Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.",
     "minutes": 1.5,
-    "note": "Treat this first check as a content-consistency test, not a physical feasibility test. The first row keeps the request and command unchanged. The next two rows change a request field or command field. A failed binding requires fresh evidence, but does not prove the changed action is infeasible. A matching hash does not authenticate a sensor.",
+    "note": "Evidence binding means matching a checked record to the exact inputs, proposed command and returned result, using content hashes. Treat L1 as a same-content check, not a test that a physical action passes its limits. The first row keeps the request and command unchanged. The next two rows change a request field or command field, so binding_pass is True, False, False. A failed match calls for new evidence; it does not prove the changed action fails its limits. A matching hash also does not authenticate a sensor.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L1",
@@ -134,14 +264,14 @@
     "image_source_path": "images/hands_on_L1_binding.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Actual executed notebook output; source cell classroom-004. Fresh numerical calculation unless explicitly marked archived."
+    "caption": "Reference L1 output: only the unchanged request and command match the evidence."
   },
   {
-    "title": "Use the same cycle in every case",
+    "title": "Use the same experiment cycle",
     "kind": "diagram",
     "points": [
-      "Predict → run the default → read the result → change one input → rerun.",
-      "Finish by naming the permitted next step and the evidence that supports it."
+      "Predict, run the default, read the result, change one input and rerun.",
+      "Name the next allowed step and the evidence for it."
     ],
     "refs": [
       "H01"
@@ -154,21 +284,21 @@
     "diagram": "common_evidence_binding",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "Keep the request, proposed command and checked result together."
   },
   {
     "title": "Keep a short experiment record",
     "kind": "normal",
     "points": [
-      "Record the cell label and parameter value you changed.",
-      "Record one result, its model scope and your next decision: continue, recheck or HOLD."
+      "Write down the L label and the value you changed.",
+      "Record the result, what the model covers, and your next step: continue, recheck or HOLD."
     ],
     "refs": [
       "H00"
     ],
     "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
     "minutes": 1,
-    "note": "Participants can add a text cell below an output or use paper notes; no extra software is needed. Each pair should finish with one changed-input experiment that another person can repeat. Explain the result and one limit on the claim. The three cases use different networks and do not form a single utility deployment study.",
+    "note": "Participants can add a text cell below an output or use paper notes; no extra software is needed. Each pair should finish with one changed-input experiment that another person can repeat. Explain the result and one limit on the claim. The three cases use different networks and do not form a single utility deployment study. Model scope means which parts of the network, quantities and physical effects the calculation covers.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true
   }

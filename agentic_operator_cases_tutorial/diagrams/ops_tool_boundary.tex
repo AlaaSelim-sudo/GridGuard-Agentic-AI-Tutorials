@@ -1,0 +1,32 @@
+\begingroup
+\hyphenpenalty=10000\exhyphenpenalty=10000
+\definecolor{IEEEBlue}{HTML}{00629B}\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}\definecolor{Slate}{HTML}{526470}
+\definecolor{BridgeRed}{HTML}{B83136}\definecolor{BridgeAmber}{HTML}{A66610}
+\definecolor{BridgeGreen}{HTML}{287449}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9}{11}\selectfont,
+every node/.style={text=Navy},
+flow/.style={-{Stealth[length=2mm]},draw=IEEEBlue,line width=1.1pt},
+muted/.style={draw=Slate!55,line width=.6pt},
+bridgebox/.style={draw=IEEEBlue,line width=.85pt,fill=white,align=center,minimum height=.9cm,inner sep=5pt},
+plain/.style={align=center,inner sep=2pt},
+small/.style={font=\sffamily\fontsize{8.5}{10.5}\selectfont},
+stop/.style={draw=BridgeRed,fill=BridgeRed!4,text=BridgeRed,line width=1pt,align=center,minimum height=.9cm,inner sep=5pt}]
+
+\node[plain,anchor=east,text=IEEEBlue] at (1.65,3.3) {Operator};
+\node[plain,anchor=east,text=IEEEBlue] at (1.65,2.4) {Assistant};
+\node[plain,anchor=east,text=IEEEBlue] at (1.65,1.35) {Tools};
+\node[plain,anchor=east,text=BridgeRed] at (1.65,.35) {Authority};
+\node[plain] (r) at (3.75,3.3) {Ask for a study};
+\node[plain] (review) at (11.6,3.3) {Review study evidence};
+\node[plain,text width=3.8cm] (a) at (5.0,2.4) {Llama requests an allowed tool};
+\node[bridgebox,text width=2.7cm] (copy) at (3.75,1.35) {Approved\\read-only copy};
+\node[bridgebox,text width=3.0cm] (gate) at (8.1,1.35) {Tool gateway\\Validate + log};
+\node[bridgebox,text width=2.3cm] (solver) at (12.1,1.35) {Numerical\\study tool};
+\draw[flow] (r.south)--(a.north west);\draw[flow] (a.east)-|(gate.north);
+\draw[flow] (copy)--(gate);\draw[flow] (gate)--(solver);\draw[flow] (solver.north)--(review.south);
+\draw[BridgeRed,dashed,line width=.9pt] (2.1,.8)--(13.6,.8);
+\node[plain,text=BridgeRed] at (8.0,.26) {Physical commands: a separate authorized operating process};
+
+\node[small,text=Slate] at (7.1,-.24) {Proposed advisory pilot --- teaching design};\end{tikzpicture}
+\endgroup

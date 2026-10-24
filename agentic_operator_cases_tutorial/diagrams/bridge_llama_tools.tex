@@ -1,0 +1,28 @@
+\begingroup
+\hyphenpenalty=10000\exhyphenpenalty=10000
+\definecolor{IEEEBlue}{HTML}{00629B}\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}\definecolor{Slate}{HTML}{526470}
+\definecolor{BridgeRed}{HTML}{B83136}\definecolor{BridgeAmber}{HTML}{A66610}
+\definecolor{BridgeGreen}{HTML}{287449}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9}{11}\selectfont,
+every node/.style={text=Navy},
+flow/.style={-{Stealth[length=2mm]},draw=IEEEBlue,line width=1.1pt},
+muted/.style={draw=Slate!55,line width=.6pt},
+bridgebox/.style={draw=IEEEBlue,line width=.85pt,fill=white,align=center,minimum height=.9cm,inner sep=5pt},
+plain/.style={align=center,inner sep=2pt},
+small/.style={font=\sffamily\fontsize{8.5}{10.5}\selectfont},
+stop/.style={draw=BridgeRed,fill=BridgeRed!4,text=BridgeRed,line width=1pt,align=center,minimum height=.9cm,inner sep=5pt}]
+
+\node[plain,text=IEEEBlue] at (2.05,3.05) {Llama};
+\draw[IEEEBlue,line width=1.5pt] (.4,2.72)--(3.7,2.72);
+\node[plain,text width=3.2cm] (l) at (2.05,1.75) {Read the request\\Choose an allowed tool\\Explain tool evidence};
+\node[plain,text=Cyan] at (7.1,3.05) {Python tools};
+\draw[Cyan,line width=1.5pt] (5.45,2.72)--(8.75,2.72);
+\node[plain,text width=3.2cm] (p) at (7.1,1.75) {Calculate results\\Check stated limits\\Return values + scope};
+\node[plain,text=IEEEBlue] at (12.15,3.05) {Operator};
+\draw[IEEEBlue,line width=1.5pt] (10.5,2.72)--(13.8,2.72);
+\node[plain,text width=3.1cm] (o) at (12.15,1.75) {Review the study\\Ask for more evidence\\Accept or reject study};
+\draw[flow] (l.east)--(p.west);\draw[flow] (p.east)--(o.west);
+\node[plain,small,text=Slate] at (7.1,.22) {Proposed agent concept; default notebook uses Python + archived model replies.};
+\end{tikzpicture}
+\endgroup

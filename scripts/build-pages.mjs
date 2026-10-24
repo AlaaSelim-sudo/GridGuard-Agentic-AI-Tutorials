@@ -14,13 +14,14 @@ fs.mkdirSync(out,{recursive:true});
 const repo='https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials';
 const decks=[
   {slug:'foundations',folder:'agentic_operator_tutorial',slides:80,pdf:'latex/main.pdf'},
-  {slug:'operator-cases',folder:'agentic_operator_cases_tutorial',slides:59,pdf:'Three_Operator_Cases.pdf'},
+  {slug:'operator-cases',folder:'agentic_operator_cases_tutorial',pdf:'Three_Operator_Cases.pdf'},
 ];
 const walk=dir=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);
 const copy=(from,to)=>{fs.mkdirSync(path.dirname(to),{recursive:true});fs.copyFileSync(from,to);};
 const report={base,decks:[],downloads:[]};
 
 for(const deck of decks){
+  if(!deck.slides)deck.slides=JSON.parse(fs.readFileSync(path.join(root,deck.folder,'lesson_content.json'),'utf8')).length;
   const project=path.join(root,deck.folder,'slidev');
   const target=path.join(out,deck.slug);
   const cli=path.join(project,'node_modules/@slidev/cli/bin/slidev.mjs');

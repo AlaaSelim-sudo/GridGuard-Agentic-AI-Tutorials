@@ -1,0 +1,100 @@
+{
+  "scope": "Read-only audit of opening/closing classification, plain language and exact replay values. No electrical solve, model call, publishing or source edit.",
+  "source_sha256": {
+    "agentic_operator_cases_tutorial\\content\\opening.json": "622cc4c22063a7a87d40c781a0c0c346b54c64f4b6379165e15467e83438047c",
+    "agentic_operator_cases_tutorial\\content\\closing.json": "93933a35cc5df5a673494c123bc3b3eb45b6c817aace03b0cc113f6097ac7d9d",
+    "agentic_grid_workflow_tutorial\\src\\llama_walkthrough.py": "8f9cfc7dc4be73630dd1c09db730c43378929f09bf9d4adb2f786bee9f29d582"
+  },
+  "validated_recorded_episodes": [
+    "voltage",
+    "restoration",
+    "cyber"
+  ],
+  "recorded_calls": {
+    "voltage": [
+      1,
+      2,
+      3
+    ],
+    "restoration": [
+      14,
+      15,
+      16
+    ],
+    "cyber": [
+      7,
+      8
+    ]
+  },
+  "canonical_values": {
+    "SAC_current_pct_allowance": 111.96660697404374,
+    "MPC_current_pct_allowance": 99.60441047658344,
+    "MPC_P_kw": 2387.1573822298833,
+    "MPC_Q_kvar": 325.7379256164953,
+    "MPC_vmin_pu": 1.001782946227172,
+    "MPC_vmax_pu": 1.03502551840022,
+    "E02_served_kw": 1242.7774900000015,
+    "E03_served_kw": 1843.6135500000014,
+    "E03_critical_kw": 474.03975000000014,
+    "E03_tie_pct_allowance": 91.86721465082616,
+    "E04_tie_pct_allowance": 111.00941253465786,
+    "E02_cost": -5509.135240000002,
+    "E03_cost": -6109.971300000003
+  },
+  "rounded_display_values": {
+    "SAC_current_pct_allowance": "111.966607",
+    "MPC_current_pct_allowance": "99.604410",
+    "MPC_P_kw": "2387.157",
+    "MPC_Q_kvar": "325.738",
+    "MPC_vmin_pu": "1.001783",
+    "MPC_vmax_pu": "1.035026",
+    "E02_served_kw": "1242.777",
+    "E03_served_kw": "1843.614",
+    "E03_critical_kw": "474.040",
+    "E03_tie_pct_allowance": "91.867215",
+    "E04_tie_pct_allowance": "111.009413",
+    "E02_cost": "-5509.135",
+    "E03_cost": "-6109.971"
+  },
+  "workflow_timing_fields": {
+    "fixed": {
+      "case": "P3_current_reserve",
+      "backend": "opendss",
+      "status": "MODEL_RECOMMEND",
+      "gate_rejections": 1,
+      "equipment_operated": false,
+      "seconds": 0.34605330000340473,
+      "llm_calls": 0,
+      "fresh_candidate_evaluations": 2
+    },
+    "agentic": {
+      "case": "P3_current_reserve",
+      "backend": "opendss",
+      "status": "MODEL_RECOMMEND",
+      "gate_rejections": 1,
+      "equipment_operated": false,
+      "seconds": 3.1104542999964906,
+      "llm_calls": 3,
+      "fresh_candidate_evaluations": 2
+    }
+  },
+  "classification_findings": [
+    "Default numerical calculations, saved SAC inference, archived Llama replies and proposed advisory pilot are explicitly separated.",
+    "L10B only reads verified original replies/results; replay makes no model call or electrical solve.",
+    "P3 supplied full MV/LV OpenDSS, L3 test_01, L6 six-node MILP, L10 feeder catalog and four-bus DC cyber records retain separate scopes.",
+    "Hash consistency is not claimed as sensor authentication; trusted channels remain an assumption.",
+    "Human review, simulated readback and equipment dispatch are distinguished.",
+    "Paired fixed comparisons are stated to have the same final numerical results; no accuracy, workload or speed benefit is promised."
+  ],
+  "minor_wording_finding": {
+    "file": "content/opening.json",
+    "locator": "Connect a CPU and run setup — speaker note",
+    "current": "The default route needs no GPU, API key or model download.",
+    "recommendation": "Use “no LLM download”; setup does retrieve the saved SAC weights, so “no model download” is too broad."
+  },
+  "slide_counts": {
+    "opening": 16,
+    "closing": 17
+  },
+  "status": "No material classification or numerical discrepancy found; one minor setup-note wording issue."
+}

@@ -1,0 +1,691 @@
+{
+  "voltage": {
+    "schema": "recorded_llama_teaching_episode_v1",
+    "scenario": "voltage",
+    "title": "Voltage: reject the failed proposal, then check the fallback",
+    "mode": "RECORDED REPLAY — no new LLM call or electrical solve",
+    "scope": "P3_current_reserve; supplied full MV/LV OpenDSS feeder; 27 September 2026.",
+    "study_boundary": "Separate from Classroom L2 and L3 test_01. No live SCADA, protection or transient study.",
+    "notebook_alignment": "Agent_Trace_and_Latency: T2 stages and operator card; T3 exact public replies.",
+    "reason_limit": "Exact public returned explanations; no hidden reasoning is exposed or inferred.",
+    "hash_limit": "SHA-256 identifies the local source bytes; it does not authenticate measurements.",
+    "source_sha256": {
+      "results/workshop_run_opendss.json": "4dcf85386081652fa7f0b4157c3f5f513cec1b2f79567bc48b71df87c1ce408a",
+      "results/continuous_llama_opendss_20260927T161223523552Z.json": "adaafce8f59a92e472124bfef8c0a73aa3e61fb4cc0a4137824a8865c33b6097"
+    },
+    "steps": [
+      {
+        "title": "Request a fresh check of the SAC proposal",
+        "call_id": 1,
+        "role": "Planner",
+        "model": "llama3.1:8b",
+        "recorded_utc": "2026-09-27T16:12:23.523552+00:00",
+        "recorded_client_seconds": 0.9879972000053385,
+        "input_facts": [
+          "Forecast load multipliers: [1.0, 0.94, 1.06].",
+          "Current allowance: 80% of nominal; voltage limits: [0.95, 1.05] p.u.",
+          "The saved SAC action is a proposal, not a checked command."
+        ],
+        "allowed_choices": [
+          "VERIFY_SAC_FIRST",
+          "REVIEW"
+        ],
+        "choice": "VERIFY_SAC_FIRST",
+        "exact_public_reason": "A numerical SAC proposal is available; its fresh first-action check has not yet been requested.",
+        "tool_result": [
+          "OpenDSS: 111.966607% of the allowed current; 2 current violations.",
+          "Deterministic check: REJECT; failure = thermal."
+        ],
+        "tool_result_data": {
+          "candidate": {
+            "tool": "SAC",
+            "control": [
+              0.33693869411945343,
+              0.030701177120208742
+            ]
+          },
+          "point": {
+            "control": [
+              0.33693869411945343,
+              0.030701177120208742
+            ],
+            "p_actual_kw": 2645.119215879814,
+            "q_actual_kvar": 241.0179506480042,
+            "vmin": 1.0025570903997476,
+            "vmax": 1.0375340015904786,
+            "max_line_utilization_pct": 89.57328557923499,
+            "max_allowed_current_pct": 111.96660697404374,
+            "accepted": false,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 2,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "converged": true,
+            "backend": "opendss",
+            "load_mult": 1.0,
+            "rating_fraction": 0.8,
+            "fresh_model_solve": true
+          },
+          "failures": [
+            "thermal"
+          ]
+        },
+        "next_step": "The recorded route rejects SAC and asks Recovery for the next allowed step.",
+        "source_paths": [
+          "results/continuous_llama_opendss_20260927T161223523552Z.json",
+          "results/workshop_run_opendss.json"
+        ],
+        "verification": {
+          "raw_json_equals_parsed_reply": true,
+          "reply_and_duration_match_trace": true
+        }
+      },
+      {
+        "title": "Request a fresh check of the existing MPC fallback",
+        "call_id": 2,
+        "role": "Recovery",
+        "model": "llama3.1:8b",
+        "recorded_utc": "2026-09-27T16:12:24.665244+00:00",
+        "recorded_client_seconds": 0.8466332999960287,
+        "input_facts": [
+          "The supplied failed checks are: thermal.",
+          "An MPC plan already exists; its recovery-eligibility failure list is empty.",
+          "At most 2 candidate checks are permitted."
+        ],
+        "allowed_choices": [
+          "USE_MPC_PLAN",
+          "REVIEW"
+        ],
+        "choice": "USE_MPC_PLAN",
+        "exact_public_reason": "The MPC plan has been generated and is eligible for a numerical check. This is the next allowed step in the recovery process.",
+        "tool_result": [
+          "OpenDSS: 99.604410% of allowed current; no recorded violations.",
+          "Proposed P = 2387.157 kW; Q = +325.738 kvar."
+        ],
+        "tool_result_data": {
+          "candidate": {
+            "tool": "CONTINUOUS_MPC",
+            "control": [
+              0.3040791833492598,
+              0.04149291669866676
+            ]
+          },
+          "point": {
+            "control": [
+              0.3040791833492598,
+              0.04149291669866676
+            ],
+            "p_actual_kw": 2387.1573822298833,
+            "q_actual_kvar": 325.7379256164953,
+            "vmin": 1.001782946227172,
+            "vmax": 1.03502551840022,
+            "max_line_utilization_pct": 79.68352838126675,
+            "max_allowed_current_pct": 99.60441047658344,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "converged": true,
+            "backend": "opendss",
+            "load_mult": 1.0,
+            "rating_fraction": 0.8,
+            "fresh_model_solve": true
+          },
+          "failures": []
+        },
+        "next_step": "Keep the numerically passed candidate and ask how to focus the operator explanation.",
+        "source_paths": [
+          "results/continuous_llama_opendss_20260927T161223523552Z.json",
+          "results/workshop_run_opendss.json"
+        ],
+        "verification": {
+          "raw_json_equals_parsed_reply": true,
+          "reply_and_duration_match_trace": true
+        }
+      },
+      {
+        "title": "Explain the evidence without acknowledging for the operator",
+        "call_id": 3,
+        "role": "Explanation",
+        "model": "llama3.1:8b",
+        "recorded_utc": "2026-09-27T16:12:25.646676+00:00",
+        "recorded_client_seconds": 0.9853947000083281,
+        "input_facts": [
+          "The full-feeder first-action check passed; voltage is 1.001783–1.035026 p.u.",
+          "Protection, transients and implementation authority remain outside this model."
+        ],
+        "allowed_choices": [
+          "REVIEW_ACTION",
+          "REVIEW_EVIDENCE",
+          "REVIEW_MODEL_LIMITS"
+        ],
+        "choice": "REVIEW_EVIDENCE",
+        "exact_public_reason": "The model has converged and the numerical evidence indicates that the control actions are within the allowed limits. Reviewing the evidence will provide more insight into the model's performance and the selected control actions.",
+        "tool_result": [
+          "Numerical status: MODEL_RECOMMEND; recorded human acknowledgment: PENDING.",
+          "Acknowledged = False; dispatch authorized = False; equipment operated = False."
+        ],
+        "tool_result_data": {
+          "metrics": {
+            "control": [
+              0.3040791833492598,
+              0.04149291669866676
+            ],
+            "p_actual_kw": 2387.1573822298833,
+            "q_actual_kvar": 325.7379256164953,
+            "vmin": 1.001782946227172,
+            "vmax": 1.03502551840022,
+            "max_line_utilization_pct": 79.68352838126675,
+            "max_allowed_current_pct": 99.60441047658344,
+            "accepted": true,
+            "violations": {
+              "voltage_low": 0,
+              "voltage_high": 0,
+              "line_current": 0,
+              "inverter_capability": 0,
+              "dispatch_tracking": 0
+            },
+            "scope": "full supplied MV/LV feeder",
+            "converged": true,
+            "backend": "opendss",
+            "load_mult": 1.0,
+            "rating_fraction": 0.8,
+            "fresh_model_solve": true
+          },
+          "operator": {
+            "recommendation_id": "63408d6a0cdca791ff902746f97ef2a2d1c27d1f9456846b74ccfcacd6f97fb1",
+            "requested_current_allowance_percent": 80.0,
+            "action_to_read_back": "Actual proposed P/Q and participation factors",
+            "scope_to_confirm": "opendss",
+            "remaining_questions": [
+              "Model coverage",
+              "Measurement trust",
+              "Protection and implementation authority"
+            ],
+            "state": "PENDING",
+            "dispatch_authorized": false,
+            "acknowledged": false,
+            "equipment_operated": false
+          }
+        },
+        "next_step": "A person must review this exact packet through a separate authorized process. No human decision is recorded.",
+        "source_paths": [
+          "results/continuous_llama_opendss_20260927T161223523552Z.json",
+          "results/workshop_run_opendss.json"
+        ],
+        "verification": {
+          "raw_json_equals_parsed_reply": true,
+          "reply_and_duration_match_trace": true
+        }
+      }
+    ],
+    "baseline_note": "The fixed supervisor used the same SAC→MPC checks and returned the same numerical result. The replay shows bounded routing, not evidence of a better controller or reduced operator workload.",
+    "operator_state": {
+      "recommendation_id": "63408d6a0cdca791ff902746f97ef2a2d1c27d1f9456846b74ccfcacd6f97fb1",
+      "requested_current_allowance_percent": 80.0,
+      "action_to_read_back": "Actual proposed P/Q and participation factors",
+      "scope_to_confirm": "opendss",
+      "remaining_questions": [
+        "Model coverage",
+        "Measurement trust",
+        "Protection and implementation authority"
+      ],
+      "state": "PENDING",
+      "dispatch_authorized": false,
+      "acknowledged": false,
+      "equipment_operated": false
+    }
+  },
+  "restoration": {
+    "schema": "recorded_llama_teaching_episode_v1",
+    "scenario": "restoration",
+    "title": "Restoration: test a smaller disconnection, then catch a ranking error",
+    "mode": "RECORDED REPLAY — no new LLM call or electrical solve",
+    "scope": "MV feeder bypass catalog with fixed critical-load priorities; 27 September 2026.",
+    "study_boundary": "This is Classroom L10’s feeder catalog, not L6’s six-node restoration MILP. No physical switching sequence is verified.",
+    "notebook_alignment": "Classroom L10 full five-stage records. This study is not loaded by Agent_Trace T4, which uses a separate six-node MILP archive.",
+    "reason_limit": "Exact public returned explanations; no hidden reasoning is exposed or inferred.",
+    "hash_limit": "SHA-256 identifies the local source bytes; it does not authenticate measurements.",
+    "source_sha256": {
+      "results/proposal_complete_workflow.json": "cd3622a5e84086d328004da65d7b1b7a7602452fa8c1629e8024bf680d89c995",
+      "results/proposal_run_20260927T184402Z_53e0cf/llama_calls.json": "148725e3ecb53f43e5b75cb7797d052a805061a3dd20c1c41716515b5b9bed04"
+    },
+    "steps": [
+      {
+        "title": "Choose a permitted new trial from the checked evidence",
+        "call_id": 14,
+        "role": "LLM Optimizer: critique and refine",
+        "model": "llama3.1:8b",
+        "recorded_utc": "2026-09-27T18:44:56.542736+00:00",
+        "recorded_client_seconds": 1.2588373000035062,
+        "input_facts": [
+          "E01 failed its thermal check; E02 passed.",
+          "E02 serves 1242.777 kW with 65.938897% tie loading.",
+          "The first refinement is required by the recorded protocol; the model chooses between offered fractions."
+        ],
+        "allowed_choices": [
+          "SHED_065",
+          "SHED_075"
+        ],
+        "choice": "SHED_075",
+        "exact_public_reason": "The candidate E01 has a thermal failure, and the lowest cost passed candidate E02 has a cost of -5509.135240000002. Selecting SHED_075 will test 75% disconnection of the ordered noncritical load objects, which may improve the cost.",
+        "tool_result": [
+          "SHED_075 produces E03: 1843.614 kW served and 474.040 critical kW.",
+          "E03 passes at 91.867215% tie loading; cost = -6109.971300 (smaller is better)."
+        ],
+        "tool_result_data": {
+          "before": {
+            "id": "E02",
+            "phase": "initial",
+            "candidate": {
+              "tool": "RESTORATION_CATALOG",
+              "pv_cap": 0.0,
+              "tie": "short",
+              "shed_fraction": 0.9,
+              "operation": "INITIAL_CONSERVATIVE"
+            },
+            "candidate_hash": "e662ed4eae4594bb4eafeb82f5216d0d532d3fe490489e2e58e40d604caba703",
+            "evidence_hash": "7649f6e02c8a42f791c19129c9b57c7be480137ca6a8aab2a4da4ec9c3349cbb",
+            "summary": {
+              "vmin": 1.0243617088952681,
+              "vmax": 1.03,
+              "served_kw": 1242.7774900000015,
+              "unserved_kw": 3504.690070000006,
+              "nominal_kw": 4747.467560000007,
+              "critical_served_kw": 474.03975000000014,
+              "critical_total_kw": 474.03975000000014,
+              "pv_kw": 0.0,
+              "losses_kw": 6.771794207990586,
+              "mv_cycles": 0,
+              "model_scope": "medium_voltage_only",
+              "backend": "lindistflow3",
+              "energized_bus_count": 453,
+              "allowed_current_utilization_pct": 65.9388965153553,
+              "loss_note": "Approximate MV I^2R reporting only; omitted from linear balance",
+              "tie": "short",
+              "shed_fraction_of_noncritical_objects": 0.9,
+              "tie_loading_pct": 65.9388965153553,
+              "switching_sequence_verified": false,
+              "objective": "Minimize -(served nominal kW + 9*critical served nominal kW)."
+            },
+            "failures": [],
+            "score": -5509.135240000002
+          },
+          "trial": {
+            "id": "E03",
+            "phase": "refinement_1",
+            "candidate": {
+              "tool": "RESTORATION_CATALOG",
+              "pv_cap": 0.0,
+              "tie": "short",
+              "shed_fraction": 0.75,
+              "operation": "SHED_075"
+            },
+            "candidate_hash": "d28b5076e4b12cf06bb9c345efdf819467f0fe2e4cdd219316c7dd68472a48f6",
+            "evidence_hash": "fe091730b88b9def030158457b3b1751c6216547d43f508a7da9f7fa3072ed51",
+            "summary": {
+              "vmin": 1.0195266621334482,
+              "vmax": 1.03,
+              "served_kw": 1843.6135500000014,
+              "unserved_kw": 2903.854010000006,
+              "nominal_kw": 4747.467560000007,
+              "critical_served_kw": 474.03975000000014,
+              "critical_total_kw": 474.03975000000014,
+              "pv_kw": 0.0,
+              "losses_kw": 14.919113811904756,
+              "mv_cycles": 0,
+              "model_scope": "medium_voltage_only",
+              "backend": "lindistflow3",
+              "energized_bus_count": 453,
+              "allowed_current_utilization_pct": 91.86721465082616,
+              "loss_note": "Approximate MV I^2R reporting only; omitted from linear balance",
+              "tie": "short",
+              "shed_fraction_of_noncritical_objects": 0.75,
+              "tie_loading_pct": 91.86721465082616,
+              "switching_sequence_verified": false,
+              "objective": "Minimize -(served nominal kW + 9*critical served nominal kW)."
+            },
+            "failures": [],
+            "score": -6109.971300000003
+          }
+        },
+        "next_step": "Use E03 as the checked incumbent; one further trial remains.",
+        "source_paths": [
+          "results/proposal_run_20260927T184402Z_53e0cf/llama_calls.json",
+          "results/proposal_complete_workflow.json"
+        ],
+        "verification": {
+          "raw_json_equals_parsed_reply": true,
+          "reply_and_duration_match_trace": true
+        }
+      },
+      {
+        "title": "Try the remaining fraction without weakening the limit",
+        "call_id": 15,
+        "role": "LLM Optimizer: critique and refine",
+        "model": "llama3.1:8b",
+        "recorded_utc": "2026-09-27T18:44:57.862363+00:00",
+        "recorded_client_seconds": 1.3295423999952618,
+        "input_facts": [
+          "E03 is the lowest-cost passed candidate; one refinement evaluation remains.",
+          "SHED_065 means disconnecting 65% of ordered noncritical load objects, not 65% of kW."
+        ],
+        "allowed_choices": [
+          "SHED_065",
+          "KEEP_INCUMBENT"
+        ],
+        "choice": "SHED_065",
+        "exact_public_reason": "The candidate E01 has a thermal failure, and the lowest cost passed candidate E03 has a cost of -6109.9713, which is lower than the objective's target. Selecting SHED_065 will test 65% disconnection of the ordered noncritical load objects, which may improve the cost.",
+        "tool_result": [
+          "E04 reaches 111.009413% tie loading: REJECT, thermal failure.",
+          "The rejected trial has no eligible score; its larger served load cannot make it acceptable."
+        ],
+        "tool_result_data": {
+          "id": "E04",
+          "phase": "refinement_2",
+          "candidate": {
+            "tool": "RESTORATION_CATALOG",
+            "pv_cap": 0.0,
+            "tie": "short",
+            "shed_fraction": 0.65,
+            "operation": "SHED_065"
+          },
+          "candidate_hash": "3a039acdd7e88bafc3f0187ee026d7b806a9420d71d3ba8a11a80f2b0eb99902",
+          "evidence_hash": "8a8c3e02bcfcb09ec7c6813b1678056f22210cddd8600ea7f5ea95ff72cb1657",
+          "summary": {
+            "vmin": 1.0141559660034847,
+            "vmax": 1.03,
+            "served_kw": 2182.471935,
+            "unserved_kw": 2564.9956250000073,
+            "nominal_kw": 4747.467560000007,
+            "critical_served_kw": 474.03975000000014,
+            "critical_total_kw": 474.03975000000014,
+            "pv_kw": 0.0,
+            "losses_kw": 21.69652162391939,
+            "mv_cycles": 0,
+            "model_scope": "medium_voltage_only",
+            "backend": "lindistflow3",
+            "energized_bus_count": 453,
+            "allowed_current_utilization_pct": 111.00941253465786,
+            "loss_note": "Approximate MV I^2R reporting only; omitted from linear balance",
+            "tie": "short",
+            "shed_fraction_of_noncritical_objects": 0.65,
+            "tie_loading_pct": 111.00941253465786,
+            "switching_sequence_verified": false,
+            "objective": "Minimize -(served nominal kW + 9*critical served nominal kW)."
+          },
+          "failures": [
+            "thermal"
+          ],
+          "score": null
+        },
+        "next_step": "Discard the failed trial and rank only the already verified feasible candidates.",
+        "source_paths": [
+          "results/proposal_run_20260927T184402Z_53e0cf/llama_calls.json",
+          "results/proposal_complete_workflow.json"
+        ],
+        "verification": {
+          "raw_json_equals_parsed_reply": true,
+          "reply_and_duration_match_trace": true
+        }
+      },
+      {
+        "title": "Keep the numerical ranking guard when the explanation is wrong",
+        "call_id": 16,
+        "role": "LLM Optimizer: feasible ranking",
+        "model": "llama3.1:8b",
+        "recorded_utc": "2026-09-27T18:44:59.249388+00:00",
+        "recorded_client_seconds": 1.4222282999980962,
+        "input_facts": [
+          "E02 cost = -5509.135240; E03 cost = -6109.971300; smaller is better.",
+          "Only the passed candidates E03 and E02 are offered for ranking."
+        ],
+        "allowed_choices": [
+          "E03",
+          "E02"
+        ],
+        "choice": [
+          "E02",
+          "E03"
+        ],
+        "exact_public_reason": "The candidates were ranked based on their scores, with the lowest score (best) first. E02 has a score of -5509.135240000002, and E03 has a score of -6109.971300000003.",
+        "tool_result": [
+          "Returned language order: E02 → E03. Correct numerical order: E03 → E02.",
+          "The guard retains E03 and rechecks it as E05: 1843.614 kW served; no recorded failures."
+        ],
+        "tool_result_data": {
+          "ranking_guard": {
+            "phase": "ranking",
+            "language_response": {
+              "ranking": [
+                "E02",
+                "E03"
+              ],
+              "reason": "The candidates were ranked based on their scores, with the lowest score (best) first. E02 has a score of -5509.135240000002, and E03 has a score of -6109.971300000003.",
+              "call_id": 16,
+              "seconds": 1.4222282999980962,
+              "source": "actual_local_llm",
+              "error": null
+            },
+            "numerical_order": [
+              "E03",
+              "E02"
+            ],
+            "language_order_agrees_with_cost": false,
+            "selection_rule": "Minimum verified numerical cost; language order is visible and cannot override cost or feasibility."
+          },
+          "final_recheck": {
+            "id": "E05",
+            "phase": "final_independent_recheck",
+            "candidate": {
+              "tool": "RESTORATION_CATALOG",
+              "pv_cap": 0.0,
+              "tie": "short",
+              "shed_fraction": 0.75,
+              "operation": "SHED_075"
+            },
+            "candidate_hash": "d28b5076e4b12cf06bb9c345efdf819467f0fe2e4cdd219316c7dd68472a48f6",
+            "evidence_hash": "a7a32179e1562e875de8a82c5ab70fb413db169bb09402f872d4b8a3a17fbe7a",
+            "summary": {
+              "vmin": 1.0195266621334482,
+              "vmax": 1.03,
+              "served_kw": 1843.6135500000014,
+              "unserved_kw": 2903.854010000006,
+              "nominal_kw": 4747.467560000007,
+              "critical_served_kw": 474.03975000000014,
+              "critical_total_kw": 474.03975000000014,
+              "pv_kw": 0.0,
+              "losses_kw": 14.919113811904756,
+              "mv_cycles": 0,
+              "model_scope": "medium_voltage_only",
+              "backend": "lindistflow3",
+              "energized_bus_count": 453,
+              "allowed_current_utilization_pct": 91.86721465082616,
+              "loss_note": "Approximate MV I^2R reporting only; omitted from linear balance",
+              "tie": "short",
+              "shed_fraction_of_noncritical_objects": 0.75,
+              "tie_loading_pct": 91.86721465082616,
+              "switching_sequence_verified": false,
+              "objective": "Minimize -(served nominal kW + 9*critical served nominal kW)."
+            },
+            "failures": [],
+            "score": -6109.971300000003
+          }
+        },
+        "next_step": "Return the checked proposal for human review; acknowledgment and dispatch remain False.",
+        "source_paths": [
+          "results/proposal_run_20260927T184402Z_53e0cf/llama_calls.json",
+          "results/proposal_complete_workflow.json"
+        ],
+        "verification": {
+          "raw_json_equals_parsed_reply": true,
+          "reply_and_duration_match_trace": true
+        }
+      }
+    ],
+    "baseline_note": "The paired fixed workflow returns the same final action and cost. This replay does not establish language-model superiority.",
+    "operator_state": {
+      "acknowledged": false,
+      "dispatch_authorized": false,
+      "equipment_operated": false,
+      "readback": [
+        "Selected action",
+        "Limits and model scope",
+        "Rejected alternatives",
+        "Remaining operating authority"
+      ]
+    }
+  },
+  "cyber": {
+    "schema": "recorded_llama_teaching_episode_v1",
+    "scenario": "cyber",
+    "title": "Cyber: route to the trusted-data tool, then retain human review",
+    "mode": "RECORDED REPLAY — no new LLM call or electrical solve",
+    "scope": "Four-bus DC fixture; three explicitly assumed trusted angle channels; 21 September 2026.",
+    "study_boundary": "Separate from L10’s proposal-complete cyber route. Trust is supplied as an assumption, not created or authenticated by Llama.",
+    "notebook_alignment": "Agent_Trace_and_Latency: T6 exact standard cyber replies and numerical result.",
+    "reason_limit": "Exact public returned explanations; no hidden reasoning is exposed or inferred.",
+    "hash_limit": "SHA-256 identifies the local source bytes; it does not authenticate measurements.",
+    "source_sha256": {
+      "results/standard_agent_workflow.json": "de98ec1098394e21b00c82cc4c9dcabc849441c73b32b899227a5a5a60063af6",
+      "results/standard_stage_20260921T143826Z_42d19a61/llama_calls.json": "74a50fdb00c5285597f7589f22b64d5a0fe3f8c70713ac76c198f1b21a02a7e0"
+    },
+    "steps": [
+      {
+        "title": "Select the authorized tool without inventing measurement trust",
+        "call_id": 7,
+        "role": "Planning",
+        "model": "llama3.1:8b",
+        "recorded_utc": "2026-09-21T14:39:00.852845+00:00",
+        "recorded_client_seconds": 2.699152999994112,
+        "input_facts": [
+          "The structured task already authorizes WLS_TRUSTED_REDISPATCH.",
+          "Trusted sensors are explicitly assumed; no live utility measurements are supplied.",
+          "Three angles, rank 3; residual degrees of freedom = 0."
+        ],
+        "allowed_choices": [
+          "VOLTVAR_OPF",
+          "RESTORATION_MILP",
+          "WLS_TRUSTED_REDISPATCH",
+          "REVIEW"
+        ],
+        "choice": "WLS_TRUSTED_REDISPATCH",
+        "exact_public_reason": "This tool is authorized for the given use case and scope, and it is designed for a specific DC redispatch example with trusted measurements.",
+        "tool_result": [
+          "The numerical tool proposes u = 0.121693667 p.u.; predicted flow12 = 0.170000 p.u.",
+          "Offline synthetic-truth flow12 = 0.170461 p.u.; rating = 0.180000 p.u."
+        ],
+        "tool_result_data": {
+          "trusted_state_estimate": [
+            -0.019982061329599805,
+            -0.04992446613459283,
+            -0.04008931656186556
+          ],
+          "rank": 3,
+          "residual_degrees_of_freedom": 0,
+          "control": {
+            "status": "PROPOSE",
+            "flexible_injection_pu": 0.12169366726990237,
+            "predicted_flows_pu": [
+              0.13028137485605382,
+              0.16999999999999998,
+              -0.046197066897314544,
+              0.14829215397936965
+            ],
+            "actual_toy_model_flows_pu": [
+              0.1304607615600558,
+              0.1704607615600558,
+              -0.047845571170041824,
+              0.14784557117004185
+            ],
+            "line_limits_pu": [
+              0.35,
+              0.18,
+              0.35,
+              0.35
+            ],
+            "planning_margin_pu": 0.01,
+            "actual_violation_count": 0,
+            "objective": 0.007404674326798854,
+            "model": "Three-state DC network, not the distribution-feeder AC model"
+          },
+          "scope": "Four-bus DC measurement/control example with explicitly assumed trusted sensors"
+        },
+        "next_step": "The numerical check passes within this fixture; request a separately labeled explanation.",
+        "source_paths": [
+          "results/standard_stage_20260921T143826Z_42d19a61/llama_calls.json",
+          "results/standard_agent_workflow.json"
+        ],
+        "verification": {
+          "raw_json_equals_parsed_reply": true,
+          "reply_and_duration_match_trace": true
+        }
+      },
+      {
+        "title": "Respect the returned REVIEW decision despite passing checks",
+        "call_id": 8,
+        "role": "Explanation",
+        "model": "llama3.1:8b",
+        "recorded_utc": "2026-09-21T14:39:03.555234+00:00",
+        "recorded_client_seconds": 3.2306368999998085,
+        "input_facts": [
+          "The model receives the actual numerical summary and passed_modeled_checks = True.",
+          "No communication authentication, AC feeder or operating-permission check is included."
+        ],
+        "allowed_choices": [
+          "REPORT_LIMITS",
+          "REVIEW"
+        ],
+        "choice": "REVIEW",
+        "exact_public_reason": "The provided JSON output indicates that the numerical workflow has completed successfully, and the results are within the expected scope. The 'passed_modeled_checks' field is set to True, indicating that the modeled checks have been passed. Therefore, the choice is to REVIEW the results to ensure they are accurate and within the expected range.",
+        "tool_result": [
+          "Numerical verification: PASS. Language choice: REVIEW. Overall result: REVIEW.",
+          "Human acknowledgment: PENDING; dispatch authorized = False; equipment operated = False."
+        ],
+        "tool_result_data": {
+          "verification": {
+            "stage": "Verification",
+            "method": "Declared numerical success and modeled-constraint checks",
+            "status": "PASS",
+            "response": {
+              "trusted_observability_rank": 3,
+              "trusted_channels_assumed": true,
+              "actual_toy_model_violation_count": 0,
+              "scope": "DC toy-model validation, not the full distribution feeder or authenticated communications"
+            }
+          },
+          "status": "REVIEW",
+          "operator": {
+            "acknowledged": false,
+            "dispatch_authorized": false,
+            "equipment_operated": false
+          }
+        },
+        "next_step": "Keep the recommendation under review. A person must resolve the trust premise and remaining engineering scope.",
+        "source_paths": [
+          "results/standard_stage_20260921T143826Z_42d19a61/llama_calls.json",
+          "results/standard_agent_workflow.json"
+        ],
+        "verification": {
+          "raw_json_equals_parsed_reply": true,
+          "reply_and_duration_match_trace": true
+        }
+      }
+    ],
+    "baseline_note": "The fixed comparator returns the same numerical estimate and correction without Llama. Llama selects an allowed tool and a report disposition; it does not authenticate sensors or improve this solver.",
+    "operator_state": {
+      "acknowledged": false,
+      "dispatch_authorized": false,
+      "equipment_operated": false
+    }
+  }
+}

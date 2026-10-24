@@ -27,6 +27,12 @@ CLASSROOM_FILES = (
     'results/ensemble_voltage_pilot/responses.json',
     'results/ensemble_voltage_pilot/selector_models/linucb_seed_270927.json',
     'results/proposal_complete_workflow.json',
+    # L10B replays these exact dated journals and their numerical result records.
+    'results/workshop_run_opendss.json',
+    'results/continuous_llama_opendss_20260927T161223523552Z.json',
+    'results/proposal_run_20260927T184402Z_53e0cf/llama_calls.json',
+    'results/standard_agent_workflow.json',
+    'results/standard_stage_20260921T143826Z_42d19a61/llama_calls.json',
 )
 PROFILES = {
     'classroom': {

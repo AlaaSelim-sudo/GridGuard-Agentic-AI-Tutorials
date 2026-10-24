@@ -1,0 +1,28 @@
+\begingroup
+\hyphenpenalty=10000\exhyphenpenalty=10000
+\definecolor{IEEEBlue}{HTML}{00629B}\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}\definecolor{Slate}{HTML}{526470}
+\definecolor{BridgeRed}{HTML}{B83136}\definecolor{BridgeAmber}{HTML}{A66610}
+\definecolor{BridgeGreen}{HTML}{287449}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9}{11}\selectfont,
+every node/.style={text=Navy},
+flow/.style={-{Stealth[length=2mm]},draw=IEEEBlue,line width=1.1pt},
+muted/.style={draw=Slate!55,line width=.6pt},
+bridgebox/.style={draw=IEEEBlue,line width=.85pt,fill=white,align=center,minimum height=.9cm,inner sep=5pt},
+plain/.style={align=center,inner sep=2pt},
+small/.style={font=\sffamily\fontsize{8.5}{10.5}\selectfont},
+stop/.style={draw=BridgeRed,fill=BridgeRed!4,text=BridgeRed,line width=1pt,align=center,minimum height=.9cm,inner sep=5pt}]
+
+\node[plain,anchor=east,text=IEEEBlue] at (1.5,2.65) {Script};
+\node[bridgebox,text width=2.25cm] (sr) at (3.0,2.65) {Same study\\request};
+\node[bridgebox,text width=3.5cm] (sc) at (7.25,2.65) {Code rules choose\\the next step\\Branches are allowed};
+\node[bridgebox,text width=2.9cm] (st) at (12.0,2.65) {Read a case\\or run a study};
+\draw[flow] (sr)--(sc);\draw[flow] (sc)--(st);
+\node[plain,anchor=east,text=Cyan] at (1.5,1.05) {Agent\\design};
+\node[bridgebox,text width=2.25cm] (ar) at (3.0,1.05) {Same study\\request};
+\node[bridgebox,text width=3.5cm,draw=Cyan] (ac) at (7.25,1.05) {Model chooses the next\\permitted tool};
+\node[bridgebox,text width=2.9cm] (at) at (12.0,1.05) {Read a case\\or run a study};
+\draw[flow] (ar)--(ac);\draw[flow] (ac)--(at);
+\node[plain,small,text=Slate] at (7.1,-.05) {Both can branch. Agent row is proposed; default notebook uses Python.};
+\end{tikzpicture}
+\endgroup

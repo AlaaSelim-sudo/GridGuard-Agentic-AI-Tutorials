@@ -1,0 +1,27 @@
+\begingroup
+\hyphenpenalty=10000\exhyphenpenalty=10000
+\definecolor{IEEEBlue}{HTML}{00629B}\definecolor{Cyan}{HTML}{00A6B2}
+\definecolor{Navy}{HTML}{003B5C}\definecolor{Slate}{HTML}{526470}
+\definecolor{BridgeRed}{HTML}{B83136}\definecolor{BridgeAmber}{HTML}{A66610}
+\definecolor{BridgeGreen}{HTML}{287449}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9}{11}\selectfont,
+every node/.style={text=Navy},
+flow/.style={-{Stealth[length=2mm]},draw=IEEEBlue,line width=1.1pt},
+muted/.style={draw=Slate!55,line width=.6pt},
+bridgebox/.style={draw=IEEEBlue,line width=.85pt,fill=white,align=center,minimum height=.9cm,inner sep=5pt},
+plain/.style={align=center,inner sep=2pt},
+small/.style={font=\sffamily\fontsize{8.5}{10.5}\selectfont},
+stop/.style={draw=BridgeRed,fill=BridgeRed!4,text=BridgeRed,line width=1pt,align=center,minimum height=.9cm,inner sep=5pt}]
+
+\foreach \x/\n in {2.0/1,7.1/2,12.2/3} {\node[circle,draw=IEEEBlue,text=IEEEBlue,minimum size=.6cm,inner sep=1pt] at (\x,3.05) {\n};}
+\node[plain,text width=3.8cm] (a) at (2.0,2.15) {Same request, command\\and current case version?};
+\node[plain,text width=3.8cm] (b) at (7.1,2.15) {All required limits\\actually checked?};
+\node[plain,text width=3.8cm] (c) at (12.2,2.15) {Full required\\model scope?};
+\draw[flow] (a)--(b);\draw[flow] (b)--(c);
+\node[plain,text=IEEEBlue] (mv) at (2.0,.75) {MV-only PASS};
+\node[plain] (need) at (7.1,.75) {Request requires MV + LV};
+\node[stop,text width=3.0cm,minimum height=.65cm] (hold) at (12.2,.75) {HOLD: LV checks missing};
+\draw[flow] (mv)--(need);\draw[flow,draw=BridgeRed] (need)--(hold);
+
+\node[small,text=Slate] at (7.1,-.24) {Proposed advisory pilot --- teaching design};\end{tikzpicture}
+\endgroup

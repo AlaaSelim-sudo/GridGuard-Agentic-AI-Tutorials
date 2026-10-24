@@ -9,15 +9,15 @@ Two connected tutorials for power engineers, operators, researchers and instruct
 ## Watch
 
 1. **[Foundations — open the slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/)** · **80 slides / 165 minutes**. Agents, tools and workflows; utility developments; power-system research; LangGraph concepts; and how to assess evidence. Includes two exercises. [Download the PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/foundations.pdf).
-2. **[Hands-on workshop: three operator cases — open the slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/)** · **59 slides / 120 minutes**. Follow **Classroom Labs L0–L12** in Colab or Jupyter: run the defaults, edit one parameter, rerun and explain the result. Voltage, restoration and cyber each have a four-minute exercise and debrief. Exact notebook excerpts and actual executed outputs connect **input → tool call → result → check → operator decision**. [Download the PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases.pdf).
+2. **[Hands-on workshop: three operator cases — open the slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/)** · **80 slides / 180 minutes**. Follow **Classroom Labs L0–L12, including L10B**, in Colab or Jupyter. Learn the terms, run voltage, restoration and cyber calculations, then change one input in each of three four-minute exercises. Inspect exact saved Llama reasons and the numerical guard that catches a wrong ranking. Finish with a proposed advisory control-room pilot. Notebook excerpts and executed outputs connect **input → tool call → result → check → operator decision**. [Download the PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases.pdf).
 
-The browser presentations need no Python installation, model account or live language-model service. Both use an IEEE ComSoc visual theme and include source credits and presenter notes. The sessions can be taught separately; their combined scheduled time is 4 hours 45 minutes.
+The browser presentations need no Python installation, model account or live language-model service. Both use an IEEE ComSoc visual theme and include source credits and presenter notes. The sessions can be taught separately; their combined scheduled time is **5 hours 45 minutes**.
 
 ## Get notebooks
 
 Open any of the three main notebooks in Google Colab:
 
-**[Classroom Labs](agentic_grid_workflow_tutorial/Classroom_Labs.ipynb)** — voltage L2–L5, restoration L6–L7 and cyber response L8–L9. Change forecasts and parameters to compare predictions and results.
+**[Classroom Labs](agentic_grid_workflow_tutorial/Classroom_Labs.ipynb)** — voltage L2–L5, restoration L6–L7 and cyber response L8–L9. Change a parameter and compare your prediction with the new result. L10B replays real saved Llama choices, exact public reasons and returned tool evidence for three separate recorded cases.
 
 [![Open Classroom Labs in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb)
 
@@ -36,7 +36,7 @@ Open any of the three main notebooks in Google Colab:
 3. Choose **Runtime → Run all**. The first setup cell retrieves the supporting files and installs dependencies.
 4. Follow the notebook in order. In Classroom Labs, change forecasts or parameters and rerun the relevant cells.
 
-Classroom Labs performs fresh numerical calculations; model replies and recorded experiment timings remain archived. The default route needs no API key or model download. See the [detailed Colab guide](COLAB_GUIDE.md) for setup and troubleshooting.
+Classroom Labs performs fresh numerical calculations. L10B displays saved Llama replies and saved tool results; change `SCENARIO` to `"voltage"`, `"restoration"` or `"cyber"` to inspect each replay. Displaying it makes no new model call or electrical solve. The default route needs no API key, language-model download or GPU. See the [detailed Colab guide](COLAB_GUIDE.md) for setup and troubleshooting.
 
 For a closer look at the evidence:
 
@@ -56,7 +56,7 @@ GitHub previews the notebooks. For local execution, clone or download the reposi
 
 The guides include timings, explanations, exercise answers, complete references and figure credits. The current source and code guides are also available on the tutorial site. Download the repository to keep the local notebooks, dashboards and supporting records together.
 
-Keep the studies distinct when teaching. Voltage uses a synthetic SMART-DS feeder; restoration uses a separate six-node transport graph; cyber response uses a separate four-bus DC fixture. Numerical checks, model explanations and human approval are different events. The walkthroughs preserve their actual `REVIEW` or `PENDING` outcomes. These teaching records do not establish live utility deployment, switching authority or a general numerical advantage from adding an LLM. Their engineering supervisors are custom Python; the separate graph lab teaches LangGraph.
+Keep the studies distinct when teaching. The fresh classroom cases use a synthetic SMART-DS feeder, a separate six-node restoration graph and a separate four-bus DC cyber model. L10B's voltage and restoration replays use different archived studies; its labels identify them. Exact public Llama reasons are explanations, not hidden reasoning or proof that a plan passes its limits. Numerical checks, model explanations and human approval are different events; recorded `REVIEW` and `PENDING` states remain unresolved. The final control-room walkthrough is a **proposed advisory pilot**, not a deployed utility system. These records do not establish switching authority or a general numerical benefit from adding an LLM. The engineering supervisors are custom Python; the separate graph lab teaches LangGraph.
 
 ## Edit
 

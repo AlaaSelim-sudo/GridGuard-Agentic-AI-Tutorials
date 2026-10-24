@@ -3,15 +3,15 @@
     "title": "Restoration: open L6",
     "kind": "diagram",
     "points": [
-      "Use the six-node classroom graph. Keep the faulted branch unavailable.",
-      "Your task: compare total restored load with service to critical loads."
+      "Use the six-node teaching graph. Keep the faulted branch unavailable.",
+      "Compare total restored load with restored critical load."
     ],
     "refs": [
       "H06"
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
     "minutes": 1,
-    "note": "This six-node graph is separate from the voltage feeder. It represents active-power transport, not AC power flow or a time-ordered field switching procedure. Loads are picked up as whole blocks.",
+    "note": "This six-node graph is separate from the voltage feeder. It represents active-power transport, not AC power flow or a time-ordered field switching procedure. Loads are picked up as whole blocks. A tie is an alternative connection that can supply load; CAPACITIES_KW sets its transfer limit in kilowatts.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
@@ -19,21 +19,21 @@
     "diagram": "restoration_fault_map",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "Six-node active-power teaching graph with whole-load pickup and one unavailable branch."
   },
   {
-    "title": "Read the objective before choosing a plan",
+    "title": "Choose the service goal before the plan",
     "kind": "diagram",
     "points": [
-      "The priority plan weights two critical loads more heavily.",
-      "The baseline maximizes total kW with the same graph, capacities and pickup rules."
+      "The priority goal gives more weight to two critical loads.",
+      "The comparison goal serves the most total kW, using the same network and pickup rules."
     ],
     "refs": [
       "H06"
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
     "minutes": 2,
-    "note": "Critical demand totals 90 kW: 60 kW at node 2 and 30 kW at node 5. The objective expresses a service policy. The difference between the plans comes from that objective. Neither numerical optimizer needs a language model to solve this declared problem.",
+    "note": "Critical demand totals 90 kW: 60 kW at node 2 and 30 kW at node 5. The objective is the service goal encoded as a score. The priority score gives more weight to these critical loads, while the comparison score maximizes total kW. The difference in selected service comes from that goal. Both numerical methods use the same graph, capacities and whole-load pickup rules. Neither needs a language model to solve this declared problem.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
@@ -41,13 +41,13 @@
     "diagram": "restoration_priority",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "Different service goals can select different loads on the same network."
   },
   {
-    "title": "Run L6: sweep the tie capacity",
+    "title": "Run L6: change the tie capacity",
     "kind": "normal",
     "points": [
-      "Run the whole L6 cell. It solves each capacity and checks the priority MILP by enumeration.",
+      "Run all of L6. MILP chooses whole loads; an exhaustive search checks its priority score.",
       "Read served_kw, critical_kw and MILP_matches_exhaustive_check."
     ],
     "refs": [
@@ -55,7 +55,7 @@
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
     "minutes": 2,
-    "note": "Start with capacities of 40, 60, 80, 100 and 120 kW. The solver enforces active-power balance, capacity limits, source connectivity, radiality and fault exclusion. Independent enumeration checks the priority objective on this small graph. Agreement supports this formulation; it does not check omitted AC physics.",
+    "note": "MILP means mixed-integer linear programming. Here it is a whole-load chooser: on/off choices decide which load blocks are served, while linear constraints enforce the stated network rules. Start with tie capacities of 40, 60, 80, 100 and 120 kW. The solver enforces active-power balance, capacity limits, connection to a source, no loops in the energized graph, and exclusion of the faulted branch. An independent exhaustive search checks the priority score on this small graph. Agreement supports this formulation; it does not check the AC physics left out of the model.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
@@ -68,11 +68,11 @@
     }
   },
   {
-    "title": "Read the two service plots together",
+    "title": "Read both service plots",
     "kind": "figure",
     "points": [
-      "Left: total served kW. Right: critical served kW.",
-      "Coincident markers mean equal outcomes at that sampled capacity."
+      "Left: total load served in kW. Right: critical load served in kW.",
+      "Overlapping markers mean the two plans give the same result at that tested capacity."
     ],
     "refs": [
       "H06"
@@ -87,14 +87,14 @@
     "image_source_path": "images/hands_on_L6_plot.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Actual executed notebook output; source cell classroom-018. Fresh numerical calculation unless explicitly marked archived."
+    "caption": "Reference L6 plots; rerun L6 to compare your chosen tie capacities."
   },
   {
-    "title": "Explain the 40 kW tradeoff",
+    "title": "The tradeoff at a 40 kW tie limit",
     "kind": "figure",
     "points": [
-      "Priority objective: 130 kW total, including 90 kW critical.",
-      "Maximum-total-kW objective: 140 kW total, including only 30 kW critical."
+      "Priority goal: 130 kW total, including 90 kW of critical load.",
+      "Most-total-kW goal: 140 kW total, including 30 kW of critical load."
     ],
     "refs": [
       "H06"
@@ -109,14 +109,14 @@
     "image_source_path": "images/hands_on_L6_table.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Actual executed notebook output; source cell classroom-018. Fresh numerical calculation unless explicitly marked archived."
+    "caption": "Reference L6 results at a 40 kW tie limit: compare total and critical load served."
   },
   {
     "title": "How Python checks the plan",
     "kind": "diagram",
     "points": [
-      "Check available source paths, capacities, balance and the faulted branch.",
-      "Then compare the MILP objective with the independent exhaustive check."
+      "Check paths to a source, capacity limits, power balance and the faulted branch.",
+      "Then compare the MILP service score with the independent exhaustive search."
     ],
     "refs": [
       "H06",
@@ -125,7 +125,7 @@
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
     "minutes": 2,
-    "note": "Numerical verification and evidence binding answer different questions. A correctly bound record may still omit AC voltage, reactive-power or protection constraints. Minimizing energized branches does not calculate the number or order of physical switching operations.",
+    "note": "Numerical checks and same-content evidence matching answer different questions. A record can match the inputs exactly while still omitting AC voltage, reactive-power or protection limits. Comparing the MILP score with every permitted plan is an independent check of this small stated problem. Minimizing energized branches does not calculate the number or order of physical switching steps.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
@@ -133,15 +133,15 @@
     "diagram": "restoration_verify",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "Python checks the stated graph constraints, then compares the priority score independently."
   },
   {
     "title": "Exercise 2: add more tie capacity",
     "kind": "exercise",
     "points": [
-      "Append 180. to CAPACITIES_KW, keeping 40. as the first entry. Predict, then rerun L6.",
-      "Compare total and critical service at 40 and 180 kW.",
-      "At which of these settings do the two objectives agree?"
+      "Add 180. to CAPACITIES_KW, keeping 40. first. Predict, then rerun L6.",
+      "Compare total and critical load served at 40 and 180 kW.",
+      "At which of these two capacities do the service goals give the same result?"
     ],
     "refs": [
       "H06"
@@ -158,11 +158,11 @@
     ]
   },
   {
-    "title": "Debrief: enough capacity removes this tradeoff",
+    "title": "Debrief: the tradeoff disappears here",
     "kind": "normal",
     "points": [
-      "At 180 kW, both methods serve 250 kW total and 90 kW critical.",
-      "The priority policy matters under constrained capacity; it does not improve every setting."
+      "At 180 kW, both methods serve 250 kW total and 90 kW of critical load.",
+      "Priority helps in the constrained case. It does not improve every case."
     ],
     "refs": [
       "H06"
@@ -177,11 +177,11 @@
     "callout": "250 kW total / 90 kW critical"
   },
   {
-    "title": "Reset the sweep; then run L7",
+    "title": "Reset the capacity list, then run L7",
     "kind": "normal",
     "points": [
-      "Restore the original CAPACITIES_KW list and rerun L6 before L7.",
-      "L7 binds the first 40 kW plan, then changes the request to 20 kW."
+      "Restore the original CAPACITIES_KW list and rerun L6.",
+      "L7 checks the first 40 kW record, then changes the request to 20 kW."
     ],
     "refs": [
       "H07"
@@ -201,11 +201,11 @@
     }
   },
   {
-    "title": "Read the changed-evidence test",
+    "title": "Read the evidence-match test",
     "kind": "figure",
     "points": [
-      "Original contract: True. Changed rating with old evidence: False.",
-      "The stated next step is HOLD the old recommendation and request a fresh solve."
+      "Original request: True. Changed rating with the old evidence: False.",
+      "HOLD the old recommendation and request a new solve."
     ],
     "refs": [
       "H07"
@@ -220,21 +220,21 @@
     "image_source_path": "images/hands_on_L7_binding.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Actual executed notebook output; source cell classroom-021. Fresh numerical calculation unless explicitly marked archived."
+    "caption": "Reference L7 output: changed request, unchanged evidence, so a new check is needed."
   },
   {
-    "title": "A failed binding asks for a new check",
+    "title": "Changed inputs need a new check",
     "kind": "diagram",
     "points": [
-      "“The old evidence is stale” and “the new case is infeasible” are different claims.",
-      "Update the request, solve the changed case, verify it and bind the new evidence."
+      "“The evidence is old” does not mean “the changed plan fails its limits.”",
+      "Update the request, solve and check it, then match the new evidence to that request."
     ],
     "refs": [
       "H07"
     ],
     "source_label": "Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding.",
     "minutes": 2,
-    "note": "The diagram's extra topology labels are teaching illustrations. The runnable L7 example changes only the request capacity and revision. Do not say that participants changed topology in the notebook. Ask which numerical step would establish feasibility for the changed request.",
+    "note": "Evidence binding asks whether a record matches the exact request, proposed plan and returned result. The diagram’s extra topology labels are teaching illustrations. The runnable L7 example changes only the request capacity and revision; students do not change topology in that cell. Old evidence is unusable for a changed request even if the old plan might still pass its limits. Ask which new numerical check would establish that for the changed request.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L7",
@@ -242,21 +242,21 @@
     "diagram": "restoration_stale",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "L7 changes capacity and revision; extra topology labels are teaching examples."
   },
   {
-    "title": "The agent must preserve the service policy",
+    "title": "Proposed agent role: keep the service goal",
     "kind": "diagram",
     "points": [
-      "The operator specifies the objective and constraints; the MILP returns the pickup plan.",
-      "The agent can request the right solve and explain its tradeoff using the returned evidence."
+      "This cell runs Python: the operator sets the goal and limits; MILP chooses the whole loads.",
+      "A proposed agent would request that solve and explain the returned tradeoff."
     ],
     "refs": [
       "H06"
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
     "minutes": 2,
-    "note": "A language model must not silently change priority weights or invent pickup values. A different service policy needs an explicit request and a new solve. This classroom supervisor uses ordinary Python. The numerical difference comes from the optimization objective.",
+    "note": "This is a proposed role for an agent, not a new model decision in the default notebook. The current supervisor is ordinary Python. A future language-model agent could request the allowed solve and explain the returned tradeoff. It must preserve the operator’s service goal and limits, rather than quietly changing weights or making up load values. A different service goal requires an explicit new request and solve. The numerical difference here comes from the optimization objective.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
@@ -264,14 +264,14 @@
     "diagram": "restoration_plan",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "Proposed agent responsibilities; the current notebook cell runs Python."
   },
   {
-    "title": "State what the model leaves out",
+    "title": "What this model does not check",
     "kind": "normal",
     "points": [
-      "This active-power graph does not certify AC voltage, reactive-power feasibility or protection.",
-      "Its energized branches do not define a field switching sequence."
+      "This active-power graph does not check AC voltage, reactive power or protection.",
+      "The energized branches do not give the order of field switching steps."
     ],
     "refs": [
       "H06"
@@ -285,11 +285,11 @@
     "eyebrow": "Classroom Labs · L6 · classroom-018"
   },
   {
-    "title": "Restoration checkpoint: name the next action",
+    "title": "Restoration checkpoint: name the next step",
     "kind": "normal",
     "points": [
-      "For the 40 kW request, explain the 130/90 versus 140/30 service tradeoff.",
-      "For a changed request, retain HOLD until current evidence is available."
+      "At 40 kW, explain 130 total / 90 critical versus 140 total / 30 critical, all in kW.",
+      "For a changed request, keep HOLD until evidence for the current request is available."
     ],
     "refs": [
       "H07"

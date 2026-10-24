@@ -1,17 +1,17 @@
 {
-  "edition": "hands-on-notebook-aligned",
-  "main_slides": 59,
-  "minutes": 120.0,
+  "edition": "plain-language-llama-and-operator-practice",
+  "main_slides": 80,
+  "minutes": 180.0,
   "exercise_slides": [
-    15,
-    33,
-    46
+    22,
+    40,
+    53
   ],
   "exercise_count": 3,
   "exercise_minutes": {
-    "15": 4,
-    "33": 4,
-    "46": 4
+    "22": 4,
+    "40": 4,
+    "53": 4
   },
   "tables": 0,
   "transitions": "none",
@@ -29,9 +29,24 @@
     "hands_on_L6_table.png",
     "hands_on_L7_binding.png",
     "hands_on_L8_plot.png",
-    "hands_on_L9_trust.png"
+    "hands_on_L9_trust.png",
+    "llama_voltage_1.png",
+    "llama_voltage_2.png",
+    "llama_voltage_3.png",
+    "llama_restoration_14.png",
+    "llama_restoration_15.png",
+    "llama_restoration_16.png",
+    "llama_cyber_7.png",
+    "llama_cyber_8.png"
   ],
   "used_diagrams": [
+    "bridge_request",
+    "bridge_script_agent",
+    "bridge_llama_tools",
+    "bridge_agent_parts",
+    "bridge_reason_check",
+    "bridge_words",
+    "bridge_modes",
     "common_operator_loop",
     "common_evidence_binding",
     "voltage_capability",
@@ -47,59 +62,141 @@
     "cyber_stealth",
     "cyber_trusted",
     "cyber_qp",
-    "cyber_handoff"
+    "cyber_handoff",
+    "ops_request_snapshot",
+    "ops_tool_boundary",
+    "ops_three_gates",
+    "ops_review",
+    "ops_pilot"
   ],
   "reading_source_ids": [
     "H00",
     "B01",
-    "H01",
+    "DEF03",
+    "LR0",
+    "OLL1",
+    "LRV",
+    "LRR",
     "H02",
+    "H06",
+    "H08",
+    "H12",
+    "OT01",
+    "H01",
     "VCASE",
     "VMPC",
     "VSAC",
     "H03",
     "H04",
     "H05",
-    "H12",
-    "H06",
     "RSTL01",
     "RSTL02",
     "H07",
-    "H08",
     "CY01",
     "CY02",
     "H09",
-    "H10"
+    "H10",
+    "LRC",
+    "EVAL01"
   ],
   "visual_slides": [
+    2,
+    3,
+    4,
+    5,
     6,
     7,
     8,
-    10,
-    11,
     13,
     14,
-    19,
+    15,
+    17,
+    18,
+    20,
     21,
-    23,
-    24,
-    25,
-    27,
+    26,
     28,
     30,
     31,
     32,
-    36,
+    34,
+    35,
     37,
     38,
-    41,
-    42,
+    39,
+    43,
     44,
     45,
-    50,
+    48,
+    49,
+    51,
     52,
-    53,
-    54
+    57,
+    59,
+    60,
+    61,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    75,
+    76,
+    77,
+    78,
+    79
+  ],
+  "recorded_llama_replays": [
+    {
+      "slide": 66,
+      "scenario": "voltage",
+      "recorded_call": 1
+    },
+    {
+      "slide": 67,
+      "scenario": "voltage",
+      "recorded_call": 2
+    },
+    {
+      "slide": 68,
+      "scenario": "voltage",
+      "recorded_call": 3
+    },
+    {
+      "slide": 69,
+      "scenario": "restoration",
+      "recorded_call": 14
+    },
+    {
+      "slide": 70,
+      "scenario": "restoration",
+      "recorded_call": 15
+    },
+    {
+      "slide": 71,
+      "scenario": "restoration",
+      "recorded_call": 16
+    },
+    {
+      "slide": 72,
+      "scenario": "cyber",
+      "recorded_call": 7
+    },
+    {
+      "slide": 73,
+      "scenario": "cyber",
+      "recorded_call": 8
+    }
+  ],
+  "proposed_pilot_slides": [
+    75,
+    76,
+    77,
+    78,
+    79
   ],
   "recorded_walkthroughs": {
     "voltage": [],
@@ -107,26 +204,27 @@
     "cyber": []
   },
   "code_slides": [
-    5,
     12,
-    17,
-    18,
-    20,
-    22,
+    19,
+    24,
+    25,
+    27,
     29,
-    35,
-    43,
-    48,
-    51,
-    58
+    36,
+    42,
+    50,
+    55,
+    58,
+    65,
+    74
   ],
   "real_screenshots": [],
   "module_schedule": [
     {
       "module": "opening",
-      "label": "Opening",
-      "slides": 9,
-      "minutes": 12.0
+      "label": "Getting started and agent basics",
+      "slides": 16,
+      "minutes": 29.5
     },
     {
       "module": "voltage",
@@ -148,14 +246,14 @@
     },
     {
       "module": "closing",
-      "label": "Closing",
-      "slides": 3,
-      "minutes": 12
+      "label": "Llama walkthrough and operator practice",
+      "slides": 17,
+      "minutes": 54.5
     }
   ],
   "notebook_actions": [
     {
-      "slide": 5,
+      "slide": 12,
       "module": "opening",
       "lab_label": "L0",
       "file": "Classroom_Labs.ipynb",
@@ -163,13 +261,13 @@
       "cell_index_zero_based": 4,
       "start": 11,
       "end": 14,
-      "notebook_sha256": "6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d",
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
       "cell_source_sha256": "d8f745bd0b27c7a5888419230fdeb7dbd618557338c7c27157ca9cc2c8f341f7",
       "excerpt": "research/code/opening_Classroom_Labs_classroom-002_L11-14.py",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
-      "slide": 12,
+      "slide": 19,
       "module": "voltage",
       "lab_label": "L2",
       "file": "Classroom_Labs.ipynb",
@@ -177,13 +275,13 @@
       "cell_index_zero_based": 9,
       "start": 1,
       "end": 4,
-      "notebook_sha256": "6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d",
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
       "cell_source_sha256": "a84313c2dc16e7e3c72d3a5d51697b33a522f6f06ed475c681341e36523bb2ad",
       "excerpt": "research/code/voltage_Classroom_Labs_classroom-007_L1-4.py",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
-      "slide": 17,
+      "slide": 24,
       "module": "voltage",
       "lab_label": "L2",
       "file": "Classroom_Labs.ipynb",
@@ -191,13 +289,13 @@
       "cell_index_zero_based": 9,
       "start": 1,
       "end": 2,
-      "notebook_sha256": "6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d",
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
       "cell_source_sha256": "a84313c2dc16e7e3c72d3a5d51697b33a522f6f06ed475c681341e36523bb2ad",
       "excerpt": "research/code/voltage_Classroom_Labs_classroom-007_L1-2.py",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
-      "slide": 18,
+      "slide": 25,
       "module": "voltage",
       "lab_label": "L3",
       "file": "Classroom_Labs.ipynb",
@@ -205,13 +303,13 @@
       "cell_index_zero_based": 12,
       "start": 1,
       "end": 2,
-      "notebook_sha256": "6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d",
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
       "cell_source_sha256": "61d385c6f7798da62de51d3378cd0f4aed990354cbf5b994aa5f79350a1510d1",
       "excerpt": "research/code/voltage_Classroom_Labs_classroom-010_L1-2.py",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
-      "slide": 20,
+      "slide": 27,
       "module": "voltage",
       "lab_label": "L4",
       "file": "Classroom_Labs.ipynb",
@@ -219,13 +317,13 @@
       "cell_index_zero_based": 15,
       "start": 5,
       "end": 9,
-      "notebook_sha256": "6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d",
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
       "cell_source_sha256": "560a850910881c5ed533d3b2c34b823935d93591703e19f2188028f360939b10",
       "excerpt": "research/code/voltage_Classroom_Labs_classroom-013_L5-9.py",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
-      "slide": 22,
+      "slide": 29,
       "module": "voltage",
       "lab_label": "L5",
       "file": "Classroom_Labs.ipynb",
@@ -233,13 +331,13 @@
       "cell_index_zero_based": 18,
       "start": 1,
       "end": 4,
-      "notebook_sha256": "6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d",
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
       "cell_source_sha256": "93ff079047e2f21b09961ca7f9b6d111194144fe8b4acb01c95ea95de0f52c16",
       "excerpt": "research/code/voltage_Classroom_Labs_classroom-016_L1-4.py",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
-      "slide": 29,
+      "slide": 36,
       "module": "restoration",
       "lab_label": "L6",
       "file": "Classroom_Labs.ipynb",
@@ -247,13 +345,13 @@
       "cell_index_zero_based": 20,
       "start": 1,
       "end": 5,
-      "notebook_sha256": "6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d",
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
       "cell_source_sha256": "584a59f47d0488195715620d345caf824745d36a89cf135bc673f54ca092c4b3",
       "excerpt": "research/code/restoration_Classroom_Labs_classroom-018_L1-5.py",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
-      "slide": 35,
+      "slide": 42,
       "module": "restoration",
       "lab_label": "L7",
       "file": "Classroom_Labs.ipynb",
@@ -261,13 +359,13 @@
       "cell_index_zero_based": 23,
       "start": 1,
       "end": 3,
-      "notebook_sha256": "6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d",
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
       "cell_source_sha256": "ed7989b2fd29b31dbedff40b52a58a21c74459e22b2c790d8826fe7acac9bf9c",
       "excerpt": "research/code/restoration_Classroom_Labs_classroom-021_L1-3.py",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
-      "slide": 43,
+      "slide": 50,
       "module": "cyber",
       "lab_label": "L8",
       "file": "Classroom_Labs.ipynb",
@@ -275,13 +373,13 @@
       "cell_index_zero_based": 25,
       "start": 1,
       "end": 5,
-      "notebook_sha256": "6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d",
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
       "cell_source_sha256": "3d4789344ee79907ca9235ae4ee2a847ea816aa0819c3e9072aceef98fad9aa0",
       "excerpt": "research/code/cyber_Classroom_Labs_classroom-023_L1-5.py",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
-      "slide": 48,
+      "slide": 55,
       "module": "cyber",
       "lab_label": "L8",
       "file": "Classroom_Labs.ipynb",
@@ -289,13 +387,13 @@
       "cell_index_zero_based": 25,
       "start": 1,
       "end": 3,
-      "notebook_sha256": "6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d",
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
       "cell_source_sha256": "3d4789344ee79907ca9235ae4ee2a847ea816aa0819c3e9072aceef98fad9aa0",
       "excerpt": "research/code/cyber_Classroom_Labs_classroom-023_L1-3.py",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
-      "slide": 51,
+      "slide": 58,
       "module": "cyber",
       "lab_label": "L9",
       "file": "Classroom_Labs.ipynb",
@@ -303,21 +401,35 @@
       "cell_index_zero_based": 28,
       "start": 1,
       "end": 2,
-      "notebook_sha256": "6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d",
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
       "cell_source_sha256": "bc7811101584535e56a6446a9de24443c70859d146d59ce53c5eafe312b0bed5",
       "excerpt": "research/code/cyber_Classroom_Labs_classroom-026_L1-2.py",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
-      "slide": 58,
+      "slide": 65,
+      "module": "closing",
+      "lab_label": "L10B",
+      "file": "Classroom_Labs.ipynb",
+      "cell_id": "classroom-llama-walkthrough",
+      "cell_index_zero_based": 32,
+      "start": 1,
+      "end": 5,
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "cell_source_sha256": "8c3372ee400e167ba7cdd15aa7251b467a6d7318db3ed6338b258e0498a18be1",
+      "excerpt": "research/code/closing_Classroom_Labs_classroom-llama-walkthrough_L1-5.py",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 74,
       "module": "closing",
       "lab_label": "L12",
       "file": "Classroom_Labs.ipynb",
       "cell_id": "classroom-033",
-      "cell_index_zero_based": 35,
+      "cell_index_zero_based": 37,
       "start": 9,
       "end": 10,
-      "notebook_sha256": "6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d",
+      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
       "cell_source_sha256": "8ccda9bd7ebd8efaa8ad27f72238d14ba97ac696067689b321ace1a07095cf4b",
       "excerpt": "research/code/closing_Classroom_Labs_classroom-033_L9-10.py",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
@@ -325,48 +437,13 @@
   ],
   "lab_slides": [
     {
-      "slide": 5,
+      "slide": 12,
       "lab_label": "L0",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
-      "slide": 7,
-      "lab_label": "L1",
-      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
-    },
-    {
-      "slide": 10,
-      "lab_label": "L2",
-      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
-    },
-    {
-      "slide": 11,
-      "lab_label": "L2",
-      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
-    },
-    {
-      "slide": 12,
-      "lab_label": "L2",
-      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
-    },
-    {
-      "slide": 13,
-      "lab_label": "L2",
-      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
-    },
-    {
       "slide": 14,
-      "lab_label": "L2",
-      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
-    },
-    {
-      "slide": 15,
-      "lab_label": "L2",
-      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
-    },
-    {
-      "slide": 16,
-      "lab_label": "L2",
+      "lab_label": "L1",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
@@ -376,82 +453,82 @@
     },
     {
       "slide": 18,
-      "lab_label": "L3",
+      "lab_label": "L2",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 19,
-      "lab_label": "L3",
+      "lab_label": "L2",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 20,
-      "lab_label": "L4",
+      "lab_label": "L2",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 21,
-      "lab_label": "L4",
+      "lab_label": "L2",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 22,
-      "lab_label": "L5",
+      "lab_label": "L2",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 23,
-      "lab_label": "L5",
+      "lab_label": "L2",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 24,
-      "lab_label": "L12",
+      "lab_label": "L2",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 25,
-      "lab_label": "L12",
+      "lab_label": "L3",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 26,
-      "lab_label": "L5",
+      "lab_label": "L3",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 27,
-      "lab_label": "L6",
+      "lab_label": "L4",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 28,
-      "lab_label": "L6",
+      "lab_label": "L4",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 29,
-      "lab_label": "L6",
+      "lab_label": "L5",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 30,
-      "lab_label": "L6",
+      "lab_label": "L5",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 31,
-      "lab_label": "L6",
+      "lab_label": "L12",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 32,
-      "lab_label": "L6",
+      "lab_label": "L12",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 33,
-      "lab_label": "L6",
+      "lab_label": "L5",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
@@ -461,17 +538,17 @@
     },
     {
       "slide": 35,
-      "lab_label": "L7",
+      "lab_label": "L6",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 36,
-      "lab_label": "L7",
+      "lab_label": "L6",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 37,
-      "lab_label": "L7",
+      "lab_label": "L6",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
@@ -486,42 +563,42 @@
     },
     {
       "slide": 40,
-      "lab_label": "L7",
+      "lab_label": "L6",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 41,
-      "lab_label": "L8",
+      "lab_label": "L6",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 42,
-      "lab_label": "L8",
+      "lab_label": "L7",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 43,
-      "lab_label": "L8",
+      "lab_label": "L7",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 44,
-      "lab_label": "L8",
+      "lab_label": "L7",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 45,
-      "lab_label": "L8",
+      "lab_label": "L6",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 46,
-      "lab_label": "L8",
+      "lab_label": "L6",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 47,
-      "lab_label": "L8",
+      "lab_label": "L7",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
@@ -531,37 +608,37 @@
     },
     {
       "slide": 49,
-      "lab_label": "L9",
+      "lab_label": "L8",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 50,
-      "lab_label": "L9",
+      "lab_label": "L8",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 51,
-      "lab_label": "L9",
+      "lab_label": "L8",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 52,
-      "lab_label": "L9",
+      "lab_label": "L8",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 53,
-      "lab_label": "L9",
+      "lab_label": "L8",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 54,
-      "lab_label": "L9",
+      "lab_label": "L8",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 55,
-      "lab_label": "L9",
+      "lab_label": "L8",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
@@ -571,11 +648,91 @@
     },
     {
       "slide": 57,
-      "lab_label": "L10",
+      "lab_label": "L9",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     {
       "slide": 58,
+      "lab_label": "L9",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 59,
+      "lab_label": "L9",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 60,
+      "lab_label": "L9",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 61,
+      "lab_label": "L9",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 62,
+      "lab_label": "L9",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 63,
+      "lab_label": "L9",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 64,
+      "lab_label": "L10",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 65,
+      "lab_label": "L10B",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 66,
+      "lab_label": "L10B",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 67,
+      "lab_label": "L10B",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 68,
+      "lab_label": "L10B",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 69,
+      "lab_label": "L10B",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 70,
+      "lab_label": "L10B",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 71,
+      "lab_label": "L10B",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 72,
+      "lab_label": "L10B",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 73,
+      "lab_label": "L10B",
+      "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    {
+      "slide": 74,
       "lab_label": "L12",
       "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     }

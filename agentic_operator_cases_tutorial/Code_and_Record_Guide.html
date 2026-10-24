@@ -1,361 +1,421 @@
 <!doctype html><meta charset="utf-8"><title>Three Operator Cases: notebook cells and results</title><style>body{font:20px/1.55 Arial;color:#003b5c;max-width:1080px;margin:40px auto;padding:0 28px}h1,h2{color:#00629b}h2{border-top:3px solid #00a6b2;padding-top:28px;margin-top:50px}pre{font:19px/1.5 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f7fa;padding:22px}a{color:#00629b;overflow-wrap:anywhere}li{margin:12px 0}.source{font-size:16px;color:#526470}</style><h1>Three Operator Cases: notebook cells and results</h1><p>Follow the current notebook by L label and stable cell ID. Selected source lines below come directly from the canonical notebook. Run the cells to calculate results for the stated inputs; distinguish those calculations from the separately labeled archived reply pools and evaluation records.</p><p>Adding a setup cell can change a numerical cell index. Stable cell IDs, source-line ranges and notebook hashes identify the exact source used to build these slides. Historical snapshots in research/evidence remain unchanged.</p>
-<h2 id="slide-5">Slide 5: Run L0: choose the classroom route</h2>
+<h2 id="slide-12">Slide 12: Run L0: choose the classroom route</h2>
 <p><b>Notebook step: L0</b></p>
-<p>Keep both switches False. The class uses fresh linear-model calculations and saved model replies. If the data check fails, rerun the setup cell before continuing.</p>
+<p>Keep both switches False: new numerical checks, saved controller and archived model replies. If the data check fails, rerun setup before continuing.</p>
 <p>Classroom_Labs.ipynb L0 (classroom-002), source lines 11–14.</p><pre>RUN_OPENDSS = False       # True: fresh full-model audit + separate AC MPC solve in L5
 RUN_LOCAL_LLAMA = False   # True: one optional local call in L11
 ROOT = Path.cwd()
 assert (ROOT / &#x27;data/lindistflow3_network.json&#x27;).exists(), &#x27;Start Jupyter in the tutorial folder&#x27;</pre>
-<p class="source">Notebook SHA-256: 6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d<br>Stable cell ID: classroom-002; current zero-based index: 4; source lines 11–14 inclusive.</p>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-002; current zero-based index: 4; source lines 11–14 inclusive.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-7">Slide 7: Run L1: does old evidence still match?</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-14">Slide 14: Run L1: does the evidence still match?</h2>
 <p><b>Notebook step: L1</b></p>
-<p>Run the cell, then read binding_pass for all three rows. Expect True, False, False: changing the load or command invalidates this evidence binding.</p>
+<p>Read binding_pass: does the record match the same inputs and command? Expect True, False, False. Changing the load or command breaks that match.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-10">Slide 10: Voltage: start with L2</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-17">Slide 17: Voltage: open L2</h2>
 <p><b>Notebook step: L2</b></p>
-<p>Study one synthetic feeder. The command controls fleet active and reactive participation. Your task: check feasibility first, then compare the current-step objective.</p>
+<p>MPC makes a forecast-based plan. SAC is a saved learned controller. Check limits first. Then compare penalty score J; smaller is preferred after the checks pass.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-11">Slide 11: Read the control and limits</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-18">Slide 18: Control settings and limits</h2>
 <p><b>Notebook step: L2</b></p>
-<p>a sets active-power participation; b sets reactive-power participation. The notebook checks the inverter bounds, modeled voltage range and allowed current.</p>
+<p>a sets active-power participation; b sets reactive-power participation. Check the inverter limits, modeled voltages and allowed line current.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-12">Slide 12: Run L2 with the default inputs</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-19">Slide 19: Run L2 with the default inputs</h2>
 <p><b>Notebook step: L2</b></p>
-<p>Run the whole L2 cell. It solves MPC, evaluates the saved SAC proposal and checks both. Find feasible, current_step_J and max_allowed_current_pct in the output.</p>
+<p>Run all of L2 to calculate the MPC plan and check the saved SAC controller’s proposal. Read feasible, current_step_J and max_allowed_current_pct.</p>
 <p>Classroom_Labs.ipynb L2 (classroom-007), source lines 1–4.</p><pre>LOAD_SCALE = 1.0
 RATING_FRACTION = 0.80
 started = time.perf_counter()
 voltage = lab.voltage_lab(LOAD_SCALE, RATING_FRACTION)</pre>
-<p class="source">Notebook SHA-256: 6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d<br>Stable cell ID: classroom-007; current zero-based index: 9; source lines 1–4 inclusive.</p>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-007; current zero-based index: 9; source lines 1–4 inclusive.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-13">Slide 13: Read your voltage plots</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-20">Slide 20: Read the voltage and current plots</h2>
 <p><b>Notebook step: L2</b></p>
-<p>Left: compare the sorted modeled voltage distributions with the allowed band. Right: compare current use with the 100% allowed-current line.</p>
+<p>Left: compare the sorted modeled voltages with the allowed band. Right: compare line current with the 100% allowed-current limit.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-14">Slide 14: Read feasibility before cost</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-21">Slide 21: Check limits before comparing scores</h2>
 <p><b>Notebook step: L2</b></p>
-<p>Default MPC: PASS, current use 73.62%, current-step J about 0.03110. Default saved SAC: PASS, current use 51.68%, J about 0.43643.</p>
+<p>Default MPC passes: current use 73.62%, penalty score J about 0.03110. Default saved SAC passes: current use 51.68%, J about 0.43643.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-15">Slide 15: Exercise 1: tighten the current allowance</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-22">Slide 22: Exercise 1: tighten the current allowance</h2>
 <p><b>Notebook step: L2</b></p>
-<p>In L2, change only RATING_FRACTION from 0.80 to 0.75. Predict, then rerun L2. For each method, report feasible, allowed-current use and current_step_J. Does passing this check establish full MV/LV feasibility? Explain your answer.</p>
+<p>In L2, change only RATING_FRACTION from 0.80 to 0.75. Predict, then rerun. For each method, report feasible, allowed-current use and current_step_J. Does a PASS cover the full medium- and low-voltage network? Explain.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-16">Slide 16: Debrief: a tighter allowance can still pass</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-23">Slide 23: Debrief: both proposals still pass</h2>
 <p><b>Notebook step: L2</b></p>
-<p>At 0.75, both candidates still pass: MPC about 78.53%, SAC about 54.85%. A stricter allowance raises utilization here, but it does not force a failure.</p>
+<p>At 0.75, both pass: MPC uses about 78.53% of the allowance; SAC uses about 54.85%. The tighter allowance raises current use as a percentage, but does not cause failure here.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-17">Slide 17: Reset L2 before the recorded-choice lesson</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-24">Slide 24: Reset L2 before reading old model choices</h2>
 <p><b>Notebook step: L2</b></p>
-<p>Restore the default values and rerun L2 to keep your baseline easy to reproduce. L3–L5 use the original test_01 context. They do not inherit your edited L2 experiment.</p>
+<p>Restore the default values and rerun L2. L3–L5 use the original test_01 case, separate from your changed L2 experiment.</p>
 <p>Classroom_Labs.ipynb L2 (classroom-007), source lines 1–2.</p><pre>LOAD_SCALE = 1.0
 RATING_FRACTION = 0.80</pre>
-<p class="source">Notebook SHA-256: 6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d<br>Stable cell ID: classroom-007; current zero-based index: 9; source lines 1–2 inclusive.</p>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-007; current zero-based index: 9; source lines 1–2 inclusive.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-18">Slide 18: L3 starts a separate recorded context</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-25">Slide 25: L3 opens a separate recorded case</h2>
 <p><b>Notebook step: L3</b></p>
-<p>Run L3. Read the original context ID, model operations and recorded seconds. The displayed reasons were recorded earlier. Opening them makes no new model call.</p>
+<p>Run L3. Read the original case ID, requested operations and recorded seconds. These reasons are old model replies. Displaying them makes no new model call.</p>
 <p>Classroom_Labs.ipynb L3 (classroom-010), source lines 1–2.</p><pre>pool = lab.saved_pool(&#x27;test_01&#x27;)
 display(pd.DataFrame(pool[&#x27;responses&#x27;])[[&#x27;model_id&#x27;, &#x27;operation_id&#x27;, &#x27;reason&#x27;, &#x27;seconds&#x27;, &#x27;source&#x27;]])</pre>
-<p class="source">Notebook SHA-256: 6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d<br>Stable cell ID: classroom-010; current zero-based index: 12; source lines 1–2 inclusive.</p>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-010; current zero-based index: 12; source lines 1–2 inclusive.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-19">Slide 19: What did the language models choose?</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-26">Slide 26: What did the models choose?</h2>
 <p><b>Notebook step: L3</b></p>
-<p>Different wording can request the same tool and parameters. The notebook groups identical physical trials; an explanation does not prove feasibility.</p>
+<p>Different wording can request the same tool and numbers. The notebook groups matching trials. An explanation alone does not show that limits pass.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-20">Slide 20: Run L4: check the recorded choice again</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-27">Slide 27: Run L4: check the old choice again</h2>
 <p><b>Notebook step: L4</b></p>
-<p>Run L4 after L3. Python performs a fresh numerical check on the original selected candidate. Compare majority vote with frozen LinUCB on the same original context.</p>
+<p>After L3, run L4. Python checks the selected proposal again for its original case. Compare majority vote with the saved LinUCB selector on that same case.</p>
 <p>Classroom_Labs.ipynb L4 (classroom-013), source lines 5–9.</p><pre>started = time.perf_counter()
 selected_trials = lab.trial_saved_selection(pool)
 timings[&#x27;L4 new verification of archived choices&#x27;] = time.perf_counter() - started
 display(selected_trials[&#x27;table&#x27;])
 assert pool[&#x27;frozen&#x27;] and pool[&#x27;training_updates&#x27;] == 24</pre>
-<p class="source">Notebook SHA-256: 6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d<br>Stable cell ID: classroom-013; current zero-based index: 15; source lines 5–9 inclusive.</p>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-013; current zero-based index: 15; source lines 5–9 inclusive.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-21">Slide 21: Separate the old choice from the new check</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-28">Slide 28: Separate the old choice from the new check</h2>
 <p><b>Notebook step: L4</b></p>
-<p>Both selectors choose the same Q-relaxation trial and pass the fresh MV check. The predicted reward is not a feasibility result; read new_check_passes.</p>
+<p>Both selectors choose the same reactive-power relaxation trial and pass the new MV check. Predicted reward is a learned score. Read new_check_passes for the engineering check.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-22">Slide 22: Run L5: identify the model scope</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-29">Slide 29: Run L5: check what the model covers</h2>
 <p><b>Notebook step: L5</b></p>
-<p>Leave RUN_OPENDSS=False and run L5. Read both the table and optional_mode message. This checks the archived test_01 MV-MPC incumbent, with OpenDSS disabled.</p>
+<p>Keep RUN_OPENDSS=False. Run L5 and read the table and optional_mode message. L5 checks the original test_01 MV-MPC plan. OpenDSS is disabled.</p>
 <p>Classroom_Labs.ipynb L5 (classroom-016), source lines 1–4.</p><pre>started = time.perf_counter()
 scope_audit = lab.backend_audit(pool, run_opendss=RUN_OPENDSS)
 timings[&#x27;L5 selected model scope checks&#x27;] = time.perf_counter() - started
 display(scope_audit[&#x27;table&#x27;])</pre>
-<p class="source">Notebook SHA-256: 6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d<br>Stable cell ID: classroom-016; current zero-based index: 18; source lines 1–4 inclusive.</p>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-016; current zero-based index: 18; source lines 1–4 inclusive.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-23">Slide 23: A PASS belongs to the model that produced it</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-30">Slide 30: A PASS covers only the model checked</h2>
 <p><b>Notebook step: L5</b></p>
-<p>The default output checks MV phases and current. It does not cover all LV equipment. If the request needs full MV/LV coverage, request a broader-model check or HOLD.</p>
+<p>This check covers medium-voltage (MV) phases and currents, not all low-voltage (LV) equipment. For a full MV/LV request, get the wider check or HOLD.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-24">Slide 24: Preview the handoff you will build at L12</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-31">Slide 31: Preview the L12 handover</h2>
 <p><b>Notebook step: L12</b></p>
-<p>L12 uses selected_trials from L4, not the fresh L2 comparison. Finish L6–L11 first. Run L12 at the end of the workshop, in notebook order.</p>
+<p>L12 uses selected_trials from L4, not the new L2 comparison. Finish L6–L11 first. Run L12 at the end, in notebook order.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-25">Slide 25: Preview: the two handoff outcomes</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-32">Slide 32: Preview the two handover outcomes</h2>
 <p><b>Notebook step: L12</b></p>
-<p>Full MV/LV request: HOLD. Explicit MV teaching scope: simulated readback can succeed. A wrong recommendation ID is rejected. equipment_dispatch stays False.</p>
+<p>Full MV/LV request: HOLD. An explicit MV teaching request can pass a simulated readback. A wrong recommendation ID is rejected. equipment_dispatch stays False.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-26">Slide 26: Voltage checkpoint: state exactly what ran</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-33">Slide 33: Voltage checkpoint: say what ran</h2>
 <p><b>Notebook step: L5</b></p>
-<p>L2: fresh MPC and saved-policy proposals. L3: old model replies. L4–L5: fresh checks of test_01. Report the input, candidate, model scope and outcome before proposing the next step.</p>
+<p>L2 makes new proposals; L3 shows old replies; L4–L5 run new checks on test_01. Report the inputs, proposal, model coverage and result before naming the next step.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-27">Slide 27: Restoration: open L6</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-34">Slide 34: Restoration: open L6</h2>
 <p><b>Notebook step: L6</b></p>
-<p>Use the six-node classroom graph. Keep the faulted branch unavailable. Your task: compare total restored load with service to critical loads.</p>
+<p>Use the six-node teaching graph. Keep the faulted branch unavailable. Compare total restored load with restored critical load.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-28">Slide 28: Read the objective before choosing a plan</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-35">Slide 35: Choose the service goal before the plan</h2>
 <p><b>Notebook step: L6</b></p>
-<p>The priority plan weights two critical loads more heavily. The baseline maximizes total kW with the same graph, capacities and pickup rules.</p>
+<p>The priority goal gives more weight to two critical loads. The comparison goal serves the most total kW, using the same network and pickup rules.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-29">Slide 29: Run L6: sweep the tie capacity</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-36">Slide 36: Run L6: change the tie capacity</h2>
 <p><b>Notebook step: L6</b></p>
-<p>Run the whole L6 cell. It solves each capacity and checks the priority MILP by enumeration. Read served_kw, critical_kw and MILP_matches_exhaustive_check.</p>
+<p>Run all of L6. MILP chooses whole loads; an exhaustive search checks its priority score. Read served_kw, critical_kw and MILP_matches_exhaustive_check.</p>
 <p>Classroom_Labs.ipynb L6 (classroom-018), source lines 1–5.</p><pre>CAPACITIES_KW = (40., 60., 80., 100., 120.)
 started = time.perf_counter()
 restoration = lab.restoration_sweep(CAPACITIES_KW)
 timings[&#x27;L6 fresh MILP sweep + independent enumeration&#x27;] = time.perf_counter() - started
 display(restoration[&#x27;table&#x27;].drop(columns=&#x27;pickup&#x27;))</pre>
-<p class="source">Notebook SHA-256: 6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d<br>Stable cell ID: classroom-018; current zero-based index: 20; source lines 1–5 inclusive.</p>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-018; current zero-based index: 20; source lines 1–5 inclusive.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-30">Slide 30: Read the two service plots together</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-37">Slide 37: Read both service plots</h2>
 <p><b>Notebook step: L6</b></p>
-<p>Left: total served kW. Right: critical served kW. Coincident markers mean equal outcomes at that sampled capacity.</p>
+<p>Left: total load served in kW. Right: critical load served in kW. Overlapping markers mean the two plans give the same result at that tested capacity.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-31">Slide 31: Explain the 40 kW tradeoff</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-38">Slide 38: The tradeoff at a 40 kW tie limit</h2>
 <p><b>Notebook step: L6</b></p>
-<p>Priority objective: 130 kW total, including 90 kW critical. Maximum-total-kW objective: 140 kW total, including only 30 kW critical.</p>
+<p>Priority goal: 130 kW total, including 90 kW of critical load. Most-total-kW goal: 140 kW total, including 30 kW of critical load.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-32">Slide 32: How Python checks the plan</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-39">Slide 39: How Python checks the plan</h2>
 <p><b>Notebook step: L6</b></p>
-<p>Check available source paths, capacities, balance and the faulted branch. Then compare the MILP objective with the independent exhaustive check.</p>
+<p>Check paths to a source, capacity limits, power balance and the faulted branch. Then compare the MILP service score with the independent exhaustive search.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-33">Slide 33: Exercise 2: add more tie capacity</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-40">Slide 40: Exercise 2: add more tie capacity</h2>
 <p><b>Notebook step: L6</b></p>
-<p>Append 180. to CAPACITIES_KW, keeping 40. as the first entry. Predict, then rerun L6. Compare total and critical service at 40 and 180 kW. At which of these settings do the two objectives agree?</p>
+<p>Add 180. to CAPACITIES_KW, keeping 40. first. Predict, then rerun L6. Compare total and critical load served at 40 and 180 kW. At which of these two capacities do the service goals give the same result?</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-34">Slide 34: Debrief: enough capacity removes this tradeoff</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-41">Slide 41: Debrief: the tradeoff disappears here</h2>
 <p><b>Notebook step: L6</b></p>
-<p>At 180 kW, both methods serve 250 kW total and 90 kW critical. The priority policy matters under constrained capacity; it does not improve every setting.</p>
+<p>At 180 kW, both methods serve 250 kW total and 90 kW of critical load. Priority helps in the constrained case. It does not improve every case.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-35">Slide 35: Reset the sweep; then run L7</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-42">Slide 42: Reset the capacity list, then run L7</h2>
 <p><b>Notebook step: L7</b></p>
-<p>Restore the original CAPACITIES_KW list and rerun L6 before L7. L7 binds the first 40 kW plan, then changes the request to 20 kW.</p>
+<p>Restore the original CAPACITIES_KW list and rerun L6. L7 checks the first 40 kW record, then changes the request to 20 kW.</p>
 <p>Classroom_Labs.ipynb L7 (classroom-021), source lines 1–3.</p><pre>rest_record = restoration[&#x27;records&#x27;][0][&#x27;weighted&#x27;]
 rest_request = {&#x27;task&#x27;: &#x27;restoration&#x27;, &#x27;capacity_kw&#x27;: CAPACITIES_KW[0],
                 &#x27;critical_nodes&#x27;: [2, 5], &#x27;model&#x27;: &#x27;six_node_active_transport&#x27;, &#x27;revision&#x27;: 1}</pre>
-<p class="source">Notebook SHA-256: 6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d<br>Stable cell ID: classroom-021; current zero-based index: 23; source lines 1–3 inclusive.</p>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-021; current zero-based index: 23; source lines 1–3 inclusive.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-36">Slide 36: Read the changed-evidence test</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-43">Slide 43: Read the evidence-match test</h2>
 <p><b>Notebook step: L7</b></p>
-<p>Original contract: True. Changed rating with old evidence: False. The stated next step is HOLD the old recommendation and request a fresh solve.</p>
+<p>Original request: True. Changed rating with the old evidence: False. HOLD the old recommendation and request a new solve.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-37">Slide 37: A failed binding asks for a new check</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-44">Slide 44: Changed inputs need a new check</h2>
 <p><b>Notebook step: L7</b></p>
-<p>“The old evidence is stale” and “the new case is infeasible” are different claims. Update the request, solve the changed case, verify it and bind the new evidence.</p>
+<p>“The evidence is old” does not mean “the changed plan fails its limits.” Update the request, solve and check it, then match the new evidence to that request.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-38">Slide 38: The agent must preserve the service policy</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-45">Slide 45: Proposed agent role: keep the service goal</h2>
 <p><b>Notebook step: L6</b></p>
-<p>The operator specifies the objective and constraints; the MILP returns the pickup plan. The agent can request the right solve and explain its tradeoff using the returned evidence.</p>
+<p>This cell runs Python: the operator sets the goal and limits; MILP chooses the whole loads. A proposed agent would request that solve and explain the returned tradeoff.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-39">Slide 39: State what the model leaves out</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-46">Slide 46: What this model does not check</h2>
 <p><b>Notebook step: L6</b></p>
-<p>This active-power graph does not certify AC voltage, reactive-power feasibility or protection. Its energized branches do not define a field switching sequence.</p>
+<p>This active-power graph does not check AC voltage, reactive power or protection. The energized branches do not give the order of field switching steps.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-40">Slide 40: Restoration checkpoint: name the next action</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-47">Slide 47: Restoration checkpoint: name the next step</h2>
 <p><b>Notebook step: L7</b></p>
-<p>For the 40 kW request, explain the 130/90 versus 140/30 service tradeoff. For a changed request, retain HOLD until current evidence is available.</p>
+<p>At 40 kW, explain 130 total / 90 critical versus 140 total / 30 critical, all in kW. For a changed request, keep HOLD until evidence for the current request is available.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-41">Slide 41: Cyber: open L8</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-48">Slide 48: Cyber: open L8</h2>
 <p><b>Notebook step: L8</b></p>
-<p>Use the separate four-bus DC model and its supplied measurement data. Your task: distinguish a residual alarm from evidence about the true state.</p>
+<p>Use the separate four-bus DC model and its supplied readings. Compare a residual alarm, which checks fit, with error against the known teaching truth.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-42">Slide 42: Read residual and state error separately</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-49">Slide 49: Best fit and true state are different</h2>
 <p><b>Notebook step: L8</b></p>
-<p>J measures consistency between readings and the fitted model. State error compares the estimate with known synthetic truth; an operator does not get that truth.</p>
+<p>WLS finds the best fit to readings, giving more weight to lower stated uncertainty. Residual J measures fit mismatch. State error uses teaching truth unavailable to an operator.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-43">Slide 43: Run L8: compare two attack patterns</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-50">Slide 50: Run L8: compare two data attacks</h2>
 <p><b>Notebook step: L8</b></p>
-<p>Run the whole L8 cell with its default scale list. Compare isolated bias with coordinated Hc in both the table and plots.</p>
+<p>Run all of L8 with its default scale list. Compare one biased reading with the coordinated Hc shift in the table and plots.</p>
 <p>Classroom_Labs.ipynb L8 (classroom-023), source lines 1–5.</p><pre>ATTACK_SCALES = (0., .25, .5, 1., 1.5)
 started = time.perf_counter()
 cyber = lab.cyber_sweep(ATTACK_SCALES)
 timings[&#x27;L8 fresh WLS attack sweep&#x27;] = time.perf_counter() - started
 display(cyber[&#x27;table&#x27;])</pre>
-<p class="source">Notebook SHA-256: 6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d<br>Stable cell ID: classroom-023; current zero-based index: 25; source lines 1–5 inclusive.</p>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-023; current zero-based index: 25; source lines 1–5 inclusive.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-44">Slide 44: Read your two plots together</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-51">Slide 51: Read both cyber plots</h2>
 <p><b>Notebook step: L8</b></p>
-<p>Left: residual J and the alarm threshold. Right: offline state error. Follow the coordinated curve across both panels before interpreting a quiet alarm.</p>
+<p>Left: residual J and its alarm threshold. Right: error against the known teaching truth. Follow the coordinated curve across both plots before calling a quiet alarm reassuring.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-45">Slide 45: At scale 1, what does the alarm miss?</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-52">Slide 52: At scale 1, the alarm misses a state error</h2>
 <p><b>Notebook step: L8</b></p>
-<p>Isolated bias: J about 277.50, so the residual alarm is True. Coordinated Hc: J about 3.92, no alarm, but offline state error is about 0.02678 rad.</p>
+<p>One biased reading: J about 277.50, so the residual alarm is True. Coordinated Hc: J about 3.92, no alarm, but state error is about 0.02678 rad.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-46">Slide 46: Exercise 3: add a small isolated bias</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-53">Slide 53: Exercise 3: add a small isolated bias</h2>
 <p><b>Notebook step: L8</b></p>
-<p>Add .10 to ATTACK_SCALES. Predict, then rerun L8. At scale 0.10, read J, the alarm flag and the offline state error. Does “no alarm” mean the reading is correct? Use the two panels to explain.</p>
+<p>Add .10 to ATTACK_SCALES. Predict, then rerun L8. At scale 0.10, read J, the alarm flag and the error against known teaching truth. Does “no alarm” mean the reading is correct? Use both plots to explain.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-47">Slide 47: Debrief: a quiet alarm is not proof of truth</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-54">Slide 54: Debrief: no alarm does not prove truth</h2>
 <p><b>Notebook step: L8</b></p>
-<p>At scale 0.10, the isolated-bias residual is about 10.14, below the 15.09 threshold. A threshold can miss a small inconsistency. Coordinated corruption creates a different limitation.</p>
+<p>At scale 0.10, the isolated-bias J is about 10.14, below the 15.09 threshold. A small bias can miss the threshold. A coordinated shift can preserve the fit.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-48">Slide 48: Reset the sweep before recovery</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-55">Slide 55: Reset L8 before the recovery example</h2>
 <p><b>Notebook step: L8</b></p>
-<p>Restore the original ATTACK_SCALES list and rerun L8. Next, L9 uses a fixed trusted-recovery fixture, not the scale you edited.</p>
+<p>Restore the original ATTACK_SCALES list and rerun L8. L9 uses a fixed recovery case, separate from the scale you changed.</p>
 <p>Classroom_Labs.ipynb L8 (classroom-023), source lines 1–3.</p><pre>ATTACK_SCALES = (0., .25, .5, 1., 1.5)
 started = time.perf_counter()
 cyber = lab.cyber_sweep(ATTACK_SCALES)</pre>
-<p class="source">Notebook SHA-256: 6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d<br>Stable cell ID: classroom-023; current zero-based index: 25; source lines 1–3 inclusive.</p>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-023; current zero-based index: 25; source lines 1–3 inclusive.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-49">Slide 49: L9 is a fixed recovery example</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-56">Slide 56: L9 uses a fixed recovery case</h2>
 <p><b>Notebook step: L9</b></p>
-<p>The same supplied recovery case is checked with and without trusted replacement channels. Its control value does not track your L8 sweep-scale edit.</p>
+<p>Check the same case with and without replacement readings assumed to be trusted. Its control value does not follow your L8 scale change.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-50">Slide 50: Where do the trusted readings come from?</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-57">Slide 57: Trusted readings are an assumption</h2>
 <p><b>Notebook step: L9</b></p>
-<p>The fixture assumes three independent angle readings are trustworthy. Neither the residual test nor a language-model explanation authenticates them.</p>
+<p>The example assumes three independent angle readings are trustworthy. The residual check and a model’s explanation cannot authenticate those readings.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-51">Slide 51: Run L9: compare HOLD with PROPOSE</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-58">Slide 58: Run L9: compare HOLD and PROPOSE</h2>
 <p><b>Notebook step: L9</b></p>
-<p>Run the full L9 cell, including its assertions. Read status before comparing the returned injection or offline violation count.</p>
+<p>Run the whole L9 cell, including its assertions. Read status first, then the proposed injection and the offline limit-violation count.</p>
 <p>Classroom_Labs.ipynb L9 (classroom-026), source lines 1–2.</p><pre>without_trust = lab.trusted_response(cyber, protected_available=False)
 with_trust = lab.trusted_response(cyber, protected_available=True)</pre>
-<p class="source">Notebook SHA-256: 6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d<br>Stable cell ID: classroom-026; current zero-based index: 28; source lines 1–2 inclusive.</p>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-026; current zero-based index: 28; source lines 1–2 inclusive.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-52">Slide 52: Read the two decision states</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-59">Slide 59: Read the two decision states</h2>
 <p><b>Notebook step: L9</b></p>
-<p>No trusted replacement channels: HOLD, with no proposed injection. Trusted channels assumed: PROPOSE, u about 0.121694 p.u., zero offline toy-model violations.</p>
+<p>No trusted replacement readings: HOLD, with no proposed injection. Trusted readings assumed: PROPOSE; u ≈ 0.121694 p.u.; zero offline toy-model violations.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-53">Slide 53: Check the numerical correction</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-60">Slide 60: Check the numerical correction</h2>
 <p><b>Notebook step: L9</b></p>
-<p>The QP minimizes effort while enforcing the declared branch limits and 0.01 p.u. margin. Predicted flow12 is 0.17000; offline actual is about 0.17046, below the 0.18000 rating.</p>
+<p>The QP solver minimizes effort, subject to branch limits and a 0.01 p.u. margin. Predicted flow12: 0.17000; offline actual: about 0.17046, below the 0.18000 rating.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-54">Slide 54: Trace what caused the improvement</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-61">Slide 61: What makes the recovery possible?</h2>
 <p><b>Notebook step: L9</b></p>
-<p>Independent trusted information supplies a usable estimate; the constrained solver supplies the action. The explanation must preserve those conditions and the remaining need for review.</p>
+<p>Assumed trusted readings support the estimate. The solver calculates a limited correction. The explanation must keep those conditions clear and leave the proposal for review.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-55">Slide 55: Agent request, tool result, operator decision</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-62">Slide 62: Proposed agent role: request and explain</h2>
 <p><b>Notebook step: L9</b></p>
-<p>Agent role: request the allowed estimator/control tool and explain its returned conditions. Operator role: resolve the trust premise and review the bounded proposal through the authorized process.</p>
+<p>This cell runs Python. A proposed agent would request the approved estimate and control check. The operator must confirm the trust basis and review the returned proposal.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-56">Slide 56: Cyber checkpoint: state the condition behind PROPOSE</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-63">Slide 63: Cyber checkpoint: explain why PROPOSE is allowed</h2>
 <p><b>Notebook step: L9</b></p>
-<p>Report the measurement-trust assumption, model, proposed u and failed or passed checks. If independent trusted information is unavailable, retain HOLD and name the missing evidence.</p>
+<p>Report the trust assumption, model, proposed u and the checks that passed or failed. Without independent trusted information, keep HOLD and name what is missing.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-57">Slide 57: Run L10–L11 with the evidence labels visible</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-64">Slide 64: Run L10 before the Llama walkthrough</h2>
 <p><b>Notebook step: L10</b></p>
-<p>L10 displays a separate archived five-stage study. It does not replay your edited L2, L6 or L8 inputs. Run L11 with RUN_LOCAL_LLAMA=False. The expected message says the new model call is skipped.</p>
+<p>Run L10 to inspect its separate archived five-stage study. Continue to L10B for the recorded Llama choices, then run L11 with its default False setting.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
-<h2 id="slide-58">Slide 58: Finish L12: practice the operator readback</h2>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
+<h2 id="slide-65">Slide 65: Run L10B: watch Llama choose a tool</h2>
+<p><b>Notebook step: L10B</b></p>
+<p>Run the whole L10B cell. Change SCENARIO to inspect each saved episode.</p>
+<p>Classroom_Labs.ipynb L10B (classroom-llama-walkthrough), source lines 1–5.</p><pre>SCENARIO = &quot;voltage&quot;  # Change to &quot;restoration&quot; or &quot;cyber&quot;, then rerun this cell.
+from IPython.display import HTML, display
+from src.llama_walkthrough import load_episodes, render_episode_html
+replay_episodes = load_episodes(ROOT)
+display(HTML(render_episode_html(replay_episodes[SCENARIO])))</pre>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-llama-walkthrough; current zero-based index: 32; source lines 1–5 inclusive.</p>
+<p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
+<p class="source">Classroom_Labs.ipynb, L10B; cell classroom-llama-walkthrough; src/llama_walkthrough.py.</p>
+<p class="source">Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.</p>
+<h2 id="slide-66">Slide 66: Voltage: Llama asks to check the saved controller</h2>
+<p><b>Notebook step: L10B</b></p>
+<p>Llama identifies the missing check. The current failure forces a new trial.</p>
+<p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
+<p class="source">Classroom Labs L10B: voltage replay, recorded call 1; full record in source guide.</p>
+<p class="source">Workshop recorded model replies and numerical study records. Voltage P3_current_reserve: Llama 3.1:8b planner, recovery and review calls 1–3. Public teaching archive. 27 September 2026.</p>
+<h2 id="slide-67">Slide 67: Voltage: Llama chooses the existing fallback plan</h2>
+<p><b>Notebook step: L10B</b></p>
+<p>Llama chooses an existing MPC plan. Python checks whether the result passes.</p>
+<p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
+<p class="source">Classroom Labs L10B: voltage replay, recorded call 2; full record in source guide.</p>
+<p class="source">Workshop recorded model replies and numerical study records. Voltage P3_current_reserve: Llama 3.1:8b planner, recovery and review calls 1–3. Public teaching archive. 27 September 2026.</p>
+<h2 id="slide-68">Slide 68: Voltage: the checks pass and human review remains</h2>
+<p><b>Notebook step: L10B</b></p>
+<p>Human review remains pending. The fixed script returned the same numerical result.</p>
+<p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
+<p class="source">Classroom Labs L10B: voltage replay, recorded call 3; full record in source guide.</p>
+<p class="source">Workshop recorded model replies and numerical study records. Voltage P3_current_reserve: Llama 3.1:8b planner, recovery and review calls 1–3. Public teaching archive. 27 September 2026.</p>
+<h2 id="slide-69">Slide 69: Restoration: Llama chooses a useful new trial</h2>
+<p><b>Notebook step: L10B</b></p>
+<p>The new trial serves more load, keeps critical service and passes the current check.</p>
+<p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
+<p class="source">Classroom Labs L10B: restoration replay, recorded call 14; full record in source guide.</p>
+<p class="source">Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14–16. Public teaching archive. 27 September 2026.</p>
+<h2 id="slide-70">Slide 70: Restoration: the next trial crosses the current limit</h2>
+<p><b>Notebook step: L10B</b></p>
+<p>The next trial fails the current limit. Keep the previous passed candidate.</p>
+<p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
+<p class="source">Classroom Labs L10B: restoration replay, recorded call 15; full record in source guide.</p>
+<p class="source">Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14–16. Public teaching archive. 27 September 2026.</p>
+<h2 id="slide-71">Slide 71: Restoration: catch Llama’s wrong ranking</h2>
+<p><b>Notebook step: L10B</b></p>
+<p>The returned order is wrong. Python chooses the smaller cost and rechecks the plan.</p>
+<p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
+<p class="source">Classroom Labs L10B: restoration replay, recorded call 16; full record in source guide.</p>
+<p class="source">Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14–16. Public teaching archive. 27 September 2026.</p>
+<h2 id="slide-72">Slide 72: Cyber: Llama selects the tool already allowed</h2>
+<p><b>Notebook step: L10B</b></p>
+<p>The task supplies the tool and trust assumption. Python computes the correction.</p>
+<p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
+<p class="source">Classroom Labs L10B: cyber replay, recorded call 7; full record in source guide.</p>
+<p class="source">Workshop recorded model replies and numerical study records. Standard four-bus cyber study: Llama 3.1:8b tool selection and REVIEW calls 7–8. Public teaching archive. 21 September 2026.</p>
+<h2 id="slide-73">Slide 73: Cyber: a passing calculation still needs review</h2>
+<p><b>Notebook step: L10B</b></p>
+<p>Keep REVIEW visible. The operator must resolve the trust assumption and missing checks.</p>
+<p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
+<p class="source">Classroom Labs L10B: cyber replay, recorded call 8; full record in source guide.</p>
+<p class="source">Workshop recorded model replies and numerical study records. Standard four-bus cyber study: Llama 3.1:8b tool selection and REVIEW calls 7–8. Public teaching archive. 21 September 2026.</p>
+<h2 id="slide-74">Slide 74: Finish L12: practice the readback</h2>
 <p><b>Notebook step: L12</b></p>
-<p>Run the full L12 cell now, after completing L0–L11 in notebook order. Check wrong-ID rejection, correct simulated acknowledgment and equipment_dispatch=False.</p>
+<p>Run all of L12 after completing L0–L11 in notebook order. Check wrong-ID rejection, simulated acknowledgment and equipment_dispatch=False.</p>
 <p>Classroom_Labs.ipynb L12 (classroom-033), source lines 9–10.</p><pre>wrong_id = lab.acknowledge(mv_scope, &#x27;wrong-id&#x27;, &#x27;Student operator&#x27;)
 readback = lab.acknowledge(mv_scope, mv_scope[&#x27;recommendation_id&#x27;], &#x27;Student operator&#x27;)</pre>
-<p class="source">Notebook SHA-256: 6918e924d1b13e99504b7289e22c1a73ce573889e59d038db51526719bb9a77d<br>Stable cell ID: classroom-033; current zero-based index: 35; source lines 9–10 inclusive.</p>
+<p class="source">Notebook SHA-256: cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e<br>Stable cell ID: classroom-033; current zero-based index: 37; source lines 9–10 inclusive.</p>
 <p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the notebook or source</a></p>
 <p class="source">Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only.</p>
-<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; notebook cells checked against revision 4fa0e70.</p>
+<p class="source">Classroom Labs notebook. Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</p>
 <h2>Check the alignment</h2><p><a href="research/code_manifest.json">Code manifest</a> records each canonical notebook SHA-256, stable cell ID and inclusive source-line range. The selected code statements are unchanged. Older Python-file excerpts, when used, retain their own source hashes and syntax-tree equivalence checks.</p><p>Classroom numerical cells perform fresh calculations when run. Displaying archived model replies does not call an LLM. Editing an earlier classroom parameter does not automatically change an independent archived study or fixed recovery fixture. The notebook and slide notes explain those boundaries.</p>

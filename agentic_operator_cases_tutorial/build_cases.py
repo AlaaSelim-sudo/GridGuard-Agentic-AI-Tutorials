@@ -38,8 +38,8 @@ def notebook_cell_excerpt(spec,lab_label=''):
             'cell_source_sha256':hashlib.sha256(source.encode('utf-8')).hexdigest()}
 
 def module_schedule(slides):
-    labels={'opening':'Opening','voltage':'Voltage support','restoration':'Service restoration',
-            'cyber':'Cyber response','closing':'Closing'}
+    labels={'opening':'Getting started and agent basics','voltage':'Voltage support','restoration':'Service restoration',
+            'cyber':'Cyber response','closing':'Llama walkthrough and operator practice'}
     return [{'module':module,'label':labels[module],
              'slides':sum(s['module']==module for s in slides),
              'minutes':sum(s['minutes'] for s in slides if s['module']==module)} for module in MODULES]
@@ -216,6 +216,12 @@ def prepare_slides():
                         source_page_url='research/hands_on/index.html',
                         asset_type='Executed notebook plot or browser capture',
                         transformation='Exact PNG output or documented HTML output selection; see research/hands_on/hands_on_manifest.json.')
+                if name.startswith('llama_'):
+                    images[name].update(credit='Recorded Llama 3.1:8b replies and numerical study records; exact public reasons preserved',
+                        source_page_url='research/llama_replay/index.html',
+                        asset_type='Browser-rendered selection of verified recorded fields',
+                        transformation=s['image_transformation'],
+                        provenance_note='Raw JSON, parsed response and historical trace cross-checked by src/llama_walkthrough.py. Selected fields are not a screenshot of a deployed product. capture_manifest.json records source and image SHA-256 values.')
                 s['image']=name
                 if s['kind']!='exercise':s['kind']='figure'
             if s.get('diagram'):
@@ -235,8 +241,8 @@ def prepare_slides():
     dump(ROOT/'images/image_manifest.json',{'images':list(images.values())})
     dump(ROOT/'research/code_manifest.json',code_records)
     slides=r.normalized_slides(SimpleNamespace(SLIDES=slides))
-    assert len(slides)==59,len(slides)
-    assert sum(s['minutes'] for s in slides)==120
+    assert len(slides)==80,len(slides)
+    assert sum(s['minutes'] for s in slides)==180
     assert sum(s['kind']=='exercise' for s in slides)==3
     return slides
 
@@ -370,7 +376,7 @@ download: false
     shutil.copy2(ROOT/'Full_Reading_Guide.html',ROOT/'slidev/public/Full_Reading_Guide.html')
     shutil.copy2(ROOT/'Code_and_Record_Guide.html',ROOT/'slidev/public/Code_and_Record_Guide.html')
     exercise_slides=[i for i,s in enumerate(slides,1) if s['kind']=='exercise']
-    manifest={'edition':'hands-on-notebook-aligned','main_slides':len(slides),'minutes':sum(s['minutes'] for s in slides),
+    manifest={'edition':'plain-language-llama-and-operator-practice','main_slides':len(slides),'minutes':sum(s['minutes'] for s in slides),
         'exercise_slides':exercise_slides,'exercise_count':len(exercise_slides),
         'exercise_minutes':{str(i):s['minutes'] for i,s in enumerate(slides,1) if s['kind']=='exercise'},
         'tables':0,'transitions':'none','click_reveals':0,'viewing_cues':0,
@@ -378,6 +384,9 @@ download: false
         'used_diagrams':list(dict.fromkeys(s['diagram'] for s in slides if s['diagram'])),
         'reading_source_ids':list(dict.fromkeys(key for s in slides for key in s['refs']))}
     manifest['visual_slides']=[i for i,s in enumerate(slides,1) if s.get('image') or s.get('diagram')]
+    manifest['recorded_llama_replays']=[{'slide':i,'scenario':s['replay_scenario'],'recorded_call':s['replay_call']}
+        for i,s in enumerate(slides,1) if s.get('replay_call')]
+    manifest['proposed_pilot_slides']=[i for i,s in enumerate(slides,1) if str(s.get('diagram','')).startswith('ops_')]
     manifest['recorded_walkthroughs']={case:[i for i,s in enumerate(slides,1) if s['module']==case and s.get('walkthrough_step')] for case in ['voltage','restoration','cyber']}
     manifest['code_slides']=[i for i,s in enumerate(slides,1) if s.get('code_file')]
     manifest['real_screenshots']=[s['image'] for s in slides if s.get('walkthrough_step') and s.get('image')]

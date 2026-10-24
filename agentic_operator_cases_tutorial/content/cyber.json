@@ -3,15 +3,15 @@
     "title": "Cyber: open L8",
     "kind": "diagram",
     "points": [
-      "Use the separate four-bus DC model and its supplied measurement data.",
-      "Your task: distinguish a residual alarm from evidence about the true state."
+      "Use the separate four-bus DC model and its supplied readings.",
+      "Compare a residual alarm, which checks fit, with error against the known teaching truth."
     ],
     "refs": [
       "H08"
     ],
     "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
     "minutes": 1,
-    "note": "The four-bus model has three non-slack voltage angles and eight measurements. It is not an AC estimator, malware detector or sensor-authentication system. Synthetic truth is available only for the offline classroom comparison.",
+    "note": "The separate four-bus linear DC model has three unknown voltage angles, measured relative to a reference bus, and eight readings. This DC approximation is not a full AC estimator, malware detector or sensor-authentication system. Synthetic truth is known for the offline classroom comparison only. A residual checks how well the estimate fits the supplied readings; state error checks how far the estimate is from the known teaching truth.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
@@ -19,14 +19,14 @@
     "diagram": "cyber_network",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "Four-bus linear DC teaching model; known synthetic truth is used only for offline comparison."
   },
   {
-    "title": "Read residual and state error separately",
+    "title": "Best fit and true state are different",
     "kind": "diagram",
     "points": [
-      "J measures consistency between readings and the fitted model.",
-      "State error compares the estimate with known synthetic truth; an operator does not get that truth."
+      "WLS finds the best fit to readings, giving more weight to lower stated uncertainty.",
+      "Residual J measures fit mismatch. State error uses teaching truth unavailable to an operator."
     ],
     "refs": [
       "H08",
@@ -34,7 +34,7 @@
     ],
     "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
     "minutes": 2,
-    "note": "The chi-square threshold is about 15.086272 for five residual degrees of freedom at a 1% significance level. This calibration depends on the stated linear model and noise assumptions. A small J does not establish that the measurements are authentic.",
+    "note": "WLS means weighted least squares: find the state that best fits the readings, giving more influence to readings with smaller stated uncertainty. That weighting does not authenticate a reading. Here J is the residual mismatch statistic, not the voltage case’s penalty score. Its chi-square alarm threshold is about 15.086272 for five residual degrees of freedom at a 1% significance level. This calibration depends on the stated linear model and noise assumptions. An operator does not have the synthetic truth used to calculate the plotted state error. A small J does not establish that the readings are authentic.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
@@ -42,21 +42,21 @@
     "diagram": "cyber_residual",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "A good fit to readings does not show that those readings are authentic."
   },
   {
-    "title": "Run L8: compare two attack patterns",
+    "title": "Run L8: compare two data attacks",
     "kind": "normal",
     "points": [
-      "Run the whole L8 cell with its default scale list.",
-      "Compare isolated bias with coordinated Hc in both the table and plots."
+      "Run all of L8 with its default scale list.",
+      "Compare one biased reading with the coordinated Hc shift in the table and plots."
     ],
     "refs": [
       "H08"
     ],
     "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
     "minutes": 2,
-    "note": "This cell runs fresh weighted-least-squares calculations. The coordinated counterexample assumes knowledge of the linear measurement matrix and access to the modeled unprotected channels. It is a declared defensive teaching model, not evidence of an incident at a utility.",
+    "note": "L8 runs new WLS calculations. An isolated bias changes one reading. The coordinated Hc shift changes readings in a pattern consistent with a different modeled state. This counterexample assumes knowledge of the linear measurement matrix H and access to the modeled unprotected channels. It is a declared defensive teaching model, not evidence of an incident at a utility.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
@@ -69,11 +69,11 @@
     }
   },
   {
-    "title": "Read your two plots together",
+    "title": "Read both cyber plots",
     "kind": "figure",
     "points": [
-      "Left: residual J and the alarm threshold. Right: offline state error.",
-      "Follow the coordinated curve across both panels before interpreting a quiet alarm."
+      "Left: residual J and its alarm threshold. Right: error against the known teaching truth.",
+      "Follow the coordinated curve across both plots before calling a quiet alarm reassuring."
     ],
     "refs": [
       "H08"
@@ -88,14 +88,14 @@
     "image_source_path": "images/hands_on_L8_plot.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Actual executed notebook output; source cell classroom-023. Fresh numerical calculation unless explicitly marked archived."
+    "caption": "Reference L8 plots; rerun L8 to calculate results for your chosen attack scales."
   },
   {
-    "title": "At scale 1, what does the alarm miss?",
+    "title": "At scale 1, the alarm misses a state error",
     "kind": "diagram",
     "points": [
-      "Isolated bias: J about 277.50, so the residual alarm is True.",
-      "Coordinated Hc: J about 3.92, no alarm, but offline state error is about 0.02678 rad."
+      "One biased reading: J about 277.50, so the residual alarm is True.",
+      "Coordinated Hc: J about 3.92, no alarm, but state error is about 0.02678 rad."
     ],
     "refs": [
       "H08",
@@ -103,7 +103,7 @@
     ],
     "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
     "minutes": 2,
-    "note": "The diagram is a simple scalar illustration of coordinated consistency, not the numerical eight-measurement system. Read the numerical values from L8. A larger false-data shift need not increase the residual when the shift lies in the modeled measurement subspace.",
+    "note": "The diagram is a simple scalar illustration of coordinated consistency, not the numerical eight-measurement system. Read the numerical values from L8. A larger false-data shift need not increase the residual when the shift lies in the modeled measurement subspace. The state error is measured in radians; it is available here because this is an offline test with known synthetic truth.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
@@ -111,15 +111,15 @@
     "diagram": "cyber_stealth",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "Simple consistency illustration; the numerical values come from the eight-reading L8 model."
   },
   {
     "title": "Exercise 3: add a small isolated bias",
     "kind": "exercise",
     "points": [
       "Add .10 to ATTACK_SCALES. Predict, then rerun L8.",
-      "At scale 0.10, read J, the alarm flag and the offline state error.",
-      "Does “no alarm” mean the reading is correct? Use the two panels to explain."
+      "At scale 0.10, read J, the alarm flag and the error against known teaching truth.",
+      "Does “no alarm” mean the reading is correct? Use both plots to explain."
     ],
     "refs": [
       "H08"
@@ -136,11 +136,11 @@
     ]
   },
   {
-    "title": "Debrief: a quiet alarm is not proof of truth",
+    "title": "Debrief: no alarm does not prove truth",
     "kind": "normal",
     "points": [
-      "At scale 0.10, the isolated-bias residual is about 10.14, below the 15.09 threshold.",
-      "A threshold can miss a small inconsistency. Coordinated corruption creates a different limitation."
+      "At scale 0.10, the isolated-bias J is about 10.14, below the 15.09 threshold.",
+      "A small bias can miss the threshold. A coordinated shift can preserve the fit."
     ],
     "refs": [
       "H08"
@@ -155,11 +155,11 @@
     "callout": "10.14 < 15.09 → no residual alarm"
   },
   {
-    "title": "Reset the sweep before recovery",
+    "title": "Reset L8 before the recovery example",
     "kind": "normal",
     "points": [
       "Restore the original ATTACK_SCALES list and rerun L8.",
-      "Next, L9 uses a fixed trusted-recovery fixture, not the scale you edited."
+      "L9 uses a fixed recovery case, separate from the scale you changed."
     ],
     "refs": [
       "H08"
@@ -179,11 +179,11 @@
     }
   },
   {
-    "title": "L9 is a fixed recovery example",
+    "title": "L9 uses a fixed recovery case",
     "kind": "normal",
     "points": [
-      "The same supplied recovery case is checked with and without trusted replacement channels.",
-      "Its control value does not track your L8 sweep-scale edit."
+      "Check the same case with and without replacement readings assumed to be trusted.",
+      "Its control value does not follow your L8 scale change."
     ],
     "refs": [
       "H09"
@@ -197,18 +197,18 @@
     "eyebrow": "Classroom Labs · L9 · classroom-026"
   },
   {
-    "title": "Where do the trusted readings come from?",
+    "title": "Trusted readings are an assumption",
     "kind": "diagram",
     "points": [
-      "The fixture assumes three independent angle readings are trustworthy.",
-      "Neither the residual test nor a language-model explanation authenticates them."
+      "The example assumes three independent angle readings are trustworthy.",
+      "The residual check and a model’s explanation cannot authenticate those readings."
     ],
     "refs": [
       "H09"
     ],
     "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
     "minutes": 2,
-    "note": "Three protected angle readings determine three unknown angles, leaving zero residual degrees of freedom. A zero residual in this exactly determined system provides no new detection guarantee. The trust premise must be justified outside this numerical example.",
+    "note": "The example assumes three protected angle readings determine the three unknown angles, leaving zero residual degrees of freedom. Independent trusted information must come from a justified source outside this numerical calculation. A zero residual in this exactly determined system adds no detection guarantee. Neither a good model fit nor a language-model explanation establishes authenticity.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
@@ -216,14 +216,14 @@
     "diagram": "cyber_trusted",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "Three trusted angle readings are assumed, not authenticated by this calculation."
   },
   {
-    "title": "Run L9: compare HOLD with PROPOSE",
+    "title": "Run L9: compare HOLD and PROPOSE",
     "kind": "normal",
     "points": [
-      "Run the full L9 cell, including its assertions.",
-      "Read status before comparing the returned injection or offline violation count."
+      "Run the whole L9 cell, including its assertions.",
+      "Read status first, then the proposed injection and the offline limit-violation count."
     ],
     "refs": [
       "H09"
@@ -246,8 +246,8 @@
     "title": "Read the two decision states",
     "kind": "figure",
     "points": [
-      "No trusted replacement channels: HOLD, with no proposed injection.",
-      "Trusted channels assumed: PROPOSE, u about 0.121694 p.u., zero offline toy-model violations."
+      "No trusted replacement readings: HOLD, with no proposed injection.",
+      "Trusted readings assumed: PROPOSE; u ≈ 0.121694 p.u.; zero offline toy-model violations."
     ],
     "refs": [
       "H09"
@@ -262,21 +262,21 @@
     "image_source_path": "images/hands_on_L9_trust.png",
     "visual_height_px": 325,
     "visual_height_cm": 3.45,
-    "caption": "Actual executed notebook output; source cell classroom-026. Fresh numerical calculation unless explicitly marked archived."
+    "caption": "Reference L9 output for the fixed recovery case, not the edited L8 scale."
   },
   {
     "title": "Check the numerical correction",
     "kind": "diagram",
     "points": [
-      "The QP minimizes effort while enforcing the declared branch limits and 0.01 p.u. margin.",
-      "Predicted flow12 is 0.17000; offline actual is about 0.17046, below the 0.18000 rating."
+      "The QP solver minimizes effort, subject to branch limits and a 0.01 p.u. margin.",
+      "Predicted flow12: 0.17000; offline actual: about 0.17046, below the 0.18000 rating."
     ],
     "refs": [
       "H09"
     ],
     "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
     "minutes": 2,
-    "note": "The flexible injection is u=0.1216936673 p.u., balanced by the reference bus. The offline actual flow is an audit against synthetic truth for this fixed case. It does not guarantee unmodeled AC behavior or trustworthy field telemetry.",
+    "note": "QP means quadratic programming: this numerical solver minimizes a quadratic effort score while enforcing the declared branch limits and a 0.01 p.u. margin. The flexible injection is u=0.1216936673 p.u., balanced by the reference bus. Predicted flow12 is 0.17000 p.u.; the offline actual flow is about 0.17046 p.u., below the 0.18000 p.u. rating. The actual-flow comparison uses synthetic truth for this fixed case. It does not guarantee AC behavior omitted by the model or trustworthy field telemetry.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
@@ -284,14 +284,14 @@
     "diagram": "cyber_qp",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "Fixed L9 correction: compare the predicted branch flow with the offline truth check."
   },
   {
-    "title": "Trace what caused the improvement",
+    "title": "What makes the recovery possible?",
     "kind": "diagram",
     "points": [
-      "Independent trusted information supplies a usable estimate; the constrained solver supplies the action.",
-      "The explanation must preserve those conditions and the remaining need for review."
+      "Assumed trusted readings support the estimate. The solver calculates a limited correction.",
+      "The explanation must keep those conditions clear and leave the proposal for review."
     ],
     "refs": [
       "H09"
@@ -306,32 +306,32 @@
     "diagram": "cyber_handoff",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Teaching diagram of the model or check used at this notebook step."
+    "caption": "Trusted information and numerical checks have separate roles."
   },
   {
-    "title": "Agent request, tool result, operator decision",
+    "title": "Proposed agent role: request and explain",
     "kind": "normal",
     "points": [
-      "Agent role: request the allowed estimator/control tool and explain its returned conditions.",
-      "Operator role: resolve the trust premise and review the bounded proposal through the authorized process."
+      "This cell runs Python. A proposed agent would request the approved estimate and control check.",
+      "The operator must confirm the trust basis and review the returned proposal."
     ],
     "refs": [
       "H09"
     ],
     "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
     "minutes": 2,
-    "note": "The default classroom calls are deterministic Python functions. The archived model explanations shown in L10 belong to a separate historical study. A real agent implementation would need to bind an allowed request to these tools. This default route makes no new language-model decisions.",
+    "note": "The default classroom calls are ordinary deterministic Python functions, so this cell makes no new language-model decision. The slide states a proposed agent responsibility: request the allowed estimator and control tool, then explain the exact conditions returned. The operator must establish the basis for trusting the replacement readings and review the limited proposal through the authorized process. The old model explanations in L10 come from a separate historical study and are not replies to this participant’s changed inputs.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
     "eyebrow": "Classroom Labs · L9 · classroom-026"
   },
   {
-    "title": "Cyber checkpoint: state the condition behind PROPOSE",
+    "title": "Cyber checkpoint: explain why PROPOSE is allowed",
     "kind": "normal",
     "points": [
-      "Report the measurement-trust assumption, model, proposed u and failed or passed checks.",
-      "If independent trusted information is unavailable, retain HOLD and name the missing evidence."
+      "Report the trust assumption, model, proposed u and the checks that passed or failed.",
+      "Without independent trusted information, keep HOLD and name what is missing."
     ],
     "refs": [
       "H09"

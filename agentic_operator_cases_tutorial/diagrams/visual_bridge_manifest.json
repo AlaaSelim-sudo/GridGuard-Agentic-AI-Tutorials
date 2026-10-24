@@ -1,0 +1,423 @@
+{
+  "schema_version": 1,
+  "description": "Twelve original editable teaching diagrams, with matching PDF and vector SVG exports. No product UI, deployment or fresh default-notebook LLM claim.",
+  "sources": {
+    "DEF03": {
+      "title": "Building effective agents",
+      "organization": "Anthropic",
+      "date": "2024-12-19",
+      "url": "https://www.anthropic.com/research/building-effective-agents",
+      "support": "Attributed workflow/agent distinction, tools, feedback, stopping conditions. The live page notes that tooling has changed since 2024."
+    },
+    "OT01": {
+      "title": "Guide to Operational Technology (OT) Security",
+      "organization": "NIST",
+      "date": "2023-09",
+      "url": "https://doi.org/10.6028/NIST.SP.800-82r3",
+      "support": "OT responsibilities and controlled system boundaries; the exact pilot architecture is the tutorial author’s proposal."
+    },
+    "EVAL01": {
+      "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+      "organization": "NIST",
+      "date": "2023-01",
+      "url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "support": "Documentation, evaluation and accountable risk-management context; no NIST approval of this proposed pilot is claimed."
+    }
+  },
+  "items": [
+    {
+      "id": "bridge_request",
+      "title": "From an operator question to a reviewed study",
+      "caption": "A plain-language question becomes a bounded study request and a reviewable result; it does not confer operating authority.",
+      "source_refs": [
+        "DEF03",
+        "OT01"
+      ],
+      "kind": "Original native TikZ teaching illustration",
+      "credit": "Original tutorial design. Illustration, not product UI or a reported deployment.",
+      "evidence_limit": "Conceptual teaching design; not a measurement of an operational AI system.",
+      "files": {
+        "tex": "diagrams/bridge_request.tex",
+        "pdf": "diagrams/bridge_request.pdf",
+        "svg": "diagrams/bridge_request.svg"
+      },
+      "dimensions_px": [
+        1150,
+        275
+      ],
+      "dimensions_pdf_pt": [
+        397.286954,
+        95.108477
+      ],
+      "sha256": {
+        "tex": "4251c6c8f741b7f77a234ff03f67a268253a3ffeb10b1deea82fb6aa906edfd5",
+        "pdf": "6bed80026a119edf729f6a479f67905e6a490e628600773114863088a2e75fa0",
+        "svg": "750bfc455505e84e712f555c540b73a2d2577ded2fe18696271e10a67ff953ee"
+      },
+      "editable": "Native TikZ source. SVG uses vector outlines from the compiled PDF.",
+      "source_note": "Original teaching design informed by the listed sources; not a reproduction of an official source figure."
+    },
+    {
+      "id": "bridge_script_agent",
+      "title": "A script and an agent can use the same tools",
+      "caption": "Under the attributed workflow/agent convention, code fixes a script’s next-step logic while an LLM can select an allowed next operation. Both can branch; branching alone does not establish agency.",
+      "source_refs": [
+        "DEF03"
+      ],
+      "kind": "Original native TikZ teaching illustration",
+      "credit": "Original tutorial design. Illustration, not product UI or a reported deployment.",
+      "evidence_limit": "Proposed architectural comparison. Default notebook cells use ordinary Python and do not make a fresh LLM decision.",
+      "files": {
+        "tex": "diagrams/bridge_script_agent.tex",
+        "pdf": "diagrams/bridge_script_agent.pdf",
+        "svg": "diagrams/bridge_script_agent.svg"
+      },
+      "dimensions_px": [
+        1150,
+        328
+      ],
+      "dimensions_pdf_pt": [
+        377.858585,
+        107.666286
+      ],
+      "sha256": {
+        "tex": "d3b2cd501f5b5b2fe55d324ba21c76550cd0afd6d8e77f93e063112de5a0f035",
+        "pdf": "a392964c68a51c0f578e90e89b7003420d7eb69534fd6d35203d2c21a95d985a",
+        "svg": "a70199440410a86c097c4adf8cbbdcac2fa3174bfb6fdf2aa63ba1a0b12b30ca"
+      },
+      "editable": "Native TikZ source. SVG uses vector outlines from the compiled PDF.",
+      "source_note": "Original teaching design informed by the listed sources; not a reproduction of an official source figure."
+    },
+    {
+      "id": "bridge_llama_tools",
+      "title": "Language, calculations and review have different jobs",
+      "caption": "A proposed bounded design assigns language tasks to Llama, numerical work to Python tools and the review decision to an operator. The default notebook does not run a new Llama call.",
+      "source_refs": [
+        "DEF03",
+        "H00"
+      ],
+      "kind": "Original native TikZ teaching illustration",
+      "credit": "Original tutorial design. Illustration, not product UI or a reported deployment.",
+      "evidence_limit": "Conceptual teaching design; not a measurement of an operational AI system.",
+      "files": {
+        "tex": "diagrams/bridge_llama_tools.tex",
+        "pdf": "diagrams/bridge_llama_tools.pdf",
+        "svg": "diagrams/bridge_llama_tools.svg"
+      },
+      "dimensions_px": [
+        1150,
+        286
+      ],
+      "dimensions_pdf_pt": [
+        387.932553,
+        96.548286
+      ],
+      "sha256": {
+        "tex": "ef766bc85850f6b6fe32ccbc40af34adafc2807d5799e9dc71d9b03823e1dc89",
+        "pdf": "3f08773eb3ab1d20fcf933b799169ac5c5542d309d98a95cc1c06da04364ba5e",
+        "svg": "a61e154a2553a87e33baca49b5f733f6c6f2076dbdbaf623bacc6856176ffa34"
+      },
+      "editable": "Native TikZ source. SVG uses vector outlines from the compiled PDF.",
+      "source_note": "Original teaching design informed by the listed sources; not a reproduction of an official source figure."
+    },
+    {
+      "id": "bridge_agent_parts",
+      "title": "The parts of a bounded agent",
+      "caption": "An original conceptual architecture joins a goal, approved context, a language model, allowed tools, saved case state and explicit check/stop rules. It is a proposed design, not the default notebook runtime.",
+      "source_refs": [
+        "DEF03",
+        "OT01",
+        "EVAL01"
+      ],
+      "kind": "Original native TikZ teaching illustration",
+      "credit": "Original tutorial design. Illustration, not product UI or a reported deployment.",
+      "evidence_limit": "Conceptual teaching design; not a measurement of an operational AI system.",
+      "files": {
+        "tex": "diagrams/bridge_agent_parts.tex",
+        "pdf": "diagrams/bridge_agent_parts.pdf",
+        "svg": "diagrams/bridge_agent_parts.svg"
+      },
+      "dimensions_px": [
+        1150,
+        300
+      ],
+      "dimensions_pdf_pt": [
+        391.5304,
+        102.307524
+      ],
+      "sha256": {
+        "tex": "d2da5636f50d324c9e36d9e957a0f3b64dcba580d10ea3125f628c1229a3d66d",
+        "pdf": "265f517d518d8e05e91eb5b4af9ae8826877f083910ae9d70c715944192014a3",
+        "svg": "98054e8cb42cc416d7831e443dfe285e295db6259c156270aab0cd3b3465685c"
+      },
+      "editable": "Native TikZ source. SVG uses vector outlines from the compiled PDF.",
+      "source_note": "Original teaching design informed by the listed sources; not a reproduction of an official source figure."
+    },
+    {
+      "id": "bridge_reason_check",
+      "title": "Explain a decision with facts and tests",
+      "caption": "A public explanation connects a claim to returned evidence and an explicit test, then reports the decision and remaining limits. This requests an evidence summary, not private chain-of-thought.",
+      "source_refs": [
+        "DEF03",
+        "EVAL01",
+        "H02"
+      ],
+      "kind": "Original native TikZ teaching illustration",
+      "credit": "Original tutorial design. Illustration, not product UI or a reported deployment.",
+      "evidence_limit": "Conceptual teaching design; not a measurement of an operational AI system.",
+      "files": {
+        "tex": "diagrams/bridge_reason_check.tex",
+        "pdf": "diagrams/bridge_reason_check.pdf",
+        "svg": "diagrams/bridge_reason_check.svg"
+      },
+      "dimensions_px": [
+        1150,
+        271
+      ],
+      "dimensions_pdf_pt": [
+        400.165231,
+        94.388572
+      ],
+      "sha256": {
+        "tex": "e96409b14ca6fee6a9e4ef0c49089f8e0ff71b56f0370abea71e76db92495e67",
+        "pdf": "b2e5e19f95d6f53cd0e11e30d677e0d766538fe0af99a0fb683377bb6a531f94",
+        "svg": "2aea71cd61630ae5cf2db336bafffbeab095e3acaba994255a4a90fb9d3cf3a6"
+      },
+      "editable": "Native TikZ source. SVG uses vector outlines from the compiled PDF.",
+      "source_note": "Original teaching design informed by the listed sources; not a reproduction of an official source figure."
+    },
+    {
+      "id": "bridge_words",
+      "title": "Six technical words connected to familiar pictures",
+      "caption": "Six original mini-illustrations pair workshop terms with their plain meanings. SAC is a saved controller, binding is content consistency, and scope specifies represented network parts.",
+      "source_refs": [
+        "H01",
+        "H02",
+        "H06",
+        "H08"
+      ],
+      "kind": "Original native TikZ teaching illustration",
+      "credit": "Original tutorial design. Illustration, not product UI or a reported deployment.",
+      "evidence_limit": "Original terminology aids, not mathematical formulations or product icons. A saved SAC policy is not an LLM; matching evidence hashes do not authenticate measurements.",
+      "files": {
+        "tex": "diagrams/bridge_words.tex",
+        "pdf": "diagrams/bridge_words.pdf",
+        "svg": "diagrams/bridge_words.svg"
+      },
+      "dimensions_px": [
+        1150,
+        299
+      ],
+      "dimensions_pdf_pt": [
+        395.847816,
+        103.027429
+      ],
+      "sha256": {
+        "tex": "10170fd9cfaead6a6ddcb63eadb0515e16238d9dc56b3e5e8a155d9bed98e321",
+        "pdf": "ad664364b792a9372a88c9c675213be68870c42e9d2e56e309822db3086f7560",
+        "svg": "11d5191e9daaee37b1b9d2f4464116756a1d4f46858d3a5b76607c57d847596c"
+      },
+      "editable": "Native TikZ source. SVG uses vector outlines from the compiled PDF.",
+      "source_note": "Original teaching design informed by the listed sources; not a reproduction of an official source figure."
+    },
+    {
+      "id": "bridge_modes",
+      "title": "Three modes that must remain visibly separate",
+      "caption": "Green means newly computed numerical work; amber means an actual archived Llama reply tied to its old input; blue means a proposed future advisory-pilot design. Replaying a reply makes no fresh model call.",
+      "source_refs": [
+        "H00",
+        "H03",
+        "DEF03",
+        "OT01"
+      ],
+      "kind": "Original native TikZ teaching illustration",
+      "credit": "Original tutorial design. Illustration, not product UI or a reported deployment.",
+      "evidence_limit": "Conceptual teaching design; not a measurement of an operational AI system.",
+      "files": {
+        "tex": "diagrams/bridge_modes.tex",
+        "pdf": "diagrams/bridge_modes.pdf",
+        "svg": "diagrams/bridge_modes.svg"
+      },
+      "dimensions_px": [
+        1150,
+        257
+      ],
+      "dimensions_pdf_pt": [
+        387.212985,
+        86.469619
+      ],
+      "sha256": {
+        "tex": "de17c733646e147c7a72b5e331c33b08e98d97092f45a70f4a4b17b069e1b834",
+        "pdf": "df4b6947fcfee33eeacdb51a6a937cafabb4de84b6b5c451fb2bb21314e72eb8",
+        "svg": "93a3c57354899d4eaa19cd236d5c6b80164c0945132364c811159f1b6ba1fb82"
+      },
+      "editable": "Native TikZ source. SVG uses vector outlines from the compiled PDF.",
+      "source_note": "Original teaching design informed by the listed sources; not a reproduction of an official source figure."
+    },
+    {
+      "id": "ops_request_snapshot",
+      "title": "Freeze a relevant study snapshot before asking a tool",
+      "caption": "Illustrative F12 request: a copied case predating a topology-changing event does not support the new study. HOLD requests a relevant approved snapshot, not an arbitrary universal age threshold.",
+      "source_refs": [
+        "OT01",
+        "EVAL01"
+      ],
+      "kind": "Original native TikZ teaching illustration",
+      "credit": "Original tutorial design. Illustration, not product UI or a reported deployment.",
+      "evidence_limit": "Invented F12 timestamps, topology tokens and limit label are teaching examples, not utility data or a defined freshness policy.",
+      "files": {
+        "tex": "diagrams/ops_request_snapshot.tex",
+        "pdf": "diagrams/ops_request_snapshot.pdf",
+        "svg": "diagrams/ops_request_snapshot.svg"
+      },
+      "dimensions_px": [
+        1150,
+        333
+      ],
+      "dimensions_pdf_pt": [
+        398.006523,
+        115.26581
+      ],
+      "sha256": {
+        "tex": "ce4d979e5f837d956493dcfe914faec75458c301ab0649c865039008aa4ecb32",
+        "pdf": "06e27e84c041a4e7d693f24ca62acc8bc25d7b15991a43d75099304daf6ffe2b",
+        "svg": "3966c9052c3d4a7680ca3aca7bedb9385cde70ac0622bf6a56e710e9a2720cb4"
+      },
+      "editable": "Native TikZ source. SVG uses vector outlines from the compiled PDF.",
+      "source_note": "Original teaching design informed by the listed sources; not a reproduction of an official source figure."
+    },
+    {
+      "id": "ops_tool_boundary",
+      "title": "Keep study tools separate from operating authority",
+      "caption": "Proposed advisory architecture: an assistant can request allowed study tools through a validating, logged gateway using an approved read-only copy. Physical commands follow a separate authorized process.",
+      "source_refs": [
+        "OT01",
+        "EVAL01",
+        "DEF03"
+      ],
+      "kind": "Original native TikZ teaching illustration",
+      "credit": "Original tutorial design. Illustration, not product UI or a reported deployment.",
+      "evidence_limit": "Tutorial architecture proposal, not a certified OT architecture, utility deployment, direct command path or product integration.",
+      "files": {
+        "tex": "diagrams/ops_tool_boundary.tex",
+        "pdf": "diagrams/ops_tool_boundary.pdf",
+        "svg": "diagrams/ops_tool_boundary.svg"
+      },
+      "dimensions_px": [
+        1150,
+        349
+      ],
+      "dimensions_pdf_pt": [
+        384.334708,
+        116.705619
+      ],
+      "sha256": {
+        "tex": "f3a4c01bd5890d8825cff87fc561b3a23805d95423847e25e9b04a112883ceef",
+        "pdf": "f0caf785d801edb54a39a33f9df17937906e2e2c9f6b0a00672a4d964b14daf5",
+        "svg": "2b8884daab436112b335d3404bc75f74d307f0b33e67ab1ccd817835aab37ea6"
+      },
+      "editable": "Native TikZ source. SVG uses vector outlines from the compiled PDF.",
+      "source_note": "Original teaching design informed by the listed sources; not a reproduction of an official source figure."
+    },
+    {
+      "id": "ops_three_gates",
+      "title": "Three checks before a study can be reviewed",
+      "caption": "The review path requires the exact current case, every required limit and the full required model scope. An MV-only PASS cannot satisfy an MV/LV request.",
+      "source_refs": [
+        "H01",
+        "H05",
+        "H12",
+        "EVAL01"
+      ],
+      "kind": "Original native TikZ teaching illustration",
+      "credit": "Original tutorial design. Illustration, not product UI or a reported deployment.",
+      "evidence_limit": "The MV/MV-LV scope contrast is grounded in the classroom check, but the complete control-room review sequence is a proposed teaching design.",
+      "files": {
+        "tex": "diagrams/ops_three_gates.tex",
+        "pdf": "diagrams/ops_three_gates.pdf",
+        "svg": "diagrams/ops_three_gates.svg"
+      },
+      "dimensions_px": [
+        1150,
+        331
+      ],
+      "dimensions_pdf_pt": [
+        393.689107,
+        113.425524
+      ],
+      "sha256": {
+        "tex": "209b6872e19067b0fc22c5c6209b06974b48952c1ed3e21aaf30725a3177025d",
+        "pdf": "8ae1f41c9583062c530e0b7c2aac8e2a7cd3f4420dfa7d77ee818ef7fd703b8a",
+        "svg": "582049a22252c2a92652262c6e5ea3c78a4d933cae5ffb101963b57e580d598b"
+      },
+      "editable": "Native TikZ source. SVG uses vector outlines from the compiled PDF.",
+      "source_note": "Original teaching design informed by the listed sources; not a reproduction of an official source figure."
+    },
+    {
+      "id": "ops_review",
+      "title": "Accepting a study is a bounded review decision",
+      "caption": "A proposed reviewer checks case consistency, required limits and model scope, then asks for more evidence, rejects the study or accepts it for the separate operating process.",
+      "source_refs": [
+        "OT01",
+        "EVAL01",
+        "H12"
+      ],
+      "kind": "Original native TikZ teaching illustration",
+      "credit": "Original tutorial design. Illustration, not product UI or a reported deployment.",
+      "evidence_limit": "Conceptual teaching design; not a measurement of an operational AI system.",
+      "files": {
+        "tex": "diagrams/ops_review.tex",
+        "pdf": "diagrams/ops_review.pdf",
+        "svg": "diagrams/ops_review.svg"
+      },
+      "dimensions_px": [
+        1150,
+        328
+      ],
+      "dimensions_pdf_pt": [
+        369.223754,
+        105.187143
+      ],
+      "sha256": {
+        "tex": "6d5f4f4a4beb0da486621fb2e56210f80d8514b8aaabcdebc936609fb37c99b4",
+        "pdf": "7ed07886bb57f5c9a5ce2f29940953015dba3997d1cfe1b4dbbed2abb48c58b2",
+        "svg": "50d6da64f6045d6278691cc79a6ded2d41efdce26f02e450cd6590f01e47f8f5"
+      },
+      "editable": "Native TikZ source. SVG uses vector outlines from the compiled PDF.",
+      "source_note": "Original teaching design informed by the listed sources; not a reproduction of an official source figure."
+    },
+    {
+      "id": "ops_pilot",
+      "title": "Advance a pilot only with comparable evidence",
+      "caption": "Suggested pilot stages compare an assistant with a fixed-script baseline using the same engineering tools. Proposed measures are correct work, missed checks, time and reviewer changes; an accountable owner can stop the pilot.",
+      "source_refs": [
+        "DEF03",
+        "OT01",
+        "EVAL01"
+      ],
+      "kind": "Original native TikZ teaching illustration",
+      "credit": "Original tutorial design. Illustration, not product UI or a reported deployment.",
+      "evidence_limit": "Suggested evaluation design and candidate measures only; no deployment, measured improvement, acceptance target or automatic rollout is asserted.",
+      "files": {
+        "tex": "diagrams/ops_pilot.tex",
+        "pdf": "diagrams/ops_pilot.pdf",
+        "svg": "diagrams/ops_pilot.svg"
+      },
+      "dimensions_px": [
+        1150,
+        325
+      ],
+      "dimensions_pdf_pt": [
+        401.60437,
+        113.425524
+      ],
+      "sha256": {
+        "tex": "784e1c521aa43b313a7aaedca40cade8f06a60706917016b592ddc5b425a5582",
+        "pdf": "aaaff73916c06cff58853ed436c1db9debeecfa727825c13ba6cd8e85c0f1b64",
+        "svg": "c121e57ea9504297099a91078f10da8d99cbc913f7445c239f35e85c48a0280a"
+      },
+      "editable": "Native TikZ source. SVG uses vector outlines from the compiled PDF.",
+      "source_note": "Original teaching design informed by the listed sources; not a reproduction of an official source figure."
+    }
+  ]
+}
