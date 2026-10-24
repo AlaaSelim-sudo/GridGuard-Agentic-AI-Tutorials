@@ -15,16 +15,36 @@ The browser presentations need no Python installation, model account or live lan
 
 ## Get notebooks
 
-Start with the [Classroom Labs](agentic_grid_workflow_tutorial/Classroom_Labs.ipynb) for the numerical cases and the separate [LangGraph workflow lab](agentic_grid_workflow_tutorial/Graph_Workflow_Lab.ipynb) for graph execution, state and branching.
+Open any of the three main notebooks in Google Colab:
+
+**[Classroom Labs](agentic_grid_workflow_tutorial/Classroom_Labs.ipynb)** — voltage L2–L5, restoration L6–L7 and cyber response L8–L9. Change forecasts and parameters to compare predictions and results.
+
+[![Open Classroom Labs in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb)
+
+**[LangGraph workflow lab](agentic_grid_workflow_tutorial/Graph_Workflow_Lab.ipynb)** — a separate graph example for state, tool routing, branching and execution.
+
+[![Open the LangGraph workflow lab in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Graph_Workflow_Lab.ipynb)
+
+**[Agent traces and latency](agentic_grid_workflow_tutorial/Agent_Trace_and_Latency.ipynb)** — actual saved model replies, tool outputs, stopping decisions and measured timing boundaries.
+
+[![Open Agent traces and latency in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Agent_Trace_and_Latency.ipynb)
+
+### Run in Colab
+
+1. Sign in to Google and open a notebook using its Colab badge above.
+2. Use a standard CPU runtime. A GPU is unnecessary.
+3. Choose **Runtime → Run all**. The first setup cell retrieves the supporting files and installs dependencies.
+4. Follow the notebook in order. In Classroom Labs, change forecasts or parameters and rerun the relevant cells.
+
+Classroom Labs performs fresh numerical calculations; model replies and recorded experiment timings remain archived. The default route needs no API key or model download. See the [detailed Colab guide](COLAB_GUIDE.md) for setup and troubleshooting.
 
 For a closer look at the evidence:
 
-- [Agent traces and latency](agentic_grid_workflow_tutorial/Agent_Trace_and_Latency.ipynb): actual saved model replies, tool outputs, stopping decisions and measured timing boundaries.
 - [Standard formulations](agentic_grid_workflow_tutorial/Standard_Formulations.ipynb): optimization, restoration MILP and state-estimation/control examples.
 - [LLM response selection](agentic_grid_workflow_tutorial/LLM_Response_Selection.ipynb): the recorded voltage response-selection study and its comparisons.
 - [Complete notebook index](NOTEBOOK_INDEX.md): all 12 current workflow notebooks and preserved earlier editions.
 
-GitHub previews the notebooks. To run them, clone or download the repository so each notebook keeps its sibling `src`, `data`, `models` and `results` folders. Follow the [workflow setup guide](agentic_grid_workflow_tutorial/README.md); the graph lab uses its own requirements.
+GitHub previews the notebooks. For local execution, clone or download the repository so each notebook keeps its sibling `src`, `data`, `models` and `results` folders. Follow the [workflow setup guide](agentic_grid_workflow_tutorial/README.md); the graph lab uses its own requirements.
 
 **Saved and live execution are different.** Opening saved outputs makes no new model call. The default Classroom Labs path performs numerical calculations with saved policy weights and archived model replies. Optional full-feeder OpenDSS checks, local Ollama calls and policy training require their respective dependencies and models. Earlier studies retain their original environment metadata.
 
@@ -61,7 +81,7 @@ Earlier work remains available for reproduction and comparison:
 - [Greensboro multi-agent tutorial](smartgridcomm_greensboro/README.md) and [recorded Llama edition](smartgridcomm_greensboro_llama_v2/README.md).
 - [Earlier operator-workflow package](Grid_Operator_Workflow_Tutorial/agentic_grid_workflow_tutorial/README.md) and [earlier LaTeX source package](Agentic_Grid_LaTeX_Source/README.md).
 
-Use the two **Watch** links above for the current presentations. Some unchanged notebooks also appear inside presentation evidence folders. [PUBLICATION_MANIFEST.json](PUBLICATION_MANIFEST.json) records copied files, source locations and SHA-256 hashes; [PUBLICATION_AUDIT.json](PUBLICATION_AUDIT.json) records the publication checks. Installed dependencies, build caches and duplicate delivery bundles are excluded.
+Use the two **Watch** links above for the current presentations. Some unchanged notebooks also appear inside presentation evidence folders. [PUBLICATION_MANIFEST.json](PUBLICATION_MANIFEST.json) and [PUBLICATION_AUDIT.json](PUBLICATION_AUDIT.json) record the initial upload, source locations, SHA-256 hashes and publication checks. Later edits are recorded in Git history. Installed dependencies, build caches and duplicate delivery bundles are excluded.
 
 </details>
 
