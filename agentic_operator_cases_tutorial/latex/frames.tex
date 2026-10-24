@@ -88,42 +88,20 @@ Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-
 Full source: https://www.anth\allowbreak{}ropic.com/resear\allowbreak{}ch/building-effe\allowbreak{}ctive-agents}
 \end{frame}
 
-\begin{frame}[t]{An agent needs a goal, tools and a place to stop}
+\begin{frame}[t]{Stanford example: check before you write}
 \relax
-\begingroup\begin{minipage}[c][3.55cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/bridge_agent_parts.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.55cm\resizebox{!}{3.55cm}{\box0}\else\box0\fi\par\end{minipage}\par
-{\fontsize{7}{8.3}\selectfont\color{Slate} Teaching model of a bounded agent. Each result updates the case record before the next choice.\par}
-\endgroup\smallskip
+\begingroup\centering\includegraphics[width=\linewidth,height=4.1cm,keepaspectratio]{images/stanford_wikichat_steps.pdf}
+\par{\fontsize{7}{8.3}\selectfont\color{Slate} Monica Lam, Stanford CS224V, Lecture 1, Fall 2026, p.19. Original excerpt; full reference in the guide.}
+\par\endgroup\smallskip
 {
 \small\begin{itemize}
 \setlength{\itemsep}{.25em}
-\item Give the agent approved data, a small tool list and a saved record of what has been tried.
-\item After each result, let it choose the next permitted step within explicit check and stop rules.
+\item WikiChat checks claims against retrieved text before drafting its reply.
+\item Our grid version: run the numerical check before writing the study summary.
 \end{itemize}\par}
 \vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://www.anthropic.com/research/building-effective-agents}{Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.}\par}
-\note{Walk around the loop once. State means the saved case record: input snapshot, selected candidate, tool outcomes and remaining study budget. A tool is an application function, such as running a power-flow check or solving a restoration problem. The engineering model, allowed actions, limits and stop conditions belong to the application. A model can request REVIEW when the permitted route cannot resolve a problem. In the original P3 record only two candidate checks are allowed. Takeaway: 
-
-Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
-Full source: https://www.anth\allowbreak{}ropic.com/resear\allowbreak{}ch/building-effe\allowbreak{}ctive-agents
-
-Workshop recorded model replies and numerical study records. Voltage P3\_current\_reserve: Llama 3.1:8b planner, recovery and review calls 1--3. Public teaching archive. 27 September 2026.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/result\allowbreak{}s/continuous\_lla\allowbreak{}ma\_opendss\_20260\allowbreak{}927T161223523552\allowbreak{}Z.json}
-\end{frame}
-
-\begin{frame}[t]{Break one big request into small jobs}
-\relax
-\begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_stanford_steps.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
-{\fontsize{7}{8.3}\selectfont\color{Slate} Original teaching adaptation of the task-decomposition idea. The notebook does not run WikiChat.\par}
-\endgroup\smallskip
-{
-\small\begin{itemize}
-\setlength{\itemsep}{.25em}
-\item Ask for one clear result at each step. Save it so the next step can use it.
-\item In our lab, Python calculates and checks. L10B shows how Llama selected a next step.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam, CS224V Lecture 1, pp.19--20; Semnani et al., WikiChat (2023).}\par}
-\note{Stanford connection: Lam's CS224V introduction, pp.19--20, uses WikiChat to illustrate splitting a response into retrieval, claim checking and writing. Our diagram is an original power-system teaching adaptation. Follow the voltage path: read the current allowance, choose a permitted candidate, calculate its result, check limits and explain the outcome. This is an analogy across domains, not evidence that WikiChat is a power-system controller. Ask pairs to name which step would detect a current violation. Takeaway: 
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19.}\par}
+\note{Stanford connection: Lam's CS224V introduction, pp.19--20, uses WikiChat to illustrate splitting a response into retrieval, claim checking and writing. Our diagram is an original power-system teaching adaptation. Follow the voltage path: read the current allowance, choose a permitted candidate, calculate its result, check limits and explain the outcome. This is an analogy across domains, not evidence that WikiChat is a power-system controller. Ask pairs to name which step would detect a current violation. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results. Takeaway: 
 
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
 Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
@@ -137,7 +115,7 @@ Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/cont
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
-\begin{frame}[t]{Find the rule, then test the result}
+\begin{frame}[t]{A rule and a tool result answer different questions}
 \relax
 \begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_claim_evidence.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
 {\fontsize{7}{8.3}\selectfont\color{Slate} Teaching analogy. The number shown comes from the recorded P3 replay, which is separate from L2.\par}
@@ -150,7 +128,7 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam, CS224V Lecture 1, pp.17--25; recorded P3 current check.}\par}
-\note{Stanford connection: the lecture's WikiChat discussion, pp.17--25, separates finding material from checking factual claims. Apply the habit to a grid study: retrieving a current limit is different from calculating current for a candidate. The displayed 99.604410\% value belongs to the separate archived P3 OpenDSS replay, not to the learner's fresh L2 result. This example supports only that current check under its recorded model. A sentence, retrieved document or citation does not establish full-network feasibility. Takeaway: 
+\note{Stanford connection: the lecture's WikiChat discussion, pp.17--25, separates finding material from checking factual claims. Apply the habit to a grid study: retrieving a current limit is different from calculating current for a candidate. The displayed 99.604410\% value belongs to the separate archived P3 OpenDSS replay, not to the learner's fresh L2 result. This example supports only that current check under its recorded model. A sentence, retrieved document or citation does not establish full-network feasibility. Treat the input limits as the task policy. A text source describes the rule; the solver evaluates the particular proposal. Takeaway: 
 
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
 Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
@@ -164,20 +142,20 @@ Workshop recorded model replies and numerical study records. Voltage P3\_current
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/result\allowbreak{}s/continuous\_lla\allowbreak{}ma\_opendss\_20260\allowbreak{}927T161223523552\allowbreak{}Z.json}
 \end{frame}
 
-\begin{frame}[t]{Tell the agent what is allowed}
+\begin{frame}[t]{Stanford example: tools need clear rules}
 \relax
-\begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_workflow_spec.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
-{\fontsize{7}{8.3}\selectfont\color{Slate} Original teaching analogy to Genie Worksheets. This lab uses Python and does not implement Genie.\par}
-\endgroup\smallskip
+\begingroup\centering\includegraphics[width=\linewidth,height=3.7cm,keepaspectratio]{images/stanford_genie_specification.pdf}
+\par{\fontsize{7}{8.3}\selectfont\color{Slate} Monica Lam, Stanford CS224V, Lecture 1, Fall 2026, p.40. Original excerpt; full reference in the guide.}
+\par\endgroup\smallskip
 {
 \small\begin{itemize}
 \setlength{\itemsep}{.25em}
-\item Write down the goal, required inputs, permitted tools and stop rules before the study.
-\item If something required is missing, report what is missing and keep the proposal on HOLD.
+\item Write down the required inputs, permitted tools, limits and stop rules.
+\item Our lab keeps those rules in Python. A language reply cannot change the limits.
 \end{itemize}\par}
 \vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam, CS224V Lecture 1, p.40; Joshi et al., Genie Worksheets (ACL 2025).}\par}
-\note{Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. Takeaway: 
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40.}\par}
+\note{Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results. Takeaway: 
 
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
 Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
@@ -191,26 +169,30 @@ Classroom Labs notebook. Classroom\_Labs.ipynb, L0--L1; cells classroom-002 and 
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
-\begin{frame}[t]{A useful explanation makes a claim we can check}
+\begin{frame}[t]{Ask four questions about a study result}
 \relax
-\begingroup\begin{minipage}[c][3.55cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/bridge_reason_check.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.55cm\resizebox{!}{3.55cm}{\box0}\else\box0\fi\par\end{minipage}\par
-{\fontsize{7}{8.3}\selectfont\color{Slate} Check the explanation against the recorded facts and tool output.\par}
+\begingroup\begin{minipage}[c][3.55cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_review_questions.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.55cm\resizebox{!}{3.55cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Grid teaching adaptation of Monica Lam's accountability concepts, Stanford CS224V introduction, pp.52--53.\par}
 \endgroup\smallskip
 {
 \small\begin{itemize}
 \setlength{\itemsep}{.25em}
-\item Read the returned reason. Identify its evidence and the tool result that could support it.
-\item A clear explanation can still be wrong. Keep the numerical check and the original reply.
+\item Find the tool result, assumptions, rules and the operator's next step.
+\item If a claim has no supporting result, leave it unresolved and request the missing check.
 \end{itemize}\par}
 \vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py}{Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.}\par}
-\note{We show only the public reasons returned in the recorded JSON. We do not expose or infer private internal reasoning. Ask whether the statement matches the input, respects the allowed choices and survives the numerical check. Later the restoration reply says it sorted costs correctly while returning the wrong order. That specific error is an opportunity to inspect the application's guard. Takeaway: 
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam, CS224V Lecture 1, pp.52--53; grid teaching adaptation and Classroom Labs L12.}\par}
+\note{Lam's pp.52--53 distinguish verifiable rationale, explicit assumptions, policy consistency and actionable next conditions. Translate these into four plain questions: which tool supports this claim, which inputs and model were used, were the same limits and service priorities kept, and what must the operator review next? Our power-flow, optimization and evidence-binding checks are numerical/software checks. They do not inherit the lecture's SMT correctness claims. Ask pairs to apply the questions to one L10B explanation and to the full-scope HOLD at L12. We show only the actual public returned reasons, not hidden chain-of-thought. Takeaway: 
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
+Publication: https://web.stanford.edu/class/cs224v/
 
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py
 
-Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14--16. Public teaching archive. 27 September 2026.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/result\allowbreak{}s/proposal\_run\_2\allowbreak{}0260927T184402Z\_\allowbreak{}53e0cf/llama\_cal\allowbreak{}ls.json}
+Classroom Labs notebook. Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
 \begin{frame}[t]{Six terms we will use in the notebook}
@@ -249,12 +231,12 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 {
 \small\begin{itemize}
 \setlength{\itemsep}{.25em}
-\item Green: run a numerical calculation now. Amber: read an actual saved Llama reply in L10B.
-\item Blue: discuss a proposed advisory pilot for a control room after the hands-on work.
+\item Python calculates now. Saved controller weights can make a new proposal. L10B shows old replies.
+\item The blue control-room pilot is a teaching proposal. Keep these evidence types separate.
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/COLAB_GUIDE.md}{Classroom Labs notebook. Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.}\par}
-\note{Point to these evidence modes throughout the session. Default classroom cells calculate fresh results without a live language-model call. L10B displays verified historical Llama choices, original reasons and associated recorded results. Changing your L2 or L6 input does not change those old replies. The final control-room diagrams are a proposed teaching design, not evidence of a deployed utility platform. No new equipment operation occurs in any of these modes. Takeaway: 
+\note{Point to these evidence modes throughout the session. Default classroom cells calculate fresh results without a live language-model call. L10B displays verified historical Llama choices, original reasons and associated recorded results. Changing your L2 or L6 input does not change those old replies. The final control-room diagrams are a proposed teaching design, not evidence of a deployed utility platform. No new equipment operation occurs in any of these modes. FRESH means calculated during the current execution. SAVED POLICY means old weights used for new inference. ARCHIVED ACTUAL LLM means an old reply with its original inputs and timing. Takeaway: 
 
 Classroom Labs notebook. Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/COLAB\allowbreak{}\_GUIDE.md
@@ -331,21 +313,6 @@ Google Colaboratory. Frequently Asked Questions: Using Colab, notebook storage a
 Full source: https://research\allowbreak{}.google.com/cola\allowbreak{}boratory/faq.htm\allowbreak{}l}
 \end{frame}
 
-\begin{frame}[t]{Find each task by its L label}
-\relax
-{
-\normalsize\begin{itemize}
-\item Use the headings L0 through L12 to find each task.
-\item Run the whole cell with its play button or Shift+Enter. Later cells need earlier results.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb.}\par}
-\note{The added Colab setup cells changed the numerical cell positions. Use the L headings and stable cell IDs to find the same source in Colab, Jupyter and these slides. A slide shows only the relevant code fragment. Students should run the complete matching notebook cell. Takeaway: 
-
-Classroom Labs notebook. Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/COLAB\allowbreak{}\_GUIDE.md}
-\end{frame}
-
 \begin{frame}[t]{Run a cell, then read what it returns}
 \relax
 \begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_cell_loop.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
@@ -354,12 +321,12 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 {
 \small\begin{itemize}
 \setlength{\itemsep}{.25em}
-\item Use the play button beside a code cell. Wait until that cell finishes.
-\item Read the table or plot underneath it. A slide shows a fragment; run the whole matching cell.
+\item Find the L heading. Use the play button to run the whole matching code cell.
+\item Wait, then read the table or plot underneath it. Editing an input alone does not update output.
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://research.google.com/colaboratory/faq.html}{Google Colab FAQ; Classroom Labs L2, cell classroom-007.}\par}
-\note{Point to the three parts: editable input, run control and returned output. The illustrated input lines are the first two lines of the actual L2 cell, not a complete standalone program. The full cell calls the voltage helper and draws two plots. The runtime remembers variables from earlier cells, which is why we run the lesson in order. If NameError reports a missing variable, return to setup/L0 and rerun the required earlier cells. Do not treat a previously displayed output as the result of a number just edited until you rerun its cell. Takeaway: 
+\note{Point to the three parts: editable input, run control and returned output. The illustrated input lines are the first two lines of the actual L2 cell, not a complete standalone program. The full cell calls the voltage helper and draws two plots. The runtime remembers variables from earlier cells, which is why we run the lesson in order. If NameError reports a missing variable, return to setup/L0 and rerun the required earlier cells. Do not treat a previously displayed output as the result of a number just edited until you rerun its cell. Use the L labels instead of numerical cell indexes. Later cells need earlier variables. Takeaway: 
 
 Google Colaboratory. Frequently Asked Questions: Using Colab, notebook storage and execution state. Google Research. Reviewed 24 October 2026.
 Full source: https://research\allowbreak{}.google.com/cola\allowbreak{}boratory/faq.htm\allowbreak{}l
@@ -387,25 +354,6 @@ Classroom Labs notebook. Classroom\_Labs.ipynb, L0--L1; cells classroom-002 and 
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
-\begin{frame}[t]{New results, saved controller, old replies}
-\relax
-\begingroup\begin{minipage}[c][3.25cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/common_operator_loop.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.25cm\resizebox{!}{3.25cm}{\box0}\else\box0\fi\par\end{minipage}\par
-{\fontsize{7}{8.3}\selectfont\color{Slate} Proposed roles in an advisory workflow; the default notebook uses Python and saved records.\par}
-\endgroup\smallskip
-{
-\small\begin{itemize}
-\setlength{\itemsep}{.25em}
-\item FRESH means calculated now. SAVED POLICY uses old weights to make a new control proposal.
-\item ARCHIVED ACTUAL LLM means an old model reply, shown with its original input and timing.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom\_Labs.ipynb, L0--L1; cells classroom-002 and classroom-004.}\par}
-\note{A script follows rules written in code. An LLM agent can choose the next allowed tool from a task and the returned results. The diagram shows proposed responsibilities, not a live agent run in this notebook. Ordinary Python functions do the engineering calculations here; the notebook does not run through LangGraph. A saved policy uses learned weights to calculate a new proposal without retraining. Displaying an old language-model reply does not make a new model call. A language model does not replace the power-flow calculation, load-selection solver or state estimator. Takeaway: 
-
-Classroom Labs notebook. Classroom\_Labs.ipynb, L0--L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
-\end{frame}
-
 \begin{frame}[t]{Run L1: does the evidence still match?}
 \relax
 {\scriptsize\color{Slate}\textbf{Classroom Labs  /  L1  /  classroom-004}\par}\smallskip
@@ -426,25 +374,6 @@ Classroom Labs notebook. Classroom\_Labs.ipynb, L0--L1; cells classroom-002 and 
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
-\begin{frame}[t]{Use the same experiment cycle}
-\relax
-\begingroup\begin{minipage}[c][3.25cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/common_evidence_binding.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.25cm\resizebox{!}{3.25cm}{\box0}\else\box0\fi\par\end{minipage}\par
-{\fontsize{7}{8.3}\selectfont\color{Slate} Keep the request, proposed command and checked result together.\par}
-\endgroup\smallskip
-{
-\small\begin{itemize}
-\setlength{\itemsep}{.25em}
-\item Predict, run the default, read the result, change one input and rerun.
-\item Name the next allowed step and the evidence for it.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom\_Labs.ipynb, L0--L1; cells classroom-002 and classroom-004.}\par}
-\note{Pause before showing each output. Ask pairs to write one sentence predicting the change, then compare it with the calculated result. Keep the input values and evidence together. Change only one parameter in the first experiment. Takeaway: 
-
-Classroom Labs notebook. Classroom\_Labs.ipynb, L0--L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
-\end{frame}
-
 \begin{frame}[t]{Work in pairs and explain one result}
 \relax
 \begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_record.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
@@ -453,8 +382,8 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 {
 \small\begin{itemize}
 \setlength{\itemsep}{.25em}
-\item One person runs the cell while the other checks the result. Swap roles in the next case.
-\item Save enough information for another pair to repeat your experiment.
+\item Predict, run, read, change one input and rerun. Explain which check supports the next step.
+\item One person runs and one checks. Swap roles, then save the inputs and outputs.
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb.}\par}
@@ -592,23 +521,6 @@ Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/cont
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
-\begin{frame}[t]{Debrief: both proposals still pass}
-\relax
-{\scriptsize\color{Slate}\textbf{Classroom Labs  /  L2  /  classroom-007}\par}\smallskip
-{\fontsize{25}{29}\selectfont\color{IEEEBlue}\bfseries Both candidates still pass\par}\medskip
-{
-\normalsize\begin{itemize}
-\item At 0.75, both pass: MPC uses about 78.53\% of the allowance; SAC uses about 54.85\%.
-\item The tighter allowance raises current use as a percentage, but does not cause failure here.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py.}\par}
-\note{An incorrect prediction is useful evidence, not a failed exercise. Compare the hypothesis with the actual output. Both candidates retain enough headroom in this case. An optimizer may change its command when a constraint changes, so a simple fixed-ratio argument does not apply to every scenario. The model scope has not expanded. Takeaway: 
-
-Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
-\end{frame}
-
 \begin{frame}[t]{Change one number and explain the difference}
 \relax
 \begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_try_observe.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
@@ -617,12 +529,12 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 {
 \small\begin{itemize}
 \setlength{\itemsep}{.25em}
-\item A smaller current allowance makes the same current a larger percentage of that allowance.
-\item Record the new percentage and check whether it still stays below 100\%.
+\item A tighter allowance makes the same current a larger percentage of that allowance.
+\item At 0.75, MPC uses 78.53\% and SAC 54.85\%. Both pass this particular test.
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom Labs L2, cell classroom-007; verified default and exercise outputs.}\par}
-\note{Use this visual immediately after the first exercise debrief. It shows the measured reference MPC outputs, rounded to two decimal places, for RATING\_FRACTION 0.80 and 0.75. The SAC result is also computed in the notebook but is not drawn here. Both proposals pass this particular tighter test. The result is not a general guarantee for other loads or limits. Ask pairs to explain the denominator in the percentage. Restore the default before moving to L3's independent archived case. Takeaway: 
+\note{Use this visual immediately after the first exercise debrief. It shows the measured reference MPC outputs, rounded to two decimal places, for RATING\_FRACTION 0.80 and 0.75. The SAC result is also computed in the notebook but is not drawn here. Both proposals pass this particular tighter test. The result is not a general guarantee for other loads or limits. Ask pairs to explain the denominator in the percentage. Restore the default before moving to L3's independent archived case. This combines the original numerical debrief with the visual explanation. Compare both methods before restoring RATING\_FRACTION=0.80. Takeaway: 
 
 Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
@@ -761,46 +673,6 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 \note{Ask a participant to read the explicit scope message aloud. A PASS is conditional on the model and action that were checked. The default model does not cover every LV constraint. A more confident explanation cannot supply the missing model coverage. Takeaway: 
 
 Classroom Labs notebook. Classroom\_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
-\end{frame}
-
-\begin{frame}[t]{Preview the L12 handover}
-\relax
-{\scriptsize\color{Slate}\textbf{Preview  /  L12 after all three cases}\par}\smallskip
-\begingroup\begin{minipage}[c][3.25cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/voltage_operator_packet.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.25cm\resizebox{!}{3.25cm}{\box0}\else\box0\fi\par\end{minipage}\par
-{\fontsize{7}{8.3}\selectfont\color{Slate} Preview only: L12 checks model coverage before a simulated readback.\par}
-\endgroup\smallskip
-{
-\small\begin{itemize}
-\setlength{\itemsep}{.25em}
-\item L12 uses selected\_trials from L4, not the new L2 comparison.
-\item Finish L6--L11 first. Run L12 at the end, in notebook order.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only.}\par}
-\note{Preview the purpose of the final handoff without asking participants to jump ahead. L12 will use selected\_trials from L4, not the fresh L2 comparison. It contrasts a full MV/LV request with an explicit MV-only teaching request. Continue to L6 after the voltage checkpoint, finish L6--L11, and run L12 once in the closing section. The readback is a simulated teaching event with no equipment dispatch. Takeaway: 
-
-Classroom Labs notebook. Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
-\end{frame}
-
-\begin{frame}[t]{Preview the two handover outcomes}
-\relax
-{\scriptsize\color{Slate}\textbf{Preview  /  L12  /  run at the end}\par}\smallskip
-\begingroup\centering\includegraphics[width=\linewidth,height=3.65cm,keepaspectratio]{images/hands_on_L12_packet.png}
-\par{\fontsize{7}{8.3}\selectfont\color{Slate} Reference L12 output; run this cell at the end of the workshop.}
-\par\endgroup\smallskip
-{
-\small\begin{itemize}
-\setlength{\itemsep}{.25em}
-\item Full MV/LV request: HOLD. An explicit MV teaching request can pass a simulated readback.
-\item A wrong recommendation ID is rejected. equipment\_dispatch stays False.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only.}\par}
-\note{This screenshot previews the executed default L12 result; students have not run L12 yet. At the final step they will check the returned state and acknowledgment fields. The full-coverage request remains HOLD; the explicit MV teaching scope allows a simulated readback. The simulation does not complete human approval of an archived study and does not dispatch equipment. Takeaway: 
-
-Classroom Labs notebook. Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
@@ -1622,6 +1494,26 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only.}\par}
 \note{This cell returns to the original test\_01 voltage result through selected\_trials. It does not use the restoration or cyber sweeps. Read both scope outcomes and explain why the full MV/LV request remains HOLD. The new simulated acknowledgment grants no physical operating authority and does not complete the review of an old record. Readback means repeating the recommendation ID and conditions so the acknowledgment can be matched to the same proposal. In this exercise it is simulated. Check the wrong-ID rejection, the correct simulated acknowledgment and equipment\_dispatch=False. Takeaway: 
+
+Classroom Labs notebook. Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
+\end{frame}
+
+\begin{frame}[t]{Read the two readback outcomes}
+\relax
+{\scriptsize\color{Slate}\textbf{Classroom Labs / L12 / simulated readback}\par}\smallskip
+\begingroup\centering\includegraphics[width=\linewidth,height=3.65cm,keepaspectratio]{images/hands_on_L12_packet.png}
+\par{\fontsize{7}{8.3}\selectfont\color{Slate} Reference L12 output. Run L12 here, after the three cases and the L10B replay.}
+\par\endgroup\smallskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item Full MV/LV request: HOLD. The explicit MV teaching request allows a simulated readback.
+\item A wrong recommendation ID is rejected. equipment\_dispatch stays False.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only.}\par}
+\note{After running the complete L12 cell, compare these reference outputs with your own. The full MV/LV request remains HOLD because the checked model covers only MV phases. An explicit MV teaching request can pass the simulated readback after the recommendation ID matches. The wrong-ID attempt is rejected. Acknowledgment records a classroom review step and does not operate equipment. Takeaway: 
 
 Classroom Labs notebook. Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}

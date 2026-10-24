@@ -1,6 +1,6 @@
 # Hands-on workshop: three operator cases
 
-**86 slides / 180 minutes / three four-minute exercises.** Keep **Classroom_Labs.ipynb** open beside this second presentation. Learn the terms in plain language, run the three cases, then inspect exact saved Llama choices and reasons. Follow **L0–L12, including L10B after L10**, using notebook excerpts, executed outputs, parameter edits and separate debriefs. Finish with a proposed advisory control-room pilot.
+**80 slides / 180 minutes / three four-minute exercises.** Keep **Classroom_Labs.ipynb** open beside this second presentation. Learn the terms in plain language, run the three cases, then inspect exact saved Llama choices and reasons. Follow **L0–L12, including L10B after L10**, using notebook excerpts, executed outputs, parameter edits and separate debriefs. Finish with a proposed advisory control-room pilot.
 
 [Open the workshop slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1) · [Open Classroom Labs in Colab](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb) · [Download the slides](Three_Operator_Cases.pdf)
 

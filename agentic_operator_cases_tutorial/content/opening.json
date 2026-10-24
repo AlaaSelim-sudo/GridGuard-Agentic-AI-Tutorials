@@ -82,52 +82,38 @@
     "visual_height_cm": 3.55
   },
   {
-    "title": "An agent needs a goal, tools and a place to stop",
-    "kind": "diagram",
-    "diagram": "bridge_agent_parts",
+    "title": "Stanford example: check before you write",
+    "kind": "figure",
     "points": [
-      "Give the agent approved data, a small tool list and a saved record of what has been tried.",
-      "After each result, let it choose the next permitted step within explicit check and stop rules."
+      "WikiChat checks claims against retrieved text before drafting its reply.",
+      "Our grid version: run the numerical check before writing the study summary."
     ],
-    "note": "Walk around the loop once. State means the saved case record: input snapshot, selected candidate, tool outcomes and remaining study budget. A tool is an application function, such as running a power-flow check or solving a restoration problem. The engineering model, allowed actions, limits and stop conditions belong to the application. A model can request REVIEW when the permitted route cannot resolve a problem. In the original P3 record only two candidate checks are allowed.",
-    "refs": [
-      "DEF03",
-      "LRV"
-    ],
-    "minutes": 1.5,
-    "caption": "Teaching model of a bounded agent. Each result updates the case record before the next choice.",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.55
-  },
-  {
-    "title": "Break one big request into small jobs",
-    "kind": "diagram",
-    "diagram": "lab_stanford_steps",
-    "points": [
-      "Ask for one clear result at each step. Save it so the next step can use it.",
-      "In our lab, Python calculates and checks. L10B shows how Llama selected a next step."
-    ],
-    "note": "Stanford connection: Lam’s CS224V introduction, pp.19–20, uses WikiChat to illustrate splitting a response into retrieval, claim checking and writing. Our diagram is an original power-system teaching adaptation. Follow the voltage path: read the current allowance, choose a permitted candidate, calculate its result, check limits and explain the outcome. This is an analogy across domains, not evidence that WikiChat is a power-system controller. Ask pairs to name which step would detect a current violation.",
+    "note": "Stanford connection: Lam’s CS224V introduction, pp.19–20, uses WikiChat to illustrate splitting a response into retrieval, claim checking and writing. Our diagram is an original power-system teaching adaptation. Follow the voltage path: read the current allowance, choose a permitted candidate, calculate its result, check limits and explain the outcome. This is an analogy across domains, not evidence that WikiChat is a power-system controller. Ask pairs to name which step would detect a current violation. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.",
     "refs": [
       "ST01",
       "ST02",
       "H02"
     ],
-    "caption": "Original teaching adaptation of the task-decomposition idea. The notebook does not run WikiChat.",
-    "source_label": "Monica Lam, CS224V Lecture 1, pp.19–20; Semnani et al., WikiChat (2023).",
-    "minutes": 1.5,
-    "visual_height_px": 330,
-    "visual_height_cm": 3.5
+    "caption": "Monica Lam, Stanford CS224V, Lecture 1, Fall 2026, p.19. Original excerpt; full reference in the guide.",
+    "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19.",
+    "minutes": 3,
+    "visual_height_px": 350,
+    "visual_height_cm": 4.1,
+    "image_source_path": "images/stanford_wikichat_steps.png",
+    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=19",
+    "image_credit": "Monica Lam, Stanford University, CS224V Lecture 1: Introduction, Fall 2026.",
+    "image_asset_type": "Original lecture figure excerpt",
+    "image_transformation": "Cropped vector excerpt from the user-supplied lecture PDF, p.19; selected content unchanged. PNG derived with Poppler. Full provenance: research/stanford_80/excerpt_manifest.json."
   },
   {
-    "title": "Find the rule, then test the result",
+    "title": "A rule and a tool result answer different questions",
     "kind": "diagram",
     "diagram": "lab_claim_evidence",
     "points": [
       "A document can tell us the limit. A numerical tool tells us how the proposal compares with it.",
       "Keep the source, the measured or calculated value, and the remaining checks together."
     ],
-    "note": "Stanford connection: the lecture’s WikiChat discussion, pp.17–25, separates finding material from checking factual claims. Apply the habit to a grid study: retrieving a current limit is different from calculating current for a candidate. The displayed 99.604410% value belongs to the separate archived P3 OpenDSS replay, not to the learner’s fresh L2 result. This example supports only that current check under its recorded model. A sentence, retrieved document or citation does not establish full-network feasibility.",
+    "note": "Stanford connection: the lecture’s WikiChat discussion, pp.17–25, separates finding material from checking factual claims. Apply the habit to a grid study: retrieving a current limit is different from calculating current for a candidate. The displayed 99.604410% value belongs to the separate archived P3 OpenDSS replay, not to the learner’s fresh L2 result. This example supports only that current check under its recorded model. A sentence, retrieved document or citation does not establish full-network feasibility. Treat the input limits as the task policy. A text source describes the rule; the solver evaluates the particular proposal.",
     "refs": [
       "ST01",
       "ST02",
@@ -140,42 +126,48 @@
     "visual_height_cm": 3.5
   },
   {
-    "title": "Tell the agent what is allowed",
-    "kind": "diagram",
-    "diagram": "lab_workflow_spec",
+    "title": "Stanford example: tools need clear rules",
+    "kind": "figure",
     "points": [
-      "Write down the goal, required inputs, permitted tools and stop rules before the study.",
-      "If something required is missing, report what is missing and keep the proposal on HOLD."
+      "Write down the required inputs, permitted tools, limits and stop rules.",
+      "Our lab keeps those rules in Python. A language reply cannot change the limits."
     ],
-    "note": "Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct.",
+    "note": "Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.",
     "refs": [
       "ST01",
       "ST03",
       "H01"
     ],
-    "caption": "Original teaching analogy to Genie Worksheets. This lab uses Python and does not implement Genie.",
-    "source_label": "Monica Lam, CS224V Lecture 1, p.40; Joshi et al., Genie Worksheets (ACL 2025).",
-    "minutes": 1.5,
-    "visual_height_px": 330,
-    "visual_height_cm": 3.5
+    "caption": "Monica Lam, Stanford CS224V, Lecture 1, Fall 2026, p.40. Original excerpt; full reference in the guide.",
+    "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40.",
+    "minutes": 2.5,
+    "visual_height_px": 315,
+    "visual_height_cm": 3.7,
+    "image_source_path": "images/stanford_genie_specification.png",
+    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=40",
+    "image_credit": "Monica Lam, Stanford University, CS224V Lecture 1: Introduction, Fall 2026.",
+    "image_asset_type": "Original lecture figure excerpt",
+    "image_transformation": "Cropped vector excerpt from the user-supplied lecture PDF, p.40; selected content unchanged. PNG derived with Poppler. Full provenance: research/stanford_80/excerpt_manifest.json."
   },
   {
-    "title": "A useful explanation makes a claim we can check",
+    "title": "Ask four questions about a study result",
     "kind": "diagram",
-    "diagram": "bridge_reason_check",
+    "diagram": "lab_review_questions",
     "points": [
-      "Read the returned reason. Identify its evidence and the tool result that could support it.",
-      "A clear explanation can still be wrong. Keep the numerical check and the original reply."
+      "Find the tool result, assumptions, rules and the operator’s next step.",
+      "If a claim has no supporting result, leave it unresolved and request the missing check."
     ],
-    "note": "We show only the public reasons returned in the recorded JSON. We do not expose or infer private internal reasoning. Ask whether the statement matches the input, respects the allowed choices and survives the numerical check. Later the restoration reply says it sorted costs correctly while returning the wrong order. That specific error is an opportunity to inspect the application’s guard.",
+    "note": "Lam’s pp.52–53 distinguish verifiable rationale, explicit assumptions, policy consistency and actionable next conditions. Translate these into four plain questions: which tool supports this claim, which inputs and model were used, were the same limits and service priorities kept, and what must the operator review next? Our power-flow, optimization and evidence-binding checks are numerical/software checks. They do not inherit the lecture’s SMT correctness claims. Ask pairs to apply the questions to one L10B explanation and to the full-scope HOLD at L12. We show only the actual public returned reasons, not hidden chain-of-thought.",
     "refs": [
+      "ST01",
       "LR0",
-      "LRR"
+      "H12"
     ],
-    "minutes": 1.5,
-    "caption": "Check the explanation against the recorded facts and tool output.",
+    "minutes": 2,
+    "caption": "Grid teaching adaptation of Monica Lam’s accountability concepts, Stanford CS224V introduction, pp.52–53.",
     "visual_height_px": 330,
-    "visual_height_cm": 3.55
+    "visual_height_cm": 3.55,
+    "source_label": "Monica Lam, CS224V Lecture 1, pp.52–53; grid teaching adaptation and Classroom Labs L12."
   },
   {
     "title": "Six terms we will use in the notebook",
@@ -202,16 +194,16 @@
     "kind": "diagram",
     "diagram": "bridge_modes",
     "points": [
-      "Green: run a numerical calculation now. Amber: read an actual saved Llama reply in L10B.",
-      "Blue: discuss a proposed advisory pilot for a control room after the hands-on work."
+      "Python calculates now. Saved controller weights can make a new proposal. L10B shows old replies.",
+      "The blue control-room pilot is a teaching proposal. Keep these evidence types separate."
     ],
-    "note": "Point to these evidence modes throughout the session. Default classroom cells calculate fresh results without a live language-model call. L10B displays verified historical Llama choices, original reasons and associated recorded results. Changing your L2 or L6 input does not change those old replies. The final control-room diagrams are a proposed teaching design, not evidence of a deployed utility platform. No new equipment operation occurs in any of these modes.",
+    "note": "Point to these evidence modes throughout the session. Default classroom cells calculate fresh results without a live language-model call. L10B displays verified historical Llama choices, original reasons and associated recorded results. Changing your L2 or L6 input does not change those old replies. The final control-room diagrams are a proposed teaching design, not evidence of a deployed utility platform. No new equipment operation occurs in any of these modes. FRESH means calculated during the current execution. SAVED POLICY means old weights used for new inference. ARCHIVED ACTUAL LLM means an old reply with its original inputs and timing.",
     "refs": [
       "H00",
       "LR0",
       "OT01"
     ],
-    "minutes": 1.5,
+    "minutes": 2,
     "caption": "Three explicitly labeled teaching modes used throughout this workshop.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55
@@ -280,37 +272,21 @@
     "caption": "Setup prepares the runtime. Then follow each named lesson cell with the slides."
   },
   {
-    "title": "Find each task by its L label",
-    "kind": "normal",
-    "points": [
-      "Use the headings L0 through L12 to find each task.",
-      "Run the whole cell with its play button or Shift+Enter. Later cells need earlier results."
-    ],
-    "refs": [
-      "H00"
-    ],
-    "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
-    "minutes": 1,
-    "note": "The added Colab setup cells changed the numerical cell positions. Use the L headings and stable cell IDs to find the same source in Colab, Jupyter and these slides. A slide shows only the relevant code fragment. Students should run the complete matching notebook cell.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true
-  },
-  {
     "title": "Run a cell, then read what it returns",
     "kind": "diagram",
     "diagram": "lab_cell_loop",
     "points": [
-      "Use the play button beside a code cell. Wait until that cell finishes.",
-      "Read the table or plot underneath it. A slide shows a fragment; run the whole matching cell."
+      "Find the L heading. Use the play button to run the whole matching code cell.",
+      "Wait, then read the table or plot underneath it. Editing an input alone does not update output."
     ],
-    "note": "Point to the three parts: editable input, run control and returned output. The illustrated input lines are the first two lines of the actual L2 cell, not a complete standalone program. The full cell calls the voltage helper and draws two plots. The runtime remembers variables from earlier cells, which is why we run the lesson in order. If NameError reports a missing variable, return to setup/L0 and rerun the required earlier cells. Do not treat a previously displayed output as the result of a number just edited until you rerun its cell.",
+    "note": "Point to the three parts: editable input, run control and returned output. The illustrated input lines are the first two lines of the actual L2 cell, not a complete standalone program. The full cell calls the voltage helper and draws two plots. The runtime remembers variables from earlier cells, which is why we run the lesson in order. If NameError reports a missing variable, return to setup/L0 and rerun the required earlier cells. Do not treat a previously displayed output as the result of a number just edited until you rerun its cell. Use the L labels instead of numerical cell indexes. Later cells need earlier variables.",
     "refs": [
       "COL01",
       "H02"
     ],
     "caption": "Teaching illustration, not a Colab screenshot. Input lines match L2; run the full L2 cell.",
     "source_label": "Google Colab FAQ; Classroom Labs L2, cell classroom-007.",
-    "minutes": 1.5,
+    "minutes": 2,
     "visual_height_px": 330,
     "visual_height_cm": 3.5
   },
@@ -339,26 +315,6 @@
     }
   },
   {
-    "title": "New results, saved controller, old replies",
-    "kind": "diagram",
-    "points": [
-      "FRESH means calculated now. SAVED POLICY uses old weights to make a new control proposal.",
-      "ARCHIVED ACTUAL LLM means an old model reply, shown with its original input and timing."
-    ],
-    "refs": [
-      "H01"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.",
-    "minutes": 1.5,
-    "note": "A script follows rules written in code. An LLM agent can choose the next allowed tool from a task and the returned results. The diagram shows proposed responsibilities, not a live agent run in this notebook. Ordinary Python functions do the engineering calculations here; the notebook does not run through LangGraph. A saved policy uses learned weights to calculate a new proposal without retraining. Displaying an old language-model reply does not make a new model call. A language model does not replace the power-flow calculation, load-selection solver or state estimator.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "diagram": "common_operator_loop",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Proposed roles in an advisory workflow; the default notebook uses Python and saved records."
-  },
-  {
     "title": "Run L1: does the evidence still match?",
     "kind": "figure",
     "points": [
@@ -381,37 +337,17 @@
     "caption": "Reference L1 output: only the unchanged request and command match the evidence."
   },
   {
-    "title": "Use the same experiment cycle",
-    "kind": "diagram",
-    "points": [
-      "Predict, run the default, read the result, change one input and rerun.",
-      "Name the next allowed step and the evidence for it."
-    ],
-    "refs": [
-      "H01"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.",
-    "minutes": 1,
-    "note": "Pause before showing each output. Ask pairs to write one sentence predicting the change, then compare it with the calculated result. Keep the input values and evidence together. Change only one parameter in the first experiment.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "diagram": "common_evidence_binding",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Keep the request, proposed command and checked result together."
-  },
-  {
     "title": "Work in pairs and explain one result",
     "kind": "diagram",
     "points": [
-      "One person runs the cell while the other checks the result. Swap roles in the next case.",
-      "Save enough information for another pair to repeat your experiment."
+      "Predict, run, read, change one input and rerun. Explain which check supports the next step.",
+      "One person runs and one checks. Swap roles, then save the inputs and outputs."
     ],
     "refs": [
       "H00"
     ],
     "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
-    "minutes": 1,
+    "minutes": 2,
     "note": "Participants can add a text cell below an output or use paper notes; no extra software is needed. Each pair should finish with one changed-input experiment that another person can repeat. Explain the result and one limit on the claim. The three cases use different networks and do not form a single utility deployment study. Model scope means which parts of the network, quantities and physical effects the calculation covers.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,

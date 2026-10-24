@@ -138,39 +138,20 @@
     ]
   },
   {
-    "title": "Debrief: both proposals still pass",
-    "kind": "normal",
-    "points": [
-      "At 0.75, both pass: MPC uses about 78.53% of the allowance; SAC uses about 54.85%.",
-      "The tighter allowance raises current use as a percentage, but does not cause failure here."
-    ],
-    "refs": [
-      "H02"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.",
-    "minutes": 2,
-    "note": "An incorrect prediction is useful evidence, not a failed exercise. Compare the hypothesis with the actual output. Both candidates retain enough headroom in this case. An optimizer may change its command when a constraint changes, so a simple fixed-ratio argument does not apply to every scenario. The model scope has not expanded.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L2",
-    "eyebrow": "Classroom Labs · L2 · classroom-007",
-    "callout": "Both candidates still pass"
-  },
-  {
     "title": "Change one number and explain the difference",
     "kind": "diagram",
     "diagram": "lab_try_observe",
     "points": [
-      "A smaller current allowance makes the same current a larger percentage of that allowance.",
-      "Record the new percentage and check whether it still stays below 100%."
+      "A tighter allowance makes the same current a larger percentage of that allowance.",
+      "At 0.75, MPC uses 78.53% and SAC 54.85%. Both pass this particular test."
     ],
-    "note": "Use this visual immediately after the first exercise debrief. It shows the measured reference MPC outputs, rounded to two decimal places, for RATING_FRACTION 0.80 and 0.75. The SAC result is also computed in the notebook but is not drawn here. Both proposals pass this particular tighter test. The result is not a general guarantee for other loads or limits. Ask pairs to explain the denominator in the percentage. Restore the default before moving to L3’s independent archived case.",
+    "note": "Use this visual immediately after the first exercise debrief. It shows the measured reference MPC outputs, rounded to two decimal places, for RATING_FRACTION 0.80 and 0.75. The SAC result is also computed in the notebook but is not drawn here. Both proposals pass this particular tighter test. The result is not a general guarantee for other loads or limits. Ask pairs to explain the denominator in the percentage. Restore the default before moving to L3’s independent archived case. This combines the original numerical debrief with the visual explanation. Compare both methods before restoring RATING_FRACTION=0.80.",
     "refs": [
       "H02"
     ],
     "caption": "Reference L2 exercise: MPC uses 73.62% of the default allowance and 78.53% after the change.",
     "source_label": "Classroom Labs L2, cell classroom-007; verified default and exercise outputs.",
-    "minutes": 1.5,
+    "minutes": 3.5,
     "visual_height_px": 330,
     "visual_height_cm": 3.5,
     "lab_label": "L2",
@@ -338,50 +319,6 @@
     "visual_height_px": 345,
     "visual_height_cm": 2.95,
     "caption": "Reference L5 output: a medium-voltage check with OpenDSS disabled."
-  },
-  {
-    "title": "Preview the L12 handover",
-    "kind": "diagram",
-    "points": [
-      "L12 uses selected_trials from L4, not the new L2 comparison.",
-      "Finish L6–L11 first. Run L12 at the end, in notebook order."
-    ],
-    "refs": [
-      "H12"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only.",
-    "minutes": 2,
-    "note": "Preview the purpose of the final handoff without asking participants to jump ahead. L12 will use selected_trials from L4, not the fresh L2 comparison. It contrasts a full MV/LV request with an explicit MV-only teaching request. Continue to L6 after the voltage checkpoint, finish L6–L11, and run L12 once in the closing section. The readback is a simulated teaching event with no equipment dispatch.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L12",
-    "eyebrow": "Preview · L12 after all three cases",
-    "diagram": "voltage_operator_packet",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Preview only: L12 checks model coverage before a simulated readback."
-  },
-  {
-    "title": "Preview the two handover outcomes",
-    "kind": "figure",
-    "points": [
-      "Full MV/LV request: HOLD. An explicit MV teaching request can pass a simulated readback.",
-      "A wrong recommendation ID is rejected. equipment_dispatch stays False."
-    ],
-    "refs": [
-      "H12"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only.",
-    "minutes": 2,
-    "note": "This screenshot previews the executed default L12 result; students have not run L12 yet. At the final step they will check the returned state and acknowledgment fields. The full-coverage request remains HOLD; the explicit MV teaching scope allows a simulated readback. The simulation does not complete human approval of an archived study and does not dispatch equipment.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L12",
-    "eyebrow": "Preview · L12 · run at the end",
-    "image_source_path": "images/hands_on_L12_packet.png",
-    "visual_height_px": 345,
-    "visual_height_cm": 3.65,
-    "caption": "Reference L12 output; run this cell at the end of the workshop."
   },
   {
     "title": "Voltage checkpoint: say what ran",

@@ -222,6 +222,8 @@ def prepare_slides():
                         asset_type='Browser-rendered selection of verified recorded fields',
                         transformation=s['image_transformation'],
                         provenance_note='Raw JSON, parsed response and historical trace cross-checked by src/llama_walkthrough.py. Selected fields are not a screenshot of a deployed product. capture_manifest.json records source and image SHA-256 values.')
+                if s.get('image_credit'):
+                    images[name].update(credit=s['image_credit'],asset_type=s.get('image_asset_type','Attributed external figure'),provenance_note='Cropped from the supplied Stanford lecture PDF. Original author and page retained in the caption and full source guide.')
                 s['image']=name
                 if s['kind']!='exercise':s['kind']='figure'
             if s.get('diagram'):
@@ -241,7 +243,7 @@ def prepare_slides():
     dump(ROOT/'images/image_manifest.json',{'images':list(images.values())})
     dump(ROOT/'research/code_manifest.json',code_records)
     slides=r.normalized_slides(SimpleNamespace(SLIDES=slides))
-    assert len(slides)==86,len(slides)
+    assert len(slides)==80,len(slides)
     assert sum(s['minutes'] for s in slides)==180
     assert sum(s['kind']=='exercise' for s in slides)==3
     return slides

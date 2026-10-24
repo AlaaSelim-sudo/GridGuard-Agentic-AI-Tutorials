@@ -1,0 +1,11 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9.5}{12}\selectfont,
+every node/.style={text=Navy,align=center}]
+\path[use as bounding box] (0,0) rectangle (14.5,4.1);
+\foreach \x/\n/\head/\question in {1.8/1/Evidence/Which tool result supports the claim?,5.4/2/Assumptions/Which inputs and model were used?,9.0/3/Rules/Were the same limits and priorities kept?,12.6/4/Next step/What does the operator still need to review?}{
+ \node[circle,draw=IEEEBlue,line width=1pt,minimum size=.7cm] at (\x,2.8) {\n};
+ \node[text=IEEEBlue,font=\sffamily\bfseries] at (\x,2.05) {\head};
+ \node[text width=3.1cm] at (\x,1.15) {\question};
+}
+\end{tikzpicture}
+\endgroup

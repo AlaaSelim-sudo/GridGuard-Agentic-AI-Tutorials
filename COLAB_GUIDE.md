@@ -1,6 +1,6 @@
 # Run GridGuard in Google Colab
 
-Start with **Classroom Labs** to run all three cases in one notebook. The accompanying operator workshop has **86 slides, 180 minutes and three short exercises**. It introduces the terms in plain language, then connects each request to its calculation, checks and next decision. The two companion notebooks explain graph execution and recorded model evidence.
+Start with **Classroom Labs** to run all three cases in one notebook. The accompanying operator workshop has **80 slides, 180 minutes and three short exercises**. It introduces the terms in plain language, then connects each request to its calculation, checks and next decision. The two companion notebooks explain graph execution and recorded model evidence.
 
 ## 1. Open a notebook
 
