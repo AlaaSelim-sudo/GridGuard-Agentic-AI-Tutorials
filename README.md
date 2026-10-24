@@ -19,7 +19,7 @@ The browser presentations need no Python installation, model account or live lan
 
 **Only Classroom Labs is required for the hands-on slides.** The two other Colabs are companion resources.
 
-Start with the [six-page Participant Lab Guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf), which explains Colab and gives the three exercise steps. The workshop also adapts teaching ideas from [Monica Lam’s Stanford CS224V introduction](https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf), with full source credits.
+Start with the [six-page Participant Lab Guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf), which explains Colab and gives the three exercise steps. The workshop uses original figures from **Monica Lam, _CS224V Agentic AI, Lecture 1: Introduction_, Stanford University, Fall 2026**, with page links and clearly labeled grid adaptations. [Read the lecture](https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf) or [follow the Stanford source map and full paper references](agentic_operator_cases_tutorial/README.md#stanford-teaching-materials).
 
 **[Classroom Labs](agentic_grid_workflow_tutorial/Classroom_Labs.ipynb)** — voltage L2–L5, restoration L6–L7 and cyber response L8–L9. Change a parameter and compare your prediction with the new result. L10B replays real saved Llama choices, exact public reasons and returned tool evidence for three separate recorded cases.
 

@@ -6,7 +6,7 @@
 
 00:00–00:30 / 0.5 minutes.
 
-Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence. The deck uses the IEEE ComSoc theme. The classroom cycle is run, change, check and explain. This expanded edition includes a new L10B replay and a proposed control-room advisory pilot. The scheduled teaching time is 180 minutes; allow breaks outside that total. The presenter affiliations are supplied by the presenters. The new Stanford teaching bridge is an adaptation of general reliability ideas, not a claim that the lab implements those Stanford frameworks. Use the six-page Participant Lab Guide for the exact activity steps. The first five slides take five minutes and make the agentic loop explicit before setup. The opening as a whole takes 12 minutes. Case-level replay slides preview saved examples; learners run L10B later in the guided notebook order.
+Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence. The deck uses the IEEE ComSoc theme. The classroom cycle is run, change, check and explain. This expanded edition includes a new L10B replay and a proposed control-room advisory pilot. The scheduled teaching time is 180 minutes; allow breaks outside that total. The presenter affiliations are supplied by the presenters. The new Stanford teaching bridge is an adaptation of general reliability ideas, not a claim that the lab implements those Stanford frameworks. Use the six-page Participant Lab Guide for the exact activity steps. The first five slides take five minutes and make the agentic loop explicit before setup. The opening as a whole takes 12 minutes. Case-level replay slides preview saved examples; learners run L10B later in the guided notebook order. Original Stanford lecture figures appear on slides 3, 64, 70 and 71. Adapted grid teaching diagrams cite the relevant lecture page. Full author, title, institution, date, page and reading link appear with the source material.
 
 Full sources:
 
@@ -20,9 +20,13 @@ Full source: https://www.comsoc.org/about/brand-experience/resources
 
 00:30–01:30 / 1 minutes.
 
-Use the architectural definition in Anthropic, Building effective agents: an agent lets the LLM direct its process and tool use. Agentic AI is a broad term; here it means a system organized around this bounded loop. An AI agent is the component that chooses and follows steps. A tool is a permitted software function that returns a result. Point to the goal, model choice, executable tool, returned evidence and feedback arrow. The application stores case facts and prior results as the context supplied at the next model request. If a required check is missing, the outcome remains HOLD. Stop or return a proposal only under the fixed workflow rules. Do not imply that feedback alone establishes agency: conventional programs can also branch and loop. Our default notebook calculates engineering results now but replays the actual old Llama choices. No live model service is needed.
+Use the architectural definition in Anthropic, Building effective agents: an agent lets the LLM direct its process and tool use. Agentic AI is a broad term; here it means a system organized around this bounded loop. An AI agent is the component that chooses and follows steps. A tool is a permitted software function that returns a result. Point to the goal, model choice, executable tool, returned evidence and feedback arrow. The application stores case facts and prior results as the context supplied at the next model request. If a required check is missing, the outcome remains HOLD. Stop or return a proposal only under the fixed workflow rules. Do not imply that feedback alone establishes agency: conventional programs can also branch and loop. Our default notebook calculates engineering results now but replays the actual old Llama choices. No live model service is needed. Stanford source: Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Fall 2026, p.2 describes function calling and agentic workflows. The goal-and-feedback drawing is our grid teaching adaptation, supported by the separate bounded-agent architecture citation. This is not an original Stanford power-system diagram.
 
 Full sources:
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf
+Publication: https://web.stanford.edu/class/cs224v/
 
 Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
 Full source: https://www.anthropic.com/research/building-effective-agents
@@ -30,13 +34,17 @@ Full source: https://www.anthropic.com/research/building-effective-agents
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 3. From a text answer to a tool loop
+## 3. Stanford: tool calls become a workflow
 
 01:30–02:30 / 1 minutes.
 
-Trace the first row once, then follow the lower feedback arrow. In the text-only interaction the immediate product is a reply. In the illustrated agentic interaction the model can request a calculation, read its returned facts and select another allowed action. A chatbot may itself contain such an agent; the interface name does not determine the architecture. A fixed program can branch, retry and optimize too. The narrow feature in the recorded examples is that Llama selects among an explicitly permitted set of next actions. The wrappers validate its JSON and then call functions; they do not execute arbitrary generated code. This is bounded model choice, not unrestricted control or a claim of superior numerical results.
+Show the two original capability panels from Monica Lam’s Stanford CS224V introduction, p.2. The left panel introduces model-selected function calling. The right panel describes multi-step planning, tool use and self-correction. Our plain-language sentence connects the panels to the preceding bounded-loop teaching drawing. The next slide supplies a real recorded grid example. In that example Llama requests a named action and Python validates the JSON choice before calling an existing function; it does not use a native tool_calls protocol. Conventional software can also loop, and a chatbot may itself contain an agent. Here we identify the agentic feature by the model’s permitted next-step choice based on returned evidence. The class replays those old model choices while numerical cells calculate current results. Source lecture figure is shown unchanged within the documented crop.
 
 Full sources:
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf
+Publication: https://web.stanford.edu/class/cs224v/
 
 Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
 Full source: https://www.anthropic.com/research/building-effective-agents
@@ -62,9 +70,13 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 
 04:00–05:00 / 1 minutes.
 
-Use the three symbols to assign responsibilities: the speech box is Llama making a permitted choice and returning a public reason; the function is Python and OpenDSS calculating physical results and enforcing workflow limits; the person is the operator reviewing evidence and retaining operating authority. The Llama wrappers use constrained JSON interpreted by the application, rather than native tool_calls. Language explanations are not proof of physical correctness. In our replay the model may say REVIEW but the human acknowledgment is still PENDING. For each exercise work in pairs: one person runs while the other checks, then swap. Save the input, result, check and next decision.
+Use the three symbols to assign responsibilities: the speech box is Llama making a permitted choice and returning a public reason; the function is Python and OpenDSS calculating physical results and enforcing workflow limits; the person is the operator reviewing evidence and retaining operating authority. The Llama wrappers use constrained JSON interpreted by the application, rather than native tool_calls. Language explanations are not proof of physical correctness. In our replay the model may say REVIEW but the human acknowledgment is still PENDING. For each exercise work in pairs: one person runs while the other checks, then swap. Save the input, result, check and next decision. Stanford p.53 separates language understanding from checking a formal decision model in a clinical-trial example. The lab adaptation separates Llama coordination from Python numerical checks and operator review. This lab does not run SMT or MaxSAT, and the analogy supplies no formal guarantee about the grid model.
 
 Full sources:
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf
+Publication: https://web.stanford.edu/class/cs224v/
 
 Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
 Full source: https://www.anthropic.com/research/building-effective-agents
@@ -882,13 +894,17 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 64. Proposed agent role: request and explain
+## 64. Stanford: language and decision checks
 
 126:00–128:00 / 2 minutes.
 
-The default classroom calls are ordinary deterministic Python functions, so this cell makes no new language-model decision. The slide states a proposed agent responsibility: request the allowed estimator and control tool, then explain the exact conditions returned. The operator must establish the basis for trusting the replacement readings and review the limited proposal through the authorized process. The old model explanations in L10 come from a separate historical study and are not replies to this participant’s changed inputs.
+This original diagram selection comes from the function row on p.53 of Monica Lam’s introduction. It shows a clinical-trial example, not a power-system experiment. The language model translates written facts into an SMT representation; a separate solver derives a decision from those constraints. SMT means satisfiability modulo theories, a way to express and solve logical constraints. MaxSAT supports the lecture’s search for conditions that change a decision. The lecture also states that the formalization may not be completely faithful, so correctness remains relative to the represented constraints. Our application is an analogy: Llama requests the permitted estimate or control tool and Python checks numerical limits. An operator must still confirm the trust assumption and review the proposed action. Our notebook does not run an SMT/MaxSAT solver or prove formal electrical safety. Keep the previously calculated HOLD/PROPOSE outcomes tied to their stated numerical model and trusted-data assumption.
 
 Full sources:
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf
+Publication: https://web.stanford.edu/class/cs224v/
 
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
@@ -971,7 +987,7 @@ display(HTML(render_episode_html(replay_episodes[SCENARIO])))
 
 141:30–144:30 / 3 minutes.
 
-Stanford connection: Lam’s CS224V introduction, pp.19–20, uses WikiChat to illustrate splitting a response into retrieval, claim checking and writing. Our diagram is an original power-system teaching adaptation. Follow the voltage path: read the current allowance, choose a permitted candidate, calculate its result, check limits and explain the outcome. This is an analogy across domains, not evidence that WikiChat is a power-system controller. Ask pairs to name which step would detect a current violation. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.
+The displayed figure is an original excerpt from Monica Lam’s Stanford CS224V introduction, p.19. Follow its retrieval, claim checking and writing steps. The WikiChat paper is fully cited in the reading guide. Our application to grid studies is a teaching analogy: read the stated limits, run the appropriate numerical check and summarize the actual returned result. Ask which lab step would detect a current violation. The classroom notebook does not run WikiChat; its dialogue factuality measurements are not electrical performance results.
 
 Full sources:
 

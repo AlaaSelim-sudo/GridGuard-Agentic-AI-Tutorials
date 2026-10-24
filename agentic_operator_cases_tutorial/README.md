@@ -6,7 +6,7 @@
 
 **Presenters:** Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.
 
-[Participant Lab Guide · PDF](Participant_Lab_Guide.pdf) · [web version](Participant_Lab_Guide.html). This short guide explains Colab, the three exercises and the Llama replay. New teaching diagrams adapt ideas from Monica Lam’s Stanford CS224V introduction, with full attribution.
+[Participant Lab Guide · PDF](Participant_Lab_Guide.pdf) · [web version](Participant_Lab_Guide.html). This short guide explains Colab, the three exercises and the Llama replay. The opening now includes original Stanford material on function calling and agentic workflows. Four lecture excerpts and the grid teaching adaptations have full source credits and page links.
 
 ## Before starting
 
@@ -37,6 +37,22 @@ L10B displays saved `llama3.1:8b` replies, exact public reasons and saved numeri
 Fresh numerical checks, saved-controller proposals, archived actual model replies and simulated acknowledgments are separately labeled. The engineering supervisor is custom Python; the separate graph notebook demonstrates LangGraph. The default CPU route needs no GPU, API key or language-model download. No exercise operates equipment. The closing advisory pilot is proposed teaching practice, not an existing utility deployment.
 
 Voltage uses one synthetic SMART-DS feeder and the default MV model. Restoration uses a six-node active-power graph. Cyber uses a four-bus DC fixture with assumed trusted channels. A failed binding means the old evidence is stale; it does not prove the changed case infeasible.
+
+## Stanford teaching materials
+
+The figures come from **Monica Lam. _CS224V Agentic AI, Lecture 1: Introduction._ Stanford University, Fall 2026.** [Read the complete lecture](https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf).
+
+- **Slide 3 / lecture p.2:** the original function-calling and agentic-workflow panels introduce the model’s tool choice.
+- **Slide 64 / lecture p.53:** the original clinical-trial diagram separates language from decision checks. Our grid application is a teaching analogy using numerical checks.
+- **Slide 70 / lecture p.19:** WikiChat separates retrieval, claim checking and writing.
+- **Slide 71 / lecture p.40:** Genie Worksheets motivates explicit task rules. Slide 72 adapts the accountability questions on pp.52–53.
+
+Read the underlying papers:
+
+- Sina Semnani, Violet Yao, Heidi Zhang and Monica Lam. **WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot Grounding on Wikipedia.** _Findings of EMNLP 2023_, pp.2387–2413, December 2023. [Paper and full citation](https://aclanthology.org/2023.findings-emnlp.157/) · [PDF](https://aclanthology.org/2023.findings-emnlp.157.pdf).
+- Harshit Joshi, Shicheng Liu, James Chen, Larsen Weigle and Monica Lam. **Controllable and Reliable Knowledge-Intensive Task-Oriented Conversational Agents with Declarative Genie Worksheets.** _Proceedings of ACL 2025, Volume 1: Long Papers_, pp.27264–27308, July 2025. [Paper and full citation](https://aclanthology.org/2025.acl-long.1323/) · [PDF](https://aclanthology.org/2025.acl-long.1323.pdf).
+
+The notebook runs our Python tools. It does not run WikiChat, Genie Worksheets or a theorem prover. Their source examples explain design ideas; they are not grid performance or deployment results.
 
 ## Teaching and sources
 

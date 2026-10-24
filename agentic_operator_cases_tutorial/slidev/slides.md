@@ -27,7 +27,7 @@ download: false
 <span class="pageno">1 / 80</span></div>
 
 <!--
-Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence. The deck uses the IEEE ComSoc theme. The classroom cycle is run, change, check and explain. This expanded edition includes a new L10B replay and a proposed control-room advisory pilot. The scheduled teaching time is 180 minutes; allow breaks outside that total. The presenter affiliations are supplied by the presenters. The new Stanford teaching bridge is an adaptation of general reliability ideas, not a claim that the lab implements those Stanford frameworks. Use the six-page Participant Lab Guide for the exact activity steps. The first five slides take five minutes and make the agentic loop explicit before setup. The opening as a whole takes 12 minutes. Case-level replay slides preview saved examples; learners run L10B later in the guided notebook order.
+Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence. The deck uses the IEEE ComSoc theme. The classroom cycle is run, change, check and explain. This expanded edition includes a new L10B replay and a proposed control-room advisory pilot. The scheduled teaching time is 180 minutes; allow breaks outside that total. The presenter affiliations are supplied by the presenters. The new Stanford teaching bridge is an adaptation of general reliability ideas, not a claim that the lab implements those Stanford frameworks. Use the six-page Participant Lab Guide for the exact activity steps. The first five slides take five minutes and make the agentic loop explicit before setup. The opening as a whole takes 12 minutes. Case-level replay slides preview saved examples; learners run L10B later in the guided notebook order. Original Stanford lecture figures appear on slides 3, 64, 70 and 71. Adapted grid teaching diagrams cite the relevant lecture page. Full author, title, institution, date, page and reading link appear with the source material.
 Takeaway: 
 Nominal duration: 0.5 minutes.
 
@@ -46,16 +46,20 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <h1>What is agentic AI?</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_goal_loop.svg" alt="A bounded agentic loop. In this workshop, Llama choices are recorded; Python calculations can run now." style="height:350px;max-height:350px"><figcaption>A bounded agentic loop. In this workshop, Llama choices are recorded; Python calculations can run now.</figcaption></figure><ul><li>An LLM agent works toward a goal by choosing tools, reading their results and choosing what to do next.</li></ul></div>
-<div class="sources">Source: <a href="https://www.anthropic.com/research/building-effective-agents">Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.</a></div>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_goal_loop.svg" alt="Grid teaching adaptation of the Stanford lecture, p.2. Model choices are recorded; calculations can run now." style="height:350px;max-height:350px"><figcaption>Grid teaching adaptation of the Stanford lecture, p.2. Model choices are recorded; calculations can run now.</figcaption></figure><ul><li>An LLM agent works toward a goal by choosing tools, reading their results and choosing what to do next.</li></ul></div>
+<div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.2.</a></div>
 <span class="pageno">2 / 80</span></div>
 
 <!--
-Use the architectural definition in Anthropic, Building effective agents: an agent lets the LLM direct its process and tool use. Agentic AI is a broad term; here it means a system organized around this bounded loop. An AI agent is the component that chooses and follows steps. A tool is a permitted software function that returns a result. Point to the goal, model choice, executable tool, returned evidence and feedback arrow. The application stores case facts and prior results as the context supplied at the next model request. If a required check is missing, the outcome remains HOLD. Stop or return a proposal only under the fixed workflow rules. Do not imply that feedback alone establishes agency: conventional programs can also branch and loop. Our default notebook calculates engineering results now but replays the actual old Llama choices. No live model service is needed.
+Use the architectural definition in Anthropic, Building effective agents: an agent lets the LLM direct its process and tool use. Agentic AI is a broad term; here it means a system organized around this bounded loop. An AI agent is the component that chooses and follows steps. A tool is a permitted software function that returns a result. Point to the goal, model choice, executable tool, returned evidence and feedback arrow. The application stores case facts and prior results as the context supplied at the next model request. If a required check is missing, the outcome remains HOLD. Stop or return a proposal only under the fixed workflow rules. Do not imply that feedback alone establishes agency: conventional programs can also branch and loop. Our default notebook calculates engineering results now but replays the actual old Llama choices. No live model service is needed. Stanford source: Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Fall 2026, p.2 describes function calling and agentic workflows. The goal-and-feedback drawing is our grid teaching adaptation, supported by the separate bounded-agent architecture citation. This is not an original Stanford power-system diagram.
 Takeaway: 
 Nominal duration: 1 minutes.
 
 Full sources:
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
 Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
 Full source: https://www.anthropic.com/research/building-effective-agents
 
@@ -67,19 +71,23 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 transition: none
 ---
 
-<div class="lesson teaching rigorous diagram-slide has-diagram">
+<div class="lesson teaching rigorous figure-slide">
 
-<h1>From a text answer to a tool loop</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_text_tool.svg" alt="Two interaction patterns. Tools and feedback can also be used in ordinary software." style="height:350px;max-height:350px"><figcaption>Two interaction patterns. Tools and feedback can also be used in ordinary software.</figcaption></figure><ul><li>The key change: the model chooses a permitted next step using the result returned by a tool.</li></ul></div>
-<div class="sources">Source: <a href="https://www.anthropic.com/research/building-effective-agents">Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.</a></div>
+<h1>Stanford: tool calls become a workflow</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_agentic_capabilities.png" alt="Original Stanford lecture excerpt, p.2. The next slide connects these ideas to the recorded grid study." style="max-height:330px;height:auto"><figcaption>Original Stanford lecture excerpt, p.2. The next slide connects these ideas to the recorded grid study.</figcaption></figure></div><p class="activity-link"><a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=2">Read the Stanford lecture, p.2</a></p><ul><li>A tool call runs one step. An agentic workflow links steps and uses their results to continue or stop.</li></ul></div>
+<div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.2.</a></div>
 <span class="pageno">3 / 80</span></div>
 
 <!--
-Trace the first row once, then follow the lower feedback arrow. In the text-only interaction the immediate product is a reply. In the illustrated agentic interaction the model can request a calculation, read its returned facts and select another allowed action. A chatbot may itself contain such an agent; the interface name does not determine the architecture. A fixed program can branch, retry and optimize too. The narrow feature in the recorded examples is that Llama selects among an explicitly permitted set of next actions. The wrappers validate its JSON and then call functions; they do not execute arbitrary generated code. This is bounded model choice, not unrestricted control or a claim of superior numerical results.
+Show the two original capability panels from Monica Lam’s Stanford CS224V introduction, p.2. The left panel introduces model-selected function calling. The right panel describes multi-step planning, tool use and self-correction. Our plain-language sentence connects the panels to the preceding bounded-loop teaching drawing. The next slide supplies a real recorded grid example. In that example Llama requests a named action and Python validates the JSON choice before calling an existing function; it does not use a native tool_calls protocol. Conventional software can also loop, and a chatbot may itself contain an agent. Here we identify the agentic feature by the model’s permitted next-step choice based on returned evidence. The class replays those old model choices while numerical cells calculate current results. Source lecture figure is shown unchanged within the documented crop.
 Takeaway: 
 Nominal duration: 1 minutes.
 
 Full sources:
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
 Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
 Full source: https://www.anthropic.com/research/building-effective-agents
 
@@ -118,16 +126,20 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <h1>Llama chooses; tools calculate; people decide</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_roles_simple.svg" alt="Default class route: new numerical results plus saved Llama replies. No equipment commands." style="height:350px;max-height:350px"><figcaption>Default class route: new numerical results plus saved Llama replies. No equipment commands.</figcaption></figure><ul><li>The agent coordinates a study. Numerical tools supply the checks. The operator reviews the proposal.</li></ul></div>
-<div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.</a></div>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_roles_simple.svg" alt="Our grid teaching adaptation of the language/checking distinction in Stanford Lecture 1, p.53." style="height:350px;max-height:350px"><figcaption>Our grid teaching adaptation of the language/checking distinction in Stanford Lecture 1, p.53.</figcaption></figure><ul><li>The agent coordinates a study. Numerical tools supply the checks. The operator reviews the proposal.</li></ul></div>
+<div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.</a></div>
 <span class="pageno">5 / 80</span></div>
 
 <!--
-Use the three symbols to assign responsibilities: the speech box is Llama making a permitted choice and returning a public reason; the function is Python and OpenDSS calculating physical results and enforcing workflow limits; the person is the operator reviewing evidence and retaining operating authority. The Llama wrappers use constrained JSON interpreted by the application, rather than native tool_calls. Language explanations are not proof of physical correctness. In our replay the model may say REVIEW but the human acknowledgment is still PENDING. For each exercise work in pairs: one person runs while the other checks, then swap. Save the input, result, check and next decision.
+Use the three symbols to assign responsibilities: the speech box is Llama making a permitted choice and returning a public reason; the function is Python and OpenDSS calculating physical results and enforcing workflow limits; the person is the operator reviewing evidence and retaining operating authority. The Llama wrappers use constrained JSON interpreted by the application, rather than native tool_calls. Language explanations are not proof of physical correctness. In our replay the model may say REVIEW but the human acknowledgment is still PENDING. For each exercise work in pairs: one person runs while the other checks, then swap. Save the input, result, check and next decision. Stanford p.53 separates language understanding from checking a formal decision model in a clinical-trial example. The lab adaptation separates Llama coordination from Python numerical checks and operator review. This lab does not run SMT or MaxSAT, and the analogy supplies no formal guarantee about the grid model.
 Takeaway: 
 Nominal duration: 1 minutes.
 
 Full sources:
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
 Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
 Full source: https://www.anthropic.com/research/building-effective-agents
 
@@ -438,7 +450,7 @@ transition: none
 
 <h1>A rule and a tool result answer different questions</h1>
 <div class="content"><figure class="native-diagram"><img src="/diagrams/lab_claim_evidence.svg" alt="Teaching analogy. The number shown comes from the recorded P3 replay, which is separate from L2." style="height:330px;max-height:330px"><figcaption>Teaching analogy. The number shown comes from the recorded P3 replay, which is separate from L2.</figcaption></figure><ul><li>A document can tell us the limit. A numerical tool tells us how the proposal compares with it.</li><li>Keep the source, the measured or calculated value, and the remaining checks together.</li></ul></div>
-<div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam, CS224V Lecture 1, pp.17–25; recorded P3 current check.</a></div>
+<div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, pp.17–25; recorded P3 current check.</a></div>
 <span class="pageno">18 / 80</span></div>
 
 <!--
@@ -1513,20 +1525,24 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 transition: none
 ---
 
-<div class="lesson teaching rigorous normal-slide">
+<div class="lesson teaching rigorous figure-slide">
 
-<div class="eyebrow">Classroom Labs · L9 · classroom-026</div>
-<h1>Proposed agent role: request and explain</h1>
-<div class="content"><ul><li>This cell runs Python. A proposed agent would request the approved estimate and control check.</li><li>The operator must confirm the trust basis and review the returned proposal.</li></ul></div>
-<div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</a></div>
+<div class="eyebrow">Stanford source example / grid teaching analogy</div>
+<h1>Stanford: language and decision checks</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_language_decision.png" alt="Clinical-trial research example. SMT represents logical constraints; MaxSAT helps find decision-changing conditions." style="max-height:190px;height:auto"><figcaption>Clinical-trial research example. SMT represents logical constraints; MaxSAT helps find decision-changing conditions.</figcaption></figure></div><p class="activity-link"><a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=53">Read the Stanford lecture, p.53</a></p><ul><li>The lecture turns written facts into constraints, then uses a solver to check a decision.</li><li>Our grid adaptation: Llama requests a study, Python checks its results, and the operator reviews the proposal.</li></ul></div>
+<div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.</a></div>
 <span class="pageno">64 / 80</span></div>
 
 <!--
-The default classroom calls are ordinary deterministic Python functions, so this cell makes no new language-model decision. The slide states a proposed agent responsibility: request the allowed estimator and control tool, then explain the exact conditions returned. The operator must establish the basis for trusting the replacement readings and review the limited proposal through the authorized process. The old model explanations in L10 come from a separate historical study and are not replies to this participant’s changed inputs.
+This original diagram selection comes from the function row on p.53 of Monica Lam’s introduction. It shows a clinical-trial example, not a power-system experiment. The language model translates written facts into an SMT representation; a separate solver derives a decision from those constraints. SMT means satisfiability modulo theories, a way to express and solve logical constraints. MaxSAT supports the lecture’s search for conditions that change a decision. The lecture also states that the formalization may not be completely faithful, so correctness remains relative to the represented constraints. Our application is an analogy: Llama requests the permitted estimate or control tool and Python checks numerical limits. An operator must still confirm the trust assumption and review the proposed action. Our notebook does not run an SMT/MaxSAT solver or prove formal electrical safety. Keep the previously calculated HOLD/PROPOSE outcomes tied to their stated numerical model and trusted-data assumption.
 Takeaway: 
 Nominal duration: 2 minutes.
 
 Full sources:
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 -->
@@ -1661,12 +1677,12 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <h1>Stanford example: check before you write</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_wikichat_steps.png" alt="Monica Lam, Stanford CS224V, Lecture 1, Fall 2026, p.19. Original excerpt; full reference in the guide." style="max-height:350px;height:auto"><figcaption>Monica Lam, Stanford CS224V, Lecture 1, Fall 2026, p.19. Original excerpt; full reference in the guide.</figcaption></figure></div><ul><li>WikiChat checks claims against retrieved text before drafting its reply.</li><li>Our grid version: run the numerical check before writing the study summary.</li></ul></div>
+<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_wikichat_steps.png" alt="Original Stanford lecture excerpt, p.19. WikiChat checks claims before drafting a reply." style="max-height:350px;height:auto"><figcaption>Original Stanford lecture excerpt, p.19. WikiChat checks claims before drafting a reply.</figcaption></figure></div><p class="activity-link"><a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=19">Read the Stanford lecture, p.19</a></p><ul><li>Grid lab takeaway: check the numerical result before writing the study summary.</li></ul></div>
 <div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19.</a></div>
 <span class="pageno">70 / 80</span></div>
 
 <!--
-Stanford connection: Lam’s CS224V introduction, pp.19–20, uses WikiChat to illustrate splitting a response into retrieval, claim checking and writing. Our diagram is an original power-system teaching adaptation. Follow the voltage path: read the current allowance, choose a permitted candidate, calculate its result, check limits and explain the outcome. This is an analogy across domains, not evidence that WikiChat is a power-system controller. Ask pairs to name which step would detect a current violation. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.
+The displayed figure is an original excerpt from Monica Lam’s Stanford CS224V introduction, p.19. Follow its retrieval, claim checking and writing steps. The WikiChat paper is fully cited in the reading guide. Our application to grid studies is a teaching analogy: read the stated limits, run the appropriate numerical check and summarize the actual returned result. Ask which lab step would detect a current violation. The classroom notebook does not run WikiChat; its dialogue factuality measurements are not electrical performance results.
 Takeaway: 
 Nominal duration: 3 minutes.
 
@@ -1690,7 +1706,7 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <h1>Stanford example: tools need clear rules</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_genie_specification.png" alt="Monica Lam, Stanford CS224V, Lecture 1, Fall 2026, p.40. Original excerpt; full reference in the guide." style="max-height:315px;height:auto"><figcaption>Monica Lam, Stanford CS224V, Lecture 1, Fall 2026, p.40. Original excerpt; full reference in the guide.</figcaption></figure></div><ul><li>Write down the required inputs, permitted tools, limits and stop rules.</li><li>Our lab keeps those rules in Python. A language reply cannot change the limits.</li></ul></div>
+<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_genie_specification.png" alt="Original Stanford lecture excerpt, p.40. The lab adopts the idea of explicit rules in Python." style="max-height:315px;height:auto"><figcaption>Original Stanford lecture excerpt, p.40. The lab adopts the idea of explicit rules in Python.</figcaption></figure></div><p class="activity-link"><a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=40">Read the Stanford lecture, p.40</a></p><ul><li>Write down the required inputs, permitted tools, limits and stop rules.</li><li>Our lab keeps those rules in Python. A language reply cannot change the limits.</li></ul></div>
 <div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40.</a></div>
 <span class="pageno">71 / 80</span></div>
 
@@ -1719,8 +1735,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <h1>Ask four questions about a study result</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_review_questions.svg" alt="Grid teaching adaptation of Monica Lam’s accountability concepts, Stanford CS224V introduction, pp.52–53." style="height:330px;max-height:330px"><figcaption>Grid teaching adaptation of Monica Lam’s accountability concepts, Stanford CS224V introduction, pp.52–53.</figcaption></figure><ul><li>Find the tool result, assumptions, rules and the operator’s next step.</li><li>If a claim has no supporting result, leave it unresolved and request the missing check.</li></ul></div>
-<div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam, CS224V Lecture 1, pp.52–53; grid teaching adaptation and Classroom Labs L12.</a></div>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_review_questions.svg" alt="Grid teaching adaptation of Monica Lam’s accountability concepts, Stanford CS224V introduction, pp.52–53." style="height:330px;max-height:330px"><figcaption>Grid teaching adaptation of Monica Lam’s accountability concepts, Stanford CS224V introduction, pp.52–53.</figcaption></figure><p class="activity-link"><a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=52">Read the Stanford lecture, p.52</a></p><ul><li>Find the tool result, assumptions, rules and the operator’s next step.</li><li>If a claim has no supporting result, leave it unresolved and request the missing check.</li></ul></div>
+<div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, pp.52–53.</a></div>
 <span class="pageno">72 / 80</span></div>
 
 <!--

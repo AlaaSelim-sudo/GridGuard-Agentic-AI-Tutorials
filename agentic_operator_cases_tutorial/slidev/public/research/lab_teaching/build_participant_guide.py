@@ -98,7 +98,7 @@ for n,s in enumerate(sections,1):
   para('<link href="'+COLAB+'" color="#00629b">Open Classroom Labs in Google Colab</link><br/>Scan the code or use the website’s first Colab button.',126,'small',width=420,x=130)
   assert y>145,('page 1 crowding',y)
  elif n==6:
-  refs='Monica Lam. <i>CS224V Agentic AI, Lecture 1: Introduction.</i> Stanford University, Fall 2026, pp.19–20, 40 and 52–53. <link href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf" color="#00629b">Full lecture PDF</link>. Teaching ideas adapted to our own grid examples.<br/>Google Colaboratory. <i>Frequently Asked Questions.</i> <link href="https://research.google.com/colaboratory/faq.html" color="#00629b">research.google.com/colaboratory/faq.html</link>.<br/>Full paper citations, figure credits and exact notebook source map: <link href="'+SITE+'operator-cases/Full_Reading_Guide.html" color="#00629b">Teaching and Source Guide</link>.'
+  refs='Monica Lam. <i>CS224V Agentic AI, Lecture 1: Introduction.</i> Stanford University, Fall 2026, pp.2, 19, 40 and 52–53. <link href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf" color="#00629b">Full lecture PDF</link>. Original source figures and clearly labeled adaptations connect the lecture to our grid examples. The lab uses custom Python.<br/>Google Colaboratory. <i>Frequently Asked Questions.</i> <link href="https://research.google.com/colaboratory/faq.html" color="#00629b">research.google.com/colaboratory/faq.html</link>.<br/>Full paper citations, figure credits and exact notebook source map: <link href="'+SITE+'operator-cases/Full_Reading_Guide.html" color="#00629b">Teaching and Source Guide</link>.'
   y=para(refs,y,'small')
  else:
   for _ in range(2):c.setStrokeColor(HexColor('#c7d5dd'));c.line(50,y-12,562,y-12);y-=28
@@ -107,7 +107,7 @@ for n,s in enumerate(sections,1):
  c.showPage()
  web.append('<section><h2>'+str(n)+'. '+html.escape(s['title'])+'</h2><p>'+html.escape(s['subtitle'])+'</p><img alt="Teaching illustration for '+html.escape(s['title'])+'" src="'+('diagrams/'+s['diagram']+'.svg' if s.get('diagram') else 'images/'+s['image'])+'">'+''.join('<p>'+b+'</p>' for b in s['body'])+'<p class="prompt">'+s['prompt']+'</p></section>')
 c.save()
-web.append('<p>Stanford teaching source: Monica Lam, <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">CS224V Lecture 1: Introduction</a>, Fall 2026, pp.19–20, 40 and 52–53. <a href="https://research.google.com/colaboratory/faq.html">Google Colab FAQ</a>. <a href="Full_Reading_Guide.html">Full references and figure credits</a>.</p></html>')
+web.append('<p>Stanford teaching source: Monica Lam, <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">CS224V Lecture 1: Introduction</a>, Fall 2026, pp.2, 19, 40 and 52–53. <a href="https://research.google.com/colaboratory/faq.html">Google Colab FAQ</a>. <a href="Full_Reading_Guide.html">Full references and figure credits</a>.</p></html>')
 (ROOT/'Participant_Lab_Guide.html').write_text('\n'.join(web),encoding='utf-8')
 for f in ['Participant_Lab_Guide.pdf','Participant_Lab_Guide.html']:shutil.copy2(ROOT/f,ROOT/'slidev/public'/f)
 print(json.dumps({'pdf':path.name,'pages':len(sections),'exercise_slides':exercise}))
