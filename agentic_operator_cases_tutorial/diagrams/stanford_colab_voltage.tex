@@ -1,0 +1,23 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{10}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2.2mm]},draw=IEEEBlue,line width=1.3pt},
+box/.style={draw=IEEEBlue,line width=1.1pt,inner sep=7pt,minimum height=.95cm},
+small/.style={font=\sffamily\fontsize{8.5}{11}\selectfont}]
+
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (2,4.0) {L2: define the case};
+\node[text width=3.4cm] (input) at (2,2.65) {Load case\\Current allowance};
+\node[box,text width=3.0cm] (tool) at (6.85,2.65) {Calculate a plan\\Check the current};
+\draw[flow] (input)--(tool);
+\draw[flow] (tool.east)--(9.35,2.65);
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (11.55,4.0) {Read the tool result};
+\fill[IEEEBlue] (9.65,2.35) rectangle (12.5948,2.95);
+\draw[Red,dashed,line width=1.1pt] (13.65,1.95)--(13.65,3.45);
+\node[small,text=Red] at (13.45,3.65) {100\% limit};
+\node[small,text=white] at (11.12,2.65) {73.62\%};
+\node[small] at (9.65,1.65) {0\%};
+\node[small,text width=4.6cm] at (11.65,1.1) {Percent of allowed current\\Reference L2 MPC result};
+\node[text=Cyan,text width=13.5cm] at (7.1,.25) {This current check passes. Review voltage and model coverage too.};
+
+\end{tikzpicture}
+\endgroup

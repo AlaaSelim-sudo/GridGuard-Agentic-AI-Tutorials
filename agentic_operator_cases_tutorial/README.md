@@ -1,12 +1,12 @@
 # Hands-on workshop: three operator cases
 
-**80 slides / 180 minutes / three four-minute exercises.** Keep **Classroom_Labs.ipynb** open beside this second presentation. Start with a five-minute visual explanation of the agentic loop: goal, model-selected tool, returned result and next choice. A recorded voltage example shows a failed current check leading to a fallback. Then run the three cases and connect each one to exact saved Llama choices. Follow **L0–L12, including L10B after L10**, using notebook excerpts, executed outputs, parameter edits and separate debriefs. Finish with a proposed advisory control-room pilot.
+**80 slides / 180 minutes / three four-minute exercises.** Keep **Classroom_Labs.ipynb** open beside this second presentation. Start with a twelve-minute Stanford teaching block. Each source concept is followed by a simple visual connecting it to a Colab case: voltage evidence, restoration goals or cyber trust and checks. Then prepare Colab in seven minutes and run the three cases. Recorded Llama examples appear beside the matching studies. Follow **L0–L12, including L10B after L10**, using notebook excerpts, executed outputs, parameter edits and separate debriefs. Finish with a proposed advisory control-room pilot.
 
 [Open the workshop slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1) · [Open Classroom Labs in Colab](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb) · [Download the slides](Three_Operator_Cases.pdf)
 
 **Presenters:** Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.
 
-[Participant Lab Guide · PDF](Participant_Lab_Guide.pdf) · [web version](Participant_Lab_Guide.html). This short guide explains Colab, the three exercises and the Llama replay. The opening now includes original Stanford material on function calling and agentic workflows. Four lecture excerpts and the grid teaching adaptations have full source credits and page links.
+[Participant Lab Guide · PDF](Participant_Lab_Guide.pdf) · [web version](Participant_Lab_Guide.html). This short guide explains Colab, the three exercises and the Llama replay. All Stanford concepts now appear before Colab setup. Four original lecture excerpts and three simple grid applications have full source credits and page links.
 
 ## Before starting
 
@@ -19,7 +19,7 @@ The default route needs no GPU, API key, new policy training or language-model d
 
 ## Follow the notebook
 
-- **Introduction and setup · L0–L1 · 12 minutes.** See the agentic loop, compare a text reply with model-directed tool use, and separate Llama’s choice from a numerical check and human review. Open the one notebook and test whether evidence still matches.
+- **Concepts and setup · 19 minutes.** Slides 1–10 connect the Stanford ideas to the three cases in twelve minutes. Slides 11–15 prepare the one Colab notebook and run L0–L1 in seven minutes. The actual numerical experiments start afterward.
 - **Voltage · L2–L5.** Run L2, check limits before penalty score J, change `RATING_FRACTION` to `0.75`, then reset. L3–L5 inspect and check the separate original `test_01` case. The separate recorded P3 previews show Llama requesting a check, choosing a fallback and returning evidence for review. This is the first four-minute exercise.
 - **Restoration · L6–L7.** Run L6, append `180.` to the capacity list while keeping `40.` first, and compare total and critical load served. Reset and rerun L6, then run L7 to reject old evidence after a request changes. This is the second exercise. Recorded feeder-study previews then show a useful tool trial, a failed trial and a wrong ranking caught by the numerical guard.
 - **Cyber · L8–L9.** Run L8, add `.10` to the scale list, and compare fit mismatch with error against known teaching truth. Reset L8, then run L9's separate fixed recovery case and compare HOLD with PROPOSE under its trust assumption. This is the third exercise. Separate recorded recovery previews show the permitted tool choice and the pending operator review.
@@ -42,10 +42,11 @@ Voltage uses one synthetic SMART-DS feeder and the default MV model. Restoration
 
 The figures come from **Monica Lam. _CS224V Agentic AI, Lecture 1: Introduction._ Stanford University, Fall 2026.** [Read the complete lecture](https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf).
 
-- **Slide 3 / lecture p.2:** the original function-calling and agentic-workflow panels introduce the model’s tool choice.
-- **Slide 64 / lecture p.53:** the original clinical-trial diagram separates language from decision checks. Our grid application is a teaching analogy using numerical checks.
-- **Slide 70 / lecture p.19:** WikiChat separates retrieval, claim checking and writing.
-- **Slide 71 / lecture p.40:** Genie Worksheets motivates explicit task rules. Slide 72 adapts the accountability questions on pp.52–53.
+- **Slide 3 / lecture p.2:** function calling and agentic workflows introduce the model’s permitted tool choices.
+- **Slides 4–5 / lecture p.19:** WikiChat’s evidence-checking idea connects to the L2 voltage/current check.
+- **Slides 6–7 / lecture p.40:** Genie Worksheets’ explicit task rules connect to the L6 restoration goal.
+- **Slides 8–9 / lecture p.53:** language and decision checks connect to the L8–L9 fit, trust and recovery examples.
+- **Slide 10 / lecture pp.52–53:** four review questions tie together all three cases.
 
 Read the underlying papers:
 

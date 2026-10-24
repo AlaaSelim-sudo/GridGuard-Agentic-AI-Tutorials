@@ -43,6 +43,24 @@
     "visual_height_cm": 3.9
   },
   {
+    "title": "A real agent changes its next step",
+    "kind": "diagram",
+    "diagram": "agent_recorded_trace",
+    "points": [
+      "The failed tool result leads to a fallback check. Passing the checks still leaves human review."
+    ],
+    "note": "This is an actual saved Llama 3.1:8b voltage episode, not a fabricated interactive exchange. Call 1 selects VERIFY_SAC_FIRST; the numerical check returns 111.966607 percent of allowed current and two current violations. Call 2 selects USE_MPC_PLAN; its numerical check returns 99.604410 percent of allowed current and no recorded violations. The SAC and MPC tools already exist; Llama does not invent or solve the power flow. The arrows show tool-request, result, next-request, result. Call 3 selects REVIEW_EVIDENCE. Human acknowledgment remains PENDING and equipment_dispatch is False. This separate P3 MV/LV OpenDSS archive differs from the fresh L2 exercise and from L3 test_01. Later voltage slides display the exact public returned reasons; learners can replay the source in L10B after completing the three cases. The fixed comparator reaches the same numerical outcome, so the trace illustrates coordination rather than a proven performance improvement. This recorded example now follows the MPC/SAC definition slide in the voltage case, after Colab setup. It remains a preview; run the complete episode in L10B later.",
+    "refs": [
+      "LRV",
+      "LR0"
+    ],
+    "minutes": 1.5,
+    "caption": "Recorded P3 example, separate from L2. 111.966607% and 99.604410% are rounded here.",
+    "visual_height_px": 350,
+    "visual_height_cm": 3.9,
+    "eyebrow": "Recorded P3 example / separate from the L2 calculation"
+  },
+  {
     "title": "Control settings and limits",
     "kind": "diagram",
     "points": [
@@ -207,7 +225,7 @@
     ],
     "caption": "Reference L2 exercise: MPC uses 73.62% of the default allowance and 78.53% after the change.",
     "source_label": "Classroom Labs L2, cell classroom-007; verified default and exercise outputs.",
-    "minutes": 3.5,
+    "minutes": 4.5,
     "visual_height_px": 330,
     "visual_height_cm": 3.5,
     "lab_label": "L2",
@@ -453,7 +471,7 @@
     "points": [
       "Human review remains pending. The fixed script returned the same numerical result."
     ],
-    "note": "Read the exact REVIEW_EVIDENCE choice and distinguish it from the overall status. The proposed controls are 2387.157 kW and +325.738 kvar. The supplied full MV/LV feeder check returned voltage 1.001783–1.035026 p.u. and zero listed violations. The fixed supervisor used the same SAC-to-MPC sequence with identical numerical output. Recorded workflow intervals were 0.346053 s fixed and 3.110454 s agentic, excluding precomputed MPC/SAC preparation. These are single recorded timings, not performance distributions or a measured reduction in operator workload. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
+    "note": "Read the exact REVIEW_EVIDENCE choice and distinguish it from the overall status. The proposed controls are 2387.157 kW and +325.738 kvar. The supplied full MV/LV feeder check returned voltage 1.001783–1.035026 p.u. and zero listed violations. The fixed supervisor used the same SAC-to-MPC sequence with identical numerical output. Recorded workflow intervals were 0.346053 s fixed and 3.110454 s agentic, excluding precomputed MPC/SAC preparation. These are single recorded timings, not performance distributions or a measured reduction in operator workload. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: L2 makes new proposals; L3 shows old replies; L4–L5 run new checks on test_01. Report the inputs, proposal, model coverage and result before naming the next step. Give pairs 30 seconds to describe the sequence without calling every step an AI decision. L2 calculates an MPC plan and a saved-policy proposal for the current classroom inputs. L3 displays old model replies. L4 runs new checks of the selected trials; L5 checks the original archived plan and its model coverage. Numerical tools provide the physical evidence. The old model choices select a permitted trial; they do not replace these checks. The operator receives an advisory record whose stated coverage must match the request. The three P3 previews are an additional separate archive. Contrast their saved Llama decisions with your current direct function calls.",
     "refs": [
       "LRV",
       "LR0"
@@ -472,23 +490,5 @@
     "replay_scenario": "voltage",
     "replay_call": 3,
     "replay_preview": true
-  },
-  {
-    "title": "Voltage checkpoint: say what ran",
-    "kind": "normal",
-    "points": [
-      "L2 makes new proposals; L3 shows old replies; L4–L5 run new checks on test_01.",
-      "Report the inputs, proposal, model coverage and result before naming the next step."
-    ],
-    "refs": [
-      "H05"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model.",
-    "minutes": 2,
-    "note": "Give pairs 30 seconds to describe the sequence without calling every step an AI decision. L2 calculates an MPC plan and a saved-policy proposal for the current classroom inputs. L3 displays old model replies. L4 runs new checks of the selected trials; L5 checks the original archived plan and its model coverage. Numerical tools provide the physical evidence. The old model choices select a permitted trial; they do not replace these checks. The operator receives an advisory record whose stated coverage must match the request. The three P3 previews are an additional separate archive. Contrast their saved Llama decisions with your current direct function calls.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L5",
-    "eyebrow": "Classroom Labs · L5 · classroom-016"
   }
 ]

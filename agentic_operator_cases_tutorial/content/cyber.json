@@ -146,7 +146,7 @@
       "H08"
     ],
     "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
-    "minutes": 2,
+    "minutes": 3,
     "note": "Separate the two mechanisms. A small isolated bias can stay below a statistical threshold. A coordinated Hc shift can preserve residual consistency by construction. Neither result establishes trusted telemetry. The state-error curve uses offline synthetic truth, not an input available to an online detector.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -309,37 +309,6 @@
     "caption": "Trusted information and numerical checks have separate roles."
   },
   {
-    "title": "Stanford: language and decision checks",
-    "kind": "figure",
-    "points": [
-      "The lecture turns written facts into constraints, then uses a solver to check a decision.",
-      "Our grid adaptation: Llama requests a study, Python checks its results, and the operator reviews the proposal."
-    ],
-    "refs": [
-      "ST01",
-      "H09"
-    ],
-    "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.",
-    "minutes": 2,
-    "note": "This original diagram selection comes from the function row on p.53 of Monica Lam’s introduction. It shows a clinical-trial example, not a power-system experiment. The language model translates written facts into an SMT representation; a separate solver derives a decision from those constraints. SMT means satisfiability modulo theories, a way to express and solve logical constraints. MaxSAT supports the lecture’s search for conditions that change a decision. The lecture also states that the formalization may not be completely faithful, so correctness remains relative to the represented constraints. Our application is an analogy: Llama requests the permitted estimate or control tool and Python checks numerical limits. An operator must still confirm the trust assumption and review the proposed action. Our notebook does not run an SMT/MaxSAT solver or prove formal electrical safety. Keep the previously calculated HOLD/PROPOSE outcomes tied to their stated numerical model and trusted-data assumption.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": false,
-    "lab_label": "L9",
-    "eyebrow": "Stanford source example / grid teaching analogy",
-    "image_source_path": "images/stanford_language_decision.png",
-    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=53",
-    "image_credit": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.",
-    "image_asset_type": "Original Stanford lecture figure excerpt",
-    "image_transformation": "Unchanged vector selection from the presenter-supplied Stanford lecture, p.53; Poppler PNG rendering. Exact crop and source/image hashes: research/stanford_sources/excerpt_manifest.json.",
-    "action_link": {
-      "label": "Read the Stanford lecture, p.53",
-      "url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=53"
-    },
-    "visual_height_px": 190,
-    "visual_height_cm": 2.0,
-    "caption": "Clinical-trial research example. SMT represents logical constraints; MaxSAT helps find decision-changing conditions."
-  },
-  {
     "title": "Cyber: Llama selects the tool already allowed",
     "kind": "figure",
     "points": [
@@ -371,7 +340,7 @@
     "points": [
       "Keep REVIEW visible. The operator must resolve the trust assumption and missing checks."
     ],
-    "note": "Read the actual reply, including the REVIEW choice. Numerical verification is PASS, but the overall result remains REVIEW and human acknowledgment is PENDING. The fixed comparator obtains the same numerical state estimate and correction without Llama. This replay demonstrates permitted tool routing and a report decision. It does not demonstrate better estimation, authenticated measurements, AC network security or operating authority. Run L11 with the default False setting, then proceed to L12. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
+    "note": "Read the actual reply, including the REVIEW choice. Numerical verification is PASS, but the overall result remains REVIEW and human acknowledgment is PENDING. The fixed comparator obtains the same numerical state estimate and correction without Llama. This replay demonstrates permitted tool routing and a report decision. It does not demonstrate better estimation, authenticated measurements, AC network security or operating authority. Run L11 with the default False setting, then proceed to L12. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: Report the trust assumption, model, proposed u and the checks that passed or failed. Without independent trusted information, keep HOLD and name what is missing. Ask pairs to state the outcome and its condition in the same sentence. For example: 'The fixture proposes u when the supplied trusted channels are available.' Do not say: 'The AI proved that the telemetry is safe.' Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source.",
     "refs": [
       "LRC",
       "LR0"
@@ -390,23 +359,5 @@
     "replay_scenario": "cyber",
     "replay_call": 8,
     "replay_preview": true
-  },
-  {
-    "title": "Cyber checkpoint: explain why PROPOSE is allowed",
-    "kind": "normal",
-    "points": [
-      "Report the trust assumption, model, proposed u and the checks that passed or failed.",
-      "Without independent trusted information, keep HOLD and name what is missing."
-    ],
-    "refs": [
-      "H09"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
-    "minutes": 2,
-    "note": "Ask pairs to state the outcome and its condition in the same sentence. For example: 'The fixture proposes u when the supplied trusted channels are available.' Do not say: 'The AI proved that the telemetry is safe.' Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L9",
-    "eyebrow": "Classroom Labs · L9 · classroom-026"
   }
 ]

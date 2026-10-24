@@ -1,6 +1,6 @@
 # Run GridGuard in Google Colab
 
-Start with **Classroom Labs** to run all three cases in one notebook. The accompanying operator workshop has **80 slides, 180 minutes and three short exercises**. Its concise visual opening shows the goal, Llama’s tool choice, returned evidence and next choice. Case slides preview saved agent examples beside the matching calculations; run L10B only after L10 in notebook order. The two companion notebooks explain graph execution and recorded model evidence.
+Start with **Classroom Labs** to run all three cases in one notebook. The accompanying operator workshop has **80 slides, 180 minutes and three short exercises**. Its twelve-minute opening puts the Stanford concepts first and pairs each source figure with a simple voltage, restoration or cyber application. Seven minutes of Colab setup follow. Case slides preview saved agent examples beside the matching calculations; run L10B only after L10 in notebook order. The two companion notebooks explain graph execution and recorded model evidence.
 
 ## 1. Open a notebook
 

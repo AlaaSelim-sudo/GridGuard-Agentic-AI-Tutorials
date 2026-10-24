@@ -20,7 +20,7 @@
   {
     "title": "Run L10B: watch Llama choose a tool",
     "kind": "normal",
-    "minutes": 3.5,
+    "minutes": 6.5,
     "refs": [
       "LR0",
       "OLL1"
@@ -28,7 +28,7 @@
     "points": [
       "Now replay the three saved episodes: set SCENARIO to voltage, restoration and cyber, rerunning each time."
     ],
-    "note": "Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown.",
+    "note": "Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown. Allow about two minutes per scenario: one partner identifies the model choice, the other finds its tool result and the unresolved operator decision. These additional minutes replace removed checkpoint slides and the longer source explanations.",
     "source_label": "Classroom_Labs.ipynb, L10B; cell classroom-llama-walkthrough; src/llama_walkthrough.py.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
@@ -39,85 +39,6 @@
       "id": "classroom-llama-walkthrough",
       "start": 1,
       "end": 5
-    }
-  },
-  {
-    "title": "Stanford example: check before you write",
-    "kind": "figure",
-    "points": [
-      "Grid lab takeaway: check the numerical result before writing the study summary."
-    ],
-    "note": "The displayed figure is an original excerpt from Monica Lam’s Stanford CS224V introduction, p.19. Follow its retrieval, claim checking and writing steps. The WikiChat paper is fully cited in the reading guide. Our application to grid studies is a teaching analogy: read the stated limits, run the appropriate numerical check and summarize the actual returned result. Ask which lab step would detect a current violation. The classroom notebook does not run WikiChat; its dialogue factuality measurements are not electrical performance results.",
-    "refs": [
-      "ST01",
-      "ST02",
-      "H02"
-    ],
-    "caption": "Original Stanford lecture excerpt, p.19. WikiChat checks claims before drafting a reply.",
-    "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19.",
-    "minutes": 3,
-    "visual_height_px": 350,
-    "visual_height_cm": 4.1,
-    "image_source_path": "images/stanford_wikichat_steps.png",
-    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=19",
-    "image_credit": "Monica Lam, Stanford University, CS224V Lecture 1: Introduction, Fall 2026.",
-    "image_asset_type": "Original lecture figure excerpt",
-    "image_transformation": "Cropped vector excerpt from the user-supplied lecture PDF, p.19; selected content unchanged. PNG derived with Poppler. Full provenance: research/stanford_80/excerpt_manifest.json.",
-    "action_link": {
-      "label": "Read the Stanford lecture, p.19",
-      "url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=19"
-    }
-  },
-  {
-    "title": "Stanford example: tools need clear rules",
-    "kind": "figure",
-    "points": [
-      "Write down the required inputs, permitted tools, limits and stop rules.",
-      "Our lab keeps those rules in Python. A language reply cannot change the limits."
-    ],
-    "note": "Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.",
-    "refs": [
-      "ST01",
-      "ST03",
-      "H01"
-    ],
-    "caption": "Original Stanford lecture excerpt, p.40. The lab adopts the idea of explicit rules in Python.",
-    "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40.",
-    "minutes": 2.5,
-    "visual_height_px": 315,
-    "visual_height_cm": 3.7,
-    "image_source_path": "images/stanford_genie_specification.png",
-    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=40",
-    "image_credit": "Monica Lam, Stanford University, CS224V Lecture 1: Introduction, Fall 2026.",
-    "image_asset_type": "Original lecture figure excerpt",
-    "image_transformation": "Cropped vector excerpt from the user-supplied lecture PDF, p.40; selected content unchanged. PNG derived with Poppler. Full provenance: research/stanford_80/excerpt_manifest.json.",
-    "action_link": {
-      "label": "Read the Stanford lecture, p.40",
-      "url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=40"
-    }
-  },
-  {
-    "title": "Ask four questions about a study result",
-    "kind": "diagram",
-    "diagram": "lab_review_questions",
-    "points": [
-      "Find the tool result, assumptions, rules and the operator’s next step.",
-      "If a claim has no supporting result, leave it unresolved and request the missing check."
-    ],
-    "note": "Lam’s pp.52–53 distinguish verifiable rationale, explicit assumptions, policy consistency and actionable next conditions. Translate these into four plain questions: which tool supports this claim, which inputs and model were used, were the same limits and service priorities kept, and what must the operator review next? Our power-flow, optimization and evidence-binding checks are numerical/software checks. They do not inherit the lecture’s SMT correctness claims. Ask pairs to apply the questions to one L10B explanation and to the full-scope HOLD at L12. We show only the actual public returned reasons, not hidden chain-of-thought.",
-    "refs": [
-      "ST01",
-      "LR0",
-      "H12"
-    ],
-    "minutes": 2,
-    "caption": "Grid teaching adaptation of Monica Lam’s accountability concepts, Stanford CS224V introduction, pp.52–53.",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.55,
-    "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, pp.52–53.",
-    "action_link": {
-      "label": "Read the Stanford lecture, p.52",
-      "url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=52"
     }
   },
   {
@@ -165,6 +86,28 @@
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
     "caption": "Reference L12 output. Run L12 here, after the three cases and the L10B replay."
+  },
+  {
+    "title": "Llama chooses; tools calculate; people decide",
+    "kind": "diagram",
+    "points": [
+      "The agent coordinates a study. Numerical tools supply the checks. The operator reviews the proposal."
+    ],
+    "refs": [
+      "ST01",
+      "DEF03",
+      "LR0",
+      "OLL1"
+    ],
+    "minutes": 1,
+    "note": "Use the three symbols to assign responsibilities: the speech box is Llama making a permitted choice and returning a public reason; the function is Python and OpenDSS calculating physical results and enforcing workflow limits; the person is the operator reviewing evidence and retaining operating authority. The Llama wrappers use constrained JSON interpreted by the application, rather than native tool_calls. Language explanations are not proof of physical correctness. In our replay the model may say REVIEW but the human acknowledgment is still PENDING. For each exercise work in pairs: one person runs while the other checks, then swap. Save the input, result, check and next decision. Stanford p.53 separates language understanding from checking a formal decision model in a clinical-trial example. The lab adaptation separates Llama coordination from Python numerical checks and operator review. This lab does not run SMT or MaxSAT, and the analogy supplies no formal guarantee about the grid model. This role reminder now introduces the closing advisory-pilot discussion, after the L12 readback.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "diagram": "agent_roles_simple",
+    "visual_height_px": 350,
+    "visual_height_cm": 3.9,
+    "caption": "Our grid teaching adaptation of the language/checking distinction in Stanford Lecture 1, p.53.",
+    "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53."
   },
   {
     "title": "Start a control-room pilot with a clear study request",

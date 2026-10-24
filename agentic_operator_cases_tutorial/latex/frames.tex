@@ -10,7 +10,7 @@
 \vfill\includegraphics[width=4cm]{images/comsoc-lockup.png}\par{\tiny Independent educational material / IEEE ComSoc theme adaptation}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb.}\par}
-\note{Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence. The deck uses the IEEE ComSoc theme. The classroom cycle is run, change, check and explain. This expanded edition includes a new L10B replay and a proposed control-room advisory pilot. The scheduled teaching time is 180 minutes; allow breaks outside that total. The presenter affiliations are supplied by the presenters. The new Stanford teaching bridge is an adaptation of general reliability ideas, not a claim that the lab implements those Stanford frameworks. Use the six-page Participant Lab Guide for the exact activity steps. The first five slides take five minutes and make the agentic loop explicit before setup. The opening as a whole takes 12 minutes. Case-level replay slides preview saved examples; learners run L10B later in the guided notebook order. Original Stanford lecture figures appear on slides 3, 64, 70 and 71. Adapted grid teaching diagrams cite the relevant lecture page. Full author, title, institution, date, page and reading link appear with the source material. Takeaway: 
+\note{Open the one required Classroom Labs notebook. This hands-on workshop uses 80 slides and 180 teaching minutes, with breaks outside that total. Start with a twelve-minute Stanford concept block: show each original source figure, then its simple grid adaptation. The next seven minutes prepare Colab and run L0--L1. Learners calculate fresh numerical results and inspect separately labeled saved Llama replies. No default cell calls an LLM or operates equipment. Keep the notebook in order and run L10B only after L10. Work in pairs and use the six-page participant guide. Presenter affiliations were supplied by the presenters. The IEEE ComSoc theme is an independent educational adaptation. Takeaway: 
 
 Classroom Labs notebook. Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/COLAB\allowbreak{}\_GUIDE.md
@@ -47,7 +47,7 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 \begin{frame}[t]{Stanford: tool calls become a workflow}
 \relax
 \begingroup\centering\includegraphics[width=\linewidth,height=3.7cm,keepaspectratio]{images/stanford_agentic_capabilities.pdf}
-\par{\fontsize{7}{8.3}\selectfont\color{Slate} Original Stanford lecture excerpt, p.2. The next slide connects these ideas to the recorded grid study.}
+\par{\fontsize{7}{8.3}\selectfont\color{Slate} Original Stanford lecture excerpt, p.2. Next, connect tool use to evidence, task rules and decision checks.}
 \par\endgroup\smallskip
 {\large\color{IEEEBlue} \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf\#page=2}{Read the Stanford lecture, p.2}\par}\medskip
 {
@@ -57,7 +57,7 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.2.}\par}
-\note{Show the two original capability panels from Monica Lam's Stanford CS224V introduction, p.2. The left panel introduces model-selected function calling. The right panel describes multi-step planning, tool use and self-correction. Our plain-language sentence connects the panels to the preceding bounded-loop teaching drawing. The next slide supplies a real recorded grid example. In that example Llama requests a named action and Python validates the JSON choice before calling an existing function; it does not use a native tool\_calls protocol. Conventional software can also loop, and a chatbot may itself contain an agent. Here we identify the agentic feature by the model's permitted next-step choice based on returned evidence. The class replays those old model choices while numerical cells calculate current results. Source lecture figure is shown unchanged within the documented crop. Takeaway: 
+\note{Show the two original capability panels from Monica Lam's Stanford CS224V introduction, p.2. The left panel introduces model-selected function calling. The right panel describes multi-step planning, tool use and self-correction. Our plain-language sentence connects the panels to the preceding bounded-loop teaching drawing. The following source-and-lab pairs show why tool results, explicit goals and checked evidence matter in each case. In that example Llama requests a named action and Python validates the JSON choice before calling an existing function; it does not use a native tool\_calls protocol. Conventional software can also loop, and a chatbot may itself contain an agent. Here we identify the agentic feature by the model's permitted next-step choice based on returned evidence. The class replays those old model choices while numerical cells calculate current results. Source lecture figure is shown unchanged within the documented crop. Takeaway: 
 
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
 Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
@@ -70,53 +70,200 @@ Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool;
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py}
 \end{frame}
 
-\begin{frame}[t]{A real agent changes its next step}
+\begin{frame}[t]{Stanford example: check before you write}
 \relax
-\begingroup\begin{minipage}[c][3.9cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/agent_recorded_trace.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.9cm\resizebox{!}{3.9cm}{\box0}\else\box0\fi\par\end{minipage}\par
-{\fontsize{7}{8.3}\selectfont\color{Slate} Recorded P3 example, separate from L2. 111.966607\% and 99.604410\% are rounded here.\par}
+\begingroup\centering\includegraphics[width=\linewidth,height=4.1cm,keepaspectratio]{images/stanford_wikichat_steps.pdf}
+\par{\fontsize{7}{8.3}\selectfont\color{Slate} Original Stanford lecture excerpt, p.19. WikiChat checks claims before drafting a reply.}
+\par\endgroup\smallskip
+{\large\color{IEEEBlue} \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf\#page=19}{Read the Stanford lecture, p.19}\par}\medskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item Grid lab takeaway: check the numerical result before writing the study summary.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19.}\par}
+\note{The displayed figure is an original excerpt from Monica Lam's Stanford CS224V introduction, p.19. Follow its retrieval, claim checking and writing steps. The WikiChat paper is fully cited in the reading guide. Our application to grid studies is a teaching analogy: read the stated limits, run the appropriate numerical check and summarize the actual returned result. Ask which lab step would detect a current violation. The classroom notebook does not run WikiChat; its dialogue factuality measurements are not electrical performance results. This source figure is now in the opening. Spend about one minute on the check-before-writing idea. The next slide maps it to L2; do not run a cell yet. Takeaway: 
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
+Sina J. Semnani, Violet Z. Yao, Heidi C. Zhang, Monica S. Lam. WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot Grounding on Wikipedia. Findings of the Association for Computational Linguistics: EMNLP 2023, pp.2387--2413. December 2023.
+Full source: https://aclantho\allowbreak{}logy.org/2023.fi\allowbreak{}ndings-emnlp.157\allowbreak{}/
+Full paper: https://aclantho\allowbreak{}logy.org/2023.fi\allowbreak{}ndings-emnlp.157\allowbreak{}.pdf
+
+Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
+\end{frame}
+
+\begin{frame}[t]{Voltage: a proposal needs a numerical check}
+\relax
+{\scriptsize\color{Slate}\textbf{Stanford idea / Colab preview: L2}\par}\smallskip
+\begingroup\begin{minipage}[c][3.8cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/stanford_colab_voltage.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.8cm\resizebox{!}{3.8cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Our grid adaptation of WikiChat's checking habit. L2 calls Python directly; L10B replays saved Llama choices.\par}
 \endgroup\smallskip
 {
 \small\begin{itemize}
 \setlength{\itemsep}{.25em}
-\item The failed tool result leads to a fallback check. Passing the checks still leaves human review.
+\item L2 lets you test the numerical check. The saved L10B episode shows Llama choosing the next tool.
 \end{itemize}\par}
 \vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/continuous_llama_opendss_20260927T161223523552Z.json}{Workshop recorded model replies and numerical study records. Voltage P3\_current\_reserve: Llama 3.1:8b planner, recovery and review calls 1--3. Public teaching archive. 27 September 2026.}\par}
-\note{This is an actual saved Llama 3.1:8b voltage episode, not a fabricated interactive exchange. Call 1 selects VERIFY\_SAC\_FIRST; the numerical check returns 111.966607 percent of allowed current and two current violations. Call 2 selects USE\_MPC\_PLAN; its numerical check returns 99.604410 percent of allowed current and no recorded violations. The SAC and MPC tools already exist; Llama does not invent or solve the power flow. The arrows show tool-request, result, next-request, result. Call 3 selects REVIEW\_EVIDENCE. Human acknowledgment remains PENDING and equipment\_dispatch is False. This separate P3 MV/LV OpenDSS archive differs from the fresh L2 exercise and from L3 test\_01. Later voltage slides display the exact public returned reasons; learners can replay the source in L10B after completing the three cases. The fixed comparator reaches the same numerical outcome, so the trace illustrates coordination rather than a proven performance improvement. Takeaway: 
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19; Classroom Labs L2.}\par}
+\note{Connect the preceding original WikiChat figure to a grid claim. A text answer might say that a proposed plan fits the limits; a numerical tool must calculate the supporting result. The reference bar is the default L2 MPC result: maximum allowed-current utilization 73.619901\%, rounded to 73.62\%, at LOAD\_SCALE=1.0 and RATING\_FRACTION=0.80. It passes this current allowance; modeled voltage and required model coverage must also be checked. The default medium-voltage calculation is not proof for the full MV/LV system. This visual previews the lab; do not run L2 before setup, L0 and L1. L2 calls numerical functions directly. The separate P3 L10B archive later shows Llama requesting a check, reading a failed result and selecting a fallback. Our application is an analogy to evidence checking, not a claim that the notebook runs WikiChat. Takeaway: 
 
-Workshop recorded model replies and numerical study records. Voltage P3\_current\_reserve: Llama 3.1:8b planner, recovery and review calls 1--3. Public teaching archive. 27 September 2026.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/result\allowbreak{}s/continuous\_lla\allowbreak{}ma\_opendss\_20260\allowbreak{}927T161223523552\allowbreak{}Z.json
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
+Sina J. Semnani, Violet Z. Yao, Heidi C. Zhang, Monica S. Lam. WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot Grounding on Wikipedia. Findings of the Association for Computational Linguistics: EMNLP 2023, pp.2387--2413. December 2023.
+Full source: https://aclantho\allowbreak{}logy.org/2023.fi\allowbreak{}ndings-emnlp.157\allowbreak{}/
+Full paper: https://aclantho\allowbreak{}logy.org/2023.fi\allowbreak{}ndings-emnlp.157\allowbreak{}.pdf
+
+Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb
 
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py}
 \end{frame}
 
-\begin{frame}[t]{Llama chooses; tools calculate; people decide}
+\begin{frame}[t]{Stanford example: tools need clear rules}
 \relax
-\begingroup\begin{minipage}[c][3.9cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/agent_roles_simple.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.9cm\resizebox{!}{3.9cm}{\box0}\else\box0\fi\par\end{minipage}\par
-{\fontsize{7}{8.3}\selectfont\color{Slate} Our grid teaching adaptation of the language/checking distinction in Stanford Lecture 1, p.53.\par}
+\begingroup\centering\includegraphics[width=\linewidth,height=3.7cm,keepaspectratio]{images/stanford_genie_specification.pdf}
+\par{\fontsize{7}{8.3}\selectfont\color{Slate} Original Stanford lecture excerpt, p.40. The lab adopts the idea of explicit rules in Python.}
+\par\endgroup\smallskip
+{\large\color{IEEEBlue} \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf\#page=40}{Read the Stanford lecture, p.40}\par}\medskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item Write down the required inputs, permitted tools, limits and stop rules.
+\item Our lab keeps those rules in Python. A language reply cannot change the limits.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40.}\par}
+\note{Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results. Takeaway: 
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
+Harshit Joshi, Shicheng Liu, James Chen, Larsen Weigle, Monica Lam. Controllable and Reliable Knowledge-Intensive Task-Oriented Conversational Agents with Declarative Genie Worksheets. Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics, Volume 1: Long Papers, pp.27264--27308. July 2025.
+Full source: https://aclanthology.org/2025.acl-long.1323/
+Full paper: https://aclantho\allowbreak{}logy.org/2025.ac\allowbreak{}l-long.1323.pdf
+
+Classroom Labs notebook. Classroom\_Labs.ipynb, L0--L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
+\end{frame}
+
+\begin{frame}[t]{Restoration: the service goal shapes the plan}
+\relax
+{\scriptsize\color{Slate}\textbf{Stanford idea / Colab preview: L6}\par}\smallskip
+\begingroup\begin{minipage}[c][3.8cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/stanford_colab_restoration.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.8cm\resizebox{!}{3.8cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Our grid adaptation of explicit task rules. L6 uses the same 40 kW varied tie and 100 kW fixed tie for both goals.\par}
 \endgroup\smallskip
 {
 \small\begin{itemize}
 \setlength{\itemsep}{.25em}
-\item The agent coordinates a study. Numerical tools supply the checks. The operator reviews the proposal.
+\item An agent must keep the stated service goal. L6 lets you see how that goal changes the plan.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40; Classroom Labs L6.}\par}
+\note{The preceding Genie excerpt motivates writing down the task and its rules before calling a function. In L6 the goal is part of the optimization problem: priority weighting serves 130 total kW, including 90 critical kW; maximizing total service gives 140 total kW, including 30 critical kW. The 40 kW limit belongs to one varied tie, while another tie stays fixed at 100 kW. Totals also include the 40 kW load at node 1 upstream of those ties. A 40 kW varied-tie limit is not a cap on total system service. Each stacked bar uses the same scale. Critical service is cyan; other service is blue. Ask which goal better matches an illustrative request to prioritize a hospital. The numerical model uses abstract critical loads, not an actual hospital dataset. Later learners run both goals and change the tie capacity. L6 is a direct Python calculation, not a live LLM agent. An agent coordinating such a study must preserve the requested goal and explain the returned tradeoff. The separate L10B feeder-catalog archive supplies actual saved Llama choices; it differs from this six-node L6 model. Our notebook does not implement Genie Worksheets. Takeaway: 
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
+Harshit Joshi, Shicheng Liu, James Chen, Larsen Weigle, Monica Lam. Controllable and Reliable Knowledge-Intensive Task-Oriented Conversational Agents with Declarative Genie Worksheets. Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics, Volume 1: Long Papers, pp.27264--27308. July 2025.
+Full source: https://aclanthology.org/2025.acl-long.1323/
+Full paper: https://aclantho\allowbreak{}logy.org/2025.ac\allowbreak{}l-long.1323.pdf
+
+Classroom Labs notebook. Classroom\_Labs.ipynb, L6; cell classroom-018; src/standard\_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb
+
+Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py}
+\end{frame}
+
+\begin{frame}[t]{Stanford: language and decision checks}
+\relax
+{\scriptsize\color{Slate}\textbf{Stanford source example / grid teaching analogy}\par}\smallskip
+\begingroup\centering\includegraphics[width=\linewidth,height=2cm,keepaspectratio]{images/stanford_language_decision.pdf}
+\par{\fontsize{7}{8.3}\selectfont\color{Slate} Clinical-trial research example. SMT represents logical constraints; MaxSAT helps find decision-changing conditions.}
+\par\endgroup\smallskip
+{\large\color{IEEEBlue} \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf\#page=53}{Read the Stanford lecture, p.53}\par}\medskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item The lecture turns written facts into constraints, then uses a solver to check a decision.
+\item Our grid adaptation: Llama requests a study, Python checks its results, and the operator reviews the proposal.
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.}\par}
-\note{Use the three symbols to assign responsibilities: the speech box is Llama making a permitted choice and returning a public reason; the function is Python and OpenDSS calculating physical results and enforcing workflow limits; the person is the operator reviewing evidence and retaining operating authority. The Llama wrappers use constrained JSON interpreted by the application, rather than native tool\_calls. Language explanations are not proof of physical correctness. In our replay the model may say REVIEW but the human acknowledgment is still PENDING. For each exercise work in pairs: one person runs while the other checks, then swap. Save the input, result, check and next decision. Stanford p.53 separates language understanding from checking a formal decision model in a clinical-trial example. The lab adaptation separates Llama coordination from Python numerical checks and operator review. This lab does not run SMT or MaxSAT, and the analogy supplies no formal guarantee about the grid model. Takeaway: 
+\note{This original diagram selection comes from the function row on p.53 of Monica Lam's introduction. It shows a clinical-trial example, not a power-system experiment. The language model translates written facts into an SMT representation; a separate solver derives a decision from those constraints. SMT means satisfiability modulo theories, a way to express and solve logical constraints. MaxSAT supports the lecture's search for conditions that change a decision. The lecture also states that the formalization may not be completely faithful, so correctness remains relative to the represented constraints. Our application is an analogy: Llama requests the permitted estimate or control tool and Python checks numerical limits. An operator must still confirm the trust assumption and review the proposed action. Our notebook does not run an SMT/MaxSAT solver or prove formal electrical safety. Preview the HOLD/PROPOSE distinction now; participants will calculate the L9 outcomes later with their stated model and trusted-data assumption. Takeaway: 
 
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
 Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
 Publication: https://web.stanford.edu/class/cs224v/
 
-Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
-Full source: https://www.anth\allowbreak{}ropic.com/resear\allowbreak{}ch/building-effe\allowbreak{}ctive-agents
+Classroom Labs notebook. Classroom\_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
+\end{frame}
+
+\begin{frame}[t]{Cyber: a clear answer still needs evidence}
+\relax
+{\scriptsize\color{Slate}\textbf{Stanford idea / Colab preview: L8--L9}\par}\smallskip
+\begingroup\begin{minipage}[c][3.8cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/stanford_colab_cyber.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.8cm\resizebox{!}{3.8cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Our grid adaptation of separating language from checks. The fixed L9 example returns HOLD or PROPOSE under stated assumptions.\par}
+\endgroup\smallskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item L8 tests whether readings can look consistent but be wrong. L9 adds a trust assumption and recovery checks.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53; Classroom Labs L8--L9.}\par}
+\note{Relate the original Stanford clinical example to this lab without importing a formal guarantee. L8 fits readings to a four-bus DC model using WLS, weighted least squares. Its small residual is a measure of fit, not proof of sensor truth; the known simulation truth is used only for teaching error comparisons. L9 is a separate fixed recovery fixture. Without trusted replacement data it returns HOLD. With three additional readings assumed trusted and a successful modeled recovery check, it returns PROPOSE. The yes branch depicts this fixed example with passing numerical checks; a real study also needs every required check to pass. The calculation does not authenticate the extra readings. Later learners run L8, vary the attack scale, then reset before the independent L9 example. Python performs these calculations now. A coordinating agent should request evidence and retain HOLD when a required premise is missing; saved L10B replies show a separate recorded cyber case. Our code uses numerical checks, not the Stanford SMT/MaxSAT runtime. Takeaway: 
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
+Classroom Labs notebook. Classroom\_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb
+
+Classroom Labs notebook. Classroom\_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb
+
+Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py}
+\end{frame}
+
+\begin{frame}[t]{Ask four questions about a study result}
+\relax
+\begingroup\begin{minipage}[c][3.55cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_review_questions.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.55cm\resizebox{!}{3.55cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Grid teaching adaptation of Monica Lam's accountability concepts, Stanford CS224V introduction, pp.52--53.\par}
+\endgroup\smallskip
+{\large\color{IEEEBlue} \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf\#page=52}{Read the Stanford lecture, p.52}\par}\medskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item Find the tool result, assumptions, rules and the operator's next step.
+\item If a claim has no supporting result, leave it unresolved and request the missing check.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, pp.52--53.}\par}
+\note{Lam's pp.52--53 distinguish verifiable rationale, explicit assumptions, policy consistency and actionable next conditions. Translate these into four plain questions: which tool supports this claim, which inputs and model were used, were the same limits and service priorities kept, and what must the operator review next? Our power-flow, optimization and evidence-binding checks are numerical/software checks. They do not inherit the lecture's SMT correctness claims. Ask pairs to apply the questions to one L10B explanation and to the full-scope HOLD at L12. We show only the actual public returned reasons, not hidden chain-of-thought. This closes the twelve-minute opening concept block. Point out that all three labs will use these questions; participants do not need to memorize a framework or run ahead. Takeaway: 
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
+Publication: https://web.stanford.edu/class/cs224v/
 
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py
 
-Ollama documentation maintainers. Structured Outputs: generating structured JSON with a schema. Official Ollama documentation. Reviewed 24 October 2026.
-Full source: https://docs.oll\allowbreak{}ama.com/capabili\allowbreak{}ties/structured-\allowbreak{}outputs}
+Classroom Labs notebook. Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
 \begin{frame}[t]{One notebook covers all three cases}
@@ -269,6 +416,28 @@ Full source: https://proceedi\allowbreak{}ngs.mlr.press/v8\allowbreak{}0/haarnoj
 
 Workshop recorded model replies and numerical study records. Voltage P3\_current\_reserve: Llama 3.1:8b planner, recovery and review calls 1--3. Public teaching archive. 27 September 2026.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/result\allowbreak{}s/continuous\_lla\allowbreak{}ma\_opendss\_20260\allowbreak{}927T161223523552\allowbreak{}Z.json}
+\end{frame}
+
+\begin{frame}[t]{A real agent changes its next step}
+\relax
+{\scriptsize\color{Slate}\textbf{Recorded P3 example / separate from the L2 calculation}\par}\smallskip
+\begingroup\begin{minipage}[c][3.9cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/agent_recorded_trace.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.9cm\resizebox{!}{3.9cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Recorded P3 example, separate from L2. 111.966607\% and 99.604410\% are rounded here.\par}
+\endgroup\smallskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item The failed tool result leads to a fallback check. Passing the checks still leaves human review.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/continuous_llama_opendss_20260927T161223523552Z.json}{Workshop recorded model replies and numerical study records. Voltage P3\_current\_reserve: Llama 3.1:8b planner, recovery and review calls 1--3. Public teaching archive. 27 September 2026.}\par}
+\note{This is an actual saved Llama 3.1:8b voltage episode, not a fabricated interactive exchange. Call 1 selects VERIFY\_SAC\_FIRST; the numerical check returns 111.966607 percent of allowed current and two current violations. Call 2 selects USE\_MPC\_PLAN; its numerical check returns 99.604410 percent of allowed current and no recorded violations. The SAC and MPC tools already exist; Llama does not invent or solve the power flow. The arrows show tool-request, result, next-request, result. Call 3 selects REVIEW\_EVIDENCE. Human acknowledgment remains PENDING and equipment\_dispatch is False. This separate P3 MV/LV OpenDSS archive differs from the fresh L2 exercise and from L3 test\_01. Later voltage slides display the exact public returned reasons; learners can replay the source in L10B after completing the three cases. The fixed comparator reaches the same numerical outcome, so the trace illustrates coordination rather than a proven performance improvement. This recorded example now follows the MPC/SAC definition slide in the voltage case, after Colab setup. It remains a preview; run the complete episode in L10B later. Takeaway: 
+
+Workshop recorded model replies and numerical study records. Voltage P3\_current\_reserve: Llama 3.1:8b planner, recovery and review calls 1--3. Public teaching archive. 27 September 2026.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/result\allowbreak{}s/continuous\_lla\allowbreak{}ma\_opendss\_20260\allowbreak{}927T161223523552\allowbreak{}Z.json
+
+Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py}
 \end{frame}
 
 \begin{frame}[t]{Control settings and limits}
@@ -663,29 +832,13 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom Labs L10B: voltage replay, recorded call 3; full record in source guide.}\par}
-\note{Read the exact REVIEW\_EVIDENCE choice and distinguish it from the overall status. The proposed controls are 2387.157 kW and +325.738 kvar. The supplied full MV/LV feeder check returned voltage 1.001783--1.035026 p.u. and zero listed violations. The fixed supervisor used the same SAC-to-MPC sequence with identical numerical output. Recorded workflow intervals were 0.346053 s fixed and 3.110454 s agentic, excluding precomputed MPC/SAC preparation. These are single recorded timings, not performance distributions or a measured reduction in operator workload. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. Takeaway: 
+\note{Read the exact REVIEW\_EVIDENCE choice and distinguish it from the overall status. The proposed controls are 2387.157 kW and +325.738 kvar. The supplied full MV/LV feeder check returned voltage 1.001783--1.035026 p.u. and zero listed violations. The fixed supervisor used the same SAC-to-MPC sequence with identical numerical output. Recorded workflow intervals were 0.346053 s fixed and 3.110454 s agentic, excluding precomputed MPC/SAC preparation. These are single recorded timings, not performance distributions or a measured reduction in operator workload. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: L2 makes new proposals; L3 shows old replies; L4--L5 run new checks on test\_01. Report the inputs, proposal, model coverage and result before naming the next step. Give pairs 30 seconds to describe the sequence without calling every step an AI decision. L2 calculates an MPC plan and a saved-policy proposal for the current classroom inputs. L3 displays old model replies. L4 runs new checks of the selected trials; L5 checks the original archived plan and its model coverage. Numerical tools provide the physical evidence. The old model choices select a permitted trial; they do not replace these checks. The operator receives an advisory record whose stated coverage must match the request. The three P3 previews are an additional separate archive. Contrast their saved Llama decisions with your current direct function calls. Takeaway: 
 
 Workshop recorded model replies and numerical study records. Voltage P3\_current\_reserve: Llama 3.1:8b planner, recovery and review calls 1--3. Public teaching archive. 27 September 2026.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/result\allowbreak{}s/continuous\_lla\allowbreak{}ma\_opendss\_20260\allowbreak{}927T161223523552\allowbreak{}Z.json
 
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py}
-\end{frame}
-
-\begin{frame}[t]{Voltage checkpoint: say what ran}
-\relax
-{\scriptsize\color{Slate}\textbf{Classroom Labs  /  L5  /  classroom-016}\par}\smallskip
-{
-\normalsize\begin{itemize}
-\item L2 makes new proposals; L3 shows old replies; L4--L5 run new checks on test\_01.
-\item Report the inputs, proposal, model coverage and result before naming the next step.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom\_Labs.ipynb, L5; cell classroom-016; MV-only default model.}\par}
-\note{Give pairs 30 seconds to describe the sequence without calling every step an AI decision. L2 calculates an MPC plan and a saved-policy proposal for the current classroom inputs. L3 displays old model replies. L4 runs new checks of the selected trials; L5 checks the original archived plan and its model coverage. Numerical tools provide the physical evidence. The old model choices select a permitted trial; they do not replace these checks. The operator receives an advisory record whose stated coverage must match the request. The three P3 previews are an additional separate archive. Contrast their saved Llama decisions with your current direct function calls. Takeaway: 
-
-Classroom Labs notebook. Classroom\_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
 \begin{frame}[t]{Restoration: open L6}
@@ -1003,29 +1156,13 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom Labs L10B: restoration replay, recorded call 16; full record in source guide.}\par}
-\note{Let pairs answer before discussing the result. Smaller cost is better, so E03 must rank before E02. Llama returns [E02,E03] while its explanation claims lowest score first. The recorded language\_order\_agrees\_with\_cost field is False. A deterministic guard retains E03 and rechecks it as E05, with no recorded failures. Human acknowledgment and dispatch remain False. The paired fixed workflow reaches the same final action and cost. This example motivates verification rather than an unsupported superiority claim. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. Takeaway: 
+\note{Let pairs answer before discussing the result. Smaller cost is better, so E03 must rank before E02. Llama returns [E02,E03] while its explanation claims lowest score first. The recorded language\_order\_agrees\_with\_cost field is False. A deterministic guard retains E03 and rechecks it as E05, with no recorded failures. Human acknowledgment and dispatch remain False. The paired fixed workflow reaches the same final action and cost. This example motivates verification rather than an unsupported superiority claim. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: At 40 kW, explain 130 total / 90 critical versus 140 total / 30 critical, all in kW. For a changed request, keep HOLD until evidence for the current request is available. Ask each pair to give one number and one condition. They should distinguish three decisions: selecting a service policy, checking current evidence and authorizing a physical switching operation. Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source. Takeaway: 
 
 Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14--16. Public teaching archive. 27 September 2026.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/result\allowbreak{}s/proposal\_run\_2\allowbreak{}0260927T184402Z\_\allowbreak{}53e0cf/llama\_cal\allowbreak{}ls.json
 
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py}
-\end{frame}
-
-\begin{frame}[t]{Restoration checkpoint: name the next step}
-\relax
-{\scriptsize\color{Slate}\textbf{Classroom Labs  /  L7  /  classroom-021}\par}\smallskip
-{
-\normalsize\begin{itemize}
-\item At 40 kW, explain 130 total / 90 critical versus 140 total / 30 critical, all in kW.
-\item For a changed request, keep HOLD until evidence for the current request is available.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom\_Labs.ipynb, L7; cell classroom-021; request/evidence binding.}\par}
-\note{Ask each pair to give one number and one condition. They should distinguish three decisions: selecting a service policy, checking current evidence and authorizing a physical switching operation. Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source. Takeaway: 
-
-Classroom Labs notebook. Classroom\_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
 \begin{frame}[t]{Cyber: open L8}
@@ -1305,31 +1442,6 @@ Classroom Labs notebook. Classroom\_Labs.ipynb, L9; cell classroom-026; fixed tr
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
-\begin{frame}[t]{Stanford: language and decision checks}
-\relax
-{\scriptsize\color{Slate}\textbf{Stanford source example / grid teaching analogy}\par}\smallskip
-\begingroup\centering\includegraphics[width=\linewidth,height=2cm,keepaspectratio]{images/stanford_language_decision.pdf}
-\par{\fontsize{7}{8.3}\selectfont\color{Slate} Clinical-trial research example. SMT represents logical constraints; MaxSAT helps find decision-changing conditions.}
-\par\endgroup\smallskip
-{\large\color{IEEEBlue} \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf\#page=53}{Read the Stanford lecture, p.53}\par}\medskip
-{
-\small\begin{itemize}
-\setlength{\itemsep}{.25em}
-\item The lecture turns written facts into constraints, then uses a solver to check a decision.
-\item Our grid adaptation: Llama requests a study, Python checks its results, and the operator reviews the proposal.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.}\par}
-\note{This original diagram selection comes from the function row on p.53 of Monica Lam's introduction. It shows a clinical-trial example, not a power-system experiment. The language model translates written facts into an SMT representation; a separate solver derives a decision from those constraints. SMT means satisfiability modulo theories, a way to express and solve logical constraints. MaxSAT supports the lecture's search for conditions that change a decision. The lecture also states that the formalization may not be completely faithful, so correctness remains relative to the represented constraints. Our application is an analogy: Llama requests the permitted estimate or control tool and Python checks numerical limits. An operator must still confirm the trust assumption and review the proposed action. Our notebook does not run an SMT/MaxSAT solver or prove formal electrical safety. Keep the previously calculated HOLD/PROPOSE outcomes tied to their stated numerical model and trusted-data assumption. Takeaway: 
-
-Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
-Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
-Publication: https://web.stanford.edu/class/cs224v/
-
-Classroom Labs notebook. Classroom\_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
-\end{frame}
-
 \begin{frame}[t]{Cyber: Llama selects the tool already allowed}
 \relax
 {\scriptsize\color{Slate}\textbf{Recorded agent example  /  separate recovery study}\par}\smallskip
@@ -1365,29 +1477,13 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom Labs L10B: cyber replay, recorded call 8; full record in source guide.}\par}
-\note{Read the actual reply, including the REVIEW choice. Numerical verification is PASS, but the overall result remains REVIEW and human acknowledgment is PENDING. The fixed comparator obtains the same numerical state estimate and correction without Llama. This replay demonstrates permitted tool routing and a report decision. It does not demonstrate better estimation, authenticated measurements, AC network security or operating authority. Run L11 with the default False setting, then proceed to L12. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. Takeaway: 
+\note{Read the actual reply, including the REVIEW choice. Numerical verification is PASS, but the overall result remains REVIEW and human acknowledgment is PENDING. The fixed comparator obtains the same numerical state estimate and correction without Llama. This replay demonstrates permitted tool routing and a report decision. It does not demonstrate better estimation, authenticated measurements, AC network security or operating authority. Run L11 with the default False setting, then proceed to L12. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: Report the trust assumption, model, proposed u and the checks that passed or failed. Without independent trusted information, keep HOLD and name what is missing. Ask pairs to state the outcome and its condition in the same sentence. For example: 'The fixture proposes u when the supplied trusted channels are available.' Do not say: 'The AI proved that the telemetry is safe.' Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source. Takeaway: 
 
 Workshop recorded model replies and numerical study records. Standard four-bus cyber study: Llama 3.1:8b tool selection and REVIEW calls 7--8. Public teaching archive. 21 September 2026.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/result\allowbreak{}s/standard\_stage\allowbreak{}\_20260921T143826\allowbreak{}Z\_42d19a61/llama\allowbreak{}\_calls.json
 
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py}
-\end{frame}
-
-\begin{frame}[t]{Cyber checkpoint: explain why PROPOSE is allowed}
-\relax
-{\scriptsize\color{Slate}\textbf{Classroom Labs  /  L9  /  classroom-026}\par}\smallskip
-{
-\normalsize\begin{itemize}
-\item Report the trust assumption, model, proposed u and the checks that passed or failed.
-\item Without independent trusted information, keep HOLD and name what is missing.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom\_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.}\par}
-\note{Ask pairs to state the outcome and its condition in the same sentence. For example: 'The fixture proposes u when the supplied trusted channels are available.' Do not say: 'The AI proved that the telemetry is safe.' Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source. Takeaway: 
-
-Classroom Labs notebook. Classroom\_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
 \begin{frame}[t]{Run L10 before the Llama walkthrough}
@@ -1418,95 +1514,13 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom\_Labs.ipynb, L10B; cell classroom-llama-walkthrough; src/llama\_walkthrough.py.}\par}
-\note{Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown. Takeaway: 
+\note{Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown. Allow about two minutes per scenario: one partner identifies the model choice, the other finds its tool result and the unresolved operator decision. These additional minutes replace removed checkpoint slides and the longer source explanations. Takeaway: 
 
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py
 
 Ollama documentation maintainers. Structured Outputs: generating structured JSON with a schema. Official Ollama documentation. Reviewed 24 October 2026.
 Full source: https://docs.oll\allowbreak{}ama.com/capabili\allowbreak{}ties/structured-\allowbreak{}outputs}
-\end{frame}
-
-\begin{frame}[t]{Stanford example: check before you write}
-\relax
-\begingroup\centering\includegraphics[width=\linewidth,height=4.1cm,keepaspectratio]{images/stanford_wikichat_steps.pdf}
-\par{\fontsize{7}{8.3}\selectfont\color{Slate} Original Stanford lecture excerpt, p.19. WikiChat checks claims before drafting a reply.}
-\par\endgroup\smallskip
-{\large\color{IEEEBlue} \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf\#page=19}{Read the Stanford lecture, p.19}\par}\medskip
-{
-\small\begin{itemize}
-\setlength{\itemsep}{.25em}
-\item Grid lab takeaway: check the numerical result before writing the study summary.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19.}\par}
-\note{The displayed figure is an original excerpt from Monica Lam's Stanford CS224V introduction, p.19. Follow its retrieval, claim checking and writing steps. The WikiChat paper is fully cited in the reading guide. Our application to grid studies is a teaching analogy: read the stated limits, run the appropriate numerical check and summarize the actual returned result. Ask which lab step would detect a current violation. The classroom notebook does not run WikiChat; its dialogue factuality measurements are not electrical performance results. Takeaway: 
-
-Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
-Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
-Publication: https://web.stanford.edu/class/cs224v/
-
-Sina J. Semnani, Violet Z. Yao, Heidi C. Zhang, Monica S. Lam. WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot Grounding on Wikipedia. Findings of the Association for Computational Linguistics: EMNLP 2023, pp.2387--2413. December 2023.
-Full source: https://aclantho\allowbreak{}logy.org/2023.fi\allowbreak{}ndings-emnlp.157\allowbreak{}/
-Full paper: https://aclantho\allowbreak{}logy.org/2023.fi\allowbreak{}ndings-emnlp.157\allowbreak{}.pdf
-
-Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
-\end{frame}
-
-\begin{frame}[t]{Stanford example: tools need clear rules}
-\relax
-\begingroup\centering\includegraphics[width=\linewidth,height=3.7cm,keepaspectratio]{images/stanford_genie_specification.pdf}
-\par{\fontsize{7}{8.3}\selectfont\color{Slate} Original Stanford lecture excerpt, p.40. The lab adopts the idea of explicit rules in Python.}
-\par\endgroup\smallskip
-{\large\color{IEEEBlue} \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf\#page=40}{Read the Stanford lecture, p.40}\par}\medskip
-{
-\small\begin{itemize}
-\setlength{\itemsep}{.25em}
-\item Write down the required inputs, permitted tools, limits and stop rules.
-\item Our lab keeps those rules in Python. A language reply cannot change the limits.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40.}\par}
-\note{Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results. Takeaway: 
-
-Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
-Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
-Publication: https://web.stanford.edu/class/cs224v/
-
-Harshit Joshi, Shicheng Liu, James Chen, Larsen Weigle, Monica Lam. Controllable and Reliable Knowledge-Intensive Task-Oriented Conversational Agents with Declarative Genie Worksheets. Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics, Volume 1: Long Papers, pp.27264--27308. July 2025.
-Full source: https://aclanthology.org/2025.acl-long.1323/
-Full paper: https://aclantho\allowbreak{}logy.org/2025.ac\allowbreak{}l-long.1323.pdf
-
-Classroom Labs notebook. Classroom\_Labs.ipynb, L0--L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
-\end{frame}
-
-\begin{frame}[t]{Ask four questions about a study result}
-\relax
-\begingroup\begin{minipage}[c][3.55cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_review_questions.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.55cm\resizebox{!}{3.55cm}{\box0}\else\box0\fi\par\end{minipage}\par
-{\fontsize{7}{8.3}\selectfont\color{Slate} Grid teaching adaptation of Monica Lam's accountability concepts, Stanford CS224V introduction, pp.52--53.\par}
-\endgroup\smallskip
-{\large\color{IEEEBlue} \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf\#page=52}{Read the Stanford lecture, p.52}\par}\medskip
-{
-\small\begin{itemize}
-\setlength{\itemsep}{.25em}
-\item Find the tool result, assumptions, rules and the operator's next step.
-\item If a claim has no supporting result, leave it unresolved and request the missing check.
-\end{itemize}\par}
-\vfill
-{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, pp.52--53.}\par}
-\note{Lam's pp.52--53 distinguish verifiable rationale, explicit assumptions, policy consistency and actionable next conditions. Translate these into four plain questions: which tool supports this claim, which inputs and model were used, were the same limits and service priorities kept, and what must the operator review next? Our power-flow, optimization and evidence-binding checks are numerical/software checks. They do not inherit the lecture's SMT correctness claims. Ask pairs to apply the questions to one L10B explanation and to the full-scope HOLD at L12. We show only the actual public returned reasons, not hidden chain-of-thought. Takeaway: 
-
-Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
-Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
-Publication: https://web.stanford.edu/class/cs224v/
-
-Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py
-
-Classroom Labs notebook. Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
 \begin{frame}[t]{Finish L12: practice the readback}
@@ -1546,6 +1560,34 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 
 Classroom Labs notebook. Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
+\end{frame}
+
+\begin{frame}[t]{Llama chooses; tools calculate; people decide}
+\relax
+\begingroup\begin{minipage}[c][3.9cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/agent_roles_simple.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.9cm\resizebox{!}{3.9cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Our grid teaching adaptation of the language/checking distinction in Stanford Lecture 1, p.53.\par}
+\endgroup\smallskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item The agent coordinates a study. Numerical tools supply the checks. The operator reviews the proposal.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.}\par}
+\note{Use the three symbols to assign responsibilities: the speech box is Llama making a permitted choice and returning a public reason; the function is Python and OpenDSS calculating physical results and enforcing workflow limits; the person is the operator reviewing evidence and retaining operating authority. The Llama wrappers use constrained JSON interpreted by the application, rather than native tool\_calls. Language explanations are not proof of physical correctness. In our replay the model may say REVIEW but the human acknowledgment is still PENDING. For each exercise work in pairs: one person runs while the other checks, then swap. Save the input, result, check and next decision. Stanford p.53 separates language understanding from checking a formal decision model in a clinical-trial example. The lab adaptation separates Llama coordination from Python numerical checks and operator review. This lab does not run SMT or MaxSAT, and the analogy supplies no formal guarantee about the grid model. This role reminder now introduces the closing advisory-pilot discussion, after the L12 readback. Takeaway: 
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
+Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
+Full source: https://www.anth\allowbreak{}ropic.com/resear\allowbreak{}ch/building-effe\allowbreak{}ctive-agents
+
+Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/src/ll\allowbreak{}ama\_walkthrough.\allowbreak{}py
+
+Ollama documentation maintainers. Structured Outputs: generating structured JSON with a schema. Official Ollama documentation. Reviewed 24 October 2026.
+Full source: https://docs.oll\allowbreak{}ama.com/capabili\allowbreak{}ties/structured-\allowbreak{}outputs}
 \end{frame}
 
 \begin{frame}[t]{Start a control-room pilot with a clear study request}
