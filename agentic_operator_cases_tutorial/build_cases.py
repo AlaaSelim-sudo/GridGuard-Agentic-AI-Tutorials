@@ -1,5 +1,5 @@
 """Build the separate three-case operator tutorial in LaTeX and Slidev."""
-from pathlib import Path
+from pathlib import Path,PureWindowsPath
 from types import SimpleNamespace
 import ast,hashlib,html,json,re,shutil,textwrap
 import renderer as r
@@ -46,6 +46,24 @@ def module_schedule(slides):
 
 def resolve_local(value):
     p=Path(value)
+    # Historical records retain their original Windows paths. Build from the
+    # packaged snapshots first, including on Linux/macOS and fresh clones.
+    legacy=PureWindowsPath(str(value))
+    if legacy.is_absolute():
+        normalized=legacy.as_posix()
+        marker='/agentic_grid_workflow_tutorial/'
+        if marker in normalized:
+            relative=Path(normalized.split(marker,1)[1])
+            packaged=ROOT/'research/evidence'/relative
+            if not packaged.resolve().is_relative_to((ROOT/'research/evidence').resolve()):
+                raise ValueError('Evidence path must stay inside the packaged archive')
+            if packaged.is_file():return packaged,relative
+            current=NOTEBOOK_ROOT/relative
+            if current.is_file():return current,relative
+        if not p.is_file():
+            for folder in ['additional','replots']:
+                candidate=ROOT/'research/evidence'/folder/legacy.name
+                if candidate.is_file():return candidate,Path(folder)/legacy.name
     if not p.is_absolute():p=ROOT/p
     if p.is_relative_to(WORKSHOP):
         relative=p.relative_to(WORKSHOP)

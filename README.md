@@ -1,78 +1,84 @@
 # GridGuard: Agentic AI for Power-System Operators
 
-Two connected tutorials for power engineers, operators, researchers and instructors. Begin with agentic AI concepts and power-system evidence, then follow recorded engineering cases from inputs and tool calls to results and human review.
+Two connected tutorials for power engineers, operators, researchers and instructors.
 
-**[Open the tutorial site](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/)**
-
-[Watch](#watch) · [Get notebooks](#get-notebooks) · [Teach](#teach) · [Edit](#edit) · [Archive](#archive)
+**[Open the tutorial website](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/)**
 
 **Presenters:** Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.
 
-## Watch
+[Choose a tutorial](#choose-a-tutorial) · [Run the lab](#run-the-lab) · [Present](#present-the-workshop) · [Edit and rebuild](#edit-and-rebuild) · [Archive](#archive)
 
-1. **[Foundations — open the slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/)** · **80 slides / 165 minutes**. Agents, tools and workflows; utility developments; power-system research; LangGraph concepts; and how to assess evidence. Includes two exercises. [Download the PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/foundations.pdf).
-2. **[Hands-on workshop: three operator cases — open the slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/)** · **80 slides / 180 minutes**. Follow **Classroom Labs L0–L12, including L10B**, in Colab or Jupyter. Begin with a twelve-minute Stanford concept block, with simple visuals linking evidence checks to voltage, task rules to restoration, and trust assumptions to cyber response. Then prepare the one Colab notebook. Run voltage, restoration and cyber calculations, then change one input in each of three four-minute exercises. Saved agent examples appear beside the matching cases; run their L10B replays later in notebook order. Inspect exact saved Llama reasons and the numerical guard that catches a wrong ranking. Finish with a proposed advisory control-room pilot. Notebook excerpts and executed outputs connect **input → tool call → result → check → operator decision**. [Download the PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases.pdf).
+<a id="watch"></a>
 
-The browser presentations need no Python installation, model account or live language-model service. Both use an IEEE ComSoc visual theme and include source credits and presenter notes. The sessions can be taught separately; their combined scheduled time is **5 hours 45 minutes**.
+## Choose a tutorial
 
-## Get notebooks
+1. **[Foundations](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/1)** — 80 slides / 165 minutes / two exercises. Agent concepts, utility developments, power-system research and evidence. [Slides PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/foundations.pdf).
+2. **[Hands-on workshop](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1)** — 80 slides / 180 minutes / three exercises. Begin with Stanford concepts, then run voltage, restoration and cyber studies in one Colab notebook. [Workshop overview](agentic_operator_cases_tutorial/README.md) · [Slides PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases.pdf).
 
-**Only Classroom Labs is required for the hands-on slides.** The two other Colabs are companion resources.
+The sessions can be taught separately. Combined teaching time is 5 hours 45 minutes, plus breaks. Viewing the presentations needs no installation or model account.
 
-Start with the [six-page Participant Lab Guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf), which explains Colab and gives the three exercise steps. The workshop uses original figures from **Monica Lam, _CS224V Agentic AI, Lecture 1: Introduction_, Stanford University, Fall 2026**, with page links and clearly labeled grid adaptations. [Read the lecture](https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf) or [follow the Stanford source map and full paper references](agentic_operator_cases_tutorial/README.md#stanford-teaching-materials).
+<a id="get-notebooks"></a>
 
-**[Classroom Labs](agentic_grid_workflow_tutorial/Classroom_Labs.ipynb)** — voltage L2–L5, restoration L6–L7 and cyber response L8–L9. Change a parameter and compare your prediction with the new result. L10B replays real saved Llama choices, exact public reasons and returned tool evidence for three separate recorded cases.
+## Run the lab
+
+**Only Classroom Labs is required for the hands-on slides.**
 
 [![Open Classroom Labs in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb)
 
-**[LangGraph workflow lab](agentic_grid_workflow_tutorial/Graph_Workflow_Lab.ipynb)** — a separate graph example for state, tool routing, branching and execution.
+1. Save a notebook copy in Drive and connect a CPU runtime.
+2. Run the first setup cell until **Ready**, then L0 and L1. Keep both live-tool switches False.
+3. During the workshop, run each named lesson when prompted. Change one input for each exercise, compare the new result and reset before continuing.
+
+[Participant guide · PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf) · [Colab setup and troubleshooting](COLAB_GUIDE.md) · [Complete notebook index](NOTEBOOK_INDEX.md).
+
+Classroom Labs calculates numerical results now. L10B displays saved Llama choices, exact public reasons and original tool results; it makes no new model request or electrical solve. The standard route needs no GPU, API key or model download.
+
+### Companion notebooks
+
+Use these for additional study; they are separate from the required workshop route.
+
+**LangGraph workflow lab:** state, tool routing, branching and execution.
 
 [![Open the LangGraph workflow lab in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Graph_Workflow_Lab.ipynb)
 
-**[Agent traces and latency](agentic_grid_workflow_tutorial/Agent_Trace_and_Latency.ipynb)** — actual saved model replies, tool outputs, stopping decisions and measured timing boundaries.
+**Agent traces and latency:** saved model replies, tool outputs and timing boundaries.
 
 [![Open Agent traces and latency in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Agent_Trace_and_Latency.ipynb)
 
-### Run in Colab
+<a id="teach"></a>
 
-1. Sign in to Google and open a notebook using its Colab badge above.
-2. Use a standard CPU runtime. A GPU is unnecessary.
-3. Choose **Runtime → Run all**. The first setup cell retrieves the supporting files and installs dependencies.
-4. Follow the notebook in order. In Classroom Labs, change forecasts or parameters and rerun the relevant cells.
+## Present the workshop
 
-Classroom Labs performs fresh numerical calculations. L10B displays saved Llama replies and saved tool results; change `SCENARIO` to `"voltage"`, `"restoration"` or `"cyber"` to inspect each replay. Displaying it makes no new model call or electrical solve. The default route needs no API key, language-model download or GPU. See the [detailed Colab guide](COLAB_GUIDE.md) for setup and troubleshooting.
+- **[Presenter script online](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Presenter_Script.html)** — spoken cues, timings, Colab actions and discussion prompts for all 80 slides. [PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases-presenter-script.pdf) · [Editable script](agentic_operator_cases_tutorial/Presenter_Script.md).
+- **[Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/presenter/1)** — present the slides beside the script.
+- **[Participant guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf)** and **[exercise prompts](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Exercises.html)** — share these with learners.
+- **[Instructor guide](agentic_operator_cases_tutorial/Instructor_Guide.md)** and **[code-and-record guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Code_and_Record_Guide.html)** — detailed answers and exact notebook alignment.
+- **[Teaching and Source Guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases-teaching-guide.pdf)** — complete references and figure credits.
 
-For a closer look at the evidence:
+The opening uses Monica Lam’s **CS224V Agentic AI, Lecture 1: Introduction**, Stanford University, Fall 2026, with original figures and clearly labeled grid adaptations. [Full lecture](https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf) · [Source map and full paper citations](agentic_operator_cases_tutorial/README.md#stanford-teaching-materials).
 
-- [Standard formulations](agentic_grid_workflow_tutorial/Standard_Formulations.ipynb): optimization, restoration MILP and state-estimation/control examples.
-- [LLM response selection](agentic_grid_workflow_tutorial/LLM_Response_Selection.ipynb): the recorded voltage response-selection study and its comparisons.
-- [Complete notebook index](NOTEBOOK_INDEX.md): all 12 current workflow notebooks and preserved earlier editions.
+For the foundations session, use its [instructor guide](agentic_operator_tutorial/Instructor_Guide.md) and [reading guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/Full_Reading_Guide.html).
 
-GitHub previews the notebooks. For local execution, clone or download the repository so each notebook keeps its sibling `src`, `data`, `models` and `results` folders. Follow the [workflow setup guide](agentic_grid_workflow_tutorial/README.md); the graph lab uses its own requirements.
+<a id="edit"></a>
 
-**Saved and live execution are different.** Opening saved outputs makes no new model call. The default Classroom Labs path performs numerical calculations with saved policy weights and archived model replies. Optional full-feeder OpenDSS checks, local Ollama calls and policy training require their respective dependencies and models. Earlier studies retain their original environment metadata.
+## Edit and rebuild
 
-## Teach
+The current presentation sources and ready PDFs are included. Follow the **[hands-on build guide](agentic_operator_cases_tutorial/BUILD_GUIDE.md)** for authoring dependencies, source locations and the full rebuild command:
 
-- **Foundations:** [instructor guide](agentic_operator_tutorial/Instructor_Guide.md) and [full reading and source guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/Full_Reading_Guide.html).
-- **Participant guide:** [printable PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf) or [web version](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Participant_Lab_Guide.html).
-- **Operator cases:** [instructor guide](agentic_operator_cases_tutorial/Instructor_Guide.md), [teaching and source guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases-teaching-guide.pdf), and [code and recorded-result guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Code_and_Record_Guide.html).
-- **Hands-on workshop:** [Classroom Labs instructor guide](agentic_grid_workflow_tutorial/Workshop_Instructor_Guide.md).
+```text
+python scripts/build-workshop.py check
+python scripts/build-workshop.py all
+```
 
-The guides include timings, explanations, exercise answers, complete references and figure credits. The current source and code guides are also available on the tutorial site. Download the repository to keep the local notebooks, dashboards and supporting records together.
+- [Hands-on project](agentic_operator_cases_tutorial/README.md) · [Slidev source](agentic_operator_cases_tutorial/slidev/slides.md) · [Presenter cue source](agentic_operator_cases_tutorial/content/presenter_script.json).
+- [Foundations project](agentic_operator_tutorial/README.md) · [Slidev source](agentic_operator_tutorial/slidev/slides.md).
+- [Website build guide](web/README.md) · [GitHub Pages workflow](.github/workflows/deploy-pages.yml).
 
-Keep the studies distinct when teaching. The fresh classroom cases use a synthetic SMART-DS feeder, a separate six-node restoration graph and a separate four-bus DC cyber model. L10B's voltage and restoration replays use different archived studies; its labels identify them. Exact public Llama reasons are explanations, not hidden reasoning or proof that a plan passes its limits. Numerical checks, model explanations and human approval are different events; recorded `REVIEW` and `PENDING` states remain unresolved. The final control-room walkthrough is a **proposed advisory pilot**, not a deployed utility system. These records do not establish switching authority or a general numerical benefit from adding an LLM. The engineering supervisors are custom Python; the separate graph lab teaches LangGraph.
+Pushing the generated materials to `main` triggers the Pages workflow. The local build commands do not push or publish. Existing figure-capture and TikZ helpers have their own documented runtime requirements; the main build uses the supplied assets.
 
-## Edit
+## Evidence and scope
 
-The two current projects include editable Slidev, LaTeX/TikZ, figures, source registries and notes:
-
-- [Foundations project and rebuild instructions](agentic_operator_tutorial/README.md) · [Slidev source](agentic_operator_tutorial/slidev/slides.md).
-- [Operator-cases project and rebuild instructions](agentic_operator_cases_tutorial/README.md) · [Slidev source](agentic_operator_cases_tutorial/slidev/slides.md).
-
-For local Slidev authoring, use Node.js 24 and pnpm 11.25.0. Enter either project's `slidev` folder, run `pnpm install --frozen-lockfile`, then `pnpm dev`. The LaTeX entry point is `latex/main.tex` in each project. Follow each project guide when regenerating content or figures; some original screenshot and graphics helpers need local runtime paths adjusted. Ready figures and PDFs are included.
-
-The [online-site build guide](web/README.md) explains the shared Pages build. The [deployment workflow](.github/workflows/deploy-pages.yml) republishes the site when its presentation or website sources change on `main`.
+The labs use synthetic or reduced networks. Fresh classroom calculations and the separate L10B archives are labeled. A model explanation, a numerical PASS, a simulated readback and an operator approval are different events. The closing control-room pilot is a teaching proposal. Recorded outcomes do not establish a general numerical advantage from adding an LLM.
 
 ## Archive
 
@@ -92,4 +98,4 @@ Use the two **Watch** links above for the current presentations. Some unchanged 
 
 ## Sources and credits
 
-Primary references, paper URLs, original image credits and evidence limits accompany the slides and guides. See [THIRD_PARTY_SOURCES.md](THIRD_PARTY_SOURCES.md) for source and rights information. IEEE sponsorship or endorsement is not claimed. Third-party photographs, figures, logos and source material retain their respective terms; no blanket license is applied to them.
+Primary references, paper URLs, image credits and evidence limits accompany the slides and guides. See [THIRD_PARTY_SOURCES.md](THIRD_PARTY_SOURCES.md). Independent educational material using an IEEE ComSoc theme; IEEE sponsorship or endorsement is not claimed. Third-party materials retain their respective terms.

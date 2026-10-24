@@ -46,6 +46,8 @@ for(const [from,to] of [
   ['agentic_operator_tutorial/Full_Reading_Guide.pdf','foundations-reading-guide.pdf'],
   ['agentic_operator_cases_tutorial/Teaching_and_Source_Guide.pdf','operator-cases-teaching-guide.pdf'],
   ['agentic_operator_cases_tutorial/Participant_Lab_Guide.pdf','participant-lab-guide.pdf'],
+  ['agentic_operator_cases_tutorial/Presenter_Script.pdf','operator-cases-presenter-script.pdf'],
+  ['agentic_operator_cases_tutorial/Presenter_Script.md','operator-cases-presenter-script.md'],
   ...['Classroom_Labs','Graph_Workflow_Lab','Agent_Trace_and_Latency'].map(n=>['agentic_grid_workflow_tutorial/'+n+'.ipynb',n+'.ipynb']),
 ]){copy(path.join(root,from),path.join(out,'downloads',to));report.downloads.push('downloads/'+to);}
 fs.cpSync(path.join(root,'web/assets'),path.join(out,'assets'),{recursive:true});

@@ -1,6 +1,6 @@
 """Build a short participant workbook from the same lesson and notebook labels."""
 from pathlib import Path
-import html,json,shutil,subprocess
+import html,json,os,shutil,subprocess
 from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor
 from reportlab.lib.styles import ParagraphStyle
@@ -15,7 +15,7 @@ BUILD=ROOT/'research/lab_teaching/_build';BUILD.mkdir(exist_ok=True)
 COLAB='https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb'
 SITE='https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/'
 GH='https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/'
-POP=Path(r'C:/Users/f00863x/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/Library/bin/pdftoppm.exe')
+POP=Path(os.environ.get('PDFTOPPM') or shutil.which('pdftoppm') or r'C:/Users/f00863x/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/Library/bin/pdftoppm.exe')
 slides=json.loads((ROOT/'lesson_content.json').read_text(encoding='utf-8'))
 exercise={s['lab_label']:i for i,s in enumerate(slides,1) if s['kind']=='exercise'}
 sections=[
