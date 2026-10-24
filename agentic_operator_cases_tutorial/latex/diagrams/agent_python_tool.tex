@@ -1,0 +1,19 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{10}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2.2mm]},draw=IEEEBlue,line width=1.4pt},
+feedback/.style={-{Stealth[length=2.2mm]},draw=Cyan,line width=1.6pt},
+box/.style={draw=IEEEBlue,line width=1.1pt,fill=white,inner sep=7pt,minimum height=.95cm},
+small/.style={font=\sffamily\fontsize{8.5}{11}\selectfont}]
+
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (1.9,3.8) {Inputs};
+\node[text width=3.4cm] (input) at (1.9,2.55) {Load scale: 1.0\\Allowance: 0.80};
+\node[box,text width=5.0cm] (func) at (7.0,2.55) {\textbf{Python function}\\\texttt{lab.voltage\_lab(...)}\\Calculate proposals and checks};
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (12.6,3.8) {Returned results};
+\node[text width=3.5cm] (output) at (12.6,2.55) {Control settings\\Voltages and currents\\Pass / fail};
+\draw[flow] (input)--(func);\draw[flow] (func)--(output);
+\draw[Cyan,line width=1pt] (.2,1.25)--(14.4,1.25);
+\node[text width=13.6cm] at (7.2,.55) {\textbf{In L2, your cell calls this function directly.}\\In the recorded agent study, Python checks Llama's choice before running an allowed tool.};
+
+\end{tikzpicture}
+\endgroup

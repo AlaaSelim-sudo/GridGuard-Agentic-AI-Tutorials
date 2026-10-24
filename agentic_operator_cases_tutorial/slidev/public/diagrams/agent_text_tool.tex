@@ -1,0 +1,23 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{10}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2.2mm]},draw=IEEEBlue,line width=1.4pt},
+feedback/.style={-{Stealth[length=2.2mm]},draw=Cyan,line width=1.6pt},
+box/.style={draw=IEEEBlue,line width=1.1pt,fill=white,inner sep=7pt,minimum height=.95cm},
+small/.style={font=\sffamily\fontsize{8.5}{11}\selectfont}]
+
+\node[anchor=west,text=IEEEBlue,font=\sffamily\bfseries] at (.15,4.1) {Text-only interaction};
+\node[text width=2.1cm] (q) at (1.7,3.1) {Question};
+\node[box,text width=2.1cm] (m) at (6.4,3.1) {LLM};
+\node[text width=3.0cm] (a) at (12.2,3.1) {Written reply};
+\draw[flow] (q)--(m);\draw[flow] (m)--(a);
+\draw[Slate!35] (.15,2.35)--(14.3,2.35);
+\node[anchor=west,text=Cyan,font=\sffamily\bfseries] at (.15,1.95) {Tool-using agent};
+\node[text width=2.5cm] (g) at (1.7,.9) {Goal + case facts};
+\node[box,text width=2.5cm,fill=Cyan!7] (am) at (6.4,.9) {LLM chooses\\a permitted step};
+\node[box,text width=2.5cm] (t) at (12.2,.9) {Run tool\\Return result};
+\draw[flow] (g)--(am);\draw[flow] (am.east)--node[above,small]{Tool request}(t.west);
+\draw[feedback] (t.south)--(12.2,-.15)--node[below,small,text=Cyan]{Result changes the next choice}(6.4,-.15)--(am.south);
+
+\end{tikzpicture}
+\endgroup

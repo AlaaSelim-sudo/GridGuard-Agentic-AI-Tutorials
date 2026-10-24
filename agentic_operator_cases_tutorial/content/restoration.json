@@ -78,7 +78,7 @@
       "H06"
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
-    "minutes": 2,
+    "minutes": 3,
     "note": "The markers show sampled capacities rather than a continuous ramp between whole-load pickup plans. A higher capacity may still be too small to add another complete load block. Read both total and critical service before choosing the policy that matches the request.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -285,6 +285,84 @@
     "eyebrow": "Classroom Labs · L6 · classroom-018"
   },
   {
+    "title": "Restoration: Llama chooses a useful new trial",
+    "kind": "figure",
+    "points": [
+      "The new trial serves more load, keeps critical service and passes the current check."
+    ],
+    "note": "Switch L10B to restoration. This is the separate L10 feeder-catalog restoration study, not the L6 six-node MILP. The recorded protocol requires a first refinement but Llama chooses between the offered fractions. SHED_075 disconnects 75% of the ordered noncritical load objects, not 75% of load kW. The exact reason calls improvement a possibility. Python evaluates the trial and finds improved service while the tie loading remains 91.867215% of its allowance. A useful hypothesis becomes evidence only after that check. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
+    "refs": [
+      "LRR",
+      "LR0"
+    ],
+    "minutes": 2.5,
+    "image_source_path": "images/llama_restoration_14.png",
+    "visual_height_px": 380,
+    "visual_height_cm": 4.4,
+    "caption": "Saved restoration example; separate from this case’s fresh calculation. Replay it in L10B later.",
+    "source_label": "Classroom Labs L10B: restoration replay, recorded call 14; full record in source guide.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "lab_label": "L10B",
+    "eyebrow": "Recorded agent example · separate feeder study",
+    "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
+    "hands_on": false,
+    "replay_scenario": "restoration",
+    "replay_call": 14,
+    "replay_preview": true
+  },
+  {
+    "title": "Restoration: the next trial crosses the current limit",
+    "kind": "figure",
+    "points": [
+      "The next trial fails the current limit. Keep the previous passed candidate."
+    ],
+    "note": "Keep the actual returned reason visible. It refers to a target in the objective, but its claim should not be accepted as a proved fact. In this record the next trial is numerically rejected for a thermal failure. Restoring more load does not make a failed current check acceptable. Ask participants to explain why the previous passed candidate must remain in the case record. The model’s trial budget is bounded. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
+    "refs": [
+      "LRR",
+      "LR0"
+    ],
+    "minutes": 2.5,
+    "image_source_path": "images/llama_restoration_15.png",
+    "visual_height_px": 380,
+    "visual_height_cm": 4.4,
+    "caption": "Saved restoration example; separate from this case’s fresh calculation. Replay it in L10B later.",
+    "source_label": "Classroom Labs L10B: restoration replay, recorded call 15; full record in source guide.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "lab_label": "L10B",
+    "eyebrow": "Recorded agent example · separate feeder study",
+    "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
+    "hands_on": false,
+    "replay_scenario": "restoration",
+    "replay_call": 15,
+    "replay_preview": true
+  },
+  {
+    "title": "Restoration: catch Llama’s wrong ranking",
+    "kind": "figure",
+    "points": [
+      "The returned order is wrong. Python chooses the smaller cost and rechecks the plan."
+    ],
+    "note": "Let pairs answer before discussing the result. Smaller cost is better, so E03 must rank before E02. Llama returns [E02,E03] while its explanation claims lowest score first. The recorded language_order_agrees_with_cost field is False. A deterministic guard retains E03 and rechecks it as E05, with no recorded failures. Human acknowledgment and dispatch remain False. The paired fixed workflow reaches the same final action and cost. This example motivates verification rather than an unsupported superiority claim. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
+    "refs": [
+      "LRR",
+      "LR0"
+    ],
+    "minutes": 2.5,
+    "image_source_path": "images/llama_restoration_16.png",
+    "visual_height_px": 380,
+    "visual_height_cm": 4.4,
+    "caption": "Saved restoration example; separate from this case’s fresh calculation. Replay it in L10B later.",
+    "source_label": "Classroom Labs L10B: restoration replay, recorded call 16; full record in source guide.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "lab_label": "L10B",
+    "eyebrow": "Recorded agent example · separate feeder study",
+    "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
+    "hands_on": false,
+    "replay_scenario": "restoration",
+    "replay_call": 16,
+    "replay_preview": true
+  },
+  {
     "title": "Restoration checkpoint: name the next step",
     "kind": "normal",
     "points": [
@@ -296,7 +374,7 @@
     ],
     "source_label": "Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding.",
     "minutes": 2,
-    "note": "Ask each pair to give one number and one condition. They should distinguish three decisions: selecting a service policy, checking current evidence and authorizing a physical switching operation.",
+    "note": "Ask each pair to give one number and one condition. They should distinguish three decisions: selecting a service policy, checking current evidence and authorizing a physical switching operation. Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L7",

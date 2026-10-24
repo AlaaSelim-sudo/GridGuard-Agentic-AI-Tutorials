@@ -1,0 +1,26 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{10}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2.2mm]},draw=IEEEBlue,line width=1.4pt},
+feedback/.style={-{Stealth[length=2.2mm]},draw=Cyan,line width=1.6pt},
+box/.style={draw=IEEEBlue,line width=1.1pt,fill=white,inner sep=7pt,minimum height=.95cm},
+small/.style={font=\sffamily\fontsize{8.5}{11}\selectfont}]
+
+% Three distinct symbols communicate language choice, computation and human review.
+\draw[IEEEBlue,line width=1.2pt,rounded corners=3pt] (.5,2.2) rectangle (3.7,3.8);
+\draw[IEEEBlue,line width=1.2pt] (1.2,2.2)--(1.0,1.8)--(1.8,2.2);
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (2.1,3.0) {Llama};
+\draw[Cyan,line width=1.2pt] (5.9,2.0) rectangle (9.0,3.9);
+\node[font=\ttfamily\fontsize{12}{14}\selectfont,text=Cyan] at (7.45,3.0) {f(x) = y};
+\draw[IEEEBlue,line width=1.2pt] (12.3,3.5) circle (.4);
+\draw[IEEEBlue,line width=1.2pt] (11.6,2.0)--(11.6,2.65) arc (180:0:.7)--(13.0,2.0);
+\node[text width=4.2cm,font=\sffamily\bfseries] at (2.1,1.15) {Choose and explain};
+\node[text width=4.2cm,font=\sffamily\bfseries] at (7.45,1.15) {Calculate and check};
+\node[text width=4.2cm,font=\sffamily\bfseries] at (12.3,1.15) {Review and decide};
+\node[small,text width=4cm] at (2.1,.35) {Select a permitted next step};
+\node[small,text width=4cm] at (7.45,.35) {Python / OpenDSS enforce limits};
+\node[small,text width=4cm] at (12.3,.35) {Operator keeps authority};
+\draw[flow] (3.9,3.0)--(5.6,3.0);\draw[flow] (9.3,3.0)--(11.4,3.0);
+
+\end{tikzpicture}
+\endgroup

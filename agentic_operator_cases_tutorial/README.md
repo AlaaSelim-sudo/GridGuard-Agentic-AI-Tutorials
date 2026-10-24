@@ -1,6 +1,6 @@
 # Hands-on workshop: three operator cases
 
-**80 slides / 180 minutes / three four-minute exercises.** Keep **Classroom_Labs.ipynb** open beside this second presentation. Learn the terms in plain language, run the three cases, then inspect exact saved Llama choices and reasons. Follow **L0–L12, including L10B after L10**, using notebook excerpts, executed outputs, parameter edits and separate debriefs. Finish with a proposed advisory control-room pilot.
+**80 slides / 180 minutes / three four-minute exercises.** Keep **Classroom_Labs.ipynb** open beside this second presentation. Start with a five-minute visual explanation of the agentic loop: goal, model-selected tool, returned result and next choice. A recorded voltage example shows a failed current check leading to a fallback. Then run the three cases and connect each one to exact saved Llama choices. Follow **L0–L12, including L10B after L10**, using notebook excerpts, executed outputs, parameter edits and separate debriefs. Finish with a proposed advisory control-room pilot.
 
 [Open the workshop slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1) · [Open Classroom Labs in Colab](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb) · [Download the slides](Three_Operator_Cases.pdf)
 
@@ -19,11 +19,11 @@ The default route needs no GPU, API key, new policy training or language-model d
 
 ## Follow the notebook
 
-- **Introduction and setup · L0–L1.** Understand a script, an agent and the allowed tools. Read the evidence labels and test whether a record still matches the same inputs and result.
-- **Voltage · L2–L5.** Run L2, check limits before penalty score J, change `RATING_FRACTION` to `0.75`, then reset. L3–L5 inspect and check the separate original `test_01` case. Preview the L12 handover; run it at the end. This is the first four-minute exercise.
-- **Restoration · L6–L7.** Run L6, append `180.` to the capacity list while keeping `40.` first, and compare total and critical load served. Reset and rerun L6, then run L7 to reject old evidence after a request changes. This is the second exercise.
-- **Cyber · L8–L9.** Run L8, add `.10` to the scale list, and compare fit mismatch with error against known teaching truth. Reset L8, then run L9's separate fixed recovery case and compare HOLD with PROPOSE under its trust assumption. This is the third exercise.
-- **Recorded agent choices · L10 and L10B.** Inspect L10's separate archive. In L10B, set `SCENARIO` to `"voltage"`, `"restoration"` and `"cyber"` in turn. Follow exact saved Llama reasons, actual tool results and checks, including the numerical guard against a wrong restoration ranking.
+- **Introduction and setup · L0–L1 · 12 minutes.** See the agentic loop, compare a text reply with model-directed tool use, and separate Llama’s choice from a numerical check and human review. Open the one notebook and test whether evidence still matches.
+- **Voltage · L2–L5.** Run L2, check limits before penalty score J, change `RATING_FRACTION` to `0.75`, then reset. L3–L5 inspect and check the separate original `test_01` case. The separate recorded P3 previews show Llama requesting a check, choosing a fallback and returning evidence for review. This is the first four-minute exercise.
+- **Restoration · L6–L7.** Run L6, append `180.` to the capacity list while keeping `40.` first, and compare total and critical load served. Reset and rerun L6, then run L7 to reject old evidence after a request changes. This is the second exercise. Recorded feeder-study previews then show a useful tool trial, a failed trial and a wrong ranking caught by the numerical guard.
+- **Cyber · L8–L9.** Run L8, add `.10` to the scale list, and compare fit mismatch with error against known teaching truth. Reset L8, then run L9's separate fixed recovery case and compare HOLD with PROPOSE under its trust assumption. This is the third exercise. Separate recorded recovery previews show the permitted tool choice and the pending operator review.
+- **Replay the agent choices · L10 and L10B.** Earlier case slides preview the saved episodes; now replay them in the notebook. Inspect L10's separate archive. In L10B, set `SCENARIO` to `"voltage"`, `"restoration"` and `"cyber"` in turn. Follow exact saved Llama reasons, actual tool results and checks, including the numerical guard against a wrong restoration ranking.
 - **Readback and proposed pilot · L11–L12 and the closing walkthrough.** Leave L11's new model call disabled, run L12's simulated readback and save your notebook. Discuss a proposed read-only advisory pilot with allowed tools, engineering checks, human review and a decision log.
 
 Each case follows **predict → run → read → edit → rerun → explain**. Run the complete cell; the slide often shows only its relevant lines. Answers follow each exercise and appear in the instructor notes.

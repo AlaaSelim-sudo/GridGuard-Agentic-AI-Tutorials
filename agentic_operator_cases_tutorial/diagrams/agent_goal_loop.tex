@@ -1,0 +1,20 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{10}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2.2mm]},draw=IEEEBlue,line width=1.4pt},
+feedback/.style={-{Stealth[length=2.2mm]},draw=Cyan,line width=1.6pt},
+box/.style={draw=IEEEBlue,line width=1.1pt,fill=white,inner sep=7pt,minimum height=.95cm},
+small/.style={font=\sffamily\fontsize{8.5}{11}\selectfont}]
+
+\node[align=left,text width=2.8cm] (goal) at (1.35,2.6) {\textbf{Goal}\\Find a plan that\\passes the limits};
+\node[box,text width=3.1cm,fill=Cyan!7] (model) at (5.2,2.6) {\textbf{LLM agent}\\Choose the next tool};
+\node[box,text width=3.2cm] (tool) at (11.9,2.6) {\textbf{Numerical tool}\\Calculate and check};
+\draw[flow] (goal.east)--(model.west);
+\draw[flow] (model.east)--node[above,small]{Request}(tool.west);
+\draw[feedback] (tool.south)--(11.9,.95)--node[below,small,text=Cyan]{Read the result; choose again}(5.2,.95)--(model.south);
+\node[small,text=Slate,text width=3.9cm] at (5.2,4.0) {Keeps the goal, case facts\\and previous tool results};
+\node[small,text=Slate,text width=4.1cm] at (11.9,4.0) {Only permitted functions\\with fixed input checks};
+\node[small,text=IEEEBlue] at (7.25,.05) {When ready: return evidence for review. If a required check is missing: HOLD.};
+
+\end{tikzpicture}
+\endgroup

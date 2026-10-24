@@ -20,15 +20,15 @@
   {
     "title": "Run L10B: watch Llama choose a tool",
     "kind": "normal",
-    "minutes": 2.5,
+    "minutes": 3.5,
     "refs": [
       "LR0",
       "OLL1"
     ],
     "points": [
-      "Run the whole L10B cell. Change SCENARIO to inspect each saved episode."
+      "Now replay the three saved episodes: set SCENARIO to voltage, restoration and cyber, rerunning each time."
     ],
-    "note": "Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. The following slides show selected fields from the same replay. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown.",
+    "note": "Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown.",
     "source_label": "Classroom_Labs.ipynb, L10B; cell classroom-llama-walkthrough; src/llama_walkthrough.py.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
@@ -42,204 +42,72 @@
     }
   },
   {
-    "title": "Voltage: Llama asks to check the saved controller",
+    "title": "Stanford example: check before you write",
     "kind": "figure",
     "points": [
-      "Llama identifies the missing check. The current failure forces a new trial."
+      "WikiChat checks claims against retrieved text before drafting its reply.",
+      "Our grid version: run the numerical check before writing the study summary."
     ],
-    "note": "Read the exact reason. The model was offered VERIFY_SAC_FIRST or REVIEW. The application then checks the saved SAC action in OpenDSS. 111.966607% refers to the allowed current, which was 80% of nominal, so this exceeds the configured allowance. The numerical result records two current violations. This P3 full supplied MV/LV study is separate from L2 and L3 test_01. Ask the audience to predict the next allowed step before advancing.",
+    "note": "Stanford connection: Lam’s CS224V introduction, pp.19–20, uses WikiChat to illustrate splitting a response into retrieval, claim checking and writing. Our diagram is an original power-system teaching adaptation. Follow the voltage path: read the current allowance, choose a permitted candidate, calculate its result, check limits and explain the outcome. This is an analogy across domains, not evidence that WikiChat is a power-system controller. Ask pairs to name which step would detect a current violation. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.",
     "refs": [
-      "LRV",
-      "LR0"
+      "ST01",
+      "ST02",
+      "H02"
     ],
-    "minutes": 2.5,
-    "image_source_path": "images/llama_voltage_1.png",
-    "visual_height_px": 380,
-    "visual_height_cm": 4.5,
-    "caption": "L10B recorded voltage episode. Selected fields; full record and sources in the guide.",
-    "source_label": "Classroom Labs L10B: voltage replay, recorded call 1; full record in source guide.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "lab_label": "L10B",
-    "eyebrow": "",
-    "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
-    "hands_on": true,
-    "replay_scenario": "voltage",
-    "replay_call": 1
-  },
-  {
-    "title": "Voltage: Llama chooses the existing fallback plan",
-    "kind": "figure",
-    "points": [
-      "Llama chooses an existing MPC plan. Python checks whether the result passes."
-    ],
-    "note": "The model selects USE_MPC_PLAN from two allowed choices, the other being REVIEW. It does not invent or solve MPC. The recorded context already supplies a plan and its eligibility. The application performs a fresh numerical check at that historical time. The result is just below the allowed current threshold. No operating permission follows from this check alone. Ask which evidence, rather than wording, makes the fallback eligible for review.",
-    "refs": [
-      "LRV",
-      "LR0"
-    ],
-    "minutes": 2.5,
-    "image_source_path": "images/llama_voltage_2.png",
-    "visual_height_px": 380,
-    "visual_height_cm": 4.5,
-    "caption": "L10B recorded voltage episode. Selected fields; full record and sources in the guide.",
-    "source_label": "Classroom Labs L10B: voltage replay, recorded call 2; full record in source guide.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "lab_label": "L10B",
-    "eyebrow": "",
-    "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
-    "hands_on": true,
-    "replay_scenario": "voltage",
-    "replay_call": 2
-  },
-  {
-    "title": "Voltage: the checks pass and human review remains",
-    "kind": "figure",
-    "points": [
-      "Human review remains pending. The fixed script returned the same numerical result."
-    ],
-    "note": "Read the exact REVIEW_EVIDENCE choice and distinguish it from the overall status. The proposed controls are 2387.157 kW and +325.738 kvar. The supplied full MV/LV feeder check returned voltage 1.001783–1.035026 p.u. and zero listed violations. The fixed supervisor used the same SAC-to-MPC sequence with identical numerical output. Recorded workflow intervals were 0.346053 s fixed and 3.110454 s agentic, excluding precomputed MPC/SAC preparation. These are single recorded timings, not performance distributions or a measured reduction in operator workload.",
-    "refs": [
-      "LRV",
-      "LR0"
-    ],
-    "minutes": 2.5,
-    "image_source_path": "images/llama_voltage_3.png",
-    "visual_height_px": 380,
-    "visual_height_cm": 4.5,
-    "caption": "L10B recorded voltage episode. Selected fields; full record and sources in the guide.",
-    "source_label": "Classroom Labs L10B: voltage replay, recorded call 3; full record in source guide.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "lab_label": "L10B",
-    "eyebrow": "",
-    "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
-    "hands_on": true,
-    "replay_scenario": "voltage",
-    "replay_call": 3
-  },
-  {
-    "title": "Restoration: Llama chooses a useful new trial",
-    "kind": "figure",
-    "points": [
-      "The new trial serves more load, keeps critical service and passes the current check."
-    ],
-    "note": "Switch L10B to restoration. This is the separate L10 feeder-catalog restoration study, not the L6 six-node MILP. The recorded protocol requires a first refinement but Llama chooses between the offered fractions. SHED_075 disconnects 75% of the ordered noncritical load objects, not 75% of load kW. The exact reason calls improvement a possibility. Python evaluates the trial and finds improved service while the tie loading remains 91.867215% of its allowance. A useful hypothesis becomes evidence only after that check.",
-    "refs": [
-      "LRR",
-      "LR0"
-    ],
-    "minutes": 2.5,
-    "image_source_path": "images/llama_restoration_14.png",
-    "visual_height_px": 380,
-    "visual_height_cm": 4.5,
-    "caption": "L10B recorded restoration episode. Selected fields; full record and sources in the guide.",
-    "source_label": "Classroom Labs L10B: restoration replay, recorded call 14; full record in source guide.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "lab_label": "L10B",
-    "eyebrow": "",
-    "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
-    "hands_on": true,
-    "replay_scenario": "restoration",
-    "replay_call": 14
-  },
-  {
-    "title": "Restoration: the next trial crosses the current limit",
-    "kind": "figure",
-    "points": [
-      "The next trial fails the current limit. Keep the previous passed candidate."
-    ],
-    "note": "Keep the actual returned reason visible. It refers to a target in the objective, but its claim should not be accepted as a proved fact. In this record the next trial is numerically rejected for a thermal failure. Restoring more load does not make a failed current check acceptable. Ask participants to explain why the previous passed candidate must remain in the case record. The model’s trial budget is bounded.",
-    "refs": [
-      "LRR",
-      "LR0"
-    ],
-    "minutes": 2.5,
-    "image_source_path": "images/llama_restoration_15.png",
-    "visual_height_px": 380,
-    "visual_height_cm": 4.5,
-    "caption": "L10B recorded restoration episode. Selected fields; full record and sources in the guide.",
-    "source_label": "Classroom Labs L10B: restoration replay, recorded call 15; full record in source guide.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "lab_label": "L10B",
-    "eyebrow": "",
-    "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
-    "hands_on": true,
-    "replay_scenario": "restoration",
-    "replay_call": 15
-  },
-  {
-    "title": "Restoration: catch Llama’s wrong ranking",
-    "kind": "figure",
-    "points": [
-      "The returned order is wrong. Python chooses the smaller cost and rechecks the plan."
-    ],
-    "note": "Let pairs answer before discussing the result. Smaller cost is better, so E03 must rank before E02. Llama returns [E02,E03] while its explanation claims lowest score first. The recorded language_order_agrees_with_cost field is False. A deterministic guard retains E03 and rechecks it as E05, with no recorded failures. Human acknowledgment and dispatch remain False. The paired fixed workflow reaches the same final action and cost. This example motivates verification rather than an unsupported superiority claim.",
-    "refs": [
-      "LRR",
-      "LR0"
-    ],
-    "minutes": 2.5,
-    "image_source_path": "images/llama_restoration_16.png",
-    "visual_height_px": 380,
-    "visual_height_cm": 4.5,
-    "caption": "L10B recorded restoration episode. Selected fields; full record and sources in the guide.",
-    "source_label": "Classroom Labs L10B: restoration replay, recorded call 16; full record in source guide.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "lab_label": "L10B",
-    "eyebrow": "",
-    "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
-    "hands_on": true,
-    "replay_scenario": "restoration",
-    "replay_call": 16
-  },
-  {
-    "title": "Cyber: Llama selects the tool already allowed",
-    "kind": "figure",
-    "points": [
-      "The task supplies the tool and trust assumption. Python computes the correction."
-    ],
-    "note": "Switch L10B to cyber. This standard four-bus DC record is separate from L10’s proposal-complete cyber record, and matches the Agent Trace notebook T6 archive. The route is narrow: the prompt already authorizes the tool and supplies the trusted-sensor assumption. The three angle readings give full rank but zero residual redundancy, so a good fit is not an independent trust test. u is the flexible injection correction in per unit. Offline synthetic-truth flow is available to the experimenter, not guaranteed available to a real operator.",
-    "refs": [
-      "LRC",
-      "LR0"
-    ],
-    "minutes": 2.5,
-    "image_source_path": "images/llama_cyber_7.png",
-    "visual_height_px": 380,
-    "visual_height_cm": 4.5,
-    "caption": "L10B recorded cyber episode. Selected fields; full record and sources in the guide.",
-    "source_label": "Classroom Labs L10B: cyber replay, recorded call 7; full record in source guide.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "lab_label": "L10B",
-    "eyebrow": "",
-    "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
-    "hands_on": true,
-    "replay_scenario": "cyber",
-    "replay_call": 7
-  },
-  {
-    "title": "Cyber: a passing calculation still needs review",
-    "kind": "figure",
-    "points": [
-      "Keep REVIEW visible. The operator must resolve the trust assumption and missing checks."
-    ],
-    "note": "Read the actual reply, including the REVIEW choice. Numerical verification is PASS, but the overall result remains REVIEW and human acknowledgment is PENDING. The fixed comparator obtains the same numerical state estimate and correction without Llama. This replay demonstrates permitted tool routing and a report decision. It does not demonstrate better estimation, authenticated measurements, AC network security or operating authority. Run L11 with the default False setting, then proceed to L12.",
-    "refs": [
-      "LRC",
-      "LR0"
-    ],
-    "minutes": 2.5,
-    "image_source_path": "images/llama_cyber_8.png",
+    "caption": "Monica Lam, Stanford CS224V, Lecture 1, Fall 2026, p.19. Original excerpt; full reference in the guide.",
+    "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19.",
+    "minutes": 3,
     "visual_height_px": 350,
-    "visual_height_cm": 4.5,
-    "caption": "L10B recorded cyber episode. Selected fields; full record and sources in the guide.",
-    "source_label": "Classroom Labs L10B: cyber replay, recorded call 8; full record in source guide.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "lab_label": "L10B",
-    "eyebrow": "",
-    "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
-    "hands_on": true,
-    "replay_scenario": "cyber",
-    "replay_call": 8
+    "visual_height_cm": 4.1,
+    "image_source_path": "images/stanford_wikichat_steps.png",
+    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=19",
+    "image_credit": "Monica Lam, Stanford University, CS224V Lecture 1: Introduction, Fall 2026.",
+    "image_asset_type": "Original lecture figure excerpt",
+    "image_transformation": "Cropped vector excerpt from the user-supplied lecture PDF, p.19; selected content unchanged. PNG derived with Poppler. Full provenance: research/stanford_80/excerpt_manifest.json."
+  },
+  {
+    "title": "Stanford example: tools need clear rules",
+    "kind": "figure",
+    "points": [
+      "Write down the required inputs, permitted tools, limits and stop rules.",
+      "Our lab keeps those rules in Python. A language reply cannot change the limits."
+    ],
+    "note": "Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.",
+    "refs": [
+      "ST01",
+      "ST03",
+      "H01"
+    ],
+    "caption": "Monica Lam, Stanford CS224V, Lecture 1, Fall 2026, p.40. Original excerpt; full reference in the guide.",
+    "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40.",
+    "minutes": 2.5,
+    "visual_height_px": 315,
+    "visual_height_cm": 3.7,
+    "image_source_path": "images/stanford_genie_specification.png",
+    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=40",
+    "image_credit": "Monica Lam, Stanford University, CS224V Lecture 1: Introduction, Fall 2026.",
+    "image_asset_type": "Original lecture figure excerpt",
+    "image_transformation": "Cropped vector excerpt from the user-supplied lecture PDF, p.40; selected content unchanged. PNG derived with Poppler. Full provenance: research/stanford_80/excerpt_manifest.json."
+  },
+  {
+    "title": "Ask four questions about a study result",
+    "kind": "diagram",
+    "diagram": "lab_review_questions",
+    "points": [
+      "Find the tool result, assumptions, rules and the operator’s next step.",
+      "If a claim has no supporting result, leave it unresolved and request the missing check."
+    ],
+    "note": "Lam’s pp.52–53 distinguish verifiable rationale, explicit assumptions, policy consistency and actionable next conditions. Translate these into four plain questions: which tool supports this claim, which inputs and model were used, were the same limits and service priorities kept, and what must the operator review next? Our power-flow, optimization and evidence-binding checks are numerical/software checks. They do not inherit the lecture’s SMT correctness claims. Ask pairs to apply the questions to one L10B explanation and to the full-scope HOLD at L12. We show only the actual public returned reasons, not hidden chain-of-thought.",
+    "refs": [
+      "ST01",
+      "LR0",
+      "H12"
+    ],
+    "minutes": 2,
+    "caption": "Grid teaching adaptation of Monica Lam’s accountability concepts, Stanford CS224V introduction, pp.52–53.",
+    "visual_height_px": 330,
+    "visual_height_cm": 3.55,
+    "source_label": "Monica Lam, CS224V Lecture 1, pp.52–53; grid teaching adaptation and Classroom Labs L12."
   },
   {
     "title": "Finish L12: practice the readback",

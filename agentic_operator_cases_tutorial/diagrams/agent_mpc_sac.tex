@@ -1,0 +1,19 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{10}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2.2mm]},draw=IEEEBlue,line width=1.4pt},
+feedback/.style={-{Stealth[length=2.2mm]},draw=Cyan,line width=1.6pt},
+box/.style={draw=IEEEBlue,line width=1.1pt,fill=white,inner sep=7pt,minimum height=.95cm},
+small/.style={font=\sffamily\fontsize{8.5}{11}\selectfont}]
+
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (2.9,4.0) {MPC: plan from a model};
+\node[box,text width=4.8cm] (mpc) at (2.9,2.9) {Case + short forecast\\Optimize the next control settings};
+\node[text=Cyan,font=\sffamily\bfseries] at (11.5,4.0) {SAC: use a learned controller};
+\node[box,draw=Cyan,text width=4.8cm] (sac) at (11.5,2.9) {Case + saved policy weights\\Produce the next control settings};
+\node[box,text width=6.7cm] (check) at (7.2,.95) {\textbf{The same numerical check}\\Do voltage and current stay within the limits?};
+\draw[flow] (mpc.south)--(2.9,.95)--(check.west);
+\draw[flow] (sac.south)--(11.5,.95)--(check.east);
+\node[small,text=Slate] at (7.2,-.05) {These are two control tools. The outer LLM agent can choose which tool to request next.};
+
+\end{tikzpicture}
+\endgroup

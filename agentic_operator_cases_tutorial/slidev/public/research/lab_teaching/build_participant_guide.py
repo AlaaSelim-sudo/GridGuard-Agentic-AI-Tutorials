@@ -60,10 +60,10 @@ sections=[
   '<b>Run L9:</b> no trusted replacement data gives HOLD. Assuming the additional readings are trusted allows a PROPOSE result. The calculation does not authenticate those readings.',
   '<b>Discuss:</b> a small residual or clear model explanation alone cannot establish sensor trust.'
  ],prompt='Record: residual J, alarm flag, state error and the condition needed before a recovery proposal.'),
- dict(title='Read Llama’s choices',subtitle='L10 / L10B / L11 / L12',diagram='bridge_llama_tools',body=[
-  '<b>L10:</b> inspect the separate recorded five-stage study. Its inputs and networks are not your edited classroom cases.',
-  '<b>L10B:</b> run SCENARIO = "voltage". Then change the same line to "restoration" and "cyber", rerunning each time.',
-  '<b>For each reply:</b> identify the input facts, permitted choice, exact public reason, actual tool result and next step. The replay makes no new model call.',
+ dict(title='Read Llama’s choices',subtitle='L10 / L10B / L11 / L12',diagram='agent_roles_simple',body=[
+  '<b>The opening and case slides preview saved agent examples.</b> Follow the notebook in order; run the replays here after the three cases.',
+  '<b>Run L10, then L10B:</b> set SCENARIO = "voltage", then "restoration" and "cyber", rerunning each time. These use separate recorded studies.',
+  '<b>Follow the agentic loop:</b> goal, Llama tool choice, returned evidence, next choice. The replay makes no new model call.',
   '<b>Restoration challenge:</b> find the wrong Llama ranking. Explain why the numerical guard keeps the lower-cost passed candidate.',
   '<b>L11:</b> keep the live call disabled. <b>L12:</b> inspect the full-scope HOLD, the wrong-ID rejection and the simulated readback. equipment_dispatch stays False.',
   '<b>Exit ticket:</b> explain one result using input, tool, result, check and operator decision. Save the changed inputs and outputs.'

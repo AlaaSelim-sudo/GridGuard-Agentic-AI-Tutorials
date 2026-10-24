@@ -1,0 +1,24 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{10}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2.2mm]},draw=IEEEBlue,line width=1.4pt},
+feedback/.style={-{Stealth[length=2.2mm]},draw=Cyan,line width=1.6pt},
+box/.style={draw=IEEEBlue,line width=1.1pt,fill=white,inner sep=7pt,minimum height=.95cm},
+small/.style={font=\sffamily\fontsize{8.5}{11}\selectfont}]
+
+\node[anchor=west,text=Slate,small] at (.1,4.05) {Recorded voltage study P3 / Llama 3.1:8b / OpenDSS};
+\node[text width=3.2cm,font=\sffamily\bfseries] at (1.65,3.5) {Llama chooses};
+\node[text width=3.2cm,font=\sffamily\bfseries] at (5.35,3.5) {Tool returns};
+\node[text width=3.2cm,font=\sffamily\bfseries] at (9.05,3.5) {Llama chooses};
+\node[text width=3.2cm,font=\sffamily\bfseries] at (12.75,3.5) {Tool returns};
+\node[box,text width=2.5cm] (a) at (1.65,2.25) {Check the\\SAC proposal};
+\node[box,draw=Red,text width=2.5cm] (b) at (5.35,2.25) {\textcolor{Red}{\textbf{111.97\%}}\\Current check fails};
+\node[box,text width=2.5cm] (c) at (9.05,2.25) {Check the\\MPC fallback};
+\node[box,draw=Cyan,text width=2.5cm] (d) at (12.75,2.25) {\textcolor{Cyan}{\textbf{99.60\%}}\\Current check passes};
+\draw[flow] (a)--(b);\draw[feedback] (b)--(c);\draw[flow] (c)--(d);
+\node[small,text=Slate,text width=10cm] at (5.7,1.05) {Percent of allowed current / limit = 100\% / rounded values};
+\draw[flow] (d.south)--(12.75,.45)--(10.3,.45);
+\node[anchor=east,text width=9cm] at (10.25,.45) {\textbf{Next: evidence for human review. Acknowledgment is still pending.}};
+
+\end{tikzpicture}
+\endgroup

@@ -12,7 +12,7 @@
     ],
     "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
     "minutes": 0.5,
-    "note": "Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence. The deck uses the IEEE ComSoc theme. The classroom cycle is run, change, check and explain. This expanded edition includes a new L10B replay and a proposed control-room advisory pilot. The scheduled teaching time is 180 minutes; allow breaks outside that total. The presenter affiliations are supplied by the presenters. The new Stanford teaching bridge is an adaptation of general reliability ideas, not a claim that the lab implements those Stanford frameworks. Use the six-page Participant Lab Guide for the exact activity steps.",
+    "note": "Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence. The deck uses the IEEE ComSoc theme. The classroom cycle is run, change, check and explain. This expanded edition includes a new L10B replay and a proposed control-room advisory pilot. The scheduled teaching time is 180 minutes; allow breaks outside that total. The presenter affiliations are supplied by the presenters. The new Stanford teaching bridge is an adaptation of general reliability ideas, not a claim that the lab implements those Stanford frameworks. Use the six-page Participant Lab Guide for the exact activity steps. The first five slides take five minutes and make the agentic loop explicit before setup. The opening as a whole takes 12 minutes. Case-level replay slides preview saved examples; learners run L10B later in the guided notebook order.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "presenters": [
@@ -27,205 +27,75 @@
     ]
   },
   {
-    "title": "What would an operator ask an assistant to do?",
+    "title": "What is agentic AI?",
     "kind": "diagram",
-    "diagram": "bridge_request",
+    "diagram": "agent_goal_loop",
     "points": [
-      "Ask for a study: compare allowed options and show the checks needed for a decision.",
-      "The assistant returns a reviewable proposal linked to the input data and tool results."
+      "An LLM agent works toward a goal by choosing tools, reading their results and choosing what to do next."
     ],
-    "note": "Start with the operator’s job, not the model name. Read the illustrative request aloud. Ask participants to name the information they would need before making the study. This is a teaching design for an advisory assistant. The classroom notebook provides numerical counterparts for selected steps, not a live control-room connection.",
-    "refs": [
-      "DEF03",
-      "H00"
-    ],
-    "minutes": 1.5,
-    "caption": "Illustrative study request and review path. The operator retains the decision.",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.55
-  },
-  {
-    "title": "What makes this an LLM agent?",
-    "kind": "diagram",
-    "diagram": "bridge_script_agent",
-    "points": [
-      "A fixed script follows choices written in code. An LLM agent can choose a permitted next tool.",
-      "Both can branch and use the same solvers. We must test whether model choice adds value."
-    ],
-    "note": "Use Anthropic’s attributed architectural distinction. A conventional program can contain feedback, branches, rules and sophisticated optimization. Those alone do not demonstrate an LLM agent. A generative model can also just write an explanation. In these records Llama makes bounded choices from an allowed list, receives tool evidence and may select another step. This is narrow agency, not unrestricted autonomy. The default class replays those choices.",
+    "note": "Use the architectural definition in Anthropic, Building effective agents: an agent lets the LLM direct its process and tool use. Agentic AI is a broad term; here it means a system organized around this bounded loop. An AI agent is the component that chooses and follows steps. A tool is a permitted software function that returns a result. Point to the goal, model choice, executable tool, returned evidence and feedback arrow. The application stores case facts and prior results as the context supplied at the next model request. If a required check is missing, the outcome remains HOLD. Stop or return a proposal only under the fixed workflow rules. Do not imply that feedback alone establishes agency: conventional programs can also branch and loop. Our default notebook calculates engineering results now but replays the actual old Llama choices. No live model service is needed.",
     "refs": [
       "DEF03",
       "LR0"
     ],
-    "minutes": 1.5,
-    "caption": "Same engineering tools, different source of the next-step choice. Both paths require checks.",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.55
-  },
-  {
-    "title": "Llama, Python and the operator have different jobs",
-    "kind": "diagram",
-    "diagram": "bridge_llama_tools",
-    "points": [
-      "Llama chooses and explains. Python calculates, checks limits and rejects failed proposals.",
-      "The operator reviews the evidence and decides whether another study or review is needed."
-    ],
-    "note": "Llama is the language model, Ollama is the local service used to run it, and the application controls which tools can execute. Our recorded wrappers return schema-constrained JSON choices. They do not use Ollama’s native tool_calls protocol. Python validates and interprets the choice before calling numerical functions. Good JSON formatting does not make a claim physically correct. No classroom cell sends an equipment command.",
-    "refs": [
-      "LR0",
-      "OLL1",
-      "DEF03"
-    ],
-    "minutes": 1.5,
-    "caption": "Roles in the recorded teaching workflow. The classroom route shows saved Llama choices.",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.55
-  },
-  {
-    "title": "Stanford example: check before you write",
-    "kind": "figure",
-    "points": [
-      "WikiChat checks claims against retrieved text before drafting its reply.",
-      "Our grid version: run the numerical check before writing the study summary."
-    ],
-    "note": "Stanford connection: Lam’s CS224V introduction, pp.19–20, uses WikiChat to illustrate splitting a response into retrieval, claim checking and writing. Our diagram is an original power-system teaching adaptation. Follow the voltage path: read the current allowance, choose a permitted candidate, calculate its result, check limits and explain the outcome. This is an analogy across domains, not evidence that WikiChat is a power-system controller. Ask pairs to name which step would detect a current violation. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.",
-    "refs": [
-      "ST01",
-      "ST02",
-      "H02"
-    ],
-    "caption": "Monica Lam, Stanford CS224V, Lecture 1, Fall 2026, p.19. Original excerpt; full reference in the guide.",
-    "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19.",
-    "minutes": 3,
+    "minutes": 1,
+    "caption": "A bounded agentic loop. In this workshop, Llama choices are recorded; Python calculations can run now.",
     "visual_height_px": 350,
-    "visual_height_cm": 4.1,
-    "image_source_path": "images/stanford_wikichat_steps.png",
-    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=19",
-    "image_credit": "Monica Lam, Stanford University, CS224V Lecture 1: Introduction, Fall 2026.",
-    "image_asset_type": "Original lecture figure excerpt",
-    "image_transformation": "Cropped vector excerpt from the user-supplied lecture PDF, p.19; selected content unchanged. PNG derived with Poppler. Full provenance: research/stanford_80/excerpt_manifest.json."
+    "visual_height_cm": 3.9
   },
   {
-    "title": "A rule and a tool result answer different questions",
+    "title": "From a text answer to a tool loop",
     "kind": "diagram",
-    "diagram": "lab_claim_evidence",
+    "diagram": "agent_text_tool",
     "points": [
-      "A document can tell us the limit. A numerical tool tells us how the proposal compares with it.",
-      "Keep the source, the measured or calculated value, and the remaining checks together."
+      "The key change: the model chooses a permitted next step using the result returned by a tool."
     ],
-    "note": "Stanford connection: the lecture’s WikiChat discussion, pp.17–25, separates finding material from checking factual claims. Apply the habit to a grid study: retrieving a current limit is different from calculating current for a candidate. The displayed 99.604410% value belongs to the separate archived P3 OpenDSS replay, not to the learner’s fresh L2 result. This example supports only that current check under its recorded model. A sentence, retrieved document or citation does not establish full-network feasibility. Treat the input limits as the task policy. A text source describes the rule; the solver evaluates the particular proposal.",
+    "note": "Trace the first row once, then follow the lower feedback arrow. In the text-only interaction the immediate product is a reply. In the illustrated agentic interaction the model can request a calculation, read its returned facts and select another allowed action. A chatbot may itself contain such an agent; the interface name does not determine the architecture. A fixed program can branch, retry and optimize too. The narrow feature in the recorded examples is that Llama selects among an explicitly permitted set of next actions. The wrappers validate its JSON and then call functions; they do not execute arbitrary generated code. This is bounded model choice, not unrestricted control or a claim of superior numerical results.",
     "refs": [
-      "ST01",
-      "ST02",
-      "LRV"
+      "DEF03",
+      "LR0"
     ],
-    "caption": "Teaching analogy. The number shown comes from the recorded P3 replay, which is separate from L2.",
-    "source_label": "Monica Lam, CS224V Lecture 1, pp.17–25; recorded P3 current check.",
+    "minutes": 1,
+    "caption": "Two interaction patterns. Tools and feedback can also be used in ordinary software.",
+    "visual_height_px": 350,
+    "visual_height_cm": 3.9
+  },
+  {
+    "title": "A real agent changes its next step",
+    "kind": "diagram",
+    "diagram": "agent_recorded_trace",
+    "points": [
+      "The failed tool result leads to a fallback check. Passing the checks still leaves human review."
+    ],
+    "note": "This is an actual saved Llama 3.1:8b voltage episode, not a fabricated interactive exchange. Call 1 selects VERIFY_SAC_FIRST; the numerical check returns 111.966607 percent of allowed current and two current violations. Call 2 selects USE_MPC_PLAN; its numerical check returns 99.604410 percent of allowed current and no recorded violations. The SAC and MPC tools already exist; Llama does not invent or solve the power flow. The arrows show tool-request, result, next-request, result. Call 3 selects REVIEW_EVIDENCE. Human acknowledgment remains PENDING and equipment_dispatch is False. This separate P3 MV/LV OpenDSS archive differs from the fresh L2 exercise and from L3 test_01. Later voltage slides display the exact public returned reasons; learners can replay the source in L10B after completing the three cases. The fixed comparator reaches the same numerical outcome, so the trace illustrates coordination rather than a proven performance improvement.",
+    "refs": [
+      "LRV",
+      "LR0"
+    ],
     "minutes": 1.5,
-    "visual_height_px": 330,
-    "visual_height_cm": 3.5
+    "caption": "Recorded P3 example, separate from L2. 111.966607% and 99.604410% are rounded here.",
+    "visual_height_px": 350,
+    "visual_height_cm": 3.9
   },
   {
-    "title": "Stanford example: tools need clear rules",
-    "kind": "figure",
-    "points": [
-      "Write down the required inputs, permitted tools, limits and stop rules.",
-      "Our lab keeps those rules in Python. A language reply cannot change the limits."
-    ],
-    "note": "Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.",
-    "refs": [
-      "ST01",
-      "ST03",
-      "H01"
-    ],
-    "caption": "Monica Lam, Stanford CS224V, Lecture 1, Fall 2026, p.40. Original excerpt; full reference in the guide.",
-    "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40.",
-    "minutes": 2.5,
-    "visual_height_px": 315,
-    "visual_height_cm": 3.7,
-    "image_source_path": "images/stanford_genie_specification.png",
-    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=40",
-    "image_credit": "Monica Lam, Stanford University, CS224V Lecture 1: Introduction, Fall 2026.",
-    "image_asset_type": "Original lecture figure excerpt",
-    "image_transformation": "Cropped vector excerpt from the user-supplied lecture PDF, p.40; selected content unchanged. PNG derived with Poppler. Full provenance: research/stanford_80/excerpt_manifest.json."
-  },
-  {
-    "title": "Ask four questions about a study result",
+    "title": "Llama chooses; tools calculate; people decide",
     "kind": "diagram",
-    "diagram": "lab_review_questions",
     "points": [
-      "Find the tool result, assumptions, rules and the operator’s next step.",
-      "If a claim has no supporting result, leave it unresolved and request the missing check."
+      "The agent coordinates a study. Numerical tools supply the checks. The operator reviews the proposal."
     ],
-    "note": "Lam’s pp.52–53 distinguish verifiable rationale, explicit assumptions, policy consistency and actionable next conditions. Translate these into four plain questions: which tool supports this claim, which inputs and model were used, were the same limits and service priorities kept, and what must the operator review next? Our power-flow, optimization and evidence-binding checks are numerical/software checks. They do not inherit the lecture’s SMT correctness claims. Ask pairs to apply the questions to one L10B explanation and to the full-scope HOLD at L12. We show only the actual public returned reasons, not hidden chain-of-thought.",
     "refs": [
-      "ST01",
+      "DEF03",
       "LR0",
-      "H12"
+      "OLL1"
     ],
-    "minutes": 2,
-    "caption": "Grid teaching adaptation of Monica Lam’s accountability concepts, Stanford CS224V introduction, pp.52–53.",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.55,
-    "source_label": "Monica Lam, CS224V Lecture 1, pp.52–53; grid teaching adaptation and Classroom Labs L12."
-  },
-  {
-    "title": "Six terms we will use in the notebook",
-    "kind": "diagram",
-    "diagram": "bridge_words",
-    "points": [
-      "Each term describes one job. The language model chooses among tools that do these jobs.",
-      "A passing result applies only to the inputs, limits and parts of the network that were checked."
-    ],
-    "note": "MPC plans controls using a forecast. SAC supplies a proposal from a previously trained controller. MILP chooses whole loads while respecting the stated constraints. WLS finds the state that best fits the weighted readings. Evidence binding checks that inputs and command still match a stored result. Model scope means which network parts and physical effects were included. Also define p.u. as a value divided by its stated base: 1.0 p.u. is that base value. A thermal limit here is a current or flow limit. The objective or cost is the numerical score to optimize after required checks pass.",
-    "refs": [
-      "H02",
-      "H06",
-      "H08",
-      "H12"
-    ],
-    "minutes": 1.5,
-    "caption": "Plain-language meanings. The detailed equations stay in the notebooks and source guide.",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.55
-  },
-  {
-    "title": "Know what is running and what is being replayed",
-    "kind": "diagram",
-    "diagram": "bridge_modes",
-    "points": [
-      "Python calculates now. Saved controller weights can make a new proposal. L10B shows old replies.",
-      "The blue control-room pilot is a teaching proposal. Keep these evidence types separate."
-    ],
-    "note": "Point to these evidence modes throughout the session. Default classroom cells calculate fresh results without a live language-model call. L10B displays verified historical Llama choices, original reasons and associated recorded results. Changing your L2 or L6 input does not change those old replies. The final control-room diagrams are a proposed teaching design, not evidence of a deployed utility platform. No new equipment operation occurs in any of these modes. FRESH means calculated during the current execution. SAVED POLICY means old weights used for new inference. ARCHIVED ACTUAL LLM means an old reply with its original inputs and timing.",
-    "refs": [
-      "H00",
-      "LR0",
-      "OT01"
-    ],
-    "minutes": 2,
-    "caption": "Three explicitly labeled teaching modes used throughout this workshop.",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.55
-  },
-  {
-    "title": "Colab is a workbook with a computer attached",
-    "kind": "diagram",
-    "diagram": "lab_colab_workbook",
-    "points": [
-      "The notebook holds instructions, code and outputs. A temporary computer runs the code.",
-      "Save your notebook copy. After a runtime reset, rerun setup and the earlier cells."
-    ],
-    "note": "Explain the picture before using any interface terms. An .ipynb file is the workbook. The runtime is a temporary computer supplied by Colab. Variables and files in its temporary storage are separate from the notebook file. Saving a copy in Drive or downloading the notebook keeps its text, code and saved outputs; it does not keep the whole temporary computer. There is no need to mount the user’s Drive for this lab. The setup cell retrieves the required source and records. We use a CPU runtime and no live language-model service.",
-    "refs": [
-      "COL01",
-      "H00"
-    ],
-    "caption": "Notebook file and temporary runtime are different. Google Colab FAQ; original illustration.",
-    "source_label": "Google Colab FAQ: notebook storage, execution state and temporary virtual machines.",
-    "minutes": 1.5,
-    "visual_height_px": 330,
-    "visual_height_cm": 3.5
+    "minutes": 1,
+    "note": "Use the three symbols to assign responsibilities: the speech box is Llama making a permitted choice and returning a public reason; the function is Python and OpenDSS calculating physical results and enforcing workflow limits; the person is the operator reviewing evidence and retaining operating authority. The Llama wrappers use constrained JSON interpreted by the application, rather than native tool_calls. Language explanations are not proof of physical correctness. In our replay the model may say REVIEW but the human acknowledgment is still PENDING. For each exercise work in pairs: one person runs while the other checks, then swap. Save the input, result, check and next decision.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "diagram": "agent_roles_simple",
+    "visual_height_px": 350,
+    "visual_height_cm": 3.9,
+    "caption": "Default class route: new numerical results plus saved Llama replies. No equipment commands."
   },
   {
     "title": "One notebook covers all three cases",
@@ -237,7 +107,7 @@
       "H00"
     ],
     "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
-    "minutes": 1.5,
+    "minutes": 1,
     "note": "Open https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/#notebooks and choose the first notebook, Classroom Labs. The LangGraph and trace notebooks are separate companions. Keep the slides in one tab and Classroom Labs in another.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -262,7 +132,7 @@
       "COL01"
     ],
     "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
-    "minutes": 2,
+    "minutes": 1.5,
     "note": "For a paced workshop, run the setup cell first, then run each named lesson cell when prompted. Runtime > Run all also works, but it reveals later outputs before the prediction questions. The default route needs no GPU, API key or LLM download. If setup stops, reconnect the runtime and rerun setup before starting L0.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -286,7 +156,7 @@
     ],
     "caption": "Teaching illustration, not a Colab screenshot. Input lines match L2; run the full L2 cell.",
     "source_label": "Google Colab FAQ; Classroom Labs L2, cell classroom-007.",
-    "minutes": 2,
+    "minutes": 1.5,
     "visual_height_px": 330,
     "visual_height_cm": 3.5
   },
@@ -301,7 +171,7 @@
       "H01"
     ],
     "source_label": "Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.",
-    "minutes": 2,
+    "minutes": 1,
     "note": "Run all of L0 to import the helpers, configure the plots and initialize the timing record. Keep RUN_OPENDSS=False and RUN_LOCAL_LLAMA=False. These settings skip the optional full-feeder OpenDSS route and local model service. They do not make the calculations prerecorded: L2 and L4 through L9 run fresh numerical calculations or checks, while L12 checks the evidence binding and simulated readback.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -325,7 +195,7 @@
       "H01"
     ],
     "source_label": "Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.",
-    "minutes": 1.5,
+    "minutes": 2,
     "note": "Evidence binding means matching a checked record to the exact inputs, proposed command and returned result, using content hashes. Treat L1 as a same-content check, not a test that a physical action passes its limits. The first row keeps the request and command unchanged. The next two rows change a request field or command field, so binding_pass is True, False, False. A failed match calls for new evidence; it does not prove the changed action fails its limits. A matching hash also does not authenticate a sensor.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -335,25 +205,5 @@
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
     "caption": "Reference L1 output: only the unchanged request and command match the evidence."
-  },
-  {
-    "title": "Work in pairs and explain one result",
-    "kind": "diagram",
-    "points": [
-      "Predict, run, read, change one input and rerun. Explain which check supports the next step.",
-      "One person runs and one checks. Swap roles, then save the inputs and outputs."
-    ],
-    "refs": [
-      "H00"
-    ],
-    "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
-    "minutes": 2,
-    "note": "Participants can add a text cell below an output or use paper notes; no extra software is needed. Each pair should finish with one changed-input experiment that another person can repeat. Explain the result and one limit on the claim. The three cases use different networks and do not form a single utility deployment study. Model scope means which parts of the network, quantities and physical effects the calculation covers.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "diagram": "lab_record",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.5,
-    "caption": "Record one changed input, one result, the check outcome and the next decision."
   }
 ]
