@@ -39,7 +39,7 @@ PROFILES = {
         'files': CLASSROOM_FILES,
         'requirements': 'requirements_colab.txt',
         'packages': ('numpy', 'scipy', 'pandas', 'matplotlib', 'requests'),
-        'message': 'Ready: run L0–L12 in order for voltage, restoration and cyber.',
+        'message': 'Ready: run L0–L12 in order, including the L10B recorded Llama walkthrough.',
     },
     'graph': {
         'files': ('figures/graph_runtime_flow.svg',),
@@ -75,7 +75,7 @@ def prepare(checkout, profile):
     missing = [file for file in files if not (folder / file).exists()]
     if missing:
         raise FileNotFoundError(f'Supporting files are missing: {missing}')
-    print('Preparing packages for a CPU runtime. No GPU or model download is needed.')
+    print('Preparing packages for a CPU runtime. No GPU or LLM download is needed.')
     subprocess.run(
         [sys.executable, '-m', 'pip', 'install', '--quiet',
          '-r', str(folder / settings['requirements'])],
