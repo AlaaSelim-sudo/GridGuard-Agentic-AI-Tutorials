@@ -1,0 +1,22 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9.5}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2mm]},draw=IEEEBlue,line width=1.2pt},
+label/.style={text width=2.5cm,align=center},
+box/.style={draw=IEEEBlue,line width=1pt,fill=white,inner sep=7pt,minimum height=1cm},
+small/.style={font=\sffamily\fontsize{8}{10}\selectfont},
+stop/.style={draw=Red,text=Red,fill=Red!4,line width=1pt,inner sep=6pt}]
+\path[use as bounding box] (-.05,-.1) rectangle (14.5,4.0);
+
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (3.4,3.5) {Find the rule};
+\draw[IEEEBlue] (1.2,1.5) rectangle (5.6,3.0);
+\node[text width=4cm] at (3.4,2.25) {Study input:\\Allowed-current threshold = 100\%};
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (10.9,3.5) {Test the proposal};
+\draw[Cyan,line width=1pt] (8.0,1.5) rectangle (13.8,3.0);
+\node[text width=5.2cm] at (10.9,2.25) {Recorded P3 tool result:\\99.604410\% of allowed current};
+\draw[flow] (5.7,2.25)--(7.9,2.25);
+\node[text=Slate,text width=6cm] at (3.4,.75) {Reading a rule does not measure current.};
+\node[text=Cyan,text width=5.8cm] at (10.9,.75) {This check passes. Review the other required checks.};
+
+\end{tikzpicture}
+\endgroup

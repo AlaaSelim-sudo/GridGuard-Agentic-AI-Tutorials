@@ -1,0 +1,22 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9.5}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2mm]},draw=IEEEBlue,line width=1.2pt},
+label/.style={text width=2.5cm,align=center},
+box/.style={draw=IEEEBlue,line width=1pt,fill=white,inner sep=7pt,minimum height=1cm},
+small/.style={font=\sffamily\fontsize{8}{10}\selectfont},
+stop/.style={draw=Red,text=Red,fill=Red!4,line width=1pt,inner sep=6pt}]
+\path[use as bounding box] (-.05,-.1) rectangle (14.5,4.0);
+
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (2.7,3.55) {1. Input};
+\node[box,text width=4.5cm,font=\ttfamily\fontsize{9}{12}\selectfont] (code) at (2.7,2.0) {LOAD\_SCALE = 1.0\\RATING\_FRACTION = 0.80};
+\node[text=IEEEBlue] at (7.2,3.55) {2. Run the whole cell};
+\draw[IEEEBlue,fill=Cyan!10,line width=1.2pt] (7.2,2.0) circle (.65);
+\fill[IEEEBlue] (6.98,1.67)--(6.98,2.33)--(7.51,2.0)--cycle;
+\node[box,text width=3.4cm] (result) at (12.2,2.0) {Table + plot\\Read the limit check};
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (12.2,3.55) {3. Read the output};
+\draw[flow] (code.east)--(6.5,2);\draw[flow] (7.9,2)--(result.west);
+\node[small,text=Slate,text width=13cm] at (7.2,.5) {The play button executes Python. The saved text below a cell is its output.};
+
+\end{tikzpicture}
+\endgroup

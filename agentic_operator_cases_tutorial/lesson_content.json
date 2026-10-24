@@ -3,9 +3,8 @@
     "title": "Hands-on: Three Operator Cases",
     "kind": "cover",
     "points": [
-      "Run three cases and see how Llama choices connect to engineering checks.",
-      "180 minutes · one CPU notebook · three short exercises",
-      "IEEE ComSoc theme / Predict, run, change and explain"
+      "Run one notebook to understand three operator studies.",
+      "180 minutes / three short exercises / no coding experience required"
     ],
     "refs": [
       "H00",
@@ -13,9 +12,19 @@
     ],
     "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
     "minutes": 0.5,
-    "note": "Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence. The deck uses the IEEE ComSoc theme. The classroom cycle is run, change, check and explain. This expanded edition includes a new L10B replay and a proposed control-room advisory pilot. The scheduled teaching time is 180 minutes; allow breaks outside that total.",
+    "note": "Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence. The deck uses the IEEE ComSoc theme. The classroom cycle is run, change, check and explain. This expanded edition includes a new L10B replay and a proposed control-room advisory pilot. The scheduled teaching time is 180 minutes; allow breaks outside that total. The presenter affiliations are supplied by the presenters. The new Stanford teaching bridge is an adaptation of general reliability ideas, not a claim that the lab implements those Stanford frameworks. Use the six-page Participant Lab Guide for the exact activity steps.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
+    "presenters": [
+      {
+        "name": "Alaa Selim",
+        "affiliation": "MIT/Dartmouth"
+      },
+      {
+        "name": "Mohamed Chehada",
+        "affiliation": "UT Austin"
+      }
+    ],
     "module": "opening",
     "caption": "",
     "takeaway": "",
@@ -44,7 +53,7 @@
       "DEF03",
       "H00"
     ],
-    "minutes": 2.5,
+    "minutes": 1.5,
     "caption": "Illustrative study request and review path. The operator retains the decision.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
@@ -72,7 +81,7 @@
       "DEF03",
       "LR0"
     ],
-    "minutes": 2.5,
+    "minutes": 1.5,
     "caption": "Same engineering tools, different source of the next-step choice. Both paths require checks.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
@@ -101,7 +110,7 @@
       "OLL1",
       "DEF03"
     ],
-    "minutes": 2.5,
+    "minutes": 1.5,
     "caption": "Roles in the recorded teaching workflow. The classroom route shows saved Llama choices.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
@@ -129,10 +138,100 @@
       "DEF03",
       "LRV"
     ],
-    "minutes": 2.5,
+    "minutes": 1.5,
     "caption": "Teaching model of a bounded agent. Each result updates the case record before the next choice.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
+    "module": "opening",
+    "takeaway": "",
+    "eyebrow": "",
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
+    "callout": ""
+  },
+  {
+    "title": "Break one big request into small jobs",
+    "kind": "diagram",
+    "diagram": "lab_stanford_steps",
+    "points": [
+      "Ask for one clear result at each step. Save it so the next step can use it.",
+      "In our lab, Python calculates and checks. L10B shows how Llama selected a next step."
+    ],
+    "note": "Stanford connection: Lam’s CS224V introduction, pp.19–20, uses WikiChat to illustrate splitting a response into retrieval, claim checking and writing. Our diagram is an original power-system teaching adaptation. Follow the voltage path: read the current allowance, choose a permitted candidate, calculate its result, check limits and explain the outcome. This is an analogy across domains, not evidence that WikiChat is a power-system controller. Ask pairs to name which step would detect a current violation.",
+    "refs": [
+      "ST01",
+      "ST02",
+      "H02"
+    ],
+    "caption": "Original teaching adaptation of the task-decomposition idea. The notebook does not run WikiChat.",
+    "source_label": "Monica Lam, CS224V Lecture 1, pp.19–20; Semnani et al., WikiChat (2023).",
+    "minutes": 1.5,
+    "visual_height_px": 330,
+    "visual_height_cm": 3.5,
+    "module": "opening",
+    "takeaway": "",
+    "eyebrow": "",
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
+    "callout": ""
+  },
+  {
+    "title": "Find the rule, then test the result",
+    "kind": "diagram",
+    "diagram": "lab_claim_evidence",
+    "points": [
+      "A document can tell us the limit. A numerical tool tells us how the proposal compares with it.",
+      "Keep the source, the measured or calculated value, and the remaining checks together."
+    ],
+    "note": "Stanford connection: the lecture’s WikiChat discussion, pp.17–25, separates finding material from checking factual claims. Apply the habit to a grid study: retrieving a current limit is different from calculating current for a candidate. The displayed 99.604410% value belongs to the separate archived P3 OpenDSS replay, not to the learner’s fresh L2 result. This example supports only that current check under its recorded model. A sentence, retrieved document or citation does not establish full-network feasibility.",
+    "refs": [
+      "ST01",
+      "ST02",
+      "LRV"
+    ],
+    "caption": "Teaching analogy. The number shown comes from the recorded P3 replay, which is separate from L2.",
+    "source_label": "Monica Lam, CS224V Lecture 1, pp.17–25; recorded P3 current check.",
+    "minutes": 1.5,
+    "visual_height_px": 330,
+    "visual_height_cm": 3.5,
+    "module": "opening",
+    "takeaway": "",
+    "eyebrow": "",
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
+    "callout": ""
+  },
+  {
+    "title": "Tell the agent what is allowed",
+    "kind": "diagram",
+    "diagram": "lab_workflow_spec",
+    "points": [
+      "Write down the goal, required inputs, permitted tools and stop rules before the study.",
+      "If something required is missing, report what is missing and keep the proposal on HOLD."
+    ],
+    "note": "Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct.",
+    "refs": [
+      "ST01",
+      "ST03",
+      "H01"
+    ],
+    "caption": "Original teaching analogy to Genie Worksheets. This lab uses Python and does not implement Genie.",
+    "source_label": "Monica Lam, CS224V Lecture 1, p.40; Joshi et al., Genie Worksheets (ACL 2025).",
+    "minutes": 1.5,
+    "visual_height_px": 330,
+    "visual_height_cm": 3.5,
     "module": "opening",
     "takeaway": "",
     "eyebrow": "",
@@ -157,7 +256,7 @@
       "LR0",
       "LRR"
     ],
-    "minutes": 2.5,
+    "minutes": 1.5,
     "caption": "Check the explanation against the recorded facts and tool output.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
@@ -187,7 +286,7 @@
       "H08",
       "H12"
     ],
-    "minutes": 2.5,
+    "minutes": 1.5,
     "caption": "Plain-language meanings. The detailed equations stay in the notebooks and source guide.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
@@ -216,7 +315,7 @@
       "LR0",
       "OT01"
     ],
-    "minutes": 2.5,
+    "minutes": 1.5,
     "caption": "Three explicitly labeled teaching modes used throughout this workshop.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
@@ -232,11 +331,39 @@
     "callout": ""
   },
   {
-    "title": "Open one notebook for all three cases",
-    "kind": "normal",
+    "title": "Colab is a workbook with a computer attached",
+    "kind": "diagram",
+    "diagram": "lab_colab_workbook",
     "points": [
-      "Open Classroom Labs from the source link or the website’s first Colab button.",
-      "Save a copy in Drive to keep your changes and results."
+      "The notebook holds instructions, code and outputs. A temporary computer runs the code.",
+      "Save your notebook copy. After a runtime reset, rerun setup and the earlier cells."
+    ],
+    "note": "Explain the picture before using any interface terms. An .ipynb file is the workbook. The runtime is a temporary computer supplied by Colab. Variables and files in its temporary storage are separate from the notebook file. Saving a copy in Drive or downloading the notebook keeps its text, code and saved outputs; it does not keep the whole temporary computer. There is no need to mount the user’s Drive for this lab. The setup cell retrieves the required source and records. We use a CPU runtime and no live language-model service.",
+    "refs": [
+      "COL01",
+      "H00"
+    ],
+    "caption": "Notebook file and temporary runtime are different. Google Colab FAQ; original illustration.",
+    "source_label": "Google Colab FAQ: notebook storage, execution state and temporary virtual machines.",
+    "minutes": 1.5,
+    "visual_height_px": 330,
+    "visual_height_cm": 3.5,
+    "module": "opening",
+    "takeaway": "",
+    "eyebrow": "",
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
+    "callout": ""
+  },
+  {
+    "title": "One notebook covers all three cases",
+    "kind": "diagram",
+    "points": [
+      "Save a copy in Drive. Keep this same notebook open for all three cases."
     ],
     "refs": [
       "H00"
@@ -246,50 +373,51 @@
     "note": "Open https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/#notebooks and choose the first notebook, Classroom Labs. The LangGraph and trace notebooks are separate companions. Keep the slides in one tab and Classroom Labs in another.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
-    "callout": "Classroom_Labs.ipynb",
+    "diagram": "lab_one_notebook",
+    "caption": "Only Classroom Labs is required. The graph and trace notebooks are companion material.",
+    "visual_height_px": 330,
+    "visual_height_cm": 3.5,
     "action_link": {
       "label": "Open Classroom Labs in Google Colab",
       "url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
     },
     "module": "opening",
-    "caption": "",
     "takeaway": "",
-    "visual_height_cm": 3.65,
-    "visual_height_px": 330,
     "eyebrow": "",
     "image": null,
     "image2": null,
     "caption2": "",
-    "diagram": null,
     "math_tex": "",
     "math_html": "",
-    "excerpt": []
+    "excerpt": [],
+    "callout": ""
   },
   {
-    "title": "Connect a CPU and run setup",
-    "kind": "normal",
+    "title": "Get ready in four small steps",
+    "kind": "diagram",
     "points": [
-      "Choose a standard CPU. Run “Set up Google Colab (CPU)” and wait for Ready.",
-      "Setup gets the data, saved model weights and records, then installs the needed packages."
+      "Open the notebook, save your copy, connect a CPU and run setup.",
+      "Wait for Ready. Then run L0 and L1 before starting the three cases."
     ],
     "refs": [
-      "H00"
+      "H00",
+      "COL01"
     ],
     "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
     "minutes": 2,
     "note": "For a paced workshop, run the setup cell first, then run each named lesson cell when prompted. Runtime > Run all also works, but it reveals later outputs before the prediction questions. The default route needs no GPU, API key or LLM download. If setup stops, reconnect the runtime and rerun setup before starting L0.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
+    "diagram": "lab_ready",
+    "visual_height_px": 315,
+    "visual_height_cm": 3.3,
+    "caption": "Setup prepares the runtime. Then follow each named lesson cell with the slides.",
     "module": "opening",
-    "caption": "",
     "takeaway": "",
-    "visual_height_cm": 3.65,
-    "visual_height_px": 330,
     "eyebrow": "",
     "image": null,
     "image2": null,
     "caption2": "",
-    "diagram": null,
     "math_tex": "",
     "math_html": "",
     "excerpt": [],
@@ -320,6 +448,35 @@
     "image2": null,
     "caption2": "",
     "diagram": null,
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
+    "callout": ""
+  },
+  {
+    "title": "Run a cell, then read what it returns",
+    "kind": "diagram",
+    "diagram": "lab_cell_loop",
+    "points": [
+      "Use the play button beside a code cell. Wait until that cell finishes.",
+      "Read the table or plot underneath it. A slide shows a fragment; run the whole matching cell."
+    ],
+    "note": "Point to the three parts: editable input, run control and returned output. The illustrated input lines are the first two lines of the actual L2 cell, not a complete standalone program. The full cell calls the voltage helper and draws two plots. The runtime remembers variables from earlier cells, which is why we run the lesson in order. If NameError reports a missing variable, return to setup/L0 and rerun the required earlier cells. Do not treat a previously displayed output as the result of a number just edited until you rerun its cell.",
+    "refs": [
+      "COL01",
+      "H02"
+    ],
+    "caption": "Teaching illustration, not a Colab screenshot. Input lines match L2; run the full L2 cell.",
+    "source_label": "Google Colab FAQ; Classroom Labs L2, cell classroom-007.",
+    "minutes": 1.5,
+    "visual_height_px": 330,
+    "visual_height_cm": 3.5,
+    "module": "opening",
+    "takeaway": "",
+    "eyebrow": "",
+    "image": null,
+    "image2": null,
+    "caption2": "",
     "math_tex": "",
     "math_html": "",
     "excerpt": [],
@@ -364,7 +521,7 @@
       "cell_index_zero_based": 4,
       "start": 11,
       "end": 14,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "d8f745bd0b27c7a5888419230fdeb7dbd618557338c7c27157ca9cc2c8f341f7"
     },
     "caption": "",
@@ -473,11 +630,11 @@
     "callout": ""
   },
   {
-    "title": "Keep a short experiment record",
-    "kind": "normal",
+    "title": "Work in pairs and explain one result",
+    "kind": "diagram",
     "points": [
-      "Write down the L label and the value you changed.",
-      "Record the result, what the model covers, and your next step: continue, recheck or HOLD."
+      "One person runs the cell while the other checks the result. Swap roles in the next case.",
+      "Save enough information for another pair to repeat your experiment."
     ],
     "refs": [
       "H00"
@@ -487,16 +644,16 @@
     "note": "Participants can add a text cell below an output or use paper notes; no extra software is needed. Each pair should finish with one changed-input experiment that another person can repeat. Explain the result and one limit on the claim. The three cases use different networks and do not form a single utility deployment study. Model scope means which parts of the network, quantities and physical effects the calculation covers.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
-    "module": "opening",
-    "caption": "",
-    "takeaway": "",
-    "visual_height_cm": 3.65,
+    "diagram": "lab_record",
     "visual_height_px": 330,
+    "visual_height_cm": 3.5,
+    "caption": "Record one changed input, one result, the check outcome and the next decision.",
+    "module": "opening",
+    "takeaway": "",
     "eyebrow": "",
     "image": null,
     "image2": null,
     "caption2": "",
-    "diagram": null,
     "math_tex": "",
     "math_html": "",
     "excerpt": [],
@@ -608,7 +765,7 @@
       "cell_index_zero_based": 9,
       "start": 1,
       "end": 4,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "a84313c2dc16e7e3c72d3a5d51697b33a522f6f06ed475c681341e36523bb2ad"
     },
     "caption": "",
@@ -754,6 +911,37 @@
     "excerpt": []
   },
   {
+    "title": "Change one number and explain the difference",
+    "kind": "diagram",
+    "diagram": "lab_try_observe",
+    "points": [
+      "A smaller current allowance makes the same current a larger percentage of that allowance.",
+      "Record the new percentage and check whether it still stays below 100%."
+    ],
+    "note": "Use this visual immediately after the first exercise debrief. It shows the measured reference MPC outputs, rounded to two decimal places, for RATING_FRACTION 0.80 and 0.75. The SAC result is also computed in the notebook but is not drawn here. Both proposals pass this particular tighter test. The result is not a general guarantee for other loads or limits. Ask pairs to explain the denominator in the percentage. Restore the default before moving to L3’s independent archived case.",
+    "refs": [
+      "H02"
+    ],
+    "caption": "Reference L2 exercise: MPC uses 73.62% of the default allowance and 78.53% after the change.",
+    "source_label": "Classroom Labs L2, cell classroom-007; verified default and exercise outputs.",
+    "minutes": 1.5,
+    "visual_height_px": 330,
+    "visual_height_cm": 3.5,
+    "lab_label": "L2",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "module": "voltage",
+    "takeaway": "",
+    "eyebrow": "",
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
+    "callout": ""
+  },
+  {
     "title": "Reset L2 before reading old model choices",
     "kind": "normal",
     "points": [
@@ -790,7 +978,7 @@
       "cell_index_zero_based": 9,
       "start": 1,
       "end": 2,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "a84313c2dc16e7e3c72d3a5d51697b33a522f6f06ed475c681341e36523bb2ad"
     },
     "caption": "",
@@ -843,7 +1031,7 @@
       "cell_index_zero_based": 12,
       "start": 1,
       "end": 2,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "61d385c6f7798da62de51d3378cd0f4aed990354cbf5b994aa5f79350a1510d1"
     },
     "caption": "",
@@ -930,7 +1118,7 @@
       "cell_index_zero_based": 15,
       "start": 5,
       "end": 9,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "560a850910881c5ed533d3b2c34b823935d93591703e19f2188028f360939b10"
     },
     "caption": "",
@@ -1017,7 +1205,7 @@
       "cell_index_zero_based": 18,
       "start": 1,
       "end": 4,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "93ff079047e2f21b09961ca7f9b6d111194144fe8b4acb01c95ea95de0f52c16"
     },
     "caption": "",
@@ -1261,7 +1449,7 @@
       "cell_index_zero_based": 20,
       "start": 1,
       "end": 5,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "584a59f47d0488195715620d345caf824745d36a89cf135bc673f54ca092c4b3"
     },
     "caption": "",
@@ -1477,7 +1665,7 @@
       "cell_index_zero_based": 23,
       "start": 1,
       "end": 3,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "ed7989b2fd29b31dbedff40b52a58a21c74459e22b2c790d8826fe7acac9bf9c"
     },
     "caption": "",
@@ -1752,7 +1940,7 @@
       "cell_index_zero_based": 25,
       "start": 1,
       "end": 5,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "3d4789344ee79907ca9235ae4ee2a847ea816aa0819c3e9072aceef98fad9aa0"
     },
     "caption": "",
@@ -1935,7 +2123,7 @@
       "cell_index_zero_based": 25,
       "start": 1,
       "end": 3,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "3d4789344ee79907ca9235ae4ee2a847ea816aa0819c3e9072aceef98fad9aa0"
     },
     "caption": "",
@@ -2050,7 +2238,7 @@
       "cell_index_zero_based": 28,
       "start": 1,
       "end": 2,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "bc7811101584535e56a6446a9de24443c70859d146d59ce53c5eafe312b0bed5"
     },
     "caption": "",
@@ -2293,7 +2481,7 @@
       "cell_index_zero_based": 32,
       "start": 1,
       "end": 5,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "8c3372ee400e167ba7cdd15aa7251b467a6d7318db3ed6338b258e0498a18be1"
     },
     "caption": "",
@@ -2626,7 +2814,7 @@
       "cell_index_zero_based": 37,
       "start": 9,
       "end": 10,
-      "notebook_sha256": "cf5f26071fc32faa5cd409a50330722b12a74e994c69fd7f510edd1f7f9f831e",
+      "notebook_sha256": "606e6ad0276d7df06caf5912e06f5d704b522ed4a3680c2042e4a55e26c71a79",
       "cell_source_sha256": "8ccda9bd7ebd8efaa8ad27f72238d14ba97ac696067689b321ace1a07095cf4b"
     },
     "caption": "",
@@ -2804,10 +2992,14 @@
       "H00"
     ],
     "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
-    "minutes": 5,
-    "note": "Use the final five minutes for pair reports and saving. Each pair names one changed parameter, compares its predicted and observed result, and states one evidence limit. Another person should be able to repeat the experiment from the saved notebook. The reading guide supplies the full source links, stable cell map and debrief answers.",
+    "minutes": 3,
+    "note": "Use the final three minutes for pair reports and saving. Each pair names one changed parameter, compares its predicted and observed result, and states one evidence limit. Another person should be able to repeat the experiment from the saved notebook. The reading guide supplies the full source links, stable cell map and debrief answers.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
+    "action_link": {
+      "label": "Get the Participant Lab Guide",
+      "url": "https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf"
+    },
     "module": "closing",
     "caption": "",
     "takeaway": "",

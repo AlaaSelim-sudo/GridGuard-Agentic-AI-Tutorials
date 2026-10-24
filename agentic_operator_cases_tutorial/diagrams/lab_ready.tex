@@ -1,0 +1,18 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9.5}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2mm]},draw=IEEEBlue,line width=1.2pt},
+label/.style={text width=2.5cm,align=center},
+box/.style={draw=IEEEBlue,line width=1pt,fill=white,inner sep=7pt,minimum height=1cm},
+small/.style={font=\sffamily\fontsize{8}{10}\selectfont},
+stop/.style={draw=Red,text=Red,fill=Red!4,line width=1pt,inner sep=6pt}]
+\path[use as bounding box] (-.05,-.1) rectangle (14.5,4.0);
+
+\foreach \x/\n/\t/\d in {1.6/1/Open/Use the Colab link,5.3/2/Keep/Save a Drive copy,9.0/3/Connect/CPU runtime,12.7/4/Prepare/Run setup to Ready} {
+\node[circle,draw=IEEEBlue,line width=1pt,minimum size=.7cm] at (\x,2.7) {\n};
+\node[text=IEEEBlue] at (\x,1.95) {\t};\node[small,text width=3.0cm] at (\x,1.2) {\d};}
+\foreach \a/\b in {2.1/4.8,5.8/8.5,9.5/12.2}{\draw[flow] (\a,2.7)--(\b,2.7);}
+\node[text=Slate,small,text width=13.7cm] at (7.2,.25) {For the guided workshop, run each named lesson when prompted. Run all is a useful setup check.};
+
+\end{tikzpicture}
+\endgroup

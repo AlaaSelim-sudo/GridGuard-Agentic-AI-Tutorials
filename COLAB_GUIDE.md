@@ -1,6 +1,6 @@
 # Run GridGuard in Google Colab
 
-Start with **Classroom Labs** to run all three cases in one notebook. The accompanying operator workshop has **80 slides, 180 minutes and three short exercises**. It introduces the terms in plain language, then connects each request to its calculation, checks and next decision. The two companion notebooks explain graph execution and recorded model evidence.
+Start with **Classroom Labs** to run all three cases in one notebook. The accompanying operator workshop has **86 slides, 180 minutes and three short exercises**. It introduces the terms in plain language, then connects each request to its calculation, checks and next decision. The two companion notebooks explain graph execution and recorded model evidence.
 
 ## 1. Open a notebook
 
@@ -57,3 +57,7 @@ Use **File → Save** in your Drive copy, or **File → Download → Download .i
 Google's documentation: [Using Colab with GitHub](https://github.com/googlecolab/colabtools/blob/main/notebooks/colab-github-demo.ipynb), [Colab FAQ](https://research.google.com/colaboratory/faq.html), and [runtime versions](https://research.google.com/colaboratory/runtime-version-faq.html).
 
 The three current notebooks include Colab setup cells. Classroom Labs also includes L10B's replay of preserved source records. Earlier experiment records remain separate. Colab setup uses compatible scientific-package ranges and pins the graph lesson's runtime packages; the original local requirement files still describe the historical environments.
+
+## Participant handout
+
+Use the [six-page Participant Lab Guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf) for an illustrated explanation of Colab, exact exercise edits and the L10B replay tasks. The workshop uses one required notebook, Classroom Labs. The current notebook introduction follows the 180-minute route.

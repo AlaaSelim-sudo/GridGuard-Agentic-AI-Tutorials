@@ -1,13 +1,16 @@
 \begin{frame}[t]{}
 \relax
 \vspace{.55cm}{\fontsize{30}{34}\selectfont\color{IEEEBlue}\bfseries Hands-on:\\Three Operator Cases}\par\vspace{.38cm}
-{\large Run three cases and see how Llama choices connect to engineering checks.}\par\medskip
-{\large 180 minutes  /  one CPU notebook  /  three short exercises}\par\medskip
-{\large IEEE ComSoc theme / Predict, run, change and explain}\par\medskip
+{\large Run one notebook to understand three operator studies.}\par\medskip
+{\large 180 minutes / three short exercises / no coding experience required}\par\medskip
+\medskip\begin{columns}[T,onlytextwidth]
+\begin{column}{.48\textwidth}{\large\bfseries Alaa Selim\par}{\normalsize MIT/Dartmouth\par}\end{column}
+\begin{column}{.48\textwidth}{\large\bfseries Mohamed Chehada\par}{\normalsize UT Austin\par}\end{column}
+\end{columns}\medskip
 \vfill\includegraphics[width=4cm]{images/comsoc-lockup.png}\par{\tiny Independent educational material / IEEE ComSoc theme adaptation}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb.}\par}
-\note{Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence. The deck uses the IEEE ComSoc theme. The classroom cycle is run, change, check and explain. This expanded edition includes a new L10B replay and a proposed control-room advisory pilot. The scheduled teaching time is 180 minutes; allow breaks outside that total. Takeaway: 
+\note{Open Classroom Labs before the workshop. Participants will run fresh numerical calculations and inspect clearly labeled archived model replies. Use the same notebook for all three cases. If devices are limited, work in pairs: one person runs the cells while the other checks the evidence. The deck uses the IEEE ComSoc theme. The classroom cycle is run, change, check and explain. This expanded edition includes a new L10B replay and a proposed control-room advisory pilot. The scheduled teaching time is 180 minutes; allow breaks outside that total. The presenter affiliations are supplied by the presenters. The new Stanford teaching bridge is an adaptation of general reliability ideas, not a claim that the lab implements those Stanford frameworks. Use the six-page Participant Lab Guide for the exact activity steps. Takeaway: 
 
 Classroom Labs notebook. Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/COLAB\allowbreak{}\_GUIDE.md
@@ -107,6 +110,87 @@ Workshop recorded model replies and numerical study records. Voltage P3\_current
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/result\allowbreak{}s/continuous\_lla\allowbreak{}ma\_opendss\_20260\allowbreak{}927T161223523552\allowbreak{}Z.json}
 \end{frame}
 
+\begin{frame}[t]{Break one big request into small jobs}
+\relax
+\begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_stanford_steps.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Original teaching adaptation of the task-decomposition idea. The notebook does not run WikiChat.\par}
+\endgroup\smallskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item Ask for one clear result at each step. Save it so the next step can use it.
+\item In our lab, Python calculates and checks. L10B shows how Llama selected a next step.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam, CS224V Lecture 1, pp.19--20; Semnani et al., WikiChat (2023).}\par}
+\note{Stanford connection: Lam's CS224V introduction, pp.19--20, uses WikiChat to illustrate splitting a response into retrieval, claim checking and writing. Our diagram is an original power-system teaching adaptation. Follow the voltage path: read the current allowance, choose a permitted candidate, calculate its result, check limits and explain the outcome. This is an analogy across domains, not evidence that WikiChat is a power-system controller. Ask pairs to name which step would detect a current violation. Takeaway: 
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
+Sina J. Semnani, Violet Z. Yao, Heidi C. Zhang, Monica S. Lam. WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot Grounding on Wikipedia. Findings of the Association for Computational Linguistics: EMNLP 2023, pp.2387--2413. December 2023.
+Full source: https://aclantho\allowbreak{}logy.org/2023.fi\allowbreak{}ndings-emnlp.157\allowbreak{}/
+Full paper: https://aclantho\allowbreak{}logy.org/2023.fi\allowbreak{}ndings-emnlp.157\allowbreak{}.pdf
+
+Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
+\end{frame}
+
+\begin{frame}[t]{Find the rule, then test the result}
+\relax
+\begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_claim_evidence.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Teaching analogy. The number shown comes from the recorded P3 replay, which is separate from L2.\par}
+\endgroup\smallskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item A document can tell us the limit. A numerical tool tells us how the proposal compares with it.
+\item Keep the source, the measured or calculated value, and the remaining checks together.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam, CS224V Lecture 1, pp.17--25; recorded P3 current check.}\par}
+\note{Stanford connection: the lecture's WikiChat discussion, pp.17--25, separates finding material from checking factual claims. Apply the habit to a grid study: retrieving a current limit is different from calculating current for a candidate. The displayed 99.604410\% value belongs to the separate archived P3 OpenDSS replay, not to the learner's fresh L2 result. This example supports only that current check under its recorded model. A sentence, retrieved document or citation does not establish full-network feasibility. Takeaway: 
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
+Sina J. Semnani, Violet Z. Yao, Heidi C. Zhang, Monica S. Lam. WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot Grounding on Wikipedia. Findings of the Association for Computational Linguistics: EMNLP 2023, pp.2387--2413. December 2023.
+Full source: https://aclantho\allowbreak{}logy.org/2023.fi\allowbreak{}ndings-emnlp.157\allowbreak{}/
+Full paper: https://aclantho\allowbreak{}logy.org/2023.fi\allowbreak{}ndings-emnlp.157\allowbreak{}.pdf
+
+Workshop recorded model replies and numerical study records. Voltage P3\_current\_reserve: Llama 3.1:8b planner, recovery and review calls 1--3. Public teaching archive. 27 September 2026.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/result\allowbreak{}s/continuous\_lla\allowbreak{}ma\_opendss\_20260\allowbreak{}927T161223523552\allowbreak{}Z.json}
+\end{frame}
+
+\begin{frame}[t]{Tell the agent what is allowed}
+\relax
+\begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_workflow_spec.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Original teaching analogy to Genie Worksheets. This lab uses Python and does not implement Genie.\par}
+\endgroup\smallskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item Write down the goal, required inputs, permitted tools and stop rules before the study.
+\item If something required is missing, report what is missing and keep the proposal on HOLD.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf}{Monica Lam, CS224V Lecture 1, p.40; Joshi et al., Genie Worksheets (ACL 2025).}\par}
+\note{Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. Takeaway: 
+
+Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
+Full source: https://web.stan\allowbreak{}ford.edu/class/c\allowbreak{}s224v/lectures\_2\allowbreak{}026/l-introducti\allowbreak{}on.pdf
+Publication: https://web.stanford.edu/class/cs224v/
+
+Harshit Joshi, Shicheng Liu, James Chen, Larsen Weigle, Monica Lam. Controllable and Reliable Knowledge-Intensive Task-Oriented Conversational Agents with Declarative Genie Worksheets. Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics, Volume 1: Long Papers, pp.27264--27308. July 2025.
+Full source: https://aclanthology.org/2025.acl-long.1323/
+Full paper: https://aclantho\allowbreak{}logy.org/2025.ac\allowbreak{}l-long.1323.pdf
+
+Classroom Labs notebook. Classroom\_Labs.ipynb, L0--L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
+\end{frame}
+
 \begin{frame}[t]{A useful explanation makes a claim we can check}
 \relax
 \begingroup\begin{minipage}[c][3.55cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/bridge_reason_check.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.55cm\resizebox{!}{3.55cm}{\box0}\else\box0\fi\par\end{minipage}\par
@@ -184,14 +268,38 @@ Full paper: https://nvlpubs.\allowbreak{}nist.gov/nistpub\allowbreak{}s/SpecialP
 Publication: https://csrc.nis\allowbreak{}t.gov/pubs/sp/80\allowbreak{}0/82/r3/final}
 \end{frame}
 
-\begin{frame}[t]{Open one notebook for all three cases}
+\begin{frame}[t]{Colab is a workbook with a computer attached}
 \relax
-{\large\color{IEEEBlue} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Open Classroom Labs in Google Colab}\par}\medskip
-{\fontsize{25}{29}\selectfont\color{IEEEBlue}\bfseries Classroom\_Labs.ipynb\par}\medskip
+\begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_colab_workbook.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Notebook file and temporary runtime are different. Google Colab FAQ; original illustration.\par}
+\endgroup\smallskip
 {
-\normalsize\begin{itemize}
-\item Open Classroom Labs from the source link or the website's first Colab button.
-\item Save a copy in Drive to keep your changes and results.
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item The notebook holds instructions, code and outputs. A temporary computer runs the code.
+\item Save your notebook copy. After a runtime reset, rerun setup and the earlier cells.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://research.google.com/colaboratory/faq.html}{Google Colab FAQ: notebook storage, execution state and temporary virtual machines.}\par}
+\note{Explain the picture before using any interface terms. An .ipynb file is the workbook. The runtime is a temporary computer supplied by Colab. Variables and files in its temporary storage are separate from the notebook file. Saving a copy in Drive or downloading the notebook keeps its text, code and saved outputs; it does not keep the whole temporary computer. There is no need to mount the user's Drive for this lab. The setup cell retrieves the required source and records. We use a CPU runtime and no live language-model service. Takeaway: 
+
+Google Colaboratory. Frequently Asked Questions: Using Colab, notebook storage and execution state. Google Research. Reviewed 24 October 2026.
+Full source: https://research\allowbreak{}.google.com/cola\allowbreak{}boratory/faq.htm\allowbreak{}l
+
+Classroom Labs notebook. Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/COLAB\allowbreak{}\_GUIDE.md}
+\end{frame}
+
+\begin{frame}[t]{One notebook covers all three cases}
+\relax
+\begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_one_notebook.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Only Classroom Labs is required. The graph and trace notebooks are companion material.\par}
+\endgroup\smallskip
+{\large\color{IEEEBlue} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Open Classroom Labs in Google Colab}\par}\medskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item Save a copy in Drive. Keep this same notebook open for all three cases.
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb.}\par}
@@ -201,19 +309,26 @@ Classroom Labs notebook. Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb. Public n
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/COLAB\allowbreak{}\_GUIDE.md}
 \end{frame}
 
-\begin{frame}[t]{Connect a CPU and run setup}
+\begin{frame}[t]{Get ready in four small steps}
 \relax
+\begingroup\begin{minipage}[c][3.3cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_ready.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.3cm\resizebox{!}{3.3cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Setup prepares the runtime. Then follow each named lesson cell with the slides.\par}
+\endgroup\smallskip
 {
-\normalsize\begin{itemize}
-\item Choose a standard CPU. Run "Set up Google Colab (CPU)" and wait for Ready.
-\item Setup gets the data, saved model weights and records, then installs the needed packages.
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item Open the notebook, save your copy, connect a CPU and run setup.
+\item Wait for Ready. Then run L0 and L1 before starting the three cases.
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb.}\par}
 \note{For a paced workshop, run the setup cell first, then run each named lesson cell when prompted. Runtime > Run all also works, but it reveals later outputs before the prediction questions. The default route needs no GPU, API key or LLM download. If setup stops, reconnect the runtime and rerun setup before starting L0. Takeaway: 
 
 Classroom Labs notebook. Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/COLAB\allowbreak{}\_GUIDE.md}
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/COLAB\allowbreak{}\_GUIDE.md
+
+Google Colaboratory. Frequently Asked Questions: Using Colab, notebook storage and execution state. Google Research. Reviewed 24 October 2026.
+Full source: https://research\allowbreak{}.google.com/cola\allowbreak{}boratory/faq.htm\allowbreak{}l}
 \end{frame}
 
 \begin{frame}[t]{Find each task by its L label}
@@ -229,6 +344,28 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 
 Classroom Labs notebook. Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/COLAB\allowbreak{}\_GUIDE.md}
+\end{frame}
+
+\begin{frame}[t]{Run a cell, then read what it returns}
+\relax
+\begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_cell_loop.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Teaching illustration, not a Colab screenshot. Input lines match L2; run the full L2 cell.\par}
+\endgroup\smallskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item Use the play button beside a code cell. Wait until that cell finishes.
+\item Read the table or plot underneath it. A slide shows a fragment; run the whole matching cell.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://research.google.com/colaboratory/faq.html}{Google Colab FAQ; Classroom Labs L2, cell classroom-007.}\par}
+\note{Point to the three parts: editable input, run control and returned output. The illustrated input lines are the first two lines of the actual L2 cell, not a complete standalone program. The full cell calls the voltage helper and draws two plots. The runtime remembers variables from earlier cells, which is why we run the lesson in order. If NameError reports a missing variable, return to setup/L0 and rerun the required earlier cells. Do not treat a previously displayed output as the result of a number just edited until you rerun its cell. Takeaway: 
+
+Google Colaboratory. Frequently Asked Questions: Using Colab, notebook storage and execution state. Google Research. Reviewed 24 October 2026.
+Full source: https://research\allowbreak{}.google.com/cola\allowbreak{}boratory/faq.htm\allowbreak{}l
+
+Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
 \begin{frame}[t]{Run L0: choose the classroom route}
@@ -308,12 +445,16 @@ Classroom Labs notebook. Classroom\_Labs.ipynb, L0--L1; cells classroom-002 and 
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
 \end{frame}
 
-\begin{frame}[t]{Keep a short experiment record}
+\begin{frame}[t]{Work in pairs and explain one result}
 \relax
+\begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_record.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Record one changed input, one result, the check outcome and the next decision.\par}
+\endgroup\smallskip
 {
-\normalsize\begin{itemize}
-\item Write down the L label and the value you changed.
-\item Record the result, what the model covers, and your next step: continue, recheck or HOLD.
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item One person runs the cell while the other checks the result. Swap roles in the next case.
+\item Save enough information for another pair to repeat your experiment.
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb.}\par}
@@ -463,6 +604,25 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py.}\par}
 \note{An incorrect prediction is useful evidence, not a failed exercise. Compare the hypothesis with the actual output. Both candidates retain enough headroom in this case. An optimizer may change its command when a constraint changes, so a simple fixed-ratio argument does not apply to every scenario. The model scope has not expanded. Takeaway: 
+
+Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
+\end{frame}
+
+\begin{frame}[t]{Change one number and explain the difference}
+\relax
+\begingroup\begin{minipage}[c][3.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/lab_try_observe.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3.5cm\resizebox{!}{3.5cm}{\box0}\else\box0\fi\par\end{minipage}\par
+{\fontsize{7}{8.3}\selectfont\color{Slate} Reference L2 exercise: MPC uses 73.62\% of the default allowance and 78.53\% after the change.\par}
+\endgroup\smallskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item A smaller current allowance makes the same current a larger percentage of that allowance.
+\item Record the new percentage and check whether it still stays below 100\%.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Classroom Labs L2, cell classroom-007; verified default and exercise outputs.}\par}
+\note{Use this visual immediately after the first exercise debrief. It shows the measured reference MPC outputs, rounded to two decimal places, for RATING\_FRACTION 0.80 and 0.75. The SAC result is also computed in the notebook but is not drawn here. Both proposals pass this particular tighter test. The result is not a general guarantee for other loads or limits. Ask pairs to explain the denominator in the percentage. Restore the default before moving to L3's independent archived case. Takeaway: 
 
 Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/agent\allowbreak{}ic\_grid\_workflow\allowbreak{}\_tutorial/Classr\allowbreak{}oom\_Labs.ipynb}
@@ -1612,6 +1772,7 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 
 \begin{frame}[t]{Save a workshop record others can repeat}
 \relax
+{\large\color{IEEEBlue} \href{https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf}{Get the Participant Lab Guide}\par}\medskip
 {
 \normalsize\begin{itemize}
 \item Save your changed inputs and results, labeled new, archived or simulated.
@@ -1620,7 +1781,7 @@ Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGua
 \medskip{\large\href{../Full_Reading_Guide.html}{Open the Full Reading Guide}}\par{\small\href{teaching_guide.pdf}{Separate reading-guide PDF}}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb.}\par}
-\note{Use the final five minutes for pair reports and saving. Each pair names one changed parameter, compares its predicted and observed result, and states one evidence limit. Another person should be able to repeat the experiment from the saved notebook. The reading guide supplies the full source links, stable cell map and debrief answers. Takeaway: 
+\note{Use the final three minutes for pair reports and saving. Each pair names one changed parameter, compares its predicted and observed result, and states one evidence limit. Another person should be able to repeat the experiment from the saved notebook. The reading guide supplies the full source links, stable cell map and debrief answers. Takeaway: 
 
 Classroom Labs notebook. Setup: COLAB\_GUIDE.md; Classroom\_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.c\allowbreak{}om/AlaaSelim-sud\allowbreak{}o/GridGuard-Agen\allowbreak{}tic-AI-Tutorials\allowbreak{}/blob/main/COLAB\allowbreak{}\_GUIDE.md}

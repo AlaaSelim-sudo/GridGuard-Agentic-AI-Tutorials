@@ -1,0 +1,22 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9.5}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2mm]},draw=IEEEBlue,line width=1.2pt},
+label/.style={text width=2.5cm,align=center},
+box/.style={draw=IEEEBlue,line width=1pt,fill=white,inner sep=7pt,minimum height=1cm},
+small/.style={font=\sffamily\fontsize{8}{10}\selectfont},
+stop/.style={draw=Red,text=Red,fill=Red!4,line width=1pt,inner sep=6pt}]
+\path[use as bounding box] (-.05,-.1) rectangle (14.5,4.0);
+
+\node[box,text width=5.1cm,font=\ttfamily\fontsize{10}{12}\selectfont] (book) at (7.2,3.2) {Classroom\_Labs.ipynb};
+\node[text=IEEEBlue,text width=3.4cm] (v) at (2.3,1.7) {Voltage\\L2--L5};
+\node[text=IEEEBlue,text width=3.4cm] (r) at (7.2,1.7) {Restoration\\L6--L7};
+\node[text=IEEEBlue,text width=3.4cm] (c) at (12.1,1.7) {Cyber\\L8--L9};
+\draw[flow] (book.south)--(7.2,2.5)-|(v.north);\draw[flow] (book.south)--(r.north);\draw[flow] (7.2,2.5)-|(c.north);
+\node[small,text width=4.3cm] at (2.3,.75) {Change a current allowance};
+\node[small,text width=4.3cm] at (7.2,.75) {Change a tie capacity};
+\node[small,text width=4.3cm] at (12.1,.75) {Change a data bias};
+\node[small,text=Slate] at (7.2,.05) {L10B replays Llama choices in the same file. Each case uses a separate teaching network.};
+
+\end{tikzpicture}
+\endgroup

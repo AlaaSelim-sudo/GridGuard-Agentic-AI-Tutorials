@@ -2,7 +2,7 @@
 theme: default
 title: Agentic AI for Utility Operators — Power Systems and Agent Workflows
 info: Integrated power-system tutorial with deployment news, LangGraph, DAGs, measured paper results and complete readings
-author: GridGuard tutorial
+author: Alaa Selim (MIT/Dartmouth) and Mohamed Chehada (UT Austin)
 transition: none
 aspectRatio: 16/9
 canvasWidth: 1280
@@ -20,8 +20,8 @@ download: false
 
 <h1>Agentic AI for<br>Utility Operators</h1>
 <p>Real power-sector uses, engineering tools and measured research results</p>
-<p>One teaching session with two worked exercises</p>
-<p>IEEE ComSoc theme / Evidence reviewed 17 October 2026</p>
+<p>165 minutes / two worked exercises</p>
+<div class="presenters"><div><strong>Alaa Selim</strong><span>MIT/Dartmouth</span></div><div><strong>Mohamed Chehada</strong><span>UT Austin</span></div></div>
 <img class="cover-logo" src="/branding/comsoc-lockup.png" alt="IEEE Communications Society lockup"><small>Independent educational material · IEEE ComSoc theme adaptation</small>
 <div class="sources">Source: <a href="https://www.comsoc.org/about/brand-experience/resources">IEEE Communications Society. IEEE Communications Society: official resources and network presentation template. Reviewed 17 October 2026.</a></div>
 <span class="pageno">1 / 80</span></div>

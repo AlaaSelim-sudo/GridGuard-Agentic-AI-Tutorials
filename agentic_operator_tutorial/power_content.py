@@ -283,3 +283,7 @@ assert len(SLIDES)<=80
 assert sum(s['kind']=='exercise' for s in SLIDES)==2
 assert not any(s.get('extension') for s in SLIDES)
 assert not any(key.startswith(('F0','H0','H1')) for s in SLIDES for key in s['refs'])
+
+# Presenter names and affiliations supplied for both tutorial title slides.
+SLIDES[0]["presenters"] = [{'name': 'Alaa Selim', 'affiliation': 'MIT/Dartmouth'}, {'name': 'Mohamed Chehada', 'affiliation': 'UT Austin'}]
+SLIDES[0]["points"] = ["Real power-sector uses, engineering tools and measured research results", "165 minutes / two worked exercises"]

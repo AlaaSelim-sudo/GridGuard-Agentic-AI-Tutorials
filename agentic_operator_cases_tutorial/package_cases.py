@@ -119,12 +119,14 @@ def main(argv=None):
             ('Full_Reading_Guide.html','Full_Reading_Guide.html'),
             ('Code_and_Record_Guide.html','Code_and_Record_Guide.html'),
             ('Exercises.html','Exercises.html'),
+            ('Participant_Lab_Guide.pdf','Participant_Lab_Guide.pdf'),
+            ('Participant_Lab_Guide.html','Participant_Lab_Guide.html'),
         ]:
             shutil.copy2(ROOT/source_name,destination/target_name)
         if not args.pdf_only:
             shutil.copytree(ROOT/'research',destination/'research',dirs_exist_ok=True)
     deliverable_paths=[ROOT/name for name in ['Three_Operator_Cases.pdf','Teaching_and_Source_Guide.pdf',
-        'Full_Reading_Guide.html','Code_and_Record_Guide.html','Exercises.html']]
+        'Full_Reading_Guide.html','Code_and_Record_Guide.html','Exercises.html','Participant_Lab_Guide.pdf','Participant_Lab_Guide.html']]
     if not args.pdf_only:
         deliverable_paths=package_archives()+deliverable_paths
     result={**manifest,'packaging_mode':'pdf-only' if args.pdf_only else 'full',

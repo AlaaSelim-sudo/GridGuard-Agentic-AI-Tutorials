@@ -6,16 +6,20 @@ Two connected tutorials for power engineers, operators, researchers and instruct
 
 [Watch](#watch) · [Get notebooks](#get-notebooks) · [Teach](#teach) · [Edit](#edit) · [Archive](#archive)
 
+**Presenters:** Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.
+
 ## Watch
 
 1. **[Foundations — open the slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/)** · **80 slides / 165 minutes**. Agents, tools and workflows; utility developments; power-system research; LangGraph concepts; and how to assess evidence. Includes two exercises. [Download the PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/foundations.pdf).
-2. **[Hands-on workshop: three operator cases — open the slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/)** · **80 slides / 180 minutes**. Follow **Classroom Labs L0–L12, including L10B**, in Colab or Jupyter. Learn the terms, run voltage, restoration and cyber calculations, then change one input in each of three four-minute exercises. Inspect exact saved Llama reasons and the numerical guard that catches a wrong ranking. Finish with a proposed advisory control-room pilot. Notebook excerpts and executed outputs connect **input → tool call → result → check → operator decision**. [Download the PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases.pdf).
+2. **[Hands-on workshop: three operator cases — open the slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/)** · **86 slides / 180 minutes**. Follow **Classroom Labs L0–L12, including L10B**, in Colab or Jupyter. Learn the terms, run voltage, restoration and cyber calculations, then change one input in each of three four-minute exercises. Inspect exact saved Llama reasons and the numerical guard that catches a wrong ranking. Finish with a proposed advisory control-room pilot. Notebook excerpts and executed outputs connect **input → tool call → result → check → operator decision**. [Download the PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases.pdf).
 
 The browser presentations need no Python installation, model account or live language-model service. Both use an IEEE ComSoc visual theme and include source credits and presenter notes. The sessions can be taught separately; their combined scheduled time is **5 hours 45 minutes**.
 
 ## Get notebooks
 
-Open any of the three main notebooks in Google Colab:
+**Only Classroom Labs is required for the hands-on slides.** The two other Colabs are companion resources.
+
+Start with the [six-page Participant Lab Guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf), which explains Colab and gives the three exercise steps. The workshop also adapts teaching ideas from [Monica Lam’s Stanford CS224V introduction](https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf), with full source credits.
 
 **[Classroom Labs](agentic_grid_workflow_tutorial/Classroom_Labs.ipynb)** — voltage L2–L5, restoration L6–L7 and cyber response L8–L9. Change a parameter and compare your prediction with the new result. L10B replays real saved Llama choices, exact public reasons and returned tool evidence for three separate recorded cases.
 
@@ -51,6 +55,7 @@ GitHub previews the notebooks. For local execution, clone or download the reposi
 ## Teach
 
 - **Foundations:** [instructor guide](agentic_operator_tutorial/Instructor_Guide.md) and [full reading and source guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/Full_Reading_Guide.html).
+- **Participant guide:** [printable PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf) or [web version](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Participant_Lab_Guide.html).
 - **Operator cases:** [instructor guide](agentic_operator_cases_tutorial/Instructor_Guide.md), [teaching and source guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases-teaching-guide.pdf), and [code and recorded-result guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Code_and_Record_Guide.html).
 - **Hands-on workshop:** [Classroom Labs instructor guide](agentic_grid_workflow_tutorial/Workshop_Instructor_Guide.md).
 

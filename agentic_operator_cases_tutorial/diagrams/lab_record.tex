@@ -1,0 +1,20 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9.5}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2mm]},draw=IEEEBlue,line width=1.2pt},
+label/.style={text width=2.5cm,align=center},
+box/.style={draw=IEEEBlue,line width=1pt,fill=white,inner sep=7pt,minimum height=1cm},
+small/.style={font=\sffamily\fontsize{8}{10}\selectfont},
+stop/.style={draw=Red,text=Red,fill=Red!4,line width=1pt,inner sep=6pt}]
+\path[use as bounding box] (-.05,-.1) rectangle (14.5,4.0);
+
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (3.4,3.5) {One person runs};
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (11.0,3.5) {One person checks};
+\node[text width=5.7cm] at (3.4,2.25) {Predict the change\\Edit one number\\Run the cell};
+\node[text width=5.7cm] at (11.0,2.25) {Read the result\\Check its limits and model\\Explain the next step};
+\draw[flow] (6.0,2.25)--(8.4,2.25);
+\draw[Cyan,line width=1pt] (.7,1.0)--(13.8,1.0);
+\node[small,text width=13cm] at (7.2,.45) {Save four things: input changed, result, check outcome and next decision. Swap roles in the next case.};
+
+\end{tikzpicture}
+\endgroup

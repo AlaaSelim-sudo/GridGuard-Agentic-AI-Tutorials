@@ -1,0 +1,28 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9.5}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2mm]},draw=IEEEBlue,line width=1.2pt},
+label/.style={text width=2.5cm,align=center},
+box/.style={draw=IEEEBlue,line width=1pt,fill=white,inner sep=7pt,minimum height=1cm},
+small/.style={font=\sffamily\fontsize{8}{10}\selectfont},
+stop/.style={draw=Red,text=Red,fill=Red!4,line width=1pt,inner sep=6pt}]
+\path[use as bounding box] (-.05,-.1) rectangle (14.5,4.0);
+
+% Workbook pages and temporary computer are deliberately different pictures.
+\draw[IEEEBlue,line width=1.1pt] (.8,.9)--(.8,3.05)--(2.5,2.78)--(4.2,3.05)--(4.2,.9)--(2.5,.62)--cycle;
+\draw[IEEEBlue] (2.5,.65)--(2.5,2.78);
+\node[small,text width=1.3cm] at (1.65,1.95) {Text\\Code};
+\node[small,text width=1.3cm] at (3.35,1.95) {Plots\\Results};
+\node[text=IEEEBlue] at (2.5,3.55) {Your notebook};
+\draw[Cyan,line width=1.1pt] (9.1,.85) rectangle (13.2,3.1);
+\draw[IEEEBlue] (9.55,1.25) rectangle (12.75,2.7);
+\node[text width=2.8cm] at (11.15,2.0) {Temporary CPU\\Runs Python};
+\foreach \x in {9.8,10.5,11.2,11.9,12.6}{\draw[Cyan] (\x,.65)--(\x,.85);\draw[Cyan] (\x,3.1)--(\x,3.3);}
+\node[text=IEEEBlue] at (11.15,3.65) {Computer supplied by Colab};
+\draw[flow] (4.5,2.5)--node[above]{Run code}(8.8,2.5);
+\draw[flow] (8.8,1.3)--node[below]{Return output}(4.5,1.3);
+\node[small,text=Slate,text width=6.4cm] at (3.2,.12) {Save your notebook copy in Drive or download it.};
+\node[small,text=Slate,text width=6.3cm] at (11.0,.12) {A reset clears variables and temporary files.};
+
+\end{tikzpicture}
+\endgroup

@@ -1,8 +1,12 @@
 # Hands-on workshop: three operator cases
 
-**80 slides / 180 minutes / three four-minute exercises.** Keep **Classroom_Labs.ipynb** open beside this second presentation. Learn the terms in plain language, run the three cases, then inspect exact saved Llama choices and reasons. Follow **L0–L12, including L10B after L10**, using notebook excerpts, executed outputs, parameter edits and separate debriefs. Finish with a proposed advisory control-room pilot.
+**86 slides / 180 minutes / three four-minute exercises.** Keep **Classroom_Labs.ipynb** open beside this second presentation. Learn the terms in plain language, run the three cases, then inspect exact saved Llama choices and reasons. Follow **L0–L12, including L10B after L10**, using notebook excerpts, executed outputs, parameter edits and separate debriefs. Finish with a proposed advisory control-room pilot.
 
 [Open the workshop slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1) · [Open Classroom Labs in Colab](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb) · [Download the slides](Three_Operator_Cases.pdf)
+
+**Presenters:** Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.
+
+[Participant Lab Guide · PDF](Participant_Lab_Guide.pdf) · [web version](Participant_Lab_Guide.html). This short guide explains Colab, the three exercises and the Llama replay. New teaching diagrams adapt ideas from Monica Lam’s Stanford CS224V introduction, with full attribution.
 
 ## Before starting
 
@@ -48,6 +52,8 @@ These visuals show a clean Python 3.12 execution, not a Google-hosted Colab UI. 
 ## Edit and rebuild
 
 Edit the module JSON files in `content/`, then run `python build_cases.py`. Notebook excerpts are read from the canonical sibling notebook by stable cell ID and checked by source hash.
+
+Build the participant guide with `python research/lab_teaching/build_participant_guide.py`.
 
 Compile `latex/main.tex` and `latex/teaching_guide.tex` with LaTeX or Tectonic. Run `python package_cases.py --pdf-only` to refresh downloadable PDFs and the exercise page. Without that flag, packaging also creates portable ZIPs.
 

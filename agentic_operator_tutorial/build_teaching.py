@@ -128,6 +128,11 @@ def render_frame(s, sources):
         out.append(r"\vspace{.55cm}{\fontsize{30}{34}\selectfont\color{IEEEBlue}"
                    r"\bfseries Agentic AI for\\Utility Operators}\par\vspace{.38cm}" + "\n")
         out.extend(r"{\large " + esc(p) + r"}\par\medskip" + "\n" for p in s["points"])
+        if s.get('presenters'):
+            out.append(r'\medskip\begin{columns}[T,onlytextwidth]'+'\n')
+            for person in s['presenters']:
+                out.append(r'\begin{column}{.48\textwidth}{\large\bfseries '+esc(person['name'])+r'\par}{\normalsize '+esc(person['affiliation'])+r'\par}\end{column}'+'\n')
+            out.append(r'\end{columns}\medskip'+'\n')
         out.append(r"\vfill\includegraphics[width=4cm]{images/comsoc-lockup.png}\par"
                    r"{\tiny Independent educational material / IEEE ComSoc theme adaptation}" + "\n")
     else:
@@ -218,6 +223,8 @@ def render_slide(s, number, total, sources):
     if kind == "cover":
         out.append("<h1>Agentic AI for<br>Utility Operators</h1>")
         out.extend("<p>" + he(point) + "</p>" for point in s["points"])
+        if s.get('presenters'):
+            out.append('<div class="presenters">'+''.join('<div><strong>'+he(p['name'])+'</strong><span>'+he(p['affiliation'])+'</span></div>' for p in s['presenters'])+'</div>')
         out.append('<img class="cover-logo" src="/branding/comsoc-lockup.png" alt="IEEE Communications Society lockup">'
                    "<small>Independent educational material · IEEE ComSoc theme adaptation</small>")
     else:
@@ -470,7 +477,7 @@ def main():
 theme: default
 title: Agentic AI for Utility Operators — Power Systems and Agent Workflows
 info: Integrated power-system tutorial with deployment news, LangGraph, DAGs, measured paper results and complete readings
-author: GridGuard tutorial
+author: Alaa Selim (MIT/Dartmouth) and Mohamed Chehada (UT Austin)
 transition: none
 aspectRatio: 16/9
 canvasWidth: 1280

@@ -1,0 +1,24 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9.5}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2mm]},draw=IEEEBlue,line width=1.2pt},
+label/.style={text width=2.5cm,align=center},
+box/.style={draw=IEEEBlue,line width=1pt,fill=white,inner sep=7pt,minimum height=1cm},
+small/.style={font=\sffamily\fontsize{8}{10}\selectfont},
+stop/.style={draw=Red,text=Red,fill=Red!4,line width=1pt,inner sep=6pt}]
+\path[use as bounding box] (-.05,-.1) rectangle (14.5,4.0);
+
+\node[text=IEEEBlue,font=\sffamily\bfseries] at (3.1,3.5) {L2: change one number};
+\node[box,text width=4.6cm] at (3.1,2.0) {RATING\_FRACTION\\0.80 becomes 0.75\\Predict, then rerun L2};
+\draw[flow] (5.7,2.0)--(7.0,2.0);
+\draw[Slate] (7.6,.8)--(14.0,.8);
+\draw[Red,dashed] (7.6,2.95)--(14,2.95);
+\node[small,text=Red,anchor=east] at (14,3.25) {100\% limit};
+\fill[IEEEBlue!85] (8.5,.8) rectangle (10.0,2.3838);
+\fill[Cyan!85] (11.3,.8) rectangle (12.8,2.4894);
+\node[small] at (9.25,2.65) {73.62\%};\node[small] at (12.05,2.75) {78.53\%};
+\node[small] at (9.25,.38) {Default};\node[small] at (12.05,.38) {Changed allowance};
+\node[small,text=Slate,text width=6cm] at (3.1,.48) {Reference MPC results. Both checks still pass.};
+
+\end{tikzpicture}
+\endgroup

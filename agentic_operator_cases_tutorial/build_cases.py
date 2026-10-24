@@ -241,7 +241,7 @@ def prepare_slides():
     dump(ROOT/'images/image_manifest.json',{'images':list(images.values())})
     dump(ROOT/'research/code_manifest.json',code_records)
     slides=r.normalized_slides(SimpleNamespace(SLIDES=slides))
-    assert len(slides)==80,len(slides)
+    assert len(slides)==86,len(slides)
     assert sum(s['minutes'] for s in slides)==180
     assert sum(s['kind']=='exercise' for s in slides)==3
     return slides
@@ -253,7 +253,8 @@ def teaching_guide(slides,sources):
         ('Format',str(len(slides))+' static slides / '+str(sum(s['minutes'] for s in slides))+' minutes. '+route),
         ('Prerequisite','Use the foundations tutorial first. This session follows the current Classroom Labs notebook through voltage support, service restoration and cyber response.'),
         ('Evidence modes','Run the selected numerical cells to calculate results for your inputs. Archived model-response pools and historical evaluation records remain separately labeled. Editing L2 does not change the archived test_01 used by L3–L5, and editing the L8 sweep does not change the fixed L9 recovery fixture. No default cell calls an LLM or operates equipment.'),
-        ('Preparation','Open the linked notebook in Google Colab, sign in and use a standard CPU runtime. Run the first setup cell, wait for Ready, then follow the L labels in order. Keep optional OpenDSS and local-model switches at the stated defaults. The default route needs no API key, model download or GPU.'),
+        ('Preparation','Give participants Participant_Lab_Guide.pdf. Open the one required notebook in Google Colab, sign in and use a standard CPU runtime. Run setup, wait for Ready, then follow the L labels in order. Keep both model switches at the stated defaults. The default route needs no API key, LLM download or GPU.'),
+        ('Stanford teaching bridge','Original grid teaching diagrams adapt task decomposition, evidence checking and explicit workflow specification from Monica Lam’s CS224V Lecture 1, with full lecture and paper references below. This notebook does not run WikiChat, Genie Worksheets or a theorem prover.'),
         ('Facilitation','Follow each slide’s lab label and stable cell ID. Read the code, predict the result, run it, change the stated parameter and explain what changed. Each exercise has its own timed prompt; answers belong in the teacher notes and following debrief.')],[])]
     elapsed=0
     for i,s in enumerate(slides,1):
@@ -325,7 +326,7 @@ def main():
 theme: default
 title: Hands-on — Three Operator Cases
 info: Follow Classroom Labs through voltage support, service restoration and cyber response, with three exercises
-author: GridGuard teaching tutorial
+author: Alaa Selim (MIT/Dartmouth) and Mohamed Chehada (UT Austin)
 transition: none
 aspectRatio: 16/9
 canvasWidth: 1280

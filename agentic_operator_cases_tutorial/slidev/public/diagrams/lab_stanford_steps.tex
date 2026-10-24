@@ -1,0 +1,20 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9.5}{12}\selectfont,
+every node/.style={text=Navy,align=center},
+flow/.style={-{Stealth[length=2mm]},draw=IEEEBlue,line width=1.2pt},
+label/.style={text width=2.5cm,align=center},
+box/.style={draw=IEEEBlue,line width=1pt,fill=white,inner sep=7pt,minimum height=1cm},
+small/.style={font=\sffamily\fontsize{8}{10}\selectfont},
+stop/.style={draw=Red,text=Red,fill=Red!4,line width=1pt,inner sep=6pt}]
+\path[use as bounding box] (-.05,-.1) rectangle (14.5,4.0);
+
+\node[text=IEEEBlue] at (7.2,3.6) {One large request becomes a sequence of smaller jobs};
+\foreach \x/\n/\t/\d in {1.2/1/Read/Goal and data,4.2/2/Choose/Allowed tool,7.2/3/Calculate/Numerical result,10.2/4/Check/Limits and scope,13.2/5/Explain/Evidence and gaps} {
+\node[circle,draw=IEEEBlue,line width=1pt,minimum size=.65cm] at (\x,2.6) {\n};
+\node[label,font=\sffamily\bfseries] at (\x,1.85) {\t};
+\node[label,small] at (\x,1.15) {\d};}
+\foreach \a/\b in {1.6/3.8,4.6/6.8,7.6/9.8,10.6/12.8}{\draw[flow] (\a,2.6)--(\b,2.6);}
+\node[text=Slate,small] at (7.2,.25) {Our lab: each saved output lets us inspect one part of that sequence.};
+
+\end{tikzpicture}
+\endgroup
