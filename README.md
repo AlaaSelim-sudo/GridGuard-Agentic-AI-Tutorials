@@ -57,7 +57,7 @@ Use these for additional study; they are separate from the required workshop rou
 
 The opening uses Monica Lam’s **CS224V Agentic AI, Lecture 1: Introduction**, Stanford University, Fall 2026, with original figures and clearly labeled grid adaptations. [Full lecture](https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf) · [Source map and full paper citations](agentic_operator_cases_tutorial/README.md#stanford-teaching-materials).
 
-For the foundations session, use its [instructor guide](agentic_operator_tutorial/Instructor_Guide.md) and [reading guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/Full_Reading_Guide.html).
+For the **foundations session**, use the **[presenter script online](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/Presenter_Script.html)**: spoken explanations, visual walkthroughs, questions with answers and transitions for every slide. The printable version has one page per slide, a glossary and all 74 references. [Script PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/foundations-presenter-script.pdf) · [Editable script](agentic_operator_tutorial/Presenter_Script.md) · [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/1) · [Instructor guide](agentic_operator_tutorial/Instructor_Guide.md) · [Reading guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/Full_Reading_Guide.html).
 
 <a id="edit"></a>
 
@@ -71,7 +71,7 @@ python scripts/build-workshop.py all
 ```
 
 - [Hands-on project](agentic_operator_cases_tutorial/README.md) · [Slidev source](agentic_operator_cases_tutorial/slidev/slides.md) · [Presenter cue source](agentic_operator_cases_tutorial/content/presenter_script.json).
-- [Foundations project](agentic_operator_tutorial/README.md) · [Slidev source](agentic_operator_tutorial/slidev/slides.md).
+- [Foundations project](agentic_operator_tutorial/README.md) · [Slidev source](agentic_operator_tutorial/slidev/slides.md) · [Presenter cue source](agentic_operator_tutorial/content/presenter_script.json) · [Script rebuild instructions](agentic_operator_tutorial/README.md#rebuild-the-presenter-script).
 - [Website build guide](web/README.md) · [GitHub Pages workflow](.github/workflows/deploy-pages.yml).
 
 Pushing the generated materials to `main` triggers the Pages workflow. The local build commands do not push or publish. Existing figure-capture and TikZ helpers have their own documented runtime requirements; the main build uses the supplied assets.

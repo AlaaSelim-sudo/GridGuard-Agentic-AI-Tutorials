@@ -27,5 +27,6 @@ The official actions are pinned to reviewed release commits. Build permissions a
 - Edit the landing page in `web/index.html` and its styles in `web/assets/site.css`.
 - Edit the decks in their original Slidev project folders.
 - Update the corresponding PDFs when their teaching content changes.
+- Both tutorials have online, printable and editable presenter scripts. For foundations, edit `agentic_operator_tutorial/content/presenter_script.json`, run `python agentic_operator_tutorial/build_presenter_script.py --pdf`, then `--check`. See the foundations README for the full teaching and rebuild route.
 - Retain image credits, source registries and third-party notices.
 - Generated `_site` output and installed dependencies stay out of Git.

@@ -44,6 +44,8 @@ for(const deck of decks){
 }
 for(const [from,to] of [
   ['agentic_operator_tutorial/Full_Reading_Guide.pdf','foundations-reading-guide.pdf'],
+  ['agentic_operator_tutorial/Presenter_Script.pdf','foundations-presenter-script.pdf'],
+  ['agentic_operator_tutorial/Presenter_Script.md','foundations-presenter-script.md'],
   ['agentic_operator_cases_tutorial/Teaching_and_Source_Guide.pdf','operator-cases-teaching-guide.pdf'],
   ['agentic_operator_cases_tutorial/Participant_Lab_Guide.pdf','participant-lab-guide.pdf'],
   ['agentic_operator_cases_tutorial/Presenter_Script.pdf','operator-cases-presenter-script.pdf'],

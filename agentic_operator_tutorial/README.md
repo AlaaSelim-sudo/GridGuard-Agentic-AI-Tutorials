@@ -6,6 +6,9 @@ The deck uses an IEEE ComSoc theme and genuine source images on **46 of 80 slide
 
 ## Present the tutorial
 
+- **[Presenter script online](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/Presenter_Script.html)**: complete spoken explanations for all 80 slides, visual walkthroughs, quick questions with expected answers and transitions. Search by term, paper or slide number. Expand a slide's visual or source credits when preparing.
+- **[Printable presenter script](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/foundations-presenter-script.pdf)**: one page per slide, relative start/end times, both worked exercises, a plain-language glossary and all 74 full references. Use its PDF bookmarks to reach a slide or source. [Editable Markdown](Presenter_Script.md).
+- **[Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/1)**: open beside the script. The narration follows the accepted slide order and the deck's 18 October 2026 evidence snapshot.
 - `latex/main.pdf`: complete presentation.
 - `slidev/slides.md`: editable Slidev source with presenter notes.
 - `Instructor_Guide.md`: cumulative timing, explanations and exercise answers.
@@ -14,6 +17,15 @@ The deck uses an IEEE ComSoc theme and genuine source images on **46 of 80 slide
 - `Agentic_Operator_Tutorial_Complete.zip`: both formats, built web presentation, sources, notes and credits.
 
 `latex/presentation.pdf` is a compatibility copy of the same presentation.
+
+### Use the script to teach
+
+1. Read **Say** as a starting explanation and adapt it to your voice.
+2. Use **Show / explain** to walk through the actual image, graph, equation or concept. The online script can display the existing source visual beside its teaching cues.
+3. Use **Ask** for a quick check, then reveal the **Expected answer** during discussion. Use the exercise timers on slides 26 and 53.
+4. Use **Transition** to connect the point to the next slide. The 165-minute schedule includes discussion and the two exercises; add breaks separately.
+
+No notebook or model account is required for this foundations session. The separate hands-on session uses one required Classroom Labs notebook. Research explanations retain each metric's task, denominator, scoring rule and evidence limits.
 
 With Node.js installed, run from the package folder:
 
@@ -63,6 +75,21 @@ npm run build
 ```
 
 Pinned dependencies and the lockfile are included. The built `dist` folder can also be served by another static web server.
+
+### Rebuild the presenter script
+
+Edit `content/presenter_script.json`. Each entry is matched to its exact slide title and number, so an altered slide order prompts a review rather than silently attaching the wrong explanation. From the repository root:
+
+```text
+python -m pip install -r agentic_operator_cases_tutorial/requirements-authoring.txt
+python agentic_operator_tutorial/build_presenter_script.py --pdf
+python agentic_operator_tutorial/build_presenter_script.py --check
+node scripts/build-pages.mjs --base /GridGuard-Agentic-AI-Tutorials/
+```
+
+The first command installs the shared authoring dependencies. Script generation updates `Presenter_Script.md`, `.html` and `.pdf`, their copies under `slidev/public/`, and a source-hash manifest in `research/presenter/`. Validation checks all 80 explanations, 165-minute timing, exercise positions, figure paths, the PDF's one-page-per-slide structure and matching public copies. The site build also needs the pinned Node dependencies described in [the website guide](../web/README.md).
+
+Run the existing slide build first after changing the teaching content, then review and regenerate the script. Script generation itself does not change the slides or notebooks. `research/author_foundations_script.py` preserves the original narration-authoring record against the accepted Git baseline; routine edits use the JSON source above.
 
 ## Theme and visual sources
 
