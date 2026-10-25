@@ -2026,4 +2026,3 @@ Full source: https://github.com/KDD26SciSocLLM/KDD26SciSocLLM.github.io/blob/mas
 **[PA04]** PowerAgent community contributors. Power-Agent/PowerMCP. Author-maintained GitHub repository. Live source repository reviewed 17 October 2026.
 
 Full source: https://github.com/Power-Agent/PowerMCP
-

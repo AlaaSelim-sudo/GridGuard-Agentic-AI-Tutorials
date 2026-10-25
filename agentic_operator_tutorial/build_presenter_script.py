@@ -157,7 +157,7 @@ def render(rows,sources,pdf=False):
   if rec.get('pdf_url'):md+=['Full paper: '+source_url(rec['pdf_url']),''];web.append('<p>Full paper: <a href="'+esc(source_url(rec['pdf_url']))+'">'+esc(source_url(rec['pdf_url']))+'</a></p>')
   web.append('</article>')
  web.append('''</main><script>const field=document.querySelector('#search');const entries=[...document.querySelectorAll('section.slide')];field.addEventListener('input',()=>{const q=field.value.trim().toLowerCase();let count=0;for(const entry of entries){const match=!q||entry.textContent.toLowerCase().includes(q);entry.hidden=!match;if(match)count++;}document.querySelector('#search-status').textContent=count+' of 80 slide explanations';});</script></body></html>''')
- (ROOT/'Presenter_Script.md').write_text('\n'.join(md)+'\n',encoding='utf-8')
+ (ROOT/'Presenter_Script.md').write_text('\n'.join(md).rstrip()+'\n',encoding='utf-8')
  (ROOT/'Presenter_Script.html').write_text('\n'.join(web)+'\n',encoding='utf-8')
  if pdf:write_pdf(rows,sources,used,intro,how,scope)
  for name in ['Presenter_Script.md','Presenter_Script.html']+(['Presenter_Script.pdf'] if pdf else []):shutil.copy2(ROOT/name,ROOT/'slidev/public'/name)
