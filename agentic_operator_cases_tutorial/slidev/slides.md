@@ -20,7 +20,7 @@ download: false
 
 <h1>Hands-on:<br>Three Operator Cases</h1>
 <p>Run one notebook to understand three operator studies.</p>
-<p>180 minutes / three short exercises / no coding experience required</p>
+<p>90 minutes / three short exercises / no coding experience required</p>
 <div class="presenters"><div><strong>Alaa Selim</strong><span>MIT/Dartmouth</span></div><div><strong>Mohamed Chehada</strong><span>UT Austin</span></div></div>
 <img class="cover-logo" src="/branding/comsoc-lockup.png" alt="IEEE Communications Society lockup"><small>Independent educational material · IEEE ComSoc theme adaptation</small>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.</a></div>

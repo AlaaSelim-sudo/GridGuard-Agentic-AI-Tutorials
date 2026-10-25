@@ -20,7 +20,7 @@ download: false
 
 <h1>Agentic AI for<br>Utility Operators</h1>
 <p>Real power-sector uses, engineering tools and measured research results</p>
-<p>165 minutes / two worked exercises</p>
+<p>90 minutes / two worked exercises</p>
 <div class="presenters"><div><strong>Alaa Selim</strong><span>MIT/Dartmouth</span></div><div><strong>Mohamed Chehada</strong><span>UT Austin</span></div></div>
 <img class="cover-logo" src="/branding/comsoc-lockup.png" alt="IEEE Communications Society lockup"><small>Independent educational material · IEEE ComSoc theme adaptation</small>
 <div class="sources">Source: <a href="https://www.comsoc.org/about/brand-experience/resources">IEEE Communications Society. IEEE Communications Society: official resources and network presentation template. Reviewed 17 October 2026.</a></div>
