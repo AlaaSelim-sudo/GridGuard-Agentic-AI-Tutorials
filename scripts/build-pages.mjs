@@ -38,20 +38,24 @@ for(const deck of decks){
     if(text!==original)fs.writeFileSync(file,text);
   }
   const evidence=await completeEvidenceLinks(root,target);
+  // Keep speaking scripts outside the learner-facing site.
+  for(const name of ['Presenter_Script.html','Presenter_Script.md','Presenter_Script.pdf','research/presenter/presenter_manifest.json','research/presenter/build_receipt.json']){
+    const file=path.join(target,name);if(fs.existsSync(file))fs.unlinkSync(file);
+  }
   copy(path.join(root,deck.folder,deck.pdf),path.join(out,'downloads',deck.slug+'.pdf'));
   report.downloads.push('downloads/'+deck.slug+'.pdf');
   report.decks.push({slug:deck.slug,slides:deck.slides,base:base+deck.slug+'/',router:'hash',sourceAnchorsRebased:rewritten,evidence});
 }
 for(const [from,to] of [
   ['agentic_operator_tutorial/Full_Reading_Guide.pdf','foundations-reading-guide.pdf'],
-  ['agentic_operator_tutorial/Presenter_Script.pdf','foundations-presenter-script.pdf'],
-  ['agentic_operator_tutorial/Presenter_Script.md','foundations-presenter-script.md'],
+  ['participant_downloads/GridGuard-Participant-Labs.zip','GridGuard-Participant-Labs.zip'],
   ['agentic_operator_cases_tutorial/Teaching_and_Source_Guide.pdf','operator-cases-teaching-guide.pdf'],
   ['agentic_operator_cases_tutorial/Participant_Lab_Guide.pdf','participant-lab-guide.pdf'],
-  ['agentic_operator_cases_tutorial/Presenter_Script.pdf','operator-cases-presenter-script.pdf'],
-  ['agentic_operator_cases_tutorial/Presenter_Script.md','operator-cases-presenter-script.md'],
   ...['Classroom_Labs','Graph_Workflow_Lab','Agent_Trace_and_Latency'].map(n=>['agentic_grid_workflow_tutorial/'+n+'.ipynb',n+'.ipynb']),
 ]){copy(path.join(root,from),path.join(out,'downloads',to));report.downloads.push('downloads/'+to);}
+for(const name of ['foundations-presenter-script.pdf','foundations-presenter-script.md','operator-cases-presenter-script.pdf','operator-cases-presenter-script.md']){
+  const file=path.join(out,'downloads',name);if(fs.existsSync(file))fs.unlinkSync(file);
+}
 fs.cpSync(path.join(root,'web/assets'),path.join(out,'assets'),{recursive:true});
 fs.cpSync(path.join(root,'third_party'),path.join(out,'third_party'),{recursive:true});
 const notices=fs.readdirSync(path.join(out,'third_party/notices')).filter(n=>n.endsWith('.txt'));

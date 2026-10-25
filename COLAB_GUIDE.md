@@ -1,6 +1,6 @@
-# Run GridGuard in Google Colab
+# Run the workshop in Google Colab
 
-Start with **Classroom Labs** to run all three cases in one notebook. The accompanying operator workshop has **80 slides, 180 minutes and three short exercises**. Its twelve-minute opening puts the Stanford concepts first and pairs each source figure with a simple voltage, restoration or cyber application. Seven minutes of Colab setup follow. Case slides preview saved agent examples beside the matching calculations; run L10B only after L10 in notebook order. The two companion notebooks explain graph execution and recorded model evidence.
+One notebook, **Classroom Labs**, covers all three hands-on cases. The two companion notebooks are separate activities.
 
 ## 1. Open a notebook
 
@@ -39,7 +39,7 @@ After L10's separate recorded five-stage study, run **L10B** with `SCENARIO = "v
 
 These are actual saved `llama3.1:8b` replies and saved tool results. **L10B makes no new model call or electrical solve.** Its voltage case is an archived OpenDSS recovery study, not L3's `test_01`. Its restoration case uses a feeder bypass catalog, not L6's six-node optimizer. The restoration numerical guard catches a wrong ranking in the model's final language order. Its cyber case assumes trusted channels; the model does not authenticate them. A public reason is an explanation, not hidden reasoning or proof that an action passes its limits. Fixed comparison methods return the same numerical outcomes, so this replay does not show a numerical advantage from adding Llama.
 
-Continue to **L11** with `RUN_LOCAL_LLAMA=False`; the optional new model call is skipped. Finish **L12** for a simulated operator readback of L4's selected voltage trial. The closing slides then walk through a **proposed advisory control-room pilot**, from a read-only request to checks, human review and a decision log. This is a teaching proposal, not a claim of utility deployment.
+Continue to **L11** with `RUN_LOCAL_LLAMA=False`; the optional new model call is skipped. Finish **L12** for a simulated operator readback of L4's selected voltage trial.
 
 The notebook labels new calculations, saved-policy proposals, old model replies and simulated acknowledgments separately. No cell dispatches equipment. A simulated acknowledgment does not complete a historical operator review.
 
@@ -60,4 +60,4 @@ The three current notebooks include Colab setup cells. Classroom Labs also inclu
 
 ## Participant handout
 
-Use the [six-page Participant Lab Guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf) for an illustrated explanation of Colab, exact exercise edits and the L10B replay tasks. The workshop uses one required notebook, Classroom Labs. The current notebook introduction follows the 180-minute route.
+Use the [six-page Participant Lab Guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf) for an illustrated explanation of Colab, exact exercise edits and the L10B replay tasks. The main workshop uses one required notebook, Classroom Labs.
