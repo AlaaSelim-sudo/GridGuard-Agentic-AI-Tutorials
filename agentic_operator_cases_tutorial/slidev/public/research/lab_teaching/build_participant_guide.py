@@ -67,8 +67,8 @@ sections=[
   '<b>Run L9:</b> no trusted replacement data gives HOLD. Assuming the additional readings are trusted allows a PROPOSE result. The calculation does not authenticate those readings.',
   '<b>Discuss:</b> a small residual or clear model explanation alone cannot establish sensor trust.'
  ],prompt='Record: residual J, alarm flag, state error and the condition needed before a recovery proposal.'),
- dict(title='Five jobs and operator review',subtitle='L10 / L10B / L11 / L12',diagram='plain_five_jobs',body=[
-  '<b>Five jobs:</b> read the case, choose a trial, calculate, check, then refine. A new trial returns for calculation and checking.',
+ dict(title='The framework and operator review',subtitle='L10 / L10B / L11 / L12',diagram='workshop_multi_agent',body=[
+  '<b>Five roles:</b> awareness reads the case, planning chooses a study, simulation calculates, verification checks and the optimizer refines. A changed trial is calculated and checked again.',
   '<b>What runs:</b> one Llama model fills the planning and optimizer roles. Python runs the other stages. L10 displays their saved trace, not a new multi-agent run.',
   '<b>Run L10, then L10B:</b> set SCENARIO = "voltage", then "restoration" and "cyber", rerunning each time. These use separate recorded studies.',
   '<b>Follow the agentic loop:</b> goal, Llama tool choice, returned evidence, next choice. The replay makes no new model call.',

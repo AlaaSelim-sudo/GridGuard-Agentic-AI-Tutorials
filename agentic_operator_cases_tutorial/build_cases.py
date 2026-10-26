@@ -254,7 +254,7 @@ def prepare_slides():
             s.setdefault('visual_height_px',330 if s.get('diagram') else 330)
             s.setdefault('eyebrow','')
             if module in ['voltage','restoration','cyber'] and s.get('module_slide')==1:
-                s['eyebrow']=s.get('eyebrow') or {'voltage':'Case 1 / Voltage support','restoration':'Case 2 / Service restoration','cyber':'Case 3 / Cyber response'}[module]
+                s['eyebrow']=''
                 s['visual_height_cm']=3.45;s['visual_height_px']=305
             for field in ['points','refs']:s.setdefault(field,[])
             # Plain text never contains hidden answers or motion/notice prompts.
@@ -263,7 +263,7 @@ def prepare_slides():
     dump(ROOT/'images/image_manifest.json',{'images':list(images.values())})
     dump(ROOT/'research/code_manifest.json',code_records)
     slides=r.normalized_slides(SimpleNamespace(SLIDES=slides))
-    assert len(slides)==83,len(slides)
+    assert len(slides)==69,len(slides)
     assert sum(s['minutes'] for s in slides)==90
     assert sum(s['kind']=='exercise' for s in slides)==3
     return slides
@@ -278,7 +278,7 @@ def teaching_guide(slides,sources):
         ('Setup','Open Classroom Labs, save a copy in Drive and connect a CPU. Run setup, wait for Ready, then run L0 and L1. Keep both switches False. No API key, LLM download or GPU is needed.'),
         ('Lab order','Voltage L2-L5, restoration L6-L7, cyber L8-L9, then saved agent records L10-L10B and simulated readback L12. Leave L11 disabled.'),
         ('Source figures','Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Stanford University, Fall 2026, pp.2, 19, 40 and 53. Original excerpts keep their source credits. Grid diagrams are teaching adaptations. This notebook does not run WikiChat, Genie Worksheets or a theorem prover.'),
-        ('Five-role workflow','Slides 77-80 map the custom Python workflow to all three recorded L10 cases. One Llama model fills the planning and optimizer roles. Python runs awareness, simulation and verification. The notebook replays these saved stages; it does not launch five independent LLM agents.')],[])]
+        ('Five-role workflow','Slide 68 shows the five-role Python framework used by the three recorded L10 cases. One Llama model fills the planning and optimizer roles. Python runs awareness, simulation and verification. The notebook replays these saved stages; it does not launch five independent LLM agents.')],[])]
     elapsed=0
     for i,s in enumerate(slides,1):
         end=elapsed+s['minutes']

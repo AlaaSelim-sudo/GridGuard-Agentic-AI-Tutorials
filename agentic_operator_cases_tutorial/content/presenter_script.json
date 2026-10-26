@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "source_commit": "2ab003b4cb178cc97a5de9d156ef0fda155d24ac",
-  "scope": "Plain-language spoken explanations, exact Colab run cues and agent-role mappings for the current 83-slide, 90-minute workshop.",
+  "source_commit": "2ab1b52e797357fe437d3126d1f626b16e67c6ad",
+  "scope": "Plain-language spoken explanations and exact Colab run cues for the concise 69-slide, 90-minute workshop, including the implemented five-role framework.",
   "session_minutes": 90,
   "slides": [
     {
@@ -53,22 +53,6 @@
       "answer": "It can choose and connect permitted next steps using the returned results."
     },
     {
-      "title": "Check the evidence before answering",
-      "say": "Keep the tool result and its checks with the recommendation. Stanford’s example checks claims before writing an answer. Our grid adaptation checks numerical evidence before presenting a recommendation.",
-      "show": "Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.",
-      "action": "Follow checking before drafting in the source figure.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Explain the figure or discuss the output already produced. Do not run ahead.",
-        "expected": ""
-      },
-      "number": 4,
-      "question": "What should support a recommendation?",
-      "answer": "A matching tool result, the relevant checks and a clear account of what remains unverified."
-    },
-    {
       "title": "Solar settings: which option should we try?",
       "say": "Compare possible settings, then check voltage and line current. The agent can organize these trials and report the checked options. Think of several possible solar settings on the operator’s desk. Each candidate needs the same limit checks before comparison.",
       "show": "Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.",
@@ -79,10 +63,10 @@
           "L2"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L2 later on slide 21; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L2 later on slide 19; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 5,
+      "number": 4,
       "question": "",
       "answer": ""
     },
@@ -98,7 +82,7 @@
         "instruction": "Explain the figure or discuss the output already produced. Do not run ahead.",
         "expected": ""
       },
-      "number": 6,
+      "number": 5,
       "question": "Who sets the limits and allowed actions?",
       "answer": "The application and operating process, with the operator’s stated task and authority."
     },
@@ -113,10 +97,10 @@
           "L6"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L6 later on slide 41; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L6 later on slide 37; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 7,
+      "number": 6,
       "question": "",
       "answer": ""
     },
@@ -132,7 +116,7 @@
         "instruction": "Explain the figure or discuss the output already produced. Do not run ahead.",
         "expected": ""
       },
-      "number": 8,
+      "number": 7,
       "question": "Which job belongs to the operator?",
       "answer": "Reviewing the evidence and deciding the next authorized step."
     },
@@ -147,28 +131,12 @@
           "L8"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L8 later on slide 58; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L8 later on slide 51; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 9,
+      "number": 8,
       "question": "",
       "answer": ""
-    },
-    {
-      "title": "Ask four questions about every result",
-      "say": "What was asked? What did the tool return? Did the checks pass? What must the operator decide? These questions work for all three cases. They connect an output to the task and the person who must review it.",
-      "show": "Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.",
-      "action": "Use the four questions to assess one statement from the opening.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Explain the figure or discuss the output already produced. Do not run ahead.",
-        "expected": ""
-      },
-      "question": "",
-      "answer": "",
-      "number": 10
     },
     {
       "title": "Use one notebook for all three cases",
@@ -179,10 +147,10 @@
         "mode": "NO NEW RUN",
         "lessons": [],
         "cell_ids": [],
-        "instruction": "Open Classroom Labs and save a copy. Run setup on slide 12, not the later lesson cells.",
+        "instruction": "Open Classroom Labs and save a copy. Run setup on slide 10, not the later lesson cells.",
         "expected": ""
       },
-      "number": 11,
+      "number": 9,
       "question": "",
       "answer": ""
     },
@@ -202,7 +170,7 @@
         "instruction": "Connect a CPU. Run the whole setup cell once and wait for Ready.",
         "expected": "Ready appears; the support files and CPU packages are available."
       },
-      "number": 12,
+      "number": 10,
       "question": "",
       "answer": ""
     },
@@ -217,16 +185,16 @@
           "L2"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L2 later on slide 21; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L2 later on slide 19; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 13,
+      "number": 11,
       "question": "",
       "answer": ""
     },
     {
-      "title": "L0: keep both switches off",
-      "say": "Keep both switches False. Python runs the calculations. Llama is the language model used in the saved examples. We inspect its recorded choices here, so no live model installation or call is needed.",
+      "title": "Python runs the default lab",
+      "say": "In Colab, run L0 with both switches False. Python runs the calculations. The Llama examples use saved replies. No live model is needed.",
       "show": "Locate L0 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Point to both False settings.",
       "colab": {
@@ -240,13 +208,13 @@
         "instruction": "Run L0 with RUN_OPENDSS=False and RUN_LOCAL_LLAMA=False.",
         "expected": "The data assertion passes. Both optional live-tool paths remain off."
       },
-      "number": 14,
+      "number": 12,
       "question": "",
       "answer": ""
     },
     {
-      "title": "L1: does the old result still match?",
-      "say": "Expect True, False, False: only the unchanged request matches. Changed inputs or actions need a new check. Matching evidence means the returned result belongs to this request and this proposed action. A changed request needs fresh evidence.",
+      "title": "Does the saved result still match?",
+      "say": "Run L1. Only the unchanged request should match its saved result. Changed inputs or actions need a new check.",
       "show": "Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.",
       "action": "Read the three binding_pass results.",
       "colab": {
@@ -260,7 +228,7 @@
         "instruction": "Run the whole L1 cell after L0.",
         "expected": "binding_pass is True, False, False in row order."
       },
-      "number": 15,
+      "number": 13,
       "question": "",
       "answer": ""
     },
@@ -275,10 +243,10 @@
           "L2"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L2 later on slide 21; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L2 later on slide 19; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 16,
+      "number": 14,
       "question": "What must a proposed solar setting respect?",
       "answer": "The checked voltage, line-current and solar-unit limits for the stated model."
     },
@@ -294,7 +262,7 @@
         "instruction": "Explain the figure or discuss the output already produced. Do not run ahead.",
         "expected": ""
       },
-      "number": 17,
+      "number": 15,
       "question": "",
       "answer": ""
     },
@@ -312,7 +280,7 @@
       },
       "question": "What can happen after a failed trial?",
       "answer": "Request another permitted trial, ask for missing evidence or stop for review.",
-      "number": 18
+      "number": 16
     },
     {
       "title": "The study changes two solar settings",
@@ -325,10 +293,10 @@
           "L2"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L2 later on slide 21; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L2 later on slide 19; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 19,
+      "number": 17,
       "question": "",
       "answer": ""
     },
@@ -343,15 +311,15 @@
           "L2"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L2 later on slide 21; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L2 later on slide 19; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 20,
+      "number": 18,
       "question": "",
       "answer": ""
     },
     {
-      "title": "L2: compare two solar proposals",
+      "title": "Two solar proposals, one set of checks",
       "say": "Run L2 with the default settings. Look for pass/fail, current used and score J. Lower J is better after checks pass. Look for feasible, max_allowed_current_pct and current_step_J in the notebook. These mean the checked limits pass, current used and the comparison score.",
       "show": "Locate L2 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Show the input lines, then the resulting L2 table.",
@@ -366,7 +334,7 @@
         "instruction": "Run the full L2 cell at LOAD_SCALE=1.0 and RATING_FRACTION=0.80.",
         "expected": "Both default proposals pass; current use is about 73.62% for MPC and 51.68% for SAC."
       },
-      "number": 21,
+      "number": 19,
       "question": "",
       "answer": ""
     },
@@ -382,7 +350,7 @@
         "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
         "expected": ""
       },
-      "number": 22,
+      "number": 20,
       "question": "",
       "answer": ""
     },
@@ -400,23 +368,7 @@
       },
       "question": "",
       "answer": "",
-      "number": 23
-    },
-    {
-      "title": "A limit needs a calculated check",
-      "say": "A rule states the limit. The tool tests the proposed setting. Keep the rule and returned result together for review. The stated rule and the measured result have different jobs. Keep enough context to show which proposal and model produced the result.",
-      "show": "Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.",
-      "action": "Point separately to the rule and returned value.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Explain the figure or discuss the output already produced. Do not run ahead.",
-        "expected": ""
-      },
-      "number": 24,
-      "question": "",
-      "answer": ""
+      "number": 21
     },
     {
       "title": "Exercise 1: lower the current allowance",
@@ -435,8 +387,8 @@
         "expected": "MPC current use is about 78.53%; SAC about 54.85%; both pass this MV test."
       },
       "question": "In L2, change RATING_FRACTION from 0.80 to 0.75. Predict, then rerun. Compare pass/fail, current use and score J for both methods. Does this check cover the whole medium- and low-voltage network?",
-      "answer": "No. The default covers MV phases and currents with ideal LV aggregation.",
-      "number": 25
+      "answer": "MPC has the lower score; SAC uses less current. The score considers more than current alone. This check covers the medium-voltage model. The wider network needs a wider study. At the exercise settings, MPC uses 78.53% of the allowance and SAC uses 54.85%. Both pass. Their current-step scores are about 0.03110 and 0.43246.",
+      "number": 22
     },
     {
       "title": "Exercise 1 answer: both options still pass",
@@ -454,7 +406,7 @@
       },
       "question": "",
       "answer": "",
-      "number": 26
+      "number": 23
     },
     {
       "title": "Less current does not mean the best option",
@@ -468,12 +420,12 @@
         "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
         "expected": ""
       },
-      "number": 27,
+      "number": 24,
       "question": "",
       "answer": ""
     },
     {
-      "title": "L2: restore the starting values",
+      "title": "Back to the starting values",
       "say": "Restore LOAD_SCALE=1.0 and RATING_FRACTION=0.80. Rerun L2. The next cells use a separate saved case. Resetting keeps the class together. The following saved case has its own original inputs; your changed L2 settings do not rewrite it.",
       "show": "Locate L2 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Show the restored two default inputs.",
@@ -488,7 +440,7 @@
         "instruction": "Restore LOAD_SCALE=1.0 and RATING_FRACTION=0.80; rerun the complete L2 cell.",
         "expected": "The default output returns. L3-L5 will use their separate original test_01 case."
       },
-      "number": 28,
+      "number": 25,
       "question": "",
       "answer": ""
     },
@@ -504,12 +456,12 @@
         "instruction": "Explain the figure or discuss the output already produced. Do not run ahead.",
         "expected": ""
       },
-      "number": 29,
+      "number": 26,
       "question": "",
       "answer": ""
     },
     {
-      "title": "L3: inspect saved model choices",
+      "title": "What did the saved models choose?",
       "say": "Run L3 to see what the models requested for the saved case. This displays old replies; it makes no new model call. Read the request, reason and recorded time as a historical record. The model is not responding to your new L2 input.",
       "show": "Locate L3 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Locate case ID, operation and recorded seconds.",
@@ -524,7 +476,7 @@
         "instruction": "Run L3. Keep the default test_01 case.",
         "expected": "Three saved model replies and recorded times appear; no new model request occurs."
       },
-      "number": 30,
+      "number": 27,
       "question": "",
       "answer": ""
     },
@@ -542,11 +494,11 @@
       },
       "question": "",
       "answer": "",
-      "number": 31
+      "number": 28
     },
     {
-      "title": "L4: check the chosen proposal",
-      "say": "Recheck the selected proposal on its original saved case. Compare the vote with a previously learned selection rule. The learned selection rule is the frozen LinUCB selector shown in the output. We compare its chosen action; we do not train a new selector here.",
+      "title": "A fresh check of the chosen proposal",
+      "say": "Run L4 to check the chosen proposal again in its original case. Both selectors choose the same action here, and the fresh electrical checks pass. The selection score and the engineering check do different jobs. A selected action must still be checked.",
       "show": "Locate L4 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Locate the two selectors and fresh check calls.",
       "colab": {
@@ -558,30 +510,14 @@
           "classroom-013"
         ],
         "instruction": "Run L4 after L3 without changing the case ID.",
-        "expected": "Both selectors choose RELAX_Q_10_PERCENT; new_check_passes is True for both."
+        "expected": "Both selectors choose RELAX_Q_10_PERCENT. Both new electrical checks pass."
       },
-      "number": 32,
+      "number": 29,
       "question": "",
       "answer": ""
     },
     {
-      "title": "Both selectors choose the same proposal",
-      "say": "The new electrical check passes for both selections. The selection score and the electrical check have different jobs. Both selection methods happen to agree on this case. That agreement is not the reason the electrical check passes.",
-      "show": "Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.",
-      "action": "Point to new_check_passes and distinguish predicted reward.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
-        "expected": ""
-      },
-      "number": 33,
-      "question": "",
-      "answer": ""
-    },
-    {
-      "title": "L5: see which part of the grid was checked",
+      "title": "Which part of the grid was checked?",
       "say": "Run L5 with the default settings. It checks the medium-voltage (MV) part of the saved case. The wider OpenDSS study is disabled by default. This cell therefore supports a medium-voltage claim only.",
       "show": "Locate L5 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Read model, command, pass and scope information together.",
@@ -596,7 +532,7 @@
         "instruction": "Run L5 with RUN_OPENDSS still False.",
         "expected": "The linear-model check is shown; the optional full-model path is disabled."
       },
-      "number": 34,
+      "number": 30,
       "question": "",
       "answer": ""
     },
@@ -612,7 +548,7 @@
         "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
         "expected": ""
       },
-      "number": 35,
+      "number": 31,
       "question": "",
       "answer": ""
     },
@@ -627,10 +563,10 @@
           "L10B"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L10B later on slide 74; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L10B later on slide 64; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 36,
+      "number": 32,
       "question": "",
       "answer": ""
     },
@@ -645,10 +581,10 @@
           "L10B"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L10B later on slide 74; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L10B later on slide 64; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 37,
+      "number": 33,
       "question": "",
       "answer": ""
     },
@@ -663,10 +599,10 @@
           "L10B"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L10B later on slide 74; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L10B later on slide 64; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 38,
+      "number": 34,
       "question": "",
       "answer": ""
     },
@@ -681,10 +617,10 @@
           "L6"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L6 later on slide 41; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L6 later on slide 37; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 39,
+      "number": 35,
       "question": "Could most total power and most critical service differ?",
       "answer": "Yes. Limited capacity can force a trade-off, so the goal must be stated."
     },
@@ -699,15 +635,15 @@
           "L6"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L6 later on slide 41; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L6 later on slide 37; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 40,
+      "number": 36,
       "question": "Who chooses the service priority?",
       "answer": "The operator supplies the priority; the solver and agent must preserve it."
     },
     {
-      "title": "L6: compare two restoration goals",
+      "title": "Two goals for restoring power",
       "say": "Run L6 to choose which loads receive power under each goal. MILP chooses whole loads; a separate calculation checks its result. MILP is a solver for choices such as whether an entire load is restored. The independent search checks the small teaching model’s objective result.",
       "show": "Locate L6 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Read total service, critical service and enumeration agreement.",
@@ -722,13 +658,13 @@
         "instruction": "Run L6 with CAPACITIES_KW=(40.,60.,80.,100.,120.).",
         "expected": "The priority MILP agrees with exhaustive enumeration. At 40 kW, compare 130/90 with 140/30 kW total/critical."
       },
-      "number": 41,
+      "number": 37,
       "question": "",
       "answer": ""
     },
     {
       "title": "Read total and critical service",
-      "say": "Left: all power restored. Right: power restored to critical loads. Overlapping markers mean the two goals give the same result. The plots separate total service from service to critical loads. Always say which one a number describes.",
+      "say": "Critical-first goal: 130 kW total, including 90 kW for critical loads. Most-total-power goal: 140 kW total, including 30 kW for critical loads. Read the 40 kW tie setting first. The left chart shows total service and the right shows critical service. The network is the same; the service goal changes the result.",
       "show": "Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.",
       "action": "Compare the two plotted service measures.",
       "colab": {
@@ -738,29 +674,13 @@
         "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
         "expected": ""
       },
-      "number": 42,
+      "number": 38,
       "question": "",
       "answer": ""
     },
     {
-      "title": "The service goal changes who gets power",
-      "say": "Critical-first goal: 130 kW total, including 90 kW critical. Most-total-power goal: 140 kW total, including 30 kW critical. At the 40 kW tie setting, prioritizing critical loads gives up 10 kW of total service but restores 60 kW more critical service.",
-      "show": "Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.",
-      "action": "Point to 130/90 versus 140/30, all in kW.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
-        "expected": ""
-      },
-      "question": "",
-      "answer": "",
-      "number": 43
-    },
-    {
       "title": "Check the restoration plan",
-      "say": "Keep the faulted branch out of service. Check supply paths, capacity and totals before accepting the plan. The result must respect the unavailable faulted branch and the model’s supply and capacity rules. A field switching sequence needs additional operating work.",
+      "say": "Keep the faulted branch out of service. Check supply paths and capacity. Voltage, protection and field switching need separate studies. This small exercise uses an active-power service model. The agent can request and compare its results, while the operator must review the remaining work.",
       "show": "Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.",
       "action": "Trace connection, balance, capacity and independent score checks.",
       "colab": {
@@ -770,7 +690,7 @@
         "instruction": "Explain the figure or discuss the output already produced. Do not run ahead.",
         "expected": ""
       },
-      "number": 44,
+      "number": 39,
       "question": "",
       "answer": ""
     },
@@ -791,8 +711,8 @@
         "expected": "At 180 kW, both goals serve 250 kW total and 90 kW critical."
       },
       "question": "Add 180. to CAPACITIES_KW. Keep 40. first. Predict, then rerun L6. Compare total and critical power at 40 and 180 kW. At which tested capacity do the two goals first give the same result?",
-      "answer": "They agree at 180 kW in this exercise.",
-      "number": 45
+      "answer": "At 40 kW, the priority goal serves 90 kW critical instead of 30 kW, with less total service. The goals first match at the tested 80 kW. At 180 kW, both serve 250 kW total and 90 kW critical. The goals first match at 80 kW among the tested capacities. At 180 kW both restore 250 kW total, including 90 kW critical. This discrete sweep does not identify an exact continuous crossover.",
+      "number": 40
     },
     {
       "title": "Exercise 2 answer: capacity changes the trade-off",
@@ -810,26 +730,10 @@
       },
       "question": "",
       "answer": "",
-      "number": 46
+      "number": 41
     },
     {
-      "title": "More capacity can remove this trade-off",
-      "say": "At 180 kW, both goals give the same result. The chosen priority matters when capacity forces a choice. The priority rule is especially visible when resources force a trade-off. More capacity can make the two stated goals agree on this model.",
-      "show": "Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.",
-      "action": "Compare the equal total and critical service at 180 kW.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
-        "expected": ""
-      },
-      "number": 47,
-      "question": "",
-      "answer": ""
-    },
-    {
-      "title": "L7: change the request, then check the evidence",
+      "title": "A changed request needs a new check",
       "say": "Restore the original capacity list and rerun L6. Run L7: the requested capacity changes from 40 kW to 20 kW. Run the complete L7 cell after restoring L6. It compares an old checked result with a request that now has a smaller capacity.",
       "show": "Locate L7 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Show the reset list, then the L7 changed request.",
@@ -846,29 +750,13 @@
         "instruction": "Restore the original capacity list and rerun L6. Then run the whole L7 cell.",
         "expected": "Original contract: True. Changed rating with old evidence: False. HOLD requests a fresh solve."
       },
-      "number": 48,
+      "number": 42,
       "question": "",
       "answer": ""
     },
     {
-      "title": "The old result no longer matches",
-      "say": "The original request matches; the changed request does not. Put the old recommendation on HOLD and request a new calculation. HOLD here means the old evidence no longer matches. It does not prove every newly calculated plan would fail.",
-      "show": "Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.",
-      "action": "Read original True and changed-request False.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
-        "expected": ""
-      },
-      "question": "",
-      "answer": "",
-      "number": 49
-    },
-    {
       "title": "A new limit needs a new study",
-      "say": "Old evidence does not tell us whether a new plan works. Calculate again, check again and attach the new result to the new request. An agent can notice the changed request, ask the tool to solve it again and return the new checks. Rewriting the old explanation would not update the calculation.",
+      "say": "The original request matches the old result. The changed request does not. Hold the old proposal, calculate again and check the new result. The two L7 match tests return True and False. This tests whether evidence belongs to the request; it does not prove that a new plan is physically feasible.",
       "show": "Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.",
       "action": "Distinguish an old-evidence mismatch from physical infeasibility.",
       "colab": {
@@ -878,7 +766,7 @@
         "instruction": "Explain the figure or discuss the output already produced. Do not run ahead.",
         "expected": ""
       },
-      "number": 50,
+      "number": 43,
       "question": "",
       "answer": ""
     },
@@ -893,26 +781,10 @@
           "L6"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L6 later on slide 41; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L6 later on slide 37; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 51,
-      "question": "",
-      "answer": ""
-    },
-    {
-      "title": "This model leaves some checks for later",
-      "say": "This small model checks which loads receive power. Voltage, protection and field switching need separate checks. The six-node exercise is an active-power service model. AC voltage, protection and the safe order of physical operations remain outside its result.",
-      "show": "Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.",
-      "action": "Name one omitted physical check.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Explain the figure or discuss the output already produced. Do not run ahead.",
-        "expected": ""
-      },
-      "number": 52,
+      "number": 44,
       "question": "",
       "answer": ""
     },
@@ -927,10 +799,10 @@
           "L10B"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L10B later on slide 74; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L10B later on slide 64; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 53,
+      "number": 45,
       "question": "",
       "answer": ""
     },
@@ -945,10 +817,10 @@
           "L10B"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L10B later on slide 74; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L10B later on slide 64; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 54,
+      "number": 46,
       "question": "",
       "answer": ""
     },
@@ -963,12 +835,12 @@
           "L10B"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L10B later on slide 74; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L10B later on slide 64; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
       "question": "",
       "answer": "",
-      "number": 55
+      "number": 47
     },
     {
       "title": "Case 3: can we trust these readings?",
@@ -981,12 +853,28 @@
           "L8"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L8 later on slide 58; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L8 later on slide 51; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 56,
+      "number": 48,
       "question": "Does a good fit prove a reading is true?",
       "answer": "No. Coordinated wrong readings can fit the model while giving a wrong estimated state."
+    },
+    {
+      "title": "How the agent helps with suspicious readings",
+      "say": "Follow the information from the readings to the proposed correction. Without the required trusted data, the workflow returns HOLD. With that assumption, the tool can calculate a candidate. The agent can request these steps and explain missing checks; the operator must still assess the premise and decide the authorized next step.",
+      "show": "Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.",
+      "action": "Point to assumptions, checks and the operator-review step.",
+      "colab": {
+        "mode": "NO NEW RUN",
+        "lessons": [],
+        "cell_ids": [],
+        "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
+        "expected": ""
+      },
+      "number": 49,
+      "question": "",
+      "answer": ""
     },
     {
       "title": "Mismatch is only one check",
@@ -999,15 +887,15 @@
           "L8"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L8 later on slide 58; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L8 later on slide 51; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 57,
+      "number": 50,
       "question": "What does a low mismatch tell us?",
       "answer": "That the model fits the supplied readings, not that the readings are authentic."
     },
     {
-      "title": "L8: compare two misleading-data patterns",
+      "title": "Two ways readings can be misleading",
       "say": "Run L8 with the default settings. Compare one biased reading with a coordinated change across several readings. The isolated pattern changes one reading. The coordinated pattern changes several together. We compare the same two questions: did the alarm trigger, and how wrong was the estimated state?",
       "show": "Locate L8 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Show the two attack types and default scale list.",
@@ -1022,7 +910,7 @@
         "instruction": "Run L8 with ATTACK_SCALES=(0.,.25,.5,1.,1.5).",
         "expected": "A coordinated Hc attack preserves a small residual while offline state error grows."
       },
-      "number": 58,
+      "number": 51,
       "question": "",
       "answer": ""
     },
@@ -1038,7 +926,7 @@
         "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
         "expected": ""
       },
-      "number": 59,
+      "number": 52,
       "question": "",
       "answer": ""
     },
@@ -1054,7 +942,7 @@
         "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
         "expected": ""
       },
-      "number": 60,
+      "number": 53,
       "question": "",
       "answer": ""
     },
@@ -1075,8 +963,8 @@
         "expected": "At isolated scale 0.10, J is about 10.14, below the 15.09 threshold; no alarm is not proof of truth."
       },
       "question": "Add .10 to ATTACK_SCALES. Predict, then rerun L8. At scale 0.10, compare mismatch J, the alarm and state error. Does no alarm prove that the readings are correct?",
-      "answer": "No. The threshold can miss a small bias, and coordinated changes can preserve the fit.",
-      "number": 61
+      "answer": "Both alarms are False at scale 0.10, but both estimates still have error. No alarm means the mismatch is below this threshold. It does not establish data trust. At scale 0.10, the isolated mismatch is about 10.143 and the coordinated mismatch is about 3.920. Both are below 15.086, while their state errors are nonzero.",
+      "number": 54
     },
     {
       "title": "Exercise 3 answer: no alarm can hide an error",
@@ -1094,26 +982,10 @@
       },
       "question": "",
       "answer": "",
-      "number": 62
+      "number": 55
     },
     {
-      "title": "A small bias can stay below the threshold",
-      "say": "At scale 0.10, the mismatch is 10.14, below the 15.09 threshold. The operator still needs other evidence about the readings. This example concerns the alarm threshold. It does not establish which readings should be trusted in a real event.",
-      "show": "Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.",
-      "action": "Point to 10.14 below 15.09.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
-        "expected": ""
-      },
-      "number": 63,
-      "question": "",
-      "answer": ""
-    },
-    {
-      "title": "L8: reset before the recovery example",
+      "title": "Back to the original data-bias settings",
       "say": "Restore the original attack scales and rerun L8. L9 uses a separate fixed recovery case. L9 is deliberately a fixed recovery example. Your L8 sweep is a separate experiment and does not select the L9 correction.",
       "show": "Locate L8 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Show the original scale list restored.",
@@ -1128,25 +1000,7 @@
         "instruction": "Restore ATTACK_SCALES=(0.,.25,.5,1.,1.5) and rerun all of L8.",
         "expected": "The default sweep returns. L9 remains a separate fixed recovery fixture."
       },
-      "number": 64,
-      "question": "",
-      "answer": ""
-    },
-    {
-      "title": "L9: ask whether a correction can be proposed",
-      "say": "Compare one case with and without readings assumed to be trusted. Changing your L8 sweep does not change this fixed case. We change the availability of assumed trusted replacement readings, while keeping the recovery case fixed. This isolates the role of that assumption.",
-      "show": "Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.",
-      "action": "Keep the same fixed recovery case while changing data availability.",
-      "colab": {
-        "mode": "PREVIEW ONLY",
-        "lessons": [
-          "L9"
-        ],
-        "cell_ids": [],
-        "instruction": "Show the slide only. Run L9 later on slide 67; keep the notebook in order.",
-        "expected": "No new notebook output on this slide."
-      },
-      "number": 65,
+      "number": 56,
       "question": "",
       "answer": ""
     },
@@ -1161,15 +1015,15 @@
           "L9"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L9 later on slide 67; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L9 later on slide 58; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
       "question": "Does Llama authenticate the extra readings?",
       "answer": "No. Their trustworthiness is an explicit assumption of this example.",
-      "number": 66
+      "number": 57
     },
     {
-      "title": "L9: read HOLD or PROPOSE first",
+      "title": "Does the result say HOLD or PROPOSE?",
       "say": "Run L9 and read the status before the proposed adjustment. Then check the model’s returned limits and remaining assumptions. HOLD means a required condition is absent. PROPOSE means the tool can offer a model-based correction for review, not permission to operate equipment.",
       "show": "Locate L9 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Read status before looking at the correction.",
@@ -1184,7 +1038,7 @@
         "instruction": "Run all of L9 after resetting L8.",
         "expected": "No trusted replacement readings: HOLD. With assumed trusted readings: PROPOSE, u about 0.121694 p.u., zero offline violations."
       },
-      "number": 67,
+      "number": 58,
       "question": "",
       "answer": ""
     },
@@ -1200,7 +1054,7 @@
         "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
         "expected": ""
       },
-      "number": 68,
+      "number": 59,
       "question": "",
       "answer": ""
     },
@@ -1216,23 +1070,7 @@
         "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
         "expected": ""
       },
-      "number": 69,
-      "question": "",
-      "answer": ""
-    },
-    {
-      "title": "How the agent helps with suspicious readings",
-      "say": "Follow the information from the readings to the proposed correction. Without the required trusted data, the workflow returns HOLD. With that assumption, the tool can calculate a candidate. The agent can request these steps and explain missing checks; the operator must still assess the premise and decide the authorized next step.",
-      "show": "Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.",
-      "action": "Point to assumptions, checks and the operator-review step.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Read the output from the previous run. Compare it with the reference figure; no new cell is needed.",
-        "expected": ""
-      },
-      "number": 70,
+      "number": 60,
       "question": "",
       "answer": ""
     },
@@ -1247,10 +1085,10 @@
           "L10B"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L10B later on slide 74; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L10B later on slide 64; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 71,
+      "number": 61,
       "question": "",
       "answer": ""
     },
@@ -1265,16 +1103,16 @@
           "L10B"
         ],
         "cell_ids": [],
-        "instruction": "Show the slide only. Run L10B later on slide 74; keep the notebook in order.",
+        "instruction": "Show the slide only. Run L10B later on slide 64; keep the notebook in order.",
         "expected": "No new notebook output on this slide."
       },
-      "number": 72,
+      "number": 62,
       "question": "",
       "answer": ""
     },
     {
-      "title": "L10: inspect the saved sequence of jobs",
-      "say": "Run L10 to see the recorded choices, calculations and checks. The next diagrams give these jobs simple names. Read the saved trace as a sequence of jobs. Identify which job chooses a request and which jobs calculate and check its result.",
+      "title": "The saved agent workflow",
+      "say": "Run L10 to inspect the recorded planning, calculation and checking stages. Llama chooses and refines trials. Python calculates and checks them. The framework summary near the end shows all five roles together. This cell replays saved stages and makes no new model call.",
       "show": "Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.",
       "action": "Expand the saved trace and find all five distinct stage names.",
       "colab": {
@@ -1288,12 +1126,12 @@
         "instruction": "Run all of L10 after L9. Read the case and stage columns in the saved trace.",
         "expected": "Five stage names appear. Planning and optimizer rows contain actual saved Llama replies; other stages contain Python results."
       },
-      "number": 73,
+      "number": 63,
       "question": "",
       "answer": ""
     },
     {
-      "title": "L10B: replay each saved agent example",
+      "title": "How Llama chooses the next tool",
       "say": "Set SCENARIO to voltage, restoration or cyber, then rerun this cell. Read the model’s request and the tool’s response. This is a saved replay. Run this full cell once for each scenario. The displayed words and tool evidence were recorded earlier; this default demonstration makes no fresh Llama call.",
       "show": "Locate L10B in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Follow one full replay from facts to next decision.",
@@ -1308,12 +1146,12 @@
         "instruction": "After L10, run the whole L10B cell for SCENARIO=\"voltage\", then \"restoration\", then \"cyber\". Change only that string between runs.",
         "expected": "Input, exact model choice and public reason, saved tool result and next step appear. No new LLM call or electrical solve runs."
       },
-      "number": 74,
+      "number": 64,
       "question": "",
       "answer": ""
     },
     {
-      "title": "L12: practice checking the recommendation ID",
+      "title": "The operator checks the recommendation ID",
       "say": "Leave L11 disabled, then run L12. Compare the wrong ID with the matching ID. Equipment control stays off. Readback means acknowledging the specific recommendation being reviewed. The wrong identifier must not acknowledge a different recommendation.",
       "show": "Locate L12 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.",
       "action": "Locate the wrong-ID assertion, the matching readback and equipment_dispatch.",
@@ -1330,7 +1168,7 @@
         "instruction": "Keep RUN_LOCAL_LLAMA=False. Run L11 and expect SKIPPED. Then run all of L12.",
         "expected": "The table shows HOLD for full MV/LV and an acknowledged MV teaching request. The assertions confirm wrong-ID rejection; equipment_dispatch remains False."
       },
-      "number": 75,
+      "number": 65,
       "question": "",
       "answer": ""
     },
@@ -1348,71 +1186,7 @@
       },
       "question": "",
       "answer": "",
-      "number": 76
-    },
-    {
-      "title": "Five roles share the work",
-      "say": "The five roles are five jobs rather than five independent language models. Python reads the case, calculates and verifies. One Llama model requests initial trials and later refinements. Python also guards the final ranking and rechecks the selected option. The default notebook displays these saved stages.",
-      "show": "Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.",
-      "action": "Follow the five roles and the return path for a changed trial.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Use the saved L10 trace already displayed. Map the five roles without making a new model call.",
-        "expected": ""
-      },
-      "question": "Do five roles mean five separate Llama models?",
-      "answer": "No. One Llama model fills two roles; Python performs the other three jobs and the final guard.",
-      "number": 77
-    },
-    {
-      "title": "Voltage: request, calculate, check, improve",
-      "say": "Llama requests small changes to the solar settings. Python recalculates each trial and checks its limits before comparison. This is the separate saved L10 medium-voltage example. New settings return to calculation and checking. Its final recorded current use is about 50.75% of the allowance.",
-      "show": "Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.",
-      "action": "Map each role to the saved voltage inputs, calculations and final result.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Use the saved L10 trace already displayed. Map the five roles without making a new model call.",
-        "expected": ""
-      },
-      "number": 78,
-      "question": "",
-      "answer": ""
-    },
-    {
-      "title": "Restoration: keep priorities and reject failures",
-      "say": "The goal stays fixed when new plans are tried. Python excludes failed trials and corrects a wrong cost order. In the saved feeder case, a trial at about 111.01% current use is rejected. The retained plan serves about 1843.61 kW total and 474.04 kW critical.",
-      "show": "Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.",
-      "action": "Map each role to the saved catalog trial, failure and corrected ranking.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Use the saved L10 trace already displayed. Map the five roles without making a new model call.",
-        "expected": ""
-      },
-      "number": 79,
-      "question": "",
-      "answer": ""
-    },
-    {
-      "title": "Cyber: keep the trust assumption visible",
-      "say": "The agent can request another permitted study or report that evidence is missing. It cannot make a data source trustworthy by describing it confidently. The saved cyber example keeps the assumed trusted readings visible throughout the workflow. Repeating or explaining that assumption does not establish its truth.",
-      "show": "Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.",
-      "action": "Map each role to data trust, the QP correction and flow checks.",
-      "colab": {
-        "mode": "NO NEW RUN",
-        "lessons": [],
-        "cell_ids": [],
-        "instruction": "Use the saved L10 trace already displayed. Map the five roles without making a new model call.",
-        "expected": ""
-      },
-      "number": 80,
-      "question": "",
-      "answer": ""
+      "number": 66
     },
     {
       "title": "The operator chooses the next step",
@@ -1426,15 +1200,15 @@
         "instruction": "Explain the figure or discuss the output already produced. Do not run ahead.",
         "expected": ""
       },
-      "number": 81,
+      "number": 67,
       "question": "What should happen when a required check is missing?",
       "answer": "Return the unresolved condition and request the missing study or review before proceeding."
     },
     {
-      "title": "Measure whether the agent helps",
-      "say": "Compare it with a fixed script using the same tools and cases. In L10, five final costs tied; one Llama route was worse. Benefit must be measured. The recorded comparison does not establish a general performance gain. Test completed work, missed checks, time and review effort against the same tools in a fixed script.",
-      "show": "Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.",
-      "action": "Keep the paired study result separate from a proposed pilot benefit.",
+      "title": "Multi-agent framework used in this workshop",
+      "say": "This is the framework implemented for the saved study. Awareness reads the case facts. Planning prepares options and uses Llama to select an allowed study. Simulation calculates the result. Verification checks the limits and whether the result matches the case. The Llama optimizer can request a small change or rank passing options. A changed trial loops back through calculation and checking. Python guards the final choice, then the operator reviews it. One Llama model fills two roles. The same framework connects different numerical tools for solar settings, restoration and suspicious readings. L10 displays its saved trace; the default Colab does not launch a live agent team.",
+      "show": "Trace the five named roles, then the feedback loop. Ask learners to name the numerical tool used in each case. Finish at the final Python check and operator review.",
+      "action": "Point to the Python and Llama labels. Trace a revised trial back to simulation and verification.",
       "colab": {
         "mode": "NO NEW RUN",
         "lessons": [],
@@ -1442,9 +1216,9 @@
         "instruction": "Explain the figure or discuss the output already produced. Do not run ahead.",
         "expected": ""
       },
-      "question": "What would count as useful improvement?",
-      "answer": "Better completed work or less total effort under comparable cases and the same required checks.",
-      "number": 82
+      "question": "Which roles use Llama, and what happens after a trial changes?",
+      "answer": "Planning and the optimizer use the same Llama model. A changed trial needs fresh simulation and verification; Python checks the final choice before operator review.",
+      "number": 68
     },
     {
       "title": "Try one change and explain the result",
@@ -1460,7 +1234,7 @@
       },
       "question": "What are the four parts of your explanation?",
       "answer": "Problem, agent choice, tool result and operator decision.",
-      "number": 83
+      "number": 69
     }
   ]
 }

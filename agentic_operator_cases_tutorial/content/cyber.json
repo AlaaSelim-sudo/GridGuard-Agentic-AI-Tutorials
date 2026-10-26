@@ -15,11 +15,34 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
-    "eyebrow": "Case 3 / The operator’s problem",
+    "eyebrow": "",
     "diagram": "plain_cyber_problem",
     "visual_height_px": 310,
     "visual_height_cm": 3.3,
     "caption": "Concept sketch. L8 uses a small four-bus DC model.",
+    "takeaway": ""
+  },
+  {
+    "title": "How the agent helps with suspicious readings",
+    "kind": "diagram",
+    "points": [
+      "The agent can request the checks and keep missing evidence visible.",
+      "The operator reviews trust, model coverage and the proposed correction."
+    ],
+    "refs": [
+      "H09"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
+    "minutes": 0.5,
+    "note": "Plain-language explanation: Follow the information from the readings to the proposed correction. Without the required trusted data, the workflow returns HOLD. With that assumption, the tool can calculate a candidate. The agent can request these steps and explain missing checks; the operator must still assess the premise and decide the authorized next step.\n\nOriginal source detail: Do not attribute recovered information or numerical feasibility to confident prose. The workflow can coordinate the estimator, constrained correction and evidence checks. It cannot invent an independent trusted measurement source.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L9",
+    "eyebrow": "",
+    "diagram": "plain_cyber_agent",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Concept map. L9 calculates; L10B replays saved Llama requests and returned tool evidence.",
     "takeaway": ""
   },
   {
@@ -39,7 +62,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
-    "eyebrow": "Colab / L8",
+    "eyebrow": "",
     "diagram": "plain_mismatch",
     "visual_height_px": 310,
     "visual_height_cm": 3.3,
@@ -47,7 +70,7 @@
     "takeaway": ""
   },
   {
-    "title": "L8: compare two misleading-data patterns",
+    "title": "Two ways readings can be misleading",
     "kind": "normal",
     "points": [
       "Run L8 with the default settings.",
@@ -57,12 +80,12 @@
       "H08"
     ],
     "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
-    "minutes": 2,
+    "minutes": 3,
     "note": "L8 runs new WLS calculations. An isolated bias changes one reading. The coordinated Hc shift changes readings in a pattern consistent with a different modeled state. This counterexample assumes knowledge of the linear measurement matrix H and access to the modeled unprotected channels. It is a declared defensive teaching model, not evidence of an incident at a utility.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
-    "eyebrow": "Colab / L8",
+    "eyebrow": "",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-023",
@@ -70,7 +93,7 @@
       "end": 3
     },
     "takeaway": "",
-    "code_display_caption": "Colab L8 / run the whole cell"
+    "code_display_caption": "Run the whole cell in Colab"
   },
   {
     "title": "Read the alarm and the estimation error",
@@ -88,7 +111,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
-    "eyebrow": "Colab / L8",
+    "eyebrow": "",
     "image_source_path": "images/hands_on_L8_plot.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
@@ -112,7 +135,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
-    "eyebrow": "Colab / L8",
+    "eyebrow": "",
     "diagram": "plain_hidden_error",
     "visual_height_px": 310,
     "visual_height_cm": 3.3,
@@ -131,12 +154,12 @@
       "H08"
     ],
     "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
-    "minutes": 3,
+    "minutes": 4,
     "note": "Three minutes to predict, edit and run; debrief on the following one-minute answer slide. Allow one minute to predict, two minutes to edit and run, and one minute to report. For isolated bias at scale 0.10, J is about 10.143237, below the 15.086272 threshold. The alarm is False despite nonzero state error. The coordinated residual stays about 3.920222. This added scale remains within the notebook's plot limits.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
-    "eyebrow": "Try it in Colab / L8",
+    "eyebrow": "",
     "excerpt": [
       "ATTACK_SCALES = (0., .10, .25, .5, 1., 1.5)"
     ],
@@ -158,7 +181,7 @@
     "refs": [
       "H08"
     ],
-    "eyebrow": "Worked answer / L8",
+    "eyebrow": "",
     "takeaway": "",
     "visual_height_cm": 3.3,
     "visual_height_px": 310,
@@ -167,27 +190,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
   },
   {
-    "title": "A small bias can stay below the threshold",
-    "kind": "normal",
-    "points": [
-      "At scale 0.10, the mismatch is 10.14, below the 15.09 threshold.",
-      "The operator still needs other evidence about the readings."
-    ],
-    "refs": [
-      "H08"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
-    "minutes": 1,
-    "note": "Separate the two mechanisms. A small isolated bias can stay below a statistical threshold. A coordinated Hc shift can preserve residual consistency by construction. Neither result establishes trusted telemetry. The state-error curve uses offline synthetic truth, not an input available to an online detector.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L8",
-    "eyebrow": "Colab / L8",
-    "callout": "10.14 < 15.09",
-    "takeaway": ""
-  },
-  {
-    "title": "L8: reset before the recovery example",
+    "title": "Back to the original data-bias settings",
     "kind": "normal",
     "points": [
       "Restore the original attack scales and rerun L8.",
@@ -202,7 +205,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
-    "eyebrow": "Colab / L8",
+    "eyebrow": "",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-023",
@@ -210,26 +213,7 @@
       "end": 3
     },
     "takeaway": "",
-    "code_display_caption": "Colab L8 / run the whole cell"
-  },
-  {
-    "title": "L9: ask whether a correction can be proposed",
-    "kind": "normal",
-    "points": [
-      "Compare one case with and without readings assumed to be trusted.",
-      "Changing your L8 sweep does not change this fixed case."
-    ],
-    "refs": [
-      "H09"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
-    "minutes": 0.5,
-    "note": "The helper uses the fixed run_wls_demo recovery fixture. The cyber object holds both the sweep results and this shared fixed demo. The comparison tests the trust premise under controlled conditions; it is not a controller reacting continuously to each plotted scale.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L9",
-    "eyebrow": "Colab / L9",
-    "takeaway": ""
+    "code_display_caption": "Run the whole cell in Colab"
   },
   {
     "title": "Trusted readings must come from somewhere",
@@ -247,7 +231,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
-    "eyebrow": "Colab / L9",
+    "eyebrow": "",
     "diagram": "plain_trust_choice",
     "visual_height_px": 310,
     "visual_height_cm": 3.3,
@@ -255,7 +239,7 @@
     "takeaway": ""
   },
   {
-    "title": "L9: read HOLD or PROPOSE first",
+    "title": "Does the result say HOLD or PROPOSE?",
     "kind": "normal",
     "points": [
       "Run L9 and read the status before the proposed adjustment.",
@@ -270,7 +254,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
-    "eyebrow": "Colab / L9",
+    "eyebrow": "",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-026",
@@ -278,7 +262,7 @@
       "end": 2
     },
     "takeaway": "",
-    "code_display_caption": "Colab L9 / run the whole cell"
+    "code_display_caption": "Run the whole cell in Colab"
   },
   {
     "title": "Missing trust means HOLD",
@@ -296,7 +280,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
-    "eyebrow": "Colab / L9",
+    "eyebrow": "",
     "image_source_path": "images/hands_on_L9_trust.png",
     "visual_height_px": 325,
     "visual_height_cm": 3.3,
@@ -319,34 +303,11 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
-    "eyebrow": "Colab / L9",
+    "eyebrow": "",
     "diagram": "plain_correction",
     "visual_height_px": 310,
     "visual_height_cm": 3.3,
     "caption": "Per unit (p.u.) scales a value by a model base. These flows use the same base.",
-    "takeaway": ""
-  },
-  {
-    "title": "How the agent helps with suspicious readings",
-    "kind": "diagram",
-    "points": [
-      "The agent can request the checks and keep missing evidence visible.",
-      "The operator reviews trust, model coverage and the proposed correction."
-    ],
-    "refs": [
-      "H09"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
-    "minutes": 0.5,
-    "note": "Plain-language explanation: Follow the information from the readings to the proposed correction. Without the required trusted data, the workflow returns HOLD. With that assumption, the tool can calculate a candidate. The agent can request these steps and explain missing checks; the operator must still assess the premise and decide the authorized next step.\n\nOriginal source detail: Do not attribute recovered information or numerical feasibility to confident prose. The workflow can coordinate the estimator, constrained correction and evidence checks. It cannot invent an independent trusted measurement source.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L9",
-    "eyebrow": "How an agent can help",
-    "diagram": "plain_cyber_agent",
-    "visual_height_px": 310,
-    "visual_height_cm": 3.3,
-    "caption": "Concept map. L9 calculates; L10B replays saved Llama requests and returned tool evidence.",
     "takeaway": ""
   },
   {
@@ -369,7 +330,7 @@
     "source_label": "Classroom Labs L10B: cyber replay, recorded call 7; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Saved cyber example / L10B preview",
+    "eyebrow": "",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "cyber",
@@ -397,7 +358,7 @@
     "source_label": "Classroom Labs L10B: cyber replay, recorded call 8; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Saved cyber example / L10B preview",
+    "eyebrow": "",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "cyber",

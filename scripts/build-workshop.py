@@ -29,14 +29,14 @@ def run(args,cwd=DECK):
 def validate(check_pdfs=False):
  authored=[s for m in MODULES for s in read(DECK/'content'/(m+'.json'))]
  slides=read(DECK/'lesson_content.json');cues=read(DECK/'content/presenter_script.json')['slides']
- require(len(authored)==len(slides)==len(cues)==83,'The workshop and script must contain eighty-three slides.')
+ require(len(authored)==len(slides)==len(cues)==69,'The workshop and script must contain sixty-nine slides.')
  require([s['title'] for s in authored]==[s['title'] for s in slides],'Run content: generated slide order differs from the authored modules.')
- require(len({c['title'] for c in cues})==83 and {c['title'] for c in cues}=={s['title'] for s in slides},'Every current slide needs one presenter cue.')
+ require(len({c['title'] for c in cues})==69 and {c['title'] for c in cues}=={s['title'] for s in slides},'Every current slide needs one presenter cue.')
  require(all(s['say'] and s['action'] for s in cues),'Each presenter cue needs spoken text and a delivery action.')
  require(sum(s['minutes'] for s in slides)==90,'The workshop must total 90 teaching minutes.')
- require(sum(s['minutes'] for s in slides[:10])==7,'The short concept opening must total seven minutes.')
- require([i for i,s in enumerate(slides,1) if s['kind']=='exercise']==[25,45,61],'Exercise locations differ from the current teaching route.')
- require(all(s['minutes']==3 and slides[i+1].get('answer_for')==s['title'] and slides[i+1]['minutes']==1 for i,s in enumerate(slides) if s['kind']=='exercise'),'Each exercise needs three question minutes followed by one answer minute.')
+ require(sum(s['minutes'] for s in slides if s['module']=='opening')<=15,'Keep the concept opening and setup within fifteen minutes.')
+ require([i for i,s in enumerate(slides,1) if s['kind']=='exercise']==[22, 40, 54],'Exercise locations differ from the current teaching route.')
+ require(all(s['minutes']==4 and slides[i+1].get('answer_for')==s['title'] and slides[i+1]['minutes']==1 for i,s in enumerate(slides) if s['kind']=='exercise'),'Each exercise needs four question minutes followed by one answer minute.')
  book=ROOT/'agentic_grid_workflow_tutorial/Classroom_Labs.ipynb';nb=read(book);cell_map={c.get('id'):c for c in nb['cells']};count=0
  for i,s in enumerate(slides,1):
   for key in ['image','diagram']:
@@ -54,7 +54,7 @@ def validate(check_pdfs=False):
   require(receipt['lesson_sha256']==sha(DECK/'lesson_content.json'),'Run pdf: compiled PDFs belong to older lesson content.')
   require(receipt['script_cues_sha256']==sha(DECK/'content/presenter_script.json'),'Run pdf: presenter PDF belongs to older cues.')
   for name,hash_value in receipt['pdf_sha256'].items():require((DECK/name).is_file() and sha(DECK/name)==hash_value,'Run pdf: download changed after its verified build: '+name)
- print(json.dumps({'slides':83,'minutes':90,'presenter_cues':83,'exact_notebook_excerpts':count,'exercises':[25,45,61],'pdf_receipt_checked':check_pdfs and RECEIPT.is_file()}),flush=True)
+ print(json.dumps({'slides':len(slides),'minutes':90,'presenter_cues':len(cues),'exact_notebook_excerpts':count,'exercises':[22, 40, 54],'pdf_receipt_checked':check_pdfs and RECEIPT.is_file()}),flush=True)
 def content():
  run([sys.executable,'-X','utf8','build_cases.py'])
  run([sys.executable,'-X','utf8','build_presenter_script.py'])
