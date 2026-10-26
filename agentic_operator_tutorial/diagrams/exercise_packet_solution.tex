@@ -1,0 +1,12 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[font=\rmfamily\fontsize{12}{14}\selectfont,x=1cm,y=1cm,>=Latex]
+\node[anchor=west] at (0,2.4) {A: 20 s / v42 / p.u.};
+\node[anchor=west] at (0,1.2) {B: 15 s / v43 / kV};
+\node[anchor=west] at (0,0) {C: 45 s / v43 / p.u.};
+\draw[->,thick,Red] (5,2.4)--(7,2.4) node[midway,above,font=\rmfamily\small] {check};
+\draw[->,thick,Red] (5,1.2)--(7,1.2) node[midway,above,font=\rmfamily\small] {check};
+\draw[->,thick,Cyan] (5,0)--(7,0) node[midway,above,font=\rmfamily\small] {check};
+\node[anchor=west,text=Red] at (7.2,2.4) {Stop: v42 is the wrong topology};
+\node[anchor=west,text=Red] at (7.2,1.2) {Stop: kV is the wrong unit};
+\node[anchor=west,text=IEEEBlue,font=\rmfamily\bfseries\fontsize{12}{14}\selectfont] at (7.2,0) {Pass: these initial checks only};
+\end{tikzpicture}

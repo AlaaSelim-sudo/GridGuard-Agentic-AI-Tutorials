@@ -697,15 +697,15 @@
       "Which packet passes? Explain why each other packet fails.",
       "Does passing these checks establish complete engineering validity or permission to execute an action?"
     ],
-    "minutes": 6,
+    "minutes": 5,
     "refs": [],
     "image": null,
     "caption": "",
     "diagram": null,
     "kind": "exercise",
-    "note": "Allow 1 minute to inspect, 2 minutes in pairs, 2 minutes to share and 1 minute to debrief. age_s means age in seconds. Only C passes the stated initial checks. A has the wrong grid version. B has the wrong unit. C still needs the right asset mapping, a valid model, the required engineering checks, enough scenario coverage and an explanation people can review. The user may advise but cannot execute actions. The 60-second rule is made up for this exercise. It is not a general operating standard.",
+    "note": "Show only the question during the activity. Use the following worked-answer slide for the debrief. Allow 1 minute to inspect, 2 minutes in pairs, 2 minutes to share and 1 minute to debrief. age_s means age in seconds. Only C passes the stated initial checks. A has the wrong grid version. B has the wrong unit. C still needs the right asset mapping, a valid model, the required engineering checks, enough scenario coverage and an explanation people can review. The user may advise but cannot execute actions. The 60-second rule is made up for this exercise. It is not a general operating standard.",
     "takeaway": "",
-    "eyebrow": "Work in pairs / 6 minutes",
+    "eyebrow": "Work in pairs / 5 minutes, then 1-minute answer",
     "excerpt": [
       "A = {age_s:20, topology:v42, unit:pu}",
       "B = {age_s:15, topology:v43, unit:kV}",
@@ -715,6 +715,32 @@
     "caption2": "",
     "math_tex": "",
     "math_html": "",
+    "callout": ""
+  },
+  {
+    "title": "Exercise 1 answer: C passes the first checks",
+    "kind": "diagram",
+    "diagram": "exercise_packet_solution",
+    "minutes": 1,
+    "refs": [],
+    "eyebrow": "Worked answer / data checks",
+    "points": [
+      "C is recent enough, uses v43 and has p.u. units. A has the wrong topology; B has the wrong unit.",
+      "Passing these checks is only a start. Check the model and engineering limits. The user may recommend, not execute."
+    ],
+    "caption": "The 60-second limit and packet labels belong to this teaching exercise.",
+    "note": "Reveal after the pairs share their decisions. A is recent but uses v42. B is recent and uses v43, but has kV instead of p.u. C is 45 seconds old, uses v43 and has p.u. units. C passes the three stated checks only. Asset mapping, model validity, engineering checks and scenario coverage remain necessary. Recommendation permission does not authorize execution.",
+    "takeaway": "",
+    "visual_height_cm": 3.0,
+    "visual_height_px": 290,
+    "exercise_phase": "solution",
+    "answer_for": "Exercise 1: check three returned data packets",
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
     "callout": ""
   },
   {
@@ -1449,16 +1475,16 @@
       "Now shift the forecast by six hours. Which of the five saved stage results still apply?",
       "A required simulation fails. What status and evidence should the operator receive?"
     ],
-    "minutes": 8,
+    "minutes": 6,
     "refs": [
       "P03",
       "LG02"
     ],
     "kind": "exercise",
-    "note": "Allow 2 minutes to think alone, 2 to compare in groups, 2 for discussion and 2 for the debrief. If only k changes, rerun cascade and retain the other results that still apply. If forecast initialization shifts, rerun all five stages in the cited workflow. If a required stage fails, return an incomplete or unresolved result. Include the case and stage IDs, input versions, tool error and conclusions that remain missing. Do not issue an all-clear report. F0 and v43 are teaching labels. Another implementation may have different dependencies. Keep these answers in the speaker notes.",
+    "note": "Show only the question during the activity. Use the following worked-answer slide for the debrief. Allow 2 minutes to think alone, 2 to compare in groups, 2 for discussion and 2 for the debrief. If only k changes, rerun cascade and retain the other results that still apply. If forecast initialization shifts, rerun all five stages in the cited workflow. If a required stage fails, return an incomplete or unresolved result. Include the case and stage IDs, input versions, tool error and conclusions that remain missing. Do not issue an all-clear report. F0 and v43 are teaching labels. Another implementation may have different dependencies.",
     "takeaway": "",
     "caption": "",
-    "eyebrow": "Group exercise · 8 minutes",
+    "eyebrow": "Group exercise / 6 minutes, then 2-minute answer",
     "excerpt": [],
     "image": null,
     "image2": null,
@@ -1466,6 +1492,35 @@
     "diagram": null,
     "math_tex": "",
     "math_html": "",
+    "callout": ""
+  },
+  {
+    "title": "Exercise 2 answer: rerun what changed",
+    "kind": "diagram",
+    "diagram": "exercise_reuse_solution",
+    "minutes": 2,
+    "refs": [
+      "P03",
+      "LG02"
+    ],
+    "eyebrow": "Worked answer / cited workflow",
+    "points": [
+      "A forecast shift invalidates all five saved stages: weather, outages, OPF, screening and cascade.",
+      "If a study fails, return INCOMPLETE with case/stage IDs, input versions, the error and missing conclusions."
+    ],
+    "caption": "Reuse follows the cited workflow’s input dependencies; another implementation can differ.",
+    "note": "Reveal after group discussion. Only k changing leaves the four other stage inputs unchanged in the cited trace. Shifting forecast initialization affects all five stages. A failed required simulation cannot support an all-clear report. Preserve the input versions, failed stage, tool error and any conclusions that remain unsupported.",
+    "takeaway": "",
+    "visual_height_cm": 2.5,
+    "visual_height_px": 290,
+    "exercise_phase": "solution",
+    "answer_for": "Exercise 2: check whether saved weather-risk results still apply",
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
     "callout": ""
   },
   {

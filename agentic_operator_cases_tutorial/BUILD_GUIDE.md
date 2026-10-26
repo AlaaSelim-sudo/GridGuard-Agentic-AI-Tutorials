@@ -1,6 +1,6 @@
 # Edit and rebuild the hands-on workshop
 
-Use this guide to update the current 80-slide workshop, its presenter script, handouts and website. The standard build uses the supplied figures and archived evidence; it does not run a live model or train a controller.
+Use this guide to update the current 83-slide workshop, its presenter script, handouts and website. The standard build uses the supplied figures and archived evidence; it does not run a live model or train a controller.
 
 ## Where to make changes
 
@@ -55,8 +55,8 @@ For slide-only authoring, enter `agentic_operator_cases_tutorial/slidev/` and ru
 
 ## Outputs
 
-- `agentic_operator_cases_tutorial/Three_Operator_Cases.pdf`: the 80-slide deck.
-- `Presenter_Script.md`, `.html`, `.pdf`: the 80-slide delivery script.
+- `agentic_operator_cases_tutorial/Three_Operator_Cases.pdf`: the 83-slide deck.
+- `Presenter_Script.md`, `.html`, `.pdf`: the 83-slide delivery script.
 - `latex/presenter_script.tex`: the editable LaTeX script. Its PDF uses one page per slide cue, a run sheet and three detailed role maps.
 - `Participant_Lab_Guide.pdf` and `.html`: learner instructions.
 - `Teaching_and_Source_Guide.pdf` and `Full_Reading_Guide.html`: detailed explanations, references and credits.

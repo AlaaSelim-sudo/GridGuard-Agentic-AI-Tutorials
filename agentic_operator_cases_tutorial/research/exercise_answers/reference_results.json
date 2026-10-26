@@ -1,0 +1,166 @@
+{
+  "scope": "Fresh numerical classroom fixtures; no LLM call or equipment operation",
+  "voltage": [
+    {
+      "method": "MPC",
+      "feasible": true,
+      "current_step_J": 0.0311038194,
+      "a": 0.9603066165,
+      "b": -0.1111138858,
+      "vmin": 1.0238743862,
+      "vmax": 1.0387087638,
+      "max_allowed_current_pct": 78.5278947554,
+      "failures": "none"
+    },
+    {
+      "method": "saved SAC actor",
+      "feasible": true,
+      "current_step_J": 0.4324637539,
+      "a": 0.3431254476,
+      "b": 0.0167913359,
+      "vmin": 1.0134905564,
+      "vmax": 1.03,
+      "max_allowed_current_pct": 54.8541579372,
+      "failures": "none"
+    }
+  ],
+  "restoration": [
+    {
+      "tie_capacity_kw": 40.0,
+      "method": "priority-weighted MILP",
+      "served_kw": 130.0,
+      "critical_kw": 90.0,
+      "weighted_service": 940.0,
+      "MILP_matches_exhaustive_check": true
+    },
+    {
+      "tie_capacity_kw": 40.0,
+      "method": "unweighted max-kW baseline",
+      "served_kw": 140.0,
+      "critical_kw": 30.0,
+      "weighted_service": 410.0,
+      "MILP_matches_exhaustive_check": true
+    },
+    {
+      "tie_capacity_kw": 60.0,
+      "method": "priority-weighted MILP",
+      "served_kw": 180.0,
+      "critical_kw": 90.0,
+      "weighted_service": 990.0,
+      "MILP_matches_exhaustive_check": true
+    },
+    {
+      "tie_capacity_kw": 60.0,
+      "method": "unweighted max-kW baseline",
+      "served_kw": 190.0,
+      "critical_kw": 30.0,
+      "weighted_service": 460.0,
+      "MILP_matches_exhaustive_check": true
+    },
+    {
+      "tie_capacity_kw": 80.0,
+      "method": "priority-weighted MILP",
+      "served_kw": 200.0,
+      "critical_kw": 90.0,
+      "weighted_service": 1010.0,
+      "MILP_matches_exhaustive_check": true
+    },
+    {
+      "tie_capacity_kw": 80.0,
+      "method": "unweighted max-kW baseline",
+      "served_kw": 200.0,
+      "critical_kw": 90.0,
+      "weighted_service": 1010.0,
+      "MILP_matches_exhaustive_check": true
+    },
+    {
+      "tie_capacity_kw": 100.0,
+      "method": "priority-weighted MILP",
+      "served_kw": 200.0,
+      "critical_kw": 90.0,
+      "weighted_service": 1010.0,
+      "MILP_matches_exhaustive_check": true
+    },
+    {
+      "tie_capacity_kw": 100.0,
+      "method": "unweighted max-kW baseline",
+      "served_kw": 200.0,
+      "critical_kw": 90.0,
+      "weighted_service": 1010.0,
+      "MILP_matches_exhaustive_check": true
+    },
+    {
+      "tie_capacity_kw": 120.0,
+      "method": "priority-weighted MILP",
+      "served_kw": 250.0,
+      "critical_kw": 90.0,
+      "weighted_service": 1060.0,
+      "MILP_matches_exhaustive_check": true
+    },
+    {
+      "tie_capacity_kw": 120.0,
+      "method": "unweighted max-kW baseline",
+      "served_kw": 250.0,
+      "critical_kw": 90.0,
+      "weighted_service": 1060.0,
+      "MILP_matches_exhaustive_check": true
+    },
+    {
+      "tie_capacity_kw": 180.0,
+      "method": "priority-weighted MILP",
+      "served_kw": 250.0,
+      "critical_kw": 90.0,
+      "weighted_service": 1060.0,
+      "MILP_matches_exhaustive_check": true
+    },
+    {
+      "tie_capacity_kw": 180.0,
+      "method": "unweighted max-kW baseline",
+      "served_kw": 250.0,
+      "critical_kw": 90.0,
+      "weighted_service": 1060.0,
+      "MILP_matches_exhaustive_check": true
+    }
+  ],
+  "cyber": [
+    {
+      "attack": "isolated bias",
+      "scale": 0.0,
+      "J": 3.920221691,
+      "threshold": 15.0862724694,
+      "alarm": false,
+      "state_error_rad": 0.0002374314
+    },
+    {
+      "attack": "stealth Hc",
+      "scale": 0.0,
+      "J": 3.920221691,
+      "threshold": 15.0862724694,
+      "alarm": false,
+      "state_error_rad": 0.0002374314
+    },
+    {
+      "attack": "isolated bias",
+      "scale": 0.1,
+      "J": 10.1432371619,
+      "threshold": 15.0862724694,
+      "alarm": false,
+      "state_error_rad": 0.0008057145
+    },
+    {
+      "attack": "stealth Hc",
+      "scale": 0.1,
+      "J": 3.920221691,
+      "threshold": 15.0862724694,
+      "alarm": false,
+      "state_error_rad": 0.0025529499
+    }
+  ],
+  "first_matching_tested_capacity_kw": 80.0,
+  "source_sha256": {
+    "Classroom_Labs.ipynb": "e2b283f6f117cb5fc1851d1192a8d190bf97c9ca9c193e974b91efe6a3f68766",
+    "src/classroom_labs.py": "f4c19ec72591422e4fc1cb90252480a00f77091f5af4e4bb17b91e0aa6202722",
+    "src/continuous_control.py": "f4f790fc42c1979b09956da070bff104e6ab1e8d7d77d953c99b818ddf9a6ac9",
+    "src/standard_formulations.py": "11dc85b50a09520017aec45ed3180831fbf1bb5ce9faa20813b5135731e1aeff"
+  }
+}

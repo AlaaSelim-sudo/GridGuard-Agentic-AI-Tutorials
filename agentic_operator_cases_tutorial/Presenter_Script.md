@@ -2,17 +2,17 @@
 
 **Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.**
 
-One notebook, 80 slides, 90 minutes. Use the spoken explanation in your own voice. The run cue says exactly when to open, run, edit, reset or inspect a cell. Run the complete cell identified by its L heading and stable ID.
+One notebook, 83 slides, 90 minutes. Use the spoken explanation in your own voice. The run cue says exactly when to open, run, edit, reset or inspect a cell. Run the complete cell identified by its L heading and stable ID.
 
 Python calculates new numerical results. L3, L10 and L10B show separately labeled saved model records. One Llama model fills two roles in the saved five-role Python workflow. L12 is a simulated readback; equipment_dispatch stays False.
 
 ## Session route
 
 - Agent concepts and Colab setup: slides 1-15, 00:00-15:00
-- Voltage support: slides 16-37, 15:00-39:00
-- Service restoration: slides 38-53, 39:00-56:00
-- Cyber response: slides 54-69, 56:00-73:00
-- Agent workflow and operator review: slides 70-80, 73:00-90:00
+- Voltage support: slides 16-38, 15:00-39:00
+- Service restoration: slides 39-55, 39:00-56:00
+- Cyber response: slides 56-72, 56:00-73:00
+- Agent workflow and operator review: slides 73-83, 73:00-90:00
 
 ## Colab run sheet
 
@@ -56,7 +56,7 @@ Exact cells: classroom-007.
 
 Expected: MPC current use is about 78.53%; SAC about 54.85%; both pass this MV test.
 
-### Slide 27: L2 / RESET AND RERUN
+### Slide 28: L2 / RESET AND RERUN
 
 Restore LOAD_SCALE=1.0 and RATING_FRACTION=0.80; rerun the complete L2 cell.
 
@@ -64,7 +64,7 @@ Exact cells: classroom-007.
 
 Expected: The default output returns. L3-L5 will use their separate original test_01 case.
 
-### Slide 29: L3 / RUN
+### Slide 30: L3 / RUN
 
 Run L3. Keep the default test_01 case.
 
@@ -72,7 +72,7 @@ Exact cells: classroom-010.
 
 Expected: Three saved model replies and recorded times appear; no new model request occurs.
 
-### Slide 31: L4 / RUN
+### Slide 32: L4 / RUN
 
 Run L4 after L3 without changing the case ID.
 
@@ -80,7 +80,7 @@ Exact cells: classroom-013.
 
 Expected: Both selectors choose RELAX_Q_10_PERCENT; new_check_passes is True for both.
 
-### Slide 33: L5 / RUN
+### Slide 34: L5 / RUN
 
 Run L5 with RUN_OPENDSS still False.
 
@@ -88,7 +88,7 @@ Exact cells: classroom-016.
 
 Expected: The linear-model check is shown; the optional full-model path is disabled.
 
-### Slide 40: L6 / RUN
+### Slide 41: L6 / RUN
 
 Run L6 with CAPACITIES_KW=(40.,60.,80.,100.,120.).
 
@@ -96,7 +96,7 @@ Exact cells: classroom-018.
 
 Expected: The priority MILP agrees with exhaustive enumeration. At 40 kW, compare 130/90 with 140/30 kW total/critical.
 
-### Slide 44: L6 / EDIT AND RERUN
+### Slide 45: L6 / EDIT AND RERUN
 
 Append 180. to CAPACITIES_KW, keeping 40. first. Rerun all of L6. Give this exercise four minutes.
 
@@ -104,7 +104,7 @@ Exact cells: classroom-018.
 
 Expected: At 180 kW, both goals serve 250 kW total and 90 kW critical.
 
-### Slide 46: L6, L7 / RESET, THEN RUN
+### Slide 48: L6, L7 / RESET, THEN RUN
 
 Restore the original capacity list and rerun L6. Then run the whole L7 cell.
 
@@ -112,7 +112,7 @@ Exact cells: classroom-018, classroom-021.
 
 Expected: Original contract: True. Changed rating with old evidence: False. HOLD requests a fresh solve.
 
-### Slide 56: L8 / RUN
+### Slide 58: L8 / RUN
 
 Run L8 with ATTACK_SCALES=(0.,.25,.5,1.,1.5).
 
@@ -120,7 +120,7 @@ Exact cells: classroom-023.
 
 Expected: A coordinated Hc attack preserves a small residual while offline state error grows.
 
-### Slide 59: L8 / EDIT AND RERUN
+### Slide 61: L8 / EDIT AND RERUN
 
 Add .10 to ATTACK_SCALES. Rerun all of L8 and inspect the isolated-bias row. Give this exercise four minutes.
 
@@ -128,7 +128,7 @@ Exact cells: classroom-023.
 
 Expected: At isolated scale 0.10, J is about 10.14, below the 15.09 threshold; no alarm is not proof of truth.
 
-### Slide 61: L8 / RESET AND RERUN
+### Slide 64: L8 / RESET AND RERUN
 
 Restore ATTACK_SCALES=(0.,.25,.5,1.,1.5) and rerun all of L8.
 
@@ -136,7 +136,7 @@ Exact cells: classroom-023.
 
 Expected: The default sweep returns. L9 remains a separate fixed recovery fixture.
 
-### Slide 64: L9 / RUN
+### Slide 67: L9 / RUN
 
 Run all of L9 after resetting L8.
 
@@ -144,7 +144,7 @@ Exact cells: classroom-026.
 
 Expected: No trusted replacement readings: HOLD. With assumed trusted readings: PROPOSE, u about 0.121694 p.u., zero offline violations.
 
-### Slide 70: L10 / RUN
+### Slide 73: L10 / RUN
 
 Run all of L10 after L9. Read the case and stage columns in the saved trace.
 
@@ -152,7 +152,7 @@ Exact cells: classroom-028.
 
 Expected: Five stage names appear. Planning and optimizer rows contain actual saved Llama replies; other stages contain Python results.
 
-### Slide 71: L10B / REPLAY THREE TIMES
+### Slide 74: L10B / REPLAY THREE TIMES
 
 After L10, run the whole L10B cell for SCENARIO="voltage", then "restoration", then "cyber". Change only that string between runs.
 
@@ -160,7 +160,7 @@ Exact cells: classroom-llama-walkthrough.
 
 Expected: Input, exact model choice and public reason, saved tool result and next step appear. No new LLM call or electrical solve runs.
 
-### Slide 72: L11, L12 / SKIP LIVE CALL, THEN RUN
+### Slide 75: L11, L12 / SKIP LIVE CALL, THEN RUN
 
 Keep RUN_LOCAL_LLAMA=False. Run L11 and expect SKIPPED. Then run all of L12.
 
@@ -512,11 +512,11 @@ Exact cells: classroom-007. Run the whole cell.
 
 ### Slide 25. Exercise 1: lower the current allowance
 
-25:00-29:00 / 4 minutes
+25:00-28:00 / 3 minutes
 
 **Say:** Change only RATING_FRACTION from 0.80 to 0.75 in L2. Before running it, predict how the percentage of allowed current will change. Run the whole cell and compare both methods. Record the pass flag, current percentage and score. Then decide whether this model covers a full medium- and low-voltage request.
 
-**Show:** Show only the one parameter to change.
+**Show:** Keep the question visible for three minutes: predict for one minute, then edit and run for two. Advance to the next slide for the one-minute worked answer.
 
 **Colab: EDIT AND RERUN.** Change only RATING_FRACTION to 0.75. Predict, then rerun all of L2. Give this exercise four minutes.
 
@@ -530,7 +530,21 @@ Exact cells: classroom-007. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/25)
 
-### Slide 26. Exercise 1: both still pass
+### Slide 26. Exercise 1 answer: both options still pass
+
+28:00-29:00 / 1 minute
+
+**Say:** At LOAD_SCALE=1.0 and RATING_FRACTION=0.75, MPC is feasible with 78.527895% current use and J=0.0311038194. Saved SAC is feasible with 54.854158% current use and J=0.4324637539. Lower J is preferred only among feasible candidates. These are fresh three-phase linear MV checks, not a full MV/LV study. Restore RATING_FRACTION=0.80 and rerun all of L2 before continuing.
+
+**Show:** Advance from the question only after learners have made a prediction and run the cell. Read every chart label, compare the results and explain the model’s scope.
+
+**Colab: INSPECT / RESET.** Use the output already produced for the exercise. Restore RATING_FRACTION=0.80 and rerun all of L2 before continuing.
+
+**Expected:** MPC has the lower score J. The saved SAC actor uses less current; current use alone is not the objective. Both checks cover the default MV model. They do not establish full MV/LV or dynamic performance.
+
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/26)
+
+### Slide 27. Exercise 1: both still pass
 
 29:00-30:00 / 1 minute
 
@@ -540,9 +554,9 @@ Exact cells: classroom-007. Run the whole cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/26)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/27)
 
-### Slide 27. L2: reset before continuing
+### Slide 28. L2: reset before continuing
 
 30:00-30:30 / 0.5 minutes
 
@@ -556,9 +570,9 @@ Exact cells: classroom-007. Run the whole cell.
 
 **Expected:** The default output returns. L3-L5 will use their separate original test_01 case.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/27)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/28)
 
-### Slide 28. New calculations and saved replies
+### Slide 29. New calculations and saved replies
 
 30:30-31:00 / 0.5 minutes
 
@@ -568,9 +582,9 @@ Exact cells: classroom-007. Run the whole cell.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/28)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/29)
 
-### Slide 29. L3: inspect saved model choices
+### Slide 30. L3: inspect saved model choices
 
 31:00-32:00 / 1 minute
 
@@ -584,9 +598,9 @@ Exact cells: classroom-010. Run the whole cell.
 
 **Expected:** Three saved model replies and recorded times appear; no new model request occurs.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/29)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/30)
 
-### Slide 30. Different words can request the same trial
+### Slide 31. Different words can request the same trial
 
 32:00-32:30 / 0.5 minutes
 
@@ -600,9 +614,9 @@ Exact cells: classroom-010. Run the whole cell.
 
 **Answer:** Two, because two replies have identical tool/settings records.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/30)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/31)
 
-### Slide 31. L4: check the selected trial
+### Slide 32. L4: check the selected trial
 
 32:30-33:30 / 1 minute
 
@@ -616,9 +630,9 @@ Exact cells: classroom-013. Run the whole cell.
 
 **Expected:** Both selectors choose RELAX_Q_10_PERCENT; new_check_passes is True for both.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/31)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/32)
 
-### Slide 32. L4: read the new check
+### Slide 33. L4: read the new check
 
 33:30-34:00 / 0.5 minutes
 
@@ -628,9 +642,9 @@ Exact cells: classroom-013. Run the whole cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/32)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/33)
 
-### Slide 33. L5: check model coverage
+### Slide 34. L5: check model coverage
 
 34:00-35:30 / 1.5 minutes
 
@@ -644,9 +658,9 @@ Exact cells: classroom-016. Run the whole cell.
 
 **Expected:** The linear-model check is shown; the optional full-model path is disabled.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/33)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/34)
 
-### Slide 34. A PASS has a scope
+### Slide 35. A PASS has a scope
 
 35:30-36:00 / 0.5 minutes
 
@@ -656,9 +670,9 @@ Exact cells: classroom-016. Run the whole cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/34)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/35)
 
-### Slide 35. Saved voltage case: check SAC first
+### Slide 36. Saved voltage case: check SAC first
 
 36:00-37:00 / 1 minute
 
@@ -670,9 +684,9 @@ Exact cells: classroom-016. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/35)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/36)
 
-### Slide 36. Saved voltage case: try the MPC fallback
+### Slide 37. Saved voltage case: try the MPC fallback
 
 37:00-38:00 / 1 minute
 
@@ -684,9 +698,9 @@ Exact cells: classroom-016. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/36)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/37)
 
-### Slide 37. Saved voltage case: return for review
+### Slide 38. Saved voltage case: return for review
 
 38:00-39:00 / 1 minute
 
@@ -698,13 +712,13 @@ Exact cells: classroom-016. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/37)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/38)
 
 
 <a id="module-restoration"></a>
 ## Service restoration
 
-### Slide 38. Case 2: restoring service
+### Slide 39. Case 2: restoring service
 
 39:00-39:30 / 0.5 minutes
 
@@ -716,9 +730,9 @@ Exact cells: classroom-016. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/38)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/39)
 
-### Slide 39. Two service goals
+### Slide 40. Two service goals
 
 39:30-40:30 / 1 minute
 
@@ -730,9 +744,9 @@ Exact cells: classroom-016. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/39)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/40)
 
-### Slide 40. L6: solve the restoration problem
+### Slide 41. L6: solve the restoration problem
 
 40:30-42:30 / 2 minutes
 
@@ -746,9 +760,9 @@ Exact cells: classroom-018. Run the whole cell.
 
 **Expected:** The priority MILP agrees with exhaustive enumeration. At 40 kW, compare 130/90 with 140/30 kW total/critical.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/40)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/41)
 
-### Slide 41. L6: read both service plots
+### Slide 42. L6: read both service plots
 
 42:30-43:30 / 1 minute
 
@@ -758,9 +772,9 @@ Exact cells: classroom-018. Run the whole cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/41)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/42)
 
-### Slide 42. L6: the tradeoff at 40 kW
+### Slide 43. L6: the tradeoff at 40 kW
 
 43:30-44:30 / 1 minute
 
@@ -774,9 +788,9 @@ Exact cells: classroom-018. Run the whole cell.
 
 **Answer:** The priority-weighted goal, with the explicit total-service tradeoff.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/42)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/43)
 
-### Slide 43. Restoration checks
+### Slide 44. Restoration checks
 
 44:30-45:00 / 0.5 minutes
 
@@ -786,15 +800,15 @@ Exact cells: classroom-018. Run the whole cell.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/43)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/44)
 
-### Slide 44. Exercise 2: increase tie capacity
+### Slide 45. Exercise 2: increase tie capacity
 
-45:00-49:00 / 4 minutes
+45:00-48:00 / 3 minutes
 
 **Say:** Append 180. to the capacity list and keep 40. first. Predict whether the two service goals will still disagree, then rerun the full L6 cell. Compare total and critical kW at 40 and 180 kW. Keeping the first entry unchanged matters because L7 later uses the first record in this list.
 
-**Show:** Show the appended 180. entry and keep 40. first.
+**Show:** Keep the question visible for three minutes: predict for one minute, then edit and run for two. Advance to the next slide for the one-minute worked answer.
 
 **Colab: EDIT AND RERUN.** Append 180. to CAPACITIES_KW, keeping 40. first. Rerun all of L6. Give this exercise four minutes.
 
@@ -806,9 +820,23 @@ Exact cells: classroom-018. Run the whole cell.
 
 **Answer:** They agree at 180 kW in this exercise.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/44)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/45)
 
-### Slide 45. Exercise 2: enough capacity removes this tradeoff
+### Slide 46. Exercise 2 answer: capacity changes the trade-off
+
+48:00-49:00 / 1 minute
+
+**Say:** At 40 kW tie capacity, priority-weighted MILP serves 130 kW total and 90 kW critical. The unweighted maximum-kW policy serves 140 kW total and 30 kW critical. In the sampled list, outcomes first match at 80 kW; they also match at 100, 120 and 180 kW. At 180 kW, both serve 250 total and 90 critical kW. Do not infer the exact continuous crossover from this discrete sweep. Keep 40 first, restore the original list and rerun L6 before L7.
+
+**Show:** Advance from the question only after learners have made a prediction and run the cell. Read every chart label, compare the results and explain the model’s scope.
+
+**Colab: INSPECT / RESET.** Use the exercise output. Keep 40 first; restore the original list and rerun L6 before L7.
+
+**Expected:** At 40 kW, priorities give more critical service: 90 kW instead of 30 kW, with less total service. The goals match from 80 kW in the tested list. At 180 kW, both serve 250 kW total, including 90 kW critical.
+
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/46)
+
+### Slide 47. Exercise 2: enough capacity removes this tradeoff
 
 49:00-50:00 / 1 minute
 
@@ -818,9 +846,9 @@ Exact cells: classroom-018. Run the whole cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/45)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/47)
 
-### Slide 46. L7: test an old result after a change
+### Slide 48. L7: test an old result after a change
 
 50:00-51:30 / 1.5 minutes
 
@@ -834,9 +862,9 @@ Exact cells: classroom-018, classroom-021. Run the whole cell.
 
 **Expected:** Original contract: True. Changed rating with old evidence: False. HOLD requests a fresh solve.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/46)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/48)
 
-### Slide 47. L7: the old evidence no longer matches
+### Slide 49. L7: the old evidence no longer matches
 
 51:30-52:00 / 0.5 minutes
 
@@ -850,9 +878,9 @@ Exact cells: classroom-018, classroom-021. Run the whole cell.
 
 **Answer:** No. It detects that the old evidence does not match the changed request.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/47)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/49)
 
-### Slide 48. New inputs need new evidence
+### Slide 50. New inputs need new evidence
 
 52:00-52:30 / 0.5 minutes
 
@@ -862,9 +890,9 @@ Exact cells: classroom-018, classroom-021. Run the whole cell.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/48)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/50)
 
-### Slide 49. The agent keeps the service goal
+### Slide 51. The agent keeps the service goal
 
 52:30-53:00 / 0.5 minutes
 
@@ -876,9 +904,9 @@ Exact cells: classroom-018, classroom-021. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/49)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/51)
 
-### Slide 50. Restoration model limits
+### Slide 52. Restoration model limits
 
 53:00-53:30 / 0.5 minutes
 
@@ -888,9 +916,9 @@ Exact cells: classroom-018, classroom-021. Run the whole cell.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/50)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/52)
 
-### Slide 51. Saved restoration case: try another plan
+### Slide 53. Saved restoration case: try another plan
 
 53:30-54:30 / 1 minute
 
@@ -902,9 +930,9 @@ Exact cells: classroom-018, classroom-021. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/51)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/53)
 
-### Slide 52. Saved restoration case: reject a failed trial
+### Slide 54. Saved restoration case: reject a failed trial
 
 54:30-55:00 / 0.5 minutes
 
@@ -916,9 +944,9 @@ Exact cells: classroom-018, classroom-021. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/52)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/54)
 
-### Slide 53. Saved restoration case: correct the ranking
+### Slide 55. Saved restoration case: correct the ranking
 
 55:00-56:00 / 1 minute
 
@@ -934,13 +962,13 @@ Exact cells: classroom-018, classroom-021. Run the whole cell.
 
 **Answer:** Yes. The numerical order must also be checked.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/53)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/55)
 
 
 <a id="module-cyber"></a>
 ## Cyber response
 
-### Slide 54. Case 3: suspicious readings
+### Slide 56. Case 3: suspicious readings
 
 56:00-56:30 / 0.5 minutes
 
@@ -952,9 +980,9 @@ Exact cells: classroom-018, classroom-021. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/54)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/56)
 
-### Slide 55. What the residual measures
+### Slide 57. What the residual measures
 
 56:30-57:30 / 1 minute
 
@@ -966,9 +994,9 @@ Exact cells: classroom-018, classroom-021. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/55)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/57)
 
-### Slide 56. L8: run two data attacks
+### Slide 58. L8: run two data attacks
 
 57:30-59:30 / 2 minutes
 
@@ -982,9 +1010,9 @@ Exact cells: classroom-023. Run the whole cell.
 
 **Expected:** A coordinated Hc attack preserves a small residual while offline state error grows.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/56)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/58)
 
-### Slide 57. L8: read both cyber plots
+### Slide 59. L8: read both cyber plots
 
 59:30-60:30 / 1 minute
 
@@ -994,9 +1022,9 @@ Exact cells: classroom-023. Run the whole cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/57)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/59)
 
-### Slide 58. L8: a coordinated attack escapes the alarm
+### Slide 60. L8: a coordinated attack escapes the alarm
 
 60:30-61:30 / 1 minute
 
@@ -1006,15 +1034,15 @@ Exact cells: classroom-023. Run the whole cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/58)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/60)
 
-### Slide 59. Exercise 3: test a small bias
+### Slide 61. Exercise 3: test a small bias
 
-61:30-65:30 / 4 minutes
+61:30-64:30 / 3 minutes
 
 **Say:** Add .10 to the attack-scale list and rerun L8. Focus on the isolated-bias row at that scale. Read J, the alarm flag and state error. Use the two plots to answer whether no alarm means the reading is correct. Change only the scale list so the comparison stays clear.
 
-**Show:** Show the single new .10 entry.
+**Show:** Keep the question visible for three minutes: predict for one minute, then edit and run for two. Advance to the next slide for the one-minute worked answer.
 
 **Colab: EDIT AND RERUN.** Add .10 to ATTACK_SCALES. Rerun all of L8 and inspect the isolated-bias row. Give this exercise four minutes.
 
@@ -1026,9 +1054,23 @@ Exact cells: classroom-023. Run the whole cell.
 
 **Answer:** No. The threshold can miss a small bias, and coordinated changes can preserve the fit.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/59)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/61)
 
-### Slide 60. Exercise 3: a small bias can miss the threshold
+### Slide 62. Exercise 3 answer: no alarm can hide an error
+
+64:30-65:30 / 1 minute
+
+**Say:** At scale 0.10, isolated bias gives residual J=10.143237 and state error 0.0008057145 rad. Coordinated Hc gives J=3.920222 and state error 0.0025529499 rad. Both are below the 15.086272 alarm threshold, so both alarm flags are False. This J is a residual statistic, unlike the voltage-control objective J. State error is available here because simulation truth is known. Restore the original ATTACK_SCALES and rerun L8 before the separate fixed L9 recovery case.
+
+**Show:** Advance from the question only after learners have made a prediction and run the cell. Read every chart label, compare the results and explain the model’s scope.
+
+**Colab: INSPECT / RESET.** Use the output already produced for the exercise. Restore the original ATTACK_SCALES and rerun L8 before the separate fixed L9 recovery case.
+
+**Expected:** At scale 0.10, both alarms are False. Both state estimates still have error; the coordinated shift has the larger error here. No alarm means J is below this threshold. It does not prove correct data or trusted sensors.
+
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/62)
+
+### Slide 63. Exercise 3: a small bias can miss the threshold
 
 65:30-66:30 / 1 minute
 
@@ -1038,9 +1080,9 @@ Exact cells: classroom-023. Run the whole cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/60)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/63)
 
-### Slide 61. L8: reset before recovery
+### Slide 64. L8: reset before recovery
 
 66:30-67:00 / 0.5 minutes
 
@@ -1054,9 +1096,9 @@ Exact cells: classroom-023. Run the whole cell.
 
 **Expected:** The default sweep returns. L9 remains a separate fixed recovery fixture.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/61)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/64)
 
-### Slide 62. L9: one fixed recovery case
+### Slide 65. L9: one fixed recovery case
 
 67:00-67:30 / 0.5 minutes
 
@@ -1068,9 +1110,9 @@ Exact cells: classroom-023. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/62)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/65)
 
-### Slide 63. Data trust is an assumption
+### Slide 66. Data trust is an assumption
 
 67:30-68:00 / 0.5 minutes
 
@@ -1086,9 +1128,9 @@ Exact cells: classroom-023. Run the whole cell.
 
 **Answer:** None in this fixture; their trust is an external assumption.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/63)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/66)
 
-### Slide 64. L9: HOLD or PROPOSE
+### Slide 67. L9: HOLD or PROPOSE
 
 68:00-69:30 / 1.5 minutes
 
@@ -1102,9 +1144,9 @@ Exact cells: classroom-026. Run the whole cell.
 
 **Expected:** No trusted replacement readings: HOLD. With assumed trusted readings: PROPOSE, u about 0.121694 p.u., zero offline violations.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/64)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/67)
 
-### Slide 65. L9: two outcomes
+### Slide 68. L9: two outcomes
 
 69:30-70:30 / 1 minute
 
@@ -1114,9 +1156,9 @@ Exact cells: classroom-026. Run the whole cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/65)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/68)
 
-### Slide 66. L9: check the correction
+### Slide 69. L9: check the correction
 
 70:30-71:00 / 0.5 minutes
 
@@ -1126,9 +1168,9 @@ Exact cells: classroom-026. Run the whole cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/66)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/69)
 
-### Slide 67. A proposal depends on its assumptions
+### Slide 70. A proposal depends on its assumptions
 
 71:00-71:30 / 0.5 minutes
 
@@ -1138,9 +1180,9 @@ Exact cells: classroom-026. Run the whole cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/67)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/70)
 
-### Slide 68. Saved cyber case: request the allowed tool
+### Slide 71. Saved cyber case: request the allowed tool
 
 71:30-72:00 / 0.5 minutes
 
@@ -1152,9 +1194,9 @@ Exact cells: classroom-026. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/68)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/71)
 
-### Slide 69. Saved cyber case: keep human review
+### Slide 72. Saved cyber case: keep human review
 
 72:00-73:00 / 1 minute
 
@@ -1166,13 +1208,13 @@ Exact cells: classroom-026. Run the whole cell.
 
 **Expected:** No new notebook output on this slide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/69)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/72)
 
 
 <a id="module-closing"></a>
 ## Agent workflow and operator review
 
-### Slide 70. L10: inspect the five-role workflow
+### Slide 73. L10: inspect the five-role workflow
 
 73:00-74:30 / 1.5 minutes
 
@@ -1186,9 +1228,9 @@ Exact cells: classroom-028. Run the whole cell.
 
 **Expected:** Five stage names appear. Planning and optimizer rows contain actual saved Llama replies; other stages contain Python results.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/70)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/73)
 
-### Slide 71. L10B: replay the three Llama examples
+### Slide 74. L10B: replay the three Llama examples
 
 74:30-79:00 / 4.5 minutes
 
@@ -1202,9 +1244,9 @@ Exact cells: classroom-llama-walkthrough. Run the whole cell.
 
 **Expected:** Input, exact model choice and public reason, saved tool result and next step appear. No new LLM call or electrical solve runs.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/71)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/74)
 
-### Slide 72. L12: practice operator readback
+### Slide 75. L12: practice operator readback
 
 79:00-81:00 / 2 minutes
 
@@ -1218,9 +1260,9 @@ Exact cells: classroom-030, classroom-033. Run the whole cell.
 
 **Expected:** The table shows HOLD for full MV/LV and an acknowledged MV teaching request. The assertions confirm wrong-ID rejection; equipment_dispatch remains False.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/72)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/75)
 
-### Slide 73. L12: approval must match the checked scope
+### Slide 76. L12: approval must match the checked scope
 
 81:00-82:00 / 1 minute
 
@@ -1234,9 +1276,9 @@ Exact cells: classroom-030, classroom-033. Run the whole cell.
 
 **Answer:** No. Scope must match before a readback can be accepted.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/73)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/76)
 
-### Slide 74. Our multi-agent design: five roles
+### Slide 77. Our multi-agent design: five roles
 
 82:00-83:30 / 1.5 minutes
 
@@ -1250,9 +1292,9 @@ Exact cells: classroom-030, classroom-033. Run the whole cell.
 
 **Answer:** No. One Llama model fills two roles; Python runs awareness, simulation and verification.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/74)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/77)
 
-### Slide 75. Five roles in the voltage case
+### Slide 78. Five roles in the voltage case
 
 83:30-84:30 / 1 minute
 
@@ -1262,9 +1304,9 @@ Exact cells: classroom-030, classroom-033. Run the whole cell.
 
 **Colab: NO NEW RUN.** Use the saved L10 trace already displayed. Map the five roles without making a new model call.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/75)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/78)
 
-### Slide 76. Five roles in the restoration case
+### Slide 79. Five roles in the restoration case
 
 84:30-85:30 / 1 minute
 
@@ -1274,9 +1316,9 @@ Exact cells: classroom-030, classroom-033. Run the whole cell.
 
 **Colab: NO NEW RUN.** Use the saved L10 trace already displayed. Map the five roles without making a new model call.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/76)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/79)
 
-### Slide 77. Five roles in the cyber case
+### Slide 80. Five roles in the cyber case
 
 85:30-86:30 / 1 minute
 
@@ -1286,9 +1328,9 @@ Exact cells: classroom-030, classroom-033. Run the whole cell.
 
 **Colab: NO NEW RUN.** Use the saved L10 trace already displayed. Map the five roles without making a new model call.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/77)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/80)
 
-### Slide 78. The operator reviews one evidence packet
+### Slide 81. The operator reviews one evidence packet
 
 86:30-87:30 / 1 minute
 
@@ -1298,9 +1340,9 @@ Exact cells: classroom-030, classroom-033. Run the whole cell.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/78)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/81)
 
-### Slide 79. What the evidence shows
+### Slide 82. What the evidence shows
 
 87:30-88:30 / 1 minute
 
@@ -1314,9 +1356,9 @@ Exact cells: classroom-030, classroom-033. Run the whole cell.
 
 **Answer:** Completed correct studies, missed checks, elapsed time and reviewer effort against a fixed-script baseline.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/79)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/82)
 
-### Slide 80. Questions and your next lab run
+### Slide 83. Questions and your next lab run
 
 88:30-90:00 / 1.5 minutes
 
@@ -1330,7 +1372,7 @@ Exact cells: classroom-030, classroom-033. Run the whole cell.
 
 **Answer:** Accept an answer only when it distinguishes new calculations from saved model replies and states a remaining limit.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/80)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/83)
 
 ## Agent roles in the three recorded cases
 

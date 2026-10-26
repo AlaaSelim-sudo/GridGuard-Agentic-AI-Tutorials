@@ -17,13 +17,13 @@
 {\LARGE\bfseries Teaching and Source Guide}\par
 Hands-on: Three Operator Cases --- introductory lecture. Evidence reviewed 24 October 2026. The full reading guide is separate from the timed main talk. Corporate issuers are listed when no individual author is recorded. Original figures, page locations and image-source credits are included. Attribution alone is not a blanket reuse license.\par
 \subsection*{Using the lab and source guide}
-\textbf{Format:} 80 slides, one notebook and three operator cases. Follow along during the session or finish the experiments afterward.\par
+\textbf{Format:} 83 slides, one notebook and three operator cases. Follow along during the session or finish the experiments afterward.\par
 \textbf{Prerequisite:} Use the foundations tutorial first. This session follows the current Classroom Labs notebook through voltage support, service restoration and cyber response.\par
 \textbf{Evidence modes:} Run the selected numerical cells to calculate results for your inputs. Archived model-response pools and historical evaluation records remain separately labeled. Editing L2 does not change the archived test\_01 used by L3--L5, and editing the L8 sweep does not change the fixed L9 recovery fixture. No default cell calls an LLM or operates equipment.\par
 \textbf{Setup:} Open Classroom Labs, save a copy in Drive and connect a CPU. Run setup, wait for Ready, then run L0 and L1. Keep both switches False. No API key, LLM download or GPU is needed.\par
 \textbf{Lab order:} Voltage L2-L5, restoration L6-L7, cyber L8-L9, then saved agent records L10-L10B and simulated readback L12. Leave L11 disabled.\par
 \textbf{Source figures:} Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Stanford University, Fall 2026, pp.2, 19, 40 and 53. Original excerpts keep their source credits. Grid diagrams are teaching adaptations. This notebook does not run WikiChat, Genie Worksheets or a theorem prover.\par
-\textbf{Five-role workflow:} Slides 74-77 map the custom Python workflow to all three recorded L10 cases. One Llama model fills the planning and optimizer roles. Python runs awareness, simulation and verification. The notebook replays these saved stages; it does not launch five independent LLM agents.\par
+\textbf{Five-role workflow:} Slides 77-80 map the custom Python workflow to all three recorded L10 cases. One Llama model fills the planning and optimizer roles. Python runs awareness, simulation and verification. The notebook replays these saved stages; it does not launch five independent LLM agents.\par
 \par\medskip
 \subsection*{1. Hands-on: Three Operator Cases}
 \textbf{Timing:} 00:00--01:00 (1 minutes)\par
@@ -305,16 +305,27 @@ Keep both with the result so the operator can review it.\par
 \textbf{[LRV] Workshop recorded model replies and numerical study records. Voltage P3\_current\_reserve: Llama 3.1:8b planner, recovery and review calls 1--3. Public teaching archive. 27 September 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/continuous_llama_opendss_20260927T161223523552Z.json}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}results/\allowbreak{}continuous\_\allowbreak{}llama\_\allowbreak{}opendss\_\allowbreak{}20260927T161223523552Z.\allowbreak{}json}\par
 \par\medskip
 \subsection*{25. Exercise 1: lower the current allowance}
-\textbf{Timing:} 25:00--29:00 (4 minutes)\par
+\textbf{Timing:} 25:00--28:00 (3 minutes)\par
 \textbf{Slide content:} In L2, change RATING\_FRACTION from 0.80 to 0.75. Predict, then rerun.
 Compare feasible, current use and score J for both methods.
 Does this check cover the whole MV/LV network?\par
-\textbf{Teaching notes:} Allow one minute to predict, two minutes to edit and run, and one minute to report. Keep LOAD\_SCALE=1.0. Reference allowed-current use is 78.527895\% for MPC and 54.854158\% for SAC; both remain feasible. Do not ask learners to find a rejection that this edit does not produce. The default model still covers MV only.\par
+\textbf{Teaching notes:} Three minutes to predict, edit and run; debrief on the following one-minute answer slide. Allow one minute to predict, two minutes to edit and run, and one minute to report. Keep LOAD\_SCALE=1.0. Reference allowed-current use is 78.527895\% for MPC and 54.854158\% for SAC; both remain feasible. Do not ask learners to find a rejection that this edit does not produce. The default model still covers MV only.\par
 \textbf{Notebook / source locator:} Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H02] Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{26. Exercise 1: both still pass}
+\subsection*{26. Exercise 1 answer: both options still pass}
+\textbf{Timing:} 28:00--29:00 (1 minutes)\par
+\textbf{Slide content:} MPC has the lower score J. The saved SAC actor uses less current; current use alone is not the objective.
+Both checks cover the default MV model. They do not establish full MV/LV or dynamic performance.\par
+\textbf{Teaching notes:} At LOAD\_SCALE=1.0 and RATING\_FRACTION=0.75, MPC is feasible with 78.527895\% current use and J=0.0311038194. Saved SAC is feasible with 54.854158\% current use and J=0.4324637539. Lower J is preferred only among feasible candidates. These are fresh three-phase linear MV checks, not a full MV/LV study. Restore RATING\_FRACTION=0.80 and rerun all of L2 before continuing.\par
+\textbf{Figure scope:} Fresh L2 results. Current use is relative to the changed allowance; J is the current-step objective.\par
+\textbf{Editable figure:} diagrams/exercise\_voltage\_solution.tex\par
+\textbf{Notebook / source locator:} Classroom\_Labs.ipynb, L2; cell classroom-007; fresh numerical check at rating fraction 0.75.\par
+\textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
+\textbf{[H02] Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
+\par\medskip
+\subsection*{27. Exercise 1: both still pass}
 \textbf{Timing:} 29:00--30:00 (1 minutes)\par
 \textbf{Slide content:} A smaller allowance makes the same current a larger percentage.
 At 0.75: MPC uses 78.53\%, SAC 54.85\%. Both pass this test.\par
@@ -325,7 +336,7 @@ At 0.75: MPC uses 78.53\%, SAC 54.85\%. Both pass this test.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H02] Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{27. L2: reset before continuing}
+\subsection*{28. L2: reset before continuing}
 \textbf{Timing:} 30:00--30:30 (0.5 minutes)\par
 \textbf{Slide content:} Restore LOAD\_SCALE=1.0 and RATING\_FRACTION=0.80. Rerun L2.
 L3-L5 use a separate saved case called test\_01.\par
@@ -338,7 +349,7 @@ RATING\_FRACTION = 0.80\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H02] Classroom Labs notebook. Classroom\_Labs.ipynb, L2; cell classroom-007; src/continuous\_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{28. New calculations and saved replies}
+\subsection*{29. New calculations and saved replies}
 \textbf{Timing:} 30:30--31:00 (0.5 minutes)\par
 \textbf{Slide content:} Python calculates new results. A saved Llama reply keeps its original inputs.
 Your changed lab input does not change the saved reply.\par
@@ -349,7 +360,7 @@ Your changed lab input does not change the saved reply.\par
 \textbf{[LR0] Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}src/\allowbreak{}llama\_\allowbreak{}walkthrough.\allowbreak{}py}\par
 \textbf{[OT01] Keith Stouffer, Michael Pease, CheeYee Tang, Timothy Zimmerman, Victoria Pillitteri, Suzanne Lightman, Adam Hahn, Stephanie Saravia, Aslam Sherule, Michael Thompson. Guide to Operational Technology (OT) Security. National Institute of Standards and Technology, NIST SP 800-82 Revision 3. September 2023 (final).:} \href{https://doi.org/10.6028/NIST.SP.800-82r3}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}doi.\allowbreak{}org/\allowbreak{}10.\allowbreak{}6028/\allowbreak{}NIST.\allowbreak{}SP.\allowbreak{}800-\allowbreak{}82r3}\par
 \par\medskip
-\subsection*{29. L3: inspect saved model choices}
+\subsection*{30. L3: inspect saved model choices}
 \textbf{Timing:} 31:00--32:00 (1 minutes)\par
 \textbf{Slide content:} Run L3. Read the case ID, chosen operations and recorded times.
 This cell displays old replies. It makes no new model call.\par
@@ -362,7 +373,7 @@ display(pd.DataF\allowbreak{}rame(pool['respo\allowbreak{}nses'])[['model\_\allo
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H03] Classroom Labs notebook. Classroom\_Labs.ipynb, L3; cell classroom-010; archived test\_01 context. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{30. Different words can request the same trial}
+\subsection*{31. Different words can request the same trial}
 \textbf{Timing:} 32:00--32:30 (0.5 minutes)\par
 \textbf{Slide content:} The notebook groups identical tool requests and settings.
 A vote chooses what to test next. It does not prove that limits pass.\par
@@ -373,7 +384,7 @@ A vote chooses what to test next. It does not prove that limits pass.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H03] Classroom Labs notebook. Classroom\_Labs.ipynb, L3; cell classroom-010; archived test\_01 context. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{31. L4: check the selected trial}
+\subsection*{32. L4: check the selected trial}
 \textbf{Timing:} 32:30--33:30 (1 minutes)\par
 \textbf{Slide content:} Run L4 after L3. Python checks the selected trial for its original case.
 Compare majority voting with the saved LinUCB selector, which learns which trial to test.\par
@@ -389,7 +400,7 @@ assert pool['frozen'] and pool['training\_updates'] == 24\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H04] Classroom Labs notebook. Classroom\_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{32. L4: read the new check}
+\subsection*{33. L4: read the new check}
 \textbf{Timing:} 33:30--34:00 (0.5 minutes)\par
 \textbf{Slide content:} Both selectors choose the same trial and pass the new MV check.
 new\_check\_passes is the electrical check. Predicted reward is a learned score.\par
@@ -400,7 +411,7 @@ new\_check\_passes is the electrical check. Predicted reward is a learned score.
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H04] Classroom Labs notebook. Classroom\_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{33. L5: check model coverage}
+\subsection*{34. L5: check model coverage}
 \textbf{Timing:} 34:00--35:30 (1.5 minutes)\par
 \textbf{Slide content:} Leave RUN\_OPENDSS=False. Run L5 and read the table.
 The default checks the test\_01 MPC plan with the MV model.\par
@@ -415,7 +426,7 @@ display(scope\_audit['table'])\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H05] Classroom Labs notebook. Classroom\_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{34. A PASS has a scope}
+\subsection*{35. A PASS has a scope}
 \textbf{Timing:} 35:30--36:00 (0.5 minutes)\par
 \textbf{Slide content:} This result covers medium-voltage (MV) phases and currents.
 A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD.\par
@@ -426,7 +437,7 @@ A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD.\
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H05] Classroom Labs notebook. Classroom\_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{35. Saved voltage case: check SAC first}
+\subsection*{36. Saved voltage case: check SAC first}
 \textbf{Timing:} 36:00--37:00 (1 minutes)\par
 \textbf{Slide content:} Llama asks to check SAC. The tool finds a current-limit failure.\par
 \textbf{Teaching notes:} Read the exact reason. The model was offered VERIFY\_SAC\_FIRST or REVIEW. The application then checks the saved SAC action in OpenDSS. 111.966607\% refers to the allowed current, which was 80\% of nominal, so this exceeds the configured allowance. The numerical result records two current violations. This P3 full supplied MV/LV study is separate from L2 and L3 test\_01. Ask the audience to predict the next allowed step before advancing. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.\par
@@ -437,7 +448,7 @@ A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD.\
 \textbf{[LRV] Workshop recorded model replies and numerical study records. Voltage P3\_current\_reserve: Llama 3.1:8b planner, recovery and review calls 1--3. Public teaching archive. 27 September 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/continuous_llama_opendss_20260927T161223523552Z.json}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}results/\allowbreak{}continuous\_\allowbreak{}llama\_\allowbreak{}opendss\_\allowbreak{}20260927T161223523552Z.\allowbreak{}json}\par
 \textbf{[LR0] Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}src/\allowbreak{}llama\_\allowbreak{}walkthrough.\allowbreak{}py}\par
 \par\medskip
-\subsection*{36. Saved voltage case: try the MPC fallback}
+\subsection*{37. Saved voltage case: try the MPC fallback}
 \textbf{Timing:} 37:00--38:00 (1 minutes)\par
 \textbf{Slide content:} Llama requests the existing MPC plan. The electrical tool checks it.\par
 \textbf{Teaching notes:} The model selects USE\_MPC\_PLAN from two allowed choices, the other being REVIEW. It does not invent or solve MPC. The recorded context already supplies a plan and its eligibility. The application performs a fresh numerical check at that historical time. The result is just below the allowed current threshold. No operating permission follows from this check alone. Ask which evidence, rather than wording, makes the fallback eligible for review. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.\par
@@ -448,7 +459,7 @@ A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD.\
 \textbf{[LRV] Workshop recorded model replies and numerical study records. Voltage P3\_current\_reserve: Llama 3.1:8b planner, recovery and review calls 1--3. Public teaching archive. 27 September 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/continuous_llama_opendss_20260927T161223523552Z.json}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}results/\allowbreak{}continuous\_\allowbreak{}llama\_\allowbreak{}opendss\_\allowbreak{}20260927T161223523552Z.\allowbreak{}json}\par
 \textbf{[LR0] Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}src/\allowbreak{}llama\_\allowbreak{}walkthrough.\allowbreak{}py}\par
 \par\medskip
-\subsection*{37. Saved voltage case: return for review}
+\subsection*{38. Saved voltage case: return for review}
 \textbf{Timing:} 38:00--39:00 (1 minutes)\par
 \textbf{Slide content:} The checks pass. Human review is still pending. A fixed script gets the same final result.\par
 \textbf{Teaching notes:} Read the exact REVIEW\_EVIDENCE choice and distinguish it from the overall status. The proposed controls are 2387.157 kW and +325.738 kvar. The supplied full MV/LV feeder check returned voltage 1.001783--1.035026 p.u. and zero listed violations. The fixed supervisor used the same SAC-to-MPC sequence with identical numerical output. Recorded workflow intervals were 0.346053 s fixed and 3.110454 s agentic, excluding precomputed MPC/SAC preparation. These are single recorded timings, not performance distributions or a measured reduction in operator workload. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: L2 makes new proposals; L3 shows old replies; L4--L5 run new checks on test\_01. Report the inputs, proposal, model coverage and result before naming the next step. Give pairs 30 seconds to describe the sequence without calling every step an AI decision. L2 calculates an MPC plan and a saved-policy proposal for the current classroom inputs. L3 displays old model replies. L4 runs new checks of the selected trials; L5 checks the original archived plan and its model coverage. Numerical tools provide the physical evidence. The old model choices select a permitted trial; they do not replace these checks. The operator receives an advisory record whose stated coverage must match the request. The three P3 previews are an additional separate archive. Contrast their saved Llama decisions with your current direct function calls.\par
@@ -459,7 +470,7 @@ A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD.\
 \textbf{[LRV] Workshop recorded model replies and numerical study records. Voltage P3\_current\_reserve: Llama 3.1:8b planner, recovery and review calls 1--3. Public teaching archive. 27 September 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/continuous_llama_opendss_20260927T161223523552Z.json}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}results/\allowbreak{}continuous\_\allowbreak{}llama\_\allowbreak{}opendss\_\allowbreak{}20260927T161223523552Z.\allowbreak{}json}\par
 \textbf{[LR0] Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}src/\allowbreak{}llama\_\allowbreak{}walkthrough.\allowbreak{}py}\par
 \par\medskip
-\subsection*{38. Case 2: restoring service}
+\subsection*{39. Case 2: restoring service}
 \textbf{Timing:} 39:00--39:30 (0.5 minutes)\par
 \textbf{Slide content:} Use the six-node teaching network with one faulted branch.
 Compare total service with service to critical loads.\par
@@ -470,7 +481,7 @@ Compare total service with service to critical loads.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H06] Classroom Labs notebook. Classroom\_Labs.ipynb, L6; cell classroom-018; src/standard\_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{39. Two service goals}
+\subsection*{40. Two service goals}
 \textbf{Timing:} 39:30--40:30 (1 minutes)\par
 \textbf{Slide content:} One goal gives extra weight to critical loads.
 The other restores the most total kW. Both use the same network rules.\par
@@ -481,7 +492,7 @@ The other restores the most total kW. Both use the same network rules.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H06] Classroom Labs notebook. Classroom\_Labs.ipynb, L6; cell classroom-018; src/standard\_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{40. L6: solve the restoration problem}
+\subsection*{41. L6: solve the restoration problem}
 \textbf{Timing:} 40:30--42:30 (2 minutes)\par
 \textbf{Slide content:} Run L6. MILP selects whole loads. A separate search checks its priority score.
 Read served\_kw, critical\_kw and MILP\_matches\_exhaustive\_check.\par
@@ -497,7 +508,7 @@ display(restorat\allowbreak{}ion['table'].dro\allowbreak{}p(columns='picku\allow
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H06] Classroom Labs notebook. Classroom\_Labs.ipynb, L6; cell classroom-018; src/standard\_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{41. L6: read both service plots}
+\subsection*{42. L6: read both service plots}
 \textbf{Timing:} 42:30--43:30 (1 minutes)\par
 \textbf{Slide content:} Left: total kW served. Right: critical kW served.
 Overlapping markers mean the two goals give the same result.\par
@@ -508,7 +519,7 @@ Overlapping markers mean the two goals give the same result.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H06] Classroom Labs notebook. Classroom\_Labs.ipynb, L6; cell classroom-018; src/standard\_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{42. L6: the tradeoff at 40 kW}
+\subsection*{43. L6: the tradeoff at 40 kW}
 \textbf{Timing:} 43:30--44:30 (1 minutes)\par
 \textbf{Slide content:} Priority goal: 130 kW total, including 90 kW critical.
 Most-total-kW goal: 140 kW total, including 30 kW critical.\par
@@ -519,7 +530,7 @@ Most-total-kW goal: 140 kW total, including 30 kW critical.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H06] Classroom Labs notebook. Classroom\_Labs.ipynb, L6; cell classroom-018; src/standard\_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{43. Restoration checks}
+\subsection*{44. Restoration checks}
 \textbf{Timing:} 44:30--45:00 (0.5 minutes)\par
 \textbf{Slide content:} Check source paths, branch capacity, power balance and the fault.
 A separate search checks the priority score.\par
@@ -532,17 +543,28 @@ A separate search checks the priority score.\par
 \textbf{[RSTL01] Ying Wang, Yin Xu, Jiaxu Li, Jinghan He, Xiaojun Wang. On the Radiality Constraints for Distribution System Restoration and Reconfiguration Problems. Author preprint, arXiv:1912.05185v3. 15 March2020(v3); first submitted11 December2019.:} \href{https://arxiv.org/abs/1912.05185v3}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}arxiv.\allowbreak{}org/\allowbreak{}abs/\allowbreak{}1912.\allowbreak{}05185v3}\par
 \textbf{[RSTL02] Bo Chen, Chen Chen, Jianhui Wang, Karen L. Butler-Purry. Sequential Service Restoration for Unbalanced Distribution Systems and Microgrids. IEEE Transactions on Power Systems33(2),1507--1520. March2018.:} \href{https://doi.org/10.1109/TPWRS.2017.2720122}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}doi.\allowbreak{}org/\allowbreak{}10.\allowbreak{}1109/\allowbreak{}TPWRS.\allowbreak{}2017.\allowbreak{}2720122}\par
 \par\medskip
-\subsection*{44. Exercise 2: increase tie capacity}
-\textbf{Timing:} 45:00--49:00 (4 minutes)\par
+\subsection*{45. Exercise 2: increase tie capacity}
+\textbf{Timing:} 45:00--48:00 (3 minutes)\par
 \textbf{Slide content:} Add 180. to CAPACITIES\_KW. Keep 40. first. Predict, then rerun L6.
 Compare total and critical kW at 40 and 180 kW.
 At which capacity do the two goals give the same result?\par
-\textbf{Teaching notes:} Allow one minute to predict, two minutes to edit and run, and one minute to report. At 180 kW, both methods serve 250 kW total and 90 kW critical demand. Keep 40 kW first in the list because L7 binds the first result to the first capacity. Do not reorder the list for this exercise.\par
+\textbf{Teaching notes:} Three minutes to predict, edit and run; debrief on the following one-minute answer slide. Allow one minute to predict, two minutes to edit and run, and one minute to report. At 180 kW, both methods serve 250 kW total and 90 kW critical demand. Keep 40 kW first in the list because L7 binds the first result to the first capacity. Do not reorder the list for this exercise.\par
 \textbf{Notebook / source locator:} Classroom\_Labs.ipynb, L6; cell classroom-018; src/standard\_formulations.py.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H06] Classroom Labs notebook. Classroom\_Labs.ipynb, L6; cell classroom-018; src/standard\_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{45. Exercise 2: enough capacity removes this tradeoff}
+\subsection*{46. Exercise 2 answer: capacity changes the trade-off}
+\textbf{Timing:} 48:00--49:00 (1 minutes)\par
+\textbf{Slide content:} At 40 kW, priorities give more critical service: 90 kW instead of 30 kW, with less total service.
+The goals match from 80 kW in the tested list. At 180 kW, both serve 250 kW total, including 90 kW critical.\par
+\textbf{Teaching notes:} At 40 kW tie capacity, priority-weighted MILP serves 130 kW total and 90 kW critical. The unweighted maximum-kW policy serves 140 kW total and 30 kW critical. In the sampled list, outcomes first match at 80 kW; they also match at 100, 120 and 180 kW. At 180 kW, both serve 250 total and 90 critical kW. Do not infer the exact continuous crossover from this discrete sweep. Keep 40 first, restore the original list and rerun L6 before L7.\par
+\textbf{Figure scope:} Fresh L6 results at two tested capacities. Cyan is critical demand; blue is other served demand.\par
+\textbf{Editable figure:} diagrams/exercise\_restoration\_solution.tex\par
+\textbf{Notebook / source locator:} Classroom\_Labs.ipynb, L6; cell classroom-018; fresh MILP and exhaustive-check sweep.\par
+\textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
+\textbf{[H06] Classroom Labs notebook. Classroom\_Labs.ipynb, L6; cell classroom-018; src/standard\_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
+\par\medskip
+\subsection*{47. Exercise 2: enough capacity removes this tradeoff}
 \textbf{Timing:} 49:00--50:00 (1 minutes)\par
 \textbf{Slide content:} At 180 kW, both goals serve 250 kW total and 90 kW critical.
 The priority goal helps at some limits. It does not improve every case.\par
@@ -551,7 +573,7 @@ The priority goal helps at some limits. It does not improve every case.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H06] Classroom Labs notebook. Classroom\_Labs.ipynb, L6; cell classroom-018; src/standard\_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{46. L7: test an old result after a change}
+\subsection*{48. L7: test an old result after a change}
 \textbf{Timing:} 50:00--51:30 (1.5 minutes)\par
 \textbf{Slide content:} Restore the original capacity list and rerun L6.
 Run L7. It changes the first request from 40 kW to 20 kW.\par
@@ -565,7 +587,7 @@ rest\_request = \{'task': 'restoration', 'capacity\_kw': CAPACITIES\_KW[0],
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H07] Classroom Labs notebook. Classroom\_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{47. L7: the old evidence no longer matches}
+\subsection*{49. L7: the old evidence no longer matches}
 \textbf{Timing:} 51:30--52:00 (0.5 minutes)\par
 \textbf{Slide content:} Original request: True. Changed request: False.
 HOLD the old recommendation and request a new solve.\par
@@ -576,7 +598,7 @@ HOLD the old recommendation and request a new solve.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H07] Classroom Labs notebook. Classroom\_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{48. New inputs need new evidence}
+\subsection*{50. New inputs need new evidence}
 \textbf{Timing:} 52:00--52:30 (0.5 minutes)\par
 \textbf{Slide content:} An outdated check does not tell us whether the new plan works.
 Solve again, check again and attach the new result to the new request.\par
@@ -587,7 +609,7 @@ Solve again, check again and attach the new result to the new request.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H07] Classroom Labs notebook. Classroom\_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{49. The agent keeps the service goal}
+\subsection*{51. The agent keeps the service goal}
 \textbf{Timing:} 52:30--53:00 (0.5 minutes)\par
 \textbf{Slide content:} L6 runs Python directly. The operator sets priorities; MILP selects loads.
 An agent could request the solve and explain its returned tradeoff.\par
@@ -598,7 +620,7 @@ An agent could request the solve and explain its returned tradeoff.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H06] Classroom Labs notebook. Classroom\_Labs.ipynb, L6; cell classroom-018; src/standard\_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{50. Restoration model limits}
+\subsection*{52. Restoration model limits}
 \textbf{Timing:} 53:00--53:30 (0.5 minutes)\par
 \textbf{Slide content:} This graph checks active power, not AC voltage or protection.
 Selected branches do not specify the order of field switching.\par
@@ -607,7 +629,7 @@ Selected branches do not specify the order of field switching.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H06] Classroom Labs notebook. Classroom\_Labs.ipynb, L6; cell classroom-018; src/standard\_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{51. Saved restoration case: try another plan}
+\subsection*{53. Saved restoration case: try another plan}
 \textbf{Timing:} 53:30--54:30 (1 minutes)\par
 \textbf{Slide content:} Llama requests a trial that restores more load and passes the current check.\par
 \textbf{Teaching notes:} Switch L10B to restoration. This is the separate L10 feeder-catalog restoration study, not the L6 six-node MILP. The recorded protocol requires a first refinement but Llama chooses between the offered fractions. SHED\_075 disconnects 75\% of the ordered noncritical load objects, not 75\% of load kW. The exact reason calls improvement a possibility. Python evaluates the trial and finds improved service while the tie loading remains 91.867215\% of its allowance. A useful hypothesis becomes evidence only after that check. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.\par
@@ -618,7 +640,7 @@ Selected branches do not specify the order of field switching.\par
 \textbf{[LRR] Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14--16. Public teaching archive. 27 September 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/proposal_run_20260927T184402Z_53e0cf/llama_calls.json}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}results/\allowbreak{}proposal\_\allowbreak{}run\_\allowbreak{}20260927T184402Z\_\allowbreak{}53e0cf/\allowbreak{}llama\_\allowbreak{}calls.\allowbreak{}json}\par
 \textbf{[LR0] Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}src/\allowbreak{}llama\_\allowbreak{}walkthrough.\allowbreak{}py}\par
 \par\medskip
-\subsection*{52. Saved restoration case: reject a failed trial}
+\subsection*{54. Saved restoration case: reject a failed trial}
 \textbf{Timing:} 54:30--55:00 (0.5 minutes)\par
 \textbf{Slide content:} The next trial exceeds the current limit. Keep the previous passing plan.\par
 \textbf{Teaching notes:} Keep the actual returned reason visible. It refers to a target in the objective, but its claim should not be accepted as a proved fact. In this record the next trial is numerically rejected for a thermal failure. Restoring more load does not make a failed current check acceptable. Ask participants to explain why the previous passed candidate must remain in the case record. The model's trial budget is bounded. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.\par
@@ -629,7 +651,7 @@ Selected branches do not specify the order of field switching.\par
 \textbf{[LRR] Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14--16. Public teaching archive. 27 September 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/proposal_run_20260927T184402Z_53e0cf/llama_calls.json}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}results/\allowbreak{}proposal\_\allowbreak{}run\_\allowbreak{}20260927T184402Z\_\allowbreak{}53e0cf/\allowbreak{}llama\_\allowbreak{}calls.\allowbreak{}json}\par
 \textbf{[LR0] Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}src/\allowbreak{}llama\_\allowbreak{}walkthrough.\allowbreak{}py}\par
 \par\medskip
-\subsection*{53. Saved restoration case: correct the ranking}
+\subsection*{55. Saved restoration case: correct the ranking}
 \textbf{Timing:} 55:00--56:00 (1 minutes)\par
 \textbf{Slide content:} Python corrects the ranking and rechecks the lowest-cost passing plan.\par
 \textbf{Teaching notes:} Let pairs answer before discussing the result. Smaller cost is better, so E03 must rank before E02. Llama returns [E02,E03] while its explanation claims lowest score first. The recorded language\_order\_agrees\_with\_cost field is False. A deterministic guard retains E03 and rechecks it as E05, with no recorded failures. Human acknowledgment and dispatch remain False. The paired fixed workflow reaches the same final action and cost. This example motivates verification rather than an unsupported superiority claim. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: At 40 kW, explain 130 total / 90 critical versus 140 total / 30 critical, all in kW. For a changed request, keep HOLD until evidence for the current request is available. Ask each pair to give one number and one condition. They should distinguish three decisions: selecting a service policy, checking current evidence and authorizing a physical switching operation. Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source.\par
@@ -640,7 +662,7 @@ Selected branches do not specify the order of field switching.\par
 \textbf{[LRR] Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14--16. Public teaching archive. 27 September 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/proposal_run_20260927T184402Z_53e0cf/llama_calls.json}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}results/\allowbreak{}proposal\_\allowbreak{}run\_\allowbreak{}20260927T184402Z\_\allowbreak{}53e0cf/\allowbreak{}llama\_\allowbreak{}calls.\allowbreak{}json}\par
 \textbf{[LR0] Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}src/\allowbreak{}llama\_\allowbreak{}walkthrough.\allowbreak{}py}\par
 \par\medskip
-\subsection*{54. Case 3: suspicious readings}
+\subsection*{56. Case 3: suspicious readings}
 \textbf{Timing:} 56:00--56:30 (0.5 minutes)\par
 \textbf{Slide content:} Use the separate four-bus DC teaching model.
 Compare the fit to readings with error against known simulation truth.\par
@@ -651,7 +673,7 @@ Compare the fit to readings with error against known simulation truth.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H08] Classroom Labs notebook. Classroom\_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{55. What the residual measures}
+\subsection*{57. What the residual measures}
 \textbf{Timing:} 56:30--57:30 (1 minutes)\par
 \textbf{Slide content:} Weighted least squares (WLS) fits the readings. Residual J measures the mismatch.
 The true state is known in this simulation, not in a live control room.\par
@@ -663,7 +685,7 @@ The true state is known in this simulation, not in a live control room.\par
 \textbf{[H08] Classroom Labs notebook. Classroom\_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[CY01] Fred C. Schweppe, J. Wildes. Power System Static-State Estimation, Part I: Exact Model. IEEE Transactions on Power Apparatus and Systems, PAS-89(1), pp. 120--125. January 1970.:} \href{https://doi.org/10.1109/TPAS.1970.292678}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}doi.\allowbreak{}org/\allowbreak{}10.\allowbreak{}1109/\allowbreak{}TPAS.\allowbreak{}1970.\allowbreak{}292678}\par
 \par\medskip
-\subsection*{56. L8: run two data attacks}
+\subsection*{58. L8: run two data attacks}
 \textbf{Timing:} 57:30--59:30 (2 minutes)\par
 \textbf{Slide content:} Run L8 with the default scales.
 Compare one biased reading with a coordinated change across readings.\par
@@ -679,7 +701,7 @@ display(cyber['table'])\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H08] Classroom Labs notebook. Classroom\_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{57. L8: read both cyber plots}
+\subsection*{59. L8: read both cyber plots}
 \textbf{Timing:} 59:30--60:30 (1 minutes)\par
 \textbf{Slide content:} Left: mismatch J and the alarm threshold. Right: error against simulation truth.
 A quiet alarm can appear alongside a growing state error.\par
@@ -690,7 +712,7 @@ A quiet alarm can appear alongside a growing state error.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H08] Classroom Labs notebook. Classroom\_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{58. L8: a coordinated attack escapes the alarm}
+\subsection*{60. L8: a coordinated attack escapes the alarm}
 \textbf{Timing:} 60:30--61:30 (1 minutes)\par
 \textbf{Slide content:} At scale 1, one biased reading gives J=277.50 and an alarm.
 The coordinated attack gives J=3.92, no alarm, and 0.02678 rad of state error.\par
@@ -702,17 +724,28 @@ The coordinated attack gives J=3.92, no alarm, and 0.02678 rad of state error.\p
 \textbf{[H08] Classroom Labs notebook. Classroom\_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[CY02] Yao Liu, Peng Ning, Michael K. Reiter. False Data Injection Attacks against State Estimation in Electric Power Grids. ACM Transactions on Information and System Security, 14(1), Article 13, 33 pages. May 2011.:} \href{https://doi.org/10.1145/1952982.1952995}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}doi.\allowbreak{}org/\allowbreak{}10.\allowbreak{}1145/\allowbreak{}1952982.\allowbreak{}1952995}\par
 \par\medskip
-\subsection*{59. Exercise 3: test a small bias}
-\textbf{Timing:} 61:30--65:30 (4 minutes)\par
+\subsection*{61. Exercise 3: test a small bias}
+\textbf{Timing:} 61:30--64:30 (3 minutes)\par
 \textbf{Slide content:} Add .10 to ATTACK\_SCALES. Predict, then rerun L8.
 At scale 0.10, compare J, the alarm flag and state error.
 Does no alarm mean the data are correct?\par
-\textbf{Teaching notes:} Allow one minute to predict, two minutes to edit and run, and one minute to report. For isolated bias at scale 0.10, J is about 10.143237, below the 15.086272 threshold. The alarm is False despite nonzero state error. The coordinated residual stays about 3.920222. This added scale remains within the notebook's plot limits.\par
+\textbf{Teaching notes:} Three minutes to predict, edit and run; debrief on the following one-minute answer slide. Allow one minute to predict, two minutes to edit and run, and one minute to report. For isolated bias at scale 0.10, J is about 10.143237, below the 15.086272 threshold. The alarm is False despite nonzero state error. The coordinated residual stays about 3.920222. This added scale remains within the notebook's plot limits.\par
 \textbf{Notebook / source locator:} Classroom\_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H08] Classroom Labs notebook. Classroom\_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{60. Exercise 3: a small bias can miss the threshold}
+\subsection*{62. Exercise 3 answer: no alarm can hide an error}
+\textbf{Timing:} 64:30--65:30 (1 minutes)\par
+\textbf{Slide content:} At scale 0.10, both alarms are False. Both state estimates still have error; the coordinated shift has the larger error here.
+No alarm means J is below this threshold. It does not prove correct data or trusted sensors.\par
+\textbf{Teaching notes:} At scale 0.10, isolated bias gives residual J=10.143237 and state error 0.0008057145 rad. Coordinated Hc gives J=3.920222 and state error 0.0025529499 rad. Both are below the 15.086272 alarm threshold, so both alarm flags are False. This J is a residual statistic, unlike the voltage-control objective J. State error is available here because simulation truth is known. Restore the original ATTACK\_SCALES and rerun L8 before the separate fixed L9 recovery case.\par
+\textbf{Figure scope:} Fresh L8 results. The state error uses known simulation truth and is not an online truth measurement.\par
+\textbf{Editable figure:} diagrams/exercise\_cyber\_solution.tex\par
+\textbf{Notebook / source locator:} Classroom\_Labs.ipynb, L8; cell classroom-023; fresh four-bus DC residual check at scale 0.10.\par
+\textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
+\textbf{[H08] Classroom Labs notebook. Classroom\_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
+\par\medskip
+\subsection*{63. Exercise 3: a small bias can miss the threshold}
 \textbf{Timing:} 65:30--66:30 (1 minutes)\par
 \textbf{Slide content:} At scale 0.10, J is about 10.14, below the 15.09 alarm threshold.
 A quiet alarm alone cannot prove that readings are true.\par
@@ -721,7 +754,7 @@ A quiet alarm alone cannot prove that readings are true.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H08] Classroom Labs notebook. Classroom\_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{61. L8: reset before recovery}
+\subsection*{64. L8: reset before recovery}
 \textbf{Timing:} 66:30--67:00 (0.5 minutes)\par
 \textbf{Slide content:} Restore the original attack scales and rerun L8.
 L9 uses a separate fixed recovery case.\par
@@ -735,7 +768,7 @@ cyber = lab.cyber\_sweep(ATTACK\_SCALES)\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H08] Classroom Labs notebook. Classroom\_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{62. L9: one fixed recovery case}
+\subsection*{65. L9: one fixed recovery case}
 \textbf{Timing:} 67:00--67:30 (0.5 minutes)\par
 \textbf{Slide content:} Compare the same case with and without readings assumed to be trusted.
 Your L8 scale change does not change this case.\par
@@ -744,7 +777,7 @@ Your L8 scale change does not change this case.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H09] Classroom Labs notebook. Classroom\_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{63. Data trust is an assumption}
+\subsection*{66. Data trust is an assumption}
 \textbf{Timing:} 67:30--68:00 (0.5 minutes)\par
 \textbf{Slide content:} This example assumes three extra angle readings are trustworthy.
 Neither WLS nor Llama authenticates them.\par
@@ -755,7 +788,7 @@ Neither WLS nor Llama authenticates them.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H09] Classroom Labs notebook. Classroom\_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{64. L9: HOLD or PROPOSE}
+\subsection*{67. L9: HOLD or PROPOSE}
 \textbf{Timing:} 68:00--69:30 (1.5 minutes)\par
 \textbf{Slide content:} Run all of L9. Read status first.
 Then read the proposed injection and the offline violation count.\par
@@ -768,7 +801,7 @@ with\_trust = lab.trusted\_response(cyber, protected\_available=True)\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H09] Classroom Labs notebook. Classroom\_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{65. L9: two outcomes}
+\subsection*{68. L9: two outcomes}
 \textbf{Timing:} 69:30--70:30 (1 minutes)\par
 \textbf{Slide content:} Without trusted replacement readings: HOLD.
 With assumed trusted readings: PROPOSE, u about 0.121694 p.u., zero offline model violations.\par
@@ -779,7 +812,7 @@ With assumed trusted readings: PROPOSE, u about 0.121694 p.u., zero offline mode
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H09] Classroom Labs notebook. Classroom\_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{66. L9: check the correction}
+\subsection*{69. L9: check the correction}
 \textbf{Timing:} 70:30--71:00 (0.5 minutes)\par
 \textbf{Slide content:} A quadratic-program (QP) solver finds the smallest allowed injection that meets the branch limits.
 One flow: predicted 0.17000 p.u., offline actual 0.17046 p.u., limit 0.18000 p.u.\par
@@ -790,7 +823,7 @@ One flow: predicted 0.17000 p.u., offline actual 0.17046 p.u., limit 0.18000 p.u
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H09] Classroom Labs notebook. Classroom\_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{67. A proposal depends on its assumptions}
+\subsection*{70. A proposal depends on its assumptions}
 \textbf{Timing:} 71:00--71:30 (0.5 minutes)\par
 \textbf{Slide content:} Assumed trusted data support the estimate. The solver calculates a correction.
 The operator still reviews data trust, model coverage and missing checks.\par
@@ -801,7 +834,7 @@ The operator still reviews data trust, model coverage and missing checks.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H09] Classroom Labs notebook. Classroom\_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{68. Saved cyber case: request the allowed tool}
+\subsection*{71. Saved cyber case: request the allowed tool}
 \textbf{Timing:} 71:30--72:00 (0.5 minutes)\par
 \textbf{Slide content:} Llama selects the supplied recovery tool. Python calculates the correction.\par
 \textbf{Teaching notes:} Switch L10B to cyber. This standard four-bus DC record is separate from L10's proposal-complete cyber record, and matches the Agent Trace notebook T6 archive. The route is narrow: the prompt already authorizes the tool and supplies the trusted-sensor assumption. The three angle readings give full rank but zero residual redundancy, so a good fit is not an independent trust test. u is the flexible injection correction in per unit. Offline synthetic-truth flow is available to the experimenter, not guaranteed available to a real operator. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.\par
@@ -812,7 +845,7 @@ The operator still reviews data trust, model coverage and missing checks.\par
 \textbf{[LRC] Workshop recorded model replies and numerical study records. Standard four-bus cyber study: Llama 3.1:8b tool selection and REVIEW calls 7--8. Public teaching archive. 21 September 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/standard_stage_20260921T143826Z_42d19a61/llama_calls.json}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}results/\allowbreak{}standard\_\allowbreak{}stage\_\allowbreak{}20260921T143826Z\_\allowbreak{}42d19a61/\allowbreak{}llama\_\allowbreak{}calls.\allowbreak{}json}\par
 \textbf{[LR0] Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}src/\allowbreak{}llama\_\allowbreak{}walkthrough.\allowbreak{}py}\par
 \par\medskip
-\subsection*{69. Saved cyber case: keep human review}
+\subsection*{72. Saved cyber case: keep human review}
 \textbf{Timing:} 72:00--73:00 (1 minutes)\par
 \textbf{Slide content:} The model check passes. The operator must still review trust and missing checks.\par
 \textbf{Teaching notes:} Read the actual reply, including the REVIEW choice. Numerical verification is PASS, but the overall result remains REVIEW and human acknowledgment is PENDING. The fixed comparator obtains the same numerical state estimate and correction without Llama. This replay demonstrates permitted tool routing and a report decision. It does not demonstrate better estimation, authenticated measurements, AC network security or operating authority. Run L11 with the default False setting, then proceed to L12. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2--L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: Report the trust assumption, model, proposed u and the checks that passed or failed. Without independent trusted information, keep HOLD and name what is missing. Ask pairs to state the outcome and its condition in the same sentence. For example: 'The fixture proposes u when the supplied trusted channels are available.' Do not say: 'The AI proved that the telemetry is safe.' Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source.\par
@@ -823,7 +856,7 @@ The operator still reviews data trust, model coverage and missing checks.\par
 \textbf{[LRC] Workshop recorded model replies and numerical study records. Standard four-bus cyber study: Llama 3.1:8b tool selection and REVIEW calls 7--8. Public teaching archive. 21 September 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/standard_stage_20260921T143826Z_42d19a61/llama_calls.json}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}results/\allowbreak{}standard\_\allowbreak{}stage\_\allowbreak{}20260921T143826Z\_\allowbreak{}42d19a61/\allowbreak{}llama\_\allowbreak{}calls.\allowbreak{}json}\par
 \textbf{[LR0] Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}src/\allowbreak{}llama\_\allowbreak{}walkthrough.\allowbreak{}py}\par
 \par\medskip
-\subsection*{70. L10: inspect the five-role workflow}
+\subsection*{73. L10: inspect the five-role workflow}
 \textbf{Timing:} 73:00--74:30 (1.5 minutes)\par
 \textbf{Slide content:} Run L10 to see every recorded stage and result.
 The stages share case facts, proposals and check results. The next slides explain their jobs.\par
@@ -832,7 +865,7 @@ The stages share case facts, proposals and check results. The next slides explai
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H10] Classroom Labs notebook. Classroom\_Labs.ipynb, L10--L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{71. L10B: replay the three Llama examples}
+\subsection*{74. L10B: replay the three Llama examples}
 \textbf{Timing:} 74:30--79:00 (4.5 minutes)\par
 \textbf{Slide content:} Set SCENARIO to voltage, restoration and cyber. Rerun for each.
 These are saved replies and tool results. No new Llama call runs here.\par
@@ -849,7 +882,7 @@ display(HTML(ren\allowbreak{}der\_episode\_html\allowbreak{}(replay\_episodes\al
 \textbf{[LR0] Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama\_walkthrough.py. Public reproducible teaching material. 24 October 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}src/\allowbreak{}llama\_\allowbreak{}walkthrough.\allowbreak{}py}\par
 \textbf{[OLL1] Ollama documentation maintainers. Structured Outputs: generating structured JSON with a schema. Official Ollama documentation. Reviewed 24 October 2026.:} \href{https://docs.ollama.com/capabilities/structured-outputs}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}docs.\allowbreak{}ollama.\allowbreak{}com/\allowbreak{}capabilities/\allowbreak{}structured-\allowbreak{}outputs}\par
 \par\medskip
-\subsection*{72. L12: practice operator readback}
+\subsection*{75. L12: practice operator readback}
 \textbf{Timing:} 79:00--81:00 (2 minutes)\par
 \textbf{Slide content:} Leave L11 disabled, then run L12.
 Check the wrong ID, the matching ID and equipment\_dispatch=False.\par
@@ -862,7 +895,7 @@ readback = lab.acknowledge(mv\_scope, mv\_scope['recommendation\_id'], 'Student 
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H12] Classroom Labs notebook. Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{73. L12: approval must match the checked scope}
+\subsection*{76. L12: approval must match the checked scope}
 \textbf{Timing:} 81:00--82:00 (1 minutes)\par
 \textbf{Slide content:} Full MV/LV request: HOLD. The MV teaching request allows a simulated readback.
 A wrong ID fails. This exercise never sends equipment commands.\par
@@ -873,7 +906,7 @@ A wrong ID fails. This exercise never sends equipment commands.\par
 \textbf{Open the notebook:} \href{https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}colab.\allowbreak{}research.\allowbreak{}google.\allowbreak{}com/\allowbreak{}github/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[H12] Classroom Labs notebook. Classroom\_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{74. Our multi-agent design: five roles}
+\subsection*{77. Our multi-agent design: five roles}
 \textbf{Timing:} 82:00--83:30 (1.5 minutes)\par
 \textbf{Slide content:} The roles pass structured results to each other. Llama handles planning and refinement; Python runs the other stages.\par
 \textbf{Teaching notes:} This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal\_workflow.py defines CORE\_STAGES, run\_proposal\_case, evaluate and the ranking guard. A final independent recheck precedes MODEL\_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry.\par
@@ -884,7 +917,7 @@ A wrong ID fails. This exercise never sends equipment commands.\par
 \textbf{[H10] Classroom Labs notebook. Classroom\_Labs.ipynb, L10--L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[DEF03] Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.:} \href{https://www.anthropic.com/research/building-effective-agents}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}www.\allowbreak{}anthropic.\allowbreak{}com/\allowbreak{}research/\allowbreak{}building-\allowbreak{}effective-\allowbreak{}agents}\par
 \par\medskip
-\subsection*{75. Five roles in the voltage case}
+\subsection*{78. Five roles in the voltage case}
 \textbf{Timing:} 83:30--84:30 (1 minutes)\par
 \textbf{Slide content:} Llama asks for less reactive power, then more solar output. Python checks each new trial.\par
 \textbf{Teaching notes:} This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal\_workflow.py defines CORE\_STAGES, run\_proposal\_case, evaluate and the ranking guard. A final independent recheck precedes MODEL\_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. In this L10 lindistflow3 record, the optimizer asks for RELAX\_Q\_10\_PERCENT then INCREASE\_PV\_0025. Python recalculates each proposal and the verification stage checks it. The selected final recheck uses a=0.3394386941 and b=0.0276310594, with 50.75344954 percent allowed-current use and no recorded violations. The scope is MV phases only with ideal LV aggregation. Do not substitute the P3 99.604410 percent result or L2 MPC score. These are different experiments.\par
@@ -894,7 +927,7 @@ A wrong ID fails. This exercise never sends equipment commands.\par
 \textbf{[WF01] Alaa Selim and Mohamed Chehada. Five-role operator study workflow: implementation and recorded cases. GridGuard Agentic AI Tutorials, reproducible Python source and saved study archive. 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}src/\allowbreak{}proposal\_\allowbreak{}workflow.\allowbreak{}py}\par
 \textbf{[H10] Classroom Labs notebook. Classroom\_Labs.ipynb, L10--L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{76. Five roles in the restoration case}
+\subsection*{79. Five roles in the restoration case}
 \textbf{Timing:} 84:30--85:30 (1 minutes)\par
 \textbf{Slide content:} The goal stays fixed. A failed trial cannot enter the final ranking, and Python corrects a wrong cost order.\par
 \textbf{Teaching notes:} This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal\_workflow.py defines CORE\_STAGES, run\_proposal\_case, evaluate and the ranking guard. A final independent recheck precedes MODEL\_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. The L10 lindistflow3 restoration record uses a feeder bypass catalog. SHED\_075 returns 1843.61355 kW served and 474.03975 critical kW at 91.86721465 percent allowed-current use. SHED\_065 then fails at 111.009413 percent. Llama ranks E02 before E03 even though E03 has the smaller cost. The numerical guard selects E03, then records the final recheck as E05. Switching sequence and broader physical operation are not established.\par
@@ -905,7 +938,7 @@ A wrong ID fails. This exercise never sends equipment commands.\par
 \textbf{[H10] Classroom Labs notebook. Classroom\_Labs.ipynb, L10--L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[LRR] Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14--16. Public teaching archive. 27 September 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/proposal_run_20260927T184402Z_53e0cf/llama_calls.json}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}results/\allowbreak{}proposal\_\allowbreak{}run\_\allowbreak{}20260927T184402Z\_\allowbreak{}53e0cf/\allowbreak{}llama\_\allowbreak{}calls.\allowbreak{}json}\par
 \par\medskip
-\subsection*{77. Five roles in the cyber case}
+\subsection*{80. Five roles in the cyber case}
 \textbf{Timing:} 85:30--86:30 (1 minutes)\par
 \textbf{Slide content:} The workflow keeps the trust assumption visible. It cannot create trusted data from a convincing answer.\par
 \textbf{Teaching notes:} This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal\_workflow.py defines CORE\_STAGES, run\_proposal\_case, evaluate and the ranking guard. A final independent recheck precedes MODEL\_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. Awareness preserves the declared measurement-trust condition. Planning requests the initial candidates; Python runs the estimator and constrained-response tools. The optimizer requests EXTRA\_MARGIN\_001 and TRUSTED\_QP. The selected final recheck uses TRUSTED\_QP with u=0.1216936673 per unit and predicted flow12=0.17 per unit against a 0.18 limit. The model checks a four-bus DC fixture with three protected angles assumed trustworthy. No stage authenticates those channels, and offline truth is not fed to Llama.\par
@@ -915,7 +948,7 @@ A wrong ID fails. This exercise never sends equipment commands.\par
 \textbf{[WF01] Alaa Selim and Mohamed Chehada. Five-role operator study workflow: implementation and recorded cases. GridGuard Agentic AI Tutorials, reproducible Python source and saved study archive. 2026.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}src/\allowbreak{}proposal\_\allowbreak{}workflow.\allowbreak{}py}\par
 \textbf{[H10] Classroom Labs notebook. Classroom\_Labs.ipynb, L10--L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \par\medskip
-\subsection*{78. The operator reviews one evidence packet}
+\subsection*{81. The operator reviews one evidence packet}
 \textbf{Timing:} 86:30--87:30 (1 minutes)\par
 \textbf{Slide content:} Review the inputs, proposal, worst margins and missing checks.
 Request another study, reject the proposal or accept it for the next authorized step.\par
@@ -927,7 +960,7 @@ Request another study, reject the proposal or accept it for the next authorized 
 \textbf{[OT01] Keith Stouffer, Michael Pease, CheeYee Tang, Timothy Zimmerman, Victoria Pillitteri, Suzanne Lightman, Adam Hahn, Stephanie Saravia, Aslam Sherule, Michael Thompson. Guide to Operational Technology (OT) Security. National Institute of Standards and Technology, NIST SP 800-82 Revision 3. September 2023 (final).:} \href{https://doi.org/10.6028/NIST.SP.800-82r3}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}doi.\allowbreak{}org/\allowbreak{}10.\allowbreak{}6028/\allowbreak{}NIST.\allowbreak{}SP.\allowbreak{}800-\allowbreak{}82r3}\par
 \textbf{[EVAL01] National Institute of Standards and Technology. Artificial Intelligence Risk Management Framework (AI RMF 1.0). NIST AI 100-1. 26 January 2023.:} \href{https://doi.org/10.6028/NIST.AI.100-1}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}doi.\allowbreak{}org/\allowbreak{}10.\allowbreak{}6028/\allowbreak{}NIST.\allowbreak{}AI.\allowbreak{}100-\allowbreak{}1}\par
 \par\medskip
-\subsection*{79. What the evidence shows}
+\subsection*{82. What the evidence shows}
 \textbf{Timing:} 87:30--88:30 (1 minutes)\par
 \textbf{Slide content:} In L10, five paired final costs tied; one Llama route was worse.
 Start with past cases and read-only use. Measure benefit against the same tools in a fixed script.\par
@@ -939,7 +972,7 @@ Start with past cases and read-only use. Measure benefit against the same tools 
 \textbf{[H10] Classroom Labs notebook. Classroom\_Labs.ipynb, L10--L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.:} \href{https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}AlaaSelim-\allowbreak{}sudo/\allowbreak{}GridGuard-\allowbreak{}Agentic-\allowbreak{}AI-\allowbreak{}Tutorials/\allowbreak{}blob/\allowbreak{}main/\allowbreak{}agentic\_\allowbreak{}grid\_\allowbreak{}workflow\_\allowbreak{}tutorial/\allowbreak{}Classroom\_\allowbreak{}Labs.\allowbreak{}ipynb}\par
 \textbf{[EVAL01] National Institute of Standards and Technology. Artificial Intelligence Risk Management Framework (AI RMF 1.0). NIST AI 100-1. 26 January 2023.:} \href{https://doi.org/10.6028/NIST.AI.100-1}{\small\ttfamily https:/\allowbreak{}/\allowbreak{}doi.\allowbreak{}org/\allowbreak{}10.\allowbreak{}6028/\allowbreak{}NIST.\allowbreak{}AI.\allowbreak{}100-\allowbreak{}1}\par
 \par\medskip
-\subsection*{80. Questions and your next lab run}
+\subsection*{83. Questions and your next lab run}
 \textbf{Timing:} 88:30--90:00 (1.5 minutes)\par
 \textbf{Slide content:} Choose one case. Change one input, rerun and save the result.
 Explain the agent choice, tool result, check and operator decision.\par
@@ -1282,7 +1315,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: hands\_on\_L4\_checks.png}
 \textbf{Caption:} Saved choices, new checks of the original test\_01 case.\par
 \textbf{Credit:} Classroom Labs: actual executed notebook output, Python 3.12\par
-\textbf{Used on:} 32. L4: read the new check\par
+\textbf{Used on:} 33. L4: read the new check\par
 \textbf{Asset type:} Executed notebook plot or browser capture\par
 \textbf{Transformation:} Exact PNG output or documented HTML output selection; see research/hands\_on/hands\_on\_manifest.json.\par
 \textbf{Evidence limit:} Saved choices, new checks of the original test\_01 case.\par
@@ -1292,7 +1325,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: hands\_on\_L5\_scope.png}
 \textbf{Caption:} Default L5 checks MV only. OpenDSS is off.\par
 \textbf{Credit:} Classroom Labs: actual executed notebook output, Python 3.12\par
-\textbf{Used on:} 34. A PASS has a scope\par
+\textbf{Used on:} 35. A PASS has a scope\par
 \textbf{Asset type:} Executed notebook plot or browser capture\par
 \textbf{Transformation:} Exact PNG output or documented HTML output selection; see research/hands\_on/hands\_on\_manifest.json.\par
 \textbf{Evidence limit:} Default L5 checks MV only. OpenDSS is off.\par
@@ -1302,7 +1335,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: llama\_voltage\_1.png}
 \textbf{Caption:} Saved P3 case, separate from L2. Replay in L10B.\par
 \textbf{Credit:} Recorded Llama 3.1:8b replies and numerical study records; exact public reasons preserved\par
-\textbf{Used on:} 35. Saved voltage case: check SAC first\par
+\textbf{Used on:} 36. Saved voltage case: check SAC first\par
 \textbf{Asset type:} Browser-rendered selection of verified recorded fields\par
 \textbf{Transformation:} Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama\_replay/episodes.json.\par
 \textbf{Provenance note:} Raw JSON, parsed response and historical trace cross-checked by src/llama\_walkthrough.py. Selected fields are not a screenshot of a deployed product. capture\_manifest.json records source and image SHA-256 values.\par
@@ -1313,7 +1346,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: llama\_voltage\_2.png}
 \textbf{Caption:} Saved P3 case, separate from L2. Replay in L10B.\par
 \textbf{Credit:} Recorded Llama 3.1:8b replies and numerical study records; exact public reasons preserved\par
-\textbf{Used on:} 36. Saved voltage case: try the MPC fallback\par
+\textbf{Used on:} 37. Saved voltage case: try the MPC fallback\par
 \textbf{Asset type:} Browser-rendered selection of verified recorded fields\par
 \textbf{Transformation:} Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama\_replay/episodes.json.\par
 \textbf{Provenance note:} Raw JSON, parsed response and historical trace cross-checked by src/llama\_walkthrough.py. Selected fields are not a screenshot of a deployed product. capture\_manifest.json records source and image SHA-256 values.\par
@@ -1324,7 +1357,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: llama\_voltage\_3.png}
 \textbf{Caption:} Saved P3 case, separate from L2. Replay in L10B.\par
 \textbf{Credit:} Recorded Llama 3.1:8b replies and numerical study records; exact public reasons preserved\par
-\textbf{Used on:} 37. Saved voltage case: return for review\par
+\textbf{Used on:} 38. Saved voltage case: return for review\par
 \textbf{Asset type:} Browser-rendered selection of verified recorded fields\par
 \textbf{Transformation:} Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama\_replay/episodes.json.\par
 \textbf{Provenance note:} Raw JSON, parsed response and historical trace cross-checked by src/llama\_walkthrough.py. Selected fields are not a screenshot of a deployed product. capture\_manifest.json records source and image SHA-256 values.\par
@@ -1335,7 +1368,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: hands\_on\_L6\_plot.png}
 \textbf{Caption:} Reference L6 plots. Overlapping markers show equal outcomes.\par
 \textbf{Credit:} Classroom Labs: actual executed notebook output, Python 3.12\par
-\textbf{Used on:} 41. L6: read both service plots\par
+\textbf{Used on:} 42. L6: read both service plots\par
 \textbf{Asset type:} Executed notebook plot or browser capture\par
 \textbf{Transformation:} Exact PNG output or documented HTML output selection; see research/hands\_on/hands\_on\_manifest.json.\par
 \textbf{Evidence limit:} Reference L6 plots. Overlapping markers show equal outcomes.\par
@@ -1345,7 +1378,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: hands\_on\_L6\_table.png}
 \textbf{Caption:} Reference L6: 40 kW varied tie, 100 kW fixed tie.\par
 \textbf{Credit:} Classroom Labs: actual executed notebook output, Python 3.12\par
-\textbf{Used on:} 42. L6: the tradeoff at 40 kW\par
+\textbf{Used on:} 43. L6: the tradeoff at 40 kW\par
 \textbf{Asset type:} Executed notebook plot or browser capture\par
 \textbf{Transformation:} Exact PNG output or documented HTML output selection; see research/hands\_on/hands\_on\_manifest.json.\par
 \textbf{Evidence limit:} Reference L6: 40 kW varied tie, 100 kW fixed tie.\par
@@ -1355,7 +1388,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: hands\_on\_L7\_binding.png}
 \textbf{Caption:} Reference L7. New inputs require new evidence.\par
 \textbf{Credit:} Classroom Labs: actual executed notebook output, Python 3.12\par
-\textbf{Used on:} 47. L7: the old evidence no longer matches\par
+\textbf{Used on:} 49. L7: the old evidence no longer matches\par
 \textbf{Asset type:} Executed notebook plot or browser capture\par
 \textbf{Transformation:} Exact PNG output or documented HTML output selection; see research/hands\_on/hands\_on\_manifest.json.\par
 \textbf{Evidence limit:} Reference L7. New inputs require new evidence.\par
@@ -1365,7 +1398,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: llama\_restoration\_14.png}
 \textbf{Caption:} Saved feeder-catalog study, separate from L6. Replay in L10B.\par
 \textbf{Credit:} Recorded Llama 3.1:8b replies and numerical study records; exact public reasons preserved\par
-\textbf{Used on:} 51. Saved restoration case: try another plan\par
+\textbf{Used on:} 53. Saved restoration case: try another plan\par
 \textbf{Asset type:} Browser-rendered selection of verified recorded fields\par
 \textbf{Transformation:} Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama\_replay/episodes.json.\par
 \textbf{Provenance note:} Raw JSON, parsed response and historical trace cross-checked by src/llama\_walkthrough.py. Selected fields are not a screenshot of a deployed product. capture\_manifest.json records source and image SHA-256 values.\par
@@ -1376,7 +1409,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: llama\_restoration\_15.png}
 \textbf{Caption:} Saved feeder-catalog study, separate from L6. Replay in L10B.\par
 \textbf{Credit:} Recorded Llama 3.1:8b replies and numerical study records; exact public reasons preserved\par
-\textbf{Used on:} 52. Saved restoration case: reject a failed trial\par
+\textbf{Used on:} 54. Saved restoration case: reject a failed trial\par
 \textbf{Asset type:} Browser-rendered selection of verified recorded fields\par
 \textbf{Transformation:} Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama\_replay/episodes.json.\par
 \textbf{Provenance note:} Raw JSON, parsed response and historical trace cross-checked by src/llama\_walkthrough.py. Selected fields are not a screenshot of a deployed product. capture\_manifest.json records source and image SHA-256 values.\par
@@ -1387,7 +1420,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: llama\_restoration\_16.png}
 \textbf{Caption:} Saved feeder-catalog study, separate from L6. Replay in L10B.\par
 \textbf{Credit:} Recorded Llama 3.1:8b replies and numerical study records; exact public reasons preserved\par
-\textbf{Used on:} 53. Saved restoration case: correct the ranking\par
+\textbf{Used on:} 55. Saved restoration case: correct the ranking\par
 \textbf{Asset type:} Browser-rendered selection of verified recorded fields\par
 \textbf{Transformation:} Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama\_replay/episodes.json.\par
 \textbf{Provenance note:} Raw JSON, parsed response and historical trace cross-checked by src/llama\_walkthrough.py. Selected fields are not a screenshot of a deployed product. capture\_manifest.json records source and image SHA-256 values.\par
@@ -1398,7 +1431,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: hands\_on\_L8\_plot.png}
 \textbf{Caption:} Reference L8 plots. State error uses known simulation truth.\par
 \textbf{Credit:} Classroom Labs: actual executed notebook output, Python 3.12\par
-\textbf{Used on:} 57. L8: read both cyber plots\par
+\textbf{Used on:} 59. L8: read both cyber plots\par
 \textbf{Asset type:} Executed notebook plot or browser capture\par
 \textbf{Transformation:} Exact PNG output or documented HTML output selection; see research/hands\_on/hands\_on\_manifest.json.\par
 \textbf{Evidence limit:} Reference L8 plots. State error uses known simulation truth.\par
@@ -1408,7 +1441,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: hands\_on\_L9\_trust.png}
 \textbf{Caption:} Reference L9 output for the fixed recovery case, not the edited L8 scale.\par
 \textbf{Credit:} Classroom Labs: actual executed notebook output, Python 3.12\par
-\textbf{Used on:} 65. L9: two outcomes\par
+\textbf{Used on:} 68. L9: two outcomes\par
 \textbf{Asset type:} Executed notebook plot or browser capture\par
 \textbf{Transformation:} Exact PNG output or documented HTML output selection; see research/hands\_on/hands\_on\_manifest.json.\par
 \textbf{Evidence limit:} Reference L9 output for the fixed recovery case, not the edited L8 scale.\par
@@ -1418,7 +1451,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: llama\_cyber\_7.png}
 \textbf{Caption:} Saved four-bus study. Replay in L10B.\par
 \textbf{Credit:} Recorded Llama 3.1:8b replies and numerical study records; exact public reasons preserved\par
-\textbf{Used on:} 68. Saved cyber case: request the allowed tool\par
+\textbf{Used on:} 71. Saved cyber case: request the allowed tool\par
 \textbf{Asset type:} Browser-rendered selection of verified recorded fields\par
 \textbf{Transformation:} Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama\_replay/episodes.json.\par
 \textbf{Provenance note:} Raw JSON, parsed response and historical trace cross-checked by src/llama\_walkthrough.py. Selected fields are not a screenshot of a deployed product. capture\_manifest.json records source and image SHA-256 values.\par
@@ -1429,7 +1462,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: llama\_cyber\_8.png}
 \textbf{Caption:} Saved four-bus study. Replay in L10B.\par
 \textbf{Credit:} Recorded Llama 3.1:8b replies and numerical study records; exact public reasons preserved\par
-\textbf{Used on:} 69. Saved cyber case: keep human review\par
+\textbf{Used on:} 72. Saved cyber case: keep human review\par
 \textbf{Asset type:} Browser-rendered selection of verified recorded fields\par
 \textbf{Transformation:} Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama\_replay/episodes.json.\par
 \textbf{Provenance note:} Raw JSON, parsed response and historical trace cross-checked by src/llama\_walkthrough.py. Selected fields are not a screenshot of a deployed product. capture\_manifest.json records source and image SHA-256 values.\par
@@ -1440,7 +1473,7 @@ Explain the agent choice, tool result, check and operator decision.\par
 \subsection*{Visual credit: hands\_on\_L12\_packet.png}
 \textbf{Caption:} Reference L12 output. Readback is simulated.\par
 \textbf{Credit:} Classroom Labs: actual executed notebook output, Python 3.12\par
-\textbf{Used on:} 73. L12: approval must match the checked scope\par
+\textbf{Used on:} 76. L12: approval must match the checked scope\par
 \textbf{Asset type:} Executed notebook plot or browser capture\par
 \textbf{Transformation:} Exact PNG output or documented HTML output selection; see research/hands\_on/hands\_on\_manifest.json.\par
 \textbf{Evidence limit:} Reference L12 output. Readback is simulated.\par

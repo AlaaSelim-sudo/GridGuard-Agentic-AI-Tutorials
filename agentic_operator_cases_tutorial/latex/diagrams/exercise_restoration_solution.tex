@@ -1,0 +1,18 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[font=\rmfamily\fontsize{11}{13}\selectfont,x=.029cm,y=1cm]
+\node[anchor=west,font=\rmfamily\bfseries\fontsize{13}{15}\selectfont] at (-90,4.0) {Service restored: critical + other demand};
+\fill[Cyan] (28,3.48) rectangle (39,3.65);\node[anchor=west] at (44,3.56) {Critical kW};
+\fill[IEEEBlue!40] (127,3.48) rectangle (138,3.65);\node[anchor=west] at (143,3.56) {Other served kW};
+\node[anchor=east,align=right] at (-4,2.91) {40 kW tie\\Weighted};
+\node[anchor=east] at (-4,2.2) {Max-kW};
+\node[anchor=east,align=right] at (-4,1.15) {180 kW tie\\Weighted};
+\node[anchor=east] at (-4,.44) {Max-kW};
+\fill[Cyan] (0,2.7) rectangle (90,3.12);\fill[IEEEBlue!40] (90,2.7) rectangle (130,3.12);
+\fill[Cyan] (0,1.99) rectangle (30,2.41);\fill[IEEEBlue!40] (30,1.99) rectangle (140,2.41);
+\fill[Cyan] (0,.94) rectangle (90,1.36);\fill[IEEEBlue!40] (90,.94) rectangle (250,1.36);
+\fill[Cyan] (0,.23) rectangle (90,.65);\fill[IEEEBlue!40] (90,.23) rectangle (250,.65);
+\node at (45,2.91) {90};\node at (15,2.2) {30};\node at (45,1.15) {90};\node at (45,.44) {90};
+\node[anchor=west] at (134,2.91) {130 total};\node[anchor=west] at (144,2.2) {140 total};
+\node[anchor=west] at (254,1.15) {250 total};\node[anchor=west] at (254,.44) {250 total};
+\draw[->,Slate] (0,0)--(285,0);\foreach \x in {0,50,100,150,200,250}{\draw[Slate] (\x,0)--(\x,-.06) node[below] {\x};}
+\end{tikzpicture}

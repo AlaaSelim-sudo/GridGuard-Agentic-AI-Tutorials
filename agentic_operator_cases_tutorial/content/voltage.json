@@ -210,8 +210,8 @@
       "H02"
     ],
     "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.",
-    "minutes": 4,
-    "note": "Allow one minute to predict, two minutes to edit and run, and one minute to report. Keep LOAD_SCALE=1.0. Reference allowed-current use is 78.527895% for MPC and 54.854158% for SAC; both remain feasible. Do not ask learners to find a rejection that this edit does not produce. The default model still covers MV only.",
+    "minutes": 3,
+    "note": "Three minutes to predict, edit and run; debrief on the following one-minute answer slide. Allow one minute to predict, two minutes to edit and run, and one minute to report. Keep LOAD_SCALE=1.0. Reference allowed-current use is 78.527895% for MPC and 54.854158% for SAC; both remain feasible. Do not ask learners to find a rejection that this edit does not produce. The default model still covers MV only.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L2",
@@ -220,6 +220,30 @@
       "RATING_FRACTION = 0.75"
     ],
     "takeaway": ""
+  },
+  {
+    "title": "Exercise 1 answer: both options still pass",
+    "diagram": "exercise_voltage_solution",
+    "points": [
+      "MPC has the lower score J. The saved SAC actor uses less current; current use alone is not the objective.",
+      "Both checks cover the default MV model. They do not establish full MV/LV or dynamic performance."
+    ],
+    "note": "At LOAD_SCALE=1.0 and RATING_FRACTION=0.75, MPC is feasible with 78.527895% current use and J=0.0311038194. Saved SAC is feasible with 54.854158% current use and J=0.4324637539. Lower J is preferred only among feasible candidates. These are fresh three-phase linear MV checks, not a full MV/LV study. Restore RATING_FRACTION=0.80 and rerun all of L2 before continuing.",
+    "lab_label": "L2",
+    "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; fresh numerical check at rating fraction 0.75.",
+    "caption": "Fresh L2 results. Current use is relative to the changed allowance; J is the current-step objective.",
+    "kind": "diagram",
+    "minutes": 1,
+    "refs": [
+      "H02"
+    ],
+    "eyebrow": "Worked answer / L2",
+    "takeaway": "",
+    "visual_height_cm": 3.3,
+    "visual_height_px": 310,
+    "answer_for": "Exercise 1: lower the current allowance",
+    "exercise_phase": "solution",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
   },
   {
     "title": "Exercise 1: both still pass",

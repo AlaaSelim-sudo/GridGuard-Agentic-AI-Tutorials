@@ -2,7 +2,7 @@
 
 **Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.**
 
-A speaking and teaching companion for all 78 foundations slides. Follow the existing 165-minute route, including the six-minute exercise on slide 26 and the eight-minute exercise on slide 53. Add breaks outside this teaching time.
+A speaking and teaching companion for all 80 foundations slides. Follow the existing 165-minute route, including the six-minute exercise across slides 26-27 and the eight-minute exercise across slides 54-55. Add breaks outside this teaching time.
 
 Use Say as the spoken explanation. Walk the image or concept using Show / explain, then use the quick question when it helps the room. Expected answers are presenter cues. The final sentence bridges to the next slide. The timings include explanation, visual walkthrough and brief discussion; the exercise timings include all group work.
 
@@ -15,21 +15,21 @@ This script follows the accepted deck and its 18 October 2026 evidence snapshot.
 - Open the slides and this script in separate windows. Test the presenter view and the source links before the session.
 - Ask learners to keep one real work task in mind. Revisit that task in the closing discussion.
 - Explain each result by naming its task, denominator, success rule and remaining limitations. Research percentages across different tasks are not a ranking.
-- Keep both exercise answers private until the debrief. No notebook or model account is needed for this foundations session.
+- Show each question first, then advance to its worked answer for the debrief. No notebook or model account is needed for this foundations session.
 - The next hands-on tutorial uses one required Classroom Labs notebook, with fresh numerical work and separately labeled saved Llama records.
 
 ## Teaching route
 
 - [1. Agents, tools and workflows: slides 1-8, 00:00:00-00:11:00](#module-concepts)
 - [2. What power-sector organizations report: slides 9-17, 00:11:00-00:28:30](#module-industry)
-- [3. Operator tasks and evidence checks: slides 18-26, 00:28:30-00:48:00](#module-operators)
-- [4. Research foundations, LangGraph and PowerDAG: slides 27-42, 00:48:00-01:19:30](#module-workflow)
-- [5. Simulation feedback and valid reuse: slides 43-53, 01:19:30-01:53:00](#module-simulation)
-- [6. Power-system benchmarks and failure modes: slides 54-65, 01:53:00-02:19:30](#module-benchmarks)
-- [7. Statistics, integration and evaluation: slides 66-75, 02:19:30-02:40:00](#module-evaluation)
-- [8. Prepare for the three-case workshop: slides 76-78, 02:40:00-02:45:00](#module-handoff)
+- [3. Operator tasks and evidence checks: slides 18-27, 00:28:30-00:48:00](#module-operators)
+- [4. Research foundations, LangGraph and PowerDAG: slides 28-43, 00:48:00-01:19:30](#module-workflow)
+- [5. Simulation feedback and valid reuse: slides 44-55, 01:19:30-01:53:00](#module-simulation)
+- [6. Power-system benchmarks and failure modes: slides 56-67, 01:53:00-02:19:30](#module-benchmarks)
+- [7. Statistics, integration and evaluation: slides 68-77, 02:19:30-02:40:00](#module-evaluation)
+- [8. Prepare for the three-case workshop: slides 78-80, 02:40:00-02:45:00](#module-handoff)
 
-Exercises: slide 26, six minutes; slide 53, eight minutes.
+Exercises: slides 26-27, six minutes; slides 54-55, eight minutes.
 
 [Plain-language glossary](#glossary) / [Full references](#references)
 
@@ -493,25 +493,41 @@ Sources: [R01](#source-R01), [L01](#source-L01), [DEF03](#source-DEF03). Full au
 
 ### Slide 26. Exercise 1: check three returned data packets
 
-00:42:00-00:48:00 / 6 minutes
+00:42:00-00:47:00 / 5 minutes
 
 **Say:** Work in pairs. For this exercise, evidence must be no more than 60 seconds old, use topology v43 and express the quantity in per unit. The user may recommend actions only. Inspect packets A, B and C, choose which passes these initial rules and explain why the others fail. Then discuss the harder question: does passing these rules establish the complete engineering result or permission to execute anything? The 60-second threshold is an invented classroom rule. Your answer should use the stated contract rather than assumptions about an actual utility's procedures.
 
-**Show / explain:** Run a six-minute timer: one minute alone, two in pairs, two sharing and one debriefing. Read age_s as age in seconds. Display all three packets throughout.
+**Show / explain:** Keep the question visible while learners work. Advance once for the worked answer; do not show that next slide during prediction.
 
 **Ask:** Which packet passes, and what remains unproved?
 
 **Expected answer:** C passes the initial age, version and unit checks. A uses v42. B uses kV. C still needs asset mapping, model and engineering validity, coverage and review. Advisory permission does not authorize execution.
 
-**Transition:** The same questions help us interpret published research.
+**Transition:** Let us check each part of the question on the next slide.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/26) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/26)
+
+### Slide 27. Exercise 1 answer: C passes the first checks
+
+00:47:00-00:48:00 / 1 minutes
+
+**Say:** Reveal after the pairs share their decisions. A is recent but uses v42. B is recent and uses v43, but has kV instead of p.u. C is 45 seconds old, uses v43 and has p.u. units. C passes the three stated checks only. Asset mapping, model validity, engineering checks and scenario coverage remain necessary. Recommendation permission does not authorize execution.
+
+**Show / explain:** Read the diagram from each input to its result. Answer every part of the preceding exercise, then state the operator’s remaining responsibility.
+
+**Ask:** What still needs to happen before the operator can act?
+
+**Expected answer:** For packet C, the remaining engineering checks and permission still apply.
+
+**Transition:** Now connect this check to the next engineering example.
+
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/27) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/27)
 
 <a id="module-workflow"></a>
 
 ## 4. Research foundations, LangGraph and PowerDAG
 
-### Slide 27. Power-system papers test different tasks
+### Slide 28. Power-system papers test different tasks
 
 00:48:00-00:49:30 / 1.5 minutes
 
@@ -527,9 +543,9 @@ Sources: [R01](#source-R01), [L01](#source-L01), [DEF03](#source-DEF03). Full au
 
 Sources: [D01](#source-D01), [E02](#source-E02), [E03](#source-E03), [P02](#source-P02), [I04](#source-I04). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/27) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/27)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/28) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/28)
 
-### Slide 28. Harvard PowerAgent: models, tools and study workflows
+### Slide 29. Harvard PowerAgent: models, tools and study workflows
 
 00:49:30-00:51:30 / 2 minutes
 
@@ -545,9 +561,9 @@ Sources: [D01](#source-D01), [E02](#source-E02), [E03](#source-E03), [P02](#sour
 
 Sources: [PA01](#source-PA01), [PA03](#source-PA03), [PA02](#source-PA02), [P01](#source-P01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/28) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/28)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/29) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/29)
 
-### Slide 29. PowerAgent example: what changes when load is added?
+### Slide 30. PowerAgent example: what changes when load is added?
 
 00:51:30-00:53:30 / 2 minutes
 
@@ -563,9 +579,9 @@ Sources: [PA01](#source-PA01), [PA03](#source-PA03), [PA02](#source-PA02), [P01]
 
 Sources: [PA06](#source-PA06), [PA03](#source-PA03), [PA05](#source-PA05). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/29) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/29)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/30) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/30)
 
-### Slide 30. DrAgent: reading a recorded grid fault
+### Slide 31. DrAgent: reading a recorded grid fault
 
 00:53:30-00:55:30 / 2 minutes
 
@@ -581,9 +597,9 @@ Sources: [PA06](#source-PA06), [PA03](#source-PA03), [PA05](#source-PA05). Full 
 
 Sources: [D01](#source-D01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/30) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/30)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/31) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/31)
 
-### Slide 31. DrAgent selects tools to answer a fault question
+### Slide 32. DrAgent selects tools to answer a fault question
 
 00:55:30-00:57:30 / 2 minutes
 
@@ -599,9 +615,9 @@ Sources: [D01](#source-D01). Full author, title, date and URLs appear in the ref
 
 Sources: [D01](#source-D01), [LG01](#source-LG01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/31) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/31)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/32) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/32)
 
-### Slide 32. DrAgent: more correct answers, with errors still present
+### Slide 33. DrAgent: more correct answers, with errors still present
 
 00:57:30-00:59:30 / 2 minutes
 
@@ -617,9 +633,9 @@ Sources: [D01](#source-D01), [LG01](#source-LG01). Full author, title, date and 
 
 Sources: [D01](#source-D01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/32) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/32)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/33) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/33)
 
-### Slide 33. Three kinds of graph have different jobs
+### Slide 34. Three kinds of graph have different jobs
 
 00:59:30-01:01:30 / 2 minutes
 
@@ -635,9 +651,9 @@ Sources: [D01](#source-D01). Full author, title, date and URLs appear in the ref
 
 Sources: [D01](#source-D01), [P03](#source-P03), [LG01](#source-LG01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/33) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/33)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/34) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/34)
 
-### Slide 34. A DAG shows which result must come first
+### Slide 35. A DAG shows which result must come first
 
 01:01:30-01:03:30 / 2 minutes
 
@@ -653,9 +669,9 @@ Sources: [D01](#source-D01), [P03](#source-P03), [LG01](#source-LG01). Full auth
 
 Sources: [D01](#source-D01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/34) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/34)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/35) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/35)
 
-### Slide 35. LangGraph can pause to inspect a run
+### Slide 36. LangGraph can pause to inspect a run
 
 01:03:30-01:05:30 / 2 minutes
 
@@ -671,9 +687,9 @@ Sources: [D01](#source-D01). Full author, title, date and URLs appear in the ref
 
 Sources: [LG01](#source-LG01), [D01](#source-D01), [P03](#source-P03), [LG03](#source-LG03). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/35) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/35)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/36) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/36)
 
-### Slide 36. Saved state must identify the study and its evidence
+### Slide 37. Saved state must identify the study and its evidence
 
 01:05:30-01:07:30 / 2 minutes
 
@@ -689,9 +705,9 @@ Sources: [LG01](#source-LG01), [D01](#source-D01), [P03](#source-P03), [LG03](#s
 
 Sources: [LG01](#source-LG01), [LG02](#source-LG02), [LG05](#source-LG05). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/36) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/36)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/37) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/37)
 
-### Slide 37. A checkpoint lets a workflow pause and resume
+### Slide 38. A checkpoint lets a workflow pause and resume
 
 01:07:30-01:09:30 / 2 minutes
 
@@ -707,9 +723,9 @@ Sources: [LG01](#source-LG01), [LG02](#source-LG02), [LG05](#source-LG05). Full 
 
 Sources: [LG02](#source-LG02), [LG03](#source-LG03), [LG05](#source-LG05). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/37) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/37)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/38) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/38)
 
-### Slide 38. Parallel outage studies must account for every case
+### Slide 39. Parallel outage studies must account for every case
 
 01:09:30-01:11:30 / 2 minutes
 
@@ -725,9 +741,9 @@ Sources: [LG02](#source-LG02), [LG03](#source-LG03), [LG05](#source-LG05). Full 
 
 Sources: [R01](#source-R01), [LG01](#source-LG01), [DEF03](#source-DEF03). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/38) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/38)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/39) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/39)
 
-### Slide 39. PowerDAG checks the steps needed before a tool runs
+### Slide 40. PowerDAG checks the steps needed before a tool runs
 
 01:11:30-01:13:30 / 2 minutes
 
@@ -743,9 +759,9 @@ Sources: [R01](#source-R01), [LG01](#source-LG01), [DEF03](#source-DEF03). Full 
 
 Sources: [PD01](#source-PD01), [PD02](#source-PD02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/39) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/39)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/40) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/40)
 
-### Slide 40. PowerDAG: solve the grid before checking its voltage
+### Slide 41. PowerDAG: solve the grid before checking its voltage
 
 01:13:30-01:15:30 / 2 minutes
 
@@ -761,9 +777,9 @@ Sources: [PD01](#source-PD01), [PD02](#source-PD02). Full author, title, date an
 
 Sources: [PD01](#source-PD01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/40) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/40)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/41) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/41)
 
-### Slide 41. PowerDAG results: the same queries, four setups
+### Slide 42. PowerDAG results: the same queries, four setups
 
 01:15:30-01:17:30 / 2 minutes
 
@@ -779,9 +795,9 @@ Sources: [PD01](#source-PD01). Full author, title, date and URLs appear in the r
 
 Sources: [PD01](#source-PD01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/41) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/41)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/42) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/42)
 
-### Slide 42. PowerDAG: what can others check and reuse?
+### Slide 43. PowerDAG: what can others check and reuse?
 
 01:17:30-01:19:30 / 2 minutes
 
@@ -797,13 +813,13 @@ Sources: [PD01](#source-PD01). Full author, title, date and URLs appear in the r
 
 Sources: [PD02](#source-PD02), [PD01](#source-PD01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/42) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/42)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/43) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/43)
 
 <a id="module-simulation"></a>
 
 ## 5. Simulation feedback and valid reuse
 
-### Slide 43. Simulation agents find functions, run code and repair errors
+### Slide 44. Simulation agents find functions, run code and repair errors
 
 01:19:30-01:21:30 / 2 minutes
 
@@ -819,9 +835,9 @@ Sources: [PD02](#source-PD02), [PD01](#source-PD01). Full author, title, date an
 
 Sources: [E02](#source-E02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/43) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/43)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/44) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/44)
 
-### Slide 44. Simulation-agent results: points, not a pass rate
+### Slide 45. Simulation-agent results: points, not a pass rate
 
 01:21:30-01:23:30 / 2 minutes
 
@@ -837,9 +853,9 @@ Sources: [E02](#source-E02). Full author, title, date and URLs appear in the ref
 
 Sources: [E02](#source-E02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/44) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/44)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/45) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/45)
 
-### Slide 45. Trying again can repeat the same software error
+### Slide 46. Trying again can repeat the same software error
 
 01:23:30-01:26:00 / 2.5 minutes
 
@@ -855,9 +871,9 @@ Sources: [E02](#source-E02). Full author, title, date and URLs appear in the ref
 
 Sources: [R02](#source-R02), [DEF03](#source-DEF03). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/45) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/45)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/46) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/46)
 
-### Slide 46. LangGraph Studio: watch an agent use tools
+### Slide 47. LangGraph Studio: watch an agent use tools
 
 01:26:00-01:30:00 / 4 minutes
 
@@ -873,9 +889,9 @@ Sources: [R02](#source-R02), [DEF03](#source-DEF03). Full author, title, date an
 
 Sources: [VID01](#source-VID01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/46) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/46)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/47) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/47)
 
-### Slide 47. Siemens PSS E: agentic transmission planning
+### Slide 48. Siemens PSS E: agentic transmission planning
 
 01:30:00-01:34:00 / 4 minutes
 
@@ -891,9 +907,9 @@ Sources: [VID01](#source-VID01). Full author, title, date and URLs appear in the
 
 Sources: [VID02](#source-VID02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/47) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/47)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/48) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/48)
 
-### Slide 48. GridMind 2025 connects typed agents to solvers
+### Slide 49. GridMind 2025 connects typed agents to solvers
 
 01:34:00-01:36:00 / 2 minutes
 
@@ -909,9 +925,9 @@ Sources: [VID02](#source-VID02). Full author, title, date and URLs appear in the
 
 Sources: [P04](#source-P04). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/48) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/48)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/49) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/49)
 
-### Slide 49. GridMind: reported answers need independent checks
+### Slide 50. GridMind: reported answers need independent checks
 
 01:36:00-01:38:00 / 2 minutes
 
@@ -927,9 +943,9 @@ Sources: [P04](#source-P04). Full author, title, date and URLs appear in the ref
 
 Sources: [P04](#source-P04). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/49) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/49)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/50) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/50)
 
-### Slide 50. GridMind 2026 reuses results when their inputs still match
+### Slide 51. GridMind 2026 reuses results when their inputs still match
 
 01:38:00-01:40:30 / 2.5 minutes
 
@@ -945,9 +961,9 @@ Sources: [P04](#source-P04). Full author, title, date and URLs appear in the ref
 
 Sources: [P03](#source-P03), [P03A](#source-P03A). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/50) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/50)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/51) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/51)
 
-### Slide 51. GridMind: which changes need a new run?
+### Slide 52. GridMind: which changes need a new run?
 
 01:40:30-01:42:30 / 2 minutes
 
@@ -963,9 +979,9 @@ Sources: [P03](#source-P03), [P03A](#source-P03A). Full author, title, date and 
 
 Sources: [P03](#source-P03). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/51) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/51)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/52) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/52)
 
-### Slide 52. GridMind results: fewer stages and less time are different
+### Slide 53. GridMind results: fewer stages and less time are different
 
 01:42:30-01:45:00 / 2.5 minutes
 
@@ -981,31 +997,49 @@ Sources: [P03](#source-P03). Full author, title, date and URLs appear in the ref
 
 Sources: [P03](#source-P03). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/52) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/52)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/53) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/53)
 
-### Slide 53. Exercise 2: check whether saved weather-risk results still apply
+### Slide 54. Exercise 2: check whether saved weather-risk results still apply
 
-01:45:00-01:53:00 / 8 minutes
+01:45:00-01:51:00 / 6 minutes
 
 **Say:** Start from a saved run with forecast F0, topology v43 and cascade parameter k equal to 50. First, change only k to 200 and decide which stages need new results. Next, shift the forecast initialization by six hours. Use the dependencies we just discussed, rather than assuming every implementation behaves the same way. Finally, imagine a required simulation fails. Decide what the operator should receive and which conclusion remains unsupported. Work from the specific cited workflow. F0 and v43 are invented classroom labels. The goal is to identify the valid evidence set and communicate any gap clearly.
 
-**Show / explain:** Run an eight-minute timer: two minutes alone, two comparing in groups, two discussing and two debriefing. Keep the five stages visible while groups answer.
+**Show / explain:** Keep the question visible while learners work. Advance once for the worked answer; do not show that next slide during prediction.
 
 **Ask:** What reruns, and how should a failed required stage be reported?
 
 **Expected answer:** Only k changed: rerun cascade. Forecast shifted: rerun all five. A failure requires incomplete or unresolved status with case and stage IDs, input versions, error and missing conclusions.
 
-**Transition:** A dynamic-model benchmark makes the allowed action space equally explicit.
+**Transition:** Let us check each part of the question on the next slide.
 
 Sources: [P03](#source-P03), [LG02](#source-LG02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/53) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/53)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/54) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/54)
+
+### Slide 55. Exercise 2 answer: rerun what changed
+
+01:51:00-01:53:00 / 2 minutes
+
+**Say:** Reveal after group discussion. Only k changing leaves the four other stage inputs unchanged in the cited trace. Shifting forecast initialization affects all five stages. A failed required simulation cannot support an all-clear report. Preserve the input versions, failed stage, tool error and any conclusions that remain unsupported.
+
+**Show / explain:** Read the diagram from each input to its result. Answer every part of the preceding exercise, then state the operator’s remaining responsibility.
+
+**Ask:** What still needs to happen before the operator can act?
+
+**Expected answer:** Required studies must complete and their evidence must match the case. Report unresolved work explicitly.
+
+**Transition:** Now connect this check to the next engineering example.
+
+Sources: [P03](#source-P03), [LG02](#source-LG02). Full author, title, date and URLs appear in the reference section.
+
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/55) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/55)
 
 <a id="module-benchmarks"></a>
 
 ## 6. Power-system benchmarks and failure modes
 
-### Slide 54. PowerAgentBench-Dyn allows only specific model changes
+### Slide 56. PowerAgentBench-Dyn allows only specific model changes
 
 01:53:00-01:55:30 / 2.5 minutes
 
@@ -1021,9 +1055,9 @@ Sources: [P03](#source-P03), [LG02](#source-LG02). Full author, title, date and 
 
 Sources: [P01](#source-P01), [P01C](#source-P01C). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/54) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/54)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/56) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/56)
 
-### Slide 55. PowerAgentBench-Dyn results: passed sessions and updates
+### Slide 57. PowerAgentBench-Dyn results: passed sessions and updates
 
 01:55:30-01:58:00 / 2.5 minutes
 
@@ -1039,9 +1073,9 @@ Sources: [P01](#source-P01), [P01C](#source-P01C). Full author, title, date and 
 
 Sources: [P01](#source-P01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/55) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/55)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/57) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/57)
 
-### Slide 56. PowerAgentBench-Dyn also checks grid response to faults
+### Slide 58. PowerAgentBench-Dyn also checks grid response to faults
 
 01:58:00-02:00:30 / 2.5 minutes
 
@@ -1057,9 +1091,9 @@ Sources: [P01](#source-P01). Full author, title, date and URLs appear in the ref
 
 Sources: [P01](#source-P01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/56) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/56)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/58) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/58)
 
-### Slide 57. VeraGrid-Agent uses solver results to answer a question
+### Slide 59. VeraGrid-Agent uses solver results to answer a question
 
 02:00:30-02:02:30 / 2 minutes
 
@@ -1075,9 +1109,9 @@ Sources: [P01](#source-P01). Full author, title, date and URLs appear in the ref
 
 Sources: [E04](#source-E04), [E04C](#source-E04C). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/57) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/57)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/59) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/59)
 
-### Slide 58. VeraGrid-Agent results: the same models with and without tools
+### Slide 60. VeraGrid-Agent results: the same models with and without tools
 
 02:02:30-02:04:30 / 2 minutes
 
@@ -1093,9 +1127,9 @@ Sources: [E04](#source-E04), [E04C](#source-E04C). Full author, title, date and 
 
 Sources: [E04](#source-E04). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/58) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/58)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/60) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/60)
 
-### Slide 59. AgentiGrid: what does one reported run mean?
+### Slide 61. AgentiGrid: what does one reported run mean?
 
 02:04:30-02:06:30 / 2 minutes
 
@@ -1111,9 +1145,9 @@ Sources: [E04](#source-E04). Full author, title, date and URLs appear in the ref
 
 Sources: [R01](#source-R01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/59) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/59)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/61) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/61)
 
-### Slide 60. A lower cost can come from solving the wrong task
+### Slide 62. A lower cost can come from solving the wrong task
 
 02:06:30-02:08:30 / 2 minutes
 
@@ -1129,9 +1163,9 @@ Sources: [R01](#source-R01). Full author, title, date and URLs appear in the ref
 
 Sources: [R01](#source-R01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/60) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/60)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/62) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/62)
 
-### Slide 61. Successful tool calls can still miss a critical outage
+### Slide 63. Successful tool calls can still miss a critical outage
 
 02:08:30-02:11:00 / 2.5 minutes
 
@@ -1147,9 +1181,9 @@ Sources: [R01](#source-R01). Full author, title, date and URLs appear in the ref
 
 Sources: [R01](#source-R01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/61) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/61)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/63) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/63)
 
-### Slide 62. Show both trial counts and uncertainty
+### Slide 64. Show both trial counts and uncertainty
 
 02:11:00-02:13:30 / 2.5 minutes
 
@@ -1165,9 +1199,9 @@ Sources: [R01](#source-R01). Full author, title, date and URLs appear in the ref
 
 Sources: [R02](#source-R02), [R03](#source-R03). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/62) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/62)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/64) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/64)
 
-### Slide 63. PowerBench finds answers across linked records
+### Slide 65. PowerBench finds answers across linked records
 
 02:13:30-02:15:30 / 2 minutes
 
@@ -1183,9 +1217,9 @@ Sources: [R02](#source-R02), [R03](#source-R03). Full author, title, date and UR
 
 Sources: [P02](#source-P02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/63) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/63)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/65) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/65)
 
-### Slide 64. PowerBench results: complete answers and partial credit
+### Slide 66. PowerBench results: complete answers and partial credit
 
 02:15:30-02:17:30 / 2 minutes
 
@@ -1201,9 +1235,9 @@ Sources: [P02](#source-P02). Full author, title, date and URLs appear in the ref
 
 Sources: [P02](#source-P02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/64) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/64)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/66) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/66)
 
-### Slide 65. A strong average can hide a weak task group
+### Slide 67. A strong average can hide a weak task group
 
 02:17:30-02:19:30 / 2 minutes
 
@@ -1219,13 +1253,13 @@ Sources: [P02](#source-P02). Full author, title, date and URLs appear in the ref
 
 Sources: [P02](#source-P02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/65) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/65)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/67) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/67)
 
 <a id="module-evaluation"></a>
 
 ## 7. Statistics, integration and evaluation
 
-### Slide 66. What do ten successful trials tell us?
+### Slide 68. What do ten successful trials tell us?
 
 02:19:30-02:21:30 / 2 minutes
 
@@ -1241,9 +1275,9 @@ Sources: [P02](#source-P02). Full author, title, date and URLs appear in the ref
 
 Sources: [R03](#source-R03). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/66) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/66)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/68) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/68)
 
-### Slide 67. More required steps can lower overall reliability
+### Slide 69. More required steps can lower overall reliability
 
 02:21:30-02:23:30 / 2 minutes
 
@@ -1257,9 +1291,9 @@ Sources: [R03](#source-R03). Full author, title, date and URLs appear in the ref
 
 **Transition:** What we count in the final evaluation matters just as much.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/67) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/67)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/69) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/69)
 
-### Slide 68. The answer changes when we change what we count
+### Slide 70. The answer changes when we change what we count
 
 02:23:30-02:26:00 / 2.5 minutes
 
@@ -1273,9 +1307,9 @@ Sources: [R03](#source-R03). Full author, title, date and URLs appear in the ref
 
 **Transition:** Even seeing no failures needs a careful interpretation.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/68) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/68)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/70) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/70)
 
-### Slide 69. Zero test failures do not prove perfect performance
+### Slide 71. Zero test failures do not prove perfect performance
 
 02:26:00-02:28:30 / 2.5 minutes
 
@@ -1291,9 +1325,9 @@ Sources: [R03](#source-R03). Full author, title, date and URLs appear in the ref
 
 Sources: [R04](#source-R04). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/69) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/69)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/71) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/71)
 
-### Slide 70. Choose tests that can reveal failures
+### Slide 72. Choose tests that can reveal failures
 
 02:28:30-02:30:30 / 2 minutes
 
@@ -1309,9 +1343,9 @@ Sources: [R04](#source-R04). Full author, title, date and URLs appear in the ref
 
 Sources: [P01](#source-P01), [P02](#source-P02), [R02](#source-R02), [E04](#source-E04). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/70) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/70)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/72) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/72)
 
-### Slide 71. MCP connects a workflow to its tools
+### Slide 73. MCP connects a workflow to its tools
 
 02:30:30-02:32:30 / 2 minutes
 
@@ -1327,9 +1361,9 @@ Sources: [P01](#source-P01), [P02](#source-P02), [R02](#source-R02), [E04](#sour
 
 Sources: [LG01](#source-LG01), [T08](#source-T08), [T09](#source-T09). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/71) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/71)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/73) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/73)
 
-### Slide 72. A retrieved document cannot give itself permission
+### Slide 74. A retrieved document cannot give itself permission
 
 02:32:30-02:34:30 / 2 minutes
 
@@ -1345,9 +1379,9 @@ Sources: [LG01](#source-LG01), [T08](#source-T08), [T09](#source-T09). Full auth
 
 Sources: [T09](#source-T09). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/72) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/72)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/74) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/74)
 
-### Slide 73. Measure the whole job, including human review
+### Slide 75. Measure the whole job, including human review
 
 02:34:30-02:36:30 / 2 minutes
 
@@ -1363,9 +1397,9 @@ Sources: [T09](#source-T09). Full author, title, date and URLs appear in the ref
 
 Sources: [Q01](#source-Q01), [U01](#source-U01), [U04](#source-U04), [O05](#source-O05). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/73) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/73)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/75) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/75)
 
-### Slide 74. Test whether the assistant helps on comparable tasks
+### Slide 76. Test whether the assistant helps on comparable tasks
 
 02:36:30-02:38:30 / 2 minutes
 
@@ -1381,9 +1415,9 @@ Sources: [Q01](#source-Q01), [U01](#source-U01), [U04](#source-U04), [O05](#sour
 
 Sources: [O03](#source-O03). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/74) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/74)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/76) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/76)
 
-### Slide 75. Power-sector testbeds provide places to evaluate agents
+### Slide 77. Power-sector testbeds provide places to evaluate agents
 
 02:38:30-02:40:00 / 1.5 minutes
 
@@ -1399,13 +1433,13 @@ Sources: [O03](#source-O03). Full author, title, date and URLs appear in the ref
 
 Sources: [C15](#source-C15), [C11](#source-C11), [C12](#source-C12), [I05](#source-I05). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/75) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/75)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/77) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/77)
 
 <a id="module-handoff"></a>
 
 ## 8. Prepare for the three-case workshop
 
-### Slide 76. GridGuard: what should this prototype prove?
+### Slide 78. GridGuard: what should this prototype prove?
 
 02:40:00-02:42:00 / 2 minutes
 
@@ -1421,9 +1455,9 @@ Sources: [C15](#source-C15), [C11](#source-C11), [C12](#source-C12), [I05](#sour
 
 Sources: [L01](#source-L01), [L02](#source-L02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/76) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/76)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/78) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/78)
 
-### Slide 77. Next tutorial: check the proposed action
+### Slide 79. Next tutorial: check the proposed action
 
 02:42:00-02:43:00 / 1 minutes
 
@@ -1439,9 +1473,9 @@ Sources: [L01](#source-L01), [L02](#source-L02). Full author, title, date and UR
 
 Sources: [L02](#source-L02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/77) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/77)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/79) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/79)
 
-### Slide 78. Discussion and full sources
+### Slide 80. Discussion and full sources
 
 02:43:00-02:45:00 / 2 minutes
 
@@ -1455,7 +1489,7 @@ Sources: [L02](#source-L02). Full author, title, date and URLs appear in the ref
 
 **Transition:** Move to the hands-on tutorial or close the session with the full reading guide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/78) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/78)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/80) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/80)
 
 <a id="glossary"></a>
 

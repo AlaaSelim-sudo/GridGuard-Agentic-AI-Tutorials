@@ -263,7 +263,7 @@ def prepare_slides():
     dump(ROOT/'images/image_manifest.json',{'images':list(images.values())})
     dump(ROOT/'research/code_manifest.json',code_records)
     slides=r.normalized_slides(SimpleNamespace(SLIDES=slides))
-    assert len(slides)==80,len(slides)
+    assert len(slides)==83,len(slides)
     assert sum(s['minutes'] for s in slides)==90
     assert sum(s['kind']=='exercise' for s in slides)==3
     return slides
@@ -278,7 +278,7 @@ def teaching_guide(slides,sources):
         ('Setup','Open Classroom Labs, save a copy in Drive and connect a CPU. Run setup, wait for Ready, then run L0 and L1. Keep both switches False. No API key, LLM download or GPU is needed.'),
         ('Lab order','Voltage L2-L5, restoration L6-L7, cyber L8-L9, then saved agent records L10-L10B and simulated readback L12. Leave L11 disabled.'),
         ('Source figures','Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Stanford University, Fall 2026, pp.2, 19, 40 and 53. Original excerpts keep their source credits. Grid diagrams are teaching adaptations. This notebook does not run WikiChat, Genie Worksheets or a theorem prover.'),
-        ('Five-role workflow','Slides 74-77 map the custom Python workflow to all three recorded L10 cases. One Llama model fills the planning and optimizer roles. Python runs awareness, simulation and verification. The notebook replays these saved stages; it does not launch five independent LLM agents.')],[])]
+        ('Five-role workflow','Slides 77-80 map the custom Python workflow to all three recorded L10 cases. One Llama model fills the planning and optimizer roles. Python runs awareness, simulation and verification. The notebook replays these saved stages; it does not launch five independent LLM agents.')],[])]
     elapsed=0
     for i,s in enumerate(slides,1):
         end=elapsed+s['minutes']
@@ -332,6 +332,24 @@ def alignment_guide(slides,sources):
     out.append('<h2>Check the alignment</h2><p><a href="research/code_manifest.json">Code manifest</a> records each canonical notebook SHA-256, stable cell ID and inclusive source-line range. The selected code statements are unchanged. Older Python-file excerpts, when used, retain their own source hashes and syntax-tree equivalence checks.</p><p>Classroom numerical cells perform fresh calculations when run. Displaying archived model replies does not call an LLM. Editing an earlier classroom parameter does not automatically change an independent archived study or fixed recovery fixture. The notebook and slide notes explain those boundaries.</p>')
     (ROOT/'Code_and_Record_Guide.html').write_text(style_html('\n'.join(out)),encoding='utf-8')
 
+def exercise_handout(slides):
+    """Keep the question sheet and its next-slide solution links in sync."""
+    file=ROOT/'Exercises.html'
+    prefix=file.read_text(encoding='utf-8').split('<section>',1)[0]
+    out=[prefix]
+    base='https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/'
+    for i,s in enumerate(slides,1):
+        if s['kind']!='exercise':continue
+        solution=slides[i]
+        assert solution.get('answer_for')==s['title']
+        out.append('<section><h2>'+html.escape(s['title'])+'</h2><p>Question slide '+str(i)+' / answer slide '+str(i+1)+'. Four minutes total: predict and run for three, then discuss for one.</p>')
+        if s.get('excerpt'):out.append('<pre>'+html.escape('\n'.join(s['excerpt']))+'</pre>')
+        out.append('<ul>'+''.join('<li>'+html.escape(p)+'</li>' for p in s['points'])+'</ul><p>Record your result and supporting check before revealing the answer.</p><div class="space"></div>')
+        out.append('<p><a href="'+base+str(i+1)+'">Reveal the worked answer</a></p></section>')
+    text='\n'.join(out)
+    file.write_text(text,encoding='utf-8')
+    (ROOT/'slidev/public/Exercises.html').write_text(text,encoding='utf-8')
+
 def main():
     for folder in ['research','images','latex/images','latex/diagrams','slidev/public/images','slidev/public/diagrams','slidev/public/branding']:
         (ROOT/folder).mkdir(parents=True,exist_ok=True)
@@ -348,6 +366,7 @@ def main():
     assert set(cues)=={s['title'] for s in slides}
     presented=[dict(s,note=presenter_note(cues[s['title']])) for s in slides]
     frames=''.join(r.render_frame(s,sources) for s in presented).replace('{reading_guide.pdf}','{teaching_guide.pdf}')
+    frames="\n".join(line.rstrip() for line in frames.splitlines())+"\n"
     front='''---
 theme: default
 title: Hands-on — Three Operator Cases
@@ -388,6 +407,7 @@ download: false
     (ROOT/'Instructor_Guide.md').write_text(notes,encoding='utf-8')
     teaching_guide(slides,sources)
     alignment_guide(slides,sources)
+    exercise_handout(slides)
     for name in set(s['image'] for s in slides if s['image']):
         for destination in ['latex/images','slidev/public/images']:
             shutil.copy2(ROOT/'images'/name,ROOT/destination/name)
@@ -408,6 +428,7 @@ download: false
     exercise_slides=[i for i,s in enumerate(slides,1) if s['kind']=='exercise']
     manifest={'edition':'plain-language-llama-and-operator-practice','main_slides':len(slides),'minutes':sum(s['minutes'] for s in slides),
         'exercise_slides':exercise_slides,'exercise_count':len(exercise_slides),
+        'exercise_answer_slides':[i for i,s in enumerate(slides,1) if s.get('answer_for')],
         'exercise_minutes':{str(i):s['minutes'] for i,s in enumerate(slides,1) if s['kind']=='exercise'},
         'tables':0,'transitions':'none','click_reveals':0,'viewing_cues':0,
         'used_images':list(dict.fromkeys(s['image'] for s in slides if s['image'])),

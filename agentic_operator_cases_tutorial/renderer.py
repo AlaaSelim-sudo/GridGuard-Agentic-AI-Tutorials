@@ -420,7 +420,7 @@ def instructor_notes(slides,sources):
     out = [f"# Instructor guide — agentic AI for power systems\n\n{len(slides)} static slides in one integrated {total:g}-minute teaching route. "
            + "Evidence reviewed " + reading.REVIEWED + ".\n\n"
            + "All slide content is visible at once. There are no slide transitions, motion effects, click reveals or tables. "
-           + "Exercise answers appear only in speaker notes. The separate Full Reading Guide is untimed.\n\n"
+           + "Each exercise is followed by a worked-answer slide. Show the question first, then advance for the debrief. The separate Full Reading Guide is untimed.\n\n"
            + "Every slide belongs to the session. The paper studies address power-system analysis, operation, planning or evidence tasks. LangGraph and DAG concepts are taught through those applications. The next workshop contains the detailed three GridGuard use cases.\n\n"
            + "## Cumulative teaching route\n\n"]
     elapsed = 0

@@ -153,8 +153,8 @@
       "H06"
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
-    "minutes": 4,
-    "note": "Allow one minute to predict, two minutes to edit and run, and one minute to report. At 180 kW, both methods serve 250 kW total and 90 kW critical demand. Keep 40 kW first in the list because L7 binds the first result to the first capacity. Do not reorder the list for this exercise.",
+    "minutes": 3,
+    "note": "Three minutes to predict, edit and run; debrief on the following one-minute answer slide. Allow one minute to predict, two minutes to edit and run, and one minute to report. At 180 kW, both methods serve 250 kW total and 90 kW critical demand. Keep 40 kW first in the list because L7 binds the first result to the first capacity. Do not reorder the list for this exercise.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
@@ -163,6 +163,30 @@
       "CAPACITIES_KW = (40., 60., 80., 100., 120., 180.)"
     ],
     "takeaway": ""
+  },
+  {
+    "title": "Exercise 2 answer: capacity changes the trade-off",
+    "diagram": "exercise_restoration_solution",
+    "points": [
+      "At 40 kW, priorities give more critical service: 90 kW instead of 30 kW, with less total service.",
+      "The goals match from 80 kW in the tested list. At 180 kW, both serve 250 kW total, including 90 kW critical."
+    ],
+    "note": "At 40 kW tie capacity, priority-weighted MILP serves 130 kW total and 90 kW critical. The unweighted maximum-kW policy serves 140 kW total and 30 kW critical. In the sampled list, outcomes first match at 80 kW; they also match at 100, 120 and 180 kW. At 180 kW, both serve 250 total and 90 critical kW. Do not infer the exact continuous crossover from this discrete sweep. Keep 40 first, restore the original list and rerun L6 before L7.",
+    "lab_label": "L6",
+    "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; fresh MILP and exhaustive-check sweep.",
+    "caption": "Fresh L6 results at two tested capacities. Cyan is critical demand; blue is other served demand.",
+    "kind": "diagram",
+    "minutes": 1,
+    "refs": [
+      "H06"
+    ],
+    "eyebrow": "Worked answer / L6",
+    "takeaway": "",
+    "visual_height_cm": 3.3,
+    "visual_height_px": 310,
+    "answer_for": "Exercise 2: increase tie capacity",
+    "exercise_phase": "solution",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
   },
   {
     "title": "Exercise 2: enough capacity removes this tradeoff",

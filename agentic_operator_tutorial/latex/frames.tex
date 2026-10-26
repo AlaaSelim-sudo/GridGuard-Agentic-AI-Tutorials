@@ -612,7 +612,7 @@ Full source: https://www.anthropic.com/engineering/building-effective-agents}
 
 \begin{frame}[t]{Exercise 1: check three returned data packets}
 \relax
-{\scriptsize\color{Slate}\textbf{Work in pairs / 6 minutes}\par}\smallskip
+{\scriptsize\color{Slate}\textbf{Work in pairs / 5 minutes, then 1-minute answer}\par}\smallskip
 \begingroup\fontsize{10}{13}\selectfont\ttfamily\raggedright
 \noindent\strut\mbox{A~=~\{age\_s:20,~topology:v42,~unit:pu\}}\par
 \noindent\strut\mbox{B~=~\{age\_s:15,~topology:v43,~unit:kV\}}\par
@@ -625,7 +625,25 @@ Full source: https://www.anthropic.com/engineering/building-effective-agents}
 \item Does passing these checks establish complete engineering validity or permission to execute an action?
 \end{itemize}\par}
 \vfill
-\note{Allow 1 minute to inspect, 2 minutes in pairs, 2 minutes to share and 1 minute to debrief. age\_s means age in seconds. Only C passes the stated initial checks. A has the wrong grid version. B has the wrong unit. C still needs the right asset mapping, a valid model, the required engineering checks, enough scenario coverage and an explanation people can review. The user may advise but cannot execute actions. The 60-second rule is made up for this exercise. It is not a general operating standard. Takeaway:
+\note{Show only the question during the activity. Use the following worked-answer slide for the debrief. Allow 1 minute to inspect, 2 minutes in pairs, 2 minutes to share and 1 minute to debrief. age\_s means age in seconds. Only C passes the stated initial checks. A has the wrong grid version. B has the wrong unit. C still needs the right asset mapping, a valid model, the required engineering checks, enough scenario coverage and an explanation people can review. The user may advise but cannot execute actions. The 60-second rule is made up for this exercise. It is not a general operating standard. Takeaway:
+
+}
+\end{frame}
+
+\begin{frame}[t]{Exercise 1 answer: C passes the first checks}
+\relax
+{\scriptsize\color{Slate}\textbf{Worked answer / data checks}\par}\smallskip
+\begingroup\begin{minipage}[c][3cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/exercise_packet_solution.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>3cm\resizebox{!}{3cm}{\box0}\else\box0\fi\par\end{minipage}
+{\fontsize{7}{8.3}\selectfont\color{Slate} The 60-second limit and packet labels belong to this teaching exercise.\par}
+\endgroup\smallskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item C is recent enough, uses v43 and has p.u. units. A has the wrong topology; B has the wrong unit.
+\item Passing these checks is only a start. Check the model and engineering limits. The user may recommend, not execute.
+\end{itemize}\par}
+\vfill
+\note{Reveal after the pairs share their decisions. A is recent but uses v42. B is recent and uses v43, but has kV instead of p.u. C is 45 seconds old, uses v43 and has p.u. units. C passes the three stated checks only. Asset mapping, model validity, engineering checks and scenario coverage remain necessary. Recommendation permission does not authorize execution. Takeaway:
 
 }
 \end{frame}
@@ -1246,7 +1264,7 @@ Full paper: https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.
 
 \begin{frame}[t]{Exercise 2: check whether saved weather-risk results still apply}
 \relax
-{\scriptsize\color{Slate}\textbf{Group exercise  /  8 minutes}\par}\smallskip
+{\scriptsize\color{Slate}\textbf{Group exercise / 6 minutes, then 2-minute answer}\par}\smallskip
 {
 \normalsize\begin{itemize}
 \item A saved run uses forecast F0, topology v43 and cascade setting k=50. Only k changes to 200. What reruns?
@@ -1255,7 +1273,31 @@ Full paper: https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.
 \end{itemize}\par}
 \vfill
 {\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://openreview.net/forum?id=Cs5TBzzNym}{D. Adrian Maldonado, Jonghwan Kwon, Sunash B. Sharma, Hongwei Jin, Stefano Fenu, Emil Constantinescu, David Sehloff, Parfait Gasana, Duane Rudolph Verner, Kibaek Kim. GridMind: An Agentic Workflow for Weather-Driven Power Grid Risk Assessment. KDD 2026 Workshop on Scientific and Societal Agents / OpenReview. August 2026 workshop; reviewed 17 October 2026.}\par}
-\note{Allow 2 minutes to think alone, 2 to compare in groups, 2 for discussion and 2 for the debrief. If only k changes, rerun cascade and retain the other results that still apply. If forecast initialization shifts, rerun all five stages in the cited workflow. If a required stage fails, return an incomplete or unresolved result. Include the case and stage IDs, input versions, tool error and conclusions that remain missing. Do not issue an all-clear report. F0 and v43 are teaching labels. Another implementation may have different dependencies. Keep these answers in the speaker notes. Takeaway:
+\note{Show only the question during the activity. Use the following worked-answer slide for the debrief. Allow 2 minutes to think alone, 2 to compare in groups, 2 for discussion and 2 for the debrief. If only k changes, rerun cascade and retain the other results that still apply. If forecast initialization shifts, rerun all five stages in the cited workflow. If a required stage fails, return an incomplete or unresolved result. Include the case and stage IDs, input versions, tool error and conclusions that remain missing. Do not issue an all-clear report. F0 and v43 are teaching labels. Another implementation may have different dependencies. Takeaway:
+
+D. Adrian Maldonado, Jonghwan Kwon, Sunash B. Sharma, Hongwei Jin, Stefano Fenu, Emil Constantinescu, David Sehloff, Parfait Gasana, Duane Rudolph Verner, Kibaek Kim. GridMind: An Agentic Workflow for Weather-Driven Power Grid Risk Assessment. KDD 2026 Workshop on Scientific and Societal Agents / OpenReview. August 2026 workshop; reviewed 17 October 2026.
+Full source: https://openreview.net/forum?id=Cs5TBzzNym
+Full paper: https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.pdf
+
+LangChain documentation maintainers. LangGraph Persistence. Official LangChain documentation. Accessed 2026-10-17; live documentation.
+Full source: https://docs.langchain.com/oss/python/langgraph/persistence}
+\end{frame}
+
+\begin{frame}[t]{Exercise 2 answer: rerun what changed}
+\relax
+{\scriptsize\color{Slate}\textbf{Worked answer / cited workflow}\par}\smallskip
+\begingroup\begin{minipage}[c][2.5cm][c]{\linewidth}\centering\setbox0=\hbox{\resizebox{.96\linewidth}{!}{\input{diagrams/exercise_reuse_solution.tex}}}\ifdim\dimexpr\ht0+\dp0\relax>2.5cm\resizebox{!}{2.5cm}{\box0}\else\box0\fi\par\end{minipage}
+{\fontsize{7}{8.3}\selectfont\color{Slate} Reuse follows the cited workflow's input dependencies; another implementation can differ.\par}
+\endgroup\smallskip
+{
+\small\begin{itemize}
+\setlength{\itemsep}{.25em}
+\item A forecast shift invalidates all five saved stages: weather, outages, OPF, screening and cascade.
+\item If a study fails, return INCOMPLETE with case/stage IDs, input versions, the error and missing conclusions.
+\end{itemize}\par}
+\vfill
+{\fontsize{6.3}{7.5}\selectfont\color{Slate} Source: \href{https://openreview.net/forum?id=Cs5TBzzNym}{D. Adrian Maldonado, Jonghwan Kwon, Sunash B. Sharma, Hongwei Jin, Stefano Fenu, Emil Constantinescu, David Sehloff, Parfait Gasana, Duane Rudolph Verner, Kibaek Kim. GridMind: An Agentic Workflow for Weather-Driven Power Grid Risk Assessment. KDD 2026 Workshop on Scientific and Societal Agents / OpenReview. August 2026 workshop; reviewed 17 October 2026.}\par}
+\note{Reveal after group discussion. Only k changing leaves the four other stage inputs unchanged in the cited trace. Shifting forecast initialization affects all five stages. A failed required simulation cannot support an all-clear report. Preserve the input versions, failed stage, tool error and any conclusions that remain unsupported. Takeaway:
 
 D. Adrian Maldonado, Jonghwan Kwon, Sunash B. Sharma, Hongwei Jin, Stefano Fenu, Emil Constantinescu, David Sehloff, Parfait Gasana, Duane Rudolph Verner, Kibaek Kim. GridMind: An Agentic Workflow for Weather-Driven Power Grid Risk Assessment. KDD 2026 Workshop on Scientific and Societal Agents / OpenReview. August 2026 workshop; reviewed 17 October 2026.
 Full source: https://openreview.net/forum?id=Cs5TBzzNym

@@ -1,0 +1,12 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[font=\rmfamily\fontsize{12}{14}\selectfont,x=1cm,y=1cm,>=Latex]
+\node[anchor=west] at (0,2.4) {Only $k$: 50 to 200};
+\node[anchor=west] at (0,1.2) {Forecast shifts by 6 h};
+\node[anchor=west] at (0,0) {A required study fails};
+\draw[->,thick,IEEEBlue] (5,2.4)--(7,2.4);
+\draw[->,thick,IEEEBlue] (5,1.2)--(7,1.2);
+\draw[->,thick,Red] (5,0)--(7,0);
+\node[anchor=west,text=IEEEBlue] at (7.2,2.4) {Rerun cascade; reuse four stages};
+\node[anchor=west,text=IEEEBlue] at (7.2,1.2) {Rerun all five stages};
+\node[anchor=west,text=Red,font=\rmfamily\bfseries\fontsize{12}{14}\selectfont] at (7.2,0) {Return INCOMPLETE, with evidence};
+\end{tikzpicture}

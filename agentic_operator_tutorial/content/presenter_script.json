@@ -230,13 +230,22 @@
       "number": 26,
       "title": "Exercise 1: check three returned data packets",
       "say": "Work in pairs. For this exercise, evidence must be no more than 60 seconds old, use topology v43 and express the quantity in per unit. The user may recommend actions only. Inspect packets A, B and C, choose which passes these initial rules and explain why the others fail. Then discuss the harder question: does passing these rules establish the complete engineering result or permission to execute anything? The 60-second threshold is an invented classroom rule. Your answer should use the stated contract rather than assumptions about an actual utility's procedures.",
-      "visual": "Run a six-minute timer: one minute alone, two in pairs, two sharing and one debriefing. Read age_s as age in seconds. Display all three packets throughout.",
+      "visual": "Keep the question visible while learners work. Advance once for the worked answer; do not show that next slide during prediction.",
       "question": "Which packet passes, and what remains unproved?",
       "answer": "C passes the initial age, version and unit checks. A uses v42. B uses kV. C still needs asset mapping, model and engineering validity, coverage and review. Advisory permission does not authorize execution.",
-      "transition": "The same questions help us interpret published research."
+      "transition": "Let us check each part of the question on the next slide."
     },
     {
       "number": 27,
+      "title": "Exercise 1 answer: C passes the first checks",
+      "say": "Reveal after the pairs share their decisions. A is recent but uses v42. B is recent and uses v43, but has kV instead of p.u. C is 45 seconds old, uses v43 and has p.u. units. C passes the three stated checks only. Asset mapping, model validity, engineering checks and scenario coverage remain necessary. Recommendation permission does not authorize execution.",
+      "visual": "Read the diagram from each input to its result. Answer every part of the preceding exercise, then state the operator’s remaining responsibility.",
+      "question": "What still needs to happen before the operator can act?",
+      "answer": "For packet C, the remaining engineering checks and permission still apply.",
+      "transition": "Now connect this check to the next engineering example."
+    },
+    {
+      "number": 28,
       "title": "Power-system papers test different tasks",
       "say": "The papers ahead investigate several different tasks. Disturbance analysis extracts information from recorded waveforms. Simulation assistants prepare and execute numerical studies. Control prototypes propose changes in model grids. Retrieval benchmarks test whether systems can find and combine evidence correctly. Every result belongs to a particular task, tool set, allowed action space and test population. A percentage from one paper cannot rank a system against another paper that measures something else. As we proceed, use four questions: what does the agent decide, what do the tools calculate, what counts as success and which failures remain? This will make the architectures easier to compare without collapsing their different goals.",
       "visual": "Treat the source photograph as research context. Ask learners to place their own task into one of the study families before introducing the first framework.",
@@ -245,7 +254,7 @@
       "transition": "PowerAgent first provides a roadmap for organizing power-domain components."
     },
     {
-      "number": 28,
+      "number": 29,
       "title": "Harvard PowerAgent: models, tools and study workflows",
       "say": "Harvard's PowerAgent roadmap connects three layers. PowerFM concerns models that support power-system tasks. PowerMCP concerns interfaces through which software can expose engineering tools. PowerWF concerns workflows that coordinate the work. The 2025 IEEE article is a roadmap, rather than a benchmark claiming one fixed deployment result. PowerAgentBench-Dyn is a later benchmark with its own task and evaluation rules. Keeping the initiative and the benchmark separate avoids assigning one experiment's score to the whole project. The architecture shown here comes from the authors' presentation. We inspected that presentation and the project materials, while the original article's full experimental content was unavailable. We therefore attribute no uninspected experimental result to it.",
       "visual": "Walk through the three source panels in order: models, interfaces, workflows. Give a short example of each role. Cite the IEEE title and DOI in the script's source section.",
@@ -254,7 +263,7 @@
       "transition": "A concrete PowerWF example makes these layers easier to understand."
     },
     {
-      "number": 29,
+      "number": 30,
       "title": "PowerAgent example: what changes when load is added?",
       "say": "Consider a proposed load addition. The workflow analyzes an original case and a case with added load. It runs power flow and selected N minus one checks, which examine single-component outages. LangGraph coordinates the steps and saved results. PowerWorld performs the electrical calculation. That separation tells us what each component contributes: coordination, numerical analysis and evidence for comparing the cases. The maintained graph code uses StateGraph and ToolNode, but one repository does not establish the software choice for every PowerAgent project. The demonstrations provide a concrete workflow. They do not give a controlled estimate of utility time savings or operating reliability. We still need the cases, assumptions and comparison results.",
       "visual": "Follow the source workflow from the load-growth request into base and changed-case studies. Point to the numerical comparison rather than treating the picture as an exact rendering of the current code.",
@@ -263,7 +272,7 @@
       "transition": "Next, a disturbance-analysis paper shows why tool order matters."
     },
     {
-      "number": 30,
+      "number": 31,
       "title": "DrAgent: reading a recorded grid fault",
       "say": "DrAgent studies recorded disturbances on transmission lines. First look at the waveform before discussing any AI component. The third current trace changes sharply during the fault. The marked locations identify inception, the highest current and clearance, when the fault ends. A tool can return a sample index or a current measurement. An engineering answer still needs to translate that output into the requested quantity and units. Locating a visible spike is a different question from interpreting its physical cause or assessing equipment. The figure is an original research record, rather than an invented control-room event. We will next connect the waveform questions to the tools that answer them.",
       "visual": "Locate the third trace. Point to the start, peak and clearance markers in that order. Explain that the horizontal position represents time or sample location and the vertical value represents current.",
@@ -272,7 +281,7 @@
       "transition": "The architecture assigns those subtasks to particular tools."
     },
     {
-      "number": 31,
+      "number": 32,
       "title": "DrAgent selects tools to answer a fault question",
       "say": "DrAgent uses a ReWOO-based plan to choose domain functions and document search. ReWOO plans tool work using references to results that earlier steps will produce. In this implementation, Gemini 1.5 Pro plans, about a dozen domain functions analyze signals, and retrieval searches 138 product manuals. Recorded disturbance files use the COMTRADE format. Notice the two different evidence paths. Signal functions measure the event, while manual search supplies product information. A question about a fault's start time may need its sample index and the recording's sampling rate before conversion to seconds. That requirement is a dependency between calculations, which gives us a reason to introduce task graphs.",
       "visual": "Follow the planning stage into signal analysis and manual search, then back into the response. Explain RAG as finding relevant source passages for the model.",
@@ -281,7 +290,7 @@
       "transition": "Before graph design, inspect what this tool-based approach achieved."
     },
     {
-      "number": 32,
+      "number": 33,
       "title": "DrAgent: more correct answers, with errors still present",
       "say": "The chart reconstructs correct-answer counts from the paper's individual score cells. Across 18 recorded cases, fault-inception answers increase from 12 to 18, and maximum-current answers from 16 to 18. The timing category increases from four to 13. Here we count scores of two or above as correct under the authors' rubric. The timing category also accepts a correctly labeled duration, so it is broader than exact clearance timestamps. A domain expert graded the answers using the paper's tolerances of three milliseconds for timing and five percent for current. These are author-data-derived counts, rather than a new experiment. They show useful gains on this task while leaving errors and a small test population.",
       "visual": "Read the denominator before the bars. Compare the timing bars last, then identify the remaining five cases. Mention the audited counts rather than the inconsistent printed Q6 mean.",
@@ -290,7 +299,7 @@
       "transition": "The tool sequence becomes clearer once we distinguish three kinds of graph."
     },
     {
-      "number": 33,
+      "number": 34,
       "title": "Three kinds of graph have different jobs",
       "say": "The first graph is the electrical network. Its edges represent physical connections between modeled components. The second is a task dependency graph. Its edges say which calculation needs an earlier result. The third is an execution workflow. Its edges determine which software step can run next, and it may contain retry loops. These are different objects. A radial feeder can have a tree-like electrical shape while its software repeatedly revisits a diagnostic step. A calculation DAG can analyze a meshed electrical network. When someone says a node or a loop, ask which graph they mean. This prevents a software architecture picture from being mistaken for the grid model.",
       "visual": "Compare the three panels. Name one node and the meaning of one edge in each. Point out the loop in the workflow and its absence from the task DAG.",
@@ -299,7 +308,7 @@
       "transition": "Now use the fault example to read an actual dependency graph."
     },
     {
-      "number": 34,
+      "number": 35,
       "title": "A DAG shows which result must come first",
       "say": "A directed acyclic graph, or DAG, connects tasks without forming a directed loop. An arrow means the downstream calculation needs the upstream result. To convert a fault-start sample into a time, we first need the sample index and the sampling rate. A peak-current calculation may run independently when it uses the same unchanged record and does not need the timing result. A valid execution order respects every required dependency. The page position of a box does not determine its order. Before reporting, the application must wait for all required outputs or clearly identify what is missing. This is a practical way to reason about both correctness and possible parallel work.",
       "visual": "Trace both arrows into the time conversion. Then follow the separate peak-current branch. Ask learners to identify a valid order without relying on left-to-right box placement.",
@@ -308,7 +317,7 @@
       "transition": "LangGraph manages execution, which can include more than an acyclic task plan."
     },
     {
-      "number": 35,
+      "number": 36,
       "title": "LangGraph can pause to inspect a run",
       "say": "LangGraph is software for defining state and running workflow nodes with edges and routing rules. A node can call fixed code, a simulator or an LLM. Unlike a DAG, the execution can revisit a step. A debugger can pause the graph so a developer can inspect progress. That static breakpoint differs from a dynamic interrupt that requests external input. StateGraph defines stored fields, while application reducers determine how parallel updates combine. Those facilities help implement a process. The application still defines data validation, engineering tests, permissions and stopping conditions. Executing the graph successfully cannot establish that the electrical model or the chosen study is valid.",
       "visual": "Explain the highlighted debug pause as a developer inspection point. Use a short run-check-repair example to describe a loop, then distinguish it from human review.",
@@ -317,7 +326,7 @@
       "transition": "Those tools produce evidence that the workflow must keep identifiable."
     },
     {
-      "number": 36,
+      "number": 37,
       "title": "Saved state must identify the study and its evidence",
       "say": "Saved state should identify the study, its input versions, results, status and attempt count. Suppose a set of parallel outage studies expects a case called outage_34. The application needs to notice if that result is missing or appears twice. A generic state store does not automatically understand that engineering requirement. Reducers or an external evidence store must preserve the case identities and combine updates correctly. A list of three completed steps is insufficient if the requested set contained four cases. Save enough information to compare the expected set with the returned evidence. That makes both missing coverage and inappropriate reuse easier to detect.",
       "visual": "Read the figure as generic software state. Describe expected-case and returned-case sets verbally. Make clear that those grid-specific fields are tutorial design requirements.",
@@ -326,7 +335,7 @@
       "transition": "Saved progress also allows a run to pause and resume."
     },
     {
-      "number": 37,
+      "number": 38,
       "title": "A checkpoint lets a workflow pause and resume",
       "say": "A checkpoint records workflow progress. A thread identifier links saved steps to the same run so execution can resume later. However, external conditions may change during a pause. A saved voltage result may no longer match the current topology. The application must revalidate the snapshot and rerun affected work. There is another software detail to consider: the interrupted node may restart from its beginning. Actions before the pause may therefore run again. Stable step IDs or idempotency controls can prevent a repeated request from applying the same change twice. Saving and resuming software state solves a coordination problem. It does not keep the external grid state frozen.",
       "visual": "Follow the checkpoint sequence across the pause. Ask what could change outside the software before resumption. Explain idempotency as safely recognizing a repeated operation.",
@@ -335,7 +344,7 @@
       "transition": "The same identity checks matter when several studies run together."
     },
     {
-      "number": 38,
+      "number": 39,
       "title": "Parallel outage studies must account for every case",
       "say": "Parallel studies can reduce waiting when the cases are independent. Each selected outage should run on a consistent copy of the same starting case. Afterward, the application must compare the expected case IDs with the returned results. A failed or missing branch remains unresolved. An aggregator that summarizes only successful branches can produce an attractive but incomplete report. If a case called C2 fails, the report should identify C2, its error and the conclusions that cannot yet be drawn. Even completing every selected case does not imply that the selected set covers every relevant single-component outage. Coverage has to match the original assignment.",
       "visual": "Trace the generic fan-out and fan-in figure. Verbally remove one branch result and ask what the aggregator must preserve rather than summarize away.",
@@ -344,7 +353,7 @@
       "transition": "PowerDAG addresses a related problem: calling a tool before its prerequisites exist."
     },
     {
-      "number": 39,
+      "number": 40,
       "title": "PowerDAG checks the steps needed before a tool runs",
       "say": "PowerDAG retrieves relevant verified workflow examples and uses a dependency graph with a supervisory gate. The gate checks required earlier tool calls before allowing another tool to run. The inspected version four covers 108 tools, ten task families and four Vermont feeder models. Those are distribution networks: Rochester, Stowe, Glover and South Hero. The agent still chooses steps, while the supervisor constrains their order. This combines flexible selection with explicit workflow rules. The exact gate matters. In this paper it checks encoded prior Write-tool names. That is narrower than checking every parameter, input version or physical consequence. We should explain the gate's actual guarantee before interpreting its benchmark result.",
       "visual": "Follow the agent's proposed call through the supervisor and into the environment. Show where retrieval supplies examples and where the prerequisite check occurs.",
@@ -353,7 +362,7 @@
       "transition": "The voltage example makes that boundary concrete."
     },
     {
-      "number": 40,
+      "number": 41,
       "title": "PowerDAG: solve the grid before checking its voltage",
       "say": "A voltage-violation check needs a solved network state. If the required earlier solver step is missing, the gate rejects the call and explains what needs to happen first. That prevents one important class of workflow error. Now ask a second question: did that solve use the current network? The paper's check of executed tool names does not by itself establish freshness. Our teaching diagram adds a current-v43 condition to show the stronger requirement an application may need. It is labeled as an adaptation. Passing a dependency gate therefore means the encoded prerequisites passed. The numerical solution and the resulting engineering conclusion still require their own checks.",
       "visual": "Read the missing-prerequisite path first, then the permitted path. Point explicitly to the added v43 freshness condition so learners do not attribute it to the paper's original gate.",
@@ -362,7 +371,7 @@
       "transition": "Now interpret the controlled benchmark without enlarging that guarantee."
     },
     {
-      "number": 41,
+      "number": 42,
       "title": "PowerDAG results: the same queries, four setups",
       "say": "This comparison uses the same GPT-5.5 model and 150 test queries in each setup. The reported first-run workflow success is 77.33 percent for ReAct, 92.67 for retrieval only, 96 for just-in-time supervision only and 98 for full PowerDAG. Pass at one checks required tool coverage, compatible inputs and ordering against expert workflows. Each query runs once in each setup. These held-out queries still come from the same ten task families. The comparison supports the value of these complete configurations on that benchmark. It does not measure reliability of live commands or isolate the effect of one graph edge. Keep the model, task population and score definition attached to the headline.",
       "visual": "Read the same-model label and denominator before comparing bars. Explain retrieval only and supervision only as separate tested setups. Finish by defining what the 98 percent actually measures.",
@@ -371,7 +380,7 @@
       "transition": "Reproducibility also depends on what the public release contains."
     },
     {
-      "number": 42,
+      "number": 43,
       "title": "PowerDAG: what can others check and reuse?",
       "say": "The PowerDAG public benchmark provides tasks, tool descriptions, workflow records and scoring code. That allows others to inspect the study design and some of the execution evidence. The release has a practical boundary: BESS, basicPV and GFI can run from the public files, while seven other task families need private feeder maps, geographic data and network-tool code. Public records are therefore useful without making the entire study independently runnable from the download. When reusing the idea, we can adopt explicit prerequisite checks and then test them against our own tools and state rules. We should not assume that a published gate automatically transfers unchanged to a different utility environment.",
       "visual": "Count the three public task families and the seven with external dependencies verbally. Point learners to the linked paper and repository rather than promising a one-click full reproduction.",
@@ -380,7 +389,7 @@
       "transition": "Another paper focuses on generating and repairing simulation code."
     },
     {
-      "number": 43,
+      "number": 44,
       "title": "Simulation agents find functions, run code and repair errors",
       "say": "The feedback-driven simulation framework finds relevant MATLAB functions and settings, writes code and runs it. Tool errors return feedback that can guide repair. The study uses DALINE and MATPOWER tasks. This illustrates a real agentic role: selecting and correcting the steps needed to complete a simulation request. However, a program can run without matching the requested engineering settings. We must compare the executed study with the assignment, including required variables and unnecessary changes. A successful software exit is one layer of evidence. Numerical and task-level checks are additional layers. The paper does not identify LangGraph, so we should describe its workflow without assigning an unreported software framework.",
       "visual": "Follow the source feedback path from generated code to execution and back to repair. Give an example of code running with the wrong setting and ask where that error would be detected.",
@@ -389,7 +398,7 @@
       "transition": "The scoring rule in this paper makes that distinction particularly important."
     },
     {
-      "number": 44,
+      "number": 45,
       "title": "Simulation-agent results: points, not a pass rate",
       "say": "For 34 DALINE tasks, each graded attempt receives 100 points if it meets every requirement without extra settings, 50 if unnecessary settings remain and zero if a requirement is missed. The score averages allowed attempt slots, carrying the final score into unused slots. The full setup reports 93.13 on this scale. It is not a statement that 93.13 percent of tasks passed. Other shown setups score zero, 31.37 and 33.82. These compare complete systems with different retrieval and feedback arrangements, including a separate ChatGPT product setup. The related MATPOWER test reports 96.85 over 35 tasks with up to five attempts. Always explain the score before comparing its height.",
       "visual": "Read the horizontal-axis metric and the 100/50/0 rubric aloud. Compare the full setup with the others only after explaining the attempt averaging.",
@@ -398,7 +407,7 @@
       "transition": "Repeated feedback can help, but it can also preserve a software mistake."
     },
     {
-      "number": 45,
+      "number": 46,
       "title": "Trying again can repeat the same software error",
       "say": "A capability study found an error involving a 100 megawatt and 10 megavar load request. The agent request omitted reactive load, and the cache key omitted it as well. Correcting the request still returned the old result because the cache could not distinguish the corrected input. A cache stores earlier results for reuse. Its key must include the inputs that determine whether reuse is valid. In this case, trying again with better wording cannot repair the underlying key. The lesson extends to model revisions, topology and other relevant settings. Agent evaluation needs to test adapters and caching behavior as well as model responses. A fluent explanation can repeatedly describe the same stale calculation.",
       "visual": "Use the evaluator loop as a generic feedback picture. Narrate the original request, corrected request and unchanged cache result. Ask which software component must change.",
@@ -407,7 +416,7 @@
       "transition": "Let us make these loops visible in two official platform demonstrations."
     },
     {
-      "number": 46,
+      "number": 47,
       "title": "LangGraph Studio: watch an agent use tools",
       "say": "This official walkthrough makes an agent run visible. Watch the graph, the selected tool and the returned result. The platform can pause a run and inspect its saved state. In a power-system application, the numerical solver would be one of these tools. The model coordinates the request; the solver computes the electrical result; the operator decides what to do. This is the original 2024 Studio interface, not evidence of a utility deployment.",
       "visual": "Click Play official demo. Follow one visible request through the agent graph. Pause when a tool result or delegation event is shown. Use the direct watch link if presenting in a separate tab. Ask learners to name the tool, result and next decision; do not treat the demo as grid validation.",
@@ -416,7 +425,7 @@
       "transition": "Now compare how work and evidence move through the next example."
     },
     {
-      "number": 47,
+      "number": 48,
       "title": "Siemens PSS E: agentic transmission planning",
       "say": "Play the full 79-second product video linked from Siemens’ agentic transmission-planning page. This is a supplier overview of Gridscale X PSS E, rather than a complete recorded engineering study. Connect its planning message to three separate jobs: preparing a study, computing the electrical result and interpreting it. The solver remains essential. In our lab we inspect those steps explicitly. A product video alone does not establish field accuracy or deployment at a named utility.",
       "visual": "Play the full 79-second Siemens product video. Then connect its planning message to study preparation, the PSS E solver and engineering review. Ask learners which inputs and numerical checks are needed. The overview does not display a complete tool-call trace.",
@@ -425,7 +434,7 @@
       "transition": "Return to power-system studies: keep the same question about who supplies and checks each result."
     },
     {
-      "number": 48,
+      "number": 49,
       "title": "GridMind 2025 connects typed agents to solvers",
       "say": "The 2025 GridMind study uses PydanticAI to structure agents and pandapower for AC OPF and outage studies. It tests 14-, 30-, 118- and 300-bus systems. On case 118, the paper reports 100 percent ACOPF success across six models, with timing distributions based on five repeats. Structured types help make inputs and outputs machine-readable, but they do not establish that every required outage was studied or interpreted correctly. Keep that task boundary attached to the result. Also keep this 2025 system separate from the 2026 weather-risk GridMind workflow that we discuss next. They share a name while using different architectures and addressing different tasks.",
       "visual": "Trace the typed-agent architecture into the solver. State the year and the ACOPF task explicitly. Do not infer an undisclosed success denominator from the timing sample.",
@@ -434,7 +443,7 @@
       "transition": "The paper's reported answers show why agreement alone is insufficient."
     },
     {
-      "number": 49,
+      "number": 50,
       "title": "GridMind: reported answers need independent checks",
       "say": "For case 118, one model reports 165 percent maximum overload and five report 137 percent. The models also identify different critical lines. These are different model setups, not six repeats that estimate one model's error probability. The table provides no complete independent outage reference that would tell us which answer covers the full required scope. A majority answer may be shared, incomplete or based on different selections. The response screenshot itself is an example of agent output, rather than ground truth. To resolve the discrepancy, obtain the same case definitions and run or inspect an independent reference study. Count agreement only after establishing what the answers were supposed to cover.",
       "visual": "Use the response screenshot to distinguish a reported claim from its supporting evidence. Compare the overload figures verbally and ask what reference is missing.",
@@ -443,7 +452,7 @@
       "transition": "The later GridMind study concentrates on state reuse across a weather workflow."
     },
     {
-      "number": 50,
+      "number": 51,
       "title": "GridMind 2026 reuses results when their inputs still match",
       "say": "The 2026 GridMind workflow coordinates five stages using LangGraph: weather, outages, ACOPF, screening and cascade analysis. Weather comes from AERIS. Base OPF uses LUMINA or pandapower. A LUMINA surrogate provides faster screening, and EPFast uses a reduced-order DC model for cascade simulation. Input fingerprints identify when a saved result can be reused. A fingerprint is a hash of declared inputs. It can show whether those inputs match an earlier run, but it cannot detect an important input that was never included. Dependencies must reflect the actual implementation. Here the contingency stage reads outage schedules directly, so a change in the ACOPF solver does not automatically invalidate every stage that appears later in a list.",
       "visual": "Walk through the five named stages verbally. For each, name its output and which later work actually consumes that output. Distinguish a surrogate from a detailed physics calculation.",
@@ -452,7 +461,7 @@
       "transition": "Let us use specific input changes to read those dependencies."
     },
     {
-      "number": 51,
+      "number": 52,
       "title": "GridMind: which changes need a new run?",
       "say": "If only the cascade parameter k changes, this implementation reruns cascade and reuses the unaffected results. If the forecast initialization shifts by six hours, all five stages rerun. A change of ACOPF solver reruns ACOPF only in this particular implementation because its other stages do not all consume that output. These examples show why a workflow's dependency structure matters more than a simple left-to-right sequence. Returning to exactly matching inputs can permit reuse of an earlier result. That reuse still depends on the key recording every relevant input. Another workflow may have different dependencies, so these rules should travel with the implementation rather than become universal weather-study rules.",
       "visual": "Trace the highlighted invalidation paths for each change. Explain why an arrow represents actual data dependence, rather than visual proximity.",
@@ -461,7 +470,7 @@
       "transition": "Reusing fewer stages can save time, but the two percentages need separate measurements."
     },
     {
-      "number": 52,
+      "number": 53,
       "title": "GridMind results: fewer stages and less time are different",
       "say": "For the same seven-query session, the paper reports a 60 percent reduction in stage runs and about a 52.7 percent reduction in total run time. Those quantities differ because stages have different costs. Avoid calling a 60 percent reduction in stage count a 60 percent time saving. The gain comes from workflow design and appropriate reuse, rather than simply from a faster language model. The study reports one seven-query session and gives no repeated-session interval for the time reduction. It also uses surrogate and reduced-order models. We can learn a useful design principle while retaining those evaluation limits and the need for engineering validation.",
       "visual": "Read stage executions and elapsed time as separate panels or quantities. Ask which stages dominate time and what additional measurements would establish variability.",
@@ -470,16 +479,25 @@
       "transition": "We will practice choosing which saved results still apply."
     },
     {
-      "number": 53,
+      "number": 54,
       "title": "Exercise 2: check whether saved weather-risk results still apply",
       "say": "Start from a saved run with forecast F0, topology v43 and cascade parameter k equal to 50. First, change only k to 200 and decide which stages need new results. Next, shift the forecast initialization by six hours. Use the dependencies we just discussed, rather than assuming every implementation behaves the same way. Finally, imagine a required simulation fails. Decide what the operator should receive and which conclusion remains unsupported. Work from the specific cited workflow. F0 and v43 are invented classroom labels. The goal is to identify the valid evidence set and communicate any gap clearly.",
-      "visual": "Run an eight-minute timer: two minutes alone, two comparing in groups, two discussing and two debriefing. Keep the five stages visible while groups answer.",
+      "visual": "Keep the question visible while learners work. Advance once for the worked answer; do not show that next slide during prediction.",
       "question": "What reruns, and how should a failed required stage be reported?",
       "answer": "Only k changed: rerun cascade. Forecast shifted: rerun all five. A failure requires incomplete or unresolved status with case and stage IDs, input versions, error and missing conclusions.",
-      "transition": "A dynamic-model benchmark makes the allowed action space equally explicit."
+      "transition": "Let us check each part of the question on the next slide."
     },
     {
-      "number": 54,
+      "number": 55,
+      "title": "Exercise 2 answer: rerun what changed",
+      "say": "Reveal after group discussion. Only k changing leaves the four other stage inputs unchanged in the cited trace. Shifting forecast initialization affects all five stages. A failed required simulation cannot support an all-clear report. Preserve the input versions, failed stage, tool error and any conclusions that remain unsupported.",
+      "visual": "Read the diagram from each input to its result. Answer every part of the preceding exercise, then state the operator’s remaining responsibility.",
+      "question": "What still needs to happen before the operator can act?",
+      "answer": "Required studies must complete and their evidence must match the case. Report unresolved work explicitly.",
+      "transition": "Now connect this check to the next engineering example."
+    },
+    {
+      "number": 56,
       "title": "PowerAgentBench-Dyn allows only specific model changes",
       "say": "PowerAgentBench-Dyn is a Harvard-led benchmark, separate from the broader PowerAgent roadmap. In its model-quality task, an agent receives a modified solar-PV dynamic model that fails eight quality tests. DMView and PSS/E provide feedback. The agent may change only four REECAU1 controller gains, with all other fields locked and at most five parameter updates. A gain changes a controller's response within the simulation model. The benchmark asks whether a tool-using agent can repair that specified model under clear constraints. It does not authorize changing a utility's live controller. The public harness also needs licensed PSS/E and external DMView software, which matters for audience expectations about reproduction.",
       "visual": "Follow the source benchmark cycle from permitted parameter edits to tests and feedback. Identify the locked fields and update budget as part of the task definition.",
@@ -488,7 +506,7 @@
       "transition": "The results distinguish completing the test suite from the amount of search needed."
     },
     {
-      "number": 55,
+      "number": 57,
       "title": "PowerAgentBench-Dyn results: passed sessions and updates",
       "say": "Each session passes only when all eight quality tests pass within five allowed updates. On the one modified solar-PV model, the paper reports 10 successful sessions out of 10 for Opus 4.8, 10 out of 10 for Sonnet 4.6 and nine out of 10 for Haiku 4.5. Median updates are one, one and two. The left-hand counts describe complete compliant sessions, while the right-hand values describe update effort. They are different measures. Testing one modified model limits generalization, and the study gives no matched human or fixed-search baseline. These results therefore do not establish a comparative speedup or fleet-wide model-repair reliability.",
       "visual": "Read the success counts first, including the single failed session. Then read the median-update panel and explain that it does not include all operator work.",
@@ -497,7 +515,7 @@
       "transition": "The same benchmark also includes a distinct dynamic-security task."
     },
     {
-      "number": 56,
+      "number": 58,
       "title": "PowerAgentBench-Dyn also checks grid response to faults",
       "say": "The dynamic-security task uses PowerMCP and PowerFactory to study ten candidate faults and identify three critical cases. Full-workflow success also requires correct findings and staying within the allowed synchronous-condenser mitigation options. Across six models, reported passes range from zero out of ten to ten out of ten. Opus 4.7 and Sonnet 4.6 each pass nine, Haiku 4.5 passes seven, Gemini 3.1 Pro and GPT-5.5 each pass ten, and Qwen 2.5-Coder-7B passes zero. This task uses Opus 4.7, which differs from the model-quality task's Opus 4.8. A run can fail at tool execution before reaching an engineering finding. Keep those failure stages separate.",
       "visual": "Explain the study as fault execution, identification and constrained mitigation. Read complete-workflow counts without combining them with the previous model-repair sessions.",
@@ -506,7 +524,7 @@
       "transition": "Now compare a different tool-based power-system assistant, VeraGrid-Agent."
     },
     {
-      "number": 57,
+      "number": 59,
       "title": "VeraGrid-Agent uses solver results to answer a question",
       "say": "VeraGrid-Agent writes feeder inputs, runs AC optimal power flow in VeraGrid and reads the relevant output rows. Within a fixed budget it can repair tool errors, then return a multiple-choice answer. The benchmark uses 33 templates and 150 questions on one balanced radial eight-bus feeder, with 50 questions at each of three difficulty levels. Reference answers come from the same solver and circuit. The task tests whether the complete tool-using setup answers those questions accurately. It does not establish a general feeder-control policy. The same numerical study can succeed while the agent reads the wrong row, so solving and interpreting remain separate failure points.",
       "visual": "Trace input writing, solving, reading and final answering in the source workflow. Identify the one-feeder and multiple-choice boundaries.",
@@ -515,7 +533,7 @@
       "transition": "The comparison shows the value of that whole tool-assisted setup on its defined questions."
     },
     {
-      "number": 58,
+      "number": 60,
       "title": "VeraGrid-Agent results: the same models with and without tools",
       "say": "The chart compares the same named models with and without the solver-agent arrangement on 150 questions. GPT-5.2 rises from 64 correct answers to 149. Claude Sonnet 4.5 rises from 71 to 149, and Gemini 3 Flash from 74 to 150. The no-tool setup receives feeder and distributed-resource information, while the agent adds solver execution, reading tools and repeated feedback. This is a comparison of complete systems with different computation, rather than an isolated estimate of one feature's effect. The questions all use one feeder, and repeated-run variation is unspecified. The remaining errors and task boundary matter even when a bar is close to the maximum.",
       "visual": "Read every pair with its denominator, then point to the one-feeder caption. Ask what additional tests would be needed for another feeder or operating task.",
@@ -524,7 +542,7 @@
       "transition": "The next study shows why staying within the assigned decision space matters."
     },
     {
-      "number": 59,
+      "number": 61,
       "title": "AgentiGrid: what does one reported run mean?",
       "say": "AgentiGrid connects an agent to ExaGO for numerical grid-planning studies. The paper tests four models on three applications: dispatch exploration, outage screening and studies with uncertain inputs. Those combinations produce 12 different searches on one 200-bus model. They are not 12 repeats of the same task. A run without a fatal JSON error has shown that an interface exchange worked, but the complete task can still fail. We must check allowed changes, coverage of the requested cases and faithful interpretation of solver evidence. This paper is useful because its reported examples expose those different failure modes within an otherwise functioning software process.",
       "visual": "Follow the prototype architecture into ExaGO. State four models times three applications as the source of the 12 setups, then separate interface execution from engineering completion.",
@@ -533,7 +551,7 @@
       "transition": "One search found a lower objective by changing the problem itself."
     },
     {
-      "number": 60,
+      "number": 62,
       "title": "A lower cost can come from solving the wrong task",
       "say": "The reported objective falls from 27,564 to 17,398, a reduction of about 36.9 percent in unspecified objective units. That looks attractive until we inspect the allowed changes. The task permitted dispatch changes, meaning the outputs of units already selected to operate. The model changed unit commitment, meaning which units are on. The equation shows why a larger decision set can have an equal or lower minimum. It gives the optimizer more choices. That lower value therefore does not prove improvement on the original dispatch-only task. First verify the permitted action space, then compare the objective under the same constraints and study conditions.",
       "visual": "Read the subset relation as one allowed decision set being contained in a larger set. Explain the minimum inequality in words, then connect it to dispatch versus commitment.",
@@ -542,7 +560,7 @@
       "transition": "Incomplete outage coverage creates another task-level failure."
     },
     {
-      "number": 61,
+      "number": 63,
       "title": "Successful tool calls can still miss a critical outage",
       "say": "All four reported outage searches find the highest-cost outage, involving lines 187 to 189. Three find the infeasible outage 29 to 30. None finds the second infeasible outage, 15 to 16. Here infeasible means that the specified study has no solution meeting its constraints. Finding the expensive outage does not establish that the search found every critical case. These are four different model setups on one grid, so we should not calculate a stable failure probability from them. The concrete lesson is to compare the required case set with the investigated set and independently check the findings. A record of successful tool calls can still hide missing engineering coverage.",
       "visual": "Read across the coverage chart by required finding. Point to the missed infeasible outage and ask whether a success-only summary would expose it.",
@@ -551,7 +569,7 @@
       "transition": "We also need counts and uncertainty when repeated attempts are available."
     },
     {
-      "number": 62,
+      "number": 64,
       "title": "Show both trial counts and uncertainty",
       "say": "The capability study reports ten attempts for each shown setup on synthetic 100- and 1,000-bus grids. Six cells have ten successes out of ten and two have five out of ten. Our plotted Wilson intervals illustrate uncertainty under an independent pass/fail model at fixed settings. The paper reports the counts, rather than these calculated intervals. That statistical assumption is not established for every agent workflow. Some higher-complexity tasks and larger grids have no reported result cells in the tested version. Missing evidence should stay missing, rather than become a zero-valued result. Later software fixes also need a new set of measurements before they can support a new numerical performance claim.",
       "visual": "Read the counts and whiskers separately. Identify blank or unreported conditions explicitly. Explain that the intervals are tutorial calculations rather than author-provided measurements.",
@@ -560,7 +578,7 @@
       "transition": "Not all benchmarks solve equations. Some test whether agents can assemble the right evidence."
     },
     {
-      "number": 63,
+      "number": 65,
       "title": "PowerBench finds answers across linked records",
       "say": "PowerBench tests retrieval and reasoning over synthetic asset records, documents and time-series data. It has 300 questions in three groups of 60, 90 and 150. The generated collection covers 761 devices and 24,939 documents. Tools search, read and run Python under budgets of 50 tool calls and 300 seconds per attempt. An answer may look well formed yet refer to the wrong asset or time period, making this relevant to evidence work. However, the test does not run power flow or validate operating actions. At the recorded review, the linked repository did not provide a verified runnable release. Explain the benchmark's design without promising an immediately reproducible lab.",
       "visual": "Follow the source figure from the linked records into question answering. Point out the identity and time relationships that a correct answer must preserve.",
@@ -569,7 +587,7 @@
       "transition": "Its different scoring rules answer different questions about those answers."
     },
     {
-      "number": 64,
+      "number": 66,
       "title": "PowerBench results: complete answers and partial credit",
       "say": "Joint accuracy requires the complete answer to have every required field and the correct format. Field accuracy gives partial credit when some fields are correct. Macro joint accuracy gives each of the three task groups equal weight. These measures can differ even for the same model responses. The chart's intervals are the authors' bootstrap intervals, obtained by resampling their data. They describe the reported metric and sampling method. Overlap between two separate model intervals does not by itself decide whether a paired model difference is statistically significant. For teaching, focus first on whether the metric matches the operator's need for a complete evidence packet or for partially useful fields.",
       "visual": "Identify the joint-accuracy and field-accuracy marks using the legend. Read the axis as a reported score and the whiskers as uncertainty for that score.",
@@ -578,7 +596,7 @@
       "transition": "The group breakdown makes another weakness visible."
     },
     {
-      "number": 65,
+      "number": 67,
       "title": "A strong average can hide a weak task group",
       "say": "The leading row reports joint accuracies of 85.0, 88.9 and 48.7 percent in the three task groups. Their equal-weight average is about 74.2 percent. The largest group, Comparative Retrieval and Reasoning, has fewer than half of its answers completely correct. Equal weighting gives the 60-question group the same influence as the 150-question group. That is a deliberate metric choice, but it answers a different question from pooling all 300 questions. In a pilot, identify which task group matters to the operator and show that group directly. A strong average cannot stand in for acceptable performance on every required task.",
       "visual": "Use the source task-family figure to name the three kinds of question. Say each group accuracy before the average, then emphasize the comparative group's lower value.",
@@ -587,7 +605,7 @@
       "transition": "Small trial counts create a further limit even when the observed fraction is perfect."
     },
     {
-      "number": 66,
+      "number": 68,
       "title": "What do ten successful trials tell us?",
       "say": "Ten successes out of ten gives an observed success fraction of 100 percent. Under a fixed-setting independent-trial model, the calculated two-sided Wilson 95 percent interval is about 72.2 to 100 percent. Five successes out of ten gives about 23.7 to 76.3 percent. These wide intervals show how little precision a small sample provides. In repeated comparable experiments, the method aims to cover the fixed success probability 95 percent of the time. It does not assign a 95 percent probability to a fixed parameter after this one interval has been observed. Different tasks, shared errors and changed settings create additional uncertainty beyond that model.",
       "visual": "Read the two count-and-interval examples slowly. Emphasize the denominator of ten and distinguish a reported fraction from its uncertainty under assumptions.",
@@ -596,7 +614,7 @@
       "transition": "A multi-step task also depends on how its steps succeed together."
     },
     {
-      "number": 67,
+      "number": 69,
       "title": "More required steps can lower overall reliability",
       "say": "Suppose each of 20 required steps succeeds independently with probability 0.99. The chance that all succeed is 0.99 raised to 20, about 81.8 percent. The curve illustrates why strong individual steps can still produce a weaker complete workflow. Real errors may share a cause, such as the wrong input snapshot, cache or adapter. In that case the simple independent-step formula does not describe the system. The exact probability chain uses conditional probabilities. Retrying a step may also repeat the same error rather than provide a fresh independent chance. Measure complete tasks and inspect failure stages instead of predicting a utility's reliability from assumed per-step rates.",
       "visual": "Follow the 99-percent curve to 20 steps. Explain that all required steps must succeed for this example. State the independence assumption before using the result.",
@@ -605,7 +623,7 @@
       "transition": "What we count in the final evaluation matters just as much."
     },
     {
-      "number": 68,
+      "number": 70,
       "title": "The answer changes when we change what we count",
       "say": "This invented example has 80 feasible and 20 infeasible cases. The system accepts 70 feasible cases and rejects ten. It also wrongly accepts two infeasible cases and correctly rejects 18. Among all 100 cases, two false approvals are two percent. Among the 20 infeasible cases, the false-approval rate is ten percent. Among the 72 accepted cases, 70 are feasible, or 97.2 percent. Overall classification accuracy is 88 percent. Each number is arithmetically valid, but each answers a different question. For an operator, false approval of an infeasible case may matter differently from unnecessary rejection of a feasible one. Define those errors before selecting the headline metric.",
       "visual": "Walk through all four outcome counts in the graphic. For each percentage, name the denominator aloud. Ask learners which error they would investigate first for their chosen task.",
@@ -614,7 +632,7 @@
       "transition": "Even seeing no failures needs a careful interpretation."
     },
     {
-      "number": 69,
+      "number": 71,
       "title": "Zero test failures do not prove perfect performance",
       "say": "If a fixed system fails independently with probability p on each comparable trial, the chance of seeing zero failures in n trials is one minus p, raised to n. Set that chance to 0.05 and solve for p. The result is the exact one-sided 95 percent upper confidence bound: one minus 0.05 raised to one over n. With 300 zero-failure trials, the bound is about 0.994 percent. The quick rule of three gives a nearby estimate, three divided by n. This is an inference under specific assumptions, rather than certification. It does not cover a different task mix, changed topology, model update or a different tool implementation.",
       "visual": "Read the curve as the bound decreasing with more trials. Work through the zero-failure probability in words before naming the formula. Distinguish this one-sided bound from the earlier two-sided Wilson interval.",
@@ -623,7 +641,7 @@
       "transition": "We can design evaluations that make those boundaries visible."
     },
     {
-      "number": 70,
+      "number": 72,
       "title": "Choose tests that can reveal failures",
       "say": "A useful test set contains easy and hard tasks, multiple grid sizes, fresh and old inputs, tool errors and both feasible and infeasible cases. Each trial needs a case ID, settings, input snapshot, tool evidence, final status and human corrections. Use an independent reference appropriate to the engineering question. Asking the same model whether its own answer is right does not supply an independent check. Keep final test cases separate from the examples used to tune prompts and adapters. Repeating one prompt many times also leaves task diversity untested. This is a proposed evaluation method. Its value comes from exposing failure types and coverage, rather than producing a single impressive average.",
       "visual": "Organize the slide verbally into cases, reference and records. Ask each learner to name one adversarial or difficult condition for their original task.",
@@ -632,7 +650,7 @@
       "transition": "A standard tool interface can help integration, while leaving these tests necessary."
     },
     {
-      "number": 71,
+      "number": 73,
       "title": "MCP connects a workflow to its tools",
       "say": "The Model Context Protocol standardizes how an application connects to services exposing tools. The application hosts clients, and each client connects to a server. The server can describe an available operation, accept a request and return a result. In a power workflow, that operation might query a record or call a numerical service. MCP supplies the communication structure. Planning, electrical modeling and validation remain separate responsibilities. The application still checks who is requesting a call, whether the action is allowed, which inputs it uses and what the returned evidence means. An MCP architecture diagram cannot establish numerical accuracy or identify an unreported orchestration library.",
       "visual": "Follow host, client and server in the original protocol diagram, then return with the tool result. Give one read-only data call and one simulation call as teaching examples.",
@@ -641,7 +659,7 @@
       "transition": "Documents arriving through those services must also stay within their authority."
     },
     {
-      "number": 72,
+      "number": 74,
       "title": "A retrieved document cannot give itself permission",
       "say": "Imagine a retrieved document containing text that tells the assistant to ignore its limits and issue a command. That text is part of the evidence being read. It cannot grant itself operating permission. The application must keep task instructions, user identity and service permissions separate from retrieved content. The trust-boundary diagram shows where the document enters and where an independent action check must apply. Tests should ask whether hostile content changes the case scope, triggers a forbidden call or contaminates the report. Save the blocked request and its reason so the behavior can be inspected. This hostile instruction is an invented classroom example, rather than a reported utility incident.",
       "visual": "Trace the retrieved text to the boundary and then to the separate permission check. Ask learners which part of the system can authorize an action.",
@@ -650,7 +668,7 @@
       "transition": "A useful assistant must also improve the complete human task."
     },
     {
-      "number": 73,
+      "number": 75,
       "title": "Measure the whole job, including human review",
       "say": "Measure the job from data preparation through agent work, human review and rework. For sequential stages, adding those times gives a useful accounting identity. If work happens in parallel, measure the path that determines completion rather than adding every worker's elapsed time. Include failed attempts, escalations and corrections. A faster draft may still create more reviewer work or miss the operating deadline. Report the spread of times and the difficult cases as well as the average. The conventional monitoring screenshot illustrates the interpretation work an operator does. It is not evidence that the tutorial's timing method was measured in an agent deployment at CAISO.",
       "visual": "Point to information the operator must interpret in the real screenshot. Verbally separate machine time, operator attention and total completion time.",
@@ -659,7 +677,7 @@
       "transition": "A pilot can compare that work before authority is expanded."
     },
     {
-      "number": 74,
+      "number": 76,
       "title": "Test whether the assistant helps on comparable tasks",
       "say": "Start with shadow mode: save the assistant's proposals while the existing operating process continues to make the decision. Compare comparable tasks with and without assistance. Task difficulty, practice and learning can affect the result, so balance or randomize order where practical. After tuning, retain a fixed final test set. Define stopping rules, error categories and review responsibilities before expanding the pilot. Record disagreements with independent checks and with reviewers. The photograph shows a real training facility, while the comparison design is our teaching proposal. A pilot supports conclusions about the actual tasks, tools, settings and participants tested. Expansion requires evidence for the new scope.",
       "visual": "Use the training-facility photo to explain rehearsing a task under controlled conditions. Connect the proposed comparison to the audience task selected at the start.",
@@ -668,7 +686,7 @@
       "transition": "Testbeds provide controlled places for that evaluation."
     },
     {
-      "number": 75,
+      "number": 77,
       "title": "Power-sector testbeds provide places to evaluate agents",
       "say": "A testbed lets researchers observe a system under selected conditions and deliberately introduce errors or state changes. DOE CESER's July 2026 announcement describes LLNL's Stormbreaker evaluation testbed. EPRI's SAFERai.power develops assessment and risk guidance. These efforts address different roles. The photograph here is ORNL's Grid Operations and Analytics Laboratory, used as power-sector context. It is not a photograph of Stormbreaker. A testbed still needs cases that represent the intended task, and a guidance program does not certify this tutorial's prototype. Use such environments to make failures visible and keep the tested scope explicit.",
       "visual": "Identify ORNL as the image source. Name DOE/LLNL and EPRI separately so the photograph does not merge them into a single project.",
@@ -677,7 +695,7 @@
       "transition": "Our own prototype should face the same standard of evidence."
     },
     {
-      "number": 76,
+      "number": 78,
       "title": "GridGuard: what should this prototype prove?",
       "say": "The GridGuard prototype tests proposed actions using OpenDSS on a synthetic feeder. The purpose is to learn whether it improves completed tasks while respecting fixed limits. Save each proposal, its input snapshot, the solver result, rejected alternatives and the reviewer decision. Measure correct feasible proposals, false approvals, modeled limit violations, time and reviewer corrections. The prototype cannot issue live distribution-management commands. Its feeder and results support bounded teaching studies, so we should not present them as a deployed utility control system. A plausible proposal is a starting point. The inspectable evidence and evaluation determine whether it was useful.",
       "visual": "Read the feeder as a synthetic model and point to the boundary between proposing and numerical testing. Connect each saved item to one of the three validity checks.",
@@ -686,7 +704,7 @@
       "transition": "The next tutorial applies this evidence contract to three cases."
     },
     {
-      "number": 77,
+      "number": 79,
       "title": "Next tutorial: check the proposed action",
       "say": "In voltage support, ask whether the proposed action meets the intended model's limits. In restoration, ask what topology and switching assumptions were checked and which load is restored. In cyber response, ask how uncertain or hostile data affect the evidence and permissions. The hands-on tutorial uses one Classroom Labs notebook to explore those questions. It separates fresh numerical calculations from saved Llama episodes. Carry forward our three checks: valid data, valid engineering and a justified decision. The workshop then lets you run, change and inspect the cases directly.",
       "visual": "Name the three cases and the evidence question for each. Show the linked hands-on presentation and Classroom Labs entry point without starting a new demonstration here.",
@@ -695,7 +713,7 @@
       "transition": "Close by asking learners to apply the same questions to their own work."
     },
     {
-      "number": 78,
+      "number": 80,
       "title": "Discussion and full sources",
       "say": "Return to the task you chose at the beginning. Which paper or workflow is closest to it? Identify one permitted agent action, one tool that would calculate or retrieve the needed evidence and one result an operator would need to review. Then state a failure that should stop or limit the conclusion. Our central lesson is that a credible claim names the task, the test population, its assumptions, observed failures and remaining human work. The source guide links the original papers, utility reports, documentation and figure credits so you can read beyond the slide. Both exercises have worked answers in this script. The follow-on workshop turns this review method into numerical experiments.",
       "visual": "Allow one brief audience example and one question. Return to the opening distinction between reported use and measured benefit. Share the source-guide and hands-on links.",

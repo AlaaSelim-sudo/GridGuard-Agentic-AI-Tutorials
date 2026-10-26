@@ -1,8 +1,8 @@
 # Instructor guide — agentic AI for power systems
 
-78 static slides in one integrated 165-minute teaching route. Evidence reviewed 17 October 2026.
+80 static slides in one integrated 165-minute teaching route. Evidence reviewed 17 October 2026.
 
-All slide content is visible at once. There are no slide transitions, motion effects, click reveals or tables. Exercise answers appear only in speaker notes. The separate Full Reading Guide is untimed.
+All slide content is visible at once. There are no slide transitions, motion effects, click reveals or tables. Each exercise is followed by a worked-answer slide. Show the question first, then advance for the debrief. The separate Full Reading Guide is untimed.
 
 Every slide belongs to the session. The paper studies address power-system analysis, operation, planning or evidence tasks. LangGraph and DAG concepts are taught through those applications. The next workshop contains the detailed three GridGuard use cases.
 
@@ -33,59 +33,61 @@ Every slide belongs to the session. The paper studies address power-system analy
 - 37:00–38:30 · 23. Unit checks catch a kV versus p.u. mistake (1.5 min)
 - 38:30–40:00 · 24. A study must match the current grid connections (1.5 min)
 - 40:00–42:00 · 25. A solver result depends on the problem it solves (2 min)
-- 42:00–48:00 · 26. Exercise 1: check three returned data packets (6 min)
-- 48:00–49:30 · 27. Power-system papers test different tasks (1.5 min)
-- 49:30–51:30 · 28. Harvard PowerAgent: models, tools and study workflows (2 min)
-- 51:30–53:30 · 29. PowerAgent example: what changes when load is added? (2 min)
-- 53:30–55:30 · 30. DrAgent: reading a recorded grid fault (2 min)
-- 55:30–57:30 · 31. DrAgent selects tools to answer a fault question (2 min)
-- 57:30–59:30 · 32. DrAgent: more correct answers, with errors still present (2 min)
-- 59:30–61:30 · 33. Three kinds of graph have different jobs (2 min)
-- 61:30–63:30 · 34. A DAG shows which result must come first (2 min)
-- 63:30–65:30 · 35. LangGraph can pause to inspect a run (2 min)
-- 65:30–67:30 · 36. Saved state must identify the study and its evidence (2 min)
-- 67:30–69:30 · 37. A checkpoint lets a workflow pause and resume (2 min)
-- 69:30–71:30 · 38. Parallel outage studies must account for every case (2 min)
-- 71:30–73:30 · 39. PowerDAG checks the steps needed before a tool runs (2 min)
-- 73:30–75:30 · 40. PowerDAG: solve the grid before checking its voltage (2 min)
-- 75:30–77:30 · 41. PowerDAG results: the same queries, four setups (2 min)
-- 77:30–79:30 · 42. PowerDAG: what can others check and reuse? (2 min)
-- 79:30–81:30 · 43. Simulation agents find functions, run code and repair errors (2 min)
-- 81:30–83:30 · 44. Simulation-agent results: points, not a pass rate (2 min)
-- 83:30–86:00 · 45. Trying again can repeat the same software error (2.5 min)
-- 86:00–90:00 · 46. LangGraph Studio: watch an agent use tools (4 min)
-- 90:00–94:00 · 47. Siemens PSS E: agentic transmission planning (4 min)
-- 94:00–96:00 · 48. GridMind 2025 connects typed agents to solvers (2 min)
-- 96:00–98:00 · 49. GridMind: reported answers need independent checks (2 min)
-- 98:00–100:30 · 50. GridMind 2026 reuses results when their inputs still match (2.5 min)
-- 100:30–102:30 · 51. GridMind: which changes need a new run? (2 min)
-- 102:30–105:00 · 52. GridMind results: fewer stages and less time are different (2.5 min)
-- 105:00–113:00 · 53. Exercise 2: check whether saved weather-risk results still apply (8 min)
-- 113:00–115:30 · 54. PowerAgentBench-Dyn allows only specific model changes (2.5 min)
-- 115:30–118:00 · 55. PowerAgentBench-Dyn results: passed sessions and updates (2.5 min)
-- 118:00–120:30 · 56. PowerAgentBench-Dyn also checks grid response to faults (2.5 min)
-- 120:30–122:30 · 57. VeraGrid-Agent uses solver results to answer a question (2 min)
-- 122:30–124:30 · 58. VeraGrid-Agent results: the same models with and without tools (2 min)
-- 124:30–126:30 · 59. AgentiGrid: what does one reported run mean? (2 min)
-- 126:30–128:30 · 60. A lower cost can come from solving the wrong task (2 min)
-- 128:30–131:00 · 61. Successful tool calls can still miss a critical outage (2.5 min)
-- 131:00–133:30 · 62. Show both trial counts and uncertainty (2.5 min)
-- 133:30–135:30 · 63. PowerBench finds answers across linked records (2 min)
-- 135:30–137:30 · 64. PowerBench results: complete answers and partial credit (2 min)
-- 137:30–139:30 · 65. A strong average can hide a weak task group (2 min)
-- 139:30–141:30 · 66. What do ten successful trials tell us? (2 min)
-- 141:30–143:30 · 67. More required steps can lower overall reliability (2 min)
-- 143:30–146:00 · 68. The answer changes when we change what we count (2.5 min)
-- 146:00–148:30 · 69. Zero test failures do not prove perfect performance (2.5 min)
-- 148:30–150:30 · 70. Choose tests that can reveal failures (2 min)
-- 150:30–152:30 · 71. MCP connects a workflow to its tools (2 min)
-- 152:30–154:30 · 72. A retrieved document cannot give itself permission (2 min)
-- 154:30–156:30 · 73. Measure the whole job, including human review (2 min)
-- 156:30–158:30 · 74. Test whether the assistant helps on comparable tasks (2 min)
-- 158:30–160:00 · 75. Power-sector testbeds provide places to evaluate agents (1.5 min)
-- 160:00–162:00 · 76. GridGuard: what should this prototype prove? (2 min)
-- 162:00–163:00 · 77. Next tutorial: check the proposed action (1 min)
-- 163:00–165:00 · 78. Discussion and full sources (2 min)
+- 42:00–47:00 · 26. Exercise 1: check three returned data packets (5 min)
+- 47:00–48:00 · 27. Exercise 1 answer: C passes the first checks (1 min)
+- 48:00–49:30 · 28. Power-system papers test different tasks (1.5 min)
+- 49:30–51:30 · 29. Harvard PowerAgent: models, tools and study workflows (2 min)
+- 51:30–53:30 · 30. PowerAgent example: what changes when load is added? (2 min)
+- 53:30–55:30 · 31. DrAgent: reading a recorded grid fault (2 min)
+- 55:30–57:30 · 32. DrAgent selects tools to answer a fault question (2 min)
+- 57:30–59:30 · 33. DrAgent: more correct answers, with errors still present (2 min)
+- 59:30–61:30 · 34. Three kinds of graph have different jobs (2 min)
+- 61:30–63:30 · 35. A DAG shows which result must come first (2 min)
+- 63:30–65:30 · 36. LangGraph can pause to inspect a run (2 min)
+- 65:30–67:30 · 37. Saved state must identify the study and its evidence (2 min)
+- 67:30–69:30 · 38. A checkpoint lets a workflow pause and resume (2 min)
+- 69:30–71:30 · 39. Parallel outage studies must account for every case (2 min)
+- 71:30–73:30 · 40. PowerDAG checks the steps needed before a tool runs (2 min)
+- 73:30–75:30 · 41. PowerDAG: solve the grid before checking its voltage (2 min)
+- 75:30–77:30 · 42. PowerDAG results: the same queries, four setups (2 min)
+- 77:30–79:30 · 43. PowerDAG: what can others check and reuse? (2 min)
+- 79:30–81:30 · 44. Simulation agents find functions, run code and repair errors (2 min)
+- 81:30–83:30 · 45. Simulation-agent results: points, not a pass rate (2 min)
+- 83:30–86:00 · 46. Trying again can repeat the same software error (2.5 min)
+- 86:00–90:00 · 47. LangGraph Studio: watch an agent use tools (4 min)
+- 90:00–94:00 · 48. Siemens PSS E: agentic transmission planning (4 min)
+- 94:00–96:00 · 49. GridMind 2025 connects typed agents to solvers (2 min)
+- 96:00–98:00 · 50. GridMind: reported answers need independent checks (2 min)
+- 98:00–100:30 · 51. GridMind 2026 reuses results when their inputs still match (2.5 min)
+- 100:30–102:30 · 52. GridMind: which changes need a new run? (2 min)
+- 102:30–105:00 · 53. GridMind results: fewer stages and less time are different (2.5 min)
+- 105:00–111:00 · 54. Exercise 2: check whether saved weather-risk results still apply (6 min)
+- 111:00–113:00 · 55. Exercise 2 answer: rerun what changed (2 min)
+- 113:00–115:30 · 56. PowerAgentBench-Dyn allows only specific model changes (2.5 min)
+- 115:30–118:00 · 57. PowerAgentBench-Dyn results: passed sessions and updates (2.5 min)
+- 118:00–120:30 · 58. PowerAgentBench-Dyn also checks grid response to faults (2.5 min)
+- 120:30–122:30 · 59. VeraGrid-Agent uses solver results to answer a question (2 min)
+- 122:30–124:30 · 60. VeraGrid-Agent results: the same models with and without tools (2 min)
+- 124:30–126:30 · 61. AgentiGrid: what does one reported run mean? (2 min)
+- 126:30–128:30 · 62. A lower cost can come from solving the wrong task (2 min)
+- 128:30–131:00 · 63. Successful tool calls can still miss a critical outage (2.5 min)
+- 131:00–133:30 · 64. Show both trial counts and uncertainty (2.5 min)
+- 133:30–135:30 · 65. PowerBench finds answers across linked records (2 min)
+- 135:30–137:30 · 66. PowerBench results: complete answers and partial credit (2 min)
+- 137:30–139:30 · 67. A strong average can hide a weak task group (2 min)
+- 139:30–141:30 · 68. What do ten successful trials tell us? (2 min)
+- 141:30–143:30 · 69. More required steps can lower overall reliability (2 min)
+- 143:30–146:00 · 70. The answer changes when we change what we count (2.5 min)
+- 146:00–148:30 · 71. Zero test failures do not prove perfect performance (2.5 min)
+- 148:30–150:30 · 72. Choose tests that can reveal failures (2 min)
+- 150:30–152:30 · 73. MCP connects a workflow to its tools (2 min)
+- 152:30–154:30 · 74. A retrieved document cannot give itself permission (2 min)
+- 154:30–156:30 · 75. Measure the whole job, including human review (2 min)
+- 156:30–158:30 · 76. Test whether the assistant helps on comparable tasks (2 min)
+- 158:30–160:00 · 77. Power-sector testbeds provide places to evaluate agents (1.5 min)
+- 160:00–162:00 · 78. GridGuard: what should this prototype prove? (2 min)
+- 162:00–163:00 · 79. Next tutorial: check the proposed action (1 min)
+- 163:00–165:00 · 80. Discussion and full sources (2 min)
 
 ## 1. Agentic AI for Utility Operators
 
@@ -465,11 +467,17 @@ Full source: https://www.anthropic.com/engineering/building-effective-agents
 
 ## 26. Exercise 1: check three returned data packets
 
-**Timing:** 42:00–48:00 (6 minutes).
+**Timing:** 42:00–47:00 (5 minutes).
 
-Allow 1 minute to inspect, 2 minutes in pairs, 2 minutes to share and 1 minute to debrief. age_s means age in seconds. Only C passes the stated initial checks. A has the wrong grid version. B has the wrong unit. C still needs the right asset mapping, a valid model, the required engineering checks, enough scenario coverage and an explanation people can review. The user may advise but cannot execute actions. The 60-second rule is made up for this exercise. It is not a general operating standard.
+Show only the question during the activity. Use the following worked-answer slide for the debrief. Allow 1 minute to inspect, 2 minutes in pairs, 2 minutes to share and 1 minute to debrief. age_s means age in seconds. Only C passes the stated initial checks. A has the wrong grid version. B has the wrong unit. C still needs the right asset mapping, a valid model, the required engineering checks, enough scenario coverage and an explanation people can review. The user may advise but cannot execute actions. The 60-second rule is made up for this exercise. It is not a general operating standard.
 
-## 27. Power-system papers test different tasks
+## 27. Exercise 1 answer: C passes the first checks
+
+**Timing:** 47:00–48:00 (1 minutes).
+
+Reveal after the pairs share their decisions. A is recent but uses v42. B is recent and uses v43, but has kV instead of p.u. C is 45 seconds old, uses v43 and has p.u. units. C passes the three stated checks only. Asset mapping, model validity, engineering checks and scenario coverage remain necessary. Recommendation permission does not authorize execution.
+
+## 28. Power-system papers test different tasks
 
 **Timing:** 48:00–49:30 (1.5 minutes).
 
@@ -495,7 +503,7 @@ Full paper: https://arxiv.org/pdf/2609.34492v1
 NVIDIA. Image published by NVIDIA with its EPRI Open Power AI Consortium announcement, March 20, 2025: Transmission towers and power lines with city lights in the background at dusk. Image accessed 17 October 2026.
 Full source: https://blogs.nvidia.com/blog/open-power-ai-consortium/
 
-## 28. Harvard PowerAgent: models, tools and study workflows
+## 29. Harvard PowerAgent: models, tools and study workflows
 
 **Timing:** 49:30–51:30 (2 minutes).
 
@@ -516,7 +524,7 @@ Qian Zhang, Andrea Pomarico, Costas Mylonas, Magda Foti, Alberto Berizzi, Le Xie
 Full source: https://arxiv.org/abs/2606.20401v1
 Full paper: https://arxiv.org/pdf/2606.20401v1
 
-## 29. PowerAgent example: what changes when load is added?
+## 30. PowerAgent example: what changes when load is added?
 
 **Timing:** 51:30–53:30 (2 minutes).
 
@@ -533,7 +541,7 @@ Full source: https://www.ercot.com/files/docs/2025/12/01/4-Guest-Presentation-A-
 PowerAgent community contributors. Power-Agent/PowerWF. Author-maintained GitHub repository. Live source repository reviewed 17 October 2026.
 Full source: https://github.com/Power-Agent/PowerWF
 
-## 30. DrAgent: reading a recorded grid fault
+## 31. DrAgent: reading a recorded grid fault
 
 **Timing:** 53:30–55:30 (2 minutes).
 
@@ -545,7 +553,7 @@ Barun Kumar Saha, Aarthi V, O. D. Naidu. DrAgent: An Agentic Approach to Fault A
 Full source: https://www.manuscriptlink.com/society/kics/media?key=kics%2Fconference%2Ficaiic2025%2Fpresentation%2F1571098105.pdf
 Publication: https://doi.org/10.1109/ICAIIC64266.2025.10920654
 
-## 31. DrAgent selects tools to answer a fault question
+## 32. DrAgent selects tools to answer a fault question
 
 **Timing:** 55:30–57:30 (2 minutes).
 
@@ -560,7 +568,7 @@ Publication: https://doi.org/10.1109/ICAIIC64266.2025.10920654
 LangChain documentation maintainers. LangGraph Graph API overview. Official LangChain documentation. Accessed 2026-10-17; live documentation.
 Full source: https://docs.langchain.com/oss/python/langgraph/graph-api
 
-## 32. DrAgent: more correct answers, with errors still present
+## 33. DrAgent: more correct answers, with errors still present
 
 **Timing:** 57:30–59:30 (2 minutes).
 
@@ -572,7 +580,7 @@ Barun Kumar Saha, Aarthi V, O. D. Naidu. DrAgent: An Agentic Approach to Fault A
 Full source: https://www.manuscriptlink.com/society/kics/media?key=kics%2Fconference%2Ficaiic2025%2Fpresentation%2F1571098105.pdf
 Publication: https://doi.org/10.1109/ICAIIC64266.2025.10920654
 
-## 33. Three kinds of graph have different jobs
+## 34. Three kinds of graph have different jobs
 
 **Timing:** 59:30–61:30 (2 minutes).
 
@@ -591,7 +599,7 @@ Full paper: https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.
 LangChain documentation maintainers. LangGraph Graph API overview. Official LangChain documentation. Accessed 2026-10-17; live documentation.
 Full source: https://docs.langchain.com/oss/python/langgraph/graph-api
 
-## 34. A DAG shows which result must come first
+## 35. A DAG shows which result must come first
 
 **Timing:** 61:30–63:30 (2 minutes).
 
@@ -603,7 +611,7 @@ Barun Kumar Saha, Aarthi V, O. D. Naidu. DrAgent: An Agentic Approach to Fault A
 Full source: https://www.manuscriptlink.com/society/kics/media?key=kics%2Fconference%2Ficaiic2025%2Fpresentation%2F1571098105.pdf
 Publication: https://doi.org/10.1109/ICAIIC64266.2025.10920654
 
-## 35. LangGraph can pause to inspect a run
+## 36. LangGraph can pause to inspect a run
 
 **Timing:** 63:30–65:30 (2 minutes).
 
@@ -625,7 +633,7 @@ Full paper: https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.
 LangChain documentation maintainers. LangGraph Interrupts. Official LangChain documentation. Accessed 2026-10-17; live documentation.
 Full source: https://docs.langchain.com/oss/python/langgraph/interrupts
 
-## 36. Saved state must identify the study and its evidence
+## 37. Saved state must identify the study and its evidence
 
 **Timing:** 65:30–67:30 (2 minutes).
 
@@ -644,7 +652,7 @@ Full source: https://docs.langchain.com/oss/python/langgraph/persistence
 LangChain documentation maintainers. Checkpointers. Docs by LangChain, Python LangGraph documentation. Undated live documentation; accessed October 18, 2026.
 Full source: https://docs.langchain.com/oss/python/langgraph/checkpointers
 
-## 37. A checkpoint lets a workflow pause and resume
+## 38. A checkpoint lets a workflow pause and resume
 
 **Timing:** 67:30–69:30 (2 minutes).
 
@@ -661,7 +669,7 @@ Full source: https://docs.langchain.com/oss/python/langgraph/interrupts
 LangChain documentation maintainers. Checkpointers. Docs by LangChain, Python LangGraph documentation. Undated live documentation; accessed October 18, 2026.
 Full source: https://docs.langchain.com/oss/python/langgraph/checkpointers
 
-## 38. Parallel outage studies must account for every case
+## 39. Parallel outage studies must account for every case
 
 **Timing:** 69:30–71:30 (2 minutes).
 
@@ -679,7 +687,7 @@ Full source: https://docs.langchain.com/oss/python/langgraph/graph-api
 Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
 Full source: https://www.anthropic.com/engineering/building-effective-agents
 
-## 39. PowerDAG checks the steps needed before a tool runs
+## 40. PowerDAG checks the steps needed before a tool runs
 
 **Timing:** 71:30–73:30 (2 minutes).
 
@@ -693,7 +701,7 @@ Full source: https://arxiv.org/pdf/2603.17418v4
 Emmanuel O. Badmus and contributors. DistGrid-AgentBench: A Distribution Grid Benchmark for Agentic AI. Author-maintained GitHub repository. Live repository reviewed 17 October 2026.
 Full source: https://github.com/emmanuelbadmus/DistGrid-AgentBench
 
-## 40. PowerDAG: solve the grid before checking its voltage
+## 41. PowerDAG: solve the grid before checking its voltage
 
 **Timing:** 73:30–75:30 (2 minutes).
 
@@ -704,7 +712,7 @@ Section IV-C uses voltage-violation checks to explain these requirements. Equati
 Emmanuel O. Badmus, Amritanshu Pandey. PowerDAG: Supervisory Agentic AI System for Automating Distribution Grid Analysis. arXiv preprint, version 4. 5 July 2026 (v4); first submitted 18 March 2026.
 Full source: https://arxiv.org/pdf/2603.17418v4
 
-## 41. PowerDAG results: the same queries, four setups
+## 42. PowerDAG results: the same queries, four setups
 
 **Timing:** 75:30–77:30 (2 minutes).
 
@@ -715,7 +723,7 @@ The reported Pass@1 scores are ReAct 77.33%, retrieval-only PowerChain-AR 92.67%
 Emmanuel O. Badmus, Amritanshu Pandey. PowerDAG: Supervisory Agentic AI System for Automating Distribution Grid Analysis. arXiv preprint, version 4. 5 July 2026 (v4); first submitted 18 March 2026.
 Full source: https://arxiv.org/pdf/2603.17418v4
 
-## 42. PowerDAG: what can others check and reuse?
+## 43. PowerDAG: what can others check and reuse?
 
 **Timing:** 77:30–79:30 (2 minutes).
 
@@ -729,7 +737,7 @@ Full source: https://github.com/emmanuelbadmus/DistGrid-AgentBench
 Emmanuel O. Badmus, Amritanshu Pandey. PowerDAG: Supervisory Agentic AI System for Automating Distribution Grid Analysis. arXiv preprint, version 4. 5 July 2026 (v4); first submitted 18 March 2026.
 Full source: https://arxiv.org/pdf/2603.17418v4
 
-## 43. Simulation agents find functions, run code and repair errors
+## 44. Simulation agents find functions, run code and repair errors
 
 **Timing:** 79:30–81:30 (2 minutes).
 
@@ -741,7 +749,7 @@ Mengshuo Jia, Zeyu Cui, Gabriela Hug. Enhancing LLMs for Power System Simulation
 Full source: https://doi.org/10.1109/TSG.2025.3589114
 Full paper: https://arxiv.org/pdf/2411.16707v3
 
-## 44. Simulation-agent results: points, not a pass rate
+## 45. Simulation-agent results: points, not a pass rate
 
 **Timing:** 81:30–83:30 (2 minutes).
 
@@ -753,7 +761,7 @@ Mengshuo Jia, Zeyu Cui, Gabriela Hug. Enhancing LLMs for Power System Simulation
 Full source: https://doi.org/10.1109/TSG.2025.3589114
 Full paper: https://arxiv.org/pdf/2411.16707v3
 
-## 45. Trying again can repeat the same software error
+## 46. Trying again can repeat the same software error
 
 **Timing:** 83:30–86:00 (2.5 minutes).
 
@@ -770,7 +778,7 @@ Full paper: https://arxiv.org/pdf/2607.28822v1
 Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
 Full source: https://www.anthropic.com/engineering/building-effective-agents
 
-## 46. LangGraph Studio: watch an agent use tools
+## 47. LangGraph Studio: watch an agent use tools
 
 **Timing:** 86:00–90:00 (4 minutes).
 
@@ -782,7 +790,7 @@ LangChain. LangSmith Studio: The first agent IDE. Launch walkthrough linked 1 Au
 Full source: https://www.youtube.com/watch?v=pLPJoFvq4_M
 Publication: https://www.langchain.com/blog/langgraph-studio-the-first-agent-ide
 
-## 47. Siemens PSS E: agentic transmission planning
+## 48. Siemens PSS E: agentic transmission planning
 
 **Timing:** 90:00–94:00 (4 minutes).
 
@@ -794,7 +802,7 @@ Siemens. Gridscale X PSS E: agentic transmission planning — product video. Und
 Full source: https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016
 Publication: https://www.siemens.com/en-gb/products/pss-software/gridscale-x-pss-e/agentic-transmission-planning/
 
-## 48. GridMind 2025 connects typed agents to solvers
+## 49. GridMind 2025 connects typed agents to solvers
 
 **Timing:** 94:00–96:00 (2 minutes).
 
@@ -808,7 +816,7 @@ Hongwei Jin, Kibaek Kim, Jonghwan Kwon. GridMind: LLMs-Powered Agents for Power 
 Full source: https://arxiv.org/abs/2509.02494v1
 Full paper: https://arxiv.org/pdf/2509.02494v1
 
-## 49. GridMind: reported answers need independent checks
+## 50. GridMind: reported answers need independent checks
 
 **Timing:** 96:00–98:00 (2 minutes).
 
@@ -820,7 +828,7 @@ Hongwei Jin, Kibaek Kim, Jonghwan Kwon. GridMind: LLMs-Powered Agents for Power 
 Full source: https://arxiv.org/abs/2509.02494v1
 Full paper: https://arxiv.org/pdf/2509.02494v1
 
-## 50. GridMind 2026 reuses results when their inputs still match
+## 51. GridMind 2026 reuses results when their inputs still match
 
 **Timing:** 98:00–100:30 (2.5 minutes).
 
@@ -837,7 +845,7 @@ Full paper: https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.
 Argonne GridAI project team. GridAI — AI Foundation Models & Agents for the Power Grid. Live project page reviewed 17 October 2026.
 Full source: https://argonne-gridfm.github.io/
 
-## 51. GridMind: which changes need a new run?
+## 52. GridMind: which changes need a new run?
 
 **Timing:** 100:30–102:30 (2 minutes).
 
@@ -849,7 +857,7 @@ D. Adrian Maldonado, Jonghwan Kwon, Sunash B. Sharma, Hongwei Jin, Stefano Fenu,
 Full source: https://openreview.net/forum?id=Cs5TBzzNym
 Full paper: https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.pdf
 
-## 52. GridMind results: fewer stages and less time are different
+## 53. GridMind results: fewer stages and less time are different
 
 **Timing:** 102:30–105:00 (2.5 minutes).
 
@@ -861,11 +869,11 @@ D. Adrian Maldonado, Jonghwan Kwon, Sunash B. Sharma, Hongwei Jin, Stefano Fenu,
 Full source: https://openreview.net/forum?id=Cs5TBzzNym
 Full paper: https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.pdf
 
-## 53. Exercise 2: check whether saved weather-risk results still apply
+## 54. Exercise 2: check whether saved weather-risk results still apply
 
-**Timing:** 105:00–113:00 (8 minutes).
+**Timing:** 105:00–111:00 (6 minutes).
 
-Allow 2 minutes to think alone, 2 to compare in groups, 2 for discussion and 2 for the debrief. If only k changes, rerun cascade and retain the other results that still apply. If forecast initialization shifts, rerun all five stages in the cited workflow. If a required stage fails, return an incomplete or unresolved result. Include the case and stage IDs, input versions, tool error and conclusions that remain missing. Do not issue an all-clear report. F0 and v43 are teaching labels. Another implementation may have different dependencies. Keep these answers in the speaker notes.
+Show only the question during the activity. Use the following worked-answer slide for the debrief. Allow 2 minutes to think alone, 2 to compare in groups, 2 for discussion and 2 for the debrief. If only k changes, rerun cascade and retain the other results that still apply. If forecast initialization shifts, rerun all five stages in the cited workflow. If a required stage fails, return an incomplete or unresolved result. Include the case and stage IDs, input versions, tool error and conclusions that remain missing. Do not issue an all-clear report. F0 and v43 are teaching labels. Another implementation may have different dependencies.
 
 **Full sources:**
 
@@ -876,7 +884,22 @@ Full paper: https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.
 LangChain documentation maintainers. LangGraph Persistence. Official LangChain documentation. Accessed 2026-10-17; live documentation.
 Full source: https://docs.langchain.com/oss/python/langgraph/persistence
 
-## 54. PowerAgentBench-Dyn allows only specific model changes
+## 55. Exercise 2 answer: rerun what changed
+
+**Timing:** 111:00–113:00 (2 minutes).
+
+Reveal after group discussion. Only k changing leaves the four other stage inputs unchanged in the cited trace. Shifting forecast initialization affects all five stages. A failed required simulation cannot support an all-clear report. Preserve the input versions, failed stage, tool error and any conclusions that remain unsupported.
+
+**Full sources:**
+
+D. Adrian Maldonado, Jonghwan Kwon, Sunash B. Sharma, Hongwei Jin, Stefano Fenu, Emil Constantinescu, David Sehloff, Parfait Gasana, Duane Rudolph Verner, Kibaek Kim. GridMind: An Agentic Workflow for Weather-Driven Power Grid Risk Assessment. KDD 2026 Workshop on Scientific and Societal Agents / OpenReview. August 2026 workshop; reviewed 17 October 2026.
+Full source: https://openreview.net/forum?id=Cs5TBzzNym
+Full paper: https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.pdf
+
+LangChain documentation maintainers. LangGraph Persistence. Official LangChain documentation. Accessed 2026-10-17; live documentation.
+Full source: https://docs.langchain.com/oss/python/langgraph/persistence
+
+## 56. PowerAgentBench-Dyn allows only specific model changes
 
 **Timing:** 113:00–115:30 (2.5 minutes).
 
@@ -893,7 +916,7 @@ Full paper: https://arxiv.org/pdf/2606.20401v1
 PowerAgent Community. Power-Agent/PowerAgentBench. Live author repository reviewed 17 October 2026.
 Full source: https://github.com/Power-Agent/PowerAgentBench
 
-## 55. PowerAgentBench-Dyn results: passed sessions and updates
+## 57. PowerAgentBench-Dyn results: passed sessions and updates
 
 **Timing:** 115:30–118:00 (2.5 minutes).
 
@@ -905,7 +928,7 @@ Qian Zhang, Andrea Pomarico, Costas Mylonas, Magda Foti, Alberto Berizzi, Le Xie
 Full source: https://arxiv.org/abs/2606.20401v1
 Full paper: https://arxiv.org/pdf/2606.20401v1
 
-## 56. PowerAgentBench-Dyn also checks grid response to faults
+## 58. PowerAgentBench-Dyn also checks grid response to faults
 
 **Timing:** 118:00–120:30 (2.5 minutes).
 
@@ -919,7 +942,7 @@ Qian Zhang, Andrea Pomarico, Costas Mylonas, Magda Foti, Alberto Berizzi, Le Xie
 Full source: https://arxiv.org/abs/2606.20401v1
 Full paper: https://arxiv.org/pdf/2606.20401v1
 
-## 57. VeraGrid-Agent uses solver results to answer a question
+## 59. VeraGrid-Agent uses solver results to answer a question
 
 **Timing:** 120:30–122:30 (2 minutes).
 
@@ -933,7 +956,7 @@ Full source: https://arxiv.org/pdf/2607.25155v1
 Shivanshu Tripathi / VeraGrid-Agent authors. Shivanshu-11/veragrid-llm-benchmark. Author GitHub repository. Reviewed 2026-10-17.
 Full source: https://github.com/Shivanshu-11/veragrid-llm-benchmark
 
-## 58. VeraGrid-Agent results: the same models with and without tools
+## 60. VeraGrid-Agent results: the same models with and without tools
 
 **Timing:** 122:30–124:30 (2 minutes).
 
@@ -944,7 +967,7 @@ The no-tool setup receives feeder and distributed-energy-resource information. T
 Shivanshu Tripathi, Hamed Mohsenian-Rad, Maziar Raissi. VeraGrid-Agent: Tool-Augmented LLMs for Distribution Optimal Power Flow at the Grid Edge. arXiv preprint. 2026-07-28 (v1).
 Full source: https://arxiv.org/pdf/2607.25155v1
 
-## 59. AgentiGrid: what does one reported run mean?
+## 61. AgentiGrid: what does one reported run mean?
 
 **Timing:** 124:30–126:30 (2 minutes).
 
@@ -958,7 +981,7 @@ Samim Konjicija, Slaven Peles. Integrating Agentic Artificial Intelligence with 
 Full source: https://arxiv.org/abs/2609.04544v1
 Full paper: https://arxiv.org/pdf/2609.04544v1
 
-## 60. A lower cost can come from solving the wrong task
+## 62. A lower cost can come from solving the wrong task
 
 **Timing:** 126:30–128:30 (2 minutes).
 
@@ -972,7 +995,7 @@ Samim Konjicija, Slaven Peles. Integrating Agentic Artificial Intelligence with 
 Full source: https://arxiv.org/abs/2609.04544v1
 Full paper: https://arxiv.org/pdf/2609.04544v1
 
-## 61. Successful tool calls can still miss a critical outage
+## 63. Successful tool calls can still miss a critical outage
 
 **Timing:** 128:30–131:00 (2.5 minutes).
 
@@ -984,7 +1007,7 @@ Samim Konjicija, Slaven Peles. Integrating Agentic Artificial Intelligence with 
 Full source: https://arxiv.org/abs/2609.04544v1
 Full paper: https://arxiv.org/pdf/2609.04544v1
 
-## 62. Show both trial counts and uncertainty
+## 64. Show both trial counts and uncertainty
 
 **Timing:** 131:00–133:30 (2.5 minutes).
 
@@ -999,7 +1022,7 @@ Full paper: https://arxiv.org/pdf/2607.28822v1
 National Institute of Standards and Technology, SEMATECH. 7.2.4.1. Confidence intervals. NIST/SEMATECH e-Handbook of Statistical Methods. Undated live handbook section; reviewed 17 October 2026.
 Full source: https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm
 
-## 63. PowerBench finds answers across linked records
+## 65. PowerBench finds answers across linked records
 
 **Timing:** 133:30–135:30 (2 minutes).
 
@@ -1013,7 +1036,7 @@ Xijing Wang, Yinsheng Yao, Jinru Ding, Yidong Jiang, Ziwen Xu, Yiwen Jiang, Jie 
 Full source: https://arxiv.org/abs/2609.34492v1
 Full paper: https://arxiv.org/pdf/2609.34492v1
 
-## 64. PowerBench results: complete answers and partial credit
+## 66. PowerBench results: complete answers and partial credit
 
 **Timing:** 135:30–137:30 (2 minutes).
 
@@ -1025,7 +1048,7 @@ Xijing Wang, Yinsheng Yao, Jinru Ding, Yidong Jiang, Ziwen Xu, Yiwen Jiang, Jie 
 Full source: https://arxiv.org/abs/2609.34492v1
 Full paper: https://arxiv.org/pdf/2609.34492v1
 
-## 65. A strong average can hide a weak task group
+## 67. A strong average can hide a weak task group
 
 **Timing:** 137:30–139:30 (2 minutes).
 
@@ -1039,7 +1062,7 @@ Xijing Wang, Yinsheng Yao, Jinru Ding, Yidong Jiang, Ziwen Xu, Yiwen Jiang, Jie 
 Full source: https://arxiv.org/abs/2609.34492v1
 Full paper: https://arxiv.org/pdf/2609.34492v1
 
-## 66. What do ten successful trials tell us?
+## 68. What do ten successful trials tell us?
 
 **Timing:** 139:30–141:30 (2 minutes).
 
@@ -1052,19 +1075,19 @@ An interval shows uncertainty under a statistical model. With repeated use on co
 National Institute of Standards and Technology, SEMATECH. 7.2.4.1. Confidence intervals. NIST/SEMATECH e-Handbook of Statistical Methods. Undated live handbook section; reviewed 17 October 2026.
 Full source: https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm
 
-## 67. More required steps can lower overall reliability
+## 69. More required steps can lower overall reliability
 
 **Timing:** 141:30–143:30 (2 minutes).
 
 The curves show why strong results for individual steps can still leave a lower chance of completing the whole task. Retrying may reuse the same wrong context, cache or tool adapter, so it may not be a fresh independent chance. The exact chain rule multiplies conditional probabilities. The plotted q^L assumes the same success probability for every step and independence between steps. It motivates whole-task measurement and code-enforced checks. It does not predict the performance of a real utility agent.
 
-## 68. The answer changes when we change what we count
+## 70. The answer changes when we change what we count
 
 **Timing:** 143:30–146:00 (2.5 minutes).
 
 Feasible means a case meets the stated constraints. Of 80 feasible cases, 70 are accepted and 10 rejected. Of 20 infeasible cases, two are wrongly accepted and 18 rejected. Among accepted cases, 70/72, or 97.2%, are feasible. Yet the false-approval rate among infeasible cases is 2/20, or 10%. Overall, 88/100 classifications are correct. Choose the error that matters before choosing a headline metric. Rejecting more cases may reduce false approvals but also make the assistant less useful. Measure both effects.
 
-## 69. Zero test failures do not prove perfect performance
+## 71. Zero test failures do not prove perfect performance
 
 **Timing:** 146:00–148:30 (2.5 minutes).
 
@@ -1075,7 +1098,7 @@ Explain the calculation in words. If each trial has failure probability p, the c
 National Institute of Standards and Technology. EXACT BINOMIAL. NIST Dataplot Reference Manual. Last updated 16 November 2015; reviewed 17 October 2026.
 Full source: https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/exacbino.htm
 
-## 70. Choose tests that can reveal failures
+## 72. Choose tests that can reveal failures
 
 **Timing:** 148:30–150:30 (2 minutes).
 
@@ -1100,7 +1123,7 @@ Full paper: https://arxiv.org/pdf/2607.28822v1
 Shivanshu Tripathi, Hamed Mohsenian-Rad, Maziar Raissi. VeraGrid-Agent: Tool-Augmented LLMs for Distribution Optimal Power Flow at the Grid Edge. arXiv preprint. 2026-07-28 (v1).
 Full source: https://arxiv.org/pdf/2607.25155v1
 
-## 71. MCP connects a workflow to its tools
+## 73. MCP connects a workflow to its tools
 
 **Timing:** 150:30–152:30 (2 minutes).
 
@@ -1117,7 +1140,7 @@ Full source: https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture
 Model Context Protocol. MCP Security Best Practices. 2026-07-28 documentation revision.
 Full source: https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices
 
-## 72. A retrieved document cannot give itself permission
+## 74. A retrieved document cannot give itself permission
 
 **Timing:** 152:30–154:30 (2 minutes).
 
@@ -1128,7 +1151,7 @@ The hostile instruction is invented for teaching. A retrieved document is eviden
 Model Context Protocol. MCP Security Best Practices. 2026-07-28 documentation revision.
 Full source: https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices
 
-## 73. Measure the whole job, including human review
+## 75. Measure the whole job, including human review
 
 **Timing:** 154:30–156:30 (2 minutes).
 
@@ -1150,7 +1173,7 @@ Full source: https://aws.amazon.com/solutions/case-studies/tcenergy-bedrock/
 John Phipps. Control center modernization is enhancing reliability. California ISO. 2025-09-10.
 Full source: https://www.caiso.com/about/news/energy-matters-blog/control-center-modernization-is-enhancing-reliability
 
-## 74. Test whether the assistant helps on comparable tasks
+## 76. Test whether the assistant helps on comparable tasks
 
 **Timing:** 156:30–158:30 (2 minutes).
 
@@ -1163,7 +1186,7 @@ This is a proposed pilot design, not a standard approval process. When practical
 Tricia Johnstone, Director, Operational Readiness. ISO now has expanded training and emergency operations facilities. California ISO. 2025-02-20.
 Full source: https://www.caiso.com/about/news/energy-matters-blog/iso-now-has-expanded-training-and-emergency-operations-facilities
 
-## 75. Power-sector testbeds provide places to evaluate agents
+## 77. Power-sector testbeds provide places to evaluate agents
 
 **Timing:** 158:30–160:00 (1.5 minutes).
 
@@ -1183,7 +1206,7 @@ Full source: https://msites.epri.com/saferai
 Oak Ridge National Laboratory, U.S. Department of Energy. Oak Ridge National Laboratory, U.S. Department of Energy: Researchers at ORNL GOAL facing a large display of U.S. grid and geographic data. Image accessed 17 October 2026.
 Full source: https://www.ornl.gov/grid-operations-and-analytics-laboratory-goal/
 
-## 76. GridGuard: what should this prototype prove?
+## 78. GridGuard: what should this prototype prove?
 
 **Timing:** 160:00–162:00 (2 minutes).
 
@@ -1199,7 +1222,7 @@ Full source: ../research/GridGuard_source_snapshot.txt
 Local workshop source snapshot. Existing three-use-case GridGuard workshop: instructor route and synthetic-feeder context. Snapshot 17 October 2026.
 Full source: ../research/Follow_on_workshop_source.txt
 
-## 77. Next tutorial: check the proposed action
+## 79. Next tutorial: check the proposed action
 
 **Timing:** 162:00–163:00 (1 minutes).
 
@@ -1210,7 +1233,7 @@ Take three questions into the detailed workshop: Are the data valid? Is the engi
 Local workshop source snapshot. Existing three-use-case GridGuard workshop: instructor route and synthetic-feeder context. Snapshot 17 October 2026.
 Full source: ../research/Follow_on_workshop_source.txt
 
-## 78. Discussion and full sources
+## 80. Discussion and full sources
 
 **Timing:** 163:00–165:00 (2 minutes).
 

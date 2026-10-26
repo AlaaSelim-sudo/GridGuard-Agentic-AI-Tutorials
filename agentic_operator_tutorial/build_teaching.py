@@ -333,7 +333,7 @@ def normalized_slides(content):
 
 def diagram_records():
     records = {}
-    for name in ("diagram_manifest.json", "rigor_manifest.json", "power_graph_manifest.json", "revision_graph_manifest.json", "visual_aid_manifest.json", "domain_visual_manifest.json"):
+    for name in ("diagram_manifest.json", "rigor_manifest.json", "power_graph_manifest.json", "revision_graph_manifest.json", "visual_aid_manifest.json", "domain_visual_manifest.json", "exercise_solution_manifest.json"):
         path = ROOT / "diagrams" / name
         if not path.exists():
             continue
@@ -411,7 +411,7 @@ def instructor_notes(slides,sources):
     out = [f"# Instructor guide — agentic AI for power systems\n\n{len(slides)} static slides in one integrated {total:g}-minute teaching route. "
            + "Evidence reviewed " + reading.REVIEWED + ".\n\n"
            + "All slide content is visible at once. There are no slide transitions, motion effects, click reveals or tables. "
-           + "Exercise answers appear only in speaker notes. The separate Full Reading Guide is untimed.\n\n"
+           + "Each exercise is followed by a worked-answer slide. Show the question first, then advance for the debrief. The separate Full Reading Guide is untimed.\n\n"
            + "Every slide belongs to the session. The paper studies address power-system analysis, operation, planning or evidence tasks. LangGraph and DAG concepts are taught through those applications. The next workshop contains the detailed three GridGuard use cases.\n\n"
            + "## Cumulative teaching route\n\n"]
     elapsed = 0
@@ -509,6 +509,7 @@ download: false
 """
     deck = front + "\n---\ntransition: none\n---\n\n".join(
         render_slide(s, i, len(slides), sources) for i, s in enumerate(slides, 1))
+    deck = "\n".join(line.rstrip() for line in deck.splitlines()) + "\n"
     for token in ("v-click", "v-motion", r"\transfade", r"\uncover<", r"\item<", r"\pause",
                   r"\begin{tabular}", "<table"):
         if token in frames or token in deck:
@@ -542,6 +543,7 @@ download: false
         "source_image_slides":source_image_slides,"source_image_slide_count":len(source_image_slides),
         "click_reveals": 0, "tables": 0, "reading_guide_timed": False,
         "exercise_slides": [i for i, s in enumerate(slides, 1) if s["kind"] == "exercise"],
+        "exercise_answer_slides": [i for i,s in enumerate(slides,1) if s.get('answer_for')],
         "source_content": "power_content.py", "source_registry": "research/source_map.json",
         "source_content_sha256": hashlib.sha256((ROOT / "power_content.py").read_bytes()).hexdigest(),
         "outputs": list(outputs),

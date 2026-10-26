@@ -130,8 +130,8 @@
       "H08"
     ],
     "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
-    "minutes": 4,
-    "note": "Allow one minute to predict, two minutes to edit and run, and one minute to report. For isolated bias at scale 0.10, J is about 10.143237, below the 15.086272 threshold. The alarm is False despite nonzero state error. The coordinated residual stays about 3.920222. This added scale remains within the notebook's plot limits.",
+    "minutes": 3,
+    "note": "Three minutes to predict, edit and run; debrief on the following one-minute answer slide. Allow one minute to predict, two minutes to edit and run, and one minute to report. For isolated bias at scale 0.10, J is about 10.143237, below the 15.086272 threshold. The alarm is False despite nonzero state error. The coordinated residual stays about 3.920222. This added scale remains within the notebook's plot limits.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
@@ -140,6 +140,30 @@
       "ATTACK_SCALES = (0., .10, .25, .5, 1., 1.5)"
     ],
     "takeaway": ""
+  },
+  {
+    "title": "Exercise 3 answer: no alarm can hide an error",
+    "diagram": "exercise_cyber_solution",
+    "points": [
+      "At scale 0.10, both alarms are False. Both state estimates still have error; the coordinated shift has the larger error here.",
+      "No alarm means J is below this threshold. It does not prove correct data or trusted sensors."
+    ],
+    "note": "At scale 0.10, isolated bias gives residual J=10.143237 and state error 0.0008057145 rad. Coordinated Hc gives J=3.920222 and state error 0.0025529499 rad. Both are below the 15.086272 alarm threshold, so both alarm flags are False. This J is a residual statistic, unlike the voltage-control objective J. State error is available here because simulation truth is known. Restore the original ATTACK_SCALES and rerun L8 before the separate fixed L9 recovery case.",
+    "lab_label": "L8",
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; fresh four-bus DC residual check at scale 0.10.",
+    "caption": "Fresh L8 results. The state error uses known simulation truth and is not an online truth measurement.",
+    "kind": "diagram",
+    "minutes": 1,
+    "refs": [
+      "H08"
+    ],
+    "eyebrow": "Worked answer / L8",
+    "takeaway": "",
+    "visual_height_cm": 3.3,
+    "visual_height_px": 310,
+    "answer_for": "Exercise 3: test a small bias",
+    "exercise_phase": "solution",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
   },
   {
     "title": "Exercise 3: a small bias can miss the threshold",

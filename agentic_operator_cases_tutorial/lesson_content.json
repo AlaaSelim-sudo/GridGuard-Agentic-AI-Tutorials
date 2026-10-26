@@ -831,8 +831,8 @@
       "H02"
     ],
     "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.",
-    "minutes": 4,
-    "note": "Allow one minute to predict, two minutes to edit and run, and one minute to report. Keep LOAD_SCALE=1.0. Reference allowed-current use is 78.527895% for MPC and 54.854158% for SAC; both remain feasible. Do not ask learners to find a rejection that this edit does not produce. The default model still covers MV only.",
+    "minutes": 3,
+    "note": "Three minutes to predict, edit and run; debrief on the following one-minute answer slide. Allow one minute to predict, two minutes to edit and run, and one minute to report. Keep LOAD_SCALE=1.0. Reference allowed-current use is 78.527895% for MPC and 54.854158% for SAC; both remain feasible. Do not ask learners to find a rejection that this edit does not produce. The default model still covers MV only.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L2",
@@ -851,6 +851,38 @@
     "diagram": null,
     "math_tex": "",
     "math_html": "",
+    "callout": ""
+  },
+  {
+    "title": "Exercise 1 answer: both options still pass",
+    "diagram": "exercise_voltage_solution",
+    "points": [
+      "MPC has the lower score J. The saved SAC actor uses less current; current use alone is not the objective.",
+      "Both checks cover the default MV model. They do not establish full MV/LV or dynamic performance."
+    ],
+    "note": "At LOAD_SCALE=1.0 and RATING_FRACTION=0.75, MPC is feasible with 78.527895% current use and J=0.0311038194. Saved SAC is feasible with 54.854158% current use and J=0.4324637539. Lower J is preferred only among feasible candidates. These are fresh three-phase linear MV checks, not a full MV/LV study. Restore RATING_FRACTION=0.80 and rerun all of L2 before continuing.",
+    "lab_label": "L2",
+    "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; fresh numerical check at rating fraction 0.75.",
+    "caption": "Fresh L2 results. Current use is relative to the changed allowance; J is the current-step objective.",
+    "kind": "diagram",
+    "minutes": 1,
+    "refs": [
+      "H02"
+    ],
+    "eyebrow": "Worked answer / L2",
+    "takeaway": "",
+    "visual_height_cm": 3.3,
+    "visual_height_px": 310,
+    "answer_for": "Exercise 1: lower the current allowance",
+    "exercise_phase": "solution",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "module": "voltage",
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
     "callout": ""
   },
   {
@@ -1560,8 +1592,8 @@
       "H06"
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
-    "minutes": 4,
-    "note": "Allow one minute to predict, two minutes to edit and run, and one minute to report. At 180 kW, both methods serve 250 kW total and 90 kW critical demand. Keep 40 kW first in the list because L7 binds the first result to the first capacity. Do not reorder the list for this exercise.",
+    "minutes": 3,
+    "note": "Three minutes to predict, edit and run; debrief on the following one-minute answer slide. Allow one minute to predict, two minutes to edit and run, and one minute to report. At 180 kW, both methods serve 250 kW total and 90 kW critical demand. Keep 40 kW first in the list because L7 binds the first result to the first capacity. Do not reorder the list for this exercise.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
@@ -1580,6 +1612,38 @@
     "diagram": null,
     "math_tex": "",
     "math_html": "",
+    "callout": ""
+  },
+  {
+    "title": "Exercise 2 answer: capacity changes the trade-off",
+    "diagram": "exercise_restoration_solution",
+    "points": [
+      "At 40 kW, priorities give more critical service: 90 kW instead of 30 kW, with less total service.",
+      "The goals match from 80 kW in the tested list. At 180 kW, both serve 250 kW total, including 90 kW critical."
+    ],
+    "note": "At 40 kW tie capacity, priority-weighted MILP serves 130 kW total and 90 kW critical. The unweighted maximum-kW policy serves 140 kW total and 30 kW critical. In the sampled list, outcomes first match at 80 kW; they also match at 100, 120 and 180 kW. At 180 kW, both serve 250 total and 90 critical kW. Do not infer the exact continuous crossover from this discrete sweep. Keep 40 first, restore the original list and rerun L6 before L7.",
+    "lab_label": "L6",
+    "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; fresh MILP and exhaustive-check sweep.",
+    "caption": "Fresh L6 results at two tested capacities. Cyan is critical demand; blue is other served demand.",
+    "kind": "diagram",
+    "minutes": 1,
+    "refs": [
+      "H06"
+    ],
+    "eyebrow": "Worked answer / L6",
+    "takeaway": "",
+    "visual_height_cm": 3.3,
+    "visual_height_px": 310,
+    "answer_for": "Exercise 2: increase tie capacity",
+    "exercise_phase": "solution",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "module": "restoration",
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
     "callout": ""
   },
   {
@@ -2095,8 +2159,8 @@
       "H08"
     ],
     "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
-    "minutes": 4,
-    "note": "Allow one minute to predict, two minutes to edit and run, and one minute to report. For isolated bias at scale 0.10, J is about 10.143237, below the 15.086272 threshold. The alarm is False despite nonzero state error. The coordinated residual stays about 3.920222. This added scale remains within the notebook's plot limits.",
+    "minutes": 3,
+    "note": "Three minutes to predict, edit and run; debrief on the following one-minute answer slide. Allow one minute to predict, two minutes to edit and run, and one minute to report. For isolated bias at scale 0.10, J is about 10.143237, below the 15.086272 threshold. The alarm is False despite nonzero state error. The coordinated residual stays about 3.920222. This added scale remains within the notebook's plot limits.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
@@ -2115,6 +2179,38 @@
     "diagram": null,
     "math_tex": "",
     "math_html": "",
+    "callout": ""
+  },
+  {
+    "title": "Exercise 3 answer: no alarm can hide an error",
+    "diagram": "exercise_cyber_solution",
+    "points": [
+      "At scale 0.10, both alarms are False. Both state estimates still have error; the coordinated shift has the larger error here.",
+      "No alarm means J is below this threshold. It does not prove correct data or trusted sensors."
+    ],
+    "note": "At scale 0.10, isolated bias gives residual J=10.143237 and state error 0.0008057145 rad. Coordinated Hc gives J=3.920222 and state error 0.0025529499 rad. Both are below the 15.086272 alarm threshold, so both alarm flags are False. This J is a residual statistic, unlike the voltage-control objective J. State error is available here because simulation truth is known. Restore the original ATTACK_SCALES and rerun L8 before the separate fixed L9 recovery case.",
+    "lab_label": "L8",
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; fresh four-bus DC residual check at scale 0.10.",
+    "caption": "Fresh L8 results. The state error uses known simulation truth and is not an online truth measurement.",
+    "kind": "diagram",
+    "minutes": 1,
+    "refs": [
+      "H08"
+    ],
+    "eyebrow": "Worked answer / L8",
+    "takeaway": "",
+    "visual_height_cm": 3.3,
+    "visual_height_px": 310,
+    "answer_for": "Exercise 3: test a small bias",
+    "exercise_phase": "solution",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "module": "cyber",
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
     "callout": ""
   },
   {

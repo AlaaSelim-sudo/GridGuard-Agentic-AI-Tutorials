@@ -18,7 +18,7 @@ def esc(t):
 
 def prepare():
     slides=load('lesson_content.json');data=load('content/presenter_script.json');authored={c['title']:c for c in data['slides']}
-    assert len(slides)==len(authored)==80
+    assert len(slides)==len(authored)==83
     assert set(authored)=={s['title'] for s in slides}
     assert sum(s['minutes'] for s in slides)==data['session_minutes']==90
     book=json.loads((ROOT.parent/'agentic_grid_workflow_tutorial/Classroom_Labs.ipynb').read_text(encoding='utf-8-sig'))
@@ -72,7 +72,7 @@ def write_outputs(slides,rows,make_pdf):
     run_sheet={'notebook':'Classroom_Labs.ipynb','session_minutes':90,'all_code_cells':code_cells,
                'run_route':[{'slide':r['number'],**{k:r['colab'][k] for k in ['mode','lessons','cell_ids','instruction','expected']}} for r in run_rows]}
     (ROOT/'content/colab_run_route.json').write_text(json.dumps(run_sheet,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    intro='One notebook, 80 slides, 90 minutes. Use the spoken explanation in your own voice. The run cue says exactly when to open, run, edit, reset or inspect a cell. Run the complete cell identified by its L heading and stable ID.'
+    intro='One notebook, 83 slides, 90 minutes. Use the spoken explanation in your own voice. The run cue says exactly when to open, run, edit, reset or inspect a cell. Run the complete cell identified by its L heading and stable ID.'
     boundary='Python calculates new numerical results. L3, L10 and L10B show separately labeled saved model records. One Llama model fills two roles in the saved five-role Python workflow. L12 is a simulated readback; equipment_dispatch stays False.'
     md=['# Presenter script: three operator cases','', '**Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.**','',intro,'',boundary,'','## Session route','']
     styles=css()+'''body{font-size:20px;line-height:1.5;max-width:1020px;margin:38px auto;padding:0 28px;color:#003b5c}h1{font-size:40px;line-height:1.12}h2{font-size:30px;line-height:1.2;margin-top:52px;border-top:2px solid #00a6b2;padding-top:22px}h3{font-size:25px;line-height:1.2}a{color:#00629b;overflow-wrap:anywhere}.slide{border-bottom:1px solid #cad6dc;padding:18px 0 30px;scroll-margin-top:20px}.meta{font-size:17px;color:#526470}.run{border-left:3px solid #00629b;padding-left:18px}.run p{margin:8px 0}li{margin:9px 0}code{font-size:.9em}details{margin:18px 0}summary{cursor:pointer;font-weight:bold}@media(max-width:600px){body{font-size:18px;padding:0 18px}h1{font-size:32px}}@media print{body{font-size:12pt;margin:0}.slide{break-before:page}.nav,.links{display:none}h2{break-before:page}}'''
@@ -120,9 +120,9 @@ def write_outputs(slides,rows,make_pdf):
         shutil.copy2(ROOT/'latex/presenter_script.pdf',ROOT/'Presenter_Script.pdf')
     copy_web_fonts(ROOT/'slidev/public/fonts')
     for name in ['Presenter_Script.md','Presenter_Script.html']+(['Presenter_Script.pdf'] if make_pdf else []):shutil.copy2(ROOT/name,ROOT/'slidev/public'/name)
-    manifest={'slides':80,'minutes':90,'font_family':'Latin Modern Roman; Latin Modern Mono for code','lesson_sha256':hashlib.sha256((ROOT/'lesson_content.json').read_bytes()).hexdigest(),'script_cues_sha256':hashlib.sha256((ROOT/'content/presenter_script.json').read_bytes()).hexdigest(),'entries':[{k:r[k] for k in ['number','title','minutes','start','end']}|{'colab_mode':r['colab']['mode'],'cell_ids':r['colab']['cell_ids']} for r in rows]}
+    manifest={'slides':83,'minutes':90,'font_family':'Latin Modern Roman; Latin Modern Mono for code','lesson_sha256':hashlib.sha256((ROOT/'lesson_content.json').read_bytes()).hexdigest(),'script_cues_sha256':hashlib.sha256((ROOT/'content/presenter_script.json').read_bytes()).hexdigest(),'entries':[{k:r[k] for k in ['number','title','minutes','start','end']}|{'colab_mode':r['colab']['mode'],'cell_ids':r['colab']['cell_ids']} for r in rows]}
     p=ROOT/'research/presenter/presenter_manifest.json';p.write_text(json.dumps(manifest,indent=2)+'\n');shutil.copy2(p,ROOT/'slidev/public/research/presenter/presenter_manifest.json')
-    print(json.dumps({'script_slides':80,'minutes':90,'covered_code_cells':15,'pdf':make_pdf}))
+    print(json.dumps({'script_slides':83,'minutes':90,'covered_code_cells':15,'pdf':make_pdf}))
 
 def write_tex(rows,groups,run_rows,intro,boundary,citations):
     out=[r'''\documentclass[12pt,letterpaper]{article}

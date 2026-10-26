@@ -14,12 +14,12 @@ WEB=SITE+'foundations/'
 PRESENTERS='Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.'
 GROUPS=[('concepts',1,8,'1. Agents, tools and workflows'),
         ('industry',9,17,'2. What power-sector organizations report'),
-        ('operators',18,26,'3. Operator tasks and evidence checks'),
-        ('workflow',27,42,'4. Research foundations, LangGraph and PowerDAG'),
-        ('simulation',43,53,'5. Simulation feedback and valid reuse'),
-        ('benchmarks',54,65,'6. Power-system benchmarks and failure modes'),
-        ('evaluation',66,75,'7. Statistics, integration and evaluation'),
-        ('handoff',76,78,'8. Prepare for the three-case workshop')]
+        ('operators',18,27,'3. Operator tasks and evidence checks'),
+        ('workflow',28,43,'4. Research foundations, LangGraph and PowerDAG'),
+        ('simulation',44,55,'5. Simulation feedback and valid reuse'),
+        ('benchmarks',56,67,'6. Power-system benchmarks and failure modes'),
+        ('evaluation',68,77,'7. Statistics, integration and evaluation'),
+        ('handoff',78,80,'8. Prepare for the three-case workshop')]
 FIELDS=['say','visual','question','answer','transition']
 GLOSSARY=[
  ('AI agent','A system that observes an environment and chooses actions. A software agent can observe records and act through software interfaces.'),
@@ -77,12 +77,12 @@ def citation(rec):
 
 def prepare():
  slides=load('lesson_content.json');cues=load('content/presenter_script.json')['slides'];sources=load('research/source_map.json')
- if len(slides)!=78 or len(cues)!=78:raise ValueError('Expect seventy-eight slide explanations.')
- if len({c['title'] for c in cues})!=78:raise ValueError('Duplicate script title.')
+ if len(slides)!=80 or len(cues)!=80:raise ValueError('Expect eighty slide explanations.')
+ if len({c['title'] for c in cues})!=80:raise ValueError('Duplicate script title.')
  cue_map={c['title']:c for c in cues}
  if set(cue_map)!={s['title'] for s in slides}:raise ValueError('Slide titles changed: update the authored script.')
  if sum(s['minutes'] for s in slides)!=165:raise ValueError('Expected 165 teaching minutes.')
- if [n for n,s in enumerate(slides,1) if s['kind']=='exercise']!=[26,53]:raise ValueError('Check exercise locations.')
+ if [n for n,s in enumerate(slides,1) if s['kind']=='exercise']!=[26,54]:raise ValueError('Check exercise locations.')
  rows=[];elapsed=0
  for n,s in enumerate(slides,1):
   c=cue_map[s['title']]
@@ -102,14 +102,14 @@ CSS='''body{font:19px/1.65 'Latin Modern Roman',serif;max-width:1080px;margin:32
 def render(rows,sources,pdf=False):
  used=load('build_manifest.json')['reading_source_ids']
  if any(k not in sources for k in used):raise ValueError('Unregistered reading source.')
- intro='A speaking and teaching companion for all 78 foundations slides. Follow the existing 165-minute route, including the six-minute exercise on slide 26 and the eight-minute exercise on slide 53. Add breaks outside this teaching time.'
+ intro='A speaking and teaching companion for all 80 foundations slides. Follow the existing 165-minute route, including the six-minute exercise across slides 26-27 and the eight-minute exercise across slides 54-55. Add breaks outside this teaching time.'
  how='Use Say as the spoken explanation. Walk the image or concept using Show / explain, then use the quick question when it helps the room. Expected answers are presenter cues. The final sentence bridges to the next slide. The timings include explanation, visual walkthrough and brief discussion; the exercise timings include all group work.'
  scope='This script follows the accepted deck and its 18 October 2026 evidence snapshot. It preserves the distinction between company disclosures, supplier reports, product announcements, research results and invented teaching examples. It makes no new experiment or model call.'
  md=['# Foundations presenter script','', '**'+PRESENTERS+'**','',intro,'',how,'',scope,'',f'[Slides]({WEB}#/1) / [Presenter view]({WEB}#/presenter/1) / [Full reading guide]({WEB}Full_Reading_Guide.html)','', '## Prepare to teach','',
   '- Open the slides and this script in separate windows. Test the presenter view and the source links before the session.',
   '- Ask learners to keep one real work task in mind. Revisit that task in the closing discussion.',
   '- Explain each result by naming its task, denominator, success rule and remaining limitations. Research percentages across different tasks are not a ranking.',
-  '- Keep both exercise answers private until the debrief. No notebook or model account is needed for this foundations session.',
+  '- Show each question first, then advance to its worked answer for the debrief. No notebook or model account is needed for this foundations session.',
   '- The next hands-on tutorial uses one required Classroom Labs notebook, with fresh numerical work and separately labeled saved Llama records.','', '## Teaching route','']
  web=['<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Foundations presenter script</title><style>'+CSS+'</style></head><body><main>',
  '<a href="'+SITE+'">Tutorial home</a><h1>Foundations presenter script</h1><p><strong>'+esc(PRESENTERS)+'</strong></p>',
@@ -122,11 +122,11 @@ def render(rows,sources,pdf=False):
  for key,a,b,label in GROUPS:
   r0,r1=rows[a-1],rows[b-1];route=f'{label}: slides {a}-{b}, {r0["start"]}-{r1["end"]}'
   md.append(f'- [{route}](#module-{key})');web.append('<li><a href="#module-'+key+'">'+esc(route)+'</a></li>')
- md+=['','Exercises: slide 26, six minutes; slide 53, eight minutes.','', '## Quick glossary','']
+ md+=['','Exercises: slides 26-27, six minutes; slides 54-55, eight minutes.','', '## Quick glossary','']
  # Keep the glossary after the narration online and in print, while linking it early.
  md=md[:-2]+['[Plain-language glossary](#glossary) / [Full references](#references)','']
  web+=['<li><a href="#glossary">Plain-language glossary</a></li><li><a href="#references">Full references</a></li></ul></nav>',
- '<div class="search"><label for="search">Find a slide, term or paper</label><input id="search" type="search" placeholder="For example: slide 39, PowerDAG, confidence" aria-describedby="search-status"><p id="search-status" aria-live="polite">78 slide explanations</p></div>']
+ '<div class="search"><label for="search">Find a slide, term or paper</label><input id="search" type="search" placeholder="For example: slide 39, PowerDAG, confidence" aria-describedby="search-status"><p id="search-status" aria-live="polite">80 slide explanations</p></div>']
  for key,a,b,label in GROUPS:
   md+=['<a id="module-'+key+'"></a>','', '## '+label,''];web.append('<h2 id="module-'+key+'">'+esc(label)+'</h2>')
   for r in rows[a-1:b]:
@@ -157,13 +157,13 @@ def render(rows,sources,pdf=False):
   web.append('<article class="sources" id="source-'+k+'"><h3>['+k+'] '+esc(rec['title'])+'</h3><p>'+esc(citation(rec))+'</p><p><a href="'+esc(url)+'">'+esc(url)+'</a></p>')
   if rec.get('pdf_url'):md+=['Full paper: '+source_url(rec['pdf_url']),''];web.append('<p>Full paper: <a href="'+esc(source_url(rec['pdf_url']))+'">'+esc(source_url(rec['pdf_url']))+'</a></p>')
   web.append('</article>')
- web.append('''</main><script>const field=document.querySelector('#search');const entries=[...document.querySelectorAll('section.slide')];field.addEventListener('input',()=>{const q=field.value.trim().toLowerCase();let count=0;for(const entry of entries){const match=!q||entry.textContent.toLowerCase().includes(q);entry.hidden=!match;if(match)count++;}document.querySelector('#search-status').textContent=count+' of 78 slide explanations';});</script></body></html>''')
+ web.append('''</main><script>const field=document.querySelector('#search');const entries=[...document.querySelectorAll('section.slide')];field.addEventListener('input',()=>{const q=field.value.trim().toLowerCase();let count=0;for(const entry of entries){const match=!q||entry.textContent.toLowerCase().includes(q);entry.hidden=!match;if(match)count++;}document.querySelector('#search-status').textContent=count+' of 80 slide explanations';});</script></body></html>''')
  (ROOT/'Presenter_Script.md').write_text('\n'.join(md).rstrip()+'\n',encoding='utf-8')
  latin_modern.copy_web_fonts(ROOT/'slidev/public/fonts')
  (ROOT/'Presenter_Script.html').write_text(latin_modern.style_html('\n'.join(web)+'\n'),encoding='utf-8')
  if pdf:write_pdf(rows,sources,used,intro,how,scope)
  for name in ['Presenter_Script.md','Presenter_Script.html']+(['Presenter_Script.pdf'] if pdf else []):shutil.copy2(ROOT/name,ROOT/'slidev/public'/name)
- manifest=dict(slides=78,minutes=165,exercises=[26,53],source_count=len(used),lesson_sha256=sha('lesson_content.json'),slidev_sha256=sha('slidev/slides.md'),cue_sha256=sha('content/presenter_script.json'),renderer_sha256=sha('build_presenter_script.py'),spoken_words=sum(len(r['say'].split()) for r in rows),entries=[{k:r[k] for k in ['number','title','minutes','start','end']} for r in rows])
+ manifest=dict(slides=80,minutes=165,exercises=[26,54],source_count=len(used),lesson_sha256=sha('lesson_content.json'),slidev_sha256=sha('slidev/slides.md'),cue_sha256=sha('content/presenter_script.json'),renderer_sha256=sha('build_presenter_script.py'),spoken_words=sum(len(r['say'].split()) for r in rows),entries=[{k:r[k] for k in ['number','title','minutes','start','end']} for r in rows])
  if pdf:manifest['pdf_sha256']=sha('Presenter_Script.pdf')
  dest=ROOT/'research/presenter';dest.mkdir(parents=True,exist_ok=True);(dest/'presenter_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
  public=ROOT/'slidev/public/research/presenter';public.mkdir(parents=True,exist_ok=True);shutil.copy2(dest/'presenter_manifest.json',public/'presenter_manifest.json')
@@ -184,17 +184,17 @@ def write_pdf(rows,sources,used,intro,how,scope):
   'small':ParagraphStyle('Small',fontName='LMRoman',fontSize=9,leading=12,textColor=SLATE,spaceAfter=7)}
  def p(t,style='body'):return Paragraph(esc(plain(t)),styles[style])
  def link(url,label):return Paragraph('<link href="'+esc(url)+'" color="#00629b">'+esc(plain(label))+'</link>',styles['small'])
- story=[p('Foundations presenter script','title'),p(PRESENTERS),p('78 slides / 165 teaching minutes / two worked exercises'),p(intro),p(how),p(scope),Spacer(1,14),p('Before presenting','heading')]
+ story=[p('Foundations presenter script','title'),p(PRESENTERS),p('80 slides / 165 teaching minutes / two worked exercises'),p(intro),p(how),p(scope),Spacer(1,14),p('Before presenting','heading')]
  for text in ['Open the presentation and script in separate windows. Test presenter view and source links.',
               'Ask learners to keep one real work task in mind. Revisit it in the closing discussion.',
               'Name the task, denominator and scoring rule for every research number. Different tasks do not form a model ranking.',
-              'Keep exercise answers private until the debrief. Foundations needs no notebook or model account.']:
+              'Show questions first and reveal answers on the following slides. Foundations needs no notebook or model account.']:
   story.append(p(text))
  story.extend([link(WEB+'#/1','Open the foundations slides'),link(WEB+'#/presenter/1','Open presenter view'),link('https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_operator_tutorial/Presenter_Script.html','Presenter script source in the repository')])
  story.extend([PageBreak(),p('Teaching route','heading')])
  for key,a,b,label in GROUPS:
   story.append(p(f'{label}: slides {a}-{b}, {rows[a-1]["start"]}-{rows[b-1]["end"]}.'))
- story.extend([Spacer(1,12),p('Exercise pacing','heading'),p('Slide 26: six minutes. Inspect alone for one minute, work in pairs for two, share for two and debrief for one.'),p('Slide 53: eight minutes. Think alone for two minutes, compare in groups for two, discuss for two and debrief for two.'),p('The printed script gives one page per slide. Full author, title, publication details and source URLs follow the glossary. Source IDs on each teaching page link to that reference list.'),link(WEB+'Full_Reading_Guide.html','Full reading guide and visual provenance'),link(SITE+'operator-cases/#/1','Follow-on hands-on tutorial')])
+ story.extend([Spacer(1,12),p('Exercise pacing','heading'),p('Slides 26-27: five minutes to inspect, work in pairs and share; one minute for the worked answer.'),p('Slides 54-55: six minutes to think, compare and discuss; two minutes for the worked answer.'),p('The printed script gives one page per slide. Full author, title, publication details and source URLs follow the glossary. Source IDs on each teaching page link to that reference list.'),link(WEB+'Full_Reading_Guide.html','Full reading guide and visual provenance'),link(SITE+'operator-cases/#/1','Follow-on hands-on tutorial')])
  group_at={a:label for _,a,_,label in GROUPS}
  for r in rows:
   n=r['number'];story.append(PageBreak())
@@ -232,16 +232,16 @@ def check(rows):
   if manifest[key]!=sha(path):raise ValueError('Regenerate the presenter script after changing '+path)
  if manifest.get('pdf_sha256')!=sha('Presenter_Script.pdf'):raise ValueError('Presenter PDF differs from its generated receipt.')
  md=(ROOT/'Presenter_Script.md').read_text(encoding='utf-8');web=(ROOT/'Presenter_Script.html').read_text(encoding='utf-8')
- if len(re.findall(r'^### Slide \d+\.',md,re.M))!=78 or web.count('<section class="slide')!=78:raise ValueError('Script coverage mismatch.')
+ if len(re.findall(r'^### Slide \d+\.',md,re.M))!=80 or web.count('<section class="slide')!=80:raise ValueError('Script coverage mismatch.')
  for name in ['Presenter_Script.pdf','Presenter_Script.html','Presenter_Script.md']:
   if (ROOT/name).read_bytes()!=(ROOT/'slidev/public'/name).read_bytes():raise ValueError('Public copy differs: '+name)
  from pypdf import PdfReader
  reader=PdfReader(ROOT/'Presenter_Script.pdf')
- if len(reader.pages)<80:raise ValueError('Missing printed teaching pages.')
+ if len(reader.pages)<82:raise ValueError('Missing printed teaching pages.')
  for i,r in enumerate(rows):
   text=reader.pages[i+2].extract_text()
   if f'Slide {i+1}.' not in text or not all(x in text for x in ['Show / explain','Expected answer','Transition']):raise ValueError('Printed slide page missing or overflowed: '+str(i+1))
- print(json.dumps(dict(slides=78,minutes=165,spoken_words=manifest['spoken_words'],sources=manifest['source_count'],pdf_pages=len(reader.pages),one_page_per_slide=True,exercises=[26,53],validated=True)))
+ print(json.dumps(dict(slides=80,minutes=165,spoken_words=manifest['spoken_words'],sources=manifest['source_count'],pdf_pages=len(reader.pages),one_page_per_slide=True,exercises=[26,54],validated=True)))
 
 def main():
  parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--pdf',action='store_true');parser.add_argument('--check',action='store_true');args=parser.parse_args()
