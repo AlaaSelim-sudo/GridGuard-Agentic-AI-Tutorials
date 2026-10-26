@@ -77,8 +77,8 @@ def validate_manifest(manifest,slides):
     return exercises
 
 def write_exercises(exercises):
-    worksheet='<!doctype html><meta charset="utf-8"><title>Three Operator Cases: exercises</title><style>body{font:20px/1.5 Arial;color:#003b5c;max-width:1050px;margin:35px auto;padding:0 24px}h1,h2{color:#00629b}section{break-after:page;margin-bottom:70px}img{width:100%;height:290px;object-fit:contain}li{margin:15px 0}.space{height:140px;border-bottom:1px solid #bbb}</style><h1>Three Operator Cases: exercises</h1><p>Follow each task, record the result, and explain one supporting check. Each exercise has its own time allowance.</p>'
-    worksheet+='<p><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open Classroom Labs in Google Colab</a>. Run setup, L0 and L1 first; follow each case in order.</p>'
+    worksheet='<!doctype html><meta charset="utf-8"><title>Three Operator Cases: exercises</title><style>body{font:20px/1.5 Arial;color:#003b5c;max-width:1050px;margin:35px auto;padding:0 24px}h1,h2{color:#00629b}section{break-after:page;margin-bottom:70px}img{width:100%;height:290px;object-fit:contain}li{margin:15px 0}.space{height:140px;border-bottom:1px solid #bbb}</style><h1>Three Operator Cases: exercises</h1><p>Predict the result and explain one supporting reason. Each exercise has its own time allowance.</p>'
+    worksheet+='<p>Discuss each what-if question using the prepared figures. No software is needed. The following slide gives the calculated answer.</p>'
     for i,s in exercises:
         duration=f"{s['minutes']:g}"
         worksheet+='<section><h2>'+html.escape(s['title'])+'</h2><p>Presentation slide '+str(i)+' · '+duration+' minutes.</p>'

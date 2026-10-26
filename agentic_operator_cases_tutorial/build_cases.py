@@ -205,7 +205,7 @@ def prepare_slides():
                     'display_change':'Source statements preserved; leading indentation removed and long calls wrapped for readability.'})
             if s.get('diagram_spec') and isinstance(s['diagram_spec'],dict) and not s.get('diagram'):
                 s['diagram']=s['diagram_spec'].get('id')
-            if len(s.get('points',[]))==3 and (s.get('diagram') or s.get('image_source_path')):
+            if s['kind']!='exercise' and len(s.get('points',[]))==3 and (s.get('diagram') or s.get('image_source_path')):
                 s['points']=[s['points'][0],s['points'][1]+' '+s['points'][2]]
             if s.get('image_source_path'):
                 src,relative_source=resolve_local(s['image_source_path']);assert src.is_file(),str(src)
@@ -263,7 +263,7 @@ def prepare_slides():
     dump(ROOT/'images/image_manifest.json',{'images':list(images.values())})
     dump(ROOT/'research/code_manifest.json',code_records)
     slides=r.normalized_slides(SimpleNamespace(SLIDES=slides))
-    assert len(slides)==69,len(slides)
+    assert len(slides)==50,len(slides)
     assert sum(s['minutes'] for s in slides)==90
     assert sum(s['kind']=='exercise' for s in slides)==3
     return slides
@@ -271,14 +271,12 @@ def prepare_slides():
 def teaching_guide(slides,sources):
     schedule=module_schedule(slides)
     route='; '.join(item['label']+': '+str(item['slides'])+' slides / '+str(item['minutes'])+' minutes' for item in schedule)+'.'
-    sections=[('Using the lab and source guide',[
-        ('Format',str(len(slides))+' slides, one notebook and three operator cases. Follow along during the session or finish the experiments afterward.'),
-        ('Prerequisite','Use the foundations tutorial first. This session follows the current Classroom Labs notebook through voltage support, service restoration and cyber response.'),
-        ('Evidence modes','Run the selected numerical cells to calculate results for your inputs. Archived model-response pools and historical evaluation records remain separately labeled. Editing L2 does not change the archived test_01 used by L3–L5, and editing the L8 sweep does not change the fixed L9 recovery fixture. No default cell calls an LLM or operates equipment.'),
-        ('Setup','Open Classroom Labs, save a copy in Drive and connect a CPU. Run setup, wait for Ready, then run L0 and L1. Keep both switches False. No API key, LLM download or GPU is needed.'),
-        ('Lab order','Voltage L2-L5, restoration L6-L7, cyber L8-L9, then saved agent records L10-L10B and simulated readback L12. Leave L11 disabled.'),
-        ('Source figures','Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Stanford University, Fall 2026, pp.2, 19, 40 and 53. Original excerpts keep their source credits. Grid diagrams are teaching adaptations. This notebook does not run WikiChat, Genie Worksheets or a theorem prover.'),
-        ('Five-role workflow','Slide 68 shows the five-role Python framework used by the three recorded L10 cases. One Llama model fills the planning and optimizer roles. Python runs awareness, simulation and verification. The notebook replays these saved stages; it does not launch five independent LLM agents.')],[])]
+    sections=[('Using the case and source guide',[
+        ('Format',str(len(slides))+' self-contained concept slides and three what-if discussions. No software or account is required.'),
+        ('Learning route','Understand the problem, change one condition, follow the agent request and numerical result, then identify the operator decision.'),
+        ('Evidence','Numerical figures are prepared results. Recorded language-model replies retain their own case inputs and scope. A different recorded study is explicitly labeled. These examples do not demonstrate field deployment or general performance gains.'),
+        ('Practice afterward','The participant lab guide and notebooks are separate optional practice material. Their setup and cell labels are not needed to understand this presentation.'),
+        ('Credits','External Stanford material retains its credits. Full source and calculation provenance are collected here; the authors’ own case slides have no source footer.')],[])]
     elapsed=0
     for i,s in enumerate(slides,1):
         end=elapsed+s['minutes']
@@ -312,7 +310,7 @@ def teaching_guide(slides,sources):
     (ROOT/'latex/teaching_guide.tex').write_text(tex,encoding='utf-8')
 
 def alignment_guide(slides,sources):
-    out=['<!doctype html><meta charset="utf-8"><title>Three Operator Cases: notebook cells and results</title><style>body{font:20px/1.55 Arial;color:#003b5c;max-width:1080px;margin:40px auto;padding:0 28px}h1,h2{color:#00629b}h2{border-top:3px solid #00a6b2;padding-top:28px;margin-top:50px}pre{font:19px/1.5 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f7fa;padding:22px}a{color:#00629b;overflow-wrap:anywhere}li{margin:12px 0}.source{font-size:16px;color:#526470}</style><h1>Three Operator Cases: notebook cells and results</h1><p>Follow the current notebook by L label and stable cell ID. Selected source lines below come directly from the canonical notebook. Run the cells to calculate results for the stated inputs; distinguish those calculations from the separately labeled archived reply pools and evaluation records.</p><p>Adding a setup cell can change a numerical cell index. Stable cell IDs, source-line ranges and notebook hashes identify the exact source used to build these slides. Historical snapshots in research/evidence remain unchanged.</p>']
+    out=['<!doctype html><meta charset="utf-8"><title>Three Operator Cases: evidence and optional practice</title><style>body{font:20px/1.55 Arial;color:#003b5c;max-width:1080px;margin:40px auto;padding:0 28px}h1,h2{color:#00629b}h2{border-top:3px solid #00a6b2;padding-top:28px;margin-top:50px}pre{font:19px/1.5 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f7fa;padding:22px}a{color:#00629b;overflow-wrap:anywhere}li{margin:12px 0}.source{font-size:16px;color:#526470}</style><h1>Three Operator Cases: evidence and optional practice</h1><p>The concept presentation stands on its own. Prepared numerical figures and recorded model choices explain each case. The notebook labels below only locate optional practice and supporting records.</p><p>Recorded studies retain their own inputs, assumptions and model scope. Optional new calculations may differ from those records. The full source guide preserves provenance and calculation details.</p>']
     for i,s in enumerate(slides,1):
         if not (s.get('lab_label') or s.get('notebook_cell') or s.get('code_file')):continue
         out.append('<h2 id="slide-'+str(i)+'">Slide '+str(i)+': '+html.escape(s['title'])+'</h2>')
@@ -329,7 +327,7 @@ def alignment_guide(slides,sources):
         if url:out.append('<p><a href="'+html.escape(url)+'">Open the notebook or source</a></p>')
         if s.get('source_label'):out.append('<p class="source">'+html.escape(s['source_label'])+'</p>')
         if key:out.append('<p class="source">'+html.escape(r.full_citation(sources[key]))+'</p>')
-    out.append('<h2>Check the alignment</h2><p><a href="research/code_manifest.json">Code manifest</a> records each canonical notebook SHA-256, stable cell ID and inclusive source-line range. The selected code statements are unchanged. Older Python-file excerpts, when used, retain their own source hashes and syntax-tree equivalence checks.</p><p>Classroom numerical cells perform fresh calculations when run. Displaying archived model replies does not call an LLM. Editing an earlier classroom parameter does not automatically change an independent archived study or fixed recovery fixture. The notebook and slide notes explain those boundaries.</p>')
+    out.append('<h2>Check the alignment</h2><p><a href="research/code_manifest.json">Code manifest</a> records each canonical notebook SHA-256, stable cell ID and inclusive source-line range. This concept edition contains no executable slide excerpts. Numerical code and archived records remain in the companion repository.</p><p>Classroom numerical cells perform fresh calculations when run. Displaying archived model replies does not call an LLM. Editing an earlier classroom parameter does not automatically change an independent archived study or fixed recovery fixture. The notebook and slide notes explain those boundaries.</p>')
     (ROOT/'Code_and_Record_Guide.html').write_text(style_html('\n'.join(out)),encoding='utf-8')
 
 def exercise_handout(slides):
@@ -342,9 +340,9 @@ def exercise_handout(slides):
         if s['kind']!='exercise':continue
         solution=slides[i]
         assert solution.get('answer_for')==s['title']
-        out.append('<section><h2>'+html.escape(s['title'])+'</h2><p>Question slide '+str(i)+' / answer slide '+str(i+1)+'. Four minutes total: predict and run for three, then discuss for one.</p>')
+        out.append('<section><h2>'+html.escape(s['title'])+'</h2><p>Question slide '+str(i)+' / answer slide '+str(i+1)+'. Six minutes to discuss a prediction, then two minutes for the prepared answer.</p>')
         if s.get('excerpt'):out.append('<pre>'+html.escape('\n'.join(s['excerpt']))+'</pre>')
-        out.append('<ul>'+''.join('<li>'+html.escape(p)+'</li>' for p in s['points'])+'</ul><p>Record your result and supporting check before revealing the answer.</p><div class="space"></div>')
+        out.append('<ul>'+''.join('<li>'+html.escape(p)+'</li>' for p in s['points'])+'</ul><p>Explain your prediction and supporting reason before revealing the answer.</p><div class="space"></div>')
         out.append('<p><a href="'+base+str(i+1)+'">Reveal the worked answer</a></p></section>')
     text='\n'.join(out)
     file.write_text(text,encoding='utf-8')
@@ -370,7 +368,7 @@ def main():
     front='''---
 theme: default
 title: Hands-on — Three Operator Cases
-info: Follow Classroom Labs through voltage support, service restoration and cyber response, with three exercises
+info: Understand three operator problems, agent choices, numerical evidence and human review through prepared examples
 author: Alaa Selim (MIT/Dartmouth) and Mohamed Chehada (UT Austin)
 transition: none
 aspectRatio: 16/9
@@ -397,7 +395,7 @@ download: false
     (ROOT/'slidev/slides.md').write_text(web,encoding='utf-8')
     dump(ROOT/'lesson_content.json',slides)
     route='; '.join(item['label']+': '+str(item['slides'])+' slides / '+str(item['minutes'])+' minutes' for item in module_schedule(slides))
-    notes='# Instructor Guide: Hands-on Three Operator Cases\n\n'+str(len(slides))+' static slides / '+str(sum(s['minutes'] for s in slides))+' minutes. '+route+'. Follow the L labels and stable notebook cell IDs; predict, run, edit and interpret each result. The three exercises have separate teacher notes and debriefs. Numerical calculations and archived model replies remain distinct. No tables, transitions or click reveals.\n\n'
+    notes='# Instructor Guide: Three Operator Cases\n\n'+str(len(slides))+' concept slides / 90 minutes. '+route+'. Explain the problem, follow the agent request and numerical result, and discuss the operator decision. No audience software steps are required.\n\n'
     elapsed=0
     for i,s in enumerate(slides,1):
         end=elapsed+s['minutes']

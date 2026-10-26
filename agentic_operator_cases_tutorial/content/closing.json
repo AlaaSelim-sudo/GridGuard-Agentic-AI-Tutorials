@@ -1,98 +1,25 @@
 [
   {
-    "title": "The saved agent workflow",
-    "kind": "normal",
+    "title": "Review must refer to the same proposal",
+    "kind": "diagram",
     "points": [
-      "Run L10 to inspect the recorded planning, calculation and checking stages.",
-      "Llama chooses and refines trials. Python calculates and checks them."
-    ],
-    "refs": [
-      "H10"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030.",
-    "minutes": 2.5,
-    "note": "L10 reads the archived proposal_complete_workflow study. It includes feeder-catalog restoration and is separate from the L6 six-node MILP and your edited classroom inputs. L10B, inserted immediately after L10, then gives readable verified replay episodes for all three cases. Run L11 after those replays; the default False setting skips a new local model request.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L10",
-    "eyebrow": "",
-    "takeaway": ""
-  },
-  {
-    "title": "How Llama chooses the next tool",
-    "kind": "normal",
-    "minutes": 6.5,
-    "refs": [
-      "LR0",
-      "OLL1"
-    ],
-    "points": [
-      "Set SCENARIO to voltage, restoration or cyber, then rerun this cell.",
-      "Read the model’s request and the tool’s response. This is a saved replay."
-    ],
-    "note": "Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown. Spend about two minutes per scenario: one partner identifies the model choice, the other finds its tool result and the unresolved operator decision.",
-    "source_label": "Classroom_Labs.ipynb, L10B; cell classroom-llama-walkthrough; src/llama_walkthrough.py.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "lab_label": "L10B",
-    "eyebrow": "",
-    "hands_on": true,
-    "notebook_cell": {
-      "file": "Classroom_Labs.ipynb",
-      "id": "classroom-llama-walkthrough",
-      "start": 1,
-      "end": 1
-    },
-    "takeaway": "",
-    "code_display_caption": "Run the whole cell in Colab"
-  },
-  {
-    "title": "The operator checks the recommendation ID",
-    "kind": "normal",
-    "points": [
-      "Leave L11 disabled, then run L12.",
-      "Compare the wrong ID with the matching ID. Equipment control stays off."
+      "The proposal ID and model scope must match the checked study.",
+      "A different proposal or wider scope needs a new review."
     ],
     "refs": [
       "H12"
     ],
-    "source_label": "Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only.",
-    "minutes": 2,
-    "note": "This cell returns to the original test_01 voltage result through selected_trials. It does not use the restoration or cyber sweeps. Read both scope outcomes and explain why the full MV/LV request remains HOLD. The new simulated acknowledgment grants no physical operating authority and does not complete the review of an old record. Readback means repeating the recommendation ID and conditions so the acknowledgment can be matched to the same proposal. In this exercise it is simulated. Check the wrong-ID rejection, the correct simulated acknowledgment and equipment_dispatch=False.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L12",
-    "eyebrow": "",
-    "notebook_cell": {
-      "file": "Classroom_Labs.ipynb",
-      "id": "classroom-033",
-      "start": 9,
-      "end": 10
-    },
-    "takeaway": "",
-    "code_display_caption": "Run the whole cell in Colab"
-  },
-  {
-    "title": "Approval must match the checked study",
-    "kind": "figure",
-    "points": [
-      "The wider-grid request returns HOLD. The limited teaching request permits a simulated readback.",
-      "A wrong ID fails. This practice sends no equipment commands."
-    ],
-    "refs": [
-      "H12"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only.",
     "minutes": 1,
-    "note": "After running the complete L12 cell, compare these reference outputs with your own. The full MV/LV request remains HOLD because the checked model covers only MV phases. An explicit MV teaching request can pass the simulated readback after the recommendation ID matches. The wrong-ID attempt is rejected. Acknowledgment records a classroom review step and does not operate equipment.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "note": "A reviewer must refer to the same proposal and scope that were checked. A changed proposal ID or a wider request cannot inherit an earlier passing result. In the teaching example, readback is simulated and sends no equipment command.",
     "hands_on": true,
     "lab_label": "L12",
     "eyebrow": "",
-    "image_source_path": "images/hands_on_L12_packet.png",
-    "visual_height_px": 345,
-    "visual_height_cm": 3.4,
-    "caption": "Reference L12 output. Readback is simulated.",
-    "takeaway": ""
+    "visual_height_px": 330,
+    "visual_height_cm": 3.7,
+    "caption": "Illustrative proposal IDs. Review is separate from equipment operation.",
+    "takeaway": "",
+    "source_footer": false,
+    "diagram": "concept_review_match"
   },
   {
     "title": "The operator chooses the next step",
@@ -102,65 +29,60 @@
       "Review the case, tool results, checked limits and missing work.",
       "Request another study, reject the proposal or take the next authorized step."
     ],
-    "note": "Proposed control-room use. The operator reviews the case snapshot, data quality, limits, selected proposal and missing studies. Ask for another study, reject it or accept it for a defined next step. L12 practices ID-bound readback only and never operates equipment.",
+    "note": "The operator can request more evidence, reject the proposal or continue with a defined authorized step. Review the case, returned limits, model coverage and missing studies. Acceptance of a study is separate from issuing a field command.",
     "refs": [
       "H12",
       "OT01",
       "EVAL01"
     ],
     "minutes": 1,
-    "caption": "Proposed control-room use. Study review does not operate equipment.",
+    "caption": "The operator reviews the study and chooses the next authorized step.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
     "eyebrow": "",
-    "source_label": "Teaching proposal informed by NIST OT guidance and the cited notebook checks.",
-    "takeaway": ""
+    "takeaway": "",
+    "source_footer": false
   },
   {
-    "title": "Multi-agent framework used in this workshop",
+    "title": "Multi-agent framework used in these cases",
     "kind": "diagram",
     "diagram": "workshop_multi_agent",
     "points": [
       "The five roles share the same case facts and checked results.",
       "One Llama model handles planning and refinement. Python calculates and checks."
     ],
-    "note": "The implementation names five roles: Awareness Agent, Planning Agent, Simulation Agent, Verification Agent and LLM Optimizer. Awareness reads the case. Planning prepares permitted candidates and can ask Llama which initial study to request. Simulation runs a case-specific numerical tool. Verification checks limits, case identity and model scope. The optimizer requests bounded changes or ranks passing candidates. Every changed trial returns to simulation and verification. Python guards the ranking and performs a final recheck before operator review. One Llama model serves the planning and optimizer roles; the other stages run in Python. This is a custom role-based Python workflow, not five independent language models and not a live multi-agent run in the default Colab. The solar, restoration and cyber cases use different numerical adapters behind the same stages. The six matched comparisons have five tied final costs and one worse Llama route; the framework does not establish a general performance gain.",
+    "note": "Awareness reads the shared case. Planning prepares permitted options and uses Llama to choose a study. Simulation calculates. Verification checks limits and case identity. The Llama optimizer requests a bounded change or ranks passing options. Every changed trial returns for simulation and verification. Python guards the final choice before operator review. One Llama model fills two roles; this is not five independent language models. The implementation uses case-specific numerical tools behind the same stages.",
     "refs": [
       "WF01",
       "H10"
     ],
-    "minutes": 2.5,
-    "caption": "Saved five-role Python workflow. L10 replays its recorded trace.",
-    "visual_height_px": 345,
-    "visual_height_cm": 3.9,
+    "minutes": 4.0,
+    "caption": "Implemented five-role workflow with a case-specific numerical tool.",
+    "visual_height_px": 360,
+    "visual_height_cm": 4.2,
     "eyebrow": "",
-    "source_label": "Workshop authors. Five-role operator study workflow: proposal_workflow.py and proposal_complete_workflow.json. Public reproducible teaching code, 2026.",
-    "takeaway": ""
+    "takeaway": "",
+    "source_footer": false
   },
   {
-    "title": "Try one change and explain the result",
-    "kind": "normal",
+    "title": "Explain one case in your own words",
+    "kind": "diagram",
     "points": [
-      "Choose one case. Change one input, rerun and save the result.",
-      "Explain the problem, agent choice, tool result and operator decision."
+      "What is the operator’s problem, and what should the agent request next?",
+      "Which tool result supports the proposal, and what must the operator still decide?"
     ],
     "refs": [
       "H00"
     ],
-    "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
     "minutes": 2.5,
-    "note": "Close by connecting the full loop: a goal, an allowed agent choice, a tool result, a check and a human decision. Ask each learner to name one case and one changed input they can repeat after the session. Save the notebook. Use the source guide for complete references, not as another required activity.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "note": "Ask participants to choose one case and explain the complete loop in their own words. They should name the problem, an agent request, a returned numerical fact and a remaining human decision. Optional practice materials can be used after the concept tutorial, but no account or code is needed for this discussion.",
     "hands_on": true,
-    "action_link": {
-      "label": "Open the three cases in Colab",
-      "url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
-    },
     "takeaway": "",
-    "diagram": "lab_one_notebook",
-    "visual_height_px": 310,
-    "visual_height_cm": 3.5,
-    "caption": "Keep the saved replies separate from your new experiment.",
-    "eyebrow": ""
+    "diagram": "concept_case_summary",
+    "visual_height_px": 330,
+    "visual_height_cm": 3.7,
+    "caption": "Explain the idea first. Practice material is available separately.",
+    "eyebrow": "",
+    "source_footer": false
   }
 ]

@@ -1,0 +1,12 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+every node/.style={text=Navy,align=center},>=Latex,
+flow/.style={->,draw=IEEEBlue,line width=1.3pt}]
+
+\node (a) at (1.5,2.6) {MPC proposal};\node (b) at (1.5,.8) {SAC proposal};
+\node[text width=4cm,font=\rmfamily\bfseries] (c) at (7,1.7) {Voltage\\Line current\\Unit capacity};
+\node[text width=3cm] (d) at (12.2,1.7) {Compare only\\passing options};
+\draw[flow] (a.east)--(4,2.6)--(c.west);\draw[flow] (b.east)--(4,.8)--(c.west);\draw[flow] (c.east)--(d.west);
+\node[text=Slate] at (7,-.1) {The agent requests; the tool calculates and checks};
+
+\end{tikzpicture}

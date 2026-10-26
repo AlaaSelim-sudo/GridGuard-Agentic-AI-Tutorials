@@ -1,0 +1,14 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+every node/.style={text=Navy,align=center},>=Latex,
+flow/.style={->,draw=IEEEBlue,line width=1.3pt}]
+
+\node[align=left,text width=4cm] at (2,2.7) {Checked model:\\medium voltage};
+\node[text=Cyan,font=\rmfamily\bfseries] at (7.1,2.7) {Checks pass};
+\draw[flow] (4.3,2.7)--(5.7,2.7);
+\node[align=left,text width=4cm] at (2,.8) {New request:\\whole grid};
+\node[text=Red,text width=4cm,font=\rmfamily\bfseries] at (7.1,.8) {Wider study\\is missing};
+\node[text=Red,text width=3.2cm] at (12.1,.8) {HOLD\\Request that study};
+\draw[flow] (4.3,.8)--(4.8,.8);\draw[flow,Red] (9.3,.8)--(10.1,.8);
+
+\end{tikzpicture}

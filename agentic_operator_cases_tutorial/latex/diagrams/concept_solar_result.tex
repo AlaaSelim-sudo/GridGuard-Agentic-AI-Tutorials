@@ -1,0 +1,16 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[font=\rmfamily\fontsize{12}{14}\selectfont,x=.085cm,y=1cm]
+\node[anchor=west,font=\rmfamily\bfseries\fontsize{13}{15}\selectfont] at (-34,3.0) {Current used / allowance (\%)};
+\node[anchor=west,text=Slate] at (-34,2.52) {Original current allowance: 80\% of nominal};
+\draw[->,Slate] (0,0)--(106,0);
+\foreach \x in {0,25,50,75,100}{\draw[Slate] (\x,0)--(\x,-.08) node[below] {\x};}
+\draw[Red,dashed,thick] (100,.18)--(100,2.12) node[above,text=Red] {limit};
+\fill[IEEEBlue] (0,1.5) rectangle (73.619901,1.93);
+\fill[Cyan] (0,.5) rectangle (51.679336,.93);
+\node[anchor=east,align=right] at (-3,1.72) {MPC};
+\node[anchor=east,align=right] at (-3,.72) {Saved SAC};
+\node[anchor=west,font=\rmfamily\bfseries\fontsize{12}{14}\selectfont] at (75.0,1.72) {73.62};
+\node[anchor=west,font=\rmfamily\bfseries\fontsize{12}{14}\selectfont] at (53.0,.72) {51.68};
+\node[anchor=west,text=Slate] at (0,1.23) {$J=0.03110$ / checks pass};
+\node[anchor=west,text=Slate] at (0,.23) {$J=0.43643$ / checks pass};
+\end{tikzpicture}

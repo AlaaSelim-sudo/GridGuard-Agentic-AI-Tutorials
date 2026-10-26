@@ -1,0 +1,15 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+every node/.style={text=Navy,align=center},>=Latex,
+flow/.style={->,draw=IEEEBlue,line width=1.3pt}]
+
+\node[font=\rmfamily\bfseries] at (3,3) {One reading changes};
+\node[font=\rmfamily\bfseries] at (11.5,3) {Several change together};
+\foreach \x in {1.5,2.5,3.5,4.5}{\draw[IEEEBlue,thick] (\x,1.8) circle (.18);}
+\fill[Red] (2.5,1.8) circle (.18);
+\foreach \x in {10,11,12,13}{\fill[Red] (\x,1.8) circle (.18);}
+\node[text width=5cm] at (3,.6) {May conflict with\\the remaining readings};
+\node[text width=5cm] at (11.5,.6) {May still fit\\the grid model};
+\node[text=Slate] at (7.2,-.45) {Model consistency and data truth are different checks};
+
+\end{tikzpicture}

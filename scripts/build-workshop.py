@@ -29,14 +29,14 @@ def run(args,cwd=DECK):
 def validate(check_pdfs=False):
  authored=[s for m in MODULES for s in read(DECK/'content'/(m+'.json'))]
  slides=read(DECK/'lesson_content.json');cues=read(DECK/'content/presenter_script.json')['slides']
- require(len(authored)==len(slides)==len(cues)==69,'The workshop and script must contain sixty-nine slides.')
+ require(len(authored)==len(slides)==len(cues)==50,'The workshop and script must contain fifty slides.')
  require([s['title'] for s in authored]==[s['title'] for s in slides],'Run content: generated slide order differs from the authored modules.')
- require(len({c['title'] for c in cues})==69 and {c['title'] for c in cues}=={s['title'] for s in slides},'Every current slide needs one presenter cue.')
+ require(len({c['title'] for c in cues})==50 and {c['title'] for c in cues}=={s['title'] for s in slides},'Every current slide needs one presenter cue.')
  require(all(s['say'] and s['action'] for s in cues),'Each presenter cue needs spoken text and a delivery action.')
  require(sum(s['minutes'] for s in slides)==90,'The workshop must total 90 teaching minutes.')
  require(sum(s['minutes'] for s in slides if s['module']=='opening')<=15,'Keep the concept opening and setup within fifteen minutes.')
- require([i for i,s in enumerate(slides,1) if s['kind']=='exercise']==[22, 40, 54],'Exercise locations differ from the current teaching route.')
- require(all(s['minutes']==4 and slides[i+1].get('answer_for')==s['title'] and slides[i+1]['minutes']==1 for i,s in enumerate(slides) if s['kind']=='exercise'),'Each exercise needs four question minutes followed by one answer minute.')
+ require([i for i,s in enumerate(slides,1) if s['kind']=='exercise']==[16, 28, 41],'Exercise locations differ from the current teaching route.')
+ require(all(s['minutes']==6 and slides[i+1].get('answer_for')==s['title'] and slides[i+1]['minutes']==2 for i,s in enumerate(slides) if s['kind']=='exercise'),'Each exercise needs six discussion minutes followed by two answer minutes.')
  book=ROOT/'agentic_grid_workflow_tutorial/Classroom_Labs.ipynb';nb=read(book);cell_map={c.get('id'):c for c in nb['cells']};count=0
  for i,s in enumerate(slides,1):
   for key in ['image','diagram']:
@@ -48,13 +48,15 @@ def validate(check_pdfs=False):
    require(spec['id'] in cell_map,'Notebook cell is missing: '+spec['id']);cell=cell_map[spec['id']];text=cell['source'];text=text if isinstance(text,str) else ''.join(text)
    require(s['code_lines']==text.splitlines()[spec['start']-1:spec['end']],f'Slide {i} no longer matches its notebook source.')
    require(s['notebook_source']['notebook_sha256']==sha(book),'Run content: canonical notebook hash has changed.');count+=1
- require(count==13,'Expected thirteen exact notebook excerpts.')
+ require(count==0,'The concept slides must not contain notebook code excerpts.')
+ require(all(not s.get('code_file') and not s.get('notebook_cell') for s in slides),'The audience deck must be independent of code execution.')
+ require(all(not s.get('source_footer',True) for s in slides if s['module'] in ['voltage','restoration','cyber']),'Owned case slides must not show source footers.')
  if check_pdfs and RECEIPT.is_file():
   receipt=read(RECEIPT)
   require(receipt['lesson_sha256']==sha(DECK/'lesson_content.json'),'Run pdf: compiled PDFs belong to older lesson content.')
   require(receipt['script_cues_sha256']==sha(DECK/'content/presenter_script.json'),'Run pdf: presenter PDF belongs to older cues.')
   for name,hash_value in receipt['pdf_sha256'].items():require((DECK/name).is_file() and sha(DECK/name)==hash_value,'Run pdf: download changed after its verified build: '+name)
- print(json.dumps({'slides':len(slides),'minutes':90,'presenter_cues':len(cues),'exact_notebook_excerpts':count,'exercises':[22, 40, 54],'pdf_receipt_checked':check_pdfs and RECEIPT.is_file()}),flush=True)
+ print(json.dumps({'slides':len(slides),'minutes':90,'presenter_cues':len(cues),'exact_notebook_excerpts':count,'exercises':[16, 28, 41],'pdf_receipt_checked':check_pdfs and RECEIPT.is_file()}),flush=True)
 def content():
  run([sys.executable,'-X','utf8','build_cases.py'])
  run([sys.executable,'-X','utf8','build_presenter_script.py'])

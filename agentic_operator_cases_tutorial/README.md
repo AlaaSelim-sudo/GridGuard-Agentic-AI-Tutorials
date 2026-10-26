@@ -1,38 +1,29 @@
-# Hands-on: three operator cases
+# Three operator cases: how agentic AI helps
 
-[Open the presentation](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1) · [Download slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases.pdf) · [Participant guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf)
+[Open the case tutorial](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1) · [Download slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases.pdf)
 
 **Alaa Selim, MIT/Dartmouth · Mohamed Chehada, UT Austin**
 
-## Start with one notebook
+## Understand the cases first
 
-[Open Classroom Labs in Colab](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb).
+The 50-slide, 90-minute tutorial explains the cases using prepared figures and recorded agent choices. No software setup is needed.
 
-Save a copy, connect a CPU runtime, run setup and continue from L0 in order. Keep `RUN_OPENDSS` and `RUN_LOCAL_LLAMA` False. [Setup help](../COLAB_GUIDE.md).
+- [Solar settings](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/9): how can the agent help choose settings that respect the limits?
+- [Restoration](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/23): who receives power when backup capacity is limited?
+- [Suspicious readings](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/35): what evidence is needed before proposing a correction?
 
-## Three problems an operator can recognize
+Each case follows **problem → agent request → tool result → operator decision**. Three what-if discussions show questions before the calculated answers: slides 16–17, 28–29 and 41–42.
 
-- [Solar settings](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/14): compare options, check voltage and current, and return a proposal for review.
-- [Power after a fault](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/35): keep the operator’s priorities while testing restoration options.
-- [Suspicious readings](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/48): check the evidence and identify what is needed before proposing a correction.
+[Slide 49](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/49) explains the implemented five-role framework. One Llama model handles planning and refinement. Python performs the calculations and checks.
 
-Each case follows the same story: **problem → agent request → tool result → operator decision**. The agent coordinates requests; numerical tools calculate; the operator reviews the next step.
+## Optional practice afterward
 
-First run the numerical tools in Colab. Then use L10B to replay actual saved Llama choices and tool results. The replay uses separate saved studies and makes no new model call.
+[Open the companion notebook](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb) when you are ready to try the calculations. Use the [participant lab guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf) and [setup help](../COLAB_GUIDE.md). The notebook is separate from the concept presentation.
 
-[The multi-agent framework on slide 68](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/68) shows how the five roles work together across the recorded cases. One Llama model handles planning and refinement. Python reads the case, calculates results and checks the limits. The operator reviews the recommendation.
+## Sources and teaching materials
 
-Each exercise has its questions first and a worked answer on the following slide: 22 → 23 for voltage, 40 → 41 for restoration, and 54 → 55 for cyber response. Predict and run before advancing to the answer. The 69-slide workshop remains 90 minutes.
+External material keeps its credits. The authors’ own case slides have no source footer. [The full source guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Full_Reading_Guide.html) records calculation provenance, papers and figure credits.
 
-[Full references and figure credits](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Full_Reading_Guide.html) include the original Stanford CS224V material and the power-system sources.
+The [presenter script](Presenter_Script.pdf) follows the concept slides and discussions. [Build guide](BUILD_GUIDE.md) · [Slide source](slidev/slides.md).
 
-<details>
-<summary>Source and build information</summary>
-
-The slide source is `slidev/slides.md`; authored content is in `content/`. Numerical excerpts come from the canonical Classroom Labs notebook. See [BUILD_GUIDE.md](BUILD_GUIDE.md) for source locations and rebuild commands.
-
-The [presenter script](Presenter_Script.pdf) includes a 90-minute schedule, exact Colab run cues and the three agent-role maps. Its editable source is [LaTeX](latex/presenter_script.tex). The same cues appear in Slidev presenter notes.
-
-</details>
-
-The cases are synthetic or reduced-model studies. Simulated readback operates no equipment.
+The cases use synthetic or reduced networks. Recorded studies retain their own inputs and scope. No teaching example operates equipment.

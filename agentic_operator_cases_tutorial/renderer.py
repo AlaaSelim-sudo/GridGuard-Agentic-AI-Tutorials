@@ -190,7 +190,8 @@ def render_frame(s, sources):
     out.append(r"\vfill" + "\n")
     if s.get("takeaway") and kind not in {"cover", "figure", "diagram"} and not s.get("diagram") and s.get('layout') not in {'source-focus','news-detail'}:
         out.append(r"{\small\color{IEEEBlue}\textbf{" + esc(s["takeaway"]) + r"}\par}\smallskip" + "\n")
-    out.append(sources_tex(s["refs"],sources,s.get('main_ref'),s.get('source_label'),s.get('notebook_url')))
+    if s.get("source_footer",True):
+        out.append(sources_tex(s["refs"],sources,s.get('main_ref'),s.get('source_label'),s.get('notebook_url')))
     note_text=esc(s.get("note", ""))
     if s.get("takeaway"):note_text+=" Takeaway: "+esc(s["takeaway"])
     out.append(r"\note{" + note_text
@@ -279,7 +280,7 @@ def render_slide(s, number, total, sources):
             out.append('<div class="content">' + extra_html(s) + points_html(s["points"]) + "</div>")
         if kind == "closing":
             out.append('<p class="reading-link"><a href="/Full_Reading_Guide.html">Open the Full Reading Guide</a></p>')
-    if s["refs"]:
+    if s["refs"] and s.get("source_footer",True):
         record=sources[s.get('main_ref') or s['refs'][0]]
         out.append('<div class="sources">Source: <a href="'+he(reading.href(s.get('notebook_url') or record['url'],'slidev'))+'">'
                    +he(s.get('source_label') or full_citation(record))+'</a></div>')

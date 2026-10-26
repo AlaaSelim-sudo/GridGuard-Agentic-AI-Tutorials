@@ -1,6 +1,6 @@
 # Agentic AI for power-system operators
 
-Learn the concepts, follow research examples and run three power-system cases.
+Learn the concepts and follow three operator cases before trying the optional notebooks.
 
 **Alaa Selim, MIT/Dartmouth · Mohamed Chehada, UT Austin**
 
@@ -9,11 +9,11 @@ Learn the concepts, follow research examples and run three power-system cases.
 ## 1. View the presentations
 
 - **[Foundations](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/1)**: agents, tools, utility examples and power-system research. [Slides PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/foundations.pdf).
-- **[Hands-on workshop](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1)**: follow the voltage, restoration and cyber cases. [Slides PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases.pdf).
+- **[Operator case tutorial](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1)**: understand the voltage, restoration and cyber cases through prepared results and what-if discussions. No software is needed for the slides. [Slides PDF](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/operator-cases.pdf).
 
 Use the arrow keys to move through the slides. Source credits accompany each presentation.
 
-## 2. Open the main lab
+## 2. Optional practice after the case tutorial
 
 **One notebook covers all three hands-on cases.**
 
@@ -42,7 +42,7 @@ Run L0-L1 first. Change one exercise input at a time and reset it before continu
 
 ## Explore further
 
-The main workshop uses Classroom Labs. These companions are separate activities:
+The concept tutorial stands on its own. Classroom Labs and these companions are separate practice activities:
 
 - [LangGraph workflow lab in Colab](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Graph_Workflow_Lab.ipynb): state, branching, retries and simulated review.
 - [Agent traces and latency in Colab](https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Agent_Trace_and_Latency.ipynb): recorded replies, evidence and timings.

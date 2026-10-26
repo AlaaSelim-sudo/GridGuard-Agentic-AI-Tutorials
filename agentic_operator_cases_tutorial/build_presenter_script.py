@@ -6,7 +6,7 @@ from latin_modern import css,copy_web_fonts
 ROOT=Path(__file__).resolve().parent
 SITE='https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/'
 COLAB='https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb'
-LABELS={'opening':'Agent concepts and Colab setup','voltage':'Voltage support','restoration':'Service restoration','cyber':'Cyber response','closing':'Agent workflow and operator review'}
+LABELS={'opening':'Agent concepts and three operator problems','voltage':'Voltage support','restoration':'Service restoration','cyber':'Cyber response','closing':'Agent workflow and operator review'}
 
 def load(name):return json.loads((ROOT/name).read_text(encoding='utf-8-sig'))
 def stamp(minutes):
@@ -18,7 +18,7 @@ def esc(t):
 
 def prepare():
     slides=load('lesson_content.json');data=load('content/presenter_script.json');authored={c['title']:c for c in data['slides']}
-    assert len(slides)==len(authored)==69
+    assert len(slides)==len(authored)==50
     assert set(authored)=={s['title'] for s in slides}
     assert sum(s['minutes'] for s in slides)==data['session_minutes']==90
     book=json.loads((ROOT.parent/'agentic_grid_workflow_tutorial/Classroom_Labs.ipynb').read_text(encoding='utf-8-sig'))
@@ -29,32 +29,32 @@ def prepare():
         if c['mode']!='PREVIEW ONLY':covered.update(c['cell_ids'])
         rows.append(dict(cue,number=n,module=s['module'],minutes=s['minutes'],start=stamp(elapsed),end=stamp(elapsed+s['minutes']),slide_url=SITE+'operator-cases/#/'+str(n)))
         elapsed+=s['minutes']
-    assert covered==code,('Uncovered code cells',code-covered)
+    assert all(not r['colab']['cell_ids'] for r in rows)
     return slides,rows
 
 def presenter_note(cue):
-    c=cue['colab'];parts=['**Say**\n\n'+cue['say'],'**Show**\n\n'+cue['show'],'**Colab: '+c['mode']+'**\n\n'+c['instruction']]
+    c=cue['colab'];parts=['**Say**\n\n'+cue['say'],'**Show**\n\n'+cue['show'],'**Teaching cue: '+c['mode']+'**\n\n'+c['instruction']]
     if c['cell_ids']:parts.append('Exact cells: '+', '.join(c['cell_ids'])+'. Run the whole cell, not only the slide excerpt.')
     if c.get('expected'):parts.append('**Expected result**\n\n'+c['expected'])
     if cue.get('question'):parts.extend(['**Ask**\n\n'+cue['question'],'**Answer**\n\n'+cue['answer']])
     return '\n\n'.join(parts)
 
 ROLE_CASES=[
-    ('Voltage: L10 MV archive',[
+    ('Solar settings: recorded medium-voltage study',[
         ('Awareness: read the case / Python','Read the load, forecast, current allowance and MV model scope.'),
         ('Planning: choose a trial / numerical tools and Llama','Prepare MPC and saved-SAC candidates. Llama can request the declared initial studies or return review.'),
         ('Simulation: calculate / Python','Calculate the effects of each candidate using the declared three-phase linear model.'),
         ('Verification: check / Python','Check case matching, voltage, current and inverter limits. Only passing candidates receive eligible scores.'),
         ('LLM optimizer: refine / Llama, with a Python guard','Request less reactive power, then more PV output. Recalculate and check every changed setting. Python selects by verified cost and performs a final recheck.')],
-        'Selected final current use: about 50.75% of the allowance. This is the L10 MV archive, not the L2 experiment or P3 OpenDSS replay. The operator still reviews scope and missing checks.'),
-    ('Restoration: L10 feeder catalog',[
+        'Selected final current use: about 50.75% of the allowance. This recorded medium-voltage study has its own inputs and scope. The operator still reviews scope and missing checks.'),
+    ('Restoration: recorded feeder-catalog study',[
         ('Awareness: read the case / Python','Keep the fault, available ties, critical loads, service goal and model scope in the shared case record.'),
         ('Planning: choose a trial / numerical tools and Llama','Prepare the stated restoration catalog options; request the initial evaluations or review.'),
         ('Simulation: calculate / Python','Calculate total and critical service and the current used by each option.'),
         ('Verification: check / Python','Reject the SHED_065 trial at about 111.01% of allowed current. Keep the passing SHED_075 trial eligible.'),
         ('LLM optimizer: refine / Llama, with a Python guard','Request bounded catalog changes and rank passing IDs. Python corrects the wrong cost order and rechecks the chosen plan.')],
-        'Selected final service: about 1,843.61 kW total and 474.04 kW critical, at 91.87% current use. This is not L6\'s six-node MILP. Physical switching order and operating permissions remain outside the result.'),
-    ('Cyber: L10 four-bus DC archive',[
+        'Selected final service: about 1,843.61 kW total and 474.04 kW critical, at 91.87% current use. This recorded feeder study is separate from the six-node example. Physical switching order and operating permissions remain outside the result.'),
+    ('Suspicious readings: recorded four-bus study',[
         ('Awareness: read the case / Python','Read the measurements, alarm context and declared availability of assumed trusted channels.'),
         ('Planning: choose a trial / numerical tools and Llama','Prepare the permitted response candidates. Llama can request the initial evaluations or review.'),
         ('Simulation: calculate / Python','Estimate state and calculate each candidate\'s branch flows and correction.'),
@@ -72,15 +72,15 @@ def write_outputs(slides,rows,make_pdf):
     run_sheet={'notebook':'Classroom_Labs.ipynb','session_minutes':90,'all_code_cells':code_cells,
                'run_route':[{'slide':r['number'],**{k:r['colab'][k] for k in ['mode','lessons','cell_ids','instruction','expected']}} for r in run_rows]}
     (ROOT/'content/colab_run_route.json').write_text(json.dumps(run_sheet,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    intro=f'One notebook, {len(slides)} slides, 90 minutes. Use the spoken explanation in your own voice. The run cue says exactly when to open, run, edit, reset or inspect a cell. Run the complete cell identified by its L heading and stable ID.'
-    boundary='Python calculates new numerical results. L3, L10 and L10B show separately labeled saved model records. One Llama model fills two roles in the saved five-role Python workflow. L12 is a simulated readback; equipment_dispatch stays False.'
+    intro=f'{len(slides)} concept slides, 90 minutes and three what-if discussions. Explain each operator problem before following the agent request, tool result and human decision. No software or account is needed.'
+    boundary='The numerical results and model replies are prepared examples. Separate recorded studies retain their own inputs and scope. One Llama model fills two roles in the implemented five-role Python workflow. No teaching example operates equipment.'
     md=['# Presenter script: three operator cases','', '**Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.**','',intro,'',boundary,'','## Session route','']
     styles=css()+'''body{font-size:20px;line-height:1.5;max-width:1020px;margin:38px auto;padding:0 28px;color:#003b5c}h1{font-size:40px;line-height:1.12}h2{font-size:30px;line-height:1.2;margin-top:52px;border-top:2px solid #00a6b2;padding-top:22px}h3{font-size:25px;line-height:1.2}a{color:#00629b;overflow-wrap:anywhere}.slide{border-bottom:1px solid #cad6dc;padding:18px 0 30px;scroll-margin-top:20px}.meta{font-size:17px;color:#526470}.run{border-left:3px solid #00629b;padding-left:18px}.run p{margin:8px 0}li{margin:9px 0}code{font-size:.9em}details{margin:18px 0}summary{cursor:pointer;font-weight:bold}@media(max-width:600px){body{font-size:18px;padding:0 18px}h1{font-size:32px}}@media print{body{font-size:12pt;margin:0}.slide{break-before:page}.nav,.links{display:none}h2{break-before:page}}'''
-    web=['<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Presenter script: three operator cases</title><style>'+styles+'</style><h1>Presenter script: three operator cases</h1><p><strong>Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.</strong></p><p>'+html.escape(intro)+'</p><p>'+html.escape(boundary)+'</p><p class="links"><a href="Presenter_Script.pdf">Printable script</a> · <a href="'+COLAB+'">Open Classroom Labs</a> · <a href="'+SITE+'operator-cases/#/presenter/1">Slide presenter view</a></p><h2>Session route</h2><ul class="nav">']
+    web=['<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Presenter script: three operator cases</title><style>'+styles+'</style><h1>Presenter script: three operator cases</h1><p><strong>Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.</strong></p><p>'+html.escape(intro)+'</p><p>'+html.escape(boundary)+'</p><p class="links"><a href="Presenter_Script.pdf">Printable script</a> · <a href="'+SITE+'operator-cases/#/presenter/1">Slide presenter view</a></p><h2>Session route</h2><ul class="nav">']
     for m,g in groups:
         text=f'{LABELS[m]}: slides {g[0]["number"]}-{g[-1]["number"]}, {g[0]["start"]}-{g[-1]["end"]}'
         md.append('- '+text);web.append('<li><a href="#module-'+m+'">'+html.escape(text)+'</a></li>')
-    web.append('</ul><h2>Colab run sheet</h2><p>Follow this order. Preview slides do not ask learners to run ahead.</p>');md+=['','## Colab run sheet','']
+    web.append('</ul>')
     for r in run_rows:
         c=r['colab'];label=f'Slide {r["number"]}: '+', '.join(c['lessons'])+' / '+c['mode']
         md+=['### '+label,'',c['instruction'],'','Exact cells: '+', '.join(c['cell_ids'])+'.','', 'Expected: '+c['expected'],'']
@@ -89,8 +89,8 @@ def write_outputs(slides,rows,make_pdf):
         md+=['','<a id="module-'+m+'"></a>','## '+LABELS[m],''];web.append('<h2 id="module-'+m+'">'+html.escape(LABELS[m])+'</h2>')
         for r in g:
             n=r['number'];c=r['colab'];meta=f'{r["start"]}-{r["end"]} / '+duration(r['minutes'])
-            md += [f'### Slide {n}. {r["title"]}','',meta,'','**Say:** '+r['say'],'','**Show:** '+r['show'],'','**Colab: '+c['mode']+'.** '+c['instruction'],'']
-            web.append('<section class="slide" id="slide-'+str(n)+'"><h3>Slide '+str(n)+'. '+html.escape(r['title'])+'</h3><p class="meta">'+meta+'</p><p><strong>Say</strong><br>'+html.escape(r['say'])+'</p><p><strong>Show</strong><br>'+html.escape(r['show'])+'</p><div class="run"><p><strong>Colab: '+html.escape(c['mode'])+'</strong><br>'+html.escape(c['instruction'])+'</p>')
+            md += [f'### Slide {n}. {r["title"]}','',meta,'','**Say:** '+r['say'],'','**Show:** '+r['show'],'','**Teaching cue: '+c['mode']+'.** '+c['instruction'],'']
+            web.append('<section class="slide" id="slide-'+str(n)+'"><h3>Slide '+str(n)+'. '+html.escape(r['title'])+'</h3><p class="meta">'+meta+'</p><p><strong>Say</strong><br>'+html.escape(r['say'])+'</p><p><strong>Show</strong><br>'+html.escape(r['show'])+'</p><div class="run"><p><strong>Teaching cue: '+html.escape(c['mode'])+'</strong><br>'+html.escape(c['instruction'])+'</p>')
             if c['cell_ids']:
                 ids=', '.join(c['cell_ids']);md+=['Exact cells: '+ids+'. Run the whole cell.',''];web.append('<p class="meta">Exact cells: '+html.escape(ids)+'. Run the whole cell.</p>')
             if c.get('expected'):md+=['**Expected:** '+c['expected'],''];web.append('<p><strong>Expected</strong><br>'+html.escape(c['expected'])+'</p>')
@@ -120,9 +120,9 @@ def write_outputs(slides,rows,make_pdf):
         shutil.copy2(ROOT/'latex/presenter_script.pdf',ROOT/'Presenter_Script.pdf')
     copy_web_fonts(ROOT/'slidev/public/fonts')
     for name in ['Presenter_Script.md','Presenter_Script.html']+(['Presenter_Script.pdf'] if make_pdf else []):shutil.copy2(ROOT/name,ROOT/'slidev/public'/name)
-    manifest={'slides':len(slides),'minutes':90,'font_family':'Latin Modern Roman; Latin Modern Mono for code','lesson_sha256':hashlib.sha256((ROOT/'lesson_content.json').read_bytes()).hexdigest(),'script_cues_sha256':hashlib.sha256((ROOT/'content/presenter_script.json').read_bytes()).hexdigest(),'entries':[{k:r[k] for k in ['number','title','minutes','start','end']}|{'colab_mode':r['colab']['mode'],'cell_ids':r['colab']['cell_ids']} for r in rows]}
+    manifest={'slides':len(slides),'minutes':90,'font_family':'Latin Modern Roman; Latin Modern Mono for code','lesson_sha256':hashlib.sha256((ROOT/'lesson_content.json').read_bytes()).hexdigest(),'script_cues_sha256':hashlib.sha256((ROOT/'content/presenter_script.json').read_bytes()).hexdigest(),'entries':[{k:r[k] for k in ['number','title','minutes','start','end']}|{'activity':r['colab']['mode']} for r in rows]}
     p=ROOT/'research/presenter/presenter_manifest.json';p.write_text(json.dumps(manifest,indent=2)+'\n');shutil.copy2(p,ROOT/'slidev/public/research/presenter/presenter_manifest.json')
-    print(json.dumps({'script_slides':len(slides),'minutes':90,'covered_code_cells':15,'pdf':make_pdf}))
+    print(json.dumps({'script_slides':len(slides),'minutes':90,'audience_code_steps':0,'pdf':make_pdf}))
 
 def write_tex(rows,groups,run_rows,intro,boundary,citations):
     out=[r'''\documentclass[12pt,letterpaper]{article}
@@ -146,15 +146,9 @@ def write_tex(rows,groups,run_rows,intro,boundary,citations):
 {\large Alaa Selim, MIT/Dartmouth\par Mohamed Chehada, UT Austin\par}\bigskip
 ''',esc(intro)+r'\par\medskip'+'\n',esc(boundary)+r'\par\medskip'+'\n',r'\section*{90-minute session route}'+'\n']
     for m,g in groups:out.append(esc(f'{LABELS[m]}: slides {g[0]["number"]}-{g[-1]["number"]}, {g[0]["start"]}-{g[-1]["end"]}.')+r'\par'+'\n')
-    out.append(r'\medskip\href{'+COLAB+r'}{Open the one Classroom Labs notebook}\par'+'\n')
-    for title,subset in [('Setup and voltage',[r for r in run_rows if r['module'] in ['opening','voltage']]),('Restoration and cyber',[r for r in run_rows if r['module'] in ['restoration','cyber']]),('Saved agent records and operator readback',[r for r in run_rows if r['module']=='closing'])]:
-        out.append(r'\clearpage\section*{Colab run sheet: '+esc(title)+'}\n{\\small\n')
-        for r in subset:
-            c=r['colab'];out.append(r'\textbf{Slide '+str(r['number'])+': '+esc(', '.join(c['lessons']))+' / '+esc(c['mode'])+r'}\par '+esc(c['instruction'])+r'\par {\footnotesize Cells: '+esc(', '.join(c['cell_ids']))+r'.}\par\medskip'+'\n')
-        out.append('}\n')
     for r in rows:
         c=r['colab'];out.extend([r'\clearpage\pdfbookmark[1]{Slide '+str(r['number'])+'. '+esc(r['title'])+'}{slide-'+str(r['number'])+'}\n',r'{\Large\bfseries\color{IEEEBlue} Slide '+str(r['number'])+'. '+esc(r['title'])+r'\par}\medskip'+'\n',r'{\small\color{Slate} '+esc(r['start']+'-'+r['end']+' / '+duration(r['minutes']))+r'\par}\medskip'+'\n'])
-        for label,text in [('Say',r['say']),('Show',r['show']),('Colab: '+c['mode'],c['instruction'])]:out.append(r'\textbf{'+esc(label)+r'}\par '+esc(text)+r'\par\medskip'+'\n')
+        for label,text in [('Say',r['say']),('Show',r['show']),('Teaching cue: '+c['mode'],c['instruction'])]:out.append(r'\textbf{'+esc(label)+r'}\par '+esc(text)+r'\par\medskip'+'\n')
         if c['cell_ids']:out.append(r'{\small\textbf{Exact cells:} \texttt{'+esc(', '.join(c['cell_ids']))+r'}. Run the whole cell.\par}\medskip'+'\n')
         if c.get('expected'):out.append(r'\textbf{Expected result}\par '+esc(c['expected'])+r'\par\medskip'+'\n')
         if r.get('question'):out.append(r'\textbf{Ask}\par '+esc(r['question'])+r'\par\textbf{Expected answer}\par '+esc(r['answer'])+r'\par\medskip'+'\n')

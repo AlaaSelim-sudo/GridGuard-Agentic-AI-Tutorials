@@ -1,0 +1,15 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+every node/.style={text=Navy,align=center},>=Latex,
+flow/.style={->,draw=IEEEBlue,line width=1.3pt}]
+
+\node[align=left,text width=4cm,font=\rmfamily\bfseries] at (1.9,1.7) {Checked proposal A\\Declared model scope};
+\node[text width=4cm] at (7.1,2.7) {Same proposal\\and same scope};
+\node[text=Cyan,text width=3.5cm,font=\rmfamily\bfseries] at (12.2,2.7) {Review can continue};
+\node[text width=4cm] at (7.1,.5) {Different proposal\\or wider scope};
+\node[text=Red,text width=3.5cm,font=\rmfamily\bfseries] at (12.2,.5) {HOLD\\Request a\\new review};
+\draw[flow] (4.1,2.1)--(5,2.7);\draw[flow] (9.2,2.7)--(10.2,2.7);
+\draw[flow] (4.1,1.3)--(5,.5);\draw[flow,Red] (9.2,.5)--(10.2,.5);
+\node[text=Slate] at (7.2,-.65) {Reviewing a study does not operate equipment};
+
+\end{tikzpicture}
