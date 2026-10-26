@@ -20,11 +20,11 @@ This script follows the accepted deck and its 18 October 2026 evidence snapshot.
 
 ## Teaching route
 
-- [1. Agents, tools and workflows: slides 1-8, 00:00:00-00:11:00](#module-concepts)
-- [2. What power-sector organizations report: slides 9-17, 00:11:00-00:28:30](#module-industry)
-- [3. Operator tasks and evidence checks: slides 18-27, 00:28:30-00:48:00](#module-operators)
-- [4. Research foundations, LangGraph and PowerDAG: slides 28-43, 00:48:00-01:19:30](#module-workflow)
-- [5. Simulation feedback and valid reuse: slides 44-55, 01:19:30-01:53:00](#module-simulation)
+- [1. Agents, tools and workflows: slides 1-8, 00:00:00-00:12:30](#module-concepts)
+- [2. What power-sector organizations report: slides 9-17, 00:12:30-00:30:00](#module-industry)
+- [3. Operator tasks and evidence checks: slides 18-27, 00:30:00-00:49:30](#module-operators)
+- [4. Research foundations, LangGraph and PowerDAG: slides 28-43, 00:49:30-01:21:00](#module-workflow)
+- [5. Simulation feedback and valid reuse: slides 44-55, 01:21:00-01:53:00](#module-simulation)
 - [6. Power-system benchmarks and failure modes: slides 56-67, 01:53:00-02:19:30](#module-benchmarks)
 - [7. Statistics, integration and evaluation: slides 68-77, 02:19:30-02:40:00](#module-evaluation)
 - [8. Prepare for the three-case workshop: slides 78-80, 02:40:00-02:45:00](#module-handoff)
@@ -127,27 +127,27 @@ Sources: [DEF06](#source-DEF06), [DEF03](#source-DEF03), [DEF01](#source-DEF01),
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/5) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/5)
 
-### Slide 6. Workflow or agent: who chooses the next step?
+### Slide 6. Watch: how an agent chooses its next step
 
-00:06:30-00:08:00 / 1.5 minutes
+00:06:30-00:09:30 / 3 minutes
 
-**Say:** In a fixed workflow, the code defines the steps and branches. For example, every case may pass through input validation, power flow and reporting. In an LLM agent, the model chooses some next steps from the allowed actions using the evidence so far. A design can combine both. We may require validation in code while allowing the model to choose which diagnostic tool to call. Anthropic's distinction is useful for engineering discussions, but it does not cover every historical meaning of agent. A loop alone is also insufficient evidence of model-directed choice. Inspect the actual routing rule and the model's role in it.
+**Say:** Let us see the difference in a short video. A fixed workflow follows choices written in code. An agent can use the latest result to choose some next steps. Watch the examples, then map the idea to our study request, numerical solver, result checks and operator review. The model coordinates the work; the solver computes the electrical result. Our grid mapping is a teaching example. The operating decision still belongs to the operator.
 
-**Show / explain:** Follow the model-to-action-to-feedback loop in the documentation figure. Contrast it verbally with a fixed three-step script. Emphasize that a mandatory check can surround a flexible model decision.
+**Show / explain:** Click Play official video. The embedded player starts at 0:43 and stops at 3:28. This is the publisher’s definition-and-examples segment. If opening the direct link, stop at 3:28. Use the remaining fifteen seconds to connect the video to the operator workflow.
 
-**Ask:** Does a retry loop by itself prove that the model chooses the workflow?
+**Ask:** After a tool returns its result, what makes the next step agentic?
 
-**Expected answer:** No. Code can implement a fixed retry rule. We need to see how the next action is selected.
+**Expected answer:** The model can choose an allowed next step using that result, rather than following only a fixed sequence. It may call another tool, ask for help or stop.
 
-**Transition:** That flexibility makes the task's goals and authority especially important.
+**Transition:** The next slide adds the limits: what the agent may do and what the operator must review.
 
-Sources: [DEF03](#source-DEF03), [DEF04](#source-DEF04), [LG04](#source-LG04). Full author, title, date and URLs appear in the reference section.
+Sources: [VID03](#source-VID03), [DEF03](#source-DEF03). Full author, title, date and URLs appear in the reference section.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/6) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/6)
 
 ### Slide 7. An agent needs a clear goal and limits
 
-00:08:00-00:09:30 / 1.5 minutes
+00:09:30-00:11:00 / 1.5 minutes
 
 **Say:** A useful assignment states what the agent should achieve, which tools it may use and when it must stop. Our example permits studies and an evidence report. The operator reviews the findings and decides whether a later operating action is allowed. Review may also lead to a request for more analysis. The generic LangGraph form shows one way software can pause for outside input. It is not a utility dispatch screen. The operating process must establish the reviewer's identity, the exact case being reviewed and the permitted response. Approval of an old study should not silently become approval of a changed action or a different grid state.
 
@@ -165,7 +165,7 @@ Sources: [DEF02](#source-DEF02), [DEF01](#source-DEF01), [LG03](#source-LG03). F
 
 ### Slide 8. A model can use records, tools and memory
 
-00:09:30-00:11:00 / 1.5 minutes
+00:11:00-00:12:30 / 1.5 minutes
 
 **Say:** Retrieval finds relevant records. Tools perform defined tasks. Memory preserves context or earlier results. An LLM can use these capabilities while working through a goal. LangGraph can coordinate the execution. PowerAgent develops power-domain models, interfaces and workflows. PowerDAG is a particular research system with its own supervisory design. These names describe different roles, so we should avoid treating them as interchangeable products. The image shows Anthropic's general augmented-model pattern. It is not a diagram of either power-system project. To judge a specific system, ask which component chooses, which component calculates, what evidence is saved and which checks the application enforces.
 
@@ -187,7 +187,7 @@ Sources: [DEF03](#source-DEF03), [DEF04](#source-DEF04), [PA02](#source-PA02), [
 
 ### Slide 9. PJM uses HyperQ to review connection applications
 
-00:11:00-00:13:00 / 2 minutes
+00:12:30-00:14:30 / 2 minutes
 
 **Say:** PJM's interconnection work provides a concrete document-review example. Tapestry's June 2026 report says HyperQ entered Cycle 1 on 29 April, after PJM had confirmed testing in March. The reported Gemini agents check land-use rights, property parcels and tariff evidence for 811 generation applications. They help establish whether application materials are ready for the electrical study. Engineers retain the final decision. This is useful because a study can begin with incomplete or inconsistent evidence. It does not establish autonomous power-flow analysis. The article also discusses a future migration to Google ADK, so we should not label that future runtime as the deployed implementation.
 
@@ -205,7 +205,7 @@ Sources: [N01](#source-N01), [N02](#source-N02), [N06](#source-N06). Full author
 
 ### Slide 10. HyperQ: what the reported numbers measure
 
-00:13:00-00:15:00 / 2 minutes
+00:14:30-00:16:30 / 2 minutes
 
 **Say:** A numerical headline becomes useful only when we know its denominator and timing boundary. Here the supplier reports 811 applications, 4,581 raw documents and 2,328 document bundles. Checking four criteria across those bundles produces 9,312 macro-assessments. That is a count of assessments, rather than a count of projects. The displayed timings cover computer processing and exclude document transfer and human validation. We therefore cannot read the chart as the duration of the entire interconnection process. It also gives no confusion matrix from which to calculate review accuracy. When presenting an efficiency claim, name both the work completed by the system and the work that remains for people.
 
@@ -223,7 +223,7 @@ Sources: [N01](#source-N01). Full author, title, date and URLs appear in the ref
 
 ### Slide 11. CAISO/OATI: agents help review planned outages
 
-00:15:00-00:17:30 / 2.5 minutes
+00:16:30-00:19:00 / 2.5 minutes
 
 **Say:** The CAISO and OATI example concerns planned-outage review. OATI describes Workflow, Advisor and Recon agents working under a coordinator, with operators retaining authority. CAISO's July 2025 account described a pilot. OATI's later 2026 report describes daily production use and processing more than 500 next-day requests nightly in under eight minutes. That is a batch-processing claim. It implies more than 62.5 requests per minute for the reported batch, but it does not give the latency of an individual request or the remaining reviewer effort. The control-room photograph gives context. It does not independently verify the software or the performance result.
 
@@ -241,7 +241,7 @@ Sources: [C01](#source-C01), [C02](#source-C02), [I06](#source-I06). Full author
 
 ### Slide 12. Duke and AWS: agents help prepare planning studies
 
-00:17:30-00:20:00 / 2.5 minutes
+00:19:00-00:21:30 / 2.5 minutes
 
 **Say:** AWS reports that Duke engineers use managed agents to prepare cases and coordinate interconnection studies. The September 2026 announcement describes data preparation falling from two weeks of manual work to hours. The agents coordinate existing models, scripts and physics software. Engineers retain responsibility for the engineering decisions. The source does not specify the final number of hours, the sample count or the model and software framework. We can describe the reported change without inventing a precise speedup. Also keep the task clear: faster input preparation is one part of a longer engineering and regulatory process. The operator photograph is contextual and predates the announcement.
 
@@ -259,7 +259,7 @@ Sources: [U02](#source-U02), [U03](#source-U03), [I03](#source-I03). Full author
 
 ### Slide 13. Siemens announces agents for PSS E planning studies
 
-00:20:00-00:22:00 / 2 minutes
+00:21:30-00:23:30 / 2 minutes
 
 **Say:** Siemens announces agentic planning features within Gridscale X and PSS E. The proposed agents coordinate transmission-planning simulations through software interfaces, including connection studies for data centers and other large loads. An established simulation environment offers a practical place to connect an assistant to numerical tools. The announcement does not identify a production user of those new agentic PSS E features. The same release mentions Alliander's migration to the platform, which establishes a different fact. A platform customer is not automatically a user of every newly announced capability. We should keep the feature announcement, customer adoption and measured engineering outcome separate when teaching this case.
 
@@ -277,7 +277,7 @@ Sources: [N03](#source-N03). Full author, title, date and URLs appear in the ref
 
 ### Slide 14. National Grid reports agents checking project plans
 
-00:22:00-00:24:00 / 2 minutes
+00:23:30-00:25:30 / 2 minutes
 
 **Say:** National Grid's May 2026 results transcript reports agentic checks within its capital control tower. The task is project assurance: examining early project options and documents at approval stages. Feedback arrives while project managers can still revise their plans. This is a useful example of assistance around a decision process rather than direct grid control. The transcript provides no agent framework, accuracy estimate or timing measurement. Later comments about optimizing access outages concern future work. Nearby results about other automation should not be reassigned to this agentic system. Read each claim with its own task, timing and evidence.
 
@@ -295,7 +295,7 @@ Sources: [N04](#source-N04). Full author, title, date and URLs appear in the ref
 
 ### Slide 15. NYPA: better data for agent use
 
-00:24:00-00:25:30 / 1.5 minutes
+00:25:30-00:27:00 / 1.5 minutes
 
 **Say:** NYPA's webinar example focuses on data quality. It describes Databricks and Ataccama checks for meter data before AI uses it. Meter records need consistent identifiers, timestamps and quality information to support later analysis. A separate demonstration links Genie to Ataccama through MCP, the Model Context Protocol. That demonstration uses a product and reorder example. We should keep the NYPA data-quality implementation distinct from the generic agent demo. Together they illustrate why agents need reliable inputs and a clear connection to data services. They do not establish a production NYPA agent issuing grid commands.
 
@@ -313,7 +313,7 @@ Sources: [N09](#source-N09), [N10](#source-N10). Full author, title, date and UR
 
 ### Slide 16. Eversource: adding agentic skills to grid studies
 
-00:25:30-00:27:00 / 1.5 minutes
+00:27:00-00:28:30 / 1.5 minutes
 
 **Say:** Eversource already uses MATLAB and Synergi Electric for distribution studies. A MathWorks account describes conventional Monte Carlo and parallel numerical simulations for examining many possible conditions. Separately, an October 2026 engineering vacancy asks for agentic and AI-based workflows in MATLAB. This shows the company seeking skills that could connect new workflows to existing tools. It does not show that an agentic platform has been deployed. The simulation timing improvement in the older account belongs to conventional automation. Keeping that distinction lets us discuss the motivation honestly: an established engineering environment can make agent integration plausible, while the job posting indicates capability building.
 
@@ -331,7 +331,7 @@ Sources: [N07](#source-N07), [N11](#source-N11). Full author, title, date and UR
 
 ### Slide 17. GE Vernova: a platform that can connect grid tools
 
-00:27:00-00:28:30 / 1.5 minutes
+00:28:30-00:30:00 / 1.5 minutes
 
 **Say:** GE Vernova's GridOS example concerns a platform for coordinating grid software and information. The public announcement names Alabama Power's use of GridOS for Distribution. Shared software can provide places to connect study tools, saved evidence and operator workflows. An agent integrated into that environment would still need clear interfaces, current case identity, engineering checks and bounded authority. The public statement does not isolate a reliability improvement caused by agents or establish an autonomous LLM controller. This case helps us think about adoption infrastructure. We should teach the difference between having an integrated platform and proving that a particular agent improves an operating task.
 
@@ -353,7 +353,7 @@ Sources: [C07](#source-C07), [I01](#source-I01). Full author, title, date and UR
 
 ### Slide 18. Operators often work against a deadline
 
-00:28:30-00:30:30 / 2 minutes
+00:30:00-00:32:00 / 2 minutes
 
 **Say:** A PNNL survey of 20 control-room operators reported that, on average, 61 percent of tasks needed completion in under 30 minutes. This is an average share of tasks, not the percentage of operators. The survey had 75 questions, but that does not create 1,500 independent timing observations. The source gives no task denominator or spread behind the 61 percent. Treat it as a small self-report study that motivates attention to deadlines. For an assistant to help, it must fit within the time available for finding, checking and acting on evidence. A fast draft that requires extensive correction may still miss that deadline.
 
@@ -371,7 +371,7 @@ Sources: [Q01](#source-Q01), [O01](#source-O01), [I02](#source-I02). Full author
 
 ### Slide 19. Three checks for a useful recommendation
 
-00:30:30-00:32:00 / 1.5 minutes
+00:32:00-00:33:30 / 1.5 minutes
 
 **Say:** The first check is data validity. Does the evidence refer to the right asset, time, units and grid connections? The second is engineering validity. Does the study solve the requested problem and meet the relevant equations and limits? The third is decision validity. Does the result justify the next action that this user is allowed to take? Each can fail independently. A well-formatted result can use yesterday's topology. A converged optimization can change a prohibited setting. A correct base-case study can leave required outages untested. These checks give us a consistent way to inspect every later paper and exercise.
 
@@ -389,7 +389,7 @@ Sources: [O05](#source-O05). Full author, title, date and URLs appear in the ref
 
 ### Slide 20. A clear task makes success easier to test
 
-00:32:00-00:33:30 / 1.5 minutes
+00:33:30-00:35:00 / 1.5 minutes
 
 **Say:** Suppose the user asks whether an earlier study still applies after an event. We first identify the relevant asset, event and prior result. A snapshot records the data time, topology version and model revision. The assignment should say what evidence is required and which studies are allowed. It should also specify stopping conditions: missing data, changed inputs, tool failure, exhausted budget or insufficient permission. A successful outcome might be an evidence-backed answer, or a clear request for information needed to finish. The number of tool calls or length of the report does not define success. All F12 labels and policies in this teaching example are invented.
 
@@ -407,7 +407,7 @@ Sources: [I09](#source-I09). Full author, title, date and URLs appear in the ref
 
 ### Slide 21. An LLM agent acts, reads the result and decides again
 
-00:33:30-00:35:30 / 2 minutes
+00:35:00-00:37:00 / 2 minutes
 
 **Say:** The agent acts, reads the returned evidence and decides again. Imagine that a tool confirms the asset identity but the next tool returns stale measurements. That observation should change the next step. The agent can request a refresh, ask a person or stop with an unresolved result. The surrounding software runs each tool against a specified snapshot and records what happened. A historian returns measurements. A simulator returns modeled behavior. Those outputs answer different questions, even if both arrive as structured data. Feedback in this loop means using returned evidence to choose another step. It does not necessarily mean retraining model weights or learning a new control policy.
 
@@ -425,7 +425,7 @@ Sources: [DEF03](#source-DEF03), [LG01](#source-LG01), [E01](#source-E01). Full 
 
 ### Slide 22. When data are stale, the next step is to stop
 
-00:35:30-00:37:00 / 1.5 minutes
+00:37:00-00:38:30 / 1.5 minutes
 
 **Say:** A successful asset lookup does not guarantee that all later evidence is usable. In this example, the measurement tool marks its result as stale. The system should ask for current evidence and retain the original task as unresolved. It should not replace the missing measurement with an invented value or silently reuse an older one. A trace records the requests, results and case identity so that a reviewer can inspect this behavior. The published picture illustrates a generic gate in a workflow. The gate becomes useful only when the application defines the actual test and enforces it. Saving a trace also does not make the trace correct. It makes inspection possible.
 
@@ -443,7 +443,7 @@ Sources: [DEF03](#source-DEF03). Full author, title, date and URLs appear in the
 
 ### Slide 23. Unit checks catch a kV versus p.u. mistake
 
-00:37:00-00:38:30 / 1.5 minutes
+00:38:30-00:40:00 / 1.5 minutes
 
 **Say:** Per unit expresses a quantity relative to a chosen base. A measured 12.47 kilovolts equals 1.00 per unit only when the relevant voltage base is also 12.47 kilovolts and the definitions match. If an interface expects per unit, passing the number 12.47 without its unit changes its meaning. The tool should reject that request or require the information needed for an explicit conversion. Software checks should cover the unit, base and asset identity. A prompt saying use correct units is insufficient. After conversion, we still need to check whether the measurement and model are accurate. Unit checking solves one specific consistency problem.
 
@@ -459,7 +459,7 @@ Sources: [DEF03](#source-DEF03). Full author, title, date and URLs appear in the
 
 ### Slide 24. A study must match the current grid connections
 
-00:38:30-00:40:00 / 1.5 minutes
+00:40:00-00:41:30 / 1.5 minutes
 
 **Say:** The earlier study used topology v42 with a closed switch. The event opens that switch and creates v43. The old result therefore describes a different electrical connection pattern. Updating the report's wording cannot update the voltages or flows. The application must identify the affected calculations, refresh their inputs and run them again. Matching versions is necessary but does not answer every question. We must also ask whether the model accurately represents the real grid and whether the measurements represent the event. This is why evidence should identify both its data snapshot and its model and topology revisions. A recent timestamp alone cannot establish all three.
 
@@ -475,7 +475,7 @@ Sources: [DEF03](#source-DEF03). Full author, title, date and URLs appear in the
 
 ### Slide 25. A solver result depends on the problem it solves
 
-00:40:00-00:42:00 / 2 minutes
+00:41:30-00:43:30 / 2 minutes
 
 **Say:** Power flow, optimal dispatch and dynamic simulation answer different questions. Power flow calculates a steady operating condition for specified injections. Optimization chooses permitted variables to improve an objective while meeting stated constraints. A dynamic study follows the system's response over time under a model of equipment behavior. The assistant must select the study that matches the question. A solver's success status belongs to that defined problem. We still inspect numerical residuals, modeled limits, scenario coverage and permissions. A solver can converge perfectly on a problem the user never requested. The generic routing diagram helps us discuss selecting a tool, while the engineering requirements must come from the actual assignment.
 
@@ -493,7 +493,7 @@ Sources: [R01](#source-R01), [L01](#source-L01), [DEF03](#source-DEF03). Full au
 
 ### Slide 26. Exercise 1: check three returned data packets
 
-00:42:00-00:47:00 / 5 minutes
+00:43:30-00:48:30 / 5 minutes
 
 **Say:** Work in pairs. For this exercise, evidence must be no more than 60 seconds old, use topology v43 and express the quantity in per unit. The user may recommend actions only. Inspect packets A, B and C, choose which passes these initial rules and explain why the others fail. Then discuss the harder question: does passing these rules establish the complete engineering result or permission to execute anything? The 60-second threshold is an invented classroom rule. Your answer should use the stated contract rather than assumptions about an actual utility's procedures.
 
@@ -509,7 +509,7 @@ Sources: [R01](#source-R01), [L01](#source-L01), [DEF03](#source-DEF03). Full au
 
 ### Slide 27. Exercise 1 answer: C passes the first checks
 
-00:47:00-00:48:00 / 1 minutes
+00:48:30-00:49:30 / 1 minutes
 
 **Say:** Reveal after the pairs share their decisions. A is recent but uses v42. B is recent and uses v43, but has kV instead of p.u. C is 45 seconds old, uses v43 and has p.u. units. C passes the three stated checks only. Asset mapping, model validity, engineering checks and scenario coverage remain necessary. Recommendation permission does not authorize execution.
 
@@ -529,7 +529,7 @@ Sources: [R01](#source-R01), [L01](#source-L01), [DEF03](#source-DEF03). Full au
 
 ### Slide 28. Power-system papers test different tasks
 
-00:48:00-00:49:30 / 1.5 minutes
+00:49:30-00:51:00 / 1.5 minutes
 
 **Say:** The papers ahead investigate several different tasks. Disturbance analysis extracts information from recorded waveforms. Simulation assistants prepare and execute numerical studies. Control prototypes propose changes in model grids. Retrieval benchmarks test whether systems can find and combine evidence correctly. Every result belongs to a particular task, tool set, allowed action space and test population. A percentage from one paper cannot rank a system against another paper that measures something else. As we proceed, use four questions: what does the agent decide, what do the tools calculate, what counts as success and which failures remain? This will make the architectures easier to compare without collapsing their different goals.
 
@@ -547,7 +547,7 @@ Sources: [D01](#source-D01), [E02](#source-E02), [E03](#source-E03), [P02](#sour
 
 ### Slide 29. Harvard PowerAgent: models, tools and study workflows
 
-00:49:30-00:51:30 / 2 minutes
+00:51:00-00:53:00 / 2 minutes
 
 **Say:** Harvard's PowerAgent roadmap connects three layers. PowerFM concerns models that support power-system tasks. PowerMCP concerns interfaces through which software can expose engineering tools. PowerWF concerns workflows that coordinate the work. The 2025 IEEE article is a roadmap, rather than a benchmark claiming one fixed deployment result. PowerAgentBench-Dyn is a later benchmark with its own task and evaluation rules. Keeping the initiative and the benchmark separate avoids assigning one experiment's score to the whole project. The architecture shown here comes from the authors' presentation. We inspected that presentation and the project materials, while the original article's full experimental content was unavailable. We therefore attribute no uninspected experimental result to it.
 
@@ -565,7 +565,7 @@ Sources: [PA01](#source-PA01), [PA03](#source-PA03), [PA02](#source-PA02), [P01]
 
 ### Slide 30. PowerAgent example: what changes when load is added?
 
-00:51:30-00:53:30 / 2 minutes
+00:53:00-00:55:00 / 2 minutes
 
 **Say:** Consider a proposed load addition. The workflow analyzes an original case and a case with added load. It runs power flow and selected N minus one checks, which examine single-component outages. LangGraph coordinates the steps and saved results. PowerWorld performs the electrical calculation. That separation tells us what each component contributes: coordination, numerical analysis and evidence for comparing the cases. The maintained graph code uses StateGraph and ToolNode, but one repository does not establish the software choice for every PowerAgent project. The demonstrations provide a concrete workflow. They do not give a controlled estimate of utility time savings or operating reliability. We still need the cases, assumptions and comparison results.
 
@@ -583,7 +583,7 @@ Sources: [PA06](#source-PA06), [PA03](#source-PA03), [PA05](#source-PA05). Full 
 
 ### Slide 31. DrAgent: reading a recorded grid fault
 
-00:53:30-00:55:30 / 2 minutes
+00:55:00-00:57:00 / 2 minutes
 
 **Say:** DrAgent studies recorded disturbances on transmission lines. First look at the waveform before discussing any AI component. The third current trace changes sharply during the fault. The marked locations identify inception, the highest current and clearance, when the fault ends. A tool can return a sample index or a current measurement. An engineering answer still needs to translate that output into the requested quantity and units. Locating a visible spike is a different question from interpreting its physical cause or assessing equipment. The figure is an original research record, rather than an invented control-room event. We will next connect the waveform questions to the tools that answer them.
 
@@ -601,7 +601,7 @@ Sources: [D01](#source-D01). Full author, title, date and URLs appear in the ref
 
 ### Slide 32. DrAgent selects tools to answer a fault question
 
-00:55:30-00:57:30 / 2 minutes
+00:57:00-00:59:00 / 2 minutes
 
 **Say:** DrAgent uses a ReWOO-based plan to choose domain functions and document search. ReWOO plans tool work using references to results that earlier steps will produce. In this implementation, Gemini 1.5 Pro plans, about a dozen domain functions analyze signals, and retrieval searches 138 product manuals. Recorded disturbance files use the COMTRADE format. Notice the two different evidence paths. Signal functions measure the event, while manual search supplies product information. A question about a fault's start time may need its sample index and the recording's sampling rate before conversion to seconds. That requirement is a dependency between calculations, which gives us a reason to introduce task graphs.
 
@@ -619,7 +619,7 @@ Sources: [D01](#source-D01), [LG01](#source-LG01). Full author, title, date and 
 
 ### Slide 33. DrAgent: more correct answers, with errors still present
 
-00:57:30-00:59:30 / 2 minutes
+00:59:00-01:01:00 / 2 minutes
 
 **Say:** The chart reconstructs correct-answer counts from the paper's individual score cells. Across 18 recorded cases, fault-inception answers increase from 12 to 18, and maximum-current answers from 16 to 18. The timing category increases from four to 13. Here we count scores of two or above as correct under the authors' rubric. The timing category also accepts a correctly labeled duration, so it is broader than exact clearance timestamps. A domain expert graded the answers using the paper's tolerances of three milliseconds for timing and five percent for current. These are author-data-derived counts, rather than a new experiment. They show useful gains on this task while leaving errors and a small test population.
 
@@ -637,7 +637,7 @@ Sources: [D01](#source-D01). Full author, title, date and URLs appear in the ref
 
 ### Slide 34. Three kinds of graph have different jobs
 
-00:59:30-01:01:30 / 2 minutes
+01:01:00-01:03:00 / 2 minutes
 
 **Say:** The first graph is the electrical network. Its edges represent physical connections between modeled components. The second is a task dependency graph. Its edges say which calculation needs an earlier result. The third is an execution workflow. Its edges determine which software step can run next, and it may contain retry loops. These are different objects. A radial feeder can have a tree-like electrical shape while its software repeatedly revisits a diagnostic step. A calculation DAG can analyze a meshed electrical network. When someone says a node or a loop, ask which graph they mean. This prevents a software architecture picture from being mistaken for the grid model.
 
@@ -655,7 +655,7 @@ Sources: [D01](#source-D01), [P03](#source-P03), [LG01](#source-LG01). Full auth
 
 ### Slide 35. A DAG shows which result must come first
 
-01:01:30-01:03:30 / 2 minutes
+01:03:00-01:05:00 / 2 minutes
 
 **Say:** A directed acyclic graph, or DAG, connects tasks without forming a directed loop. An arrow means the downstream calculation needs the upstream result. To convert a fault-start sample into a time, we first need the sample index and the sampling rate. A peak-current calculation may run independently when it uses the same unchanged record and does not need the timing result. A valid execution order respects every required dependency. The page position of a box does not determine its order. Before reporting, the application must wait for all required outputs or clearly identify what is missing. This is a practical way to reason about both correctness and possible parallel work.
 
@@ -673,7 +673,7 @@ Sources: [D01](#source-D01). Full author, title, date and URLs appear in the ref
 
 ### Slide 36. LangGraph can pause to inspect a run
 
-01:03:30-01:05:30 / 2 minutes
+01:05:00-01:07:00 / 2 minutes
 
 **Say:** LangGraph is software for defining state and running workflow nodes with edges and routing rules. A node can call fixed code, a simulator or an LLM. Unlike a DAG, the execution can revisit a step. A debugger can pause the graph so a developer can inspect progress. That static breakpoint differs from a dynamic interrupt that requests external input. StateGraph defines stored fields, while application reducers determine how parallel updates combine. Those facilities help implement a process. The application still defines data validation, engineering tests, permissions and stopping conditions. Executing the graph successfully cannot establish that the electrical model or the chosen study is valid.
 
@@ -691,7 +691,7 @@ Sources: [LG01](#source-LG01), [D01](#source-D01), [P03](#source-P03), [LG03](#s
 
 ### Slide 37. Saved state must identify the study and its evidence
 
-01:05:30-01:07:30 / 2 minutes
+01:07:00-01:09:00 / 2 minutes
 
 **Say:** Saved state should identify the study, its input versions, results, status and attempt count. Suppose a set of parallel outage studies expects a case called outage_34. The application needs to notice if that result is missing or appears twice. A generic state store does not automatically understand that engineering requirement. Reducers or an external evidence store must preserve the case identities and combine updates correctly. A list of three completed steps is insufficient if the requested set contained four cases. Save enough information to compare the expected set with the returned evidence. That makes both missing coverage and inappropriate reuse easier to detect.
 
@@ -709,7 +709,7 @@ Sources: [LG01](#source-LG01), [LG02](#source-LG02), [LG05](#source-LG05). Full 
 
 ### Slide 38. A checkpoint lets a workflow pause and resume
 
-01:07:30-01:09:30 / 2 minutes
+01:09:00-01:11:00 / 2 minutes
 
 **Say:** A checkpoint records workflow progress. A thread identifier links saved steps to the same run so execution can resume later. However, external conditions may change during a pause. A saved voltage result may no longer match the current topology. The application must revalidate the snapshot and rerun affected work. There is another software detail to consider: the interrupted node may restart from its beginning. Actions before the pause may therefore run again. Stable step IDs or idempotency controls can prevent a repeated request from applying the same change twice. Saving and resuming software state solves a coordination problem. It does not keep the external grid state frozen.
 
@@ -727,7 +727,7 @@ Sources: [LG02](#source-LG02), [LG03](#source-LG03), [LG05](#source-LG05). Full 
 
 ### Slide 39. Parallel outage studies must account for every case
 
-01:09:30-01:11:30 / 2 minutes
+01:11:00-01:13:00 / 2 minutes
 
 **Say:** Parallel studies can reduce waiting when the cases are independent. Each selected outage should run on a consistent copy of the same starting case. Afterward, the application must compare the expected case IDs with the returned results. A failed or missing branch remains unresolved. An aggregator that summarizes only successful branches can produce an attractive but incomplete report. If a case called C2 fails, the report should identify C2, its error and the conclusions that cannot yet be drawn. Even completing every selected case does not imply that the selected set covers every relevant single-component outage. Coverage has to match the original assignment.
 
@@ -745,7 +745,7 @@ Sources: [R01](#source-R01), [LG01](#source-LG01), [DEF03](#source-DEF03). Full 
 
 ### Slide 40. PowerDAG checks the steps needed before a tool runs
 
-01:11:30-01:13:30 / 2 minutes
+01:13:00-01:15:00 / 2 minutes
 
 **Say:** PowerDAG retrieves relevant verified workflow examples and uses a dependency graph with a supervisory gate. The gate checks required earlier tool calls before allowing another tool to run. The inspected version four covers 108 tools, ten task families and four Vermont feeder models. Those are distribution networks: Rochester, Stowe, Glover and South Hero. The agent still chooses steps, while the supervisor constrains their order. This combines flexible selection with explicit workflow rules. The exact gate matters. In this paper it checks encoded prior Write-tool names. That is narrower than checking every parameter, input version or physical consequence. We should explain the gate's actual guarantee before interpreting its benchmark result.
 
@@ -763,7 +763,7 @@ Sources: [PD01](#source-PD01), [PD02](#source-PD02). Full author, title, date an
 
 ### Slide 41. PowerDAG: solve the grid before checking its voltage
 
-01:13:30-01:15:30 / 2 minutes
+01:15:00-01:17:00 / 2 minutes
 
 **Say:** A voltage-violation check needs a solved network state. If the required earlier solver step is missing, the gate rejects the call and explains what needs to happen first. That prevents one important class of workflow error. Now ask a second question: did that solve use the current network? The paper's check of executed tool names does not by itself establish freshness. Our teaching diagram adds a current-v43 condition to show the stronger requirement an application may need. It is labeled as an adaptation. Passing a dependency gate therefore means the encoded prerequisites passed. The numerical solution and the resulting engineering conclusion still require their own checks.
 
@@ -781,7 +781,7 @@ Sources: [PD01](#source-PD01). Full author, title, date and URLs appear in the r
 
 ### Slide 42. PowerDAG results: the same queries, four setups
 
-01:15:30-01:17:30 / 2 minutes
+01:17:00-01:19:00 / 2 minutes
 
 **Say:** This comparison uses the same GPT-5.5 model and 150 test queries in each setup. The reported first-run workflow success is 77.33 percent for ReAct, 92.67 for retrieval only, 96 for just-in-time supervision only and 98 for full PowerDAG. Pass at one checks required tool coverage, compatible inputs and ordering against expert workflows. Each query runs once in each setup. These held-out queries still come from the same ten task families. The comparison supports the value of these complete configurations on that benchmark. It does not measure reliability of live commands or isolate the effect of one graph edge. Keep the model, task population and score definition attached to the headline.
 
@@ -799,7 +799,7 @@ Sources: [PD01](#source-PD01). Full author, title, date and URLs appear in the r
 
 ### Slide 43. PowerDAG: what can others check and reuse?
 
-01:17:30-01:19:30 / 2 minutes
+01:19:00-01:21:00 / 2 minutes
 
 **Say:** The PowerDAG public benchmark provides tasks, tool descriptions, workflow records and scoring code. That allows others to inspect the study design and some of the execution evidence. The release has a practical boundary: BESS, basicPV and GFI can run from the public files, while seven other task families need private feeder maps, geographic data and network-tool code. Public records are therefore useful without making the entire study independently runnable from the download. When reusing the idea, we can adopt explicit prerequisite checks and then test them against our own tools and state rules. We should not assume that a published gate automatically transfers unchanged to a different utility environment.
 
@@ -821,7 +821,7 @@ Sources: [PD02](#source-PD02), [PD01](#source-PD01). Full author, title, date an
 
 ### Slide 44. Simulation agents find functions, run code and repair errors
 
-01:19:30-01:21:30 / 2 minutes
+01:21:00-01:23:00 / 2 minutes
 
 **Say:** The feedback-driven simulation framework finds relevant MATLAB functions and settings, writes code and runs it. Tool errors return feedback that can guide repair. The study uses DALINE and MATPOWER tasks. This illustrates a real agentic role: selecting and correcting the steps needed to complete a simulation request. However, a program can run without matching the requested engineering settings. We must compare the executed study with the assignment, including required variables and unnecessary changes. A successful software exit is one layer of evidence. Numerical and task-level checks are additional layers. The paper does not identify LangGraph, so we should describe its workflow without assigning an unreported software framework.
 
@@ -839,7 +839,7 @@ Sources: [E02](#source-E02). Full author, title, date and URLs appear in the ref
 
 ### Slide 45. Simulation-agent results: points, not a pass rate
 
-01:21:30-01:23:30 / 2 minutes
+01:23:00-01:25:00 / 2 minutes
 
 **Say:** For 34 DALINE tasks, each graded attempt receives 100 points if it meets every requirement without extra settings, 50 if unnecessary settings remain and zero if a requirement is missed. The score averages allowed attempt slots, carrying the final score into unused slots. The full setup reports 93.13 on this scale. It is not a statement that 93.13 percent of tasks passed. Other shown setups score zero, 31.37 and 33.82. These compare complete systems with different retrieval and feedback arrangements, including a separate ChatGPT product setup. The related MATPOWER test reports 96.85 over 35 tasks with up to five attempts. Always explain the score before comparing its height.
 
@@ -857,7 +857,7 @@ Sources: [E02](#source-E02). Full author, title, date and URLs appear in the ref
 
 ### Slide 46. Trying again can repeat the same software error
 
-01:23:30-01:26:00 / 2.5 minutes
+01:25:00-01:27:30 / 2.5 minutes
 
 **Say:** A capability study found an error involving a 100 megawatt and 10 megavar load request. The agent request omitted reactive load, and the cache key omitted it as well. Correcting the request still returned the old result because the cache could not distinguish the corrected input. A cache stores earlier results for reuse. Its key must include the inputs that determine whether reuse is valid. In this case, trying again with better wording cannot repair the underlying key. The lesson extends to model revisions, topology and other relevant settings. Agent evaluation needs to test adapters and caching behavior as well as model responses. A fluent explanation can repeatedly describe the same stale calculation.
 
@@ -875,11 +875,11 @@ Sources: [R02](#source-R02), [DEF03](#source-DEF03). Full author, title, date an
 
 ### Slide 47. LangGraph Studio: watch an agent use tools
 
-01:26:00-01:30:00 / 4 minutes
+01:27:30-01:30:00 / 2.5 minutes
 
 **Say:** This official walkthrough makes an agent run visible. Watch the graph, the selected tool and the returned result. The platform can pause a run and inspect its saved state. In a power-system application, the numerical solver would be one of these tools. The model coordinates the request; the solver computes the electrical result; the operator decides what to do. This is the original 2024 Studio interface, not evidence of a utility deployment.
 
-**Show / explain:** Click Play official demo. Follow one visible request through the agent graph. Pause when a tool result or delegation event is shown. Use the direct watch link if presenting in a separate tab. Ask learners to name the tool, result and next decision; do not treat the demo as grid validation.
+**Show / explain:** In the 2.5-minute slot, show one visible tool-call loop and its returned result, then pause. Use the graph and saved state to explain what can be checked before continuing. The direct link remains available for the full walkthrough.
 
 **Ask:** Where would you pause this workflow to check a power-flow result?
 
@@ -1615,23 +1615,23 @@ Full source: https://docs.langchain.com/oss/python/langchain/tools
 
 Full source: https://developer.nvidia.com/blog/introduction-to-llm-agents/
 
-<a id="source-DEF04"></a>
+<a id="source-VID03"></a>
 
-**[DEF04]** LangChain maintainers. LangGraph overview and Tools. Docs by LangChain, Python open-source documentation. Accessed October 17, 2026.
+**[VID03]** Aja Hammerly, Jason Davenport. Agentic AI: Workflows vs. agents. Google Cloud Tech / YouTube. 19 March 2025.
 
-Full source: https://docs.langchain.com/oss/python/langgraph/overview
-
-<a id="source-LG04"></a>
-
-**[LG04]** LangChain documentation maintainers. Workflows and agents. Docs by LangChain, Python LangGraph documentation. Undated live documentation; accessed October 18, 2026.
-
-Full source: https://docs.langchain.com/oss/python/langgraph/workflows-agents
+Full source: https://www.youtube.com/watch?v=Qd6anWv0mv0
 
 <a id="source-LG03"></a>
 
 **[LG03]** LangChain documentation maintainers. LangGraph Interrupts. Official LangChain documentation. Accessed 2026-10-17; live documentation.
 
 Full source: https://docs.langchain.com/oss/python/langgraph/interrupts
+
+<a id="source-DEF04"></a>
+
+**[DEF04]** LangChain maintainers. LangGraph overview and Tools. Docs by LangChain, Python open-source documentation. Accessed October 17, 2026.
+
+Full source: https://docs.langchain.com/oss/python/langgraph/overview
 
 <a id="source-PA02"></a>
 

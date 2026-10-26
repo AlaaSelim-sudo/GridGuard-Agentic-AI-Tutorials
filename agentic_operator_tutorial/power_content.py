@@ -282,6 +282,8 @@ from platform_revision import revise as add_platform_demos
 SLIDES=add_platform_demos(SLIDES)
 from exercise_revision import revise as add_worked_answers
 SLIDES=add_worked_answers(SLIDES)
+from concept_revision import revise as add_concept_video
+SLIDES=add_concept_video(SLIDES)
 
 assert len(SLIDES)<=80
 assert sum(s['kind']=='exercise' for s in SLIDES)==2

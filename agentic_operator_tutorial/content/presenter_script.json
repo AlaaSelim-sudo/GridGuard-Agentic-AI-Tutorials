@@ -48,12 +48,12 @@
     },
     {
       "number": 6,
-      "title": "Workflow or agent: who chooses the next step?",
-      "say": "In a fixed workflow, the code defines the steps and branches. For example, every case may pass through input validation, power flow and reporting. In an LLM agent, the model chooses some next steps from the allowed actions using the evidence so far. A design can combine both. We may require validation in code while allowing the model to choose which diagnostic tool to call. Anthropic's distinction is useful for engineering discussions, but it does not cover every historical meaning of agent. A loop alone is also insufficient evidence of model-directed choice. Inspect the actual routing rule and the model's role in it.",
-      "visual": "Follow the model-to-action-to-feedback loop in the documentation figure. Contrast it verbally with a fixed three-step script. Emphasize that a mandatory check can surround a flexible model decision.",
-      "question": "Does a retry loop by itself prove that the model chooses the workflow?",
-      "answer": "No. Code can implement a fixed retry rule. We need to see how the next action is selected.",
-      "transition": "That flexibility makes the task's goals and authority especially important."
+      "title": "Watch: how an agent chooses its next step",
+      "say": "Let us see the difference in a short video. A fixed workflow follows choices written in code. An agent can use the latest result to choose some next steps. Watch the examples, then map the idea to our study request, numerical solver, result checks and operator review. The model coordinates the work; the solver computes the electrical result. Our grid mapping is a teaching example. The operating decision still belongs to the operator.",
+      "visual": "Click Play official video. The embedded player starts at 0:43 and stops at 3:28. This is the publisher’s definition-and-examples segment. If opening the direct link, stop at 3:28. Use the remaining fifteen seconds to connect the video to the operator workflow.",
+      "question": "After a tool returns its result, what makes the next step agentic?",
+      "answer": "The model can choose an allowed next step using that result, rather than following only a fixed sequence. It may call another tool, ask for help or stop.",
+      "transition": "The next slide adds the limits: what the agent may do and what the operator must review."
     },
     {
       "number": 7,
@@ -419,7 +419,7 @@
       "number": 47,
       "title": "LangGraph Studio: watch an agent use tools",
       "say": "This official walkthrough makes an agent run visible. Watch the graph, the selected tool and the returned result. The platform can pause a run and inspect its saved state. In a power-system application, the numerical solver would be one of these tools. The model coordinates the request; the solver computes the electrical result; the operator decides what to do. This is the original 2024 Studio interface, not evidence of a utility deployment.",
-      "visual": "Click Play official demo. Follow one visible request through the agent graph. Pause when a tool result or delegation event is shown. Use the direct watch link if presenting in a separate tab. Ask learners to name the tool, result and next decision; do not treat the demo as grid validation.",
+      "visual": "In the 2.5-minute slot, show one visible tool-call loop and its returned result, then pause. Use the graph and saved state to explain what can be checked before continuing. The direct link remains available for the full walkthrough.",
       "question": "Where would you pause this workflow to check a power-flow result?",
       "answer": "After the solver returns and before a recommendation is accepted. Check convergence, units and the study inputs.",
       "transition": "Now compare how work and evidence move through the next example."

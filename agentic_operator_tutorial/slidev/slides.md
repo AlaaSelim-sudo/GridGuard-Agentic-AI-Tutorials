@@ -148,27 +148,25 @@ Full source: https://developer.nvidia.com/blog/introduction-to-llm-agents/
 transition: none
 ---
 
-<div class="lesson teaching rigorous figure-slide">
+<div class="lesson teaching rigorous video-slide">
 
-<h1>Workflow or agent: who chooses the next step?</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/real_framework_langgraph_workflow_agent.svg" alt="Original LangGraph documentation figure. The model chooses an action, receives feedback and can choose again." style="max-height:310px;height:auto"><figcaption>Original LangGraph documentation figure. The model chooses an action, receives feedback and can choose again.</figcaption></figure></div><ul><li>In a fixed workflow, code sets the steps and branches.</li><li>In an LLM agent, the model chooses some next steps from the allowed actions, using the results so far.</li></ul></div>
-<div class="sources">Source: <a href="https://www.anthropic.com/engineering/building-effective-agents">Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.</a></div>
+<div class="eyebrow">Concept video / Google Cloud Tech / 0:43–3:28</div>
+<h1>Watch: how an agent chooses its next step</h1>
+<div class="content"><PlatformVideo embed-url="https://www.youtube-nocookie.com/embed/Qd6anWv0mv0?start=43&amp;end=208&amp;rel=0&amp;autoplay=1" watch-url="https://www.youtube.com/watch?v=Qd6anWv0mv0&amp;t=43s" poster="concept_Qd6anWv0mv0.jpg" title="Watch: how an agent chooses its next step" /><div class="video-points"><ul><li>An agent uses tool results to choose what to do next.</li><li>For our operator: study request → solver → result checks → human review.</li></ul></div></div>
+<div class="sources">Source: <a href="https://www.youtube.com/watch?v=Qd6anWv0mv0">Aja Hammerly, Jason Davenport. Agentic AI: Workflows vs. agents. Google Cloud Tech / YouTube. 19 March 2025.</a></div>
 <span class="pageno">6 / 80</span></div>
 
 <!--
-This distinction comes from Anthropic’s practitioner account. It is useful engineering language, not a universal definition. Its workflow patterns include routing, orchestrator-workers and evaluator-optimizer loops. A system can combine fixed requirements with an LLM choosing among allowed next steps. PowerDAG later shows this combination. Source: LangChain documentation maintainers, official LangGraph documentation. Accessed October 18, 2026. This documentation convention concerns LLM applications, not all classical AI agents. Source figure locator: Opening workflow comparison: selected Agent panel. Original source URL: https://docs.langchain.com/oss/python/langgraph/workflows-agents
+Play 0:43 to 3:28, a two-minute-forty-five-second excerpt. The publisher’s chapters cover the meaning of agentic behavior and workflow examples. Explain the distinction: a fixed workflow follows routes set in code; a model-based agent chooses some next steps using the information returned so far. Connect this to our grid example: an operator states a study goal, the agent calls a numerical solver, reads the result and either requests another allowed step or reports back. The solver performs the engineering calculation. The operator keeps the operating decision. These grid roles are our teaching analogy, rather than a claim that the video demonstrates grid control.
 Takeaway:
-Nominal duration: 1.5 minutes.
+Nominal duration: 3 minutes.
 
 Full sources:
+Aja Hammerly, Jason Davenport. Agentic AI: Workflows vs. agents. Google Cloud Tech / YouTube. 19 March 2025.
+Full source: https://www.youtube.com/watch?v=Qd6anWv0mv0
+
 Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
 Full source: https://www.anthropic.com/engineering/building-effective-agents
-
-LangChain maintainers. LangGraph overview. Docs by LangChain, Python open-source documentation. Undated live documentation; accessed 2026-10-17.
-Full source: https://docs.langchain.com/oss/python/langgraph/overview
-
-LangChain documentation maintainers. Workflows and agents. Docs by LangChain, Python LangGraph documentation. Undated live documentation; accessed October 18, 2026.
-Full source: https://docs.langchain.com/oss/python/langgraph/workflows-agents
 -->
 
 ---
@@ -1184,9 +1182,9 @@ transition: none
 <span class="pageno">47 / 80</span></div>
 
 <!--
-This official walkthrough makes an agent run visible. Watch the graph, the selected tool and the returned result. The platform can pause a run and inspect its saved state. In a power-system application, the numerical solver would be one of these tools. The model coordinates the request; the solver computes the electrical result; the operator decides what to do. This is the original 2024 Studio interface, not evidence of a utility deployment. Play the official video on click or use the direct watch link. Pause to identify the selected tool, its returned result and the next decision. Ask: Where would you pause this workflow to check a power-flow result? Answer: After the solver returns and before a recommendation is accepted. Check convergence, units and the study inputs.
+Use this time to follow one visible tool-call loop, then pause and discuss. This official walkthrough makes an agent run visible. Watch the graph, the selected tool and the returned result. The platform can pause a run and inspect its saved state. In a power-system application, the numerical solver would be one of these tools. The model coordinates the request; the solver computes the electrical result; the operator decides what to do. This is the original 2024 Studio interface, not evidence of a utility deployment. Play the official video on click or use the direct watch link. Pause to identify the selected tool, its returned result and the next decision. Ask: Where would you pause this workflow to check a power-flow result? Answer: After the solver returns and before a recommendation is accepted. Check convergence, units and the study inputs.
 Takeaway:
-Nominal duration: 4 minutes.
+Nominal duration: 2.5 minutes.
 
 Full sources:
 LangChain. LangSmith Studio: The first agent IDE. Launch walkthrough linked 1 August 2024.

@@ -122,6 +122,30 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Full source URL:** [https://developer.nvidia.com/blog/introduction-to-llm-agents/](https://developer.nvidia.com/blog/introduction-to-llm-agents/)
 
+## [VID03] Agentic AI: Workflows vs. agents
+
+**Authors / issuer:** Aja Hammerly, Jason Davenport
+
+**Publisher / venue:** Google Cloud Tech / YouTube
+
+**Date:** 19 March 2025
+
+**Evidence type:** Official conceptual explainer; general software examples
+
+**Full source URL:** [https://www.youtube.com/watch?v=Qd6anWv0mv0](https://www.youtube.com/watch?v=Qd6anWv0mv0)
+
+## [LG03] LangGraph Interrupts
+
+**Authors / issuer:** LangChain documentation maintainers
+
+**Publisher / venue:** Official LangChain documentation
+
+**Date:** Accessed 2026-10-17; live documentation
+
+**Evidence type:** Official Python runtime documentation
+
+**Full source URL:** [https://docs.langchain.com/oss/python/langgraph/interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts)
+
 ## [DEF04] LangGraph overview
 
 **Authors / issuer:** LangChain maintainers
@@ -135,32 +159,6 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 **Location:** LangGraph overview: opening paragraphs and product-role list; Tools: opening definition and Basic tool definition
 
 **Full source URL:** [https://docs.langchain.com/oss/python/langgraph/overview](https://docs.langchain.com/oss/python/langgraph/overview)
-
-## [LG04] Workflows and agents
-
-**Authors / issuer:** LangChain documentation maintainers
-
-**Publisher / venue:** Docs by LangChain, Python LangGraph documentation
-
-**Date:** Undated live documentation; accessed October 18, 2026
-
-**Type:** Official framework concepts and source-authored illustrations
-
-**Location:** Opening Agent Workflow illustration (selected agent panel); LLM augmentations; workflow patterns
-
-**Full source URL:** [https://docs.langchain.com/oss/python/langgraph/workflows-agents](https://docs.langchain.com/oss/python/langgraph/workflows-agents)
-
-## [LG03] LangGraph Interrupts
-
-**Authors / issuer:** LangChain documentation maintainers
-
-**Publisher / venue:** Official LangChain documentation
-
-**Date:** Accessed 2026-10-17; live documentation
-
-**Evidence type:** Official Python runtime documentation
-
-**Full source URL:** [https://docs.langchain.com/oss/python/langgraph/interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts)
 
 ## [PA02] PowerAgent — Open-Source Agentic AI for Power Grids
 
@@ -1022,23 +1020,25 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Original figure / image URL:** [https://developer-blogs.nvidia.com/wp-content/uploads/2023/11/agent-components.png](https://developer-blogs.nvidia.com/wp-content/uploads/2023/11/agent-components.png)
 
-## Visual credit: real_framework_langgraph_workflow_agent.svg
+## Visual credit: concept_Qd6anWv0mv0.jpg
 
-**Caption:** Original LangGraph documentation figure. The model chooses an action, receives feedback and can choose again.
+**Caption:** Official Google Cloud Tech concept video. The grid mapping is an original teaching analogy.
 
-**Credit:** Source: LangChain documentation maintainers, official LangGraph documentation. Accessed October 18, 2026.
+**Credit:** Google Cloud Tech. Aja Hammerly and Jason Davenport. Agentic AI: Workflows vs. agents. 19 March 2025. Official video thumbnail.
 
-**Used on:** 6. Workflow or agent: who chooses the next step?
+**Used on:** 6. Watch: how an agent chooses its next step
 
-**Transformation:** Selected original figure panel excerpt; no labels, arrows or pixels edited. Entire original image retained separately.
+**Asset type:** Official video thumbnail
 
-**Evidence limit:** This documentation convention concerns LLM applications, not all classical AI agents.
+**Transformation:** None
 
-**License or permission status:** Publisher attribution supplied. No separate permission or unrestricted reuse license claimed.
+**Evidence limit:** Concept explainer with general software examples. The operator workflow on this slide is an original teaching analogy.
 
-**Original source / page:** [https://docs.langchain.com/oss/python/langgraph/workflows-agents](https://docs.langchain.com/oss/python/langgraph/workflows-agents)
+**License or permission status:** Publisher thumbnail linked to the official video; copyright remains with the publisher.
 
-**Original figure / image URL:** [https://mintcdn.com/langchain-5e9cc07a/-_xGPoyjhyiDWTPJ/oss/images/agent_workflow.png](https://mintcdn.com/langchain-5e9cc07a/-_xGPoyjhyiDWTPJ/oss/images/agent_workflow.png)
+**Original source / page:** [https://www.youtube.com/watch?v=Qd6anWv0mv0](https://www.youtube.com/watch?v=Qd6anWv0mv0)
+
+**Original figure / image URL:** [https://i.ytimg.com/vi/Qd6anWv0mv0/maxresdefault.jpg](https://i.ytimg.com/vi/Qd6anWv0mv0/maxresdefault.jpg)
 
 ## Visual credit: real_framework_langgraph_review_detail.svg
 

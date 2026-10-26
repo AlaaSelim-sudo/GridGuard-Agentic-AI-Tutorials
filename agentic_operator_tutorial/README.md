@@ -10,7 +10,9 @@ Continue with the [hands-on workshop](https://alaaselim-sudo.github.io/GridGuard
 
 Try each exercise before advancing to its worked answer: slides 26 → 27 and 54 → 55. Each answer explains every question and the checks still needed before an operator acts.
 
-The 80-slide presentation includes two video examples on slides 47–48:
+The 80-slide presentation opens with a [Google Cloud Tech concept video on slide 6](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/6). Watch 0:43–3:28 to connect tool use and feedback to an agent’s next decision.
+
+Two platform videos follow on slides 47–48:
 
 - [LangChain’s Studio walkthrough](https://www.youtube.com/watch?v=pLPJoFvq4_M): inspect tool calls, returned results and saved state.
 - [Siemens Gridscale X PSS E product video](https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016): connect agentic software to transmission planning. This 79-second supplier overview is not a complete engineering validation.
