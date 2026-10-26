@@ -1,0 +1,16 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[plainpoint] (a) at (2.5,2.5) {1};\node[above=.25cm of a,font=\rmfamily\bfseries] {MPC};
+\node[text width=4cm,below=.25cm of a] {Plan with a model};
+\node[plainpoint] (b) at (11,2.5) {2};\node[above=.25cm of b,font=\rmfamily\bfseries] {Saved SAC};
+\node[text width=4cm,below=.25cm of b] {Use a learned controller};
+\node[plainpoint] (c) at (6.75,.1) {?};
+\draw[flow] (a.west)--++(-.8,0)|-(c.west);
+\draw[flow] (b.east)--++(.8,0)|-(c.east);
+\node[below=.25cm of c,text width=8cm,font=\rmfamily\bfseries] {The same voltage, current and capacity checks};
+
+\end{tikzpicture}

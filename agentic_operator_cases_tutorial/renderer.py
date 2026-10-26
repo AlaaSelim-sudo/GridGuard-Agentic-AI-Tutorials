@@ -92,7 +92,7 @@ def extra_tex(s):
 
 
 def code_tex(s):
-    return (r'{\fontsize{8}{10}\selectfont\color{Slate} '+esc(s['code_caption'])+r'\par}\smallskip'+'\n'
+    return (r'{\fontsize{8}{10}\selectfont\color{Slate} '+esc(s.get('code_display_caption') or s['code_caption'])+r'\par}\smallskip'+'\n'
             +r'\lstinputlisting[basicstyle=\ttfamily\fontsize{12}{14.5}\selectfont,aboveskip=3pt,belowskip=10pt,breaklines=true,gobble=0]{../'+s['code_file']+'}\n'
             +points_tex(s['points'],compact=True))
 
@@ -247,7 +247,7 @@ def render_slide(s, number, total, sources):
             out.append('<div class="eyebrow">' + he(s["eyebrow"]) + "</div>")
         out.append("<h1>" + he(s["title"]) + "</h1>")
         if s.get('code_lines'):
-            out.append('<div class="content code-content"><p class="code-caption">'+he(s['code_caption'])+'</p><pre class="teaching-code">'
+            out.append('<div class="content code-content"><p class="code-caption">'+he(s.get('code_display_caption') or s['code_caption'])+'</p><pre class="teaching-code">'
                        +he('\n'.join(s['code_lines']))+'</pre>'+points_html(s['points'])+'</div>')
         elif s.get('layout')=='news-detail':
             out.append('<div class="content"><div class="source-focus news-detail">'+picture_html(s['image'],s.get('caption',''),'330px')

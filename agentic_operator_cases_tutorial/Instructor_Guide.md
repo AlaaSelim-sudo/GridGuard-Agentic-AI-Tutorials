@@ -16,11 +16,13 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 IEEE Communications Society. IEEE Communications Society: official resources and network presentation template. Reviewed 17 October 2026.
 Full source: https://www.comsoc.org/about/brand-experience/resources
 
-## 2. What is agentic AI?
+## 2. An agent chooses what to try next
 
 01:00–02:00 / 1 minutes.
 
-Use the architectural definition in Anthropic, Building effective agents: an agent lets the LLM direct its process and tool use. Agentic AI is a broad term; here it means a system organized around this bounded loop. An AI agent is the component that chooses and follows steps. A tool is a permitted software function that returns a result. Point to the goal, model choice, executable tool, returned evidence and feedback arrow. The application stores case facts and prior results as the context supplied at the next model request. If a required check is missing, the outcome remains HOLD. Stop or return a proposal only under the fixed workflow rules. Do not imply that feedback alone establishes agency: conventional programs can also branch and loop. Our default notebook calculates engineering results now but replays the actual old Llama choices. No live model service is needed. Stanford source: Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Fall 2026, p.2 describes function calling and agentic workflows. The goal-and-feedback drawing is our grid teaching adaptation, supported by the separate bounded-agent architecture citation. This is not an original Stanford power-system diagram.
+Plain-language explanation: The agent coordinates the work. The numerical tool supplies the engineering result. An error can also guide the next request.
+
+Original source detail: Use the architectural definition in Anthropic, Building effective agents: an agent lets the LLM direct its process and tool use. Agentic AI is a broad term; here it means a system organized around this bounded loop. An AI agent is the component that chooses and follows steps. A tool is a permitted software function that returns a result. Point to the goal, model choice, executable tool, returned evidence and feedback arrow. The application stores case facts and prior results as the context supplied at the next model request. If a required check is missing, the outcome remains HOLD. Stop or return a proposal only under the fixed workflow rules. Do not imply that feedback alone establishes agency: conventional programs can also branch and loop. Our default notebook calculates engineering results now but replays the actual old Llama choices. No live model service is needed. Stanford source: Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Fall 2026, p.2 describes function calling and agentic workflows. The goal-and-feedback drawing is our grid teaching adaptation, supported by the separate bounded-agent architecture citation. This is not an original Stanford power-system diagram.
 
 Full sources:
 
@@ -34,7 +36,7 @@ Full source: https://www.anthropic.com/research/building-effective-agents
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 3. A tool call and an agent workflow
+## 3. The agent asks; the tool calculates
 
 02:00–02:30 / 0.5 minutes.
 
@@ -52,11 +54,13 @@ Full source: https://www.anthropic.com/research/building-effective-agents
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 4. Evidence before an answer
+## 4. Check the evidence before answering
 
 02:30–03:00 / 0.5 minutes.
 
-The displayed figure is an original excerpt from Monica Lam’s Stanford CS224V introduction, p.19. Follow its retrieval, claim checking and writing steps. The WikiChat paper is fully cited in the reading guide. Our application to grid studies is a teaching analogy: read the stated limits, run the appropriate numerical check and summarize the actual returned result. Ask which lab step would detect a current violation. The classroom notebook does not run WikiChat; its dialogue factuality measurements are not electrical performance results. This source figure is now in the opening. Spend about one minute on the check-before-writing idea. The next slide maps it to L2; do not run a cell yet.
+Plain-language explanation: Stanford’s example checks claims before writing an answer. Our grid adaptation checks numerical evidence before presenting a recommendation.
+
+Original source detail: The displayed figure is an original excerpt from Monica Lam’s Stanford CS224V introduction, p.19. Follow its retrieval, claim checking and writing steps. The WikiChat paper is fully cited in the reading guide. Our application to grid studies is a teaching analogy: read the stated limits, run the appropriate numerical check and summarize the actual returned result. Ask which lab step would detect a current violation. The classroom notebook does not run WikiChat; its dialogue factuality measurements are not electrical performance results. This source figure is now in the opening. Spend about one minute on the check-before-writing idea. The next slide maps it to L2; do not run a cell yet.
 
 Full sources:
 
@@ -71,7 +75,7 @@ Full paper: https://aclanthology.org/2023.findings-emnlp.157.pdf
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 5. Voltage: propose, then check
+## 5. Solar settings: which option should we try?
 
 03:00–03:30 / 0.5 minutes.
 
@@ -93,11 +97,13 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 6. Clear rules for tool use
+## 6. Give the agent a goal and clear limits
 
 03:30–04:30 / 1 minutes.
 
-Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.
+Plain-language explanation: These rules belong to the application and operating process. A persuasive model response cannot change them.
+
+Original source detail: Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.
 
 Full sources:
 
@@ -112,7 +118,7 @@ Full paper: https://aclanthology.org/2025.acl-long.1323.pdf
 Classroom Labs notebook. Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 7. Restoration: define the service goal
+## 7. Restoration: who should get power first?
 
 04:30–05:00 / 0.5 minutes.
 
@@ -134,11 +140,13 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 8. Language and decision checks
+## 8. Keep three jobs clear
 
 05:00–05:30 / 0.5 minutes.
 
-This original diagram selection comes from the function row on p.53 of Monica Lam’s introduction. It shows a clinical-trial example, not a power-system experiment. The language model translates written facts into an SMT representation; a separate solver derives a decision from those constraints. SMT means satisfiability modulo theories, a way to express and solve logical constraints. MaxSAT supports the lecture’s search for conditions that change a decision. The lecture also states that the formalization may not be completely faithful, so correctness remains relative to the represented constraints. Our application is an analogy: Llama requests the permitted estimate or control tool and Python checks numerical limits. An operator must still confirm the trust assumption and review the proposed action. Our notebook does not run an SMT/MaxSAT solver or prove formal electrical safety. Preview the HOLD/PROPOSE distinction now; participants will calculate the L9 outcomes later with their stated model and trusted-data assumption.
+Plain-language explanation: Keep the three responsibilities separate when reading the examples. A fluent explanation is not a substitute for the calculation.
+
+Original source detail: This original diagram selection comes from the function row on p.53 of Monica Lam’s introduction. It shows a clinical-trial example, not a power-system experiment. The language model translates written facts into an SMT representation; a separate solver derives a decision from those constraints. SMT means satisfiability modulo theories, a way to express and solve logical constraints. MaxSAT supports the lecture’s search for conditions that change a decision. The lecture also states that the formalization may not be completely faithful, so correctness remains relative to the represented constraints. Our application is an analogy: Llama requests the permitted estimate or control tool and Python checks numerical limits. An operator must still confirm the trust assumption and review the proposed action. Our notebook does not run an SMT/MaxSAT solver or prove formal electrical safety. Preview the HOLD/PROPOSE distinction now; participants will calculate the L9 outcomes later with their stated model and trusted-data assumption.
 
 Full sources:
 
@@ -149,7 +157,7 @@ Publication: https://web.stanford.edu/class/cs224v/
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 9. Cyber: good fit can hide bad data
+## 9. Wrong readings can still fit a model
 
 05:30–06:00 / 0.5 minutes.
 
@@ -170,7 +178,7 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 10. Four questions about any result
+## 10. Ask four questions about every result
 
 06:00–07:00 / 1 minutes.
 
@@ -188,7 +196,7 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook. Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 11. One notebook for all three cases
+## 11. Use one notebook for all three cases
 
 07:00–08:00 / 1 minutes.
 
@@ -199,7 +207,7 @@ Full sources:
 Classroom Labs notebook. Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/COLAB_GUIDE.md
 
-## 12. Colab setup
+## 12. Start Colab in three steps
 
 08:00–10:30 / 2.5 minutes.
 
@@ -213,7 +221,7 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Google Colaboratory. Frequently Asked Questions: Using Colab, notebook storage and execution state. Google Research. Reviewed 24 October 2026.
 Full source: https://research.google.com/colaboratory/faq.html
 
-## 13. Input, run, output
+## 13. Run a cell, then read its output
 
 10:30–11:00 / 0.5 minutes.
 
@@ -227,7 +235,7 @@ Full source: https://research.google.com/colaboratory/faq.html
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 14. L0: keep the default settings
+## 14. L0: keep both switches off
 
 11:00–12:30 / 1.5 minutes.
 
@@ -238,16 +246,14 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-Exact displayed excerpt (Classroom_Labs.ipynb L0 (classroom-002), source lines 11–14.):
+Exact displayed excerpt (Classroom_Labs.ipynb L0 (classroom-002), source lines 11–12.):
 
 ```python
 RUN_OPENDSS = False       # True: fresh full-model audit + separate AC MPC solve in L5
 RUN_LOCAL_LLAMA = False   # True: one optional local call in L11
-ROOT = Path.cwd()
-assert (ROOT / 'data/lindistflow3_network.json').exists(), 'Start Jupyter in the tutorial folder'
 ```
 
-## 15. L1: does the result match the request?
+## 15. L1: does the old result still match?
 
 12:30–15:00 / 2.5 minutes.
 
@@ -258,11 +264,13 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 16. Case 1: voltage support
+## 16. Case 1: which solar settings should we use?
 
 15:00–15:30 / 0.5 minutes.
 
-The feeder is a synthetic SMART-DS Greensboro-area example, not a measured utility circuit. The command sets active- and reactive-power participation for an inverter fleet. MPC, model predictive control, uses a system model and a short forecast to calculate a plan under limits; here the proposed command is the first step of that plan. SAC, Soft Actor–Critic, is a saved controller learned from rewards. It produces a proposal from old weights without training again. The default calculation covers medium-voltage (MV) phases and MV line currents, with simplified low-voltage (LV) aggregation. Feasible means the proposal passes the limits represented by that model. Compare the penalty score J only after checking those limits; smaller J is preferred for this stated objective. Run L0 and L1 first.
+Plain-language explanation: Imagine an operator comparing possible settings for solar units. Each choice changes power flows. The job is to find an acceptable option while respecting voltage, line-current and unit limits. An agent can organize the requests and responses, while the tool calculates the electrical effects. We first learn those tools in Colab, then inspect saved agent decisions.
+
+Original source detail: The feeder is a synthetic SMART-DS Greensboro-area example, not a measured utility circuit. The command sets active- and reactive-power participation for an inverter fleet. MPC, model predictive control, uses a system model and a short forecast to calculate a plan under limits; here the proposed command is the first step of that plan. SAC, Soft Actor–Critic, is a saved controller learned from rewards. It produces a proposal from old weights without training again. The default calculation covers medium-voltage (MV) phases and MV line currents, with simplified low-voltage (LV) aggregation. Feasible means the proposal passes the limits represented by that model. Compare the penalty score J only after checking those limits; smaller J is preferred for this stated objective. Run L0 and L1 first.
 
 Full sources:
 
@@ -272,11 +280,13 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Existing GridGuard workshop / SMART-DS synthetic-feeder extraction. Synthetic Greensboro feeder uhs20_1247–udt8894: model map and declared study scope. Existing teaching snapshot reviewed 18 October 2026.
 Full source: https://data.openei.org/submissions/2981
 
-## 17. Two ways to propose settings
+## 17. Two tools suggest different settings
 
 15:30–16:30 / 1 minutes.
 
-MPC uses a model and a short forecast to optimize a plan; this lab applies its first action. SAC is a saved policy learned through reinforcement learning; it produces a new control proposal using old weights, without training again. Neither is the coordinating LLM. The outer agent can choose which permitted study to request. L2 calls both tools directly and displays their checks; this cell alone is not a live LLM agent. Later recorded P3 figures illustrate Llama coordinating the existing tools. Define per unit when the control-limit slide introduces the voltage scale: 1.0 p.u. is the stated base value. Explain MILP and WLS only in their respective cases.
+Plain-language explanation: MPC means model predictive control. SAC means soft actor-critic, a learned controller. You do not need their algorithms to follow this lab: both simply supply settings for the same check.
+
+Original source detail: MPC uses a model and a short forecast to optimize a plan; this lab applies its first action. SAC is a saved policy learned through reinforcement learning; it produces a new control proposal using old weights, without training again. Neither is the coordinating LLM. The outer agent can choose which permitted study to request. L2 calls both tools directly and displays their checks; this cell alone is not a live LLM agent. Later recorded P3 figures illustrate Llama coordinating the existing tools. Define per unit when the control-limit slide introduces the voltage scale: 1.0 p.u. is the stated base value. Explain MILP and WLS only in their respective cases.
 
 Full sources:
 
@@ -292,11 +302,13 @@ Full source: https://proceedings.mlr.press/v80/haarnoja18b.html
 Workshop recorded model replies and numerical study records. Voltage P3_current_reserve: Llama 3.1:8b planner, recovery and review calls 1–3. Public teaching archive. 27 September 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/continuous_llama_opendss_20260927T161223523552Z.json
 
-## 18. A tool result changes the next step
+## 18. How the agent helps with solar settings
 
 16:30–18:00 / 1.5 minutes.
 
-This is an actual saved Llama 3.1:8b voltage episode, not a fabricated interactive exchange. Call 1 selects VERIFY_SAC_FIRST; the numerical check returns 111.966607 percent of allowed current and two current violations. Call 2 selects USE_MPC_PLAN; its numerical check returns 99.604410 percent of allowed current and no recorded violations. The SAC and MPC tools already exist; Llama does not invent or solve the power flow. The arrows show tool-request, result, next-request, result. Call 3 selects REVIEW_EVIDENCE. Human acknowledgment remains PENDING and equipment_dispatch is False. This separate P3 MV/LV OpenDSS archive differs from the fresh L2 exercise and from L3 test_01. Later voltage slides display the exact public returned reasons; learners can replay the source in L10B after completing the three cases. The fixed comparator reaches the same numerical outcome, so the trace illustrates coordination rather than a proven performance improvement. This recorded example now follows the MPC/SAC definition slide in the voltage case, after Colab setup. It remains a preview; run the complete episode in L10B later.
+Plain-language explanation: Follow the arrows from the operator’s goal to the returned result. If a check fails, the agent can request another permitted trial. If evidence is missing, it can stop and ask. The useful behavior is the choice made after reading the tool result. The tool still performs the electrical calculation.
+
+Original source detail: This is an actual saved Llama 3.1:8b voltage episode, not a fabricated interactive exchange. Call 1 selects VERIFY_SAC_FIRST; the numerical check returns 111.966607 percent of allowed current and two current violations. Call 2 selects USE_MPC_PLAN; its numerical check returns 99.604410 percent of allowed current and no recorded violations. The SAC and MPC tools already exist; Llama does not invent or solve the power flow. The arrows show tool-request, result, next-request, result. Call 3 selects REVIEW_EVIDENCE. Human acknowledgment remains PENDING and equipment_dispatch is False. This separate P3 MV/LV OpenDSS archive differs from the fresh L2 exercise and from L3 test_01. Later voltage slides display the exact public returned reasons; learners can replay the source in L10B after completing the three cases. The fixed comparator reaches the same numerical outcome, so the trace illustrates coordination rather than a proven performance improvement. This recorded example now follows the MPC/SAC definition slide in the voltage case, after Colab setup. It remains a preview; run the complete episode in L10B later.
 
 Full sources:
 
@@ -306,18 +318,20 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 19. Two control settings
+## 19. The study changes two solar settings
 
 18:00–19:00 / 1 minutes.
 
-Active power delivers net energy; reactive power supports the AC voltage and current balance. The command uses P_i = a S_i and Q_i = b S_i. Its bounds are 0 <= a <= 1, |b| <= 0.44 and a^2 + b^2 <= 1. Modeled voltages must be between 0.95 and 1.05 per unit (p.u.), where values are divided by a stated base. RATING_FRACTION=0.80 sets allowed current to 80% of the nominal rating. The displayed current percentage uses this reduced allowance as its denominator. Passing the inverter bounds alone does not show that network limits pass.
+Plain-language explanation: Active power supplies energy. Reactive power supports voltage. The inverter’s shared capacity means these settings cannot be chosen independently without checking.
+
+Original source detail: Active power delivers net energy; reactive power supports the AC voltage and current balance. The command uses P_i = a S_i and Q_i = b S_i. Its bounds are 0 <= a <= 1, |b| <= 0.44 and a^2 + b^2 <= 1. Modeled voltages must be between 0.95 and 1.05 per unit (p.u.), where values are divided by a stated base. RATING_FRACTION=0.80 sets allowed current to 80% of the nominal rating. The displayed current percentage uses this reduced allowance as its denominator. Passing the inverter bounds alone does not show that network limits pass.
 
 Full sources:
 
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 20. A tool is a callable function
+## 20. A Python function can be a tool
 
 19:00–19:30 / 0.5 minutes.
 
@@ -331,7 +345,7 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 21. L2: run the default case
+## 21. L2: compare two solar proposals
 
 19:30–22:30 / 3 minutes.
 
@@ -357,7 +371,7 @@ started = time.perf_counter()
 voltage = lab.voltage_lab(LOAD_SCALE, RATING_FRACTION)
 ```
 
-## 22. L2: voltage and current plots
+## 22. Read the voltage and current checks
 
 22:30–23:30 / 1 minutes.
 
@@ -368,7 +382,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 23. L2: both default proposals pass
+## 23. Both pass; MPC has the lower score
 
 23:30–24:30 / 1 minutes.
 
@@ -379,7 +393,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 24. The limit and the calculated result
+## 24. A limit needs a calculated check
 
 24:30–25:00 / 0.5 minutes.
 
@@ -420,18 +434,20 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 27. Exercise 1: both still pass
+## 27. Less current does not mean the best option
 
 29:00–30:00 / 1 minutes.
 
-Use this visual immediately after the first exercise debrief. It shows the measured reference MPC outputs, rounded to two decimal places, for RATING_FRACTION 0.80 and 0.75. The SAC result is also computed in the notebook but is not drawn here. Both proposals pass this particular tighter test. The result is not a general guarantee for other loads or limits. Ask pairs to explain the denominator in the percentage. Restore the default before moving to L3’s independent archived case. This combines the original numerical debrief with the visual explanation. Compare both methods before restoring RATING_FRACTION=0.80.
+Plain-language explanation: The active-power setting is about 0.9603 for MPC and 0.3431 for SAC in this exercise. Lower solar output can reduce current but also increase the stated cost.
+
+Original source detail: Use this visual immediately after the first exercise debrief. It shows the measured reference MPC outputs, rounded to two decimal places, for RATING_FRACTION 0.80 and 0.75. The SAC result is also computed in the notebook but is not drawn here. Both proposals pass this particular tighter test. The result is not a general guarantee for other loads or limits. Ask pairs to explain the denominator in the percentage. Restore the default before moving to L3’s independent archived case. This combines the original numerical debrief with the visual explanation. Compare both methods before restoring RATING_FRACTION=0.80.
 
 Full sources:
 
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 28. L2: reset before continuing
+## 28. L2: restore the starting values
 
 30:00–30:30 / 0.5 minutes.
 
@@ -449,11 +465,13 @@ LOAD_SCALE = 1.0
 RATING_FRACTION = 0.80
 ```
 
-## 29. New calculations and saved replies
+## 29. Separate a new calculation from a replay
 
 30:30–31:00 / 0.5 minutes.
 
-Point to these evidence modes throughout the session. Default classroom cells calculate fresh results without a live language-model call. L10B displays verified historical Llama choices, original reasons and associated recorded results. Changing your L2 or L6 input does not change those old replies. The final control-room diagrams are a proposed teaching design, not evidence of a deployed utility platform. No new equipment operation occurs in any of these modes. FRESH means calculated during the current execution. SAVED POLICY means old weights used for new inference. ARCHIVED ACTUAL LLM means an old reply with its original inputs and timing. This slide comes just before L3 so the distinction is applied immediately.
+Plain-language explanation: A fresh calculation answers the inputs you just supplied. A replay shows what happened previously. Both are useful, but they answer different questions.
+
+Original source detail: Point to these evidence modes throughout the session. Default classroom cells calculate fresh results without a live language-model call. L10B displays verified historical Llama choices, original reasons and associated recorded results. Changing your L2 or L6 input does not change those old replies. The final control-room diagrams are a proposed teaching design, not evidence of a deployed utility platform. No new equipment operation occurs in any of these modes. FRESH means calculated during the current execution. SAVED POLICY means old weights used for new inference. ARCHIVED ACTUAL LLM means an old reply with its original inputs and timing. This slide comes just before L3 so the distinction is applied immediately.
 
 Full sources:
 
@@ -479,14 +497,13 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-Exact displayed excerpt (Classroom_Labs.ipynb L3 (classroom-010), source lines 1–2.):
+Exact displayed excerpt (Classroom_Labs.ipynb L3 (classroom-010), source lines 1–1.):
 
 ```python
 pool = lab.saved_pool('test_01')
-display(pd.DataFrame(pool['responses'])[['model_id', 'operation_id', 'reason', 'seconds', 'source']])
 ```
 
-## 31. Different words can request the same trial
+## 31. Different replies can request the same action
 
 32:00–32:30 / 0.5 minutes.
 
@@ -497,7 +514,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 32. L4: check the selected trial
+## 32. L4: check the chosen proposal
 
 32:30–33:30 / 1 minutes.
 
@@ -508,17 +525,13 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-Exact displayed excerpt (Classroom_Labs.ipynb L4 (classroom-013), source lines 5–9.):
+Exact displayed excerpt (Classroom_Labs.ipynb L4 (classroom-013), source lines 6–6.):
 
 ```python
-started = time.perf_counter()
 selected_trials = lab.trial_saved_selection(pool)
-timings['L4 new verification of archived choices'] = time.perf_counter() - started
-display(selected_trials['table'])
-assert pool['frozen'] and pool['training_updates'] == 24
 ```
 
-## 33. L4: read the new check
+## 33. Both selectors choose the same proposal
 
 33:30–34:00 / 0.5 minutes.
 
@@ -529,7 +542,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 34. L5: check model coverage
+## 34. L5: see which part of the grid was checked
 
 34:00–35:30 / 1.5 minutes.
 
@@ -540,16 +553,13 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-Exact displayed excerpt (Classroom_Labs.ipynb L5 (classroom-016), source lines 1–4.):
+Exact displayed excerpt (Classroom_Labs.ipynb L5 (classroom-016), source lines 2–2.):
 
 ```python
-started = time.perf_counter()
 scope_audit = lab.backend_audit(pool, run_opendss=RUN_OPENDSS)
-timings['L5 selected model scope checks'] = time.perf_counter() - started
-display(scope_audit['table'])
 ```
 
-## 35. A PASS has a scope
+## 35. A PASS covers only what was checked
 
 35:30–36:00 / 0.5 minutes.
 
@@ -560,7 +570,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 36. Saved voltage case: check SAC first
+## 36. Recorded example: the first option fails
 
 36:00–37:00 / 1 minutes.
 
@@ -574,7 +584,7 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 37. Saved voltage case: try the MPC fallback
+## 37. Recorded example: request another option
 
 37:00–38:00 / 1 minutes.
 
@@ -588,7 +598,7 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 38. Saved voltage case: return for review
+## 38. Recorded example: return to the operator
 
 38:00–39:00 / 1 minutes.
 
@@ -602,29 +612,33 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 39. Case 2: restoring service
+## 39. Case 2: who gets power after a fault?
 
 39:00–39:30 / 0.5 minutes.
 
-This six-node graph is separate from the voltage feeder. It represents active-power transport, not AC power flow or a time-ordered field switching procedure. Loads are picked up as whole blocks. A tie is an alternative connection that can supply load; CAPACITIES_KW sets its transfer limit in kilowatts.
+Plain-language explanation: A fault removes one normal supply path. Alternative paths have limited capacity, so the operator must choose what to restore. Serving critical demand first can differ from maximizing the total power served. The agent can carry that priority into a study request, collect the result and request a new study when the situation changes.
+
+Original source detail: This six-node graph is separate from the voltage feeder. It represents active-power transport, not AC power flow or a time-ordered field switching procedure. Loads are picked up as whole blocks. A tie is an alternative connection that can supply load; CAPACITIES_KW sets its transfer limit in kilowatts.
 
 Full sources:
 
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 40. Two service goals
+## 40. How the agent helps restore service
 
 39:30–40:30 / 1 minutes.
 
-Critical demand totals 90 kW: 60 kW at node 2 and 30 kW at node 5. The objective is the service goal encoded as a score. The priority score gives more weight to these critical loads, while the comparison score maximizes total kW. The difference in selected service comes from that goal. Both numerical methods use the same graph, capacities and whole-load pickup rules. Neither needs a language model to solve this declared problem.
+Plain-language explanation: The operator supplies the goal. The numerical solver chooses loads under the network rules. An agent could manage the study request and read its result, but it should not invent the service priority. L6 runs the tools directly; the recorded agent example comes later.
+
+Original source detail: Critical demand totals 90 kW: 60 kW at node 2 and 30 kW at node 5. The objective is the service goal encoded as a score. The priority score gives more weight to these critical loads, while the comparison score maximizes total kW. The difference in selected service comes from that goal. Both numerical methods use the same graph, capacities and whole-load pickup rules. Neither needs a language model to solve this declared problem.
 
 Full sources:
 
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 41. L6: solve the restoration problem
+## 41. L6: compare two restoration goals
 
 40:30–42:30 / 2 minutes.
 
@@ -635,17 +649,15 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-Exact displayed excerpt (Classroom_Labs.ipynb L6 (classroom-018), source lines 1–5.):
+Exact displayed excerpt (Classroom_Labs.ipynb L6 (classroom-018), source lines 1–3.):
 
 ```python
 CAPACITIES_KW = (40., 60., 80., 100., 120.)
 started = time.perf_counter()
 restoration = lab.restoration_sweep(CAPACITIES_KW)
-timings['L6 fresh MILP sweep + independent enumeration'] = time.perf_counter() - started
-display(restoration['table'].drop(columns='pickup'))
 ```
 
-## 42. L6: read both service plots
+## 42. Read total and critical service
 
 42:30–43:30 / 1 minutes.
 
@@ -656,7 +668,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 43. L6: the tradeoff at 40 kW
+## 43. The service goal changes who gets power
 
 43:30–44:30 / 1 minutes.
 
@@ -667,11 +679,13 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 44. Restoration checks
+## 44. Check the restoration plan
 
 44:30–45:00 / 0.5 minutes.
 
-Numerical checks and same-content evidence matching answer different questions. A record can match the inputs exactly while still omitting AC voltage, reactive-power or protection limits. Comparing the MILP score with every permitted plan is an independent check of this small stated problem. Minimizing energized branches does not calculate the number or order of physical switching steps.
+Plain-language explanation: The result must respect the unavailable faulted branch and the model’s supply and capacity rules. A field switching sequence needs additional operating work.
+
+Original source detail: Numerical checks and same-content evidence matching answer different questions. A record can match the inputs exactly while still omitting AC voltage, reactive-power or protection limits. Comparing the MILP score with every permitted plan is an independent check of this small stated problem. Minimizing energized branches does not calculate the number or order of physical switching steps.
 
 Full sources:
 
@@ -707,7 +721,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 47. Exercise 2: enough capacity removes this tradeoff
+## 47. More capacity can remove this trade-off
 
 49:00–50:00 / 1 minutes.
 
@@ -718,7 +732,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 48. L7: test an old result after a change
+## 48. L7: change the request, then check the evidence
 
 50:00–51:30 / 1.5 minutes.
 
@@ -729,15 +743,14 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-Exact displayed excerpt (Classroom_Labs.ipynb L7 (classroom-021), source lines 1–3.):
+Exact displayed excerpt (Classroom_Labs.ipynb L7 (classroom-021), source lines 8–9.):
 
 ```python
-rest_record = restoration['records'][0]['weighted']
-rest_request = {'task': 'restoration', 'capacity_kw': CAPACITIES_KW[0],
-                'critical_nodes': [2, 5], 'model': 'six_node_active_transport', 'revision': 1}
+print('Original contract:', lab.bound_to(rest_request, rest_candidate, rest_evidence))
+print('Changed rating with old evidence:', lab.bound_to(new_rest_request, rest_candidate, rest_evidence))
 ```
 
-## 49. L7: the old evidence no longer matches
+## 49. The old result no longer matches
 
 51:30–52:00 / 0.5 minutes.
 
@@ -748,18 +761,20 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 50. New inputs need new evidence
+## 50. A new limit needs a new study
 
 52:00–52:30 / 0.5 minutes.
 
-Evidence binding asks whether a record matches the exact request, proposed plan and returned result. The diagram’s extra topology labels are teaching illustrations. The runnable L7 example changes only the request capacity and revision; students do not change topology in that cell. Old evidence is unusable for a changed request even if the old plan might still pass its limits. Ask which new numerical check would establish that for the changed request.
+Plain-language explanation: An agent can notice the changed request, ask the tool to solve it again and return the new checks. Rewriting the old explanation would not update the calculation.
+
+Original source detail: Evidence binding asks whether a record matches the exact request, proposed plan and returned result. The diagram’s extra topology labels are teaching illustrations. The runnable L7 example changes only the request capacity and revision; students do not change topology in that cell. Old evidence is unusable for a changed request even if the old plan might still pass its limits. Ask which new numerical check would establish that for the changed request.
 
 Full sources:
 
 Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 51. The agent keeps the service goal
+## 51. The agent keeps the operator’s goal
 
 52:30–53:00 / 0.5 minutes.
 
@@ -770,7 +785,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 52. Restoration model limits
+## 52. This model leaves some checks for later
 
 53:00–53:30 / 0.5 minutes.
 
@@ -781,7 +796,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 53. Saved restoration case: try another plan
+## 53. Recorded example: try more service
 
 53:30–54:30 / 1 minutes.
 
@@ -795,7 +810,7 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 54. Saved restoration case: reject a failed trial
+## 54. Recorded example: the tool rejects a trial
 
 54:30–55:00 / 0.5 minutes.
 
@@ -809,7 +824,7 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 55. Saved restoration case: correct the ranking
+## 55. Recorded example: correct a wrong ranking
 
 55:00–56:00 / 1 minutes.
 
@@ -823,22 +838,26 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 56. Case 3: suspicious readings
+## 56. Case 3: can we trust these readings?
 
 56:00–56:30 / 0.5 minutes.
 
-The separate four-bus linear DC model has three unknown voltage angles, measured relative to a reference bus, and eight readings. This DC approximation is not a full AC estimator, malware detector or sensor-authentication system. Synthetic truth is known for the offline classroom comparison only. A residual checks how well the estimate fits the supplied readings; state error checks how far the estimate is from the known teaching truth.
+Plain-language explanation: The operator sees measurements, not the true system state. Several altered readings can agree with each other and still lead to a wrong estimate. An agent can request tests and organize the evidence, but it cannot create a trusted measurement source. The lab uses known simulated changes so that we can compare fit with actual estimation error.
+
+Original source detail: The separate four-bus linear DC model has three unknown voltage angles, measured relative to a reference bus, and eight readings. This DC approximation is not a full AC estimator, malware detector or sensor-authentication system. Synthetic truth is known for the offline classroom comparison only. A residual checks how well the estimate fits the supplied readings; state error checks how far the estimate is from the known teaching truth.
 
 Full sources:
 
 Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 57. What the residual measures
+## 57. Mismatch is only one check
 
 56:30–57:30 / 1 minutes.
 
-WLS means weighted least squares: find the state that best fits the readings, giving more influence to readings with smaller stated uncertainty. That weighting does not authenticate a reading. Here J is the residual mismatch statistic, not the voltage case’s penalty score. Its chi-square alarm threshold is about 15.086272 for five residual degrees of freedom at a 1% significance level. This calibration depends on the stated linear model and noise assumptions. An operator does not have the synthetic truth used to calculate the plotted state error. A small J does not establish that the readings are authentic.
+Plain-language explanation: In the cyber lab, J is a mismatch statistic, not the control cost used in the voltage lab. A low mismatch says the model fits the readings; it does not authenticate them.
+
+Original source detail: WLS means weighted least squares: find the state that best fits the readings, giving more influence to readings with smaller stated uncertainty. That weighting does not authenticate a reading. Here J is the residual mismatch statistic, not the voltage case’s penalty score. Its chi-square alarm threshold is about 15.086272 for five residual degrees of freedom at a 1% significance level. This calibration depends on the stated linear model and noise assumptions. An operator does not have the synthetic truth used to calculate the plotted state error. A small J does not establish that the readings are authentic.
 
 Full sources:
 
@@ -848,7 +867,7 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Fred C. Schweppe, J. Wildes. Power System Static-State Estimation, Part I: Exact Model. IEEE Transactions on Power Apparatus and Systems, PAS-89(1), pp. 120–125. January 1970.
 Full source: https://doi.org/10.1109/TPAS.1970.292678
 
-## 58. L8: run two data attacks
+## 58. L8: compare two misleading-data patterns
 
 57:30–59:30 / 2 minutes.
 
@@ -859,17 +878,15 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-Exact displayed excerpt (Classroom_Labs.ipynb L8 (classroom-023), source lines 1–5.):
+Exact displayed excerpt (Classroom_Labs.ipynb L8 (classroom-023), source lines 1–3.):
 
 ```python
 ATTACK_SCALES = (0., .25, .5, 1., 1.5)
 started = time.perf_counter()
 cyber = lab.cyber_sweep(ATTACK_SCALES)
-timings['L8 fresh WLS attack sweep'] = time.perf_counter() - started
-display(cyber['table'])
 ```
 
-## 59. L8: read both cyber plots
+## 59. Read the alarm and the estimation error
 
 59:30–60:30 / 1 minutes.
 
@@ -880,11 +897,13 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 60. L8: a coordinated attack escapes the alarm
+## 60. A coordinated change can escape the alarm
 
 60:30–61:30 / 1 minutes.
 
-The diagram is a simple scalar illustration of coordinated consistency, not the numerical eight-measurement system. Read the numerical values from L8. A larger false-data shift need not increase the residual when the shift lies in the modeled measurement subspace. The state error is measured in radians; it is available here because this is an offline test with known synthetic truth.
+Plain-language explanation: The coordinated changes preserve a small mismatch even as the estimate moves away from the known state. This is the reason a quiet alarm is incomplete evidence.
+
+Original source detail: The diagram is a simple scalar illustration of coordinated consistency, not the numerical eight-measurement system. Read the numerical values from L8. A larger false-data shift need not increase the residual when the shift lies in the modeled measurement subspace. The state error is measured in radians; it is available here because this is an offline test with known synthetic truth.
 
 Full sources:
 
@@ -917,7 +936,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 63. Exercise 3: a small bias can miss the threshold
+## 63. A small bias can stay below the threshold
 
 65:30–66:30 / 1 minutes.
 
@@ -928,7 +947,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 64. L8: reset before recovery
+## 64. L8: reset before the recovery example
 
 66:30–67:00 / 0.5 minutes.
 
@@ -947,7 +966,7 @@ started = time.perf_counter()
 cyber = lab.cyber_sweep(ATTACK_SCALES)
 ```
 
-## 65. L9: one fixed recovery case
+## 65. L9: ask whether a correction can be proposed
 
 67:00–67:30 / 0.5 minutes.
 
@@ -958,18 +977,20 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 66. Data trust is an assumption
+## 66. Trusted readings must come from somewhere
 
 67:30–68:00 / 0.5 minutes.
 
-The example assumes three protected angle readings determine the three unknown angles, leaving zero residual degrees of freedom. Independent trusted information must come from a justified source outside this numerical calculation. A zero residual in this exactly determined system adds no detection guarantee. Neither a good model fit nor a language-model explanation establishes authenticity.
+Plain-language explanation: The lesson supplies a trust assumption so that the numerical task can be studied. The calculation is not a method for proving sensor identity or integrity.
+
+Original source detail: The example assumes three protected angle readings determine the three unknown angles, leaving zero residual degrees of freedom. Independent trusted information must come from a justified source outside this numerical calculation. A zero residual in this exactly determined system adds no detection guarantee. Neither a good model fit nor a language-model explanation establishes authenticity.
 
 Full sources:
 
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 67. L9: HOLD or PROPOSE
+## 67. L9: read HOLD or PROPOSE first
 
 68:00–69:30 / 1.5 minutes.
 
@@ -987,7 +1008,7 @@ without_trust = lab.trusted_response(cyber, protected_available=False)
 with_trust = lab.trusted_response(cyber, protected_available=True)
 ```
 
-## 68. L9: two outcomes
+## 68. Missing trust means HOLD
 
 69:30–70:30 / 1 minutes.
 
@@ -998,29 +1019,33 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 69. L9: check the correction
+## 69. The tool calculates a small correction
 
 70:30–71:00 / 0.5 minutes.
 
-QP means quadratic programming: this numerical solver minimizes a quadratic effort score while enforcing the declared branch limits and a 0.01 p.u. margin. The flexible injection is u=0.1216936673 p.u., balanced by the reference bus. Predicted flow12 is 0.17000 p.u.; the offline actual flow is about 0.17046 p.u., below the 0.18000 p.u. rating. The actual-flow comparison uses synthetic truth for this fixed case. It does not guarantee AC behavior omitted by the model or trustworthy field telemetry.
+Plain-language explanation: Per unit, written p.u., expresses a value relative to a chosen model base. Compare the predicted and offline checked flow with the same 0.18 limit.
+
+Original source detail: QP means quadratic programming: this numerical solver minimizes a quadratic effort score while enforcing the declared branch limits and a 0.01 p.u. margin. The flexible injection is u=0.1216936673 p.u., balanced by the reference bus. Predicted flow12 is 0.17000 p.u.; the offline actual flow is about 0.17046 p.u., below the 0.18000 p.u. rating. The actual-flow comparison uses synthetic truth for this fixed case. It does not guarantee AC behavior omitted by the model or trustworthy field telemetry.
 
 Full sources:
 
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 70. A proposal depends on its assumptions
+## 70. How the agent helps with suspicious readings
 
 71:00–71:30 / 0.5 minutes.
 
-Do not attribute recovered information or numerical feasibility to confident prose. The workflow can coordinate the estimator, constrained correction and evidence checks. It cannot invent an independent trusted measurement source.
+Plain-language explanation: Follow the information from the readings to the proposed correction. Without the required trusted data, the workflow returns HOLD. With that assumption, the tool can calculate a candidate. The agent can request these steps and explain missing checks; the operator must still assess the premise and decide the authorized next step.
+
+Original source detail: Do not attribute recovered information or numerical feasibility to confident prose. The workflow can coordinate the estimator, constrained correction and evidence checks. It cannot invent an independent trusted measurement source.
 
 Full sources:
 
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 71. Saved cyber case: request the allowed tool
+## 71. Recorded example: request the recovery tool
 
 71:30–72:00 / 0.5 minutes.
 
@@ -1034,7 +1059,7 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 72. Saved cyber case: keep human review
+## 72. Recorded example: keep human review
 
 72:00–73:00 / 1 minutes.
 
@@ -1048,7 +1073,7 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
 
-## 73. L10: inspect the five-role workflow
+## 73. L10: inspect the saved sequence of jobs
 
 73:00–74:30 / 1.5 minutes.
 
@@ -1059,7 +1084,7 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 74. L10B: replay the three Llama examples
+## 74. L10B: replay each saved agent example
 
 74:30–79:00 / 4.5 minutes.
 
@@ -1073,17 +1098,13 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Ollama documentation maintainers. Structured Outputs: generating structured JSON with a schema. Official Ollama documentation. Reviewed 24 October 2026.
 Full source: https://docs.ollama.com/capabilities/structured-outputs
 
-Exact displayed excerpt (Classroom_Labs.ipynb L10B (classroom-llama-walkthrough), source lines 1–5.):
+Exact displayed excerpt (Classroom_Labs.ipynb L10B (classroom-llama-walkthrough), source lines 1–1.):
 
 ```python
 SCENARIO = "voltage"  # Change to "restoration" or "cyber", then rerun this cell.
-from IPython.display import HTML, display
-from src.llama_walkthrough import load_episodes, render_episode_html
-replay_episodes = load_episodes(ROOT)
-display(HTML(render_episode_html(replay_episodes[SCENARIO])))
 ```
 
-## 75. L12: practice operator readback
+## 75. L12: practice checking the recommendation ID
 
 79:00–81:00 / 2 minutes.
 
@@ -1101,7 +1122,7 @@ wrong_id = lab.acknowledge(mv_scope, 'wrong-id', 'Student operator')
 readback = lab.acknowledge(mv_scope, mv_scope['recommendation_id'], 'Student operator')
 ```
 
-## 76. L12: approval must match the checked scope
+## 76. Approval must match the checked study
 
 81:00–82:00 / 1 minutes.
 
@@ -1112,11 +1133,13 @@ Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 77. Our multi-agent design: five roles
+## 77. Five roles share the work
 
 82:00–83:30 / 1.5 minutes.
 
-This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry.
+Plain-language explanation: The five roles are five jobs rather than five independent language models. Python reads the case, calculates and verifies. One Llama model requests initial trials and later refinements. Python also guards the final ranking and rechecks the selected option. The default notebook displays these saved stages.
+
+Original source detail: This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry.
 
 Full sources:
 
@@ -1130,11 +1153,13 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
 Full source: https://www.anthropic.com/research/building-effective-agents
 
-## 78. Five roles in the voltage case
+## 78. Voltage: request, calculate, check, improve
 
 83:30–84:30 / 1 minutes.
 
-This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. In this L10 lindistflow3 record, the optimizer asks for RELAX_Q_10_PERCENT then INCREASE_PV_0025. Python recalculates each proposal and the verification stage checks it. The selected final recheck uses a=0.3394386941 and b=0.0276310594, with 50.75344954 percent allowed-current use and no recorded violations. The scope is MV phases only with ideal LV aggregation. Do not substitute the P3 99.604410 percent result or L2 MPC score. These are different experiments.
+Plain-language explanation: This is the separate saved L10 medium-voltage example. New settings return to calculation and checking. Its final recorded current use is about 50.75% of the allowance.
+
+Original source detail: This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. In this L10 lindistflow3 record, the optimizer asks for RELAX_Q_10_PERCENT then INCREASE_PV_0025. Python recalculates each proposal and the verification stage checks it. The selected final recheck uses a=0.3394386941 and b=0.0276310594, with 50.75344954 percent allowed-current use and no recorded violations. The scope is MV phases only with ideal LV aggregation. Do not substitute the P3 99.604410 percent result or L2 MPC score. These are different experiments.
 
 Full sources:
 
@@ -1145,11 +1170,13 @@ Publication: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook. Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 79. Five roles in the restoration case
+## 79. Restoration: keep priorities and reject failures
 
 84:30–85:30 / 1 minutes.
 
-This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. The L10 lindistflow3 restoration record uses a feeder bypass catalog. SHED_075 returns 1843.61355 kW served and 474.03975 critical kW at 91.86721465 percent allowed-current use. SHED_065 then fails at 111.009413 percent. Llama ranks E02 before E03 even though E03 has the smaller cost. The numerical guard selects E03, then records the final recheck as E05. Switching sequence and broader physical operation are not established.
+Plain-language explanation: In the saved feeder case, a trial at about 111.01% current use is rejected. The retained plan serves about 1843.61 kW total and 474.04 kW critical.
+
+Original source detail: This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. The L10 lindistflow3 restoration record uses a feeder bypass catalog. SHED_075 returns 1843.61355 kW served and 474.03975 critical kW at 91.86721465 percent allowed-current use. SHED_065 then fails at 111.009413 percent. Llama ranks E02 before E03 even though E03 has the smaller cost. The numerical guard selects E03, then records the final recheck as E05. Switching sequence and broader physical operation are not established.
 
 Full sources:
 
@@ -1163,11 +1190,13 @@ Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14–16. Public teaching archive. 27 September 2026.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/proposal_run_20260927T184402Z_53e0cf/llama_calls.json
 
-## 80. Five roles in the cyber case
+## 80. Cyber: keep the trust assumption visible
 
 85:30–86:30 / 1 minutes.
 
-This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. Awareness preserves the declared measurement-trust condition. Planning requests the initial candidates; Python runs the estimator and constrained-response tools. The optimizer requests EXTRA_MARGIN_001 and TRUSTED_QP. The selected final recheck uses TRUSTED_QP with u=0.1216936673 per unit and predicted flow12=0.17 per unit against a 0.18 limit. The model checks a four-bus DC fixture with three protected angles assumed trustworthy. No stage authenticates those channels, and offline truth is not fed to Llama.
+Plain-language explanation: The saved cyber example keeps the assumed trusted readings visible throughout the workflow. Repeating or explaining that assumption does not establish its truth.
+
+Original source detail: This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. Awareness preserves the declared measurement-trust condition. Planning requests the initial candidates; Python runs the estimator and constrained-response tools. The optimizer requests EXTRA_MARGIN_001 and TRUSTED_QP. The selected final recheck uses TRUSTED_QP with u=0.1216936673 per unit and predicted flow12=0.17 per unit against a 0.18 limit. The model checks a four-bus DC fixture with three protected angles assumed trustworthy. No stage authenticates those channels, and offline truth is not fed to Llama.
 
 Full sources:
 
@@ -1178,7 +1207,7 @@ Publication: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/bl
 Classroom Labs notebook. Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-## 81. The operator reviews one evidence packet
+## 81. The operator chooses the next step
 
 86:30–87:30 / 1 minutes.
 
@@ -1198,7 +1227,7 @@ National Institute of Standards and Technology. Artificial Intelligence Risk Man
 Full source: https://doi.org/10.6028/NIST.AI.100-1
 Full paper: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf
 
-## 82. What the evidence shows
+## 82. Measure whether the agent helps
 
 87:30–88:30 / 1 minutes.
 
@@ -1217,7 +1246,7 @@ National Institute of Standards and Technology. Artificial Intelligence Risk Man
 Full source: https://doi.org/10.6028/NIST.AI.100-1
 Full paper: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf
 
-## 83. Questions and your next lab run
+## 83. Try one change and explain the result
 
 88:30–90:00 / 1.5 minutes.
 

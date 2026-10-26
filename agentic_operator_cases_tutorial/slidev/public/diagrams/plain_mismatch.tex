@@ -1,0 +1,15 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[anchor=west,font=\rmfamily\bfseries] at (0,3.1) {Mismatch score $J$};
+\fill[Red!8] (10.05,.7) rectangle (13,2.35);
+\draw[->,Slate,thick] (1,1.2)--(13.4,1.2);
+\foreach \x/\v in {1/0,4/5,7/10,10/15,13/20}{\draw[Slate] (\x,1.12)--(\x,1.28);\node[below] at (\x,1.05) {\v};}
+\draw[Red,thick] (10.05,.65)--(10.05,2.4);\node[above,text=Red] at (10.05,2.4) {Alarm threshold 15.09};
+\fill[IEEEBlue] (3.352,1.2) circle (.1);\node[above,text width=3.8cm] at (3.35,1.65) {Example: 3.92\\Below the threshold};
+\node[text=Slate] at (7,-.25) {A low mismatch does not authenticate a reading};
+
+\end{tikzpicture}

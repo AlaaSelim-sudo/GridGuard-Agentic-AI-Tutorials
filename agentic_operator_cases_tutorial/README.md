@@ -10,13 +10,15 @@
 
 Save a copy, connect a CPU runtime, run setup and continue from L0 in order. Keep `RUN_OPENDSS` and `RUN_LOCAL_LLAMA` False. [Setup help](../COLAB_GUIDE.md).
 
-## Explore the three cases
+## Three problems an operator can recognize
 
-- Voltage: compare numerical proposals and inspect their modeled limits.
-- Restoration: compare total and critical load served under changing capacity.
-- Cyber: compare measurement consistency, estimation error and trust assumptions.
+- [Solar settings](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/16): compare options, check voltage and current, and return a proposal for review.
+- [Power after a fault](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/39): keep the operator’s priorities while testing restoration options.
+- [Suspicious readings](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/56): check the evidence and identify what is needed before proposing a correction.
 
-L10B displays actual saved model choices and returned tool evidence. It makes no new model call or electrical solve. The fresh classroom calculations and saved studies use clearly identified models and inputs.
+Each case follows the same story: **problem → agent request → tool result → operator decision**. The agent coordinates requests; numerical tools calculate; the operator reviews the next step.
+
+First run the numerical tools in Colab. Then use L10B to replay actual saved Llama choices and tool results. The replay uses separate saved studies and makes no new model call.
 
 [Slides 77-80](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/77) map the five roles to each recorded case. One Llama model handles planning and refinement. Python reads the case, calculates results and checks the limits. The operator reviews the recommendation.
 

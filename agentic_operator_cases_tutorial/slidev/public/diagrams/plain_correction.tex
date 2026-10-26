@@ -1,0 +1,14 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[anchor=west,font=\rmfamily\bfseries] at (0,3.3) {Compare the calculated flows with the limit};
+\node[anchor=east] at (3,2.3) {Predicted};\node[anchor=east] at (3,1.25) {Offline check};
+\fill[IEEEBlue] (3.3,2.05) rectangle (11.8,2.55);\fill[Cyan] (3.3,1) rectangle (11.823,1.5);
+\draw[Red,dashed,thick] (12.3,.6)--(12.3,2.9);\node[above,text=Red] at (12.3,2.9) {Limit 0.18000};
+\node[anchor=west] at (12.6,2.3) {0.17000};\node[anchor=west] at (12.6,1.25) {0.17046};
+\node[text=Slate] at (7,.15) {Proposed adjustment $u=0.121694$ p.u.};
+
+\end{tikzpicture}

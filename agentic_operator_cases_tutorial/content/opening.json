@@ -3,8 +3,8 @@
     "title": "Hands-on: Three Operator Cases",
     "kind": "cover",
     "points": [
-      "One notebook. Three operator problems.",
-      "90 minutes / three short exercises"
+      "Help an operator compare options, check results and decide the next step.",
+      "One notebook / 90 minutes / three short exercises"
     ],
     "refs": [
       "H00",
@@ -28,30 +28,30 @@
     "takeaway": ""
   },
   {
-    "title": "What is agentic AI?",
+    "title": "An agent chooses what to try next",
     "kind": "diagram",
-    "diagram": "agent_goal_loop",
+    "diagram": "plain_agent_loop",
     "points": [
-      "An AI agent chooses a tool, reads its result and chooses the next step toward a goal."
+      "Give the agent a goal. It requests a tool, reads the result and chooses the next step."
     ],
-    "note": "Use the architectural definition in Anthropic, Building effective agents: an agent lets the LLM direct its process and tool use. Agentic AI is a broad term; here it means a system organized around this bounded loop. An AI agent is the component that chooses and follows steps. A tool is a permitted software function that returns a result. Point to the goal, model choice, executable tool, returned evidence and feedback arrow. The application stores case facts and prior results as the context supplied at the next model request. If a required check is missing, the outcome remains HOLD. Stop or return a proposal only under the fixed workflow rules. Do not imply that feedback alone establishes agency: conventional programs can also branch and loop. Our default notebook calculates engineering results now but replays the actual old Llama choices. No live model service is needed. Stanford source: Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Fall 2026, p.2 describes function calling and agentic workflows. The goal-and-feedback drawing is our grid teaching adaptation, supported by the separate bounded-agent architecture citation. This is not an original Stanford power-system diagram.",
+    "note": "Plain-language explanation: The agent coordinates the work. The numerical tool supplies the engineering result. An error can also guide the next request.\n\nOriginal source detail: Use the architectural definition in Anthropic, Building effective agents: an agent lets the LLM direct its process and tool use. Agentic AI is a broad term; here it means a system organized around this bounded loop. An AI agent is the component that chooses and follows steps. A tool is a permitted software function that returns a result. Point to the goal, model choice, executable tool, returned evidence and feedback arrow. The application stores case facts and prior results as the context supplied at the next model request. If a required check is missing, the outcome remains HOLD. Stop or return a proposal only under the fixed workflow rules. Do not imply that feedback alone establishes agency: conventional programs can also branch and loop. Our default notebook calculates engineering results now but replays the actual old Llama choices. No live model service is needed. Stanford source: Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Fall 2026, p.2 describes function calling and agentic workflows. The goal-and-feedback drawing is our grid teaching adaptation, supported by the separate bounded-agent architecture citation. This is not an original Stanford power-system diagram.",
     "refs": [
       "ST01",
       "DEF03",
       "LR0"
     ],
     "minutes": 1,
-    "caption": "Teaching diagram. Llama choices are saved; Python calculations can run now.",
-    "visual_height_px": 350,
-    "visual_height_cm": 3.9,
+    "caption": "Teaching diagram: the model requests a tool and uses the returned evidence.",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
     "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.2.",
     "takeaway": ""
   },
   {
-    "title": "A tool call and an agent workflow",
+    "title": "The agent asks; the tool calculates",
     "kind": "figure",
     "points": [
-      "A tool call does one job. An agent links jobs using the returned results."
+      "A tool does one job. An agent can connect several jobs using their results."
     ],
     "note": "Show the two original capability panels from Monica Lam’s Stanford CS224V introduction, p.2. The left panel introduces model-selected function calling. The right panel describes multi-step planning, tool use and self-correction. Our plain-language sentence connects the panels to the preceding bounded-loop teaching drawing. The following source-and-lab pairs show why tool results, explicit goals and checked evidence matter in each case. In that example Llama requests a named action and Python validates the JSON choice before calling an existing function; it does not use a native tool_calls protocol. Conventional software can also loop, and a chatbot may itself contain an agent. Here we identify the agentic feature by the model’s permitted next-step choice based on returned evidence. The class replays those old model choices while numerical cells calculate current results. Source lecture figure is shown unchanged within the documented crop.",
     "refs": [
@@ -60,7 +60,7 @@
       "LR0"
     ],
     "minutes": 0.5,
-    "caption": "Source figure, p.2. Function calling and a multi-step workflow.",
+    "caption": "Original Stanford figure: one function call and a multi-step workflow.",
     "visual_height_px": 330,
     "visual_height_cm": 3.7,
     "image_source_path": "images/stanford_agentic_capabilities.png",
@@ -72,36 +72,33 @@
     "takeaway": ""
   },
   {
-    "title": "Evidence before an answer",
-    "kind": "figure",
+    "title": "Check the evidence before answering",
+    "kind": "diagram",
     "points": [
-      "WikiChat checks claims before writing. Our lab checks numbers before reporting a result."
+      "Keep the tool result and its checks with the recommendation."
     ],
-    "note": "The displayed figure is an original excerpt from Monica Lam’s Stanford CS224V introduction, p.19. Follow its retrieval, claim checking and writing steps. The WikiChat paper is fully cited in the reading guide. Our application to grid studies is a teaching analogy: read the stated limits, run the appropriate numerical check and summarize the actual returned result. Ask which lab step would detect a current violation. The classroom notebook does not run WikiChat; its dialogue factuality measurements are not electrical performance results. This source figure is now in the opening. Spend about one minute on the check-before-writing idea. The next slide maps it to L2; do not run a cell yet.",
+    "note": "Plain-language explanation: Stanford’s example checks claims before writing an answer. Our grid adaptation checks numerical evidence before presenting a recommendation.\n\nOriginal source detail: The displayed figure is an original excerpt from Monica Lam’s Stanford CS224V introduction, p.19. Follow its retrieval, claim checking and writing steps. The WikiChat paper is fully cited in the reading guide. Our application to grid studies is a teaching analogy: read the stated limits, run the appropriate numerical check and summarize the actual returned result. Ask which lab step would detect a current violation. The classroom notebook does not run WikiChat; its dialogue factuality measurements are not electrical performance results. This source figure is now in the opening. Spend about one minute on the check-before-writing idea. The next slide maps it to L2; do not run a cell yet.",
     "refs": [
       "ST01",
       "ST02",
       "H02"
     ],
-    "caption": "Source figure, p.19. WikiChat checks claims before writing.",
+    "caption": "Grid teaching adaptation of Stanford’s idea: check claims before reporting.",
     "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19.",
     "minutes": 0.5,
-    "visual_height_px": 350,
-    "visual_height_cm": 4.1,
-    "image_source_path": "images/stanford_wikichat_steps.png",
-    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=19",
-    "image_credit": "Monica Lam, Stanford University, CS224V Lecture 1: Introduction, Fall 2026.",
-    "image_asset_type": "Original lecture figure excerpt",
-    "image_transformation": "Cropped vector excerpt from the user-supplied lecture PDF, p.19; selected content unchanged. PNG derived with Poppler. Full provenance: research/stanford_80/excerpt_manifest.json.",
-    "takeaway": ""
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "takeaway": "",
+    "diagram": "plain_check_answer"
   },
   {
-    "title": "Voltage: propose, then check",
+    "title": "Solar settings: which option should we try?",
     "kind": "diagram",
     "diagram": "stanford_colab_voltage",
     "minutes": 0.5,
     "points": [
-      "L2 calculates and checks proposals. L10B shows saved Llama tool choices."
+      "Compare possible settings, then check voltage and line current.",
+      "The agent can organize these trials and report the checked options."
     ],
     "caption": "Teaching adaptation. L2 runs Python; L10B replays saved model choices.",
     "note": "Connect the preceding original WikiChat figure to a grid claim. A text answer might say that a proposed plan fits the limits; a numerical tool must calculate the supporting result. The reference bar is the default L2 MPC result: maximum allowed-current utilization 73.619901%, rounded to 73.62%, at LOAD_SCALE=1.0 and RATING_FRACTION=0.80. It passes this current allowance; modeled voltage and required model coverage must also be checked. The default medium-voltage calculation is not proof for the full MV/LV system. This visual previews the lab; do not run L2 before setup, L0 and L1. L2 calls numerical functions directly. The separate P3 L10B archive later shows Llama requesting a check, reading a failed result and selecting a fallback. Our application is an analogy to evidence checking, not a claim that the notebook runs WikiChat.",
@@ -115,44 +112,41 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L2",
     "hands_on": false,
-    "eyebrow": "Lab preview: L2",
+    "eyebrow": "Colab / L2",
     "visual_height_px": 340,
     "visual_height_cm": 3.8,
     "teaching_bridge": true,
     "takeaway": ""
   },
   {
-    "title": "Clear rules for tool use",
-    "kind": "figure",
+    "title": "Give the agent a goal and clear limits",
+    "kind": "diagram",
     "points": [
-      "Set the inputs, allowed tools, limits and stop rules.",
-      "Python keeps these rules fixed when Llama chooses a step."
+      "State the goal, allowed tools and stopping rules.",
+      "Keep the operator’s review step explicit."
     ],
-    "note": "Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.",
+    "note": "Plain-language explanation: These rules belong to the application and operating process. A persuasive model response cannot change them.\n\nOriginal source detail: Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.",
     "refs": [
       "ST01",
       "ST03",
       "H01"
     ],
-    "caption": "Source figure, p.40. Task rules define permitted tool use.",
+    "caption": "Grid teaching adaptation of Stanford’s task-specification concept.",
     "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40.",
     "minutes": 1,
-    "visual_height_px": 315,
-    "visual_height_cm": 3.7,
-    "image_source_path": "images/stanford_genie_specification.png",
-    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=40",
-    "image_credit": "Monica Lam, Stanford University, CS224V Lecture 1: Introduction, Fall 2026.",
-    "image_asset_type": "Original lecture figure excerpt",
-    "image_transformation": "Cropped vector excerpt from the user-supplied lecture PDF, p.40; selected content unchanged. PNG derived with Poppler. Full provenance: research/stanford_80/excerpt_manifest.json.",
-    "takeaway": ""
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "takeaway": "",
+    "diagram": "plain_rules"
   },
   {
-    "title": "Restoration: define the service goal",
+    "title": "Restoration: who should get power first?",
     "kind": "diagram",
     "diagram": "stanford_colab_restoration",
     "minutes": 0.5,
     "points": [
-      "The goal changes which loads the solver restores. L6 compares two goals."
+      "The operator sets the service priority.",
+      "That priority changes what we ask the restoration tool to do."
     ],
     "caption": "L6: same network and limits, different service goals.",
     "note": "The preceding Genie excerpt motivates writing down the task and its rules before calling a function. In L6 the goal is part of the optimization problem: priority weighting serves 130 total kW, including 90 critical kW; maximizing total service gives 140 total kW, including 30 critical kW. The 40 kW limit belongs to one varied tie, while another tie stays fixed at 100 kW. Totals also include the 40 kW load at node 1 upstream of those ties. A 40 kW varied-tie limit is not a cap on total system service. Each stacked bar uses the same scale. Critical service is cyan; other service is blue. Ask which goal better matches an illustrative request to prioritize a hospital. The numerical model uses abstract critical loads, not an actual hospital dataset. Later learners run both goals and change the tie capacity. L6 is a direct Python calculation, not a live LLM agent. An agent coordinating such a study must preserve the requested goal and explain the returned tradeoff. The separate L10B feeder-catalog archive supplies actual saved Llama choices; it differs from this six-node L6 model. Our notebook does not implement Genie Worksheets.",
@@ -166,18 +160,17 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L6",
     "hands_on": false,
-    "eyebrow": "Lab preview: L6",
+    "eyebrow": "Colab / L6",
     "visual_height_px": 340,
     "visual_height_cm": 3.8,
     "teaching_bridge": true,
     "takeaway": ""
   },
   {
-    "title": "Language and decision checks",
-    "kind": "figure",
+    "title": "Keep three jobs clear",
+    "kind": "diagram",
     "points": [
-      "The source example turns written facts into constraints for a solver.",
-      "In our lab, Llama requests a study. Python checks it. A person reviews it."
+      "The agent requests a study. The tool calculates. The operator reviews the result."
     ],
     "refs": [
       "ST01",
@@ -185,28 +178,25 @@
     ],
     "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.",
     "minutes": 0.5,
-    "note": "This original diagram selection comes from the function row on p.53 of Monica Lam’s introduction. It shows a clinical-trial example, not a power-system experiment. The language model translates written facts into an SMT representation; a separate solver derives a decision from those constraints. SMT means satisfiability modulo theories, a way to express and solve logical constraints. MaxSAT supports the lecture’s search for conditions that change a decision. The lecture also states that the formalization may not be completely faithful, so correctness remains relative to the represented constraints. Our application is an analogy: Llama requests the permitted estimate or control tool and Python checks numerical limits. An operator must still confirm the trust assumption and review the proposed action. Our notebook does not run an SMT/MaxSAT solver or prove formal electrical safety. Preview the HOLD/PROPOSE distinction now; participants will calculate the L9 outcomes later with their stated model and trusted-data assumption.",
+    "note": "Plain-language explanation: Keep the three responsibilities separate when reading the examples. A fluent explanation is not a substitute for the calculation.\n\nOriginal source detail: This original diagram selection comes from the function row on p.53 of Monica Lam’s introduction. It shows a clinical-trial example, not a power-system experiment. The language model translates written facts into an SMT representation; a separate solver derives a decision from those constraints. SMT means satisfiability modulo theories, a way to express and solve logical constraints. MaxSAT supports the lecture’s search for conditions that change a decision. The lecture also states that the formalization may not be completely faithful, so correctness remains relative to the represented constraints. Our application is an analogy: Llama requests the permitted estimate or control tool and Python checks numerical limits. An operator must still confirm the trust assumption and review the proposed action. Our notebook does not run an SMT/MaxSAT solver or prove formal electrical safety. Preview the HOLD/PROPOSE distinction now; participants will calculate the L9 outcomes later with their stated model and trusted-data assumption.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": false,
     "lab_label": "L9",
-    "eyebrow": "Source example / grid application",
-    "image_source_path": "images/stanford_language_decision.png",
-    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=53",
-    "image_credit": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.",
-    "image_asset_type": "Original Stanford lecture figure excerpt",
-    "image_transformation": "Unchanged vector selection from the presenter-supplied Stanford lecture, p.53; Poppler PNG rendering. Exact crop and source/image hashes: research/stanford_sources/excerpt_manifest.json.",
-    "visual_height_px": 190,
-    "visual_height_cm": 2.0,
-    "caption": "Source figure, p.53. Clinical example using logical constraints, not a power-system model.",
-    "takeaway": ""
+    "eyebrow": "Stanford teaching idea / grid adaptation",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Adapted principle: language, calculation and human review have different jobs.",
+    "takeaway": "",
+    "diagram": "plain_three_jobs"
   },
   {
-    "title": "Cyber: good fit can hide bad data",
+    "title": "Wrong readings can still fit a model",
     "kind": "diagram",
     "diagram": "stanford_colab_cyber",
     "minutes": 0.5,
     "points": [
-      "L8 tests misleading readings. L9 shows when to return HOLD or a proposal."
+      "A good fit alone does not prove the readings are true.",
+      "The agent can organize checks and flag missing evidence."
     ],
     "caption": "L8 checks fit. L9 requires a trust assumption before proposing recovery.",
     "note": "Relate the original Stanford clinical example to this lab without importing a formal guarantee. L8 fits readings to a four-bus DC model using WLS, weighted least squares. Its small residual is a measure of fit, not proof of sensor truth; the known simulation truth is used only for teaching error comparisons. L9 is a separate fixed recovery fixture. Without trusted replacement data it returns HOLD. With three additional readings assumed trusted and a successful modeled recovery check, it returns PROPOSE. The yes branch depicts this fixed example with passing numerical checks; a real study also needs every required check to pass. The calculation does not authenticate the extra readings. Later learners run L8, vary the attack scale, then reset before the independent L9 example. Python performs these calculations now. A coordinating agent should request evidence and retain HOLD when a required premise is missing; saved L10B replies show a separate recorded cyber case. Our code uses numerical checks, not the Stanford SMT/MaxSAT runtime.",
@@ -220,18 +210,19 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L8–L9",
     "hands_on": false,
-    "eyebrow": "Lab preview: L8–L9",
+    "eyebrow": "Colab / L8–L9",
     "visual_height_px": 340,
     "visual_height_cm": 3.8,
     "teaching_bridge": true,
     "takeaway": ""
   },
   {
-    "title": "Four questions about any result",
+    "title": "Ask four questions about every result",
     "kind": "diagram",
     "diagram": "lab_review_questions",
     "points": [
-      "Which tool ran? What did it assume? Which limits passed? What should the operator do next?"
+      "What was asked? What did the tool return?",
+      "Did the checks pass? What must the operator decide?"
     ],
     "note": "Lam’s pp.52–53 distinguish verifiable rationale, explicit assumptions, policy consistency and actionable next conditions. Translate these into four plain questions: which tool supports this claim, which inputs and model were used, were the same limits and service priorities kept, and what must the operator review next? Our power-flow, optimization and evidence-binding checks are numerical/software checks. They do not inherit the lecture’s SMT correctness claims. Ask pairs to apply the questions to one L10B explanation and to the full-scope HOLD at L12. We show only the actual public returned reasons, not hidden chain-of-thought. This closes the twelve-minute opening concept block. Point out that all three labs will use these questions; participants do not need to memorize a framework or run ahead.",
     "refs": [
@@ -247,10 +238,11 @@
     "takeaway": ""
   },
   {
-    "title": "One notebook for all three cases",
+    "title": "Use one notebook for all three cases",
     "kind": "diagram",
     "points": [
-      "Open Classroom Labs and save a copy in Drive. Use it throughout."
+      "Open Classroom Labs and save your own copy.",
+      "We will use it throughout the workshop."
     ],
     "refs": [
       "H00"
@@ -271,7 +263,7 @@
     "takeaway": ""
   },
   {
-    "title": "Colab setup",
+    "title": "Start Colab in three steps",
     "kind": "diagram",
     "points": [
       "Save a copy, connect a CPU and run setup.",
@@ -293,12 +285,12 @@
     "takeaway": ""
   },
   {
-    "title": "Input, run, output",
+    "title": "Run a cell, then read its output",
     "kind": "diagram",
     "diagram": "lab_cell_loop",
     "points": [
-      "Find the L heading and run its whole code cell.",
-      "Read the output below it. After any edit, rerun the cell."
+      "Find the L heading and run the whole cell.",
+      "After changing an input, run that cell again."
     ],
     "note": "Point to the three parts: editable input, run control and returned output. The illustrated input lines are the first two lines of the actual L2 cell, not a complete standalone program. The full cell calls the voltage helper and draws two plots. The runtime remembers variables from earlier cells, which is why we run the lesson in order. If NameError reports a missing variable, return to setup/L0 and rerun the required earlier cells. Do not treat a previously displayed output as the result of a number just edited until you rerun its cell. Use the L labels instead of numerical cell indexes. Later cells need earlier variables.",
     "refs": [
@@ -313,11 +305,11 @@
     "takeaway": ""
   },
   {
-    "title": "L0: keep the default settings",
+    "title": "L0: keep both switches off",
     "kind": "normal",
     "points": [
-      "Leave both switches False. Python calculates new results; Llama replies come from saved records.",
-      "If data are missing, rerun setup."
+      "Keep both switches False. Python runs the calculations.",
+      "Llama, the language model, uses saved replies here. No live model is needed."
     ],
     "refs": [
       "H01"
@@ -328,21 +320,22 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L0",
-    "eyebrow": "Classroom Labs · L0 · classroom-002",
+    "eyebrow": "Colab / L0",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-002",
       "start": 11,
-      "end": 14
+      "end": 12
     },
-    "takeaway": ""
+    "takeaway": "",
+    "code_display_caption": "Colab L0 / run the whole cell"
   },
   {
-    "title": "L1: does the result match the request?",
+    "title": "L1: does the old result still match?",
     "kind": "figure",
     "points": [
-      "Read binding_pass. Expect True, False, False.",
-      "Changed inputs or commands need a new check."
+      "Expect True, False, False: only the unchanged request matches.",
+      "Changed inputs or actions need a new check."
     ],
     "refs": [
       "H01"
@@ -353,7 +346,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L1",
-    "eyebrow": "Classroom Labs · L1 · classroom-004",
+    "eyebrow": "Colab / L1",
     "image_source_path": "images/hands_on_L1_binding.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,

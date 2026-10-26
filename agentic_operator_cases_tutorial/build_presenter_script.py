@@ -41,25 +41,25 @@ def presenter_note(cue):
 
 ROLE_CASES=[
     ('Voltage: L10 MV archive',[
-        ('Awareness / Python','Read the load, forecast, current allowance and MV model scope.'),
-        ('Planning / numerical tools and Llama','Prepare MPC and saved-SAC candidates. Llama can request the declared initial studies or return review.'),
-        ('Simulation / Python','Calculate the effects of each candidate using the declared three-phase linear model.'),
-        ('Verification / Python','Check case matching, voltage, current and inverter limits. Only passing candidates receive eligible scores.'),
-        ('Optimizer / Llama, with a Python guard','Request less reactive power, then more PV output. Recalculate and check every changed setting. Python selects by verified cost and performs a final recheck.')],
+        ('Read the case / Python','Read the load, forecast, current allowance and MV model scope.'),
+        ('Choose a trial / numerical tools and Llama','Prepare MPC and saved-SAC candidates. Llama can request the declared initial studies or return review.'),
+        ('Calculate / Python','Calculate the effects of each candidate using the declared three-phase linear model.'),
+        ('Check / Python','Check case matching, voltage, current and inverter limits. Only passing candidates receive eligible scores.'),
+        ('Refine / Llama, with a Python guard','Request less reactive power, then more PV output. Recalculate and check every changed setting. Python selects by verified cost and performs a final recheck.')],
         'Selected final current use: about 50.75% of the allowance. This is the L10 MV archive, not the L2 experiment or P3 OpenDSS replay. The operator still reviews scope and missing checks.'),
     ('Restoration: L10 feeder catalog',[
-        ('Awareness / Python','Keep the fault, available ties, critical loads, service goal and model scope in the shared case record.'),
-        ('Planning / numerical tools and Llama','Prepare the stated restoration catalog options; request the initial evaluations or review.'),
-        ('Simulation / Python','Calculate total and critical service and the current used by each option.'),
-        ('Verification / Python','Reject the SHED_065 trial at about 111.01% of allowed current. Keep the passing SHED_075 trial eligible.'),
-        ('Optimizer / Llama, with a Python guard','Request bounded catalog changes and rank passing IDs. Python corrects the wrong cost order and rechecks the chosen plan.')],
+        ('Read the case / Python','Keep the fault, available ties, critical loads, service goal and model scope in the shared case record.'),
+        ('Choose a trial / numerical tools and Llama','Prepare the stated restoration catalog options; request the initial evaluations or review.'),
+        ('Calculate / Python','Calculate total and critical service and the current used by each option.'),
+        ('Check / Python','Reject the SHED_065 trial at about 111.01% of allowed current. Keep the passing SHED_075 trial eligible.'),
+        ('Refine / Llama, with a Python guard','Request bounded catalog changes and rank passing IDs. Python corrects the wrong cost order and rechecks the chosen plan.')],
         'Selected final service: about 1,843.61 kW total and 474.04 kW critical, at 91.87% current use. This is not L6\'s six-node MILP. Physical switching order and operating permissions remain outside the result.'),
     ('Cyber: L10 four-bus DC archive',[
-        ('Awareness / Python','Read the measurements, alarm context and declared availability of assumed trusted channels.'),
-        ('Planning / numerical tools and Llama','Prepare the permitted response candidates. Llama can request the initial evaluations or review.'),
-        ('Simulation / Python','Estimate state and calculate each candidate\'s branch flows and correction.'),
-        ('Verification / Python','Test the trust condition, stated branch limits, bounds, evidence match and DC model scope.'),
-        ('Optimizer / Llama, with a Python guard','Request bounded trials including TRUSTED_QP. Python ranks only passing candidates and rechecks the selected correction.')],
+        ('Read the case / Python','Read the measurements, alarm context and declared availability of assumed trusted channels.'),
+        ('Choose a trial / numerical tools and Llama','Prepare the permitted response candidates. Llama can request the initial evaluations or review.'),
+        ('Calculate / Python','Estimate state and calculate each candidate\'s branch flows and correction.'),
+        ('Check / Python','Test the trust condition, stated branch limits, bounds, evidence match and DC model scope.'),
+        ('Refine / Llama, with a Python guard','Request bounded trials including TRUSTED_QP. Python ranks only passing candidates and rechecks the selected correction.')],
         'Selected correction: about 0.121694 p.u., with predicted flow 0.17000 p.u. against the 0.18000 p.u. limit. The trusted readings are assumed, not authenticated. Human review is still separate from equipment dispatch.'),
 ]
 

@@ -254,7 +254,7 @@ def prepare_slides():
             s.setdefault('visual_height_px',330 if s.get('diagram') else 330)
             s.setdefault('eyebrow','')
             if module in ['voltage','restoration','cyber'] and s.get('module_slide')==1:
-                s['eyebrow']={'voltage':'Case 1 / Voltage support','restoration':'Case 2 / Service restoration','cyber':'Case 3 / Cyber response'}[module]
+                s['eyebrow']=s.get('eyebrow') or {'voltage':'Case 1 / Voltage support','restoration':'Case 2 / Service restoration','cyber':'Case 3 / Cyber response'}[module]
                 s['visual_height_cm']=3.45;s['visual_height_px']=305
             for field in ['points','refs']:s.setdefault(field,[])
             # Plain text never contains hidden answers or motion/notice prompts.

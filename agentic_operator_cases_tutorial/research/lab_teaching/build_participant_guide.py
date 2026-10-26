@@ -41,8 +41,8 @@ sections=[
   '<b>If a variable is missing:</b> rerun the required earlier cells. Editing a number does not update an old output until you rerun.'
  ],prompt='Work in pairs: one person runs, one checks. Swap roles for the next case.'),
  dict(title='Case 1: voltage support',subtitle=f'L2–L5 / exercise on slide {exercise["L2"]}',image='hands_on_L2_plot.png',body=[
-  '<b>Main idea:</b> check the numbers before reporting a result. Source: Monica Lam, CS224V Lecture 1, p.19.',
-  '<b>Goal:</b> compare two control proposals, then check their voltage and current limits.',
+  '<b>Problem:</b> which solar settings keep voltage and line current within their limits?',
+  '<b>How an agent helps:</b> request studies, read their checks and return acceptable options for operator review.',
   '<b>Run L2 at the defaults:</b> LOAD_SCALE = 1.0 and RATING_FRACTION = 0.80. Read feasible, current_step_J and max_allowed_current_pct.',
   '<b>Read the plots:</b> the left plot shows sorted modeled voltages. The right plot compares current use with the 100% allowed-current line.',
   '<b>Four-minute task:</b> change only RATING_FRACTION to <b>0.75</b>. Predict, rerun all of L2 and compare both methods. Check limits before comparing the score J.',
@@ -50,8 +50,8 @@ sections=[
   '<b>Model coverage:</b> the default check covers the MV model. It does not prove that every LV device or dynamic limit passes.'
  ],prompt='Record: the changed allowance, each current percentage, pass/fail, and what the model does not cover.'),
  dict(title='Case 2: restoring service',subtitle=f'L6–L7 / exercise on slide {exercise["L6"]}',image='hands_on_L6_plot.png',body=[
-  '<b>Main idea:</b> define the task rules. Source: Monica Lam, CS224V Lecture 1, p.40.',
-  '<b>Goal:</b> see why restoring the most kW can differ from serving critical loads.',
+  '<b>Problem:</b> a fault removes a supply path. Which loads should receive the limited available power?',
+  '<b>How an agent helps:</b> keep the operator’s priority in each study request and ask for new checks when limits change.',
   '<b>Run L6:</b> compare served_kw and critical_kw for the priority-weighted plan and the maximum-kW plan. Both use the same six-node graph.',
   '<b>Read the plots together:</b> total service is on the left; critical service is on the right. Explain the tradeoff at 40 kW.',
   '<b>Four-minute task:</b> append <b>180.</b> to CAPACITIES_KW. Keep <b>40.</b> first. Predict, rerun L6 and compare the 40 kW and 180 kW outcomes.',
@@ -59,16 +59,16 @@ sections=[
   '<b>Meaning of HOLD:</b> old evidence no longer matches. That does not prove a newly calculated plan would fail. The model also omits AC voltage and physical switching order.'
  ],prompt='Record: total and critical kW at both capacities. Explain which service goal each plan follows.'),
  dict(title='Case 3: checking suspicious readings',subtitle=f'L8–L9 / exercise on slide {exercise["L8"]}',image='hands_on_L8_plot.png',body=[
-  '<b>Main idea:</b> check the decision and its assumptions. Source: Monica Lam, CS224V Lecture 1, p.53.',
-  '<b>Goal:</b> distinguish a reading that fits the model from a reading that is true.',
+  '<b>Problem:</b> wrong readings can still fit a grid model. A quiet alarm alone does not establish data trust.',
+  '<b>How an agent helps:</b> request the checks, keep missing evidence visible and return HOLD when a required condition is absent.',
   '<b>Run L8:</b> compare isolated bias with coordinated Hc shifts. The residual alarm measures mismatch. State error uses known simulation truth for teaching.',
   '<b>Four-minute task:</b> add <b>.10</b> to ATTACK_SCALES. Predict, rerun L8 and compare the alarm with the state error at that scale.',
   '<b>Reset before L9:</b> restore the original scale list and rerun L8. L9 is a separate fixed recovery case; its correction does not follow your changed sweep.',
   '<b>Run L9:</b> no trusted replacement data gives HOLD. Assuming the additional readings are trusted allows a PROPOSE result. The calculation does not authenticate those readings.',
   '<b>Discuss:</b> a small residual or clear model explanation alone cannot establish sensor trust.'
  ],prompt='Record: residual J, alarm flag, state error and the condition needed before a recovery proposal.'),
- dict(title='Five roles and operator review',subtitle='L10 / L10B / L11 / L12',diagram='multi_agent_roles',body=[
-  '<b>Five roles:</b> awareness reads facts; planning requests tools; simulation calculates; verification checks; the optimizer requests another trial or ranks passed options.',
+ dict(title='Five jobs and operator review',subtitle='L10 / L10B / L11 / L12',diagram='plain_five_jobs',body=[
+  '<b>Five jobs:</b> read the case, choose a trial, calculate, check, then refine. A new trial returns for calculation and checking.',
   '<b>What runs:</b> one Llama model fills the planning and optimizer roles. Python runs the other stages. L10 displays their saved trace, not a new multi-agent run.',
   '<b>Run L10, then L10B:</b> set SCENARIO = "voltage", then "restoration" and "cyber", rerunning each time. These use separate recorded studies.',
   '<b>Follow the agentic loop:</b> goal, Llama tool choice, returned evidence, next choice. The replay makes no new model call.',

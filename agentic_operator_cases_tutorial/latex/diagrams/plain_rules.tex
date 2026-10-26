@@ -1,0 +1,18 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[plainpoint] (s0) at (0.8,1.6) {1};
+\node[anchor=north,text width=3.1cm,font=\rmfamily\bfseries\fontsize{12}{14}\selectfont] at (0.8,1.08) {State the goal};
+\node[anchor=north,text width=3.1cm,text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (0.8,-.35) {What should be achieved?};
+\node[plainpoint] (s1) at (7.3999999999999995,1.6) {2};
+\node[anchor=north,text width=3.1cm,font=\rmfamily\bfseries\fontsize{12}{14}\selectfont] at (7.3999999999999995,1.08) {Name allowed tools};
+\node[anchor=north,text width=3.1cm,text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (7.3999999999999995,-.35) {What may be requested?};
+\draw[flow] (s0)--(s1);
+\node[plainpoint] (s2) at (14.0,1.6) {3};
+\node[anchor=north,text width=3.1cm,font=\rmfamily\bfseries\fontsize{12}{14}\selectfont] at (14.0,1.08) {Set stop rules};
+\node[anchor=north,text width=3.1cm,text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (14.0,-.35) {When is review needed?};
+\draw[flow] (s1)--(s2);
+\end{tikzpicture}

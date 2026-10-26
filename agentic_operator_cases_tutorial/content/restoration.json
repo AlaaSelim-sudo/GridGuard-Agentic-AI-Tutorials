@@ -1,56 +1,56 @@
 [
   {
-    "title": "Case 2: restoring service",
+    "title": "Case 2: who gets power after a fault?",
     "kind": "diagram",
     "points": [
-      "Use the six-node teaching network with one faulted branch.",
-      "Compare total service with service to critical loads."
+      "A fault removes a supply path. Available capacity limits what can be restored.",
+      "The operator sets priorities; the agent can request and check restoration options."
     ],
     "refs": [
       "H06"
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
     "minutes": 0.5,
-    "note": "This six-node graph is separate from the voltage feeder. It represents active-power transport, not AC power flow or a time-ordered field switching procedure. Loads are picked up as whole blocks. A tie is an alternative connection that can supply load; CAPACITIES_KW sets its transfer limit in kilowatts.",
+    "note": "Plain-language explanation: A fault removes one normal supply path. Alternative paths have limited capacity, so the operator must choose what to restore. Serving critical demand first can differ from maximizing the total power served. The agent can carry that priority into a study request, collect the result and request a new study when the situation changes.\n\nOriginal source detail: This six-node graph is separate from the voltage feeder. It represents active-power transport, not AC power flow or a time-ordered field switching procedure. Loads are picked up as whole blocks. A tie is an alternative connection that can supply load; CAPACITIES_KW sets its transfer limit in kilowatts.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
-    "diagram": "restoration_fault_map",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Six-node active-power model. One branch is unavailable.",
+    "eyebrow": "Case 2 / The operator’s problem",
+    "diagram": "plain_restoration_problem",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Six-node lab graph. Cyan marks critical loads; dashed links are backup options.",
     "takeaway": ""
   },
   {
-    "title": "Two service goals",
+    "title": "How the agent helps restore service",
     "kind": "diagram",
     "points": [
-      "One goal gives extra weight to critical loads.",
-      "The other restores the most total kW. Both use the same network rules."
+      "Choose the goal: critical loads first, or the most total power.",
+      "The agent can request a study, read the trade-off and ask for a new study when limits change."
     ],
     "refs": [
       "H06"
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
     "minutes": 1,
-    "note": "Critical demand totals 90 kW: 60 kW at node 2 and 30 kW at node 5. The objective is the service goal encoded as a score. The priority score gives more weight to these critical loads, while the comparison score maximizes total kW. The difference in selected service comes from that goal. Both numerical methods use the same graph, capacities and whole-load pickup rules. Neither needs a language model to solve this declared problem.",
+    "note": "Plain-language explanation: The operator supplies the goal. The numerical solver chooses loads under the network rules. An agent could manage the study request and read its result, but it should not invent the service priority. L6 runs the tools directly; the recorded agent example comes later.\n\nOriginal source detail: Critical demand totals 90 kW: 60 kW at node 2 and 30 kW at node 5. The objective is the service goal encoded as a score. The priority score gives more weight to these critical loads, while the comparison score maximizes total kW. The difference in selected service comes from that goal. Both numerical methods use the same graph, capacities and whole-load pickup rules. Neither needs a language model to solve this declared problem.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
-    "diagram": "restoration_priority",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Different goals can select different loads.",
+    "eyebrow": "How an agent can help",
+    "diagram": "plain_restoration_agent",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Concept map. L6 runs the solver directly; L10B replays a separate saved agent study.",
     "takeaway": ""
   },
   {
-    "title": "L6: solve the restoration problem",
+    "title": "L6: compare two restoration goals",
     "kind": "normal",
     "points": [
-      "Run L6. MILP selects whole loads. A separate search checks its priority score.",
-      "Read served_kw, critical_kw and MILP_matches_exhaustive_check."
+      "Run L6 to choose which loads receive power under each goal.",
+      "MILP chooses whole loads; a separate calculation checks its result."
     ],
     "refs": [
       "H06"
@@ -61,20 +61,21 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Colab / L6",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-018",
       "start": 1,
-      "end": 5
+      "end": 3
     },
-    "takeaway": ""
+    "takeaway": "",
+    "code_display_caption": "Colab L6 / run the whole cell"
   },
   {
-    "title": "L6: read both service plots",
+    "title": "Read total and critical service",
     "kind": "figure",
     "points": [
-      "Left: total kW served. Right: critical kW served.",
+      "Left: all power restored. Right: power restored to critical loads.",
       "Overlapping markers mean the two goals give the same result."
     ],
     "refs": [
@@ -86,19 +87,19 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Colab / L6",
     "image_source_path": "images/hands_on_L6_plot.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L6 plots. Overlapping markers show equal outcomes.",
+    "caption": "Reference L6 results. Both goals use the same network.",
     "takeaway": ""
   },
   {
-    "title": "L6: the tradeoff at 40 kW",
+    "title": "The service goal changes who gets power",
     "kind": "figure",
     "points": [
-      "Priority goal: 130 kW total, including 90 kW critical.",
-      "Most-total-kW goal: 140 kW total, including 30 kW critical."
+      "Critical-first goal: 130 kW total, including 90 kW critical.",
+      "Most-total-power goal: 140 kW total, including 30 kW critical."
     ],
     "refs": [
       "H06"
@@ -109,19 +110,19 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Colab / L6",
     "image_source_path": "images/hands_on_L6_table.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L6: 40 kW varied tie, 100 kW fixed tie.",
+    "caption": "Reference L6 output at the 40 kW tie setting.",
     "takeaway": ""
   },
   {
-    "title": "Restoration checks",
+    "title": "Check the restoration plan",
     "kind": "diagram",
     "points": [
-      "Check source paths, branch capacity, power balance and the fault.",
-      "A separate search checks the priority score."
+      "Keep the faulted branch out of service.",
+      "Check supply paths, capacity and totals before accepting the plan."
     ],
     "refs": [
       "H06",
@@ -130,15 +131,15 @@
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
     "minutes": 0.5,
-    "note": "Numerical checks and same-content evidence matching answer different questions. A record can match the inputs exactly while still omitting AC voltage, reactive-power or protection limits. Comparing the MILP score with every permitted plan is an independent check of this small stated problem. Minimizing energized branches does not calculate the number or order of physical switching steps.",
+    "note": "Plain-language explanation: The result must respect the unavailable faulted branch and the model’s supply and capacity rules. A field switching sequence needs additional operating work.\n\nOriginal source detail: Numerical checks and same-content evidence matching answer different questions. A record can match the inputs exactly while still omitting AC voltage, reactive-power or protection limits. Comparing the MILP score with every permitted plan is an independent check of this small stated problem. Minimizing energized branches does not calculate the number or order of physical switching steps.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
-    "diagram": "restoration_verify",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Checks cover this graph model, not AC operation or field switching.",
+    "eyebrow": "Colab / L6",
+    "diagram": "plain_restoration_checks",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Checks on the active-power model. AC and field-operation checks remain separate.",
     "takeaway": ""
   },
   {
@@ -146,8 +147,8 @@
     "kind": "exercise",
     "points": [
       "Add 180. to CAPACITIES_KW. Keep 40. first. Predict, then rerun L6.",
-      "Compare total and critical kW at 40 and 180 kW.",
-      "At which capacity do the two goals give the same result?"
+      "Compare total and critical power at 40 and 180 kW.",
+      "At which tested capacity do the two goals first give the same result?"
     ],
     "refs": [
       "H06"
@@ -158,7 +159,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Try it in Colab / L6",
     "excerpt": [
       "CAPACITIES_KW = (40., 60., 80., 100., 120., 180.)"
     ],
@@ -168,13 +169,13 @@
     "title": "Exercise 2 answer: capacity changes the trade-off",
     "diagram": "exercise_restoration_solution",
     "points": [
-      "At 40 kW, priorities give more critical service: 90 kW instead of 30 kW, with less total service.",
-      "The goals match from 80 kW in the tested list. At 180 kW, both serve 250 kW total, including 90 kW critical."
+      "At 40 kW, the priority goal serves 90 kW critical instead of 30 kW, with less total service.",
+      "The goals first match at the tested 80 kW. At 180 kW, both serve 250 kW total and 90 kW critical."
     ],
     "note": "At 40 kW tie capacity, priority-weighted MILP serves 130 kW total and 90 kW critical. The unweighted maximum-kW policy serves 140 kW total and 30 kW critical. In the sampled list, outcomes first match at 80 kW; they also match at 100, 120 and 180 kW. At 180 kW, both serve 250 total and 90 critical kW. Do not infer the exact continuous crossover from this discrete sweep. Keep 40 first, restore the original list and rerun L6 before L7.",
     "lab_label": "L6",
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; fresh MILP and exhaustive-check sweep.",
-    "caption": "Fresh L6 results at two tested capacities. Cyan is critical demand; blue is other served demand.",
+    "caption": "Fresh L6 results. Cyan shows critical service; blue shows other service.",
     "kind": "diagram",
     "minutes": 1,
     "refs": [
@@ -189,11 +190,11 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
   },
   {
-    "title": "Exercise 2: enough capacity removes this tradeoff",
+    "title": "More capacity can remove this trade-off",
     "kind": "normal",
     "points": [
-      "At 180 kW, both goals serve 250 kW total and 90 kW critical.",
-      "The priority goal helps at some limits. It does not improve every case."
+      "At 180 kW, both goals give the same result.",
+      "The chosen priority matters when capacity forces a choice."
     ],
     "refs": [
       "H06"
@@ -204,16 +205,16 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Colab / L6",
     "callout": "250 kW total / 90 kW critical",
     "takeaway": ""
   },
   {
-    "title": "L7: test an old result after a change",
+    "title": "L7: change the request, then check the evidence",
     "kind": "normal",
     "points": [
       "Restore the original capacity list and rerun L6.",
-      "Run L7. It changes the first request from 40 kW to 20 kW."
+      "Run L7: the requested capacity changes from 40 kW to 20 kW."
     ],
     "refs": [
       "H07"
@@ -224,21 +225,22 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L7",
-    "eyebrow": "Classroom Labs · L7 · classroom-021",
+    "eyebrow": "Colab / L7",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-021",
-      "start": 1,
-      "end": 3
+      "start": 8,
+      "end": 9
     },
-    "takeaway": ""
+    "takeaway": "",
+    "code_display_caption": "Colab L7 / run the whole cell"
   },
   {
-    "title": "L7: the old evidence no longer matches",
+    "title": "The old result no longer matches",
     "kind": "figure",
     "points": [
-      "Original request: True. Changed request: False.",
-      "HOLD the old recommendation and request a new solve."
+      "The original request matches; the changed request does not.",
+      "Put the old recommendation on HOLD and request a new calculation."
     ],
     "refs": [
       "H07"
@@ -249,42 +251,42 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L7",
-    "eyebrow": "Classroom Labs · L7 · classroom-021",
+    "eyebrow": "Colab / L7",
     "image_source_path": "images/hands_on_L7_binding.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L7. New inputs require new evidence.",
+    "caption": "Reference L7 result: changed inputs no longer match the old evidence.",
     "takeaway": ""
   },
   {
-    "title": "New inputs need new evidence",
+    "title": "A new limit needs a new study",
     "kind": "diagram",
     "points": [
-      "An outdated check does not tell us whether the new plan works.",
-      "Solve again, check again and attach the new result to the new request."
+      "Old evidence does not tell us whether a new plan works.",
+      "Calculate again, check again and attach the new result to the new request."
     ],
     "refs": [
       "H07"
     ],
     "source_label": "Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding.",
     "minutes": 0.5,
-    "note": "Evidence binding asks whether a record matches the exact request, proposed plan and returned result. The diagram’s extra topology labels are teaching illustrations. The runnable L7 example changes only the request capacity and revision; students do not change topology in that cell. Old evidence is unusable for a changed request even if the old plan might still pass its limits. Ask which new numerical check would establish that for the changed request.",
+    "note": "Plain-language explanation: An agent can notice the changed request, ask the tool to solve it again and return the new checks. Rewriting the old explanation would not update the calculation.\n\nOriginal source detail: Evidence binding asks whether a record matches the exact request, proposed plan and returned result. The diagram’s extra topology labels are teaching illustrations. The runnable L7 example changes only the request capacity and revision; students do not change topology in that cell. Old evidence is unusable for a changed request even if the old plan might still pass its limits. Ask which new numerical check would establish that for the changed request.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L7",
-    "eyebrow": "Classroom Labs · L7 · classroom-021",
-    "diagram": "restoration_stale",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "L7 changes capacity and revision, then tests the old evidence.",
+    "eyebrow": "Colab / L7",
+    "diagram": "plain_stale_result",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "A failed input match asks for a new study; it does not establish physical infeasibility.",
     "takeaway": ""
   },
   {
-    "title": "The agent keeps the service goal",
+    "title": "The agent keeps the operator’s goal",
     "kind": "diagram",
     "points": [
-      "L6 runs Python directly. The operator sets priorities; MILP selects loads.",
-      "An agent could request the solve and explain its returned tradeoff."
+      "The operator sets priorities. The solver selects loads.",
+      "The agent can request the solve and explain the returned service trade-off."
     ],
     "refs": [
       "H06"
@@ -295,7 +297,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Colab / L6",
     "diagram": "restoration_plan",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
@@ -303,11 +305,11 @@
     "takeaway": ""
   },
   {
-    "title": "Restoration model limits",
+    "title": "This model leaves some checks for later",
     "kind": "normal",
     "points": [
-      "This graph checks active power, not AC voltage or protection.",
-      "Selected branches do not specify the order of field switching."
+      "This small model checks which loads receive power.",
+      "Voltage, protection and field switching need separate checks."
     ],
     "refs": [
       "H06"
@@ -318,14 +320,15 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Colab / L6",
     "takeaway": ""
   },
   {
-    "title": "Saved restoration case: try another plan",
+    "title": "Recorded example: try more service",
     "kind": "figure",
     "points": [
-      "Llama requests a trial that restores more load and passes the current check."
+      "This saved feeder study is different from L6.",
+      "Llama requests another plan. The tool reports more service and passing checks."
     ],
     "note": "Switch L10B to restoration. This is the separate L10 feeder-catalog restoration study, not the L6 six-node MILP. The recorded protocol requires a first refinement but Llama chooses between the offered fractions. SHED_075 disconnects 75% of the ordered noncritical load objects, not 75% of load kW. The exact reason calls improvement a possibility. Python evaluates the trial and finds improved service while the tie loading remains 91.867215% of its allowance. A useful hypothesis becomes evidence only after that check. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
     "refs": [
@@ -335,12 +338,12 @@
     "minutes": 1,
     "image_source_path": "images/llama_restoration_14.png",
     "visual_height_px": 380,
-    "visual_height_cm": 4.4,
-    "caption": "Saved feeder-catalog study, separate from L6. Replay in L10B.",
+    "visual_height_cm": 4.0,
+    "caption": "",
     "source_label": "Classroom Labs L10B: restoration replay, recorded call 14; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Recorded agent example · separate feeder study",
+    "eyebrow": "Saved feeder example / separate from L6",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "restoration",
@@ -349,10 +352,11 @@
     "takeaway": ""
   },
   {
-    "title": "Saved restoration case: reject a failed trial",
+    "title": "Recorded example: the tool rejects a trial",
     "kind": "figure",
     "points": [
-      "The next trial exceeds the current limit. Keep the previous passing plan."
+      "The next trial carries too much current.",
+      "It cannot replace the previous passing option."
     ],
     "note": "Keep the actual returned reason visible. It refers to a target in the objective, but its claim should not be accepted as a proved fact. In this record the next trial is numerically rejected for a thermal failure. Restoring more load does not make a failed current check acceptable. Ask participants to explain why the previous passed candidate must remain in the case record. The model’s trial budget is bounded. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
     "refs": [
@@ -362,12 +366,12 @@
     "minutes": 0.5,
     "image_source_path": "images/llama_restoration_15.png",
     "visual_height_px": 380,
-    "visual_height_cm": 4.4,
-    "caption": "Saved feeder-catalog study, separate from L6. Replay in L10B.",
+    "visual_height_cm": 4.0,
+    "caption": "",
     "source_label": "Classroom Labs L10B: restoration replay, recorded call 15; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Recorded agent example · separate feeder study",
+    "eyebrow": "Saved feeder example / separate from L6",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "restoration",
@@ -376,10 +380,11 @@
     "takeaway": ""
   },
   {
-    "title": "Saved restoration case: correct the ranking",
+    "title": "Recorded example: correct a wrong ranking",
     "kind": "figure",
     "points": [
-      "Python corrects the ranking and rechecks the lowest-cost passing plan."
+      "Llama puts two passing plans in the wrong order.",
+      "Python keeps the lower-cost plan and checks it again."
     ],
     "note": "Let pairs answer before discussing the result. Smaller cost is better, so E03 must rank before E02. Llama returns [E02,E03] while its explanation claims lowest score first. The recorded language_order_agrees_with_cost field is False. A deterministic guard retains E03 and rechecks it as E05, with no recorded failures. Human acknowledgment and dispatch remain False. The paired fixed workflow reaches the same final action and cost. This example motivates verification rather than an unsupported superiority claim. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: At 40 kW, explain 130 total / 90 critical versus 140 total / 30 critical, all in kW. For a changed request, keep HOLD until evidence for the current request is available. Ask each pair to give one number and one condition. They should distinguish three decisions: selecting a service policy, checking current evidence and authorizing a physical switching operation. Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source.",
     "refs": [
@@ -389,12 +394,12 @@
     "minutes": 1,
     "image_source_path": "images/llama_restoration_16.png",
     "visual_height_px": 380,
-    "visual_height_cm": 4.4,
-    "caption": "Saved feeder-catalog study, separate from L6. Replay in L10B.",
+    "visual_height_cm": 4.0,
+    "caption": "",
     "source_label": "Classroom Labs L10B: restoration replay, recorded call 16; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Recorded agent example · separate feeder study",
+    "eyebrow": "Saved feeder example / separate from L6",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "restoration",

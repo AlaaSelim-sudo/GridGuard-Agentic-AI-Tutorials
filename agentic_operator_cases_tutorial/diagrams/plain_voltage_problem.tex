@@ -1,0 +1,24 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[plainpoint] (source) at (.6,1.1) {};
+\node[below=.25cm of source] {Supply};
+\draw[line width=1.3pt,IEEEBlue] (source.east)--(12,1.1);
+\draw[IEEEBlue,line width=1.2pt] (4,2.7) rectangle (6,3.5);
+\foreach \x in {4.5,5,5.5}{\draw[Cyan] (\x,2.7)--(\x,3.5);}
+\draw[Cyan] (4,3.1)--(6,3.1);
+\node at (5,4) {Solar settings};
+\draw[flow] (5,2.7)--(5,1.1);
+\draw[IEEEBlue] (2.9,3.5) circle (.23);
+\foreach \a in {0,45,...,315}{\draw[Cyan] (2.9,3.5)++(\a:.32)--++(\a:.16);}
+\node[plainpoint] at (8.2,1.1) {?};
+\node[above,text width=3.4cm] at (8.2,1.65) {Voltage and\\line current};
+\draw[IEEEBlue,line width=1.2pt] (12,1.1) rectangle (13.5,2);
+\draw[IEEEBlue,line width=1.2pt] (11.8,2)--(12.75,2.75)--(13.7,2);
+\node at (12.75,.55) {Loads};
+\node[text=Slate] at (6.9,-.15) {Choose settings, then check their effects};
+
+\end{tikzpicture}

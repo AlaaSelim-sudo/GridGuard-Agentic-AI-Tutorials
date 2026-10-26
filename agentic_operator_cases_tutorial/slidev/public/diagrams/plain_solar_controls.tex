@@ -1,0 +1,15 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[anchor=east] (p) at (3.7,2.3) {Solar power output $a$};
+\node[anchor=east] (q) at (3.7,.8) {Voltage support $b$};
+\node[plainpoint] (study) at (7,1.55) {?};
+\node[above=.3cm of study,font=\rmfamily\bfseries] {Grid study};
+\draw[flow] (4,2.3)-|(study.north);\draw[flow] (4,.8)-|(study.south);
+\draw[flow] (study.east)--(10.2,1.55);
+\node[anchor=west,text width=3.6cm] at (10.4,1.55) {Voltage\\Line current\\Unit capacity};
+
+\end{tikzpicture}

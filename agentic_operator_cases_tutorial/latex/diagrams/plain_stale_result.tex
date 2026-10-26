@@ -1,0 +1,16 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[text width=3.3cm] at (1.4,2.2) {Old request\\40 kW capacity};
+\node[text width=3.5cm] at (7,2.2) {Matching old study};
+\node[text=Cyan,font=\rmfamily\bfseries] at (12.5,2.2) {Can be reviewed};
+\draw[flow] (3.3,2.2)--(5,2.2);\draw[flow] (9,2.2)--(10.8,2.2);
+\node[text width=3.5cm] at (1.4,.2) {Changed request\\20 kW capacity};
+\node[text width=3.5cm] at (7,.2) {Same old study};
+\node[text=Red,text width=3.7cm,font=\rmfamily\bfseries] at (12.5,.2) {HOLD\\Request a new solve};
+\draw[flow] (3.3,.2)--(5,.2);\draw[flow,draw=Red] (9,.2)--(10.8,.2);
+
+\end{tikzpicture}

@@ -176,61 +176,69 @@ Expected: The table shows HOLD for full MV/LV and an acknowledged MV teaching re
 
 00:00-01:00 / 1 minute
 
-**Say:** We will use one notebook to study three operator problems: voltage support, restoring service and suspicious measurements. For each case, we will look at the input, run a tool, read the result and decide what still needs review. You can follow along now or finish the experiments later. The notebook does not control equipment.
+**Say:** Help an operator compare options, check results and decide the next step. One notebook / 90 minutes / three short exercises
 
-**Show:** Point to the three case names and the one-notebook route.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1)
 
-### Slide 2. What is agentic AI?
+### Slide 2. An agent chooses what to try next
 
 01:00-02:00 / 1 minute
 
-**Say:** Here, agentic AI means a model can choose a permitted next step using a tool's returned result. The important part is that the result can change the next choice. The model still works within limits set by the application. In our default lab, Python runs now while the Llama choices come from saved recordings.
+**Say:** Give the agent a goal. It requests a tool, reads the result and chooses the next step. The agent coordinates the work. The numerical tool supplies the engineering result. An error can also guide the next request.
 
-**Show:** Trace goal, model choice, tool result and feedback arrow.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
-**Ask:** Which component supplies the electrical numbers?
+**Ask:** Who calculates the electrical result?
 
-**Answer:** The numerical tool; the model selects an allowed next step.
+**Answer:** The numerical tool. The agent coordinates the requests and reads the returned evidence.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/2)
 
-### Slide 3. A tool call and an agent workflow
+### Slide 3. The agent asks; the tool calculates
 
 02:00-02:30 / 0.5 minutes
 
-**Say:** A tool call is one job, such as calculating a power flow. A workflow connects several jobs. In an agentic step, the model helps choose what happens next. A fixed program can also contain loops and checks, so a loop alone does not make a system agentic. Look for the actual model decision.
+**Say:** A tool does one job. An agent can connect several jobs using their results. A solver can answer a well-defined study request. The agent’s job is deciding which permitted request should come next.
 
-**Show:** Point to the single-call panel, then the multi-step panel.
+**Show:** Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
+
+**Ask:** What does the agent add to one tool call?
+
+**Answer:** It can choose and connect permitted next steps using the returned results.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/3)
 
-### Slide 4. Evidence before an answer
+### Slide 4. Check the evidence before answering
 
 02:30-03:00 / 0.5 minutes
 
-**Say:** This source example is about checking claims before writing an answer. We use the same design habit in a grid study: calculate first, then explain the returned numbers. We are borrowing the idea, not running WikiChat in this notebook. A fluent report should never replace an electrical check.
+**Say:** Keep the tool result and its checks with the recommendation. Stanford’s example checks claims before writing an answer. Our grid adaptation checks numerical evidence before presenting a recommendation.
 
-**Show:** Follow checking before drafting in the source figure.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
+**Ask:** What should support a recommendation?
+
+**Answer:** A matching tool result, the relevant checks and a clear account of what remains unverified.
+
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/4)
 
-### Slide 5. Voltage: propose, then check
+### Slide 5. Solar settings: which option should we try?
 
 03:00-03:30 / 0.5 minutes
 
-**Say:** For voltage, a controller proposes settings and an electrical model checks their effects. L2 lets us run those calculations ourselves. Later, L10B shows a saved Llama choice about which existing tool to use. Keep those two activities separate: a new calculation is different from replaying an old model reply.
+**Say:** Compare possible settings, then check voltage and line current. The agent can organize these trials and report the checked options. Think of several possible solar settings on the operator’s desk. Each candidate needs the same limit checks before comparison.
 
-**Show:** Point to the proposal, electrical check and returned current value.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: PREVIEW ONLY.** Show the slide only. Run L2 later on slide 21; keep the notebook in order.
 
@@ -238,93 +246,97 @@ Expected: The table shows HOLD for full MV/LV and an acknowledged MV teaching re
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/5)
 
-### Slide 6. Clear rules for tool use
+### Slide 6. Give the agent a goal and clear limits
 
 03:30-04:30 / 1 minute
 
-**Say:** A useful tool needs a clear contract: required inputs, allowed operations, fixed limits and a stop condition. The language model cannot quietly change those rules to make an answer look better. In this lab, Python owns the rules. If a required input or check is missing, the workflow must stop or request review.
+**Say:** State the goal, allowed tools and stopping rules. Keep the operator’s review step explicit. These rules belong to the application and operating process. A persuasive model response cannot change them.
 
-**Show:** Point to the explicit task-rule specification.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
+**Ask:** Who sets the limits and allowed actions?
+
+**Answer:** The application and operating process, with the operator’s stated task and authority.
+
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/6)
 
-### Slide 7. Restoration: define the service goal
+### Slide 7. Restoration: who should get power first?
 
 04:30-05:00 / 0.5 minutes
 
-**Say:** Before asking for a restoration plan, define what good service means. Serving the most total power can give a different answer from protecting critical loads. The solver follows the objective we give it. The agent's job is to preserve that goal when requesting a tool and explaining its result.
+**Say:** The operator sets the service priority. That priority changes what we ask the restoration tool to do. For example, serving more total power can differ from serving more critical demand. The operator must state the intended goal.
 
-**Show:** Compare the critical-service segments, then the total kW.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L6 later on slide 40; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L6 later on slide 41; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/7)
 
-### Slide 8. Language and decision checks
+### Slide 8. Keep three jobs clear
 
 05:00-05:30 / 0.5 minutes
 
-**Say:** The source figure separates language processing from a solver that checks a decision. Our grid example uses a similar separation: Llama requests a permitted study, Python calculates and checks it, and a person reviews the proposal. Our electrical models are not the logical solvers in this source example and do not inherit their guarantees.
+**Say:** The agent requests a study. The tool calculates. The operator reviews the result. Keep the three responsibilities separate when reading the examples. A fluent explanation is not a substitute for the calculation.
 
-**Show:** Follow language input into a separate checked decision.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
+**Ask:** Which job belongs to the operator?
+
+**Answer:** Reviewing the evidence and deciding the next authorized step.
+
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/8)
 
-### Slide 9. Cyber: good fit can hide bad data
+### Slide 9. Wrong readings can still fit a model
 
 05:30-06:00 / 0.5 minutes
 
-**Say:** Suspicious readings can fit a model and still be wrong. L8 makes that problem visible by comparing a mismatch alarm with known simulation truth. L9 asks a different question: can we propose a correction if extra readings are assumed trustworthy? The trust condition remains an assumption that the operator must review.
+**Say:** A good fit alone does not prove the readings are true. The agent can organize checks and flag missing evidence. Later we will change readings in a small model and compare the alarm with the resulting estimation error.
 
-**Show:** Point to the quiet residual and the trust-dependent recovery gate.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L8 later on slide 56; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L8 later on slide 58; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/9)
 
-### Slide 10. Four questions about any result
+### Slide 10. Ask four questions about every result
 
 06:00-07:00 / 1 minute
 
-**Say:** Use these four questions throughout the session. Which tool produced this result? What did the tool assume? Which limits did it actually check? What should the operator do next? These questions help us assess both an ordinary software result and a model-generated explanation. Missing evidence stays missing even when the wording sounds confident.
+**Say:** What was asked? What did the tool return? Did the checks pass? What must the operator decide? These questions work for all three cases. They connect an output to the task and the person who must review it.
 
-**Show:** Use the four questions to assess one statement from the opening.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
-**Ask:** What evidence is missing from a confident answer with no tool result?
-
-**Answer:** The actual calculated or measured result and its assumptions.
-
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/10)
 
-### Slide 11. One notebook for all three cases
+### Slide 11. Use one notebook for all three cases
 
 07:00-08:00 / 1 minute
 
-**Say:** Classroom Labs is the only required notebook. Save a copy in Drive so you can keep your changes. The voltage, restoration and cyber sections are in this same file. The other notebooks on the website are companions, so you do not need to open several Colabs to follow this workshop.
+**Say:** Open Classroom Labs and save your own copy. We will use it throughout the workshop. Other notebooks on the website are supporting resources. Classroom Labs is the one required notebook for this session.
 
-**Show:** Open the canonical Classroom Labs link and save a Drive copy.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: NO NEW RUN.** Open Classroom Labs and save a copy. Run setup on slide 12, not the later lesson cells.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/11)
 
-### Slide 12. Colab setup
+### Slide 12. Start Colab in three steps
 
 08:00-10:30 / 2.5 minutes
 
-**Say:** Colab gives us a temporary computer called a runtime. Connect a CPU runtime and run the setup cell once. Wait for Ready before continuing. Saving a notebook keeps the text and saved outputs, not the temporary variables. After a runtime reset, rerun setup and the earlier cells. If setup is still running, follow the reference figures and catch up afterward.
+**Say:** Save a copy, connect a CPU and run setup. Wait for Ready, then run L0 and L1. Colab gives you a temporary computer. After a runtime reset, rerun setup and the earlier cells to recreate their variables.
 
-**Show:** Show the CPU connection control and setup-cell play button.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: RUN.** Connect a CPU. Run the whole setup cell once and wait for Ready.
 
@@ -334,13 +346,13 @@ Exact cells: colab-setup. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/12)
 
-### Slide 13. Input, run, output
+### Slide 13. Run a cell, then read its output
 
 10:30-11:00 / 0.5 minutes
 
-**Say:** A notebook cell has input code and an output below it. The slide shows selected lines, but we always run the whole matching code cell. First predict the result, then run it and read what appears. Changing a number does not update an old plot until you rerun the cell.
+**Say:** Find the L heading and run the whole cell. After changing an input, run that cell again. The play button runs the cell. The output below it belongs to the last completed run, so an edit alone changes nothing.
 
-**Show:** Identify the input, run button and output region.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: PREVIEW ONLY.** Show the slide only. Run L2 later on slide 21; keep the notebook in order.
 
@@ -348,13 +360,13 @@ Exact cells: colab-setup. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/13)
 
-### Slide 14. L0: keep the default settings
+### Slide 14. L0: keep both switches off
 
 11:00-12:30 / 1.5 minutes
 
-**Say:** Leave both switches False. OpenDSS is off, so the default voltage calculation uses the three-phase linear model. The local Llama call is also off, so there is no new language-model request. Python still makes new numerical calculations, and the saved SAC policy still proposes a new action from its stored weights.
+**Say:** Keep both switches False. Python runs the calculations. Llama is the language model used in the saved examples. We inspect its recorded choices here, so no live model installation or call is needed.
 
-**Show:** Point to both False settings.
+**Show:** Locate L0 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: RUN.** Run L0 with RUN_OPENDSS=False and RUN_LOCAL_LLAMA=False.
 
@@ -364,13 +376,13 @@ Exact cells: classroom-002. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/14)
 
-### Slide 15. L1: does the result match the request?
+### Slide 15. L1: does the old result still match?
 
 12:30-15:00 / 2.5 minutes
 
-**Say:** This small test asks whether the result still belongs to the same request and command. The first row should be True. Changing the load or command gives False. That match is necessary before using an old result. The hash detects a changed record; it does not authenticate a sensor or prove that the physical action is safe.
+**Say:** Expect True, False, False: only the unchanged request matches. Changed inputs or actions need a new check. Matching evidence means the returned result belongs to this request and this proposed action. A changed request needs fresh evidence.
 
-**Show:** Read the three binding_pass results.
+**Show:** Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.
 
 **Colab: RUN.** Run the whole L1 cell after L0.
 
@@ -384,55 +396,59 @@ Exact cells: classroom-004. Run the whole cell.
 <a id="module-voltage"></a>
 ## Voltage support
 
-### Slide 16. Case 1: voltage support
+### Slide 16. Case 1: which solar settings should we use?
 
 15:00-15:30 / 0.5 minutes
 
-**Say:** Our first case compares two ways to propose voltage-support settings. MPC plans using a model and a short forecast. SAC uses a policy learned earlier. We send both proposals through the same electrical check. Only after a proposal passes should we compare its penalty score J. These are teaching results on a synthetic feeder.
+**Say:** Imagine an operator comparing possible settings for solar units. Each choice changes power flows. The job is to find an acceptable option while respecting voltage, line-current and unit limits. An agent can organize the requests and responses, while the tool calculates the electrical effects. We first learn those tools in Colab, then inspect saved agent decisions.
 
-**Show:** Locate the voltage case on the synthetic feeder figure.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: PREVIEW ONLY.** Show the slide only. Run L2 later on slide 21; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
+**Ask:** What must a proposed solar setting respect?
+
+**Answer:** The checked voltage, line-current and solar-unit limits for the stated model.
+
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/16)
 
-### Slide 17. Two ways to propose settings
+### Slide 17. Two tools suggest different settings
 
 15:30-16:30 / 1 minute
 
-**Say:** MPC calculates settings from the model when we run it. The saved SAC policy quickly maps the current conditions to settings. Neither proposal is automatically acceptable. A separate model checks voltage, current and inverter limits. These numerical controllers are tools inside the workflow; they do not become language agents just because a model can call them.
+**Say:** MPC plans with a model. SAC uses a previously trained controller. Treat both outputs as proposals that need the same electrical checks. MPC means model predictive control. SAC means soft actor-critic, a learned controller. You do not need their algorithms to follow this lab: both simply supply settings for the same check.
 
-**Show:** Follow both proposal methods into the same checker.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/17)
 
-### Slide 18. A tool result changes the next step
+### Slide 18. How the agent helps with solar settings
 
 16:30-18:00 / 1.5 minutes
 
-**Say:** This is a saved P3 example, not the new L2 experiment. Llama first asks to check SAC. The tool returns about 111.97 percent of allowed current, so that trial fails. Llama then requests the existing MPC fallback, which returns about 99.60 percent and passes the recorded checks. Human review still remains pending.
+**Say:** Follow the arrows from the operator’s goal to the returned result. If a check fails, the agent can request another permitted trial. If evidence is missing, it can stop and ask. The useful behavior is the choice made after reading the tool result. The tool still performs the electrical calculation.
 
-**Show:** Follow the two saved current results in order.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
-**Ask:** Why can the fallback enter review?
+**Ask:** What can happen after a failed trial?
 
-**Answer:** Its stated numerical checks pass; human acknowledgment is still separate.
+**Answer:** Request another permitted trial, ask for missing evidence or stop for review.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/18)
 
-### Slide 19. Two control settings
+### Slide 19. The study changes two solar settings
 
 18:00-19:00 / 1 minute
 
-**Say:** There are two control settings. The active-power setting changes how much real power the inverter supplies. The reactive-power setting changes reactive support. They share the inverter's capacity, so changing one affects the room available for the other. The numerical checker tests that capacity together with voltage and line-current limits.
+**Say:** a sets active-power output. b sets voltage-support output. The tool checks voltage, line current and the solar unit’s capacity. Active power supplies energy. Reactive power supports voltage. The inverter’s shared capacity means these settings cannot be chosen independently without checking.
 
-**Show:** Point to active and reactive settings and their shared capacity.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: PREVIEW ONLY.** Show the slide only. Run L2 later on slide 21; keep the notebook in order.
 
@@ -440,13 +456,13 @@ Exact cells: classroom-004. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/19)
 
-### Slide 20. A tool is a callable function
+### Slide 20. A Python function can be a tool
 
 19:00-19:30 / 0.5 minutes
 
-**Say:** In the lab, a tool is an ordinary Python function with defined inputs and returned results. L2 calls voltage_lab directly with load scale and current allowance. That lets us inspect what the tool does without a live LLM. In the saved agent workflow, the application validates a model choice before calling an allowed function.
+**Say:** It receives inputs, runs calculations and returns results. L2 calls this function directly. The saved agent example shows who requests it. A tool does not have to be another AI model. Here it is ordinary Python code that calls the numerical study and returns structured results.
 
-**Show:** Match function inputs to its returned fields.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: PREVIEW ONLY.** Show the slide only. Run L2 later on slide 21; keep the notebook in order.
 
@@ -454,13 +470,13 @@ Exact cells: classroom-004. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/20)
 
-### Slide 21. L2: run the default case
+### Slide 21. L2: compare two solar proposals
 
 19:30-22:30 / 3 minutes
 
-**Say:** Run the whole L2 cell with load scale 1.0 and current allowance 0.80. The cell makes an MPC plan, runs the saved SAC actor and checks both proposals. Read feasible first. Then inspect maximum allowed-current use and the score J. The plots and table below the cell are new calculations for these inputs.
+**Say:** Run L2 with the default settings. Look for pass/fail, current used and score J. Lower J is better after checks pass. Look for feasible, max_allowed_current_pct and current_step_J in the notebook. These mean the checked limits pass, current used and the comparison score.
 
-**Show:** Show the input lines, then the resulting L2 table.
+**Show:** Locate L2 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: RUN.** Run the full L2 cell at LOAD_SCALE=1.0 and RATING_FRACTION=0.80.
 
@@ -470,41 +486,37 @@ Exact cells: classroom-007. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/21)
 
-### Slide 22. L2: voltage and current plots
+### Slide 22. Read the voltage and current checks
 
 22:30-23:30 / 1 minute
 
-**Say:** Read both plots before choosing a method. The voltage plot shows sorted modeled voltages, not the physical order of buses along a feeder. Check that they remain inside the band. The current plot shows the largest use of the allowed current. Its 100 percent line is a limit, not a performance target.
+**Say:** Left: voltages should stay in the allowed band. Right: current should stay below 100% of the allowance. A value below the current line does not replace the voltage check. The same candidate must satisfy every required check.
 
-**Show:** Read the voltage band and current allowance line.
+**Show:** Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/22)
 
-### Slide 23. L2: both default proposals pass
+### Slide 23. Both pass; MPC has the lower score
 
 23:30-24:30 / 1 minute
 
-**Say:** Both default proposals pass this model. MPC uses about 73.62 percent of the allowed current and has J about 0.03110. SAC uses less current, about 51.68 percent, but has a higher penalty score. Lower current alone does not mean a better overall objective. Compare scores only among proposals that pass the stated checks.
+**Say:** MPC: 73.62% current use; score J about 0.03110. Saved SAC: 51.68% current use; score J about 0.43643. SAC uses less current, but MPC has the lower cost score. This is why we must name the goal instead of selecting the smallest number in any column.
 
-**Show:** Compare feasibility first, then current use and score.
+**Show:** Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-**Ask:** Does less current always mean a smaller objective?
-
-**Answer:** No. J also includes curtailment, reactive effort and other declared penalties.
-
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/23)
 
-### Slide 24. The limit and the calculated result
+### Slide 24. A limit needs a calculated check
 
 24:30-25:00 / 0.5 minutes
 
-**Say:** A rule tells us what is allowed. A numerical tool tells us whether a particular proposal meets that rule in a particular model. We need both. When reporting a result, keep the input case, the limit and the calculated value together. The number in this illustration comes from the separate saved P3 example.
+**Say:** A rule states the limit. The tool tests the proposed setting. Keep the rule and returned result together for review. The stated rule and the measured result have different jobs. Keep enough context to show which proposal and model produced the result.
 
-**Show:** Point separately to the rule and returned value.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
@@ -514,9 +526,9 @@ Exact cells: classroom-007. Run the whole cell.
 
 25:00-28:00 / 3 minutes
 
-**Say:** Change only RATING_FRACTION from 0.80 to 0.75 in L2. Before running it, predict how the percentage of allowed current will change. Run the whole cell and compare both methods. Record the pass flag, current percentage and score. Then decide whether this model covers a full medium- and low-voltage request.
+**Say:** In L2, change RATING_FRACTION from 0.80 to 0.75. Predict, then rerun. Compare pass/fail, current use and score J for both methods. Does this check cover the whole medium- and low-voltage network?
 
-**Show:** Keep the question visible for three minutes: predict for one minute, then edit and run for two. Advance to the next slide for the one-minute worked answer.
+**Show:** Show the question for three minutes: predict for one, then edit and run for two. Advance once for the worked answer.
 
 **Colab: EDIT AND RERUN.** Change only RATING_FRACTION to 0.75. Predict, then rerun all of L2. Give this exercise four minutes.
 
@@ -524,7 +536,7 @@ Exact cells: classroom-007. Run the whole cell.
 
 **Expected:** MPC current use is about 78.53%; SAC about 54.85%; both pass this MV test.
 
-**Ask:** Does this PASS cover the whole MV/LV network?
+**Ask:** In L2, change RATING_FRACTION from 0.80 to 0.75. Predict, then rerun. Compare pass/fail, current use and score J for both methods. Does this check cover the whole medium- and low-voltage network?
 
 **Answer:** No. The default covers MV phases and currents with ideal LV aggregation.
 
@@ -534,9 +546,9 @@ Exact cells: classroom-007. Run the whole cell.
 
 28:00-29:00 / 1 minute
 
-**Say:** At LOAD_SCALE=1.0 and RATING_FRACTION=0.75, MPC is feasible with 78.527895% current use and J=0.0311038194. Saved SAC is feasible with 54.854158% current use and J=0.4324637539. Lower J is preferred only among feasible candidates. These are fresh three-phase linear MV checks, not a full MV/LV study. Restore RATING_FRACTION=0.80 and rerun all of L2 before continuing.
+**Say:** MPC has the lower score; SAC uses less current. The score considers more than current alone. This check covers the medium-voltage model. The wider network needs a wider study. At the exercise settings, MPC uses 78.53% of the allowance and SAC uses 54.85%. Both pass. Their current-step scores are about 0.03110 and 0.43246.
 
-**Show:** Advance from the question only after learners have made a prediction and run the cell. Read every chart label, compare the results and explain the model’s scope.
+**Show:** Advance from the exercise only after learners try it. Read the verified values, explain why the outcome occurs and answer every part of the question.
 
 **Colab: INSPECT / RESET.** Use the output already produced for the exercise. Restore RATING_FRACTION=0.80 and rerun all of L2 before continuing.
 
@@ -544,25 +556,25 @@ Exact cells: classroom-007. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/26)
 
-### Slide 27. Exercise 1: both still pass
+### Slide 27. Less current does not mean the best option
 
 29:00-30:00 / 1 minute
 
-**Say:** A smaller allowance makes the same physical current a larger percentage of the allowance. In this example, MPC reaches about 78.53 percent and SAC about 54.85 percent. Both still pass. This particular experiment does not show a rejection, and the MV-only model still does not establish full MV/LV coverage. Compare with your own output before generalizing.
+**Say:** Here SAC also uses less solar output. The goal values generation as well as limits. Compare the score after checks pass. The active-power setting is about 0.9603 for MPC and 0.3431 for SAC in this exercise. Lower solar output can reduce current but also increase the stated cost.
 
-**Show:** Compare the default and changed allowance.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/27)
 
-### Slide 28. L2: reset before continuing
+### Slide 28. L2: restore the starting values
 
 30:00-30:30 / 0.5 minutes
 
-**Say:** Restore load scale 1.0 and current allowance 0.80, then rerun L2. This gives everyone the same starting point again. L3 through L5 use a separate archived case called test_01. Your earlier parameter edit does not rewrite that archive, so we must not attach its old Llama explanation to a different new experiment.
+**Say:** Restore LOAD_SCALE=1.0 and RATING_FRACTION=0.80. Rerun L2. The next cells use a separate saved case. Resetting keeps the class together. The following saved case has its own original inputs; your changed L2 settings do not rewrite it.
 
-**Show:** Show the restored two default inputs.
+**Show:** Locate L2 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: RESET AND RERUN.** Restore LOAD_SCALE=1.0 and RATING_FRACTION=0.80; rerun the complete L2 cell.
 
@@ -572,13 +584,13 @@ Exact cells: classroom-007. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/28)
 
-### Slide 29. New calculations and saved replies
+### Slide 29. Separate a new calculation from a replay
 
 30:30-31:00 / 0.5 minutes
 
-**Say:** We now have two kinds of evidence. A new calculation uses the inputs we just supplied. A saved model reply records what the model said for its original case. Both can be useful, but they answer different questions. A proposed control-room pilot is a third category: a design to evaluate, not evidence of a deployment.
+**Say:** Your inputs produce new numerical results. Saved replies show past model decisions; editing L2 does not change them. A fresh calculation answers the inputs you just supplied. A replay shows what happened previously. Both are useful, but they answer different questions.
 
-**Show:** Point to new calculation, saved reply and proposed pilot labels.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
@@ -588,9 +600,9 @@ Exact cells: classroom-007. Run the whole cell.
 
 31:00-32:00 / 1 minute
 
-**Say:** Run L3 and read the original case ID, each requested operation and its recorded call time. These are actual earlier replies. Displaying them does not call those models again. Different explanations may request exactly the same tool and settings, so the next step groups those matching requests before counting votes.
+**Say:** Run L3 to see what the models requested for the saved case. This displays old replies; it makes no new model call. Read the request, reason and recorded time as a historical record. The model is not responding to your new L2 input.
 
-**Show:** Locate case ID, operation and recorded seconds.
+**Show:** Locate L3 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: RUN.** Run L3. Keep the default test_01 case.
 
@@ -600,29 +612,25 @@ Exact cells: classroom-010. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/30)
 
-### Slide 31. Different words can request the same trial
+### Slide 31. Different replies can request the same action
 
 32:00-32:30 / 0.5 minutes
 
-**Say:** Three replies do not necessarily produce three different physical trials. Here, two replies request the same reactive-power change, so there are two distinct operations. The vote chooses what to test next. It does not certify the choice. A numerical tool must still check the selected settings, regardless of how many models supported them.
+**Say:** Group requests that describe the same settings. A vote chooses what to test next. The electrical check still has to run. Wording alone should not create extra votes for the same physical operation. The numerical check still determines whether the selected setting passes.
 
-**Show:** Count unique tool/settings records rather than sentences.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
-**Ask:** How many distinct trials do these three replies request?
-
-**Answer:** Two, because two replies have identical tool/settings records.
-
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/31)
 
-### Slide 32. L4: check the selected trial
+### Slide 32. L4: check the chosen proposal
 
 32:30-33:30 / 1 minute
 
-**Say:** Run L4 after L3. We compare majority voting with a saved LinUCB selector that learned which trial to test. All earlier model calls have already happened. This selection step allocates a numerical trial; it does not decide which model to call or whether the grid limits pass. Python checks the selected original-case proposal now.
+**Say:** Recheck the selected proposal on its original saved case. Compare the vote with a previously learned selection rule. The learned selection rule is the frozen LinUCB selector shown in the output. We compare its chosen action; we do not train a new selector here.
 
-**Show:** Locate the two selectors and fresh check calls.
+**Show:** Locate L4 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: RUN.** Run L4 after L3 without changing the case ID.
 
@@ -632,25 +640,25 @@ Exact cells: classroom-013. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/32)
 
-### Slide 33. L4: read the new check
+### Slide 33. Both selectors choose the same proposal
 
 33:30-34:00 / 0.5 minutes
 
-**Say:** Both selectors choose the same trial in this example and the new MV check passes. Read new_check_passes for that result. Predicted reward is the selector's learned estimate, not an electrical margin. The saved twelve-case comparison tied voting, so this example does not show that learned selection is generally better than a simple rule.
+**Say:** The new electrical check passes for both selections. The selection score and the electrical check have different jobs. Both selection methods happen to agree on this case. That agreement is not the reason the electrical check passes.
 
-**Show:** Point to new_check_passes and distinguish predicted reward.
+**Show:** Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/33)
 
-### Slide 34. L5: check model coverage
+### Slide 34. L5: see which part of the grid was checked
 
 34:00-35:30 / 1.5 minutes
 
-**Say:** Run L5 with OpenDSS still off. This cell checks the original test_01 MPC plan with the MV model and reports its scope. Read the model, command and pass columns together. An optional OpenDSS route can add a wider AC audit, but we are not running it in the default classroom route.
+**Say:** Run L5 with the default settings. It checks the medium-voltage (MV) part of the saved case. The wider OpenDSS study is disabled by default. This cell therefore supports a medium-voltage claim only.
 
-**Show:** Read model, command, pass and scope information together.
+**Show:** Locate L5 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: RUN.** Run L5 with RUN_OPENDSS still False.
 
@@ -660,55 +668,55 @@ Exact cells: classroom-016. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/34)
 
-### Slide 35. A PASS has a scope
+### Slide 35. A PASS covers only what was checked
 
 35:30-36:00 / 0.5 minutes
 
-**Say:** A PASS describes only what the model checked. Here that means MV phases and line currents, with ideal aggregation of LV load. If the actual request needs the full MV/LV circuit, this result is insufficient. The correct response is to obtain the wider study or keep the request on HOLD, not relabel the result.
+**Say:** A limited model cannot answer a wider grid question. Request the missing study or return HOLD. A checked part of a network does not stand for every device or every operating limit. Ask for the check needed by the actual decision.
 
-**Show:** Point to MV coverage and the missing wider check.
+**Show:** Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/35)
 
-### Slide 36. Saved voltage case: check SAC first
+### Slide 36. Recorded example: the first option fails
 
 36:00-37:00 / 1 minute
 
-**Say:** We return to a saved P3 episode. Llama asks to verify the saved SAC proposal because that check is missing. The electrical tool then finds a current-limit failure. The useful behavior is recognizing which check to request. The failure comes from the numerical tool, not from the confidence of the language explanation.
+**Say:** This saved study is different from your L2 run. Llama asks for a SAC check. The tool reports too much current. This is a preview of a different saved study, not a continuation of the passing L2 results. The recorded tool result reports a current-limit failure. The next agent choice follows that evidence.
 
-**Show:** Point to Llama choice, exact public reason and failed result.
+**Show:** Preview the actual saved Llama request and returned tool evidence. Do not ask learners to run ahead. L10B will replay these records after the three labs.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 74; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/36)
 
-### Slide 37. Saved voltage case: try the MPC fallback
+### Slide 37. Recorded example: request another option
 
 37:00-38:00 / 1 minute
 
-**Say:** After the failure, Llama requests the MPC plan that already exists. It does not calculate the power flow or invent a new controller. Python and OpenDSS evaluate the fallback and return its voltage and current results. We will inspect the complete saved exchange in L10B after the three numerical cases.
+**Say:** Llama asks the tool to check the existing MPC fallback. The returned electrical checks pass for this saved case. The agent requests a plan that already exists rather than inventing its electrical outcome. The tool calculates the check and returns the evidence.
 
-**Show:** Point to the MPC fallback choice and returned checks.
+**Show:** Preview the actual saved Llama request and returned tool evidence. Do not ask learners to run ahead. L10B will replay these records after the three labs.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 74; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/37)
 
-### Slide 38. Saved voltage case: return for review
+### Slide 38. Recorded example: return to the operator
 
 38:00-39:00 / 1 minute
 
-**Say:** The recorded checks pass for the MPC fallback, but the human acknowledgment is still pending. The model's review message is not the operator's approval. A fixed script reaches the same final numerical outcome in this comparison. This episode demonstrates a traceable tool-selection loop, not a measured improvement in the electrical solver.
+**Say:** The agent returns the checked proposal and its conditions. Human review is still pending. No equipment command is sent. The result is a recommendation for review. The record still shows human acknowledgement pending and equipment dispatch disabled.
 
-**Show:** Point to pending acknowledgment and dispatch=False.
+**Show:** Preview the actual saved Llama request and returned tool evidence. Do not ask learners to run ahead. L10B will replay these records after the three labs.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 74; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
@@ -718,41 +726,49 @@ Exact cells: classroom-016. Run the whole cell.
 <a id="module-restoration"></a>
 ## Service restoration
 
-### Slide 39. Case 2: restoring service
+### Slide 39. Case 2: who gets power after a fault?
 
 39:00-39:30 / 0.5 minutes
 
-**Say:** The restoration exercise uses a separate six-node graph. One branch is faulted and unavailable. The tool selects whole loads under the stated capacities. We will compare total served power with power served to critical loads. This smaller example makes the objective easy to inspect; it is not the feeder catalog shown in the saved Llama episode.
+**Say:** A fault removes one normal supply path. Alternative paths have limited capacity, so the operator must choose what to restore. Serving critical demand first can differ from maximizing the total power served. The agent can carry that priority into a study request, collect the result and request a new study when the situation changes.
 
-**Show:** Identify the source, faulted branch, two ties and critical loads.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L6 later on slide 40; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L6 later on slide 41; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
+
+**Ask:** Could most total power and most critical service differ?
+
+**Answer:** Yes. Limited capacity can force a trade-off, so the goal must be stated.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/39)
 
-### Slide 40. Two service goals
+### Slide 40. How the agent helps restore service
 
 39:30-40:30 / 1 minute
 
-**Say:** The two methods use the same graph, fault and capacity rules. One maximizes total kW. The other gives extra weight to two critical loads. The different result therefore comes from the service goal. Before an agent requests a restoration solve, the operator must state which goal the tool should follow.
+**Say:** The operator supplies the goal. The numerical solver chooses loads under the network rules. An agent could manage the study request and read its result, but it should not invent the service priority. L6 runs the tools directly; the recorded agent example comes later.
 
-**Show:** Compare the two goals on the same network.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L6 later on slide 40; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L6 later on slide 41; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
+**Ask:** Who chooses the service priority?
+
+**Answer:** The operator supplies the priority; the solver and agent must preserve it.
+
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/40)
 
-### Slide 41. L6: solve the restoration problem
+### Slide 41. L6: compare two restoration goals
 
 40:30-42:30 / 2 minutes
 
-**Say:** Run L6 with the original capacity list. A mixed-integer linear program chooses which whole loads to serve. A separate exhaustive search checks the priority score on this small graph. Read total kW, critical kW and the agreement flag. Agreement supports this formulation's result; it does not add AC voltage or protection checks.
+**Say:** Run L6 to choose which loads receive power under each goal. MILP chooses whole loads; a separate calculation checks its result. MILP is a solver for choices such as whether an entire load is restored. The independent search checks the small teaching model’s objective result.
 
-**Show:** Read total service, critical service and enumeration agreement.
+**Show:** Locate L6 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: RUN.** Run L6 with CAPACITIES_KW=(40.,60.,80.,100.,120.).
 
@@ -762,41 +778,37 @@ Exact cells: classroom-018. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/41)
 
-### Slide 42. L6: read both service plots
+### Slide 42. Read total and critical service
 
 42:30-43:30 / 1 minute
 
-**Say:** Read the two service plots together. The left reports total kW and the right reports critical kW. At some capacities the markers overlap because the objectives give the same outcome. Avoid assuming that a priority objective must improve every operating point. Identify where there is a real service tradeoff before explaining a benefit.
+**Say:** Left: all power restored. Right: power restored to critical loads. Overlapping markers mean the two goals give the same result. The plots separate total service from service to critical loads. Always say which one a number describes.
 
-**Show:** Compare the two plotted service measures.
+**Show:** Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/42)
 
-### Slide 43. L6: the tradeoff at 40 kW
+### Slide 43. The service goal changes who gets power
 
 43:30-44:30 / 1 minute
 
-**Say:** At a 40 kW varied tie limit, the priority goal serves 130 kW total, including 90 kW critical. The maximum-total goal serves 140 kW total, including only 30 kW critical. A separate fixed tie remains at 100 kW, so the varied tie rating is not the total served load. The priorities explain this tradeoff.
+**Say:** Critical-first goal: 130 kW total, including 90 kW critical. Most-total-power goal: 140 kW total, including 30 kW critical. At the 40 kW tie setting, prioritizing critical loads gives up 10 kW of total service but restores 60 kW more critical service.
 
-**Show:** Point to 130/90 versus 140/30, all in kW.
+**Show:** Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-**Ask:** Which goal would you choose if critical service is the stated priority?
-
-**Answer:** The priority-weighted goal, with the explicit total-service tradeoff.
-
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/43)
 
-### Slide 44. Restoration checks
+### Slide 44. Check the restoration plan
 
 44:30-45:00 / 0.5 minutes
 
-**Say:** The graph checks include source connection, power balance, branch capacity and keeping the faulted branch unavailable. The separate enumeration checks the priority objective. Those checks give evidence for this active-power model. They do not establish a field switching order, protection coordination or the voltage behavior of an AC network.
+**Say:** Keep the faulted branch out of service. Check supply paths, capacity and totals before accepting the plan. The result must respect the unavailable faulted branch and the model’s supply and capacity rules. A field switching sequence needs additional operating work.
 
-**Show:** Trace connection, balance, capacity and independent score checks.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
@@ -806,9 +818,9 @@ Exact cells: classroom-018. Run the whole cell.
 
 45:00-48:00 / 3 minutes
 
-**Say:** Append 180. to the capacity list and keep 40. first. Predict whether the two service goals will still disagree, then rerun the full L6 cell. Compare total and critical kW at 40 and 180 kW. Keeping the first entry unchanged matters because L7 later uses the first record in this list.
+**Say:** Add 180. to CAPACITIES_KW. Keep 40. first. Predict, then rerun L6. Compare total and critical power at 40 and 180 kW. At which tested capacity do the two goals first give the same result?
 
-**Show:** Keep the question visible for three minutes: predict for one minute, then edit and run for two. Advance to the next slide for the one-minute worked answer.
+**Show:** Show the question for three minutes: predict for one, then edit and run for two. Advance once for the worked answer.
 
 **Colab: EDIT AND RERUN.** Append 180. to CAPACITIES_KW, keeping 40. first. Rerun all of L6. Give this exercise four minutes.
 
@@ -816,7 +828,7 @@ Exact cells: classroom-018. Run the whole cell.
 
 **Expected:** At 180 kW, both goals serve 250 kW total and 90 kW critical.
 
-**Ask:** At which tested capacity do these two goals agree?
+**Ask:** Add 180. to CAPACITIES_KW. Keep 40. first. Predict, then rerun L6. Compare total and critical power at 40 and 180 kW. At which tested capacity do the two goals first give the same result?
 
 **Answer:** They agree at 180 kW in this exercise.
 
@@ -826,9 +838,9 @@ Exact cells: classroom-018. Run the whole cell.
 
 48:00-49:00 / 1 minute
 
-**Say:** At 40 kW tie capacity, priority-weighted MILP serves 130 kW total and 90 kW critical. The unweighted maximum-kW policy serves 140 kW total and 30 kW critical. In the sampled list, outcomes first match at 80 kW; they also match at 100, 120 and 180 kW. At 180 kW, both serve 250 total and 90 critical kW. Do not infer the exact continuous crossover from this discrete sweep. Keep 40 first, restore the original list and rerun L6 before L7.
+**Say:** At 40 kW, the priority goal serves 90 kW critical instead of 30 kW, with less total service. The goals first match at the tested 80 kW. At 180 kW, both serve 250 kW total and 90 kW critical. The goals first match at 80 kW among the tested capacities. At 180 kW both restore 250 kW total, including 90 kW critical. This discrete sweep does not identify an exact continuous crossover.
 
-**Show:** Advance from the question only after learners have made a prediction and run the cell. Read every chart label, compare the results and explain the model’s scope.
+**Show:** Advance from the exercise only after learners try it. Read the verified values, explain why the outcome occurs and answer every part of the question.
 
 **Colab: INSPECT / RESET.** Use the exercise output. Keep 40 first; restore the original list and rerun L6 before L7.
 
@@ -836,25 +848,25 @@ Exact cells: classroom-018. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/46)
 
-### Slide 47. Exercise 2: enough capacity removes this tradeoff
+### Slide 47. More capacity can remove this trade-off
 
 49:00-50:00 / 1 minute
 
-**Say:** At 180 kW, both goals serve all 250 kW of load and all 90 kW of critical load in this graph. The earlier tradeoff has disappeared. That is why a good explanation states where a method helps rather than claiming an improvement everywhere. These numbers come from conventional optimization, not from Llama.
+**Say:** At 180 kW, both goals give the same result. The chosen priority matters when capacity forces a choice. The priority rule is especially visible when resources force a trade-off. More capacity can make the two stated goals agree on this model.
 
-**Show:** Compare the equal total and critical service at 180 kW.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/47)
 
-### Slide 48. L7: test an old result after a change
+### Slide 48. L7: change the request, then check the evidence
 
 50:00-51:30 / 1.5 minutes
 
-**Say:** First restore the original capacity list and rerun L6. Then run the whole L7 cell. It matches the first restoration result to its 40 kW request, then changes the request to 20 kW without recomputing the plan. We are testing whether old evidence still matches, not solving the changed problem in this cell.
+**Say:** Restore the original capacity list and rerun L6. Run L7: the requested capacity changes from 40 kW to 20 kW. Run the complete L7 cell after restoring L6. It compares an old checked result with a request that now has a smaller capacity.
 
-**Show:** Show the reset list, then the L7 changed request.
+**Show:** Locate L7 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: RESET, THEN RUN.** Restore the original capacity list and rerun L6. Then run the whole L7 cell.
 
@@ -864,103 +876,95 @@ Exact cells: classroom-018, classroom-021. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/48)
 
-### Slide 49. L7: the old evidence no longer matches
+### Slide 49. The old result no longer matches
 
 51:30-52:00 / 0.5 minutes
 
-**Say:** The original request matches and returns True. The changed request returns False because the old evidence describes another set of inputs. Keep the old recommendation on HOLD and request a new solve. This result does not prove that every new plan at 20 kW must fail; it says the old check cannot support the changed request.
+**Say:** The original request matches; the changed request does not. Put the old recommendation on HOLD and request a new calculation. HOLD here means the old evidence no longer matches. It does not prove every newly calculated plan would fail.
 
-**Show:** Read original True and changed-request False.
+**Show:** Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-**Ask:** Does False prove the new physical plan is infeasible?
-
-**Answer:** No. It detects that the old evidence does not match the changed request.
-
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/49)
 
-### Slide 50. New inputs need new evidence
+### Slide 50. A new limit needs a new study
 
 52:00-52:30 / 0.5 minutes
 
-**Say:** There are two different problems: an electrical limit violation and an outdated result. A mismatch test detects the second. After changing the request, we need a new solve and a new check attached to the new inputs. A confident natural-language explanation cannot turn an old calculation into current evidence.
+**Say:** Old evidence does not tell us whether a new plan works. Calculate again, check again and attach the new result to the new request. An agent can notice the changed request, ask the tool to solve it again and return the new checks. Rewriting the old explanation would not update the calculation.
 
-**Show:** Distinguish an old-evidence mismatch from physical infeasibility.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/50)
 
-### Slide 51. The agent keeps the service goal
+### Slide 51. The agent keeps the operator’s goal
 
 52:30-53:00 / 0.5 minutes
 
-**Say:** L6 itself runs Python directly: the operator supplies priorities and limits, and MILP selects loads. An agent could request that existing tool and explain the returned tradeoff while keeping the goal fixed. We should not describe that possible role as a live LLM action in L6. The saved multi-role restoration workflow is a separate study.
+**Say:** The operator sets priorities. The solver selects loads. The agent can request the solve and explain the returned service trade-off. Keeping the goal fixed matters when many studies are requested. The agent should return the achieved total and critical service with each result.
 
-**Show:** Point to the operator goal and numerical load selection.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L6 later on slide 40; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L6 later on slide 41; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/51)
 
-### Slide 52. Restoration model limits
+### Slide 52. This model leaves some checks for later
 
 53:00-53:30 / 0.5 minutes
 
-**Say:** The six-node model is deliberately small. It handles active-power transport and whole-load pickup. It does not check AC voltage, reactive power, protection or a safe order of field operations. A selected set of energized branches is therefore a study result to review, not a complete switching instruction.
+**Say:** This small model checks which loads receive power. Voltage, protection and field switching need separate checks. The six-node exercise is an active-power service model. AC voltage, protection and the safe order of physical operations remain outside its result.
 
-**Show:** Name one omitted physical check.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/52)
 
-### Slide 53. Saved restoration case: try another plan
+### Slide 53. Recorded example: try more service
 
 53:30-54:30 / 1 minute
 
-**Say:** In the separate saved feeder-catalog case, Llama requests SHED_075. The tool reports more served load than the previous passing plan, while preserving critical service and passing the current check. The operation name describes a setting in this catalog. It is not the capacity edit or MILP result from our six-node exercise.
+**Say:** This saved feeder study is different from L6. Llama requests another plan. The tool reports more service and passing checks. The saved feeder example is larger than the L6 exercise and has different numbers. Watch the request, returned check and next choice rather than comparing its total kW with L6.
 
-**Show:** Read the saved SHED_075 result and current percentage.
+**Show:** Preview the actual saved Llama request and returned tool evidence. Do not ask learners to run ahead. L10B will replay these records after the three labs.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 74; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/53)
 
-### Slide 54. Saved restoration case: reject a failed trial
+### Slide 54. Recorded example: the tool rejects a trial
 
 54:30-55:00 / 0.5 minutes
 
-**Say:** Llama next requests SHED_065. That restores more ordinary load but reaches about 111 percent of allowed current, so the verifier rejects it. A larger service number cannot compensate for a failed hard limit. Keep the earlier passing candidate available, record the failure and prevent the rejected trial from entering the final ranking.
+**Say:** The next trial carries too much current. It cannot replace the previous passing option. The numerical guard excludes the overloaded trial. Restoring more load is useful only when the required checks also pass.
 
-**Show:** Point to the failed current check for SHED_065.
+**Show:** Preview the actual saved Llama request and returned tool evidence. Do not ask learners to run ahead. L10B will replay these records after the three labs.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 74; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/54)
 
-### Slide 55. Saved restoration case: correct the ranking
+### Slide 55. Recorded example: correct a wrong ranking
 
 55:00-56:00 / 1 minute
 
-**Say:** Llama then puts the passing candidates in the wrong cost order. Python checks the numerical costs, keeps the lower-cost passing plan and rechecks it. This is a concrete reason to keep a deterministic ranking guard. A valid JSON answer can still contain a bad decision, so checking the output format is only the first step.
+**Say:** Llama puts two passing plans in the wrong order. Python keeps the lower-cost plan and checks it again. Here the lower costs are negative: about minus 6109 is lower than minus 5509. The model’s order is wrong, so Python corrects it and rechecks the retained plan.
 
-**Show:** Compare Llama order with the numerical cost order.
+**Show:** Preview the actual saved Llama request and returned tool evidence. Do not ask learners to run ahead. L10B will replay these records after the three labs.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 74; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
-
-**Ask:** Can schema-valid JSON still give the wrong ranking?
-
-**Answer:** Yes. The numerical order must also be checked.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/55)
 
@@ -968,41 +972,49 @@ Exact cells: classroom-018, classroom-021. Run the whole cell.
 <a id="module-cyber"></a>
 ## Cyber response
 
-### Slide 56. Case 3: suspicious readings
+### Slide 56. Case 3: can we trust these readings?
 
 56:00-56:30 / 0.5 minutes
 
-**Say:** The cyber exercise uses a separate four-bus DC model. We can compare an alarm against the true simulated state because this is an offline teaching experiment. A real control-room estimator does not receive that truth for comparison. Keep the alarm's measured consistency separate from our offline measurement of estimation error.
+**Say:** The operator sees measurements, not the true system state. Several altered readings can agree with each other and still lead to a wrong estimate. An agent can request tests and organize the evidence, but it cannot create a trusted measurement source. The lab uses known simulated changes so that we can compare fit with actual estimation error.
 
-**Show:** Identify the separate four-bus model.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L8 later on slide 56; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L8 later on slide 58; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
+
+**Ask:** Does a good fit prove a reading is true?
+
+**Answer:** No. Coordinated wrong readings can fit the model while giving a wrong estimated state.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/56)
 
-### Slide 57. What the residual measures
+### Slide 57. Mismatch is only one check
 
 56:30-57:30 / 1 minute
 
-**Say:** Weighted least squares finds a state that fits the supplied readings, with more weight on readings declared less uncertain. Residual J measures the remaining mismatch. It does not establish where the data came from. The state-error plot is possible here because the simulation supplies a known truth, which remains outside the estimator and Llama inputs.
+**Say:** Mismatch J measures how well the model fits the readings. The simulation lets us measure how wrong the estimate is (state error). In the cyber lab, J is a mismatch statistic, not the control cost used in the voltage lab. A low mismatch says the model fits the readings; it does not authenticate them.
 
-**Show:** Distinguish measured residual from offline truth error.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L8 later on slide 56; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L8 later on slide 58; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
+**Ask:** What does a low mismatch tell us?
+
+**Answer:** That the model fits the supplied readings, not that the readings are authentic.
+
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/57)
 
-### Slide 58. L8: run two data attacks
+### Slide 58. L8: compare two misleading-data patterns
 
 57:30-59:30 / 2 minutes
 
-**Say:** Run the default L8 cell. One attack biases a single reading. The other coordinates changes so that they remain consistent with the modeled measurement relationships. Compare both the residual and state-error plots. Before looking at the curves, predict whether a larger data attack must always create a larger residual alarm.
+**Say:** Run L8 with the default settings. Compare one biased reading with a coordinated change across several readings. The isolated pattern changes one reading. The coordinated pattern changes several together. We compare the same two questions: did the alarm trigger, and how wrong was the estimated state?
 
-**Show:** Show the two attack types and default scale list.
+**Show:** Locate L8 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: RUN.** Run L8 with ATTACK_SCALES=(0.,.25,.5,1.,1.5).
 
@@ -1012,25 +1024,25 @@ Exact cells: classroom-023. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/58)
 
-### Slide 59. L8: read both cyber plots
+### Slide 59. Read the alarm and the estimation error
 
 59:30-60:30 / 1 minute
 
-**Say:** The coordinated curve is the important one to follow across both panels. Its state error can grow while the residual stays small. The left panel therefore tells us about fit to the model, not the truth of the data. Read the threshold and the offline error together before calling a quiet alarm reassuring.
+**Say:** Left: mismatch and its alarm threshold. Right: error against the simulation’s known truth. A quiet alarm can appear alongside a growing error. The right plot uses truth known inside the simulation. A real operator usually cannot read that error directly from a live system.
 
-**Show:** Follow one coordinated curve across both panels.
+**Show:** Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/59)
 
-### Slide 60. L8: a coordinated attack escapes the alarm
+### Slide 60. A coordinated change can escape the alarm
 
 60:30-61:30 / 1 minute
 
-**Say:** At scale one, the isolated bias gives J about 277.50 and triggers the alarm. The coordinated attack gives J about 3.92, below the threshold, while the state error is about 0.02678 radians. This attack assumes knowledge of the model and control of the modeled unprotected channels. It is a defined teaching threat, not every possible attack.
+**Say:** At scale 1, one biased reading gives mismatch J=277.50 and an alarm. A coordinated change gives J=3.92, no alarm, and 0.02678 rad of state error. The coordinated changes preserve a small mismatch even as the estimate moves away from the known state. This is the reason a quiet alarm is incomplete evidence.
 
-**Show:** Compare alarm, residual and state error at scale 1.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
@@ -1040,9 +1052,9 @@ Exact cells: classroom-023. Run the whole cell.
 
 61:30-64:30 / 3 minutes
 
-**Say:** Add .10 to the attack-scale list and rerun L8. Focus on the isolated-bias row at that scale. Read J, the alarm flag and state error. Use the two plots to answer whether no alarm means the reading is correct. Change only the scale list so the comparison stays clear.
+**Say:** Add .10 to ATTACK_SCALES. Predict, then rerun L8. At scale 0.10, compare mismatch J, the alarm and state error. Does no alarm prove that the readings are correct?
 
-**Show:** Keep the question visible for three minutes: predict for one minute, then edit and run for two. Advance to the next slide for the one-minute worked answer.
+**Show:** Show the question for three minutes: predict for one, then edit and run for two. Advance once for the worked answer.
 
 **Colab: EDIT AND RERUN.** Add .10 to ATTACK_SCALES. Rerun all of L8 and inspect the isolated-bias row. Give this exercise four minutes.
 
@@ -1050,7 +1062,7 @@ Exact cells: classroom-023. Run the whole cell.
 
 **Expected:** At isolated scale 0.10, J is about 10.14, below the 15.09 threshold; no alarm is not proof of truth.
 
-**Ask:** Does no alarm mean the reading is true?
+**Ask:** Add .10 to ATTACK_SCALES. Predict, then rerun L8. At scale 0.10, compare mismatch J, the alarm and state error. Does no alarm prove that the readings are correct?
 
 **Answer:** No. The threshold can miss a small bias, and coordinated changes can preserve the fit.
 
@@ -1060,9 +1072,9 @@ Exact cells: classroom-023. Run the whole cell.
 
 64:30-65:30 / 1 minute
 
-**Say:** At scale 0.10, isolated bias gives residual J=10.143237 and state error 0.0008057145 rad. Coordinated Hc gives J=3.920222 and state error 0.0025529499 rad. Both are below the 15.086272 alarm threshold, so both alarm flags are False. This J is a residual statistic, unlike the voltage-control objective J. State error is available here because simulation truth is known. Restore the original ATTACK_SCALES and rerun L8 before the separate fixed L9 recovery case.
+**Say:** Both alarms are False at scale 0.10, but both estimates still have error. No alarm means the mismatch is below this threshold. It does not establish data trust. At scale 0.10, the isolated mismatch is about 10.143 and the coordinated mismatch is about 3.920. Both are below 15.086, while their state errors are nonzero.
 
-**Show:** Advance from the question only after learners have made a prediction and run the cell. Read every chart label, compare the results and explain the model’s scope.
+**Show:** Advance from the exercise only after learners try it. Read the verified values, explain why the outcome occurs and answer every part of the question.
 
 **Colab: INSPECT / RESET.** Use the output already produced for the exercise. Restore the original ATTACK_SCALES and rerun L8 before the separate fixed L9 recovery case.
 
@@ -1070,25 +1082,25 @@ Exact cells: classroom-023. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/62)
 
-### Slide 63. Exercise 3: a small bias can miss the threshold
+### Slide 63. A small bias can stay below the threshold
 
 65:30-66:30 / 1 minute
 
-**Say:** At isolated scale 0.10, J is about 10.14, below the 15.09 alarm threshold. A small inconsistent bias can therefore miss the threshold. The coordinated attack illustrates a different problem: it can preserve the fit by design. These examples show why a residual alarm alone cannot establish measurement authenticity.
+**Say:** At scale 0.10, the mismatch is 10.14, below the 15.09 threshold. The operator still needs other evidence about the readings. This example concerns the alarm threshold. It does not establish which readings should be trusted in a real event.
 
-**Show:** Point to 10.14 below 15.09.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/63)
 
-### Slide 64. L8: reset before recovery
+### Slide 64. L8: reset before the recovery example
 
 66:30-67:00 / 0.5 minutes
 
-**Say:** Restore the original attack-scale list and rerun L8. This resets the shared notebook state before continuing. L9 uses a fixed recovery case rather than the last point from your scale sweep. Changing a plotted scale in L8 therefore does not automatically change the correction calculated in L9.
+**Say:** Restore the original attack scales and rerun L8. L9 uses a separate fixed recovery case. L9 is deliberately a fixed recovery example. Your L8 sweep is a separate experiment and does not select the L9 correction.
 
-**Show:** Show the original scale list restored.
+**Show:** Locate L8 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: RESET AND RERUN.** Restore ATTACK_SCALES=(0.,.25,.5,1.,1.5) and rerun all of L8.
 
@@ -1098,45 +1110,45 @@ Exact cells: classroom-023. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/64)
 
-### Slide 65. L9: one fixed recovery case
+### Slide 65. L9: ask whether a correction can be proposed
 
 67:00-67:30 / 0.5 minutes
 
-**Say:** We will compare the same recovery case under two information conditions. In one, the extra trusted readings are unavailable. In the other, three angle readings are assumed trustworthy. The numerical fixture stays fixed. We are testing the effect of that information assumption, not making the solver recover from every attack scale we just plotted.
+**Say:** Compare one case with and without readings assumed to be trusted. Changing your L8 sweep does not change this fixed case. We change the availability of assumed trusted replacement readings, while keeping the recovery case fixed. This isolates the role of that assumption.
 
-**Show:** Keep the same fixed recovery case while changing data availability.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L9 later on slide 64; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L9 later on slide 67; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/65)
 
-### Slide 66. Data trust is an assumption
+### Slide 66. Trusted readings must come from somewhere
 
 67:30-68:00 / 0.5 minutes
 
-**Say:** The word trusted has a specific meaning here: the example assumes three independent angle readings are trustworthy. No authentication system is implemented. Neither a small residual nor a good Llama explanation can create that trust. In an actual operator study, the source and protection of those readings would need independent evidence.
+**Say:** This example assumes extra trustworthy readings are available. Neither the fitting tool nor Llama proves that these readings are authentic. The lesson supplies a trust assumption so that the numerical task can be studied. The calculation is not a method for proving sensor identity or integrity.
 
-**Show:** Point to the assumed trusted angle channels.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L9 later on slide 64; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L9 later on slide 67; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
-**Ask:** Which tool authenticates these three readings?
+**Ask:** Does Llama authenticate the extra readings?
 
-**Answer:** None in this fixture; their trust is an external assumption.
+**Answer:** No. Their trustworthiness is an explicit assumption of this example.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/66)
 
-### Slide 67. L9: HOLD or PROPOSE
+### Slide 67. L9: read HOLD or PROPOSE first
 
 68:00-69:30 / 1.5 minutes
 
-**Say:** Run all of L9. First read the status for each condition. Without the assumed trusted replacement readings, the result is HOLD and no correction is proposed. With them, a quadratic-program solver calculates a constrained correction and returns PROPOSE. The offline check uses simulation truth to assess the outcome afterward.
+**Say:** Run L9 and read the status before the proposed adjustment. Then check the model’s returned limits and remaining assumptions. HOLD means a required condition is absent. PROPOSE means the tool can offer a model-based correction for review, not permission to operate equipment.
 
-**Show:** Read status before looking at the correction.
+**Show:** Locate L9 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: RUN.** Run all of L9 after resetting L8.
 
@@ -1146,65 +1158,65 @@ Exact cells: classroom-026. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/67)
 
-### Slide 68. L9: two outcomes
+### Slide 68. Missing trust means HOLD
 
 69:30-70:30 / 1 minute
 
-**Say:** With the trust assumption, the proposed flexible injection is about 0.121694 per unit and the offline model reports zero violations. Per unit means a value relative to the model's stated base, not a direct MW command. PROPOSE is a study outcome for review. It does not say that the sensors have been authenticated or that equipment may operate.
+**Say:** Without trusted replacement readings: HOLD. With the trust assumption: PROPOSE a 0.121694 p.u. adjustment; the offline model checks pass. The passing result depends on the declared trust premise and the simplified model. Zero offline violations is a model result, not a field guarantee.
 
-**Show:** Compare HOLD, PROPOSE and the offline violation count.
+**Show:** Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/68)
 
-### Slide 69. L9: check the correction
+### Slide 69. The tool calculates a small correction
 
 70:30-71:00 / 0.5 minutes
 
-**Say:** The solver looks for the smallest permitted correction that meets the modeled branch limits with a margin. One predicted flow is 0.17000 per unit. The offline actual value is about 0.17046, below the 0.18000 limit. Those are model-specific results. They do not add protection, dynamic or equipment-permission checks.
+**Say:** The solver finds the smallest allowed adjustment that meets the checked branch limits. Predicted flow: 0.17000 p.u. Offline check: 0.17046 p.u. Limit: 0.18000 p.u. Per unit, written p.u., expresses a value relative to a chosen model base. Compare the predicted and offline checked flow with the same 0.18 limit.
 
-**Show:** Locate predicted flow, offline actual flow and the limit.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/69)
 
-### Slide 70. A proposal depends on its assumptions
+### Slide 70. How the agent helps with suspicious readings
 
 71:00-71:30 / 0.5 minutes
 
-**Say:** The recovery proposal depends on assumed trusted data, the four-bus model and the stated limits. The numerical tool supplies the correction and its checks. The operator must still review those assumptions and any missing studies. If the required information is unavailable, the useful assistant response is a clear HOLD with the missing requirement identified.
+**Say:** Follow the information from the readings to the proposed correction. Without the required trusted data, the workflow returns HOLD. With that assumption, the tool can calculate a candidate. The agent can request these steps and explain missing checks; the operator must still assess the premise and decide the authorized next step.
 
-**Show:** Point to assumptions, checks and the operator-review step.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/70)
 
-### Slide 71. Saved cyber case: request the allowed tool
+### Slide 71. Recorded example: request the recovery tool
 
 71:30-72:00 / 0.5 minutes
 
-**Say:** This saved standard cyber episode already supplies the allowed recovery tool and the trust assumption. Llama selects that tool, and Python calculates the correction. The model does not discover a trusted sensor source. This recording is separate from the five-role cyber archive in L10, even though both use related four-bus teaching methods.
+**Say:** Llama requests the supplied recovery tool. Python calculates a correction using the assumed trusted readings. The permitted tool is already supplied in this example. Llama chooses to request it; Python performs the estimation and correction calculation.
 
-**Show:** Read the supplied tool choice and trust condition.
+**Show:** Preview the actual saved Llama request and returned tool evidence. Do not ask learners to run ahead. L10B will replay these records after the three labs.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 74; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/71)
 
-### Slide 72. Saved cyber case: keep human review
+### Slide 72. Recorded example: keep human review
 
 72:00-73:00 / 1 minute
 
-**Say:** The recorded numerical check passes, but the language result still asks for review. The operator's acknowledgment is pending. This is the right distinction to keep visible: a passed calculation, a model's review message and a person's decision are different events. The fixed comparator gives the same numerical outcome in this saved episode.
+**Say:** The model checks pass; human review is still pending. Data trust and operating permission still need review. A model check, human review and permission to operate equipment are separate steps. The record has not completed the latter two.
 
-**Show:** Read PASS, REVIEW and pending human acknowledgment separately.
+**Show:** Preview the actual saved Llama request and returned tool evidence. Do not ask learners to run ahead. L10B will replay these records after the three labs.
 
-**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+**Colab: PREVIEW ONLY.** Show the slide only. Run L10B later on slide 74; keep the notebook in order.
 
 **Expected:** No new notebook output on this slide.
 
@@ -1214,13 +1226,13 @@ Exact cells: classroom-026. Run the whole cell.
 <a id="module-closing"></a>
 ## Agent workflow and operator review
 
-### Slide 73. L10: inspect the five-role workflow
+### Slide 73. L10: inspect the saved sequence of jobs
 
 73:00-74:30 / 1.5 minutes
 
-**Say:** Run L10 to inspect every stage in the saved five-role workflow. Read a case, role, returned choice and result rather than only the model's explanation. One Llama model fills the planning and optimizer roles; Python performs the other stages. This cell reads the saved trace. It does not launch five new agents or call a model.
+**Say:** Run L10 to see the recorded choices, calculations and checks. The next diagrams give these jobs simple names. Read the saved trace as a sequence of jobs. Identify which job chooses a request and which jobs calculate and check its result.
 
-**Show:** Expand the saved trace and find all five distinct stage names.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: RUN.** Run all of L10 after L9. Read the case and stage columns in the saved trace.
 
@@ -1230,13 +1242,13 @@ Exact cells: classroom-028. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/73)
 
-### Slide 74. L10B: replay the three Llama examples
+### Slide 74. L10B: replay each saved agent example
 
 74:30-79:00 / 4.5 minutes
 
-**Say:** Run the full L10B cell for voltage, then change SCENARIO to restoration and cyber, rerunning each time. Follow input facts, allowed choice, exact public reason, tool result and next step. Find the failed voltage trial or wrong restoration ranking. These are saved, source-checked episodes; replaying them performs no new Llama call or electrical solve.
+**Say:** Set SCENARIO to voltage, restoration or cyber, then rerun this cell. Read the model’s request and the tool’s response. This is a saved replay. Run this full cell once for each scenario. The displayed words and tool evidence were recorded earlier; this default demonstration makes no fresh Llama call.
 
-**Show:** Follow one full replay from facts to next decision.
+**Show:** Locate L10B in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: REPLAY THREE TIMES.** After L10, run the whole L10B cell for SCENARIO="voltage", then "restoration", then "cyber". Change only that string between runs.
 
@@ -1246,13 +1258,13 @@ Exact cells: classroom-llama-walkthrough. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/74)
 
-### Slide 75. L12: practice operator readback
+### Slide 75. L12: practice checking the recommendation ID
 
 79:00-81:00 / 2 minutes
 
-**Say:** Leave the live-model switch False and run L11; SKIPPED is expected. Then run L12. It returns to the original voltage test_01 result, not the restoration or cyber sweeps. Compare a full MV/LV request with an explicit MV teaching request, then inspect the wrong-ID and correct-ID readback tests. This remains a simulation.
+**Say:** Leave L11 disabled, then run L12. Compare the wrong ID with the matching ID. Equipment control stays off. Readback means acknowledging the specific recommendation being reviewed. The wrong identifier must not acknowledge a different recommendation.
 
-**Show:** Locate the wrong-ID assertion, the matching readback and equipment_dispatch.
+**Show:** Locate L12 in Classroom Labs. Show the highlighted source lines, then run the whole cell when the Colab cue says to run. Read the returned result in plain words.
 
 **Colab: SKIP LIVE CALL, THEN RUN.** Keep RUN_LOCAL_LLAMA=False. Run L11 and expect SKIPPED. Then run all of L12.
 
@@ -1262,115 +1274,115 @@ Exact cells: classroom-030, classroom-033. Run the whole cell.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/75)
 
-### Slide 76. L12: approval must match the checked scope
+### Slide 76. Approval must match the checked study
 
 81:00-82:00 / 1 minute
 
-**Say:** The full MV/LV request stays on HOLD because the evidence only covers MV. The narrower teaching request can accept a simulated readback when the recommendation ID matches. A wrong ID fails. Check that equipment_dispatch remains False. Human acknowledgment records which study was reviewed; it cannot repair a missing engineering check or authorize field switching here.
+**Say:** The wider-grid request returns HOLD. The limited teaching request permits a simulated readback. A wrong ID fails. This practice sends no equipment commands. The wider request requires checks the default study does not supply. The narrower teaching packet supports only a simulated acknowledgement, with equipment dispatch remaining False.
 
-**Show:** Compare scope matching before acknowledgment.
+**Show:** Use the actual source image. Point to the returned status or number that supports the slide’s statement. State whether it is a fresh calculation or a saved example.
 
 **Colab: NO NEW RUN.** Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
 
-**Ask:** Can a correct recommendation ID repair missing LV coverage?
-
-**Answer:** No. Scope must match before a readback can be accepted.
-
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/76)
 
-### Slide 77. Our multi-agent design: five roles
+### Slide 77. Five roles share the work
 
 82:00-83:30 / 1.5 minutes
 
-**Say:** The multi-agent design here means five named responsibilities in one Python workflow. Awareness reads the case. Planning prepares candidates and asks Llama whether to proceed. Simulation calculates their effects. Verification applies fixed checks. The optimizer asks Llama for an allowed new trial or ranking. Changed trials return for calculation and checking, and the selected option gets a final recheck before human review.
+**Say:** The five roles are five jobs rather than five independent language models. Python reads the case, calculates and verifies. One Llama model requests initial trials and later refinements. Python also guards the final ranking and rechecks the selected option. The default notebook displays these saved stages.
 
-**Show:** Follow the five roles and the return path for a changed trial.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Use the saved L10 trace already displayed. Map the five roles without making a new model call.
 
-**Ask:** Are these five separate LLMs?
+**Ask:** Do five roles mean five separate Llama models?
 
-**Answer:** No. One Llama model fills two roles; Python runs awareness, simulation and verification.
+**Answer:** No. One Llama model fills two roles; Python performs the other three jobs and the final guard.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/77)
 
-### Slide 78. Five roles in the voltage case
+### Slide 78. Voltage: request, calculate, check, improve
 
 83:30-84:30 / 1 minute
 
-**Say:** For the saved L10 voltage case, awareness keeps the load and limits. Numerical planning tools supply MPC and SAC candidates. Simulation calculates voltage and current, and verification tests the limits. Llama requests less reactive power and then more solar output. Python rechecks each change. The final current use is about 50.75 percent in the MV-only model; operator review is still separate.
+**Say:** Llama requests small changes to the solar settings. Python recalculates each trial and checks its limits before comparison. This is the separate saved L10 medium-voltage example. New settings return to calculation and checking. Its final recorded current use is about 50.75% of the allowance.
 
-**Show:** Map each role to the saved voltage inputs, calculations and final result.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Use the saved L10 trace already displayed. Map the five roles without making a new model call.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/78)
 
-### Slide 79. Five roles in the restoration case
+### Slide 79. Restoration: keep priorities and reject failures
 
 84:30-85:30 / 1 minute
 
-**Say:** For L10 restoration, awareness records the fault, available ties and critical loads. Planning supplies catalog options. Simulation measures service and current. Verification rejects the SHED_065 trial that exceeds the current limit. Llama's optimizer also ranks passing plans incorrectly. Python corrects the cost order and rechecks the chosen plan: about 1,843.61 kW total and 474.04 kW critical, with 91.87 percent current use.
+**Say:** The goal stays fixed when new plans are tried. Python excludes failed trials and corrects a wrong cost order. In the saved feeder case, a trial at about 111.01% current use is rejected. The retained plan serves about 1843.61 kW total and 474.04 kW critical.
 
-**Show:** Map each role to the saved catalog trial, failure and corrected ranking.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Use the saved L10 trace already displayed. Map the five roles without making a new model call.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/79)
 
-### Slide 80. Five roles in the cyber case
+### Slide 80. Cyber: keep the trust assumption visible
 
 85:30-86:30 / 1 minute
 
-**Say:** For L10 cyber response, awareness preserves the readings and declared trust assumption. Planning supplies allowed response candidates. Simulation estimates the state and calculates corrections. Verification tests the trust condition, flows and model scope. Llama requests bounded refinements, including the trusted-data QP. The final selected injection is about 0.121694 per unit. None of these roles authenticates the sensors or replaces human review.
+**Say:** The agent can request another permitted study or report that evidence is missing. It cannot make a data source trustworthy by describing it confidently. The saved cyber example keeps the assumed trusted readings visible throughout the workflow. Repeating or explaining that assumption does not establish its truth.
 
-**Show:** Map each role to data trust, the QP correction and flow checks.
+**Show:** Read the visual from the input to the result. Name the operator’s goal, the agent’s request and the fact supplied by the tool. Explain the decision in the two slide sentences.
 
 **Colab: NO NEW RUN.** Use the saved L10 trace already displayed. Map the five roles without making a new model call.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/80)
 
-### Slide 81. The operator reviews one evidence packet
+### Slide 81. The operator chooses the next step
 
 86:30-87:30 / 1 minute
 
-**Say:** An operator needs a short evidence packet: which case and data were used, which proposal was selected, the worst margins and the missing checks. The person can request another study, reject the proposal or accept it for a defined next step. Reviewing a study is different from issuing an equipment command through an authorized operating process.
+**Say:** Review the case, tool results, checked limits and missing work. Request another study, reject the proposal or take the next authorized step. Ask whether the evidence belongs to this case, whether all needed checks are present and what remains unresolved. Those questions support the next human decision.
 
-**Show:** Point to the study packet and the three review choices.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
+
+**Ask:** What should happen when a required check is missing?
+
+**Answer:** Return the unresolved condition and request the missing study or review before proceeding.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/81)
 
-### Slide 82. What the evidence shows
+### Slide 82. Measure whether the agent helps
 
 87:30-88:30 / 1 minute
 
-**Say:** We should measure useful benefit rather than assume it. In L10's six paired comparisons, five final costs tied and one Llama route was worse. Model calls also added time. Start with past cases and read-only studies. Compare completed work, missed checks, time and review effort against a fixed script using the same numerical tools and budgets.
+**Say:** Compare it with a fixed script using the same tools and cases. In L10, five final costs tied; one Llama route was worse. Benefit must be measured. The recorded comparison does not establish a general performance gain. Test completed work, missed checks, time and review effort against the same tools in a fixed script.
 
-**Show:** Keep the paired study result separate from a proposed pilot benefit.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: NO NEW RUN.** Explain the figure or discuss the output already produced. Do not run ahead.
 
-**Ask:** What useful benefit should a new pilot measure?
+**Ask:** What would count as useful improvement?
 
-**Answer:** Completed correct studies, missed checks, elapsed time and reviewer effort against a fixed-script baseline.
+**Answer:** Better completed work or less total effort under comparable cases and the same required checks.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/82)
 
-### Slide 83. Questions and your next lab run
+### Slide 83. Try one change and explain the result
 
 88:30-90:00 / 1.5 minutes
 
-**Say:** Choose one case you can repeat after the session. Change one input, run the relevant cell and save the result. Explain the model's choice where a saved episode is used, the numerical tool result, the check and the operator's remaining decision. Keep your new experiment separate from the saved reply's original inputs. We can now use questions to revisit any part of that loop.
+**Say:** Choose one case. Change one input, rerun and save the result. Explain the problem, agent choice, tool result and operator decision. Use one case to explain the complete story. State the problem, the agent’s choice, the tool’s returned fact and the operator’s remaining decision.
 
-**Show:** Point to the Colab link and invite one repeatable experiment.
+**Show:** Use the two short slide statements to explain the idea. Link it to the operator’s next decision or to the named Colab cell.
 
 **Colab: NO NEW RUN.** No required new run. Learners may repeat one case afterward and save their changed inputs and outputs.
 
-**Ask:** Can you explain one case using input, tool, result, check and operator decision?
+**Ask:** What are the four parts of your explanation?
 
-**Answer:** Accept an answer only when it distinguishes new calculations from saved model replies and states a remaining limit.
+**Answer:** Problem, agent choice, tool result and operator decision.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/83)
 
@@ -1378,31 +1390,31 @@ Exact cells: classroom-030, classroom-033. Run the whole cell.
 
 ### Voltage: L10 MV archive
 
-- **Awareness / Python:** Read the load, forecast, current allowance and MV model scope.
-- **Planning / numerical tools and Llama:** Prepare MPC and saved-SAC candidates. Llama can request the declared initial studies or return review.
-- **Simulation / Python:** Calculate the effects of each candidate using the declared three-phase linear model.
-- **Verification / Python:** Check case matching, voltage, current and inverter limits. Only passing candidates receive eligible scores.
-- **Optimizer / Llama, with a Python guard:** Request less reactive power, then more PV output. Recalculate and check every changed setting. Python selects by verified cost and performs a final recheck.
+- **Read the case / Python:** Read the load, forecast, current allowance and MV model scope.
+- **Choose a trial / numerical tools and Llama:** Prepare MPC and saved-SAC candidates. Llama can request the declared initial studies or return review.
+- **Calculate / Python:** Calculate the effects of each candidate using the declared three-phase linear model.
+- **Check / Python:** Check case matching, voltage, current and inverter limits. Only passing candidates receive eligible scores.
+- **Refine / Llama, with a Python guard:** Request less reactive power, then more PV output. Recalculate and check every changed setting. Python selects by verified cost and performs a final recheck.
 
 Selected final current use: about 50.75% of the allowance. This is the L10 MV archive, not the L2 experiment or P3 OpenDSS replay. The operator still reviews scope and missing checks.
 
 ### Restoration: L10 feeder catalog
 
-- **Awareness / Python:** Keep the fault, available ties, critical loads, service goal and model scope in the shared case record.
-- **Planning / numerical tools and Llama:** Prepare the stated restoration catalog options; request the initial evaluations or review.
-- **Simulation / Python:** Calculate total and critical service and the current used by each option.
-- **Verification / Python:** Reject the SHED_065 trial at about 111.01% of allowed current. Keep the passing SHED_075 trial eligible.
-- **Optimizer / Llama, with a Python guard:** Request bounded catalog changes and rank passing IDs. Python corrects the wrong cost order and rechecks the chosen plan.
+- **Read the case / Python:** Keep the fault, available ties, critical loads, service goal and model scope in the shared case record.
+- **Choose a trial / numerical tools and Llama:** Prepare the stated restoration catalog options; request the initial evaluations or review.
+- **Calculate / Python:** Calculate total and critical service and the current used by each option.
+- **Check / Python:** Reject the SHED_065 trial at about 111.01% of allowed current. Keep the passing SHED_075 trial eligible.
+- **Refine / Llama, with a Python guard:** Request bounded catalog changes and rank passing IDs. Python corrects the wrong cost order and rechecks the chosen plan.
 
 Selected final service: about 1,843.61 kW total and 474.04 kW critical, at 91.87% current use. This is not L6's six-node MILP. Physical switching order and operating permissions remain outside the result.
 
 ### Cyber: L10 four-bus DC archive
 
-- **Awareness / Python:** Read the measurements, alarm context and declared availability of assumed trusted channels.
-- **Planning / numerical tools and Llama:** Prepare the permitted response candidates. Llama can request the initial evaluations or review.
-- **Simulation / Python:** Estimate state and calculate each candidate's branch flows and correction.
-- **Verification / Python:** Test the trust condition, stated branch limits, bounds, evidence match and DC model scope.
-- **Optimizer / Llama, with a Python guard:** Request bounded trials including TRUSTED_QP. Python ranks only passing candidates and rechecks the selected correction.
+- **Read the case / Python:** Read the measurements, alarm context and declared availability of assumed trusted channels.
+- **Choose a trial / numerical tools and Llama:** Prepare the permitted response candidates. Llama can request the initial evaluations or review.
+- **Calculate / Python:** Estimate state and calculate each candidate's branch flows and correction.
+- **Check / Python:** Test the trust condition, stated branch limits, bounds, evidence match and DC model scope.
+- **Refine / Llama, with a Python guard:** Request bounded trials including TRUSTED_QP. Python ranks only passing candidates and rechecks the selected correction.
 
 Selected correction: about 0.121694 p.u., with predicted flow 0.17000 p.u. against the 0.18000 p.u. limit. The trusted readings are assumed, not authenticated. Human review is still separate from equipment dispatch.
 

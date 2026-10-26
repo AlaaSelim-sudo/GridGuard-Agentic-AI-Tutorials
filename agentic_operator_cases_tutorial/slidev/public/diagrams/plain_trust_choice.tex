@@ -1,0 +1,14 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[font=\rmfamily\bfseries,text width=5cm] (q) at (1.7,1.5) {Are the required trusted\\readings assumed available?};
+\node[text=Red,font=\rmfamily\bfseries] (hold) at (10.5,2.7) {HOLD};
+\node[font=\rmfamily\bfseries] (study) at (10.5,.2) {Calculate a proposal};
+\draw[flow,draw=Red] (4.4,1.65)-|node[pos=.3,above,text=Red] {No}(hold.west);
+\draw[flow] (4.4,1.35)-|node[pos=.3,below] {Yes}(study.west);
+\node[text=Slate,text width=7cm] at (8,-.75) {The example supplies this premise.\\The calculation does not prove data trust.};
+
+\end{tikzpicture}

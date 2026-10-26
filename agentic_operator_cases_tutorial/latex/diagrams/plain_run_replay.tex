@@ -1,0 +1,14 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[anchor=west,font=\rmfamily\bfseries] at (0,3.1) {A fresh calculation};
+\node at (1.5,2.25) {Your inputs};\node at (7,2.25) {Python runs now};\node at (12.5,2.25) {New numbers};
+\draw[flow] (3.1,2.25)--(5.3,2.25);\draw[flow] (8.8,2.25)--(11,2.25);
+\node[anchor=west,font=\rmfamily\bfseries] at (0,.85) {A recorded replay};
+\node at (1.5,0) {Original inputs};\node[text width=4cm] at (7,0) {Saved Llama choice};\node[text width=3cm] at (12.5,0) {Past result};
+\draw[flow] (3.1,0)--(5.2,0);\draw[flow] (8.8,0)--(11,0);
+
+\end{tikzpicture}

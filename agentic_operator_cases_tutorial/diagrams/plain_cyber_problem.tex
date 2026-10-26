@@ -1,0 +1,14 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[text=Red,anchor=west] at (0,3) {Some readings may be wrong};
+\node[plainpoint] (a) at (1.5,1.6) {1};\node[below=.3cm of a,text width=3.2cm] {Meter readings};
+\node[plainpoint] (b) at (7,1.6) {?};\node[below=.3cm of b,text width=3.2cm] {Fit the grid model};
+\node[plainpoint,draw=Red] (c) at (12.5,1.6) {?};\node[below=.3cm of c,text width=3.2cm] {Trust these\\readings?};
+\draw[flow] (a)--(b);\draw[flow] (b)--node[above] {Looks consistent}(c);
+\node[text=Red,font=\rmfamily\bfseries] at (7,-.25) {A good fit is not the same as true data};
+
+\end{tikzpicture}

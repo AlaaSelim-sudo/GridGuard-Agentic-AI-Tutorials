@@ -1,0 +1,27 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[plainpoint] (s0) at (0.8,1.6) {1};
+\node[anchor=north,text width=3.1cm,font=\rmfamily\bfseries\fontsize{12}{14}\selectfont] at (0.8,1.08) {Read the\\inputs};
+\node[anchor=north,text width=3.1cm,text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (0.8,-.35) {Readings\\and trust};
+\node[plainpoint] (s1) at (4.1,1.6) {2};
+\node[anchor=north,text width=3.1cm,font=\rmfamily\bfseries\fontsize{12}{14}\selectfont] at (4.1,1.08) {Agent\\requests};
+\node[anchor=north,text width=3.1cm,text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (4.1,-.35) {Permitted\\study};
+\draw[flow] (s0)--(s1);
+\node[plainpoint] (s2) at (7.3999999999999995,1.6) {3};
+\node[anchor=north,text width=3.1cm,font=\rmfamily\bfseries\fontsize{12}{14}\selectfont] at (7.3999999999999995,1.08) {Tool\\calculates};
+\node[anchor=north,text width=3.1cm,text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (7.3999999999999995,-.35) {Estimate and\\correction};
+\draw[flow] (s1)--(s2);
+\node[plainpoint] (s3) at (10.7,1.6) {4};
+\node[anchor=north,text width=3.1cm,font=\rmfamily\bfseries\fontsize{12}{14}\selectfont] at (10.7,1.08) {Check the\\conditions};
+\node[anchor=north,text width=3.1cm,text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (10.7,-.35) {HOLD if\\evidence missing};
+\draw[flow] (s2)--(s3);
+\node[plainpoint] (s4) at (14.0,1.6) {5};
+\node[anchor=north,text width=3.1cm,font=\rmfamily\bfseries\fontsize{12}{14}\selectfont] at (14.0,1.08) {Operator\\reviews};
+\node[anchor=north,text width=3.1cm,text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (14.0,-.35) {Choose the\\next step};
+\draw[flow] (s3)--(s4);
+\draw[flow,draw=Cyan] (s3.north) -- ++(0,.9) -| node[pos=.25,above,text=Cyan] {Use the result to choose the next trial} (s1.north);
+\end{tikzpicture}

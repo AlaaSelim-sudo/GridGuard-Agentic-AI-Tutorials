@@ -287,6 +287,8 @@ def reading_guides(sections):
         web.append("<article><h2>" + he(title) + "</h2><dl>")
         tex.append(r"\setbox\readingEntry=\vbox\bgroup\hsize=\linewidth\subsection*{" + guide_esc(title) + "}\n")
         for label, value in fields:
+            if not value:
+                continue
             md.append("\n**" + label + ":** " + value + "\n")
             web.append("<dt>" + he(label) + "</dt><dd>" + he(value) + "</dd>")
             tex.append(r"\textbf{" + guide_esc(label) + ":} " + guide_esc(value) + r"\par" + "\n")

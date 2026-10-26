@@ -1,0 +1,35 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[plainpoint] (s0) at (0.6,1.6) {1};
+\node[above=.2cm of s0,font=\rmfamily\bfseries] {Read};
+\node[anchor=north,text width=3.1cm] at (0.6,1.05) {Readings\\and trust};
+\node[text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (0.6,-.35) {Python};
+\node[plainpoint] (s1) at (3.9,1.6) {2};
+\node[above=.2cm of s1,font=\rmfamily\bfseries] {Choose};
+\node[anchor=north,text width=3.1cm] at (3.9,1.05) {Recovery\\tool};
+\node[text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (3.9,-.35) {Llama};
+\draw[flow] (s0)--(s1);
+\node[plainpoint] (s2) at (7.2,1.6) {3};
+\node[above=.2cm of s2,font=\rmfamily\bfseries] {Calculate};
+\node[anchor=north,text width=3.1cm] at (7.2,1.05) {State and\\correction};
+\node[text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (7.2,-.35) {Python};
+\draw[flow] (s1)--(s2);
+\node[plainpoint] (s3) at (10.5,1.6) {4};
+\node[above=.2cm of s3,font=\rmfamily\bfseries] {Check};
+\node[anchor=north,text width=3.1cm] at (10.5,1.05) {Bounds\\and flows};
+\node[text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (10.5,-.35) {Python};
+\draw[flow] (s2)--(s3);
+\node[plainpoint] (s4) at (13.8,1.6) {5};
+\node[above=.2cm of s4,font=\rmfamily\bfseries] {Refine};
+\node[anchor=north,text width=3.1cm] at (13.8,1.05) {Allowed\\changes};
+\node[text=Slate,font=\rmfamily\fontsize{11}{13}\selectfont] at (13.8,-.35) {Llama};
+\draw[flow] (s3)--(s4);
+\draw[flow,draw=Cyan] (s4.east)--(15.8,1.6)--(15.8,3.1)--(5.55,3.1)--(5.55,1.6)--(s2.west);\node[above,text=Cyan] at (10.5,3.1) {New trial: calculate and check again};
+\draw[flow] (s4.east)--(15.8,1.6)--(15.8,-1.05)--(10.5,-1.05);
+\node[text width=4cm,font=\rmfamily\bfseries] (final) at (8.5,-1.05) {Final Python check};
+\draw[flow] (final.west)--(4,-1.05);\node[font=\rmfamily\bfseries] at (2.2,-1.05) {Operator review};
+\end{tikzpicture}

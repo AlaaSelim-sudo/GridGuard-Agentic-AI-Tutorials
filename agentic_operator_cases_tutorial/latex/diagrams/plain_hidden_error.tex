@@ -1,0 +1,15 @@
+\definecolor{Red}{HTML}{B83136}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\rmfamily\fontsize{12}{14}\selectfont,
+ every node/.style={text=Navy,align=center},>=Latex,
+ flow/.style={->,draw=IEEEBlue,line width=1.25pt},
+ plainpoint/.style={circle,draw=IEEEBlue,fill=white,line width=1.25pt,minimum size=.55cm,inner sep=1pt}]
+
+\node[font=\rmfamily\bfseries] at (3.2,3.1) {One biased reading};\node[font=\rmfamily\bfseries] at (10.9,3.1) {Coordinated change};
+\node[font=\rmfamily\bfseries\fontsize{20}{23}\selectfont,text=Red] at (3.2,2) {$J=277.50$};
+\node[font=\rmfamily\bfseries\fontsize{20}{23}\selectfont,text=IEEEBlue] at (10.9,2) {$J=3.92$};
+\draw[flow,draw=Red] (3.2,1.45)--(3.2,.65);\draw[flow] (10.9,1.45)--(10.9,.65);
+\node[text=Red,font=\rmfamily\bfseries] at (3.2,.25) {Alarm};
+\node[font=\rmfamily\bfseries] at (10.9,.25) {No alarm};
+\node[text=Slate,text width=6cm] at (10.9,-.55) {State error: 0.02678 rad\\The estimate is still wrong};
+
+\end{tikzpicture}

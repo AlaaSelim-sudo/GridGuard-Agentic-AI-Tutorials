@@ -3,8 +3,8 @@
     "title": "Hands-on: Three Operator Cases",
     "kind": "cover",
     "points": [
-      "One notebook. Three operator problems.",
-      "90 minutes / three short exercises"
+      "Help an operator compare options, check results and decide the next step.",
+      "One notebook / 90 minutes / three short exercises"
     ],
     "refs": [
       "H00",
@@ -41,22 +41,22 @@
     "callout": ""
   },
   {
-    "title": "What is agentic AI?",
+    "title": "An agent chooses what to try next",
     "kind": "diagram",
-    "diagram": "agent_goal_loop",
+    "diagram": "plain_agent_loop",
     "points": [
-      "An AI agent chooses a tool, reads its result and chooses the next step toward a goal."
+      "Give the agent a goal. It requests a tool, reads the result and chooses the next step."
     ],
-    "note": "Use the architectural definition in Anthropic, Building effective agents: an agent lets the LLM direct its process and tool use. Agentic AI is a broad term; here it means a system organized around this bounded loop. An AI agent is the component that chooses and follows steps. A tool is a permitted software function that returns a result. Point to the goal, model choice, executable tool, returned evidence and feedback arrow. The application stores case facts and prior results as the context supplied at the next model request. If a required check is missing, the outcome remains HOLD. Stop or return a proposal only under the fixed workflow rules. Do not imply that feedback alone establishes agency: conventional programs can also branch and loop. Our default notebook calculates engineering results now but replays the actual old Llama choices. No live model service is needed. Stanford source: Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Fall 2026, p.2 describes function calling and agentic workflows. The goal-and-feedback drawing is our grid teaching adaptation, supported by the separate bounded-agent architecture citation. This is not an original Stanford power-system diagram.",
+    "note": "Plain-language explanation: The agent coordinates the work. The numerical tool supplies the engineering result. An error can also guide the next request.\n\nOriginal source detail: Use the architectural definition in Anthropic, Building effective agents: an agent lets the LLM direct its process and tool use. Agentic AI is a broad term; here it means a system organized around this bounded loop. An AI agent is the component that chooses and follows steps. A tool is a permitted software function that returns a result. Point to the goal, model choice, executable tool, returned evidence and feedback arrow. The application stores case facts and prior results as the context supplied at the next model request. If a required check is missing, the outcome remains HOLD. Stop or return a proposal only under the fixed workflow rules. Do not imply that feedback alone establishes agency: conventional programs can also branch and loop. Our default notebook calculates engineering results now but replays the actual old Llama choices. No live model service is needed. Stanford source: Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Fall 2026, p.2 describes function calling and agentic workflows. The goal-and-feedback drawing is our grid teaching adaptation, supported by the separate bounded-agent architecture citation. This is not an original Stanford power-system diagram.",
     "refs": [
       "ST01",
       "DEF03",
       "LR0"
     ],
     "minutes": 1,
-    "caption": "Teaching diagram. Llama choices are saved; Python calculations can run now.",
-    "visual_height_px": 350,
-    "visual_height_cm": 3.9,
+    "caption": "Teaching diagram: the model requests a tool and uses the returned evidence.",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
     "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.2.",
     "takeaway": "",
     "module": "opening",
@@ -70,10 +70,10 @@
     "callout": ""
   },
   {
-    "title": "A tool call and an agent workflow",
+    "title": "The agent asks; the tool calculates",
     "kind": "figure",
     "points": [
-      "A tool call does one job. An agent links jobs using the returned results."
+      "A tool does one job. An agent can connect several jobs using their results."
     ],
     "note": "Show the two original capability panels from Monica Lam’s Stanford CS224V introduction, p.2. The left panel introduces model-selected function calling. The right panel describes multi-step planning, tool use and self-correction. Our plain-language sentence connects the panels to the preceding bounded-loop teaching drawing. The following source-and-lab pairs show why tool results, explicit goals and checked evidence matter in each case. In that example Llama requests a named action and Python validates the JSON choice before calling an existing function; it does not use a native tool_calls protocol. Conventional software can also loop, and a chatbot may itself contain an agent. Here we identify the agentic feature by the model’s permitted next-step choice based on returned evidence. The class replays those old model choices while numerical cells calculate current results. Source lecture figure is shown unchanged within the documented crop.",
     "refs": [
@@ -82,7 +82,7 @@
       "LR0"
     ],
     "minutes": 0.5,
-    "caption": "Source figure, p.2. Function calling and a multi-step workflow.",
+    "caption": "Original Stanford figure: one function call and a multi-step workflow.",
     "visual_height_px": 330,
     "visual_height_cm": 3.7,
     "image_source_path": "images/stanford_agentic_capabilities.png",
@@ -104,46 +104,42 @@
     "callout": ""
   },
   {
-    "title": "Evidence before an answer",
-    "kind": "figure",
+    "title": "Check the evidence before answering",
+    "kind": "diagram",
     "points": [
-      "WikiChat checks claims before writing. Our lab checks numbers before reporting a result."
+      "Keep the tool result and its checks with the recommendation."
     ],
-    "note": "The displayed figure is an original excerpt from Monica Lam’s Stanford CS224V introduction, p.19. Follow its retrieval, claim checking and writing steps. The WikiChat paper is fully cited in the reading guide. Our application to grid studies is a teaching analogy: read the stated limits, run the appropriate numerical check and summarize the actual returned result. Ask which lab step would detect a current violation. The classroom notebook does not run WikiChat; its dialogue factuality measurements are not electrical performance results. This source figure is now in the opening. Spend about one minute on the check-before-writing idea. The next slide maps it to L2; do not run a cell yet.",
+    "note": "Plain-language explanation: Stanford’s example checks claims before writing an answer. Our grid adaptation checks numerical evidence before presenting a recommendation.\n\nOriginal source detail: The displayed figure is an original excerpt from Monica Lam’s Stanford CS224V introduction, p.19. Follow its retrieval, claim checking and writing steps. The WikiChat paper is fully cited in the reading guide. Our application to grid studies is a teaching analogy: read the stated limits, run the appropriate numerical check and summarize the actual returned result. Ask which lab step would detect a current violation. The classroom notebook does not run WikiChat; its dialogue factuality measurements are not electrical performance results. This source figure is now in the opening. Spend about one minute on the check-before-writing idea. The next slide maps it to L2; do not run a cell yet.",
     "refs": [
       "ST01",
       "ST02",
       "H02"
     ],
-    "caption": "Source figure, p.19. WikiChat checks claims before writing.",
+    "caption": "Grid teaching adaptation of Stanford’s idea: check claims before reporting.",
     "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19.",
     "minutes": 0.5,
-    "visual_height_px": 350,
-    "visual_height_cm": 4.1,
-    "image_source_path": "images/stanford_wikichat_steps.png",
-    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=19",
-    "image_credit": "Monica Lam, Stanford University, CS224V Lecture 1: Introduction, Fall 2026.",
-    "image_asset_type": "Original lecture figure excerpt",
-    "image_transformation": "Cropped vector excerpt from the user-supplied lecture PDF, p.19; selected content unchanged. PNG derived with Poppler. Full provenance: research/stanford_80/excerpt_manifest.json.",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
     "takeaway": "",
+    "diagram": "plain_check_answer",
     "module": "opening",
-    "image": "stanford_wikichat_steps.png",
     "eyebrow": "",
+    "image": null,
     "image2": null,
     "caption2": "",
-    "diagram": null,
     "math_tex": "",
     "math_html": "",
     "excerpt": [],
     "callout": ""
   },
   {
-    "title": "Voltage: propose, then check",
+    "title": "Solar settings: which option should we try?",
     "kind": "diagram",
     "diagram": "stanford_colab_voltage",
     "minutes": 0.5,
     "points": [
-      "L2 calculates and checks proposals. L10B shows saved Llama tool choices."
+      "Compare possible settings, then check voltage and line current.",
+      "The agent can organize these trials and report the checked options."
     ],
     "caption": "Teaching adaptation. L2 runs Python; L10B replays saved model choices.",
     "note": "Connect the preceding original WikiChat figure to a grid claim. A text answer might say that a proposed plan fits the limits; a numerical tool must calculate the supporting result. The reference bar is the default L2 MPC result: maximum allowed-current utilization 73.619901%, rounded to 73.62%, at LOAD_SCALE=1.0 and RATING_FRACTION=0.80. It passes this current allowance; modeled voltage and required model coverage must also be checked. The default medium-voltage calculation is not proof for the full MV/LV system. This visual previews the lab; do not run L2 before setup, L0 and L1. L2 calls numerical functions directly. The separate P3 L10B archive later shows Llama requesting a check, reading a failed result and selecting a fallback. Our application is an analogy to evidence checking, not a claim that the notebook runs WikiChat.",
@@ -157,7 +153,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L2",
     "hands_on": false,
-    "eyebrow": "Lab preview: L2",
+    "eyebrow": "Colab / L2",
     "visual_height_px": 340,
     "visual_height_cm": 3.8,
     "teaching_bridge": true,
@@ -172,47 +168,43 @@
     "callout": ""
   },
   {
-    "title": "Clear rules for tool use",
-    "kind": "figure",
+    "title": "Give the agent a goal and clear limits",
+    "kind": "diagram",
     "points": [
-      "Set the inputs, allowed tools, limits and stop rules.",
-      "Python keeps these rules fixed when Llama chooses a step."
+      "State the goal, allowed tools and stopping rules.",
+      "Keep the operator’s review step explicit."
     ],
-    "note": "Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.",
+    "note": "Plain-language explanation: These rules belong to the application and operating process. A persuasive model response cannot change them.\n\nOriginal source detail: Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.",
     "refs": [
       "ST01",
       "ST03",
       "H01"
     ],
-    "caption": "Source figure, p.40. Task rules define permitted tool use.",
+    "caption": "Grid teaching adaptation of Stanford’s task-specification concept.",
     "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40.",
     "minutes": 1,
-    "visual_height_px": 315,
-    "visual_height_cm": 3.7,
-    "image_source_path": "images/stanford_genie_specification.png",
-    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=40",
-    "image_credit": "Monica Lam, Stanford University, CS224V Lecture 1: Introduction, Fall 2026.",
-    "image_asset_type": "Original lecture figure excerpt",
-    "image_transformation": "Cropped vector excerpt from the user-supplied lecture PDF, p.40; selected content unchanged. PNG derived with Poppler. Full provenance: research/stanford_80/excerpt_manifest.json.",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
     "takeaway": "",
+    "diagram": "plain_rules",
     "module": "opening",
-    "image": "stanford_genie_specification.png",
     "eyebrow": "",
+    "image": null,
     "image2": null,
     "caption2": "",
-    "diagram": null,
     "math_tex": "",
     "math_html": "",
     "excerpt": [],
     "callout": ""
   },
   {
-    "title": "Restoration: define the service goal",
+    "title": "Restoration: who should get power first?",
     "kind": "diagram",
     "diagram": "stanford_colab_restoration",
     "minutes": 0.5,
     "points": [
-      "The goal changes which loads the solver restores. L6 compares two goals."
+      "The operator sets the service priority.",
+      "That priority changes what we ask the restoration tool to do."
     ],
     "caption": "L6: same network and limits, different service goals.",
     "note": "The preceding Genie excerpt motivates writing down the task and its rules before calling a function. In L6 the goal is part of the optimization problem: priority weighting serves 130 total kW, including 90 critical kW; maximizing total service gives 140 total kW, including 30 critical kW. The 40 kW limit belongs to one varied tie, while another tie stays fixed at 100 kW. Totals also include the 40 kW load at node 1 upstream of those ties. A 40 kW varied-tie limit is not a cap on total system service. Each stacked bar uses the same scale. Critical service is cyan; other service is blue. Ask which goal better matches an illustrative request to prioritize a hospital. The numerical model uses abstract critical loads, not an actual hospital dataset. Later learners run both goals and change the tie capacity. L6 is a direct Python calculation, not a live LLM agent. An agent coordinating such a study must preserve the requested goal and explain the returned tradeoff. The separate L10B feeder-catalog archive supplies actual saved Llama choices; it differs from this six-node L6 model. Our notebook does not implement Genie Worksheets.",
@@ -226,7 +218,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L6",
     "hands_on": false,
-    "eyebrow": "Lab preview: L6",
+    "eyebrow": "Colab / L6",
     "visual_height_px": 340,
     "visual_height_cm": 3.8,
     "teaching_bridge": true,
@@ -241,11 +233,10 @@
     "callout": ""
   },
   {
-    "title": "Language and decision checks",
-    "kind": "figure",
+    "title": "Keep three jobs clear",
+    "kind": "diagram",
     "points": [
-      "The source example turns written facts into constraints for a solver.",
-      "In our lab, Llama requests a study. Python checks it. A person reviews it."
+      "The agent requests a study. The tool calculates. The operator reviews the result."
     ],
     "refs": [
       "ST01",
@@ -253,37 +244,33 @@
     ],
     "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.",
     "minutes": 0.5,
-    "note": "This original diagram selection comes from the function row on p.53 of Monica Lam’s introduction. It shows a clinical-trial example, not a power-system experiment. The language model translates written facts into an SMT representation; a separate solver derives a decision from those constraints. SMT means satisfiability modulo theories, a way to express and solve logical constraints. MaxSAT supports the lecture’s search for conditions that change a decision. The lecture also states that the formalization may not be completely faithful, so correctness remains relative to the represented constraints. Our application is an analogy: Llama requests the permitted estimate or control tool and Python checks numerical limits. An operator must still confirm the trust assumption and review the proposed action. Our notebook does not run an SMT/MaxSAT solver or prove formal electrical safety. Preview the HOLD/PROPOSE distinction now; participants will calculate the L9 outcomes later with their stated model and trusted-data assumption.",
+    "note": "Plain-language explanation: Keep the three responsibilities separate when reading the examples. A fluent explanation is not a substitute for the calculation.\n\nOriginal source detail: This original diagram selection comes from the function row on p.53 of Monica Lam’s introduction. It shows a clinical-trial example, not a power-system experiment. The language model translates written facts into an SMT representation; a separate solver derives a decision from those constraints. SMT means satisfiability modulo theories, a way to express and solve logical constraints. MaxSAT supports the lecture’s search for conditions that change a decision. The lecture also states that the formalization may not be completely faithful, so correctness remains relative to the represented constraints. Our application is an analogy: Llama requests the permitted estimate or control tool and Python checks numerical limits. An operator must still confirm the trust assumption and review the proposed action. Our notebook does not run an SMT/MaxSAT solver or prove formal electrical safety. Preview the HOLD/PROPOSE distinction now; participants will calculate the L9 outcomes later with their stated model and trusted-data assumption.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": false,
     "lab_label": "L9",
-    "eyebrow": "Source example / grid application",
-    "image_source_path": "images/stanford_language_decision.png",
-    "image_source_url": "https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=53",
-    "image_credit": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.",
-    "image_asset_type": "Original Stanford lecture figure excerpt",
-    "image_transformation": "Unchanged vector selection from the presenter-supplied Stanford lecture, p.53; Poppler PNG rendering. Exact crop and source/image hashes: research/stanford_sources/excerpt_manifest.json.",
-    "visual_height_px": 190,
-    "visual_height_cm": 2.0,
-    "caption": "Source figure, p.53. Clinical example using logical constraints, not a power-system model.",
+    "eyebrow": "Stanford teaching idea / grid adaptation",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Adapted principle: language, calculation and human review have different jobs.",
     "takeaway": "",
+    "diagram": "plain_three_jobs",
     "module": "opening",
-    "image": "stanford_language_decision.png",
+    "image": null,
     "image2": null,
     "caption2": "",
-    "diagram": null,
     "math_tex": "",
     "math_html": "",
     "excerpt": [],
     "callout": ""
   },
   {
-    "title": "Cyber: good fit can hide bad data",
+    "title": "Wrong readings can still fit a model",
     "kind": "diagram",
     "diagram": "stanford_colab_cyber",
     "minutes": 0.5,
     "points": [
-      "L8 tests misleading readings. L9 shows when to return HOLD or a proposal."
+      "A good fit alone does not prove the readings are true.",
+      "The agent can organize checks and flag missing evidence."
     ],
     "caption": "L8 checks fit. L9 requires a trust assumption before proposing recovery.",
     "note": "Relate the original Stanford clinical example to this lab without importing a formal guarantee. L8 fits readings to a four-bus DC model using WLS, weighted least squares. Its small residual is a measure of fit, not proof of sensor truth; the known simulation truth is used only for teaching error comparisons. L9 is a separate fixed recovery fixture. Without trusted replacement data it returns HOLD. With three additional readings assumed trusted and a successful modeled recovery check, it returns PROPOSE. The yes branch depicts this fixed example with passing numerical checks; a real study also needs every required check to pass. The calculation does not authenticate the extra readings. Later learners run L8, vary the attack scale, then reset before the independent L9 example. Python performs these calculations now. A coordinating agent should request evidence and retain HOLD when a required premise is missing; saved L10B replies show a separate recorded cyber case. Our code uses numerical checks, not the Stanford SMT/MaxSAT runtime.",
@@ -297,7 +284,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L8–L9",
     "hands_on": false,
-    "eyebrow": "Lab preview: L8–L9",
+    "eyebrow": "Colab / L8–L9",
     "visual_height_px": 340,
     "visual_height_cm": 3.8,
     "teaching_bridge": true,
@@ -312,11 +299,12 @@
     "callout": ""
   },
   {
-    "title": "Four questions about any result",
+    "title": "Ask four questions about every result",
     "kind": "diagram",
     "diagram": "lab_review_questions",
     "points": [
-      "Which tool ran? What did it assume? Which limits passed? What should the operator do next?"
+      "What was asked? What did the tool return?",
+      "Did the checks pass? What must the operator decide?"
     ],
     "note": "Lam’s pp.52–53 distinguish verifiable rationale, explicit assumptions, policy consistency and actionable next conditions. Translate these into four plain questions: which tool supports this claim, which inputs and model were used, were the same limits and service priorities kept, and what must the operator review next? Our power-flow, optimization and evidence-binding checks are numerical/software checks. They do not inherit the lecture’s SMT correctness claims. Ask pairs to apply the questions to one L10B explanation and to the full-scope HOLD at L12. We show only the actual public returned reasons, not hidden chain-of-thought. This closes the twelve-minute opening concept block. Point out that all three labs will use these questions; participants do not need to memorize a framework or run ahead.",
     "refs": [
@@ -341,10 +329,11 @@
     "callout": ""
   },
   {
-    "title": "One notebook for all three cases",
+    "title": "Use one notebook for all three cases",
     "kind": "diagram",
     "points": [
-      "Open Classroom Labs and save a copy in Drive. Use it throughout."
+      "Open Classroom Labs and save your own copy.",
+      "We will use it throughout the workshop."
     ],
     "refs": [
       "H00"
@@ -374,7 +363,7 @@
     "callout": ""
   },
   {
-    "title": "Colab setup",
+    "title": "Start Colab in three steps",
     "kind": "diagram",
     "points": [
       "Save a copy, connect a CPU and run setup.",
@@ -405,12 +394,12 @@
     "callout": ""
   },
   {
-    "title": "Input, run, output",
+    "title": "Run a cell, then read its output",
     "kind": "diagram",
     "diagram": "lab_cell_loop",
     "points": [
-      "Find the L heading and run its whole code cell.",
-      "Read the output below it. After any edit, rerun the cell."
+      "Find the L heading and run the whole cell.",
+      "After changing an input, run that cell again."
     ],
     "note": "Point to the three parts: editable input, run control and returned output. The illustrated input lines are the first two lines of the actual L2 cell, not a complete standalone program. The full cell calls the voltage helper and draws two plots. The runtime remembers variables from earlier cells, which is why we run the lesson in order. If NameError reports a missing variable, return to setup/L0 and rerun the required earlier cells. Do not treat a previously displayed output as the result of a number just edited until you rerun its cell. Use the L labels instead of numerical cell indexes. Later cells need earlier variables.",
     "refs": [
@@ -434,11 +423,11 @@
     "callout": ""
   },
   {
-    "title": "L0: keep the default settings",
+    "title": "L0: keep both switches off",
     "kind": "normal",
     "points": [
-      "Leave both switches False. Python calculates new results; Llama replies come from saved records.",
-      "If data are missing, rerun setup."
+      "Keep both switches False. Python runs the calculations.",
+      "Llama, the language model, uses saved replies here. No live model is needed."
     ],
     "refs": [
       "H01"
@@ -449,30 +438,29 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L0",
-    "eyebrow": "Classroom Labs · L0 · classroom-002",
+    "eyebrow": "Colab / L0",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-002",
       "start": 11,
-      "end": 14
+      "end": 12
     },
     "takeaway": "",
+    "code_display_caption": "Colab L0 / run the whole cell",
     "module": "opening",
     "code_lines": [
       "RUN_OPENDSS = False       # True: fresh full-model audit + separate AC MPC solve in L5",
-      "RUN_LOCAL_LLAMA = False   # True: one optional local call in L11",
-      "ROOT = Path.cwd()",
-      "assert (ROOT / 'data/lindistflow3_network.json').exists(), 'Start Jupyter in the tutorial folder'"
+      "RUN_LOCAL_LLAMA = False   # True: one optional local call in L11"
     ],
-    "code_caption": "Classroom_Labs.ipynb L0 (classroom-002), source lines 11–14.",
-    "code_file": "research/code/opening_Classroom_Labs_classroom-002_L11-14.py",
+    "code_caption": "Classroom_Labs.ipynb L0 (classroom-002), source lines 11–12.",
+    "code_file": "research/code/opening_Classroom_Labs_classroom-002_L11-12.py",
     "code_gobble": 0,
     "notebook_source": {
       "file": "Classroom_Labs.ipynb",
       "cell_id": "classroom-002",
       "cell_index_zero_based": 4,
       "start": 11,
-      "end": 14,
+      "end": 12,
       "notebook_sha256": "e2b283f6f117cb5fc1851d1192a8d190bf97c9ca9c193e974b91efe6a3f68766",
       "cell_source_sha256": "d8f745bd0b27c7a5888419230fdeb7dbd618557338c7c27157ca9cc2c8f341f7"
     },
@@ -489,11 +477,11 @@
     "callout": ""
   },
   {
-    "title": "L1: does the result match the request?",
+    "title": "L1: does the old result still match?",
     "kind": "figure",
     "points": [
-      "Read binding_pass. Expect True, False, False.",
-      "Changed inputs or commands need a new check."
+      "Expect True, False, False: only the unchanged request matches.",
+      "Changed inputs or actions need a new check."
     ],
     "refs": [
       "H01"
@@ -504,7 +492,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L1",
-    "eyebrow": "Classroom Labs · L1 · classroom-004",
+    "eyebrow": "Colab / L1",
     "image_source_path": "images/hands_on_L1_binding.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
@@ -521,11 +509,11 @@
     "callout": ""
   },
   {
-    "title": "Case 1: voltage support",
-    "kind": "figure",
+    "title": "Case 1: which solar settings should we use?",
+    "kind": "diagram",
     "points": [
-      "MPC plans ahead. SAC uses a saved learned policy.",
-      "Check limits first. Among passing options, a smaller score J is better."
+      "Choose settings that keep voltage and line current within the allowed range.",
+      "An agent can organize the trials and return checked options."
     ],
     "refs": [
       "H02",
@@ -533,35 +521,34 @@
     ],
     "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.",
     "minutes": 0.5,
-    "note": "The feeder is a synthetic SMART-DS Greensboro-area example, not a measured utility circuit. The command sets active- and reactive-power participation for an inverter fleet. MPC, model predictive control, uses a system model and a short forecast to calculate a plan under limits; here the proposed command is the first step of that plan. SAC, Soft Actor–Critic, is a saved controller learned from rewards. It produces a proposal from old weights without training again. The default calculation covers medium-voltage (MV) phases and MV line currents, with simplified low-voltage (LV) aggregation. Feasible means the proposal passes the limits represented by that model. Compare the penalty score J only after checking those limits; smaller J is preferred for this stated objective. Run L0 and L1 first.",
+    "note": "Plain-language explanation: Imagine an operator comparing possible settings for solar units. Each choice changes power flows. The job is to find an acceptable option while respecting voltage, line-current and unit limits. An agent can organize the requests and responses, while the tool calculates the electrical effects. We first learn those tools in Colab, then inspect saved agent decisions.\n\nOriginal source detail: The feeder is a synthetic SMART-DS Greensboro-area example, not a measured utility circuit. The command sets active- and reactive-power participation for an inverter fleet. MPC, model predictive control, uses a system model and a short forecast to calculate a plan under limits; here the proposed command is the first step of that plan. SAC, Soft Actor–Critic, is a saved controller learned from rewards. It produces a proposal from old weights without training again. The default calculation covers medium-voltage (MV) phases and MV line currents, with simplified low-voltage (LV) aggregation. Feasible means the proposal passes the limits represented by that model. Compare the penalty score J only after checking those limits; smaller J is preferred for this stated objective. Run L0 and L1 first.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L2",
-    "eyebrow": "Classroom Labs · L2 · classroom-007",
-    "image_source_path": "images/feeder.png",
-    "visual_height_px": 345,
-    "visual_height_cm": 3.65,
-    "caption": "Synthetic SMART-DS feeder used for teaching.",
-    "image_source_url": "https://data.openei.org/submissions/2981",
+    "eyebrow": "Case 1 / The operator’s problem",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Concept sketch. First run the tools; later replay saved agent decisions.",
     "takeaway": "",
+    "diagram": "plain_voltage_problem",
     "module": "voltage",
-    "image": "feeder.png",
+    "image": null,
     "image2": null,
     "caption2": "",
-    "diagram": null,
     "math_tex": "",
     "math_html": "",
     "excerpt": [],
     "callout": ""
   },
   {
-    "title": "Two ways to propose settings",
+    "title": "Two tools suggest different settings",
     "kind": "diagram",
-    "diagram": "agent_mpc_sac",
+    "diagram": "plain_two_proposals",
     "points": [
-      "MPC plans with a model. SAC proposes from learned weights. Both need the same electrical checks."
+      "MPC plans with a model. SAC uses a previously trained controller.",
+      "Treat both outputs as proposals that need the same electrical checks."
     ],
-    "note": "MPC uses a model and a short forecast to optimize a plan; this lab applies its first action. SAC is a saved policy learned through reinforcement learning; it produces a new control proposal using old weights, without training again. Neither is the coordinating LLM. The outer agent can choose which permitted study to request. L2 calls both tools directly and displays their checks; this cell alone is not a live LLM agent. Later recorded P3 figures illustrate Llama coordinating the existing tools. Define per unit when the control-limit slide introduces the voltage scale: 1.0 p.u. is the stated base value. Explain MILP and WLS only in their respective cases.",
+    "note": "Plain-language explanation: MPC means model predictive control. SAC means soft actor-critic, a learned controller. You do not need their algorithms to follow this lab: both simply supply settings for the same check.\n\nOriginal source detail: MPC uses a model and a short forecast to optimize a plan; this lab applies its first action. SAC is a saved policy learned through reinforcement learning; it produces a new control proposal using old weights, without training again. Neither is the coordinating LLM. The outer agent can choose which permitted study to request. L2 calls both tools directly and displays their checks; this cell alone is not a live LLM agent. Later recorded P3 figures illustrate Llama coordinating the existing tools. Define per unit when the control-limit slide introduces the voltage scale: 1.0 p.u. is the stated base value. Explain MILP and WLS only in their respective cases.",
     "refs": [
       "H02",
       "VMPC",
@@ -569,9 +556,9 @@
       "LRV"
     ],
     "minutes": 1,
-    "caption": "MPC = model predictive control. SAC = Soft Actor-Critic.",
-    "visual_height_px": 350,
-    "visual_height_cm": 3.9,
+    "caption": "MPC: model predictive control. SAC: soft actor-critic. Both proposals need the same checks.",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
     "takeaway": "",
     "module": "voltage",
     "eyebrow": "",
@@ -584,22 +571,23 @@
     "callout": ""
   },
   {
-    "title": "A tool result changes the next step",
+    "title": "How the agent helps with solar settings",
     "kind": "diagram",
-    "diagram": "agent_recorded_trace",
+    "diagram": "plain_voltage_agent",
     "points": [
-      "The first trial fails. Llama requests the fallback. A passing result goes to human review."
+      "The agent requests a study and reads the returned checks.",
+      "It can try another allowed option or ask the operator for help."
     ],
-    "note": "This is an actual saved Llama 3.1:8b voltage episode, not a fabricated interactive exchange. Call 1 selects VERIFY_SAC_FIRST; the numerical check returns 111.966607 percent of allowed current and two current violations. Call 2 selects USE_MPC_PLAN; its numerical check returns 99.604410 percent of allowed current and no recorded violations. The SAC and MPC tools already exist; Llama does not invent or solve the power flow. The arrows show tool-request, result, next-request, result. Call 3 selects REVIEW_EVIDENCE. Human acknowledgment remains PENDING and equipment_dispatch is False. This separate P3 MV/LV OpenDSS archive differs from the fresh L2 exercise and from L3 test_01. Later voltage slides display the exact public returned reasons; learners can replay the source in L10B after completing the three cases. The fixed comparator reaches the same numerical outcome, so the trace illustrates coordination rather than a proven performance improvement. This recorded example now follows the MPC/SAC definition slide in the voltage case, after Colab setup. It remains a preview; run the complete episode in L10B later.",
+    "note": "Plain-language explanation: Follow the arrows from the operator’s goal to the returned result. If a check fails, the agent can request another permitted trial. If evidence is missing, it can stop and ask. The useful behavior is the choice made after reading the tool result. The tool still performs the electrical calculation.\n\nOriginal source detail: This is an actual saved Llama 3.1:8b voltage episode, not a fabricated interactive exchange. Call 1 selects VERIFY_SAC_FIRST; the numerical check returns 111.966607 percent of allowed current and two current violations. Call 2 selects USE_MPC_PLAN; its numerical check returns 99.604410 percent of allowed current and no recorded violations. The SAC and MPC tools already exist; Llama does not invent or solve the power flow. The arrows show tool-request, result, next-request, result. Call 3 selects REVIEW_EVIDENCE. Human acknowledgment remains PENDING and equipment_dispatch is False. This separate P3 MV/LV OpenDSS archive differs from the fresh L2 exercise and from L3 test_01. Later voltage slides display the exact public returned reasons; learners can replay the source in L10B after completing the three cases. The fixed comparator reaches the same numerical outcome, so the trace illustrates coordination rather than a proven performance improvement. This recorded example now follows the MPC/SAC definition slide in the voltage case, after Colab setup. It remains a preview; run the complete episode in L10B later.",
     "refs": [
       "LRV",
       "LR0"
     ],
     "minutes": 1.5,
-    "caption": "Saved P3 OpenDSS example, separate from L2. Values rounded.",
-    "visual_height_px": 350,
-    "visual_height_cm": 3.9,
-    "eyebrow": "Recorded P3 example / separate from the L2 calculation",
+    "caption": "Concept map. Colab runs the tools; L10B replays the agent decisions.",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "eyebrow": "How an agent can help",
     "takeaway": "",
     "module": "voltage",
     "image": null,
@@ -611,26 +599,26 @@
     "callout": ""
   },
   {
-    "title": "Two control settings",
+    "title": "The study changes two solar settings",
     "kind": "diagram",
     "points": [
-      "a controls active power. b controls reactive power.",
-      "Check inverter capacity, voltage and line current."
+      "a sets active-power output. b sets voltage-support output.",
+      "The tool checks voltage, line current and the solar unit’s capacity."
     ],
     "refs": [
       "H02"
     ],
     "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.",
     "minutes": 1,
-    "note": "Active power delivers net energy; reactive power supports the AC voltage and current balance. The command uses P_i = a S_i and Q_i = b S_i. Its bounds are 0 <= a <= 1, |b| <= 0.44 and a^2 + b^2 <= 1. Modeled voltages must be between 0.95 and 1.05 per unit (p.u.), where values are divided by a stated base. RATING_FRACTION=0.80 sets allowed current to 80% of the nominal rating. The displayed current percentage uses this reduced allowance as its denominator. Passing the inverter bounds alone does not show that network limits pass.",
+    "note": "Plain-language explanation: Active power supplies energy. Reactive power supports voltage. The inverter’s shared capacity means these settings cannot be chosen independently without checking.\n\nOriginal source detail: Active power delivers net energy; reactive power supports the AC voltage and current balance. The command uses P_i = a S_i and Q_i = b S_i. Its bounds are 0 <= a <= 1, |b| <= 0.44 and a^2 + b^2 <= 1. Modeled voltages must be between 0.95 and 1.05 per unit (p.u.), where values are divided by a stated base. RATING_FRACTION=0.80 sets allowed current to 80% of the nominal rating. The displayed current percentage uses this reduced allowance as its denominator. Passing the inverter bounds alone does not show that network limits pass.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L2",
-    "eyebrow": "Classroom Labs · L2 · classroom-007",
-    "diagram": "voltage_capability",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Active and reactive power share the inverter capacity.",
+    "eyebrow": "Colab / L2",
+    "diagram": "plain_solar_controls",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Teaching view of the model’s two controls. Inverter capacity is also a limit.",
     "takeaway": "",
     "module": "voltage",
     "image": null,
@@ -642,11 +630,12 @@
     "callout": ""
   },
   {
-    "title": "A tool is a callable function",
+    "title": "A Python function can be a tool",
     "kind": "diagram",
     "diagram": "agent_python_tool",
     "points": [
-      "Inputs go in. Calculations run. Results come back. L2 calls this Python function directly."
+      "It receives inputs, runs calculations and returns results.",
+      "L2 calls this function directly. The saved agent example shows who requests it."
     ],
     "note": "Find the actual function call on the next slide. The first two cell lines set the load scale and current allowance; the helper returns numerical proposals, checks and a table for plotting. A tool can be an optimizer, simulator, estimator, lookup or evidence checker. It is not the LLM itself. The student initiates this direct function call with the play button. In the separate recorded workflow Llama selects a named action, the Python application validates that action and its inputs, then invokes a permitted numerical function. Do not claim that the L2 helper uses a live agent gateway. Saving a notebook is separate from keeping a runtime: after a reset, rerun setup and earlier cells.",
     "refs": [
@@ -669,11 +658,11 @@
     "callout": ""
   },
   {
-    "title": "L2: run the default case",
+    "title": "L2: compare two solar proposals",
     "kind": "normal",
     "points": [
-      "Run all of L2. It checks the MPC plan and the saved SAC policy.",
-      "Read feasible, current_step_J and max_allowed_current_pct."
+      "Run L2 with the default settings.",
+      "Look for pass/fail, current used and score J. Lower J is better after checks pass."
     ],
     "refs": [
       "H02",
@@ -686,7 +675,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L2",
-    "eyebrow": "Classroom Labs · L2 · classroom-007",
+    "eyebrow": "Colab / L2",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-007",
@@ -694,6 +683,7 @@
       "end": 4
     },
     "takeaway": "",
+    "code_display_caption": "Colab L2 / run the whole cell",
     "module": "voltage",
     "code_lines": [
       "LOAD_SCALE = 1.0",
@@ -726,11 +716,11 @@
     "callout": ""
   },
   {
-    "title": "L2: voltage and current plots",
+    "title": "Read the voltage and current checks",
     "kind": "figure",
     "points": [
-      "Left: voltages should stay inside the allowed band.",
-      "Right: current use should stay below 100% of the allowance."
+      "Left: voltages should stay in the allowed band.",
+      "Right: current should stay below 100% of the allowance."
     ],
     "refs": [
       "H02"
@@ -741,11 +731,11 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L2",
-    "eyebrow": "Classroom Labs · L2 · classroom-007",
+    "eyebrow": "Colab / L2",
     "image_source_path": "images/hands_on_L2_plot.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L2 plots. Rerun for your inputs.",
+    "caption": "Reference L2 plots. Rerun for your chosen inputs.",
     "takeaway": "",
     "module": "voltage",
     "image": "hands_on_L2_plot.png",
@@ -758,11 +748,11 @@
     "callout": ""
   },
   {
-    "title": "L2: both default proposals pass",
+    "title": "Both pass; MPC has the lower score",
     "kind": "figure",
     "points": [
-      "MPC: 73.62% current use, score J about 0.03110.",
-      "Saved SAC: 51.68% current use, score J about 0.43643."
+      "MPC: 73.62% current use; score J about 0.03110.",
+      "Saved SAC: 51.68% current use; score J about 0.43643."
     ],
     "refs": [
       "H02"
@@ -773,11 +763,11 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L2",
-    "eyebrow": "Classroom Labs · L2 · classroom-007",
+    "eyebrow": "Colab / L2",
     "image_source_path": "images/hands_on_L2_table.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L2: load scale 1.0, current allowance 0.80.",
+    "caption": "Reference L2 output at load scale 1.0 and current allowance 0.80.",
     "takeaway": "",
     "module": "voltage",
     "image": "hands_on_L2_table.png",
@@ -790,12 +780,12 @@
     "callout": ""
   },
   {
-    "title": "The limit and the calculated result",
+    "title": "A limit needs a calculated check",
     "kind": "diagram",
     "diagram": "lab_claim_evidence",
     "points": [
-      "A rule states the limit. A tool checks the proposal against it.",
-      "Keep both with the result so the operator can review it."
+      "A rule states the limit. The tool tests the proposed setting.",
+      "Keep the rule and returned result together for review."
     ],
     "note": "Stanford connection: the lecture’s WikiChat discussion, pp.17–25, separates finding material from checking factual claims. Apply the habit to a grid study: retrieving a current limit is different from calculating current for a candidate. The displayed 99.604410% value belongs to the separate archived P3 OpenDSS replay, not to the learner’s fresh L2 result. This example supports only that current check under its recorded model. A sentence, retrieved document or citation does not establish full-network feasibility. Treat the input limits as the task policy. A text source describes the rule; the solver evaluates the particular proposal.",
     "refs": [
@@ -824,8 +814,8 @@
     "kind": "exercise",
     "points": [
       "In L2, change RATING_FRACTION from 0.80 to 0.75. Predict, then rerun.",
-      "Compare feasible, current use and score J for both methods.",
-      "Does this check cover the whole MV/LV network?"
+      "Compare pass/fail, current use and score J for both methods.",
+      "Does this check cover the whole medium- and low-voltage network?"
     ],
     "refs": [
       "H02"
@@ -836,7 +826,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L2",
-    "eyebrow": "Classroom Labs · L2 · classroom-007",
+    "eyebrow": "Try it in Colab / L2",
     "excerpt": [
       "RATING_FRACTION = 0.75"
     ],
@@ -857,13 +847,13 @@
     "title": "Exercise 1 answer: both options still pass",
     "diagram": "exercise_voltage_solution",
     "points": [
-      "MPC has the lower score J. The saved SAC actor uses less current; current use alone is not the objective.",
-      "Both checks cover the default MV model. They do not establish full MV/LV or dynamic performance."
+      "MPC has the lower score; SAC uses less current. The score considers more than current alone.",
+      "This check covers the medium-voltage model. The wider network needs a wider study."
     ],
     "note": "At LOAD_SCALE=1.0 and RATING_FRACTION=0.75, MPC is feasible with 78.527895% current use and J=0.0311038194. Saved SAC is feasible with 54.854158% current use and J=0.4324637539. Lower J is preferred only among feasible candidates. These are fresh three-phase linear MV checks, not a full MV/LV study. Restore RATING_FRACTION=0.80 and rerun all of L2 before continuing.",
     "lab_label": "L2",
     "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; fresh numerical check at rating fraction 0.75.",
-    "caption": "Fresh L2 results. Current use is relative to the changed allowance; J is the current-step objective.",
+    "caption": "Fresh L2 exercise results. Current is shown relative to the changed allowance.",
     "kind": "diagram",
     "minutes": 1,
     "refs": [
@@ -886,22 +876,22 @@
     "callout": ""
   },
   {
-    "title": "Exercise 1: both still pass",
+    "title": "Less current does not mean the best option",
     "kind": "diagram",
-    "diagram": "lab_try_observe",
+    "diagram": "plain_voltage_tradeoff",
     "points": [
-      "A smaller allowance makes the same current a larger percentage.",
-      "At 0.75: MPC uses 78.53%, SAC 54.85%. Both pass this test."
+      "Here SAC also uses less solar output.",
+      "The goal values generation as well as limits. Compare the score after checks pass."
     ],
-    "note": "Use this visual immediately after the first exercise debrief. It shows the measured reference MPC outputs, rounded to two decimal places, for RATING_FRACTION 0.80 and 0.75. The SAC result is also computed in the notebook but is not drawn here. Both proposals pass this particular tighter test. The result is not a general guarantee for other loads or limits. Ask pairs to explain the denominator in the percentage. Restore the default before moving to L3’s independent archived case. This combines the original numerical debrief with the visual explanation. Compare both methods before restoring RATING_FRACTION=0.80.",
+    "note": "Plain-language explanation: The active-power setting is about 0.9603 for MPC and 0.3431 for SAC in this exercise. Lower solar output can reduce current but also increase the stated cost.\n\nOriginal source detail: Use this visual immediately after the first exercise debrief. It shows the measured reference MPC outputs, rounded to two decimal places, for RATING_FRACTION 0.80 and 0.75. The SAC result is also computed in the notebook but is not drawn here. Both proposals pass this particular tighter test. The result is not a general guarantee for other loads or limits. Ask pairs to explain the denominator in the percentage. Restore the default before moving to L3’s independent archived case. This combines the original numerical debrief with the visual explanation. Compare both methods before restoring RATING_FRACTION=0.80.",
     "refs": [
       "H02"
     ],
-    "caption": "Reference L2 experiment. Both proposals pass at 0.75.",
+    "caption": "Exercise values at RATING_FRACTION=0.75; a uses inverter rating as its base.",
     "source_label": "Classroom Labs L2, cell classroom-007; verified default and exercise outputs.",
     "minutes": 1,
-    "visual_height_px": 330,
-    "visual_height_cm": 3.5,
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
     "lab_label": "L2",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -917,11 +907,11 @@
     "callout": ""
   },
   {
-    "title": "L2: reset before continuing",
+    "title": "L2: restore the starting values",
     "kind": "normal",
     "points": [
       "Restore LOAD_SCALE=1.0 and RATING_FRACTION=0.80. Rerun L2.",
-      "L3-L5 use a separate saved case called test_01."
+      "The next cells use a separate saved case."
     ],
     "refs": [
       "H02"
@@ -932,7 +922,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L2",
-    "eyebrow": "Classroom Labs · L2 · classroom-007",
+    "eyebrow": "Colab / L2",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-007",
@@ -940,6 +930,7 @@
       "end": 2
     },
     "takeaway": "",
+    "code_display_caption": "Colab L2 / run the whole cell",
     "module": "voltage",
     "code_lines": [
       "LOAD_SCALE = 1.0",
@@ -970,23 +961,23 @@
     "callout": ""
   },
   {
-    "title": "New calculations and saved replies",
+    "title": "Separate a new calculation from a replay",
     "kind": "diagram",
-    "diagram": "bridge_modes",
+    "diagram": "plain_run_replay",
     "points": [
-      "Python calculates new results. A saved Llama reply keeps its original inputs.",
-      "Your changed lab input does not change the saved reply."
+      "Your inputs produce new numerical results.",
+      "Saved replies show past model decisions; editing L2 does not change them."
     ],
-    "note": "Point to these evidence modes throughout the session. Default classroom cells calculate fresh results without a live language-model call. L10B displays verified historical Llama choices, original reasons and associated recorded results. Changing your L2 or L6 input does not change those old replies. The final control-room diagrams are a proposed teaching design, not evidence of a deployed utility platform. No new equipment operation occurs in any of these modes. FRESH means calculated during the current execution. SAVED POLICY means old weights used for new inference. ARCHIVED ACTUAL LLM means an old reply with its original inputs and timing. This slide comes just before L3 so the distinction is applied immediately.",
+    "note": "Plain-language explanation: A fresh calculation answers the inputs you just supplied. A replay shows what happened previously. Both are useful, but they answer different questions.\n\nOriginal source detail: Point to these evidence modes throughout the session. Default classroom cells calculate fresh results without a live language-model call. L10B displays verified historical Llama choices, original reasons and associated recorded results. Changing your L2 or L6 input does not change those old replies. The final control-room diagrams are a proposed teaching design, not evidence of a deployed utility platform. No new equipment operation occurs in any of these modes. FRESH means calculated during the current execution. SAVED POLICY means old weights used for new inference. ARCHIVED ACTUAL LLM means an old reply with its original inputs and timing. This slide comes just before L3 so the distinction is applied immediately.",
     "refs": [
       "H00",
       "LR0",
       "OT01"
     ],
     "minutes": 0.5,
-    "caption": "New calculation, saved reply and proposed pilot are different evidence types.",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.55,
+    "caption": "A replay keeps its original inputs, decisions and results.",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
     "takeaway": "",
     "module": "voltage",
     "eyebrow": "",
@@ -1002,8 +993,8 @@
     "title": "L3: inspect saved model choices",
     "kind": "normal",
     "points": [
-      "Run L3. Read the case ID, chosen operations and recorded times.",
-      "This cell displays old replies. It makes no new model call."
+      "Run L3 to see what the models requested for the saved case.",
+      "This displays old replies; it makes no new model call."
     ],
     "refs": [
       "H03"
@@ -1014,28 +1005,28 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L3",
-    "eyebrow": "Classroom Labs · L3 · classroom-010",
+    "eyebrow": "Colab / L3",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-010",
       "start": 1,
-      "end": 2
+      "end": 1
     },
     "takeaway": "",
+    "code_display_caption": "Colab L3 / run the whole cell",
     "module": "voltage",
     "code_lines": [
-      "pool = lab.saved_pool('test_01')",
-      "display(pd.DataFrame(pool['responses'])[['model_id', 'operation_id', 'reason', 'seconds', 'source']])"
+      "pool = lab.saved_pool('test_01')"
     ],
-    "code_caption": "Classroom_Labs.ipynb L3 (classroom-010), source lines 1–2.",
-    "code_file": "research/code/voltage_Classroom_Labs_classroom-010_L1-2.py",
+    "code_caption": "Classroom_Labs.ipynb L3 (classroom-010), source lines 1–1.",
+    "code_file": "research/code/voltage_Classroom_Labs_classroom-010_L1-1.py",
     "code_gobble": 0,
     "notebook_source": {
       "file": "Classroom_Labs.ipynb",
       "cell_id": "classroom-010",
       "cell_index_zero_based": 12,
       "start": 1,
-      "end": 2,
+      "end": 1,
       "notebook_sha256": "e2b283f6f117cb5fc1851d1192a8d190bf97c9ca9c193e974b91efe6a3f68766",
       "cell_source_sha256": "61d385c6f7798da62de51d3378cd0f4aed990354cbf5b994aa5f79350a1510d1"
     },
@@ -1052,11 +1043,11 @@
     "callout": ""
   },
   {
-    "title": "Different words can request the same trial",
+    "title": "Different replies can request the same action",
     "kind": "diagram",
     "points": [
-      "The notebook groups identical tool requests and settings.",
-      "A vote chooses what to test next. It does not prove that limits pass."
+      "Group requests that describe the same settings.",
+      "A vote chooses what to test next. The electrical check still has to run."
     ],
     "refs": [
       "H03"
@@ -1067,7 +1058,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L3",
-    "eyebrow": "Classroom Labs · L3 · classroom-010",
+    "eyebrow": "Colab / L3",
     "diagram": "voltage_canonical_trial",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
@@ -1083,11 +1074,11 @@
     "callout": ""
   },
   {
-    "title": "L4: check the selected trial",
+    "title": "L4: check the chosen proposal",
     "kind": "normal",
     "points": [
-      "Run L4 after L3. Python checks the selected trial for its original case.",
-      "Compare majority voting with the saved LinUCB selector, which learns which trial to test."
+      "Recheck the selected proposal on its original saved case.",
+      "Compare the vote with a previously learned selection rule."
     ],
     "refs": [
       "H04"
@@ -1098,31 +1089,28 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L4",
-    "eyebrow": "Classroom Labs · L4 · classroom-013",
+    "eyebrow": "Colab / L4",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-013",
-      "start": 5,
-      "end": 9
+      "start": 6,
+      "end": 6
     },
     "takeaway": "",
+    "code_display_caption": "Colab L4 / run the whole cell",
     "module": "voltage",
     "code_lines": [
-      "started = time.perf_counter()",
-      "selected_trials = lab.trial_saved_selection(pool)",
-      "timings['L4 new verification of archived choices'] = time.perf_counter() - started",
-      "display(selected_trials['table'])",
-      "assert pool['frozen'] and pool['training_updates'] == 24"
+      "selected_trials = lab.trial_saved_selection(pool)"
     ],
-    "code_caption": "Classroom_Labs.ipynb L4 (classroom-013), source lines 5–9.",
-    "code_file": "research/code/voltage_Classroom_Labs_classroom-013_L5-9.py",
+    "code_caption": "Classroom_Labs.ipynb L4 (classroom-013), source lines 6–6.",
+    "code_file": "research/code/voltage_Classroom_Labs_classroom-013_L6-6.py",
     "code_gobble": 0,
     "notebook_source": {
       "file": "Classroom_Labs.ipynb",
       "cell_id": "classroom-013",
       "cell_index_zero_based": 15,
-      "start": 5,
-      "end": 9,
+      "start": 6,
+      "end": 6,
       "notebook_sha256": "e2b283f6f117cb5fc1851d1192a8d190bf97c9ca9c193e974b91efe6a3f68766",
       "cell_source_sha256": "560a850910881c5ed533d3b2c34b823935d93591703e19f2188028f360939b10"
     },
@@ -1139,11 +1127,11 @@
     "callout": ""
   },
   {
-    "title": "L4: read the new check",
+    "title": "Both selectors choose the same proposal",
     "kind": "figure",
     "points": [
-      "Both selectors choose the same trial and pass the new MV check.",
-      "new_check_passes is the electrical check. Predicted reward is a learned score."
+      "The new electrical check passes for both selections.",
+      "The selection score and the electrical check have different jobs."
     ],
     "refs": [
       "H04"
@@ -1154,11 +1142,11 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L4",
-    "eyebrow": "Classroom Labs · L4 · classroom-013",
+    "eyebrow": "Colab / L4",
     "image_source_path": "images/hands_on_L4_checks.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Saved choices, new checks of the original test_01 case.",
+    "caption": "Reference L4 output: both selection methods choose the same action.",
     "takeaway": "",
     "module": "voltage",
     "image": "hands_on_L4_checks.png",
@@ -1171,11 +1159,11 @@
     "callout": ""
   },
   {
-    "title": "L5: check model coverage",
+    "title": "L5: see which part of the grid was checked",
     "kind": "normal",
     "points": [
-      "Leave RUN_OPENDSS=False. Run L5 and read the table.",
-      "The default checks the test_01 MPC plan with the MV model."
+      "Run L5 with the default settings.",
+      "It checks the medium-voltage (MV) part of the saved case."
     ],
     "refs": [
       "H05"
@@ -1186,30 +1174,28 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L5",
-    "eyebrow": "Classroom Labs · L5 · classroom-016",
+    "eyebrow": "Colab / L5",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-016",
-      "start": 1,
-      "end": 4
+      "start": 2,
+      "end": 2
     },
     "takeaway": "",
+    "code_display_caption": "Colab L5 / run the whole cell",
     "module": "voltage",
     "code_lines": [
-      "started = time.perf_counter()",
-      "scope_audit = lab.backend_audit(pool, run_opendss=RUN_OPENDSS)",
-      "timings['L5 selected model scope checks'] = time.perf_counter() - started",
-      "display(scope_audit['table'])"
+      "scope_audit = lab.backend_audit(pool, run_opendss=RUN_OPENDSS)"
     ],
-    "code_caption": "Classroom_Labs.ipynb L5 (classroom-016), source lines 1–4.",
-    "code_file": "research/code/voltage_Classroom_Labs_classroom-016_L1-4.py",
+    "code_caption": "Classroom_Labs.ipynb L5 (classroom-016), source lines 2–2.",
+    "code_file": "research/code/voltage_Classroom_Labs_classroom-016_L2-2.py",
     "code_gobble": 0,
     "notebook_source": {
       "file": "Classroom_Labs.ipynb",
       "cell_id": "classroom-016",
       "cell_index_zero_based": 18,
-      "start": 1,
-      "end": 4,
+      "start": 2,
+      "end": 2,
       "notebook_sha256": "e2b283f6f117cb5fc1851d1192a8d190bf97c9ca9c193e974b91efe6a3f68766",
       "cell_source_sha256": "93ff079047e2f21b09961ca7f9b6d111194144fe8b4acb01c95ea95de0f52c16"
     },
@@ -1226,11 +1212,11 @@
     "callout": ""
   },
   {
-    "title": "A PASS has a scope",
+    "title": "A PASS covers only what was checked",
     "kind": "figure",
     "points": [
-      "This result covers medium-voltage (MV) phases and currents.",
-      "A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD."
+      "A limited model cannot answer a wider grid question.",
+      "Request the missing study or return HOLD."
     ],
     "refs": [
       "H05"
@@ -1241,11 +1227,11 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L5",
-    "eyebrow": "Classroom Labs · L5 · classroom-016",
+    "eyebrow": "Colab / L5",
     "image_source_path": "images/hands_on_L5_scope.png",
     "visual_height_px": 345,
     "visual_height_cm": 2.95,
-    "caption": "Default L5 checks MV only. OpenDSS is off.",
+    "caption": "Reference L5 result covers medium voltage only.",
     "takeaway": "",
     "module": "voltage",
     "image": "hands_on_L5_scope.png",
@@ -1258,10 +1244,11 @@
     "callout": ""
   },
   {
-    "title": "Saved voltage case: check SAC first",
+    "title": "Recorded example: the first option fails",
     "kind": "figure",
     "points": [
-      "Llama asks to check SAC. The tool finds a current-limit failure."
+      "This saved study is different from your L2 run.",
+      "Llama asks for a SAC check. The tool reports too much current."
     ],
     "note": "Read the exact reason. The model was offered VERIFY_SAC_FIRST or REVIEW. The application then checks the saved SAC action in OpenDSS. 111.966607% refers to the allowed current, which was 80% of nominal, so this exceeds the configured allowance. The numerical result records two current violations. This P3 full supplied MV/LV study is separate from L2 and L3 test_01. Ask the audience to predict the next allowed step before advancing. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
     "refs": [
@@ -1271,12 +1258,12 @@
     "minutes": 1,
     "image_source_path": "images/llama_voltage_1.png",
     "visual_height_px": 380,
-    "visual_height_cm": 4.4,
-    "caption": "Saved P3 case, separate from L2. Replay in L10B.",
+    "visual_height_cm": 4.0,
+    "caption": "",
     "source_label": "Classroom Labs L10B: voltage replay, recorded call 1; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Recorded agent example · separate P3 study",
+    "eyebrow": "Saved voltage example / separate from L2",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "voltage",
@@ -1294,10 +1281,11 @@
     "callout": ""
   },
   {
-    "title": "Saved voltage case: try the MPC fallback",
+    "title": "Recorded example: request another option",
     "kind": "figure",
     "points": [
-      "Llama requests the existing MPC plan. The electrical tool checks it."
+      "Llama asks the tool to check the existing MPC fallback.",
+      "The returned electrical checks pass for this saved case."
     ],
     "note": "The model selects USE_MPC_PLAN from two allowed choices, the other being REVIEW. It does not invent or solve MPC. The recorded context already supplies a plan and its eligibility. The application performs a fresh numerical check at that historical time. The result is just below the allowed current threshold. No operating permission follows from this check alone. Ask which evidence, rather than wording, makes the fallback eligible for review. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
     "refs": [
@@ -1307,12 +1295,12 @@
     "minutes": 1,
     "image_source_path": "images/llama_voltage_2.png",
     "visual_height_px": 380,
-    "visual_height_cm": 4.4,
-    "caption": "Saved P3 case, separate from L2. Replay in L10B.",
+    "visual_height_cm": 4.0,
+    "caption": "",
     "source_label": "Classroom Labs L10B: voltage replay, recorded call 2; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Recorded agent example · separate P3 study",
+    "eyebrow": "Saved voltage example / separate from L2",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "voltage",
@@ -1330,10 +1318,11 @@
     "callout": ""
   },
   {
-    "title": "Saved voltage case: return for review",
+    "title": "Recorded example: return to the operator",
     "kind": "figure",
     "points": [
-      "The checks pass. Human review is still pending. A fixed script gets the same final result."
+      "The agent returns the checked proposal and its conditions.",
+      "Human review is still pending. No equipment command is sent."
     ],
     "note": "Read the exact REVIEW_EVIDENCE choice and distinguish it from the overall status. The proposed controls are 2387.157 kW and +325.738 kvar. The supplied full MV/LV feeder check returned voltage 1.001783–1.035026 p.u. and zero listed violations. The fixed supervisor used the same SAC-to-MPC sequence with identical numerical output. Recorded workflow intervals were 0.346053 s fixed and 3.110454 s agentic, excluding precomputed MPC/SAC preparation. These are single recorded timings, not performance distributions or a measured reduction in operator workload. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: L2 makes new proposals; L3 shows old replies; L4–L5 run new checks on test_01. Report the inputs, proposal, model coverage and result before naming the next step. Give pairs 30 seconds to describe the sequence without calling every step an AI decision. L2 calculates an MPC plan and a saved-policy proposal for the current classroom inputs. L3 displays old model replies. L4 runs new checks of the selected trials; L5 checks the original archived plan and its model coverage. Numerical tools provide the physical evidence. The old model choices select a permitted trial; they do not replace these checks. The operator receives an advisory record whose stated coverage must match the request. The three P3 previews are an additional separate archive. Contrast their saved Llama decisions with your current direct function calls.",
     "refs": [
@@ -1343,12 +1332,12 @@
     "minutes": 1,
     "image_source_path": "images/llama_voltage_3.png",
     "visual_height_px": 380,
-    "visual_height_cm": 4.4,
-    "caption": "Saved P3 case, separate from L2. Replay in L10B.",
+    "visual_height_cm": 4.0,
+    "caption": "",
     "source_label": "Classroom Labs L10B: voltage replay, recorded call 3; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Recorded agent example · separate P3 study",
+    "eyebrow": "Saved voltage example / separate from L2",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "voltage",
@@ -1366,26 +1355,26 @@
     "callout": ""
   },
   {
-    "title": "Case 2: restoring service",
+    "title": "Case 2: who gets power after a fault?",
     "kind": "diagram",
     "points": [
-      "Use the six-node teaching network with one faulted branch.",
-      "Compare total service with service to critical loads."
+      "A fault removes a supply path. Available capacity limits what can be restored.",
+      "The operator sets priorities; the agent can request and check restoration options."
     ],
     "refs": [
       "H06"
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
     "minutes": 0.5,
-    "note": "This six-node graph is separate from the voltage feeder. It represents active-power transport, not AC power flow or a time-ordered field switching procedure. Loads are picked up as whole blocks. A tie is an alternative connection that can supply load; CAPACITIES_KW sets its transfer limit in kilowatts.",
+    "note": "Plain-language explanation: A fault removes one normal supply path. Alternative paths have limited capacity, so the operator must choose what to restore. Serving critical demand first can differ from maximizing the total power served. The agent can carry that priority into a study request, collect the result and request a new study when the situation changes.\n\nOriginal source detail: This six-node graph is separate from the voltage feeder. It represents active-power transport, not AC power flow or a time-ordered field switching procedure. Loads are picked up as whole blocks. A tie is an alternative connection that can supply load; CAPACITIES_KW sets its transfer limit in kilowatts.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
-    "diagram": "restoration_fault_map",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Six-node active-power model. One branch is unavailable.",
+    "eyebrow": "Case 2 / The operator’s problem",
+    "diagram": "plain_restoration_problem",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Six-node lab graph. Cyan marks critical loads; dashed links are backup options.",
     "takeaway": "",
     "module": "restoration",
     "image": null,
@@ -1397,26 +1386,26 @@
     "callout": ""
   },
   {
-    "title": "Two service goals",
+    "title": "How the agent helps restore service",
     "kind": "diagram",
     "points": [
-      "One goal gives extra weight to critical loads.",
-      "The other restores the most total kW. Both use the same network rules."
+      "Choose the goal: critical loads first, or the most total power.",
+      "The agent can request a study, read the trade-off and ask for a new study when limits change."
     ],
     "refs": [
       "H06"
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
     "minutes": 1,
-    "note": "Critical demand totals 90 kW: 60 kW at node 2 and 30 kW at node 5. The objective is the service goal encoded as a score. The priority score gives more weight to these critical loads, while the comparison score maximizes total kW. The difference in selected service comes from that goal. Both numerical methods use the same graph, capacities and whole-load pickup rules. Neither needs a language model to solve this declared problem.",
+    "note": "Plain-language explanation: The operator supplies the goal. The numerical solver chooses loads under the network rules. An agent could manage the study request and read its result, but it should not invent the service priority. L6 runs the tools directly; the recorded agent example comes later.\n\nOriginal source detail: Critical demand totals 90 kW: 60 kW at node 2 and 30 kW at node 5. The objective is the service goal encoded as a score. The priority score gives more weight to these critical loads, while the comparison score maximizes total kW. The difference in selected service comes from that goal. Both numerical methods use the same graph, capacities and whole-load pickup rules. Neither needs a language model to solve this declared problem.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
-    "diagram": "restoration_priority",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Different goals can select different loads.",
+    "eyebrow": "How an agent can help",
+    "diagram": "plain_restoration_agent",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Concept map. L6 runs the solver directly; L10B replays a separate saved agent study.",
     "takeaway": "",
     "module": "restoration",
     "image": null,
@@ -1428,11 +1417,11 @@
     "callout": ""
   },
   {
-    "title": "L6: solve the restoration problem",
+    "title": "L6: compare two restoration goals",
     "kind": "normal",
     "points": [
-      "Run L6. MILP selects whole loads. A separate search checks its priority score.",
-      "Read served_kw, critical_kw and MILP_matches_exhaustive_check."
+      "Run L6 to choose which loads receive power under each goal.",
+      "MILP chooses whole loads; a separate calculation checks its result."
     ],
     "refs": [
       "H06"
@@ -1443,31 +1432,30 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Colab / L6",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-018",
       "start": 1,
-      "end": 5
+      "end": 3
     },
     "takeaway": "",
+    "code_display_caption": "Colab L6 / run the whole cell",
     "module": "restoration",
     "code_lines": [
       "CAPACITIES_KW = (40., 60., 80., 100., 120.)",
       "started = time.perf_counter()",
-      "restoration = lab.restoration_sweep(CAPACITIES_KW)",
-      "timings['L6 fresh MILP sweep + independent enumeration'] = time.perf_counter() - started",
-      "display(restoration['table'].drop(columns='pickup'))"
+      "restoration = lab.restoration_sweep(CAPACITIES_KW)"
     ],
-    "code_caption": "Classroom_Labs.ipynb L6 (classroom-018), source lines 1–5.",
-    "code_file": "research/code/restoration_Classroom_Labs_classroom-018_L1-5.py",
+    "code_caption": "Classroom_Labs.ipynb L6 (classroom-018), source lines 1–3.",
+    "code_file": "research/code/restoration_Classroom_Labs_classroom-018_L1-3.py",
     "code_gobble": 0,
     "notebook_source": {
       "file": "Classroom_Labs.ipynb",
       "cell_id": "classroom-018",
       "cell_index_zero_based": 20,
       "start": 1,
-      "end": 5,
+      "end": 3,
       "notebook_sha256": "e2b283f6f117cb5fc1851d1192a8d190bf97c9ca9c193e974b91efe6a3f68766",
       "cell_source_sha256": "584a59f47d0488195715620d345caf824745d36a89cf135bc673f54ca092c4b3"
     },
@@ -1484,10 +1472,10 @@
     "callout": ""
   },
   {
-    "title": "L6: read both service plots",
+    "title": "Read total and critical service",
     "kind": "figure",
     "points": [
-      "Left: total kW served. Right: critical kW served.",
+      "Left: all power restored. Right: power restored to critical loads.",
       "Overlapping markers mean the two goals give the same result."
     ],
     "refs": [
@@ -1499,11 +1487,11 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Colab / L6",
     "image_source_path": "images/hands_on_L6_plot.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L6 plots. Overlapping markers show equal outcomes.",
+    "caption": "Reference L6 results. Both goals use the same network.",
     "takeaway": "",
     "module": "restoration",
     "image": "hands_on_L6_plot.png",
@@ -1516,11 +1504,11 @@
     "callout": ""
   },
   {
-    "title": "L6: the tradeoff at 40 kW",
+    "title": "The service goal changes who gets power",
     "kind": "figure",
     "points": [
-      "Priority goal: 130 kW total, including 90 kW critical.",
-      "Most-total-kW goal: 140 kW total, including 30 kW critical."
+      "Critical-first goal: 130 kW total, including 90 kW critical.",
+      "Most-total-power goal: 140 kW total, including 30 kW critical."
     ],
     "refs": [
       "H06"
@@ -1531,11 +1519,11 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Colab / L6",
     "image_source_path": "images/hands_on_L6_table.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L6: 40 kW varied tie, 100 kW fixed tie.",
+    "caption": "Reference L6 output at the 40 kW tie setting.",
     "takeaway": "",
     "module": "restoration",
     "image": "hands_on_L6_table.png",
@@ -1548,11 +1536,11 @@
     "callout": ""
   },
   {
-    "title": "Restoration checks",
+    "title": "Check the restoration plan",
     "kind": "diagram",
     "points": [
-      "Check source paths, branch capacity, power balance and the fault.",
-      "A separate search checks the priority score."
+      "Keep the faulted branch out of service.",
+      "Check supply paths, capacity and totals before accepting the plan."
     ],
     "refs": [
       "H06",
@@ -1561,15 +1549,15 @@
     ],
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.",
     "minutes": 0.5,
-    "note": "Numerical checks and same-content evidence matching answer different questions. A record can match the inputs exactly while still omitting AC voltage, reactive-power or protection limits. Comparing the MILP score with every permitted plan is an independent check of this small stated problem. Minimizing energized branches does not calculate the number or order of physical switching steps.",
+    "note": "Plain-language explanation: The result must respect the unavailable faulted branch and the model’s supply and capacity rules. A field switching sequence needs additional operating work.\n\nOriginal source detail: Numerical checks and same-content evidence matching answer different questions. A record can match the inputs exactly while still omitting AC voltage, reactive-power or protection limits. Comparing the MILP score with every permitted plan is an independent check of this small stated problem. Minimizing energized branches does not calculate the number or order of physical switching steps.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
-    "diagram": "restoration_verify",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Checks cover this graph model, not AC operation or field switching.",
+    "eyebrow": "Colab / L6",
+    "diagram": "plain_restoration_checks",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Checks on the active-power model. AC and field-operation checks remain separate.",
     "takeaway": "",
     "module": "restoration",
     "image": null,
@@ -1585,8 +1573,8 @@
     "kind": "exercise",
     "points": [
       "Add 180. to CAPACITIES_KW. Keep 40. first. Predict, then rerun L6.",
-      "Compare total and critical kW at 40 and 180 kW.",
-      "At which capacity do the two goals give the same result?"
+      "Compare total and critical power at 40 and 180 kW.",
+      "At which tested capacity do the two goals first give the same result?"
     ],
     "refs": [
       "H06"
@@ -1597,7 +1585,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Try it in Colab / L6",
     "excerpt": [
       "CAPACITIES_KW = (40., 60., 80., 100., 120., 180.)"
     ],
@@ -1618,13 +1606,13 @@
     "title": "Exercise 2 answer: capacity changes the trade-off",
     "diagram": "exercise_restoration_solution",
     "points": [
-      "At 40 kW, priorities give more critical service: 90 kW instead of 30 kW, with less total service.",
-      "The goals match from 80 kW in the tested list. At 180 kW, both serve 250 kW total, including 90 kW critical."
+      "At 40 kW, the priority goal serves 90 kW critical instead of 30 kW, with less total service.",
+      "The goals first match at the tested 80 kW. At 180 kW, both serve 250 kW total and 90 kW critical."
     ],
     "note": "At 40 kW tie capacity, priority-weighted MILP serves 130 kW total and 90 kW critical. The unweighted maximum-kW policy serves 140 kW total and 30 kW critical. In the sampled list, outcomes first match at 80 kW; they also match at 100, 120 and 180 kW. At 180 kW, both serve 250 total and 90 critical kW. Do not infer the exact continuous crossover from this discrete sweep. Keep 40 first, restore the original list and rerun L6 before L7.",
     "lab_label": "L6",
     "source_label": "Classroom_Labs.ipynb, L6; cell classroom-018; fresh MILP and exhaustive-check sweep.",
-    "caption": "Fresh L6 results at two tested capacities. Cyan is critical demand; blue is other served demand.",
+    "caption": "Fresh L6 results. Cyan shows critical service; blue shows other service.",
     "kind": "diagram",
     "minutes": 1,
     "refs": [
@@ -1647,11 +1635,11 @@
     "callout": ""
   },
   {
-    "title": "Exercise 2: enough capacity removes this tradeoff",
+    "title": "More capacity can remove this trade-off",
     "kind": "normal",
     "points": [
-      "At 180 kW, both goals serve 250 kW total and 90 kW critical.",
-      "The priority goal helps at some limits. It does not improve every case."
+      "At 180 kW, both goals give the same result.",
+      "The chosen priority matters when capacity forces a choice."
     ],
     "refs": [
       "H06"
@@ -1662,7 +1650,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Colab / L6",
     "callout": "250 kW total / 90 kW critical",
     "takeaway": "",
     "module": "restoration",
@@ -1678,11 +1666,11 @@
     "excerpt": []
   },
   {
-    "title": "L7: test an old result after a change",
+    "title": "L7: change the request, then check the evidence",
     "kind": "normal",
     "points": [
       "Restore the original capacity list and rerun L6.",
-      "Run L7. It changes the first request from 40 kW to 20 kW."
+      "Run L7: the requested capacity changes from 40 kW to 20 kW."
     ],
     "refs": [
       "H07"
@@ -1693,29 +1681,29 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L7",
-    "eyebrow": "Classroom Labs · L7 · classroom-021",
+    "eyebrow": "Colab / L7",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-021",
-      "start": 1,
-      "end": 3
+      "start": 8,
+      "end": 9
     },
     "takeaway": "",
+    "code_display_caption": "Colab L7 / run the whole cell",
     "module": "restoration",
     "code_lines": [
-      "rest_record = restoration['records'][0]['weighted']",
-      "rest_request = {'task': 'restoration', 'capacity_kw': CAPACITIES_KW[0],",
-      "                'critical_nodes': [2, 5], 'model': 'six_node_active_transport', 'revision': 1}"
+      "print('Original contract:', lab.bound_to(rest_request, rest_candidate, rest_evidence))",
+      "print('Changed rating with old evidence:', lab.bound_to(new_rest_request, rest_candidate, rest_evidence))"
     ],
-    "code_caption": "Classroom_Labs.ipynb L7 (classroom-021), source lines 1–3.",
-    "code_file": "research/code/restoration_Classroom_Labs_classroom-021_L1-3.py",
+    "code_caption": "Classroom_Labs.ipynb L7 (classroom-021), source lines 8–9.",
+    "code_file": "research/code/restoration_Classroom_Labs_classroom-021_L8-9.py",
     "code_gobble": 0,
     "notebook_source": {
       "file": "Classroom_Labs.ipynb",
       "cell_id": "classroom-021",
       "cell_index_zero_based": 23,
-      "start": 1,
-      "end": 3,
+      "start": 8,
+      "end": 9,
       "notebook_sha256": "e2b283f6f117cb5fc1851d1192a8d190bf97c9ca9c193e974b91efe6a3f68766",
       "cell_source_sha256": "ed7989b2fd29b31dbedff40b52a58a21c74459e22b2c790d8826fe7acac9bf9c"
     },
@@ -1732,11 +1720,11 @@
     "callout": ""
   },
   {
-    "title": "L7: the old evidence no longer matches",
+    "title": "The old result no longer matches",
     "kind": "figure",
     "points": [
-      "Original request: True. Changed request: False.",
-      "HOLD the old recommendation and request a new solve."
+      "The original request matches; the changed request does not.",
+      "Put the old recommendation on HOLD and request a new calculation."
     ],
     "refs": [
       "H07"
@@ -1747,11 +1735,11 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L7",
-    "eyebrow": "Classroom Labs · L7 · classroom-021",
+    "eyebrow": "Colab / L7",
     "image_source_path": "images/hands_on_L7_binding.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L7. New inputs require new evidence.",
+    "caption": "Reference L7 result: changed inputs no longer match the old evidence.",
     "takeaway": "",
     "module": "restoration",
     "image": "hands_on_L7_binding.png",
@@ -1764,26 +1752,26 @@
     "callout": ""
   },
   {
-    "title": "New inputs need new evidence",
+    "title": "A new limit needs a new study",
     "kind": "diagram",
     "points": [
-      "An outdated check does not tell us whether the new plan works.",
-      "Solve again, check again and attach the new result to the new request."
+      "Old evidence does not tell us whether a new plan works.",
+      "Calculate again, check again and attach the new result to the new request."
     ],
     "refs": [
       "H07"
     ],
     "source_label": "Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding.",
     "minutes": 0.5,
-    "note": "Evidence binding asks whether a record matches the exact request, proposed plan and returned result. The diagram’s extra topology labels are teaching illustrations. The runnable L7 example changes only the request capacity and revision; students do not change topology in that cell. Old evidence is unusable for a changed request even if the old plan might still pass its limits. Ask which new numerical check would establish that for the changed request.",
+    "note": "Plain-language explanation: An agent can notice the changed request, ask the tool to solve it again and return the new checks. Rewriting the old explanation would not update the calculation.\n\nOriginal source detail: Evidence binding asks whether a record matches the exact request, proposed plan and returned result. The diagram’s extra topology labels are teaching illustrations. The runnable L7 example changes only the request capacity and revision; students do not change topology in that cell. Old evidence is unusable for a changed request even if the old plan might still pass its limits. Ask which new numerical check would establish that for the changed request.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L7",
-    "eyebrow": "Classroom Labs · L7 · classroom-021",
-    "diagram": "restoration_stale",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "L7 changes capacity and revision, then tests the old evidence.",
+    "eyebrow": "Colab / L7",
+    "diagram": "plain_stale_result",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "A failed input match asks for a new study; it does not establish physical infeasibility.",
     "takeaway": "",
     "module": "restoration",
     "image": null,
@@ -1795,11 +1783,11 @@
     "callout": ""
   },
   {
-    "title": "The agent keeps the service goal",
+    "title": "The agent keeps the operator’s goal",
     "kind": "diagram",
     "points": [
-      "L6 runs Python directly. The operator sets priorities; MILP selects loads.",
-      "An agent could request the solve and explain its returned tradeoff."
+      "The operator sets priorities. The solver selects loads.",
+      "The agent can request the solve and explain the returned service trade-off."
     ],
     "refs": [
       "H06"
@@ -1810,7 +1798,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Colab / L6",
     "diagram": "restoration_plan",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
@@ -1826,11 +1814,11 @@
     "callout": ""
   },
   {
-    "title": "Restoration model limits",
+    "title": "This model leaves some checks for later",
     "kind": "normal",
     "points": [
-      "This graph checks active power, not AC voltage or protection.",
-      "Selected branches do not specify the order of field switching."
+      "This small model checks which loads receive power.",
+      "Voltage, protection and field switching need separate checks."
     ],
     "refs": [
       "H06"
@@ -1841,7 +1829,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "eyebrow": "Colab / L6",
     "takeaway": "",
     "module": "restoration",
     "caption": "",
@@ -1857,10 +1845,11 @@
     "callout": ""
   },
   {
-    "title": "Saved restoration case: try another plan",
+    "title": "Recorded example: try more service",
     "kind": "figure",
     "points": [
-      "Llama requests a trial that restores more load and passes the current check."
+      "This saved feeder study is different from L6.",
+      "Llama requests another plan. The tool reports more service and passing checks."
     ],
     "note": "Switch L10B to restoration. This is the separate L10 feeder-catalog restoration study, not the L6 six-node MILP. The recorded protocol requires a first refinement but Llama chooses between the offered fractions. SHED_075 disconnects 75% of the ordered noncritical load objects, not 75% of load kW. The exact reason calls improvement a possibility. Python evaluates the trial and finds improved service while the tie loading remains 91.867215% of its allowance. A useful hypothesis becomes evidence only after that check. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
     "refs": [
@@ -1870,12 +1859,12 @@
     "minutes": 1,
     "image_source_path": "images/llama_restoration_14.png",
     "visual_height_px": 380,
-    "visual_height_cm": 4.4,
-    "caption": "Saved feeder-catalog study, separate from L6. Replay in L10B.",
+    "visual_height_cm": 4.0,
+    "caption": "",
     "source_label": "Classroom Labs L10B: restoration replay, recorded call 14; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Recorded agent example · separate feeder study",
+    "eyebrow": "Saved feeder example / separate from L6",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "restoration",
@@ -1893,10 +1882,11 @@
     "callout": ""
   },
   {
-    "title": "Saved restoration case: reject a failed trial",
+    "title": "Recorded example: the tool rejects a trial",
     "kind": "figure",
     "points": [
-      "The next trial exceeds the current limit. Keep the previous passing plan."
+      "The next trial carries too much current.",
+      "It cannot replace the previous passing option."
     ],
     "note": "Keep the actual returned reason visible. It refers to a target in the objective, but its claim should not be accepted as a proved fact. In this record the next trial is numerically rejected for a thermal failure. Restoring more load does not make a failed current check acceptable. Ask participants to explain why the previous passed candidate must remain in the case record. The model’s trial budget is bounded. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
     "refs": [
@@ -1906,12 +1896,12 @@
     "minutes": 0.5,
     "image_source_path": "images/llama_restoration_15.png",
     "visual_height_px": 380,
-    "visual_height_cm": 4.4,
-    "caption": "Saved feeder-catalog study, separate from L6. Replay in L10B.",
+    "visual_height_cm": 4.0,
+    "caption": "",
     "source_label": "Classroom Labs L10B: restoration replay, recorded call 15; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Recorded agent example · separate feeder study",
+    "eyebrow": "Saved feeder example / separate from L6",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "restoration",
@@ -1929,10 +1919,11 @@
     "callout": ""
   },
   {
-    "title": "Saved restoration case: correct the ranking",
+    "title": "Recorded example: correct a wrong ranking",
     "kind": "figure",
     "points": [
-      "Python corrects the ranking and rechecks the lowest-cost passing plan."
+      "Llama puts two passing plans in the wrong order.",
+      "Python keeps the lower-cost plan and checks it again."
     ],
     "note": "Let pairs answer before discussing the result. Smaller cost is better, so E03 must rank before E02. Llama returns [E02,E03] while its explanation claims lowest score first. The recorded language_order_agrees_with_cost field is False. A deterministic guard retains E03 and rechecks it as E05, with no recorded failures. Human acknowledgment and dispatch remain False. The paired fixed workflow reaches the same final action and cost. This example motivates verification rather than an unsupported superiority claim. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: At 40 kW, explain 130 total / 90 critical versus 140 total / 30 critical, all in kW. For a changed request, keep HOLD until evidence for the current request is available. Ask each pair to give one number and one condition. They should distinguish three decisions: selecting a service policy, checking current evidence and authorizing a physical switching operation. Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source.",
     "refs": [
@@ -1942,12 +1933,12 @@
     "minutes": 1,
     "image_source_path": "images/llama_restoration_16.png",
     "visual_height_px": 380,
-    "visual_height_cm": 4.4,
-    "caption": "Saved feeder-catalog study, separate from L6. Replay in L10B.",
+    "visual_height_cm": 4.0,
+    "caption": "",
     "source_label": "Classroom Labs L10B: restoration replay, recorded call 16; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Recorded agent example · separate feeder study",
+    "eyebrow": "Saved feeder example / separate from L6",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "restoration",
@@ -1965,26 +1956,26 @@
     "callout": ""
   },
   {
-    "title": "Case 3: suspicious readings",
+    "title": "Case 3: can we trust these readings?",
     "kind": "diagram",
     "points": [
-      "Use the separate four-bus DC teaching model.",
-      "Compare the fit to readings with error against known simulation truth."
+      "Wrong readings can still look consistent with the model.",
+      "The agent can request checks, but action still needs a trusted basis."
     ],
     "refs": [
       "H08"
     ],
     "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
     "minutes": 0.5,
-    "note": "The separate four-bus linear DC model has three unknown voltage angles, measured relative to a reference bus, and eight readings. This DC approximation is not a full AC estimator, malware detector or sensor-authentication system. Synthetic truth is known for the offline classroom comparison only. A residual checks how well the estimate fits the supplied readings; state error checks how far the estimate is from the known teaching truth.",
+    "note": "Plain-language explanation: The operator sees measurements, not the true system state. Several altered readings can agree with each other and still lead to a wrong estimate. An agent can request tests and organize the evidence, but it cannot create a trusted measurement source. The lab uses known simulated changes so that we can compare fit with actual estimation error.\n\nOriginal source detail: The separate four-bus linear DC model has three unknown voltage angles, measured relative to a reference bus, and eight readings. This DC approximation is not a full AC estimator, malware detector or sensor-authentication system. Synthetic truth is known for the offline classroom comparison only. A residual checks how well the estimate fits the supplied readings; state error checks how far the estimate is from the known teaching truth.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
-    "eyebrow": "Classroom Labs · L8 · classroom-023",
-    "diagram": "cyber_network",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Four-bus DC model. Simulation truth is used only for offline comparison.",
+    "eyebrow": "Case 3 / The operator’s problem",
+    "diagram": "plain_cyber_problem",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Concept sketch. L8 uses a small four-bus DC model.",
     "takeaway": "",
     "module": "cyber",
     "image": null,
@@ -1996,11 +1987,11 @@
     "callout": ""
   },
   {
-    "title": "What the residual measures",
+    "title": "Mismatch is only one check",
     "kind": "diagram",
     "points": [
-      "Weighted least squares (WLS) fits the readings. Residual J measures the mismatch.",
-      "The true state is known in this simulation, not in a live control room."
+      "Mismatch J measures how well the model fits the readings.",
+      "The simulation lets us measure how wrong the estimate is (state error)."
     ],
     "refs": [
       "H08",
@@ -2008,15 +1999,15 @@
     ],
     "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
     "minutes": 1,
-    "note": "WLS means weighted least squares: find the state that best fits the readings, giving more influence to readings with smaller stated uncertainty. That weighting does not authenticate a reading. Here J is the residual mismatch statistic, not the voltage case’s penalty score. Its chi-square alarm threshold is about 15.086272 for five residual degrees of freedom at a 1% significance level. This calibration depends on the stated linear model and noise assumptions. An operator does not have the synthetic truth used to calculate the plotted state error. A small J does not establish that the readings are authentic.",
+    "note": "Plain-language explanation: In the cyber lab, J is a mismatch statistic, not the control cost used in the voltage lab. A low mismatch says the model fits the readings; it does not authenticate them.\n\nOriginal source detail: WLS means weighted least squares: find the state that best fits the readings, giving more influence to readings with smaller stated uncertainty. That weighting does not authenticate a reading. Here J is the residual mismatch statistic, not the voltage case’s penalty score. Its chi-square alarm threshold is about 15.086272 for five residual degrees of freedom at a 1% significance level. This calibration depends on the stated linear model and noise assumptions. An operator does not have the synthetic truth used to calculate the plotted state error. A small J does not establish that the readings are authentic.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
-    "eyebrow": "Classroom Labs · L8 · classroom-023",
-    "diagram": "cyber_residual",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "A good fit does not authenticate the readings.",
+    "eyebrow": "Colab / L8",
+    "diagram": "plain_mismatch",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Mismatch J here has a different meaning from control cost J in the voltage lab.",
     "takeaway": "",
     "module": "cyber",
     "image": null,
@@ -2028,11 +2019,11 @@
     "callout": ""
   },
   {
-    "title": "L8: run two data attacks",
+    "title": "L8: compare two misleading-data patterns",
     "kind": "normal",
     "points": [
-      "Run L8 with the default scales.",
-      "Compare one biased reading with a coordinated change across readings."
+      "Run L8 with the default settings.",
+      "Compare one biased reading with a coordinated change across several readings."
     ],
     "refs": [
       "H08"
@@ -2043,224 +2034,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L8",
-    "eyebrow": "Classroom Labs · L8 · classroom-023",
-    "notebook_cell": {
-      "file": "Classroom_Labs.ipynb",
-      "id": "classroom-023",
-      "start": 1,
-      "end": 5
-    },
-    "takeaway": "",
-    "module": "cyber",
-    "code_lines": [
-      "ATTACK_SCALES = (0., .25, .5, 1., 1.5)",
-      "started = time.perf_counter()",
-      "cyber = lab.cyber_sweep(ATTACK_SCALES)",
-      "timings['L8 fresh WLS attack sweep'] = time.perf_counter() - started",
-      "display(cyber['table'])"
-    ],
-    "code_caption": "Classroom_Labs.ipynb L8 (classroom-023), source lines 1–5.",
-    "code_file": "research/code/cyber_Classroom_Labs_classroom-023_L1-5.py",
-    "code_gobble": 0,
-    "notebook_source": {
-      "file": "Classroom_Labs.ipynb",
-      "cell_id": "classroom-023",
-      "cell_index_zero_based": 25,
-      "start": 1,
-      "end": 5,
-      "notebook_sha256": "e2b283f6f117cb5fc1851d1192a8d190bf97c9ca9c193e974b91efe6a3f68766",
-      "cell_source_sha256": "3d4789344ee79907ca9235ae4ee2a847ea816aa0819c3e9072aceef98fad9aa0"
-    },
-    "caption": "",
-    "visual_height_cm": 3.65,
-    "visual_height_px": 330,
-    "image": null,
-    "image2": null,
-    "caption2": "",
-    "diagram": null,
-    "math_tex": "",
-    "math_html": "",
-    "excerpt": [],
-    "callout": ""
-  },
-  {
-    "title": "L8: read both cyber plots",
-    "kind": "figure",
-    "points": [
-      "Left: mismatch J and the alarm threshold. Right: error against simulation truth.",
-      "A quiet alarm can appear alongside a growing state error."
-    ],
-    "refs": [
-      "H08"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
-    "minutes": 1,
-    "note": "The left plot uses a symmetric-log scale. The right plot compares the estimate with known synthetic truth. As the coordinated shift grows, the residual stays unchanged while the state error increases. These plots answer different questions; they do not express the same quantity in different units.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L8",
-    "eyebrow": "Classroom Labs · L8 · classroom-023",
-    "image_source_path": "images/hands_on_L8_plot.png",
-    "visual_height_px": 345,
-    "visual_height_cm": 3.65,
-    "caption": "Reference L8 plots. State error uses known simulation truth.",
-    "takeaway": "",
-    "module": "cyber",
-    "image": "hands_on_L8_plot.png",
-    "image2": null,
-    "caption2": "",
-    "diagram": null,
-    "math_tex": "",
-    "math_html": "",
-    "excerpt": [],
-    "callout": ""
-  },
-  {
-    "title": "L8: a coordinated attack escapes the alarm",
-    "kind": "diagram",
-    "points": [
-      "At scale 1, one biased reading gives J=277.50 and an alarm.",
-      "The coordinated attack gives J=3.92, no alarm, and 0.02678 rad of state error."
-    ],
-    "refs": [
-      "H08",
-      "CY02"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
-    "minutes": 1,
-    "note": "The diagram is a simple scalar illustration of coordinated consistency, not the numerical eight-measurement system. Read the numerical values from L8. A larger false-data shift need not increase the residual when the shift lies in the modeled measurement subspace. The state error is measured in radians; it is available here because this is an offline test with known synthetic truth.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L8",
-    "eyebrow": "Classroom Labs · L8 · classroom-023",
-    "diagram": "cyber_stealth",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Values from the eight-reading L8 model.",
-    "takeaway": "",
-    "module": "cyber",
-    "image": null,
-    "image2": null,
-    "caption2": "",
-    "math_tex": "",
-    "math_html": "",
-    "excerpt": [],
-    "callout": ""
-  },
-  {
-    "title": "Exercise 3: test a small bias",
-    "kind": "exercise",
-    "points": [
-      "Add .10 to ATTACK_SCALES. Predict, then rerun L8.",
-      "At scale 0.10, compare J, the alarm flag and state error.",
-      "Does no alarm mean the data are correct?"
-    ],
-    "refs": [
-      "H08"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
-    "minutes": 3,
-    "note": "Three minutes to predict, edit and run; debrief on the following one-minute answer slide. Allow one minute to predict, two minutes to edit and run, and one minute to report. For isolated bias at scale 0.10, J is about 10.143237, below the 15.086272 threshold. The alarm is False despite nonzero state error. The coordinated residual stays about 3.920222. This added scale remains within the notebook's plot limits.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L8",
-    "eyebrow": "Classroom Labs · L8 · classroom-023",
-    "excerpt": [
-      "ATTACK_SCALES = (0., .10, .25, .5, 1., 1.5)"
-    ],
-    "takeaway": "",
-    "module": "cyber",
-    "caption": "",
-    "visual_height_cm": 3.65,
-    "visual_height_px": 330,
-    "image": null,
-    "image2": null,
-    "caption2": "",
-    "diagram": null,
-    "math_tex": "",
-    "math_html": "",
-    "callout": ""
-  },
-  {
-    "title": "Exercise 3 answer: no alarm can hide an error",
-    "diagram": "exercise_cyber_solution",
-    "points": [
-      "At scale 0.10, both alarms are False. Both state estimates still have error; the coordinated shift has the larger error here.",
-      "No alarm means J is below this threshold. It does not prove correct data or trusted sensors."
-    ],
-    "note": "At scale 0.10, isolated bias gives residual J=10.143237 and state error 0.0008057145 rad. Coordinated Hc gives J=3.920222 and state error 0.0025529499 rad. Both are below the 15.086272 alarm threshold, so both alarm flags are False. This J is a residual statistic, unlike the voltage-control objective J. State error is available here because simulation truth is known. Restore the original ATTACK_SCALES and rerun L8 before the separate fixed L9 recovery case.",
-    "lab_label": "L8",
-    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; fresh four-bus DC residual check at scale 0.10.",
-    "caption": "Fresh L8 results. The state error uses known simulation truth and is not an online truth measurement.",
-    "kind": "diagram",
-    "minutes": 1,
-    "refs": [
-      "H08"
-    ],
-    "eyebrow": "Worked answer / L8",
-    "takeaway": "",
-    "visual_height_cm": 3.3,
-    "visual_height_px": 310,
-    "answer_for": "Exercise 3: test a small bias",
-    "exercise_phase": "solution",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "module": "cyber",
-    "image": null,
-    "image2": null,
-    "caption2": "",
-    "math_tex": "",
-    "math_html": "",
-    "excerpt": [],
-    "callout": ""
-  },
-  {
-    "title": "Exercise 3: a small bias can miss the threshold",
-    "kind": "normal",
-    "points": [
-      "At scale 0.10, J is about 10.14, below the 15.09 alarm threshold.",
-      "A quiet alarm alone cannot prove that readings are true."
-    ],
-    "refs": [
-      "H08"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
-    "minutes": 1,
-    "note": "Separate the two mechanisms. A small isolated bias can stay below a statistical threshold. A coordinated Hc shift can preserve residual consistency by construction. Neither result establishes trusted telemetry. The state-error curve uses offline synthetic truth, not an input available to an online detector.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L8",
-    "eyebrow": "Classroom Labs · L8 · classroom-023",
-    "callout": "10.14 < 15.09 → no residual alarm",
-    "takeaway": "",
-    "module": "cyber",
-    "caption": "",
-    "visual_height_cm": 3.65,
-    "visual_height_px": 330,
-    "image": null,
-    "image2": null,
-    "caption2": "",
-    "diagram": null,
-    "math_tex": "",
-    "math_html": "",
-    "excerpt": []
-  },
-  {
-    "title": "L8: reset before recovery",
-    "kind": "normal",
-    "points": [
-      "Restore the original attack scales and rerun L8.",
-      "L9 uses a separate fixed recovery case."
-    ],
-    "refs": [
-      "H08"
-    ],
-    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
-    "minutes": 0.5,
-    "note": "Explain the boundary before comparing the recovery output. Changing ATTACK_SCALES changes the residual and state-error sweep. It does not change the fixed recovery scenario held inside the demo object.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true,
-    "lab_label": "L8",
-    "eyebrow": "Classroom Labs · L8 · classroom-023",
+    "eyebrow": "Colab / L8",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-023",
@@ -2268,6 +2042,7 @@
       "end": 3
     },
     "takeaway": "",
+    "code_display_caption": "Colab L8 / run the whole cell",
     "module": "cyber",
     "code_lines": [
       "ATTACK_SCALES = (0., .25, .5, 1., 1.5)",
@@ -2299,11 +2074,227 @@
     "callout": ""
   },
   {
-    "title": "L9: one fixed recovery case",
+    "title": "Read the alarm and the estimation error",
+    "kind": "figure",
+    "points": [
+      "Left: mismatch and its alarm threshold. Right: error against the simulation’s known truth.",
+      "A quiet alarm can appear alongside a growing error."
+    ],
+    "refs": [
+      "H08"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
+    "minutes": 1,
+    "note": "The left plot uses a symmetric-log scale. The right plot compares the estimate with known synthetic truth. As the coordinated shift grows, the residual stays unchanged while the state error increases. These plots answer different questions; they do not express the same quantity in different units.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Colab / L8",
+    "image_source_path": "images/hands_on_L8_plot.png",
+    "visual_height_px": 345,
+    "visual_height_cm": 3.65,
+    "caption": "Reference L8 plots: model fit and estimation error are different checks.",
+    "takeaway": "",
+    "module": "cyber",
+    "image": "hands_on_L8_plot.png",
+    "image2": null,
+    "caption2": "",
+    "diagram": null,
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
+    "callout": ""
+  },
+  {
+    "title": "A coordinated change can escape the alarm",
+    "kind": "diagram",
+    "points": [
+      "At scale 1, one biased reading gives mismatch J=277.50 and an alarm.",
+      "A coordinated change gives J=3.92, no alarm, and 0.02678 rad of state error."
+    ],
+    "refs": [
+      "H08",
+      "CY02"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
+    "minutes": 1,
+    "note": "Plain-language explanation: The coordinated changes preserve a small mismatch even as the estimate moves away from the known state. This is the reason a quiet alarm is incomplete evidence.\n\nOriginal source detail: The diagram is a simple scalar illustration of coordinated consistency, not the numerical eight-measurement system. Read the numerical values from L8. A larger false-data shift need not increase the residual when the shift lies in the modeled measurement subspace. The state error is measured in radians; it is available here because this is an offline test with known synthetic truth.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Colab / L8",
+    "diagram": "plain_hidden_error",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "L8 reference values at attack scale 1. Simulation truth supplies the state error.",
+    "takeaway": "",
+    "module": "cyber",
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
+    "callout": ""
+  },
+  {
+    "title": "Exercise 3: test a small bias",
+    "kind": "exercise",
+    "points": [
+      "Add .10 to ATTACK_SCALES. Predict, then rerun L8.",
+      "At scale 0.10, compare mismatch J, the alarm and state error.",
+      "Does no alarm prove that the readings are correct?"
+    ],
+    "refs": [
+      "H08"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
+    "minutes": 3,
+    "note": "Three minutes to predict, edit and run; debrief on the following one-minute answer slide. Allow one minute to predict, two minutes to edit and run, and one minute to report. For isolated bias at scale 0.10, J is about 10.143237, below the 15.086272 threshold. The alarm is False despite nonzero state error. The coordinated residual stays about 3.920222. This added scale remains within the notebook's plot limits.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Try it in Colab / L8",
+    "excerpt": [
+      "ATTACK_SCALES = (0., .10, .25, .5, 1., 1.5)"
+    ],
+    "takeaway": "",
+    "module": "cyber",
+    "caption": "",
+    "visual_height_cm": 3.65,
+    "visual_height_px": 330,
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "diagram": null,
+    "math_tex": "",
+    "math_html": "",
+    "callout": ""
+  },
+  {
+    "title": "Exercise 3 answer: no alarm can hide an error",
+    "diagram": "exercise_cyber_solution",
+    "points": [
+      "Both alarms are False at scale 0.10, but both estimates still have error.",
+      "No alarm means the mismatch is below this threshold. It does not establish data trust."
+    ],
+    "note": "At scale 0.10, isolated bias gives residual J=10.143237 and state error 0.0008057145 rad. Coordinated Hc gives J=3.920222 and state error 0.0025529499 rad. Both are below the 15.086272 alarm threshold, so both alarm flags are False. This J is a residual statistic, unlike the voltage-control objective J. State error is available here because simulation truth is known. Restore the original ATTACK_SCALES and rerun L8 before the separate fixed L9 recovery case.",
+    "lab_label": "L8",
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; fresh four-bus DC residual check at scale 0.10.",
+    "caption": "Fresh L8 exercise. The error uses truth known inside the simulation.",
+    "kind": "diagram",
+    "minutes": 1,
+    "refs": [
+      "H08"
+    ],
+    "eyebrow": "Worked answer / L8",
+    "takeaway": "",
+    "visual_height_cm": 3.3,
+    "visual_height_px": 310,
+    "answer_for": "Exercise 3: test a small bias",
+    "exercise_phase": "solution",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "module": "cyber",
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
+    "callout": ""
+  },
+  {
+    "title": "A small bias can stay below the threshold",
     "kind": "normal",
     "points": [
-      "Compare the same case with and without readings assumed to be trusted.",
-      "Your L8 scale change does not change this case."
+      "At scale 0.10, the mismatch is 10.14, below the 15.09 threshold.",
+      "The operator still needs other evidence about the readings."
+    ],
+    "refs": [
+      "H08"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
+    "minutes": 1,
+    "note": "Separate the two mechanisms. A small isolated bias can stay below a statistical threshold. A coordinated Hc shift can preserve residual consistency by construction. Neither result establishes trusted telemetry. The state-error curve uses offline synthetic truth, not an input available to an online detector.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Colab / L8",
+    "callout": "10.14 < 15.09",
+    "takeaway": "",
+    "module": "cyber",
+    "caption": "",
+    "visual_height_cm": 3.65,
+    "visual_height_px": 330,
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "diagram": null,
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": []
+  },
+  {
+    "title": "L8: reset before the recovery example",
+    "kind": "normal",
+    "points": [
+      "Restore the original attack scales and rerun L8.",
+      "L9 uses a separate fixed recovery case."
+    ],
+    "refs": [
+      "H08"
+    ],
+    "source_label": "Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.",
+    "minutes": 0.5,
+    "note": "Explain the boundary before comparing the recovery output. Changing ATTACK_SCALES changes the residual and state-error sweep. It does not change the fixed recovery scenario held inside the demo object.",
+    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "hands_on": true,
+    "lab_label": "L8",
+    "eyebrow": "Colab / L8",
+    "notebook_cell": {
+      "file": "Classroom_Labs.ipynb",
+      "id": "classroom-023",
+      "start": 1,
+      "end": 3
+    },
+    "takeaway": "",
+    "code_display_caption": "Colab L8 / run the whole cell",
+    "module": "cyber",
+    "code_lines": [
+      "ATTACK_SCALES = (0., .25, .5, 1., 1.5)",
+      "started = time.perf_counter()",
+      "cyber = lab.cyber_sweep(ATTACK_SCALES)"
+    ],
+    "code_caption": "Classroom_Labs.ipynb L8 (classroom-023), source lines 1–3.",
+    "code_file": "research/code/cyber_Classroom_Labs_classroom-023_L1-3.py",
+    "code_gobble": 0,
+    "notebook_source": {
+      "file": "Classroom_Labs.ipynb",
+      "cell_id": "classroom-023",
+      "cell_index_zero_based": 25,
+      "start": 1,
+      "end": 3,
+      "notebook_sha256": "e2b283f6f117cb5fc1851d1192a8d190bf97c9ca9c193e974b91efe6a3f68766",
+      "cell_source_sha256": "3d4789344ee79907ca9235ae4ee2a847ea816aa0819c3e9072aceef98fad9aa0"
+    },
+    "caption": "",
+    "visual_height_cm": 3.65,
+    "visual_height_px": 330,
+    "image": null,
+    "image2": null,
+    "caption2": "",
+    "diagram": null,
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
+    "callout": ""
+  },
+  {
+    "title": "L9: ask whether a correction can be proposed",
+    "kind": "normal",
+    "points": [
+      "Compare one case with and without readings assumed to be trusted.",
+      "Changing your L8 sweep does not change this fixed case."
     ],
     "refs": [
       "H09"
@@ -2314,7 +2305,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
-    "eyebrow": "Classroom Labs · L9 · classroom-026",
+    "eyebrow": "Colab / L9",
     "takeaway": "",
     "module": "cyber",
     "caption": "",
@@ -2330,26 +2321,26 @@
     "callout": ""
   },
   {
-    "title": "Data trust is an assumption",
+    "title": "Trusted readings must come from somewhere",
     "kind": "diagram",
     "points": [
-      "This example assumes three extra angle readings are trustworthy.",
-      "Neither WLS nor Llama authenticates them."
+      "This example assumes extra trustworthy readings are available.",
+      "Neither the fitting tool nor Llama proves that these readings are authentic."
     ],
     "refs": [
       "H09"
     ],
     "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
     "minutes": 0.5,
-    "note": "The example assumes three protected angle readings determine the three unknown angles, leaving zero residual degrees of freedom. Independent trusted information must come from a justified source outside this numerical calculation. A zero residual in this exactly determined system adds no detection guarantee. Neither a good model fit nor a language-model explanation establishes authenticity.",
+    "note": "Plain-language explanation: The lesson supplies a trust assumption so that the numerical task can be studied. The calculation is not a method for proving sensor identity or integrity.\n\nOriginal source detail: The example assumes three protected angle readings determine the three unknown angles, leaving zero residual degrees of freedom. Independent trusted information must come from a justified source outside this numerical calculation. A zero residual in this exactly determined system adds no detection guarantee. Neither a good model fit nor a language-model explanation establishes authenticity.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
-    "eyebrow": "Classroom Labs · L9 · classroom-026",
-    "diagram": "cyber_trusted",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Three extra angle readings are assumed trustworthy.",
+    "eyebrow": "Colab / L9",
+    "diagram": "plain_trust_choice",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "The extra readings are assumed trustworthy for this experiment.",
     "takeaway": "",
     "module": "cyber",
     "image": null,
@@ -2361,11 +2352,11 @@
     "callout": ""
   },
   {
-    "title": "L9: HOLD or PROPOSE",
+    "title": "L9: read HOLD or PROPOSE first",
     "kind": "normal",
     "points": [
-      "Run all of L9. Read status first.",
-      "Then read the proposed injection and the offline violation count."
+      "Run L9 and read the status before the proposed adjustment.",
+      "Then check the model’s returned limits and remaining assumptions."
     ],
     "refs": [
       "H09"
@@ -2376,7 +2367,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
-    "eyebrow": "Classroom Labs · L9 · classroom-026",
+    "eyebrow": "Colab / L9",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-026",
@@ -2384,6 +2375,7 @@
       "end": 2
     },
     "takeaway": "",
+    "code_display_caption": "Colab L9 / run the whole cell",
     "module": "cyber",
     "code_lines": [
       "without_trust = lab.trusted_response(cyber, protected_available=False)",
@@ -2414,11 +2406,11 @@
     "callout": ""
   },
   {
-    "title": "L9: two outcomes",
+    "title": "Missing trust means HOLD",
     "kind": "figure",
     "points": [
       "Without trusted replacement readings: HOLD.",
-      "With assumed trusted readings: PROPOSE, u about 0.121694 p.u., zero offline model violations."
+      "With the trust assumption: PROPOSE a 0.121694 p.u. adjustment; the offline model checks pass."
     ],
     "refs": [
       "H09"
@@ -2429,11 +2421,11 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
-    "eyebrow": "Classroom Labs · L9 · classroom-026",
+    "eyebrow": "Colab / L9",
     "image_source_path": "images/hands_on_L9_trust.png",
     "visual_height_px": 325,
-    "visual_height_cm": 3.45,
-    "caption": "Reference L9 output for the fixed recovery case, not the edited L8 scale.",
+    "visual_height_cm": 3.3,
+    "caption": "Reference L9 output for the fixed recovery example.",
     "takeaway": "",
     "module": "cyber",
     "image": "hands_on_L9_trust.png",
@@ -2446,26 +2438,26 @@
     "callout": ""
   },
   {
-    "title": "L9: check the correction",
+    "title": "The tool calculates a small correction",
     "kind": "diagram",
     "points": [
-      "A quadratic-program (QP) solver finds the smallest allowed injection that meets the branch limits.",
-      "One flow: predicted 0.17000 p.u., offline actual 0.17046 p.u., limit 0.18000 p.u."
+      "The solver finds the smallest allowed adjustment that meets the checked branch limits.",
+      "Predicted flow: 0.17000 p.u. Offline check: 0.17046 p.u. Limit: 0.18000 p.u."
     ],
     "refs": [
       "H09"
     ],
     "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
     "minutes": 0.5,
-    "note": "QP means quadratic programming: this numerical solver minimizes a quadratic effort score while enforcing the declared branch limits and a 0.01 p.u. margin. The flexible injection is u=0.1216936673 p.u., balanced by the reference bus. Predicted flow12 is 0.17000 p.u.; the offline actual flow is about 0.17046 p.u., below the 0.18000 p.u. rating. The actual-flow comparison uses synthetic truth for this fixed case. It does not guarantee AC behavior omitted by the model or trustworthy field telemetry.",
+    "note": "Plain-language explanation: Per unit, written p.u., expresses a value relative to a chosen model base. Compare the predicted and offline checked flow with the same 0.18 limit.\n\nOriginal source detail: QP means quadratic programming: this numerical solver minimizes a quadratic effort score while enforcing the declared branch limits and a 0.01 p.u. margin. The flexible injection is u=0.1216936673 p.u., balanced by the reference bus. Predicted flow12 is 0.17000 p.u.; the offline actual flow is about 0.17046 p.u., below the 0.18000 p.u. rating. The actual-flow comparison uses synthetic truth for this fixed case. It does not guarantee AC behavior omitted by the model or trustworthy field telemetry.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
-    "eyebrow": "Classroom Labs · L9 · classroom-026",
-    "diagram": "cyber_qp",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "Fixed L9 correction: compare the predicted branch flow with the offline truth check.",
+    "eyebrow": "Colab / L9",
+    "diagram": "plain_correction",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Per unit (p.u.) scales a value by a model base. These flows use the same base.",
     "takeaway": "",
     "module": "cyber",
     "image": null,
@@ -2477,26 +2469,26 @@
     "callout": ""
   },
   {
-    "title": "A proposal depends on its assumptions",
+    "title": "How the agent helps with suspicious readings",
     "kind": "diagram",
     "points": [
-      "Assumed trusted data support the estimate. The solver calculates a correction.",
-      "The operator still reviews data trust, model coverage and missing checks."
+      "The agent can request the checks and keep missing evidence visible.",
+      "The operator reviews trust, model coverage and the proposed correction."
     ],
     "refs": [
       "H09"
     ],
     "source_label": "Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.",
     "minutes": 0.5,
-    "note": "Do not attribute recovered information or numerical feasibility to confident prose. The workflow can coordinate the estimator, constrained correction and evidence checks. It cannot invent an independent trusted measurement source.",
+    "note": "Plain-language explanation: Follow the information from the readings to the proposed correction. Without the required trusted data, the workflow returns HOLD. With that assumption, the tool can calculate a candidate. The agent can request these steps and explain missing checks; the operator must still assess the premise and decide the authorized next step.\n\nOriginal source detail: Do not attribute recovered information or numerical feasibility to confident prose. The workflow can coordinate the estimator, constrained correction and evidence checks. It cannot invent an independent trusted measurement source.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
-    "eyebrow": "Classroom Labs · L9 · classroom-026",
-    "diagram": "cyber_handoff",
-    "visual_height_px": 305,
-    "visual_height_cm": 3.25,
-    "caption": "A numerical proposal still needs human review.",
+    "eyebrow": "How an agent can help",
+    "diagram": "plain_cyber_agent",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.3,
+    "caption": "Concept map. L9 calculates; L10B replays saved Llama requests and returned tool evidence.",
     "takeaway": "",
     "module": "cyber",
     "image": null,
@@ -2508,10 +2500,11 @@
     "callout": ""
   },
   {
-    "title": "Saved cyber case: request the allowed tool",
+    "title": "Recorded example: request the recovery tool",
     "kind": "figure",
     "points": [
-      "Llama selects the supplied recovery tool. Python calculates the correction."
+      "Llama requests the supplied recovery tool.",
+      "Python calculates a correction using the assumed trusted readings."
     ],
     "note": "Switch L10B to cyber. This standard four-bus DC record is separate from L10’s proposal-complete cyber record, and matches the Agent Trace notebook T6 archive. The route is narrow: the prompt already authorizes the tool and supplies the trusted-sensor assumption. The three angle readings give full rank but zero residual redundancy, so a good fit is not an independent trust test. u is the flexible injection correction in per unit. Offline synthetic-truth flow is available to the experimenter, not guaranteed available to a real operator. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
     "refs": [
@@ -2521,12 +2514,12 @@
     "minutes": 0.5,
     "image_source_path": "images/llama_cyber_7.png",
     "visual_height_px": 380,
-    "visual_height_cm": 4.4,
-    "caption": "Saved four-bus study. Replay in L10B.",
+    "visual_height_cm": 4.0,
+    "caption": "",
     "source_label": "Classroom Labs L10B: cyber replay, recorded call 7; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Recorded agent example · separate recovery study",
+    "eyebrow": "Saved cyber example / L10B preview",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "cyber",
@@ -2544,10 +2537,11 @@
     "callout": ""
   },
   {
-    "title": "Saved cyber case: keep human review",
+    "title": "Recorded example: keep human review",
     "kind": "figure",
     "points": [
-      "The model check passes. The operator must still review trust and missing checks."
+      "The model checks pass; human review is still pending.",
+      "Data trust and operating permission still need review."
     ],
     "note": "Read the actual reply, including the REVIEW choice. Numerical verification is PASS, but the overall result remains REVIEW and human acknowledgment is PENDING. The fixed comparator obtains the same numerical state estimate and correction without Llama. This replay demonstrates permitted tool routing and a report decision. It does not demonstrate better estimation, authenticated measurements, AC network security or operating authority. Run L11 with the default False setting, then proceed to L12. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: Report the trust assumption, model, proposed u and the checks that passed or failed. Without independent trusted information, keep HOLD and name what is missing. Ask pairs to state the outcome and its condition in the same sentence. For example: 'The fixture proposes u when the supplied trusted channels are available.' Do not say: 'The AI proved that the telemetry is safe.' Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source.",
     "refs": [
@@ -2557,12 +2551,12 @@
     "minutes": 1,
     "image_source_path": "images/llama_cyber_8.png",
     "visual_height_px": 350,
-    "visual_height_cm": 4.4,
-    "caption": "Saved four-bus study. Replay in L10B.",
+    "visual_height_cm": 4.0,
+    "caption": "",
     "source_label": "Classroom Labs L10B: cyber replay, recorded call 8; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Recorded agent example · separate recovery study",
+    "eyebrow": "Saved cyber example / L10B preview",
     "image_transformation": "Presentation selection of verified recorded fields. Exact returned reason is unchanged. Full data, hashes and source paths: research/llama_replay/episodes.json.",
     "hands_on": false,
     "replay_scenario": "cyber",
@@ -2580,11 +2574,11 @@
     "callout": ""
   },
   {
-    "title": "L10: inspect the five-role workflow",
+    "title": "L10: inspect the saved sequence of jobs",
     "kind": "normal",
     "points": [
-      "Run L10 to see every recorded stage and result.",
-      "The stages share case facts, proposals and check results. The next slides explain their jobs."
+      "Run L10 to see the recorded choices, calculations and checks.",
+      "The next diagrams give these jobs simple names."
     ],
     "refs": [
       "H10"
@@ -2595,7 +2589,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L10",
-    "eyebrow": "Classroom Labs · L10 · classroom-028",
+    "eyebrow": "Colab / L10",
     "takeaway": "",
     "module": "closing",
     "caption": "",
@@ -2611,7 +2605,7 @@
     "callout": ""
   },
   {
-    "title": "L10B: replay the three Llama examples",
+    "title": "L10B: replay each saved agent example",
     "kind": "normal",
     "minutes": 4.5,
     "refs": [
@@ -2619,39 +2613,36 @@
       "OLL1"
     ],
     "points": [
-      "Set SCENARIO to voltage, restoration and cyber. Rerun for each.",
-      "These are saved replies and tool results. No new Llama call runs here."
+      "Set SCENARIO to voltage, restoration or cyber, then rerun this cell.",
+      "Read the model’s request and the tool’s response. This is a saved replay."
     ],
     "note": "Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown. Allow about a minute and a half per scenario: one partner identifies the model choice, the other finds its tool result and the unresolved operator decision. These additional minutes replace removed checkpoint slides and the longer source explanations.",
     "source_label": "Classroom_Labs.ipynb, L10B; cell classroom-llama-walkthrough; src/llama_walkthrough.py.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
-    "eyebrow": "Classroom Labs · L10B · classroom-llama-walkthrough",
+    "eyebrow": "Colab / L10B",
     "hands_on": true,
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-llama-walkthrough",
       "start": 1,
-      "end": 5
+      "end": 1
     },
     "takeaway": "",
+    "code_display_caption": "Colab L10B / run the whole cell",
     "module": "closing",
     "code_lines": [
-      "SCENARIO = \"voltage\"  # Change to \"restoration\" or \"cyber\", then rerun this cell.",
-      "from IPython.display import HTML, display",
-      "from src.llama_walkthrough import load_episodes, render_episode_html",
-      "replay_episodes = load_episodes(ROOT)",
-      "display(HTML(render_episode_html(replay_episodes[SCENARIO])))"
+      "SCENARIO = \"voltage\"  # Change to \"restoration\" or \"cyber\", then rerun this cell."
     ],
-    "code_caption": "Classroom_Labs.ipynb L10B (classroom-llama-walkthrough), source lines 1–5.",
-    "code_file": "research/code/closing_Classroom_Labs_classroom-llama-walkthrough_L1-5.py",
+    "code_caption": "Classroom_Labs.ipynb L10B (classroom-llama-walkthrough), source lines 1–1.",
+    "code_file": "research/code/closing_Classroom_Labs_classroom-llama-walkthrough_L1-1.py",
     "code_gobble": 0,
     "notebook_source": {
       "file": "Classroom_Labs.ipynb",
       "cell_id": "classroom-llama-walkthrough",
       "cell_index_zero_based": 33,
       "start": 1,
-      "end": 5,
+      "end": 1,
       "notebook_sha256": "e2b283f6f117cb5fc1851d1192a8d190bf97c9ca9c193e974b91efe6a3f68766",
       "cell_source_sha256": "8c3372ee400e167ba7cdd15aa7251b467a6d7318db3ed6338b258e0498a18be1"
     },
@@ -2668,11 +2659,11 @@
     "callout": ""
   },
   {
-    "title": "L12: practice operator readback",
+    "title": "L12: practice checking the recommendation ID",
     "kind": "normal",
     "points": [
       "Leave L11 disabled, then run L12.",
-      "Check the wrong ID, the matching ID and equipment_dispatch=False."
+      "Compare the wrong ID with the matching ID. Equipment control stays off."
     ],
     "refs": [
       "H12"
@@ -2683,7 +2674,7 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L12",
-    "eyebrow": "Classroom Labs · L12 · classroom-033",
+    "eyebrow": "Colab / L12",
     "notebook_cell": {
       "file": "Classroom_Labs.ipynb",
       "id": "classroom-033",
@@ -2691,6 +2682,7 @@
       "end": 10
     },
     "takeaway": "",
+    "code_display_caption": "Colab L12 / run the whole cell",
     "module": "closing",
     "code_lines": [
       "wrong_id = lab.acknowledge(mv_scope, 'wrong-id', 'Student operator')",
@@ -2721,11 +2713,11 @@
     "callout": ""
   },
   {
-    "title": "L12: approval must match the checked scope",
+    "title": "Approval must match the checked study",
     "kind": "figure",
     "points": [
-      "Full MV/LV request: HOLD. The MV teaching request allows a simulated readback.",
-      "A wrong ID fails. This exercise never sends equipment commands."
+      "The wider-grid request returns HOLD. The limited teaching request permits a simulated readback.",
+      "A wrong ID fails. This practice sends no equipment commands."
     ],
     "refs": [
       "H12"
@@ -2736,10 +2728,10 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L12",
-    "eyebrow": "Classroom Labs / L12 / simulated readback",
+    "eyebrow": "Colab / L12",
     "image_source_path": "images/hands_on_L12_packet.png",
     "visual_height_px": 345,
-    "visual_height_cm": 3.65,
+    "visual_height_cm": 3.4,
     "caption": "Reference L12 output. Readback is simulated.",
     "takeaway": "",
     "module": "closing",
@@ -2753,10 +2745,11 @@
     "callout": ""
   },
   {
-    "title": "Our multi-agent design: five roles",
+    "title": "Five roles share the work",
     "kind": "diagram",
     "points": [
-      "The roles pass structured results to each other. Llama handles planning and refinement; Python runs the other stages."
+      "Python reads the case, calculates and checks. Llama chooses and refines trials.",
+      "These are five jobs; one Llama model fills two of them."
     ],
     "refs": [
       "WF01",
@@ -2764,15 +2757,15 @@
       "DEF03"
     ],
     "minutes": 1.5,
-    "note": "This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry.",
+    "note": "Plain-language explanation: The five roles are five jobs rather than five independent language models. Python reads the case, calculates and verifies. One Llama model requests initial trials and later refinements. Python also guards the final ranking and rechecks the selected option. The default notebook displays these saved stages.\n\nOriginal source detail: This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry.",
     "hands_on": true,
-    "diagram": "multi_agent_roles",
-    "visual_height_px": 365,
-    "visual_height_cm": 4.25,
-    "caption": "Custom Python workflow, one Llama model in two roles. L10 displays its saved trace.",
+    "diagram": "plain_five_jobs",
+    "visual_height_px": 335,
+    "visual_height_cm": 3.7,
+    "caption": "Saved five-role Python workflow; one Llama model fills two jobs.",
     "source_label": "Five-role implementation: src/proposal_workflow.py; recorded results: proposal_complete_workflow.json.",
     "takeaway": "",
-    "eyebrow": "Recorded five-role study / L10",
+    "eyebrow": "Saved five-role workflow / L10",
     "module": "closing",
     "image": null,
     "image2": null,
@@ -2783,22 +2776,23 @@
     "callout": ""
   },
   {
-    "title": "Five roles in the voltage case",
+    "title": "Voltage: request, calculate, check, improve",
     "kind": "diagram",
-    "diagram": "multi_agent_voltage",
+    "diagram": "plain_five_voltage",
     "points": [
-      "Llama asks for less reactive power, then more solar output. Python checks each new trial."
+      "Llama requests small changes to the solar settings.",
+      "Python recalculates each trial and checks its limits before comparison."
     ],
-    "note": "This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. In this L10 lindistflow3 record, the optimizer asks for RELAX_Q_10_PERCENT then INCREASE_PV_0025. Python recalculates each proposal and the verification stage checks it. The selected final recheck uses a=0.3394386941 and b=0.0276310594, with 50.75344954 percent allowed-current use and no recorded violations. The scope is MV phases only with ideal LV aggregation. Do not substitute the P3 99.604410 percent result or L2 MPC score. These are different experiments.",
+    "note": "Plain-language explanation: This is the separate saved L10 medium-voltage example. New settings return to calculation and checking. Its final recorded current use is about 50.75% of the allowance.\n\nOriginal source detail: This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. In this L10 lindistflow3 record, the optimizer asks for RELAX_Q_10_PERCENT then INCREASE_PV_0025. Python recalculates each proposal and the verification stage checks it. The selected final recheck uses a=0.3394386941 and b=0.0276310594, with 50.75344954 percent allowed-current use and no recorded violations. The scope is MV phases only with ideal LV aggregation. Do not substitute the P3 99.604410 percent result or L2 MPC score. These are different experiments.",
     "refs": [
       "WF01",
       "H10"
     ],
     "minutes": 1,
-    "caption": "L10 MV voltage archive, separate from L2 and the P3 replay in L10B.",
-    "visual_height_px": 365,
-    "visual_height_cm": 4.25,
-    "eyebrow": "Recorded five-role study / L10",
+    "caption": "Saved L10 case: 50.75% of allowed current. Medium-voltage model only.",
+    "visual_height_px": 335,
+    "visual_height_cm": 3.7,
+    "eyebrow": "Saved five-role workflow / L10",
     "source_label": "Five-role implementation: src/proposal_workflow.py; recorded results: proposal_complete_workflow.json.",
     "takeaway": "",
     "module": "closing",
@@ -2811,23 +2805,24 @@
     "callout": ""
   },
   {
-    "title": "Five roles in the restoration case",
+    "title": "Restoration: keep priorities and reject failures",
     "kind": "diagram",
-    "diagram": "multi_agent_restoration",
+    "diagram": "plain_five_restoration",
     "points": [
-      "The goal stays fixed. A failed trial cannot enter the final ranking, and Python corrects a wrong cost order."
+      "The goal stays fixed when new plans are tried.",
+      "Python excludes failed trials and corrects a wrong cost order."
     ],
-    "note": "This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. The L10 lindistflow3 restoration record uses a feeder bypass catalog. SHED_075 returns 1843.61355 kW served and 474.03975 critical kW at 91.86721465 percent allowed-current use. SHED_065 then fails at 111.009413 percent. Llama ranks E02 before E03 even though E03 has the smaller cost. The numerical guard selects E03, then records the final recheck as E05. Switching sequence and broader physical operation are not established.",
+    "note": "Plain-language explanation: In the saved feeder case, a trial at about 111.01% current use is rejected. The retained plan serves about 1843.61 kW total and 474.04 kW critical.\n\nOriginal source detail: This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. The L10 lindistflow3 restoration record uses a feeder bypass catalog. SHED_075 returns 1843.61355 kW served and 474.03975 critical kW at 91.86721465 percent allowed-current use. SHED_065 then fails at 111.009413 percent. Llama ranks E02 before E03 even though E03 has the smaller cost. The numerical guard selects E03, then records the final recheck as E05. Switching sequence and broader physical operation are not established.",
     "refs": [
       "WF01",
       "H10",
       "LRR"
     ],
     "minutes": 1,
-    "caption": "L10 feeder catalog, separate from the six-node L6 exercise.",
-    "visual_height_px": 365,
-    "visual_height_cm": 4.25,
-    "eyebrow": "Recorded five-role study / L10",
+    "caption": "Saved L10 case: 1,843.61 kW total / 474.04 kW critical / 91.87% of allowed current.",
+    "visual_height_px": 335,
+    "visual_height_cm": 3.7,
+    "eyebrow": "Saved five-role workflow / L10",
     "source_label": "Five-role implementation: src/proposal_workflow.py; recorded results: proposal_complete_workflow.json.",
     "takeaway": "",
     "module": "closing",
@@ -2840,22 +2835,23 @@
     "callout": ""
   },
   {
-    "title": "Five roles in the cyber case",
+    "title": "Cyber: keep the trust assumption visible",
     "kind": "diagram",
-    "diagram": "multi_agent_cyber",
+    "diagram": "plain_five_cyber",
     "points": [
-      "The workflow keeps the trust assumption visible. It cannot create trusted data from a convincing answer."
+      "The agent can request another permitted study or report that evidence is missing.",
+      "It cannot make a data source trustworthy by describing it confidently."
     ],
-    "note": "This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. Awareness preserves the declared measurement-trust condition. Planning requests the initial candidates; Python runs the estimator and constrained-response tools. The optimizer requests EXTRA_MARGIN_001 and TRUSTED_QP. The selected final recheck uses TRUSTED_QP with u=0.1216936673 per unit and predicted flow12=0.17 per unit against a 0.18 limit. The model checks a four-bus DC fixture with three protected angles assumed trustworthy. No stage authenticates those channels, and offline truth is not fed to Llama.",
+    "note": "Plain-language explanation: The saved cyber example keeps the assumed trusted readings visible throughout the workflow. Repeating or explaining that assumption does not establish its truth.\n\nOriginal source detail: This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. Awareness preserves the declared measurement-trust condition. Planning requests the initial candidates; Python runs the estimator and constrained-response tools. The optimizer requests EXTRA_MARGIN_001 and TRUSTED_QP. The selected final recheck uses TRUSTED_QP with u=0.1216936673 per unit and predicted flow12=0.17 per unit against a 0.18 limit. The model checks a four-bus DC fixture with three protected angles assumed trustworthy. No stage authenticates those channels, and offline truth is not fed to Llama.",
     "refs": [
       "WF01",
       "H10"
     ],
     "minutes": 1,
-    "caption": "L10 four-bus DC cyber_stealth archive. Trusted channels are assumed.",
-    "visual_height_px": 365,
-    "visual_height_cm": 4.25,
-    "eyebrow": "Recorded five-role study / L10",
+    "caption": "Saved L10 cyber case. Trusted measurements are an explicit assumption.",
+    "visual_height_px": 335,
+    "visual_height_cm": 3.7,
+    "eyebrow": "Saved five-role workflow / L10",
     "source_label": "Five-role implementation: src/proposal_workflow.py; recorded results: proposal_complete_workflow.json.",
     "takeaway": "",
     "module": "closing",
@@ -2868,12 +2864,12 @@
     "callout": ""
   },
   {
-    "title": "The operator reviews one evidence packet",
+    "title": "The operator chooses the next step",
     "kind": "diagram",
     "diagram": "ops_review",
     "points": [
-      "Review the inputs, proposal, worst margins and missing checks.",
-      "Request another study, reject the proposal or accept it for the next authorized step."
+      "Review the case, tool results, checked limits and missing work.",
+      "Request another study, reject the proposal or take the next authorized step."
     ],
     "note": "Proposed control-room use. The operator reviews the case snapshot, data quality, limits, selected proposal and missing studies. Ask for another study, reject it or accept it for a defined next step. L12 practices ID-bound readback only and never operates equipment.",
     "refs": [
@@ -2898,12 +2894,12 @@
     "callout": ""
   },
   {
-    "title": "What the evidence shows",
+    "title": "Measure whether the agent helps",
     "kind": "diagram",
     "diagram": "ops_pilot",
     "points": [
-      "In L10, five paired final costs tied; one Llama route was worse.",
-      "Start with past cases and read-only use. Measure benefit against the same tools in a fixed script."
+      "Compare it with a fixed script using the same tools and cases.",
+      "In L10, five final costs tied; one Llama route was worse. Benefit must be measured."
     ],
     "note": "The six matched fixed-versus-Llama runs in proposal_complete_workflow.json have five tied final costs and one worse Llama voltage result. Recorded model calls add elapsed time. This demonstrates traceable coordination, not better power-flow solvers or general efficiency. Test any proposed benefit against the same tools and budgets. A control-room pilot starts with archived cases, then read-only shadow studies and a limited reviewed scope.",
     "refs": [
@@ -2928,11 +2924,11 @@
     "callout": ""
   },
   {
-    "title": "Questions and your next lab run",
+    "title": "Try one change and explain the result",
     "kind": "normal",
     "points": [
       "Choose one case. Change one input, rerun and save the result.",
-      "Explain the agent choice, tool result, check and operator decision."
+      "Explain the problem, agent choice, tool result and operator decision."
     ],
     "refs": [
       "H00"
