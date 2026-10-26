@@ -12,12 +12,13 @@ Try each exercise before advancing to its worked answer: slides 26 → 27 and 54
 
 The 80-slide presentation opens with a [Google Cloud Tech concept video on slide 6](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/6). Watch 0:43–3:28 to connect tool use and feedback to an agent’s next decision.
 
-Two platform videos follow on slides 47–48:
+Video examples are spaced through the lecture:
 
-- [LangChain’s Studio walkthrough](https://www.youtube.com/watch?v=pLPJoFvq4_M): inspect tool calls, returned results and saved state.
-- [Siemens Gridscale X PSS E product video](https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016): connect agentic software to transmission planning. This 79-second supplier overview is not a complete engineering validation.
+- **Slide 6:** the Google Cloud Tech concept excerpt, 0:43–3:28.
+- **[Slide 37](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/37):** a **99-second excerpt** from [LangChain’s official debugging demo](https://www.youtube.com/watch?v=5vEC0Y4sV8g&t=214s), 3:34–5:13. It follows the LangGraph explanation and shows a breakpoint, inspection and continuation.
+- **[Slide 48](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/48):** the 79-second Siemens Gridscale X PSS E planning overview.
 
-Click the preview to load each video, or open its official link. The PDF includes clickable previews and full source credits. Slide text and editable TikZ diagrams use Latin Modern, the LaTeX font family; original source figures retain their published lettering.
+Use the play control within the online slide. The selected LangGraph segment stops automatically. PDF previews remain clickable, and full source credits accompany the videos. Slide text and editable TikZ diagrams use Latin Modern; original figures retain their published lettering.
 
 ## Source files
 

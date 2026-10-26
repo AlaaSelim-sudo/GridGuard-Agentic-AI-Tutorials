@@ -15,8 +15,8 @@ PRESENTERS='Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.'
 GROUPS=[('concepts',1,8,'1. Agents, tools and workflows'),
         ('industry',9,17,'2. What power-sector organizations report'),
         ('operators',18,27,'3. Operator tasks and evidence checks'),
-        ('workflow',28,43,'4. Research foundations, LangGraph and PowerDAG'),
-        ('simulation',44,55,'5. Simulation feedback and valid reuse'),
+        ('workflow',28,44,'4. Research foundations, LangGraph and PowerDAG'),
+        ('simulation',45,55,'5. Simulation feedback and valid reuse'),
         ('benchmarks',56,67,'6. Power-system benchmarks and failure modes'),
         ('evaluation',68,77,'7. Statistics, integration and evaluation'),
         ('handoff',78,80,'8. Prepare for the three-case workshop')]

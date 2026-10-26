@@ -143,7 +143,6 @@ def render_frame(s, sources):
             trim=',trim=0 45 0 45,clip' if s['video_id']=='pLPJoFvq4_M' else ''
             out.append(r'\begin{columns}[T,onlytextwidth]\begin{column}{.64\textwidth}\centering'+'\n')
             out.append(r'\href{'+s['video_url']+r'}{\includegraphics[width=\linewidth,height=4cm,keepaspectratio'+trim+r']{images/'+s['image']+r'}}\par'+'\n')
-            out.append(r'\smallskip{\small\href{'+s['video_url']+r'}{Watch official video}\par}'+ '\n')
             out.append(r'\end{column}\begin{column}{.32\textwidth}'+points_tex(s['points'],compact=True)+r'\end{column}\end{columns}'+'\n')
         elif s.get('layout')=='news-detail':
             out.append(r'\begin{columns}[T,onlytextwidth]\begin{column}{.56\textwidth}'+'\n'
@@ -239,7 +238,7 @@ def render_slide(s, number, total, sources):
             out.append('<div class="eyebrow">' + he(s["eyebrow"]) + "</div>")
         out.append("<h1>" + he(s["title"]) + "</h1>")
         if kind == 'video':
-            out.append('<div class="content"><PlatformVideo embed-url="'+he(s['embed_url'])+'" watch-url="'+he(s['video_url'])+'" poster="'+he(s['image'])+'" title="'+he(s['title'])+'" /><div class="video-points">'+points_html(s['points'])+'</div></div>')
+            out.append('<div class="content"><PlatformVideo embed-url="'+he(s['embed_url'])+'" poster="'+he(s['image'])+'" title="'+he(s['title'])+'" /><div class="video-points">'+points_html(s['points'])+'</div></div>')
         elif s.get('layout')=='news-detail':
             out.append('<div class="content"><div class="source-focus news-detail">'+picture_html(s['image'],s.get('caption',''),'330px')
                        +'<div>'+points_html(s['points'])+'</div></div><div class="news-strip">'

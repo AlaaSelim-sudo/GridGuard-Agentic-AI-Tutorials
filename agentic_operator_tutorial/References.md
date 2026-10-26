@@ -636,6 +636,18 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Full paper PDF:** [https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.pdf](https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.pdf)
 
+## [VID01] Strategies for debugging agents with LangGraph Studio
+
+**Authors / issuer:** LangChain
+
+**Publisher / venue:** LangChain / YouTube
+
+**Date:** 26 March 2025
+
+**Evidence type:** Official software-platform demonstration
+
+**Full source URL:** [https://www.youtube.com/watch?v=5vEC0Y4sV8g](https://www.youtube.com/watch?v=5vEC0Y4sV8g)
+
 ## [LG02] LangGraph Persistence
 
 **Authors / issuer:** LangChain documentation maintainers
@@ -689,20 +701,6 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 **Full source URL:** [https://arxiv.org/abs/2607.28822v1](https://arxiv.org/abs/2607.28822v1)
 
 **Full paper PDF:** [https://arxiv.org/pdf/2607.28822v1](https://arxiv.org/pdf/2607.28822v1)
-
-## [VID01] LangSmith Studio: The first agent IDE
-
-**Authors / issuer:** LangChain
-
-**Publisher / venue:** LangChain
-
-**Date:** Launch walkthrough linked 1 August 2024
-
-**Evidence type:** Official platform video; not evidence of a named utility deployment
-
-**Full source URL:** [https://www.youtube.com/watch?v=pLPJoFvq4_M](https://www.youtube.com/watch?v=pLPJoFvq4_M)
-
-**Publication:** [https://www.langchain.com/blog/langgraph-studio-the-first-agent-ide](https://www.langchain.com/blog/langgraph-studio-the-first-agent-ide)
 
 ## [VID02] Gridscale X PSS E: agentic transmission planning — product video
 
@@ -1488,13 +1486,33 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Original figure / image URL:** [https://mintcdn.com/langchain-5e9cc07a/dL5Sn6Cmy9pwtY0V/oss/images/static-interrupt.png](https://mintcdn.com/langchain-5e9cc07a/dL5Sn6Cmy9pwtY0V/oss/images/static-interrupt.png)
 
+## Visual credit: platform_5vEC0Y4sV8g.jpg
+
+**Caption:** LangChain / 26 March 2025
+
+**Credit:** LangChain. Strategies for debugging agents with LangGraph Studio. 26 March 2025. Official video thumbnail.
+
+**Used on:** 37. LangGraph demo: pause, inspect and continue
+
+**Asset type:** Official video thumbnail
+
+**Transformation:** None
+
+**Evidence limit:** General software debugging demo. The selected classroom excerpt is 3:34–5:13; it does not demonstrate power-system feasibility or utility deployment.
+
+**License or permission status:** Publisher thumbnail linked to the official video; copyright remains with the publisher.
+
+**Original source / page:** [https://www.youtube.com/watch?v=5vEC0Y4sV8g](https://www.youtube.com/watch?v=5vEC0Y4sV8g)
+
+**Original figure / image URL:** [https://i.ytimg.com/vi/5vEC0Y4sV8g/hqdefault.jpg](https://i.ytimg.com/vi/5vEC0Y4sV8g/hqdefault.jpg)
+
 ## Visual credit: real_framework_langgraph_state.svg
 
 **Caption:** Original LangGraph state diagram. Software checkpoints still need grid-case, time and evidence identifiers.
 
 **Credit:** Source: LangChain documentation maintainers, official LangGraph documentation. Accessed October 18, 2026.
 
-**Used on:** 37. Saved state must identify the study and its evidence
+**Used on:** 38. Saved state must identify the study and its evidence
 
 **Transformation:** Selected original figure panel excerpt; no labels, arrows or pixels edited. Entire original image retained separately.
 
@@ -1512,7 +1530,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Source: LangChain documentation maintainers, official LangGraph documentation. Accessed October 18, 2026.
 
-**Used on:** 38. A checkpoint lets a workflow pause and resume
+**Used on:** 39. A checkpoint lets a workflow pause and resume
 
 **Transformation:** Selected original figure panel excerpt; no labels, arrows or pixels edited. Entire original image retained separately.
 
@@ -1530,7 +1548,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Source: Anthropic, Building effective agents (December 19, 2024).
 
-**Used on:** 39. Parallel outage studies must account for every case
+**Used on:** 40. Parallel outage studies must account for every case
 
 **Transformation:** Only blank outer margins trimmed by display viewport; original image bytes are embedded unchanged and also retained as a separate original file.
 
@@ -1548,7 +1566,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Emmanuel O. Badmus, Amritanshu Pandey; PowerDAG: Supervisory Agentic AI System for Automating Distribution Grid Analysis; Figure 2, v4 PDF page 3
 
-**Used on:** 40. PowerDAG checks the steps needed before a tool runs
+**Used on:** 41. PowerDAG checks the steps needed before a tool runs
 
 **Asset type:** Original published figure or result panel, native PDF crop
 
@@ -1566,7 +1584,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Original vector plot redrawn from author-reported PowerDAG v4 numerical results
 
-**Used on:** 42. PowerDAG results: the same queries, four setups
+**Used on:** 43. PowerDAG results: the same queries, four setups
 
 **Asset type:** Original quantitative teaching figure
 
@@ -1584,7 +1602,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Mengshuo Jia, Zeyu Cui, Gabriela Hug; Enhancing LLMs for Power System Simulations: A Feedback-Driven Multi-Agent Framework; Figure 5, author-preprint PDF page 7
 
-**Used on:** 44. Simulation agents find functions, run code and repair errors
+**Used on:** 45. Simulation agents find functions, run code and repair errors
 
 **Asset type:** Original published figure or result panel, native PDF crop
 
@@ -1602,7 +1620,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Original plot redrawn from cited primary-paper numerical results; no experiments rerun
 
-**Used on:** 45. Simulation-agent results: points, not a pass rate
+**Used on:** 46. Simulation-agent results: points, not a pass rate
 
 **Asset type:** Original quantitative teaching figure
 
@@ -1620,7 +1638,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Source: Anthropic, Building effective agents (December 19, 2024).
 
-**Used on:** 46. Trying again can repeat the same software error
+**Used on:** 47. Trying again can repeat the same software error
 
 **Transformation:** Only blank outer margins trimmed by display viewport; original image bytes are embedded unchanged and also retained as a separate original file.
 
@@ -1631,26 +1649,6 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 **Original source / page:** [https://www.anthropic.com/engineering/building-effective-agents](https://www.anthropic.com/engineering/building-effective-agents)
 
 **Original figure / image URL:** [https://www-cdn.anthropic.com/images/4zrzovbb/website/14f51e6406ccb29e695da48b17017e899a6119c7-2401x1000.png](https://www-cdn.anthropic.com/images/4zrzovbb/website/14f51e6406ccb29e695da48b17017e899a6119c7-2401x1000.png)
-
-## Visual credit: platform_pLPJoFvq4_M.jpg
-
-**Caption:** LangChain / Launch walkthrough linked 1 August 2024
-
-**Credit:** LangChain. LangSmith Studio: The first agent IDE. Launch walkthrough linked 1 August 2024. Official video thumbnail.
-
-**Used on:** 47. LangGraph Studio: watch an agent use tools
-
-**Asset type:** Official video thumbnail
-
-**Transformation:** None
-
-**Evidence limit:** General software-platform demonstration; not power-system validation or utility deployment evidence.
-
-**License or permission status:** Publisher thumbnail linked to the official video; copyright remains with the publisher.
-
-**Original source / page:** [https://www.youtube.com/watch?v=pLPJoFvq4_M](https://www.youtube.com/watch?v=pLPJoFvq4_M)
-
-**Original figure / image URL:** [https://i.ytimg.com/vi/pLPJoFvq4_M/hqdefault.jpg](https://i.ytimg.com/vi/pLPJoFvq4_M/hqdefault.jpg)
 
 ## Visual credit: platform_682ca322-5d0b-47a0-8d18-77bf9d0fb016.png
 
@@ -2144,7 +2142,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Original native TikZ educational diagram; source and assumptions in caption
 
-**Used on:** 41. PowerDAG: solve the grid before checking its voltage
+**Used on:** 42. PowerDAG: solve the grid before checking its voltage
 
 **Caption:** Original teaching adaptation of PowerDAG v4, Section IV-C, PDF p.5. A planner proposes a voltage-violation check. A prerequisite gate blocks execution and returns the missing solve to the planner when the required solved network state is unavailable; otherwise the check proceeds. This is neither exact source code nor the complete/minimal workflow DAG.
 

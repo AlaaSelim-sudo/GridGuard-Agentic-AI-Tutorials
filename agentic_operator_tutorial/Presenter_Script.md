@@ -23,8 +23,8 @@ This script follows the accepted deck and its 18 October 2026 evidence snapshot.
 - [1. Agents, tools and workflows: slides 1-8, 00:00:00-00:12:30](#module-concepts)
 - [2. What power-sector organizations report: slides 9-17, 00:12:30-00:30:00](#module-industry)
 - [3. Operator tasks and evidence checks: slides 18-27, 00:30:00-00:49:30](#module-operators)
-- [4. Research foundations, LangGraph and PowerDAG: slides 28-43, 00:49:30-01:21:00](#module-workflow)
-- [5. Simulation feedback and valid reuse: slides 44-55, 01:21:00-01:53:00](#module-simulation)
+- [4. Research foundations, LangGraph and PowerDAG: slides 28-44, 00:49:30-01:23:30](#module-workflow)
+- [5. Simulation feedback and valid reuse: slides 45-55, 01:23:30-01:53:00](#module-simulation)
 - [6. Power-system benchmarks and failure modes: slides 56-67, 01:53:00-02:19:30](#module-benchmarks)
 - [7. Statistics, integration and evaluation: slides 68-77, 02:19:30-02:40:00](#module-evaluation)
 - [8. Prepare for the three-case workshop: slides 78-80, 02:40:00-02:45:00](#module-handoff)
@@ -133,7 +133,7 @@ Sources: [DEF06](#source-DEF06), [DEF03](#source-DEF03), [DEF01](#source-DEF01),
 
 **Say:** Let us see the difference in a short video. A fixed workflow follows choices written in code. An agent can use the latest result to choose some next steps. Watch the examples, then map the idea to our study request, numerical solver, result checks and operator review. The model coordinates the work; the solver computes the electrical result. Our grid mapping is a teaching example. The operating decision still belongs to the operator.
 
-**Show / explain:** Click Play official video. The embedded player starts at 0:43 and stops at 3:28. This is the publisher’s definition-and-examples segment. If opening the direct link, stop at 3:28. Use the remaining fifteen seconds to connect the video to the operator workflow.
+**Show / explain:** Click Play video. The embedded player starts at 0:43 and stops at 3:28. Use the remaining fifteen seconds to connect the concept to the operator workflow.
 
 **Ask:** After a tool returns its result, what makes the next step agentic?
 
@@ -683,15 +683,33 @@ Sources: [D01](#source-D01). Full author, title, date and URLs appear in the ref
 
 **Expected answer:** No. The application must call and interpret the appropriate engineering tools and enforce the requirements.
 
-**Transition:** Those tools produce evidence that the workflow must keep identifiable.
+**Transition:** The short demo shows this pause-and-inspect step in action.
 
 Sources: [LG01](#source-LG01), [D01](#source-D01), [P03](#source-P03), [LG03](#source-LG03). Full author, title, date and URLs appear in the reference section.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/36) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/36)
 
-### Slide 37. Saved state must identify the study and its evidence
+### Slide 37. LangGraph demo: pause, inspect and continue
 
-01:07:00-01:09:00 / 2 minutes
+01:07:00-01:09:30 / 2.5 minutes
+
+**Say:** Here is a short demonstration of the pause we just described. Watch the graph stop, the developer inspect and adjust the work, and execution continue. A breakpoint helps inspect software state. It does not by itself validate a power-flow result or authorize an operator action. In a grid workflow, we would check the returned solver evidence before continuing.
+
+**Show / explain:** Play the embedded 99-second excerpt, 3:34–5:13. The player stops at the end of this segment. Use the remaining time to connect the pause to engineering checks.
+
+**Ask:** Does resuming a workflow prove that the power-flow result is valid?
+
+**Expected answer:** No. The application still needs the correct inputs, convergence and engineering-limit checks before operator review.
+
+**Transition:** Now consider what must be saved so a paused study can be reviewed and resumed.
+
+Sources: [VID01](#source-VID01). Full author, title, date and URLs appear in the reference section.
+
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/37) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/37)
+
+### Slide 38. Saved state must identify the study and its evidence
+
+01:09:30-01:11:30 / 2 minutes
 
 **Say:** Saved state should identify the study, its input versions, results, status and attempt count. Suppose a set of parallel outage studies expects a case called outage_34. The application needs to notice if that result is missing or appears twice. A generic state store does not automatically understand that engineering requirement. Reducers or an external evidence store must preserve the case identities and combine updates correctly. A list of three completed steps is insufficient if the requested set contained four cases. Save enough information to compare the expected set with the returned evidence. That makes both missing coverage and inappropriate reuse easier to detect.
 
@@ -705,11 +723,11 @@ Sources: [LG01](#source-LG01), [D01](#source-D01), [P03](#source-P03), [LG03](#s
 
 Sources: [LG01](#source-LG01), [LG02](#source-LG02), [LG05](#source-LG05). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/37) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/37)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/38) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/38)
 
-### Slide 38. A checkpoint lets a workflow pause and resume
+### Slide 39. A checkpoint lets a workflow pause and resume
 
-01:09:00-01:11:00 / 2 minutes
+01:11:30-01:13:30 / 2 minutes
 
 **Say:** A checkpoint records workflow progress. A thread identifier links saved steps to the same run so execution can resume later. However, external conditions may change during a pause. A saved voltage result may no longer match the current topology. The application must revalidate the snapshot and rerun affected work. There is another software detail to consider: the interrupted node may restart from its beginning. Actions before the pause may therefore run again. Stable step IDs or idempotency controls can prevent a repeated request from applying the same change twice. Saving and resuming software state solves a coordination problem. It does not keep the external grid state frozen.
 
@@ -723,11 +741,11 @@ Sources: [LG01](#source-LG01), [LG02](#source-LG02), [LG05](#source-LG05). Full 
 
 Sources: [LG02](#source-LG02), [LG03](#source-LG03), [LG05](#source-LG05). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/38) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/38)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/39) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/39)
 
-### Slide 39. Parallel outage studies must account for every case
+### Slide 40. Parallel outage studies must account for every case
 
-01:11:00-01:13:00 / 2 minutes
+01:13:30-01:15:30 / 2 minutes
 
 **Say:** Parallel studies can reduce waiting when the cases are independent. Each selected outage should run on a consistent copy of the same starting case. Afterward, the application must compare the expected case IDs with the returned results. A failed or missing branch remains unresolved. An aggregator that summarizes only successful branches can produce an attractive but incomplete report. If a case called C2 fails, the report should identify C2, its error and the conclusions that cannot yet be drawn. Even completing every selected case does not imply that the selected set covers every relevant single-component outage. Coverage has to match the original assignment.
 
@@ -741,11 +759,11 @@ Sources: [LG02](#source-LG02), [LG03](#source-LG03), [LG05](#source-LG05). Full 
 
 Sources: [R01](#source-R01), [LG01](#source-LG01), [DEF03](#source-DEF03). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/39) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/39)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/40) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/40)
 
-### Slide 40. PowerDAG checks the steps needed before a tool runs
+### Slide 41. PowerDAG checks the steps needed before a tool runs
 
-01:13:00-01:15:00 / 2 minutes
+01:15:30-01:17:30 / 2 minutes
 
 **Say:** PowerDAG retrieves relevant verified workflow examples and uses a dependency graph with a supervisory gate. The gate checks required earlier tool calls before allowing another tool to run. The inspected version four covers 108 tools, ten task families and four Vermont feeder models. Those are distribution networks: Rochester, Stowe, Glover and South Hero. The agent still chooses steps, while the supervisor constrains their order. This combines flexible selection with explicit workflow rules. The exact gate matters. In this paper it checks encoded prior Write-tool names. That is narrower than checking every parameter, input version or physical consequence. We should explain the gate's actual guarantee before interpreting its benchmark result.
 
@@ -759,11 +777,11 @@ Sources: [R01](#source-R01), [LG01](#source-LG01), [DEF03](#source-DEF03). Full 
 
 Sources: [PD01](#source-PD01), [PD02](#source-PD02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/40) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/40)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/41) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/41)
 
-### Slide 41. PowerDAG: solve the grid before checking its voltage
+### Slide 42. PowerDAG: solve the grid before checking its voltage
 
-01:15:00-01:17:00 / 2 minutes
+01:17:30-01:19:30 / 2 minutes
 
 **Say:** A voltage-violation check needs a solved network state. If the required earlier solver step is missing, the gate rejects the call and explains what needs to happen first. That prevents one important class of workflow error. Now ask a second question: did that solve use the current network? The paper's check of executed tool names does not by itself establish freshness. Our teaching diagram adds a current-v43 condition to show the stronger requirement an application may need. It is labeled as an adaptation. Passing a dependency gate therefore means the encoded prerequisites passed. The numerical solution and the resulting engineering conclusion still require their own checks.
 
@@ -777,11 +795,11 @@ Sources: [PD01](#source-PD01), [PD02](#source-PD02). Full author, title, date an
 
 Sources: [PD01](#source-PD01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/41) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/41)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/42) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/42)
 
-### Slide 42. PowerDAG results: the same queries, four setups
+### Slide 43. PowerDAG results: the same queries, four setups
 
-01:17:00-01:19:00 / 2 minutes
+01:19:30-01:21:30 / 2 minutes
 
 **Say:** This comparison uses the same GPT-5.5 model and 150 test queries in each setup. The reported first-run workflow success is 77.33 percent for ReAct, 92.67 for retrieval only, 96 for just-in-time supervision only and 98 for full PowerDAG. Pass at one checks required tool coverage, compatible inputs and ordering against expert workflows. Each query runs once in each setup. These held-out queries still come from the same ten task families. The comparison supports the value of these complete configurations on that benchmark. It does not measure reliability of live commands or isolate the effect of one graph edge. Keep the model, task population and score definition attached to the headline.
 
@@ -795,11 +813,11 @@ Sources: [PD01](#source-PD01). Full author, title, date and URLs appear in the r
 
 Sources: [PD01](#source-PD01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/42) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/42)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/43) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/43)
 
-### Slide 43. PowerDAG: what can others check and reuse?
+### Slide 44. PowerDAG: what can others check and reuse?
 
-01:19:00-01:21:00 / 2 minutes
+01:21:30-01:23:30 / 2 minutes
 
 **Say:** The PowerDAG public benchmark provides tasks, tool descriptions, workflow records and scoring code. That allows others to inspect the study design and some of the execution evidence. The release has a practical boundary: BESS, basicPV and GFI can run from the public files, while seven other task families need private feeder maps, geographic data and network-tool code. Public records are therefore useful without making the entire study independently runnable from the download. When reusing the idea, we can adopt explicit prerequisite checks and then test them against our own tools and state rules. We should not assume that a published gate automatically transfers unchanged to a different utility environment.
 
@@ -813,15 +831,15 @@ Sources: [PD01](#source-PD01). Full author, title, date and URLs appear in the r
 
 Sources: [PD02](#source-PD02), [PD01](#source-PD01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/43) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/43)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/44) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/44)
 
 <a id="module-simulation"></a>
 
 ## 5. Simulation feedback and valid reuse
 
-### Slide 44. Simulation agents find functions, run code and repair errors
+### Slide 45. Simulation agents find functions, run code and repair errors
 
-01:21:00-01:23:00 / 2 minutes
+01:23:30-01:25:30 / 2 minutes
 
 **Say:** The feedback-driven simulation framework finds relevant MATLAB functions and settings, writes code and runs it. Tool errors return feedback that can guide repair. The study uses DALINE and MATPOWER tasks. This illustrates a real agentic role: selecting and correcting the steps needed to complete a simulation request. However, a program can run without matching the requested engineering settings. We must compare the executed study with the assignment, including required variables and unnecessary changes. A successful software exit is one layer of evidence. Numerical and task-level checks are additional layers. The paper does not identify LangGraph, so we should describe its workflow without assigning an unreported software framework.
 
@@ -835,11 +853,11 @@ Sources: [PD02](#source-PD02), [PD01](#source-PD01). Full author, title, date an
 
 Sources: [E02](#source-E02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/44) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/44)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/45) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/45)
 
-### Slide 45. Simulation-agent results: points, not a pass rate
+### Slide 46. Simulation-agent results: points, not a pass rate
 
-01:23:00-01:25:00 / 2 minutes
+01:25:30-01:27:30 / 2 minutes
 
 **Say:** For 34 DALINE tasks, each graded attempt receives 100 points if it meets every requirement without extra settings, 50 if unnecessary settings remain and zero if a requirement is missed. The score averages allowed attempt slots, carrying the final score into unused slots. The full setup reports 93.13 on this scale. It is not a statement that 93.13 percent of tasks passed. Other shown setups score zero, 31.37 and 33.82. These compare complete systems with different retrieval and feedback arrangements, including a separate ChatGPT product setup. The related MATPOWER test reports 96.85 over 35 tasks with up to five attempts. Always explain the score before comparing its height.
 
@@ -853,11 +871,11 @@ Sources: [E02](#source-E02). Full author, title, date and URLs appear in the ref
 
 Sources: [E02](#source-E02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/45) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/45)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/46) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/46)
 
-### Slide 46. Trying again can repeat the same software error
+### Slide 47. Trying again can repeat the same software error
 
-01:25:00-01:27:30 / 2.5 minutes
+01:27:30-01:30:00 / 2.5 minutes
 
 **Say:** A capability study found an error involving a 100 megawatt and 10 megavar load request. The agent request omitted reactive load, and the cache key omitted it as well. Correcting the request still returned the old result because the cache could not distinguish the corrected input. A cache stores earlier results for reuse. Its key must include the inputs that determine whether reuse is valid. In this case, trying again with better wording cannot repair the underlying key. The lesson extends to model revisions, topology and other relevant settings. Agent evaluation needs to test adapters and caching behavior as well as model responses. A fluent explanation can repeatedly describe the same stale calculation.
 
@@ -867,27 +885,9 @@ Sources: [E02](#source-E02). Full author, title, date and URLs appear in the ref
 
 **Expected answer:** The cache key ignored a result-changing input. The adapter and cache needed correction, not another verbal retry.
 
-**Transition:** Let us make these loops visible in two official platform demonstrations.
+**Transition:** The grid-platform video now connects study preparation, simulation and review to transmission planning.
 
 Sources: [R02](#source-R02), [DEF03](#source-DEF03). Full author, title, date and URLs appear in the reference section.
-
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/46) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/46)
-
-### Slide 47. LangGraph Studio: watch an agent use tools
-
-01:27:30-01:30:00 / 2.5 minutes
-
-**Say:** This official walkthrough makes an agent run visible. Watch the graph, the selected tool and the returned result. The platform can pause a run and inspect its saved state. In a power-system application, the numerical solver would be one of these tools. The model coordinates the request; the solver computes the electrical result; the operator decides what to do. This is the original 2024 Studio interface, not evidence of a utility deployment.
-
-**Show / explain:** In the 2.5-minute slot, show one visible tool-call loop and its returned result, then pause. Use the graph and saved state to explain what can be checked before continuing. The direct link remains available for the full walkthrough.
-
-**Ask:** Where would you pause this workflow to check a power-flow result?
-
-**Expected answer:** After the solver returns and before a recommendation is accepted. Check convergence, units and the study inputs.
-
-**Transition:** Now compare how work and evidence move through the next example.
-
-Sources: [VID01](#source-VID01). Full author, title, date and URLs appear in the reference section.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/47) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/47)
 
@@ -1877,6 +1877,12 @@ Full source: https://openreview.net/forum?id=Cs5TBzzNym
 
 Full paper: https://openreview.net/pdf/5ad1c2afd7298f9e6ce3bc25f18e7165555e1ffd.pdf
 
+<a id="source-VID01"></a>
+
+**[VID01]** LangChain. Strategies for debugging agents with LangGraph Studio. LangChain / YouTube. 26 March 2025.
+
+Full source: https://www.youtube.com/watch?v=5vEC0Y4sV8g
+
 <a id="source-LG02"></a>
 
 **[LG02]** LangChain documentation maintainers. LangGraph Persistence. Official LangChain documentation. Accessed 2026-10-17; live documentation.
@@ -1902,12 +1908,6 @@ Full source: https://github.com/emmanuelbadmus/DistGrid-AgentBench
 Full source: https://arxiv.org/abs/2607.28822v1
 
 Full paper: https://arxiv.org/pdf/2607.28822v1
-
-<a id="source-VID01"></a>
-
-**[VID01]** LangChain. LangSmith Studio: The first agent IDE. Launch walkthrough linked 1 August 2024.
-
-Full source: https://www.youtube.com/watch?v=pLPJoFvq4_M
 
 <a id="source-VID02"></a>
 

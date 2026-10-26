@@ -6,10 +6,10 @@ def revise(slides):
     videos=json.loads((Path(__file__).parent/'content/platform_videos.json').read_text(encoding='utf-8'))
     replacements=[]
     for v in videos:
-        replacements.append(dict(kind='video',title=v['title'],eyebrow='Official developer demo' if v['id']=='VID01' else 'Official grid-platform video / 79 seconds',minutes=4,
+        replacements.append(dict(kind='video',title=v['title'],eyebrow=v.get('eyebrow') or ('Official developer demo' if v['id']=='VID01' else 'Official grid-platform video / 79 seconds'),minutes=4,
             image=v['image'],video_id=v['video_id'],video_url=v['video_url'],embed_url=v['embed_url'],
             points=v['points'],refs=[v['id']],caption=v['publisher']+' / '+v['date'],
-            takeaway='',note=v['say']+' Play the official video on click or use the direct watch link. Pause to identify the selected tool, its returned result and the next decision. Ask: '+v['question']+' Answer: '+v['answer']))
+            takeaway='',note=v['say']+' Play the embedded video on click. Pause to identify the workflow state, returned output and next step. Ask: '+v['question']+' Answer: '+v['answer']))
     output=[]
     for slide in slides:
         if slide['title'].startswith('X-GridAgent divides'):output.extend(replacements)

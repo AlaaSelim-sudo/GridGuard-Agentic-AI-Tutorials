@@ -152,7 +152,7 @@ transition: none
 
 <div class="eyebrow">Concept video / Google Cloud Tech / 0:43–3:28</div>
 <h1>Watch: how an agent chooses its next step</h1>
-<div class="content"><PlatformVideo embed-url="https://www.youtube-nocookie.com/embed/Qd6anWv0mv0?start=43&amp;end=208&amp;rel=0&amp;autoplay=1" watch-url="https://www.youtube.com/watch?v=Qd6anWv0mv0&amp;t=43s" poster="concept_Qd6anWv0mv0.jpg" title="Watch: how an agent chooses its next step" /><div class="video-points"><ul><li>An agent uses tool results to choose what to do next.</li><li>For our operator: study request → solver → result checks → human review.</li></ul></div></div>
+<div class="content"><PlatformVideo embed-url="https://www.youtube-nocookie.com/embed/Qd6anWv0mv0?start=43&amp;end=208&amp;rel=0&amp;autoplay=1" poster="concept_Qd6anWv0mv0.jpg" title="Watch: how an agent chooses its next step" /><div class="video-points"><ul><li>An agent uses tool results to choose what to do next.</li><li>For our operator: study request → solver → result checks → human review.</li></ul></div></div>
 <div class="sources">Source: <a href="https://www.youtube.com/watch?v=Qd6anWv0mv0">Aja Hammerly, Jason Davenport. Agentic AI: Workflows vs. agents. Google Cloud Tech / YouTube. 19 March 2025.</a></div>
 <span class="pageno">6 / 80</span></div>
 
@@ -932,12 +932,34 @@ Full source: https://docs.langchain.com/oss/python/langgraph/interrupts
 transition: none
 ---
 
+<div class="lesson teaching rigorous video-slide">
+
+<div class="eyebrow">Official LangChain demo / 99-second excerpt / 3:34–5:13</div>
+<h1>LangGraph demo: pause, inspect and continue</h1>
+<div class="content"><PlatformVideo embed-url="https://www.youtube-nocookie.com/embed/5vEC0Y4sV8g?start=214&amp;end=313&amp;rel=0&amp;autoplay=1" poster="platform_5vEC0Y4sV8g.jpg" title="LangGraph demo: pause, inspect and continue" /><div class="video-points"><ul><li>A graph can pause so its state and outputs can be inspected.</li><li>For a grid study, check the solver result before continuing.</li></ul></div></div>
+<div class="sources">Source: <a href="https://www.youtube.com/watch?v=5vEC0Y4sV8g">LangChain. Strategies for debugging agents with LangGraph Studio. LangChain / YouTube. 26 March 2025.</a></div>
+<span class="pageno">37 / 80</span></div>
+
+<!--
+Use the remaining fifty-one seconds to connect the inspected state to engineering checks. Play only 3:34–5:13, the 99-second breakpoint-and-improvement segment of LangChain’s official debugging demo. The publisher’s chapter markers identify breakpoints at 3:34, iterative prompt improvement at 4:10, and completing graph execution at 5:00. The excerpt ends before the summary at 5:13. Explain that pausing and inspecting software state helps a developer understand a run. This is a developer breakpoint demonstration, not a utility approval screen. In a grid application, the solver remains responsible for the electrical calculation and the application must check its result before continuing. Play the embedded video on click. Pause to identify the workflow state, returned output and next step. Ask: Does resuming a workflow prove that the power-flow result is valid? Answer: No. The application still needs the correct inputs, convergence and engineering-limit checks before operator review.
+Takeaway:
+Nominal duration: 2.5 minutes.
+
+Full sources:
+LangChain. Strategies for debugging agents with LangGraph Studio. LangChain / YouTube. 26 March 2025.
+Full source: https://www.youtube.com/watch?v=5vEC0Y4sV8g
+-->
+
+---
+transition: none
+---
+
 <div class="lesson teaching rigorous figure-slide">
 
 <h1>Saved state must identify the study and its evidence</h1>
 <div class="content"><div class="wide-figure"><figure><img src="/images/real_framework_langgraph_state.svg" alt="Original LangGraph state diagram. Software checkpoints still need grid-case, time and evidence identifiers." style="max-height:310px;height:auto"><figcaption>Original LangGraph state diagram. Software checkpoints still need grid-case, time and evidence identifiers.</figcaption></figure></div><ul><li>Save the case ID, input versions, evidence, status and attempt count.</li><li>Label each result with its case or outage ID. This helps reveal missing or duplicate results when parallel work comes together.</li></ul></div>
 <div class="sources">Source: <a href="https://docs.langchain.com/oss/python/langgraph/graph-api">LangChain documentation maintainers. LangGraph Graph API overview. Official LangChain documentation. Accessed 2026-10-17; live documentation.</a></div>
-<span class="pageno">37 / 80</span></div>
+<span class="pageno">38 / 80</span></div>
 
 <!--
 The published figure shows generic LangGraph software state. For a spoken grid-study example, imagine an application-specific expected-case set that includes outage_34 while the returned evidence lacks that case. Those case fields are tutorial requirements, not a built-in LangGraph power-system schema. Default update behavior does not guarantee that all branch results survive a merge. Define and test the reducer, or an external evidence store, to preserve case IDs and detect duplicates or missing outputs. Source: LangChain documentation maintainers, official LangGraph documentation. Accessed October 18, 2026. The extra grid identifiers are tutorial requirements; they are not fields proven by this generic illustration. Source figure locator: Get state history. Original source URL: https://docs.langchain.com/oss/python/langgraph/checkpointers
@@ -964,7 +986,7 @@ transition: none
 <h1>A checkpoint lets a workflow pause and resume</h1>
 <div class="content"><div class="wide-figure"><figure><img src="/images/real_framework_langgraph_checkpoint.svg" alt="Original LangGraph checkpoint diagram. Saving progress does not prove that the grid data still match." style="max-height:310px;height:auto"><figcaption>Original LangGraph checkpoint diagram. Saving progress does not prove that the grid data still match.</figcaption></figure></div><ul><li>A checkpoint saves progress; thread_id links the saved steps to the same workflow.</li><li>Changed grid connections can make old results invalid. Check them and rerun affected studies.</li></ul></div>
 <div class="sources">Source: <a href="https://docs.langchain.com/oss/python/langgraph/persistence">LangChain documentation maintainers. LangGraph Persistence. Official LangChain documentation. Accessed 2026-10-17; live documentation.</a></div>
-<span class="pageno">38 / 80</span></div>
+<span class="pageno">39 / 80</span></div>
 
 <!--
 An interrupt can pause for outside review and later resume in the same thread. Current LangGraph documentation says the interrupted node restarts from its beginning. Actions before the interrupt can therefore happen again. Use stable step IDs or other idempotency controls, which prevent repeated execution from applying the same change twice. This example grants no permission to command live grid equipment. Source: LangChain documentation maintainers, official LangGraph documentation. Accessed October 18, 2026. Saved software state does not prove that an external grid snapshot remains current. Source figure locator: Opening checkpoint illustration. Original source URL: https://docs.langchain.com/oss/python/langgraph/checkpointers
@@ -991,7 +1013,7 @@ transition: none
 <h1>Parallel outage studies must account for every case</h1>
 <div class="content"><div class="wide-figure"><figure><img src="/images/real_framework_anthropic_parallel.svg" alt="Original Anthropic parallel workflow. A grid study must also account for missing or failed outage cases." style="max-height:310px;height:auto"><figcaption>Original Anthropic parallel workflow. A grid study must also account for missing or failed outage cases.</figcaption></figure></div><ul><li>Run each selected outage on a separate, consistent copy of the same starting grid case.</li><li>Before combining results, compare the returned case IDs with the expected list. Mark failed or missing cases as unresolved.</li></ul></div>
 <div class="sources">Source: <a href="https://docs.langchain.com/oss/python/langgraph/graph-api">LangChain documentation maintainers. LangGraph Graph API overview. Official LangChain documentation. Accessed 2026-10-17; live documentation.</a></div>
-<span class="pageno">39 / 80</span></div>
+<span class="pageno">40 / 80</span></div>
 
 <!--
 Independent outage studies should use the same frozen starting case. Collect results by outage ID, compare the returned IDs with the requested set, and preserve failed or missing studies as unresolved. The original parallel-workflow figure illustrates coordination; it does not establish complete electrical coverage.
@@ -1019,7 +1041,7 @@ transition: none
 <h1>PowerDAG checks the steps needed before a tool runs</h1>
 <div class="content source-focus"><figure><img src="/images/real_paper_powerdag_architecture.png" alt="Original PowerDAG v4 architecture, including the supervisor before environment execution." style="max-height:420px;height:auto"><figcaption>Original PowerDAG v4 architecture, including the supervisor before environment execution.</figcaption></figure><div><ul><li>PowerDAG finds relevant verified workflow examples. It uses a dependency graph and a gate that checks required earlier tool calls.</li><li>The benchmark covers 108 tools, ten task families and four Vermont feeder models (local distribution networks).</li></ul></div></div>
 <div class="sources">Source: <a href="https://arxiv.org/pdf/2603.17418v4">Emmanuel O. Badmus, Amritanshu Pandey. PowerDAG: Supervisory Agentic AI System for Automating Distribution Grid Analysis. arXiv preprint, version 4. 5 July 2026 (v4); first submitted 18 March 2026.</a></div>
-<span class="pageno">40 / 80</span></div>
+<span class="pageno">41 / 80</span></div>
 
 <!--
 Use the inspected v4 dated 5 July 2026: Emmanuel O. Badmus and Amritanshu Pandey, PowerDAG: Supervisory Agentic AI System for Automating Distribution Grid Analysis. Earlier versions have different titles and performance headlines. Its four network models are Rochester, Stowe, Glover and South Hero. The graph identifies required earlier tools and gates calls while the agent continues choosing steps. A tool can run successfully in the wrong study state if earlier work is missing. The gate addresses that workflow problem. Emmanuel O. Badmus, Amritanshu Pandey; PowerDAG: Supervisory Agentic AI System for Automating Distribution Grid Analysis; Figure 2, v4 PDF page 3 This is the v4 research architecture. Formal supervision checks encoded prior Write-tool names; it does not establish all freshness, parameter or physical-safety checks. Source locator: Figure 2, v4 PDF page 3. Original URL: https://arxiv.org/pdf/2603.17418v4
@@ -1043,7 +1065,7 @@ transition: none
 <h1>PowerDAG: solve the grid before checking its voltage</h1>
 <div class="content"><figure class="native-diagram"><img src="/diagrams/revision_powerdag_gate.svg" alt="Teaching adaptation: the current-v43 check adds a freshness rule. The paper’s gate checks which required tools have already run." style="height:330px;max-height:330px"><figcaption>Teaching adaptation: the current-v43 check adds a freshness rule. The paper’s gate checks which required tools have already run.</figcaption></figure><ul><li>In the paper’s example, a voltage-violation check needs a solved network state first.</li><li>If an earlier required step is missing, the gate rejects the call and tells the agent what to do first.</li></ul></div>
 <div class="sources">Source: <a href="https://arxiv.org/pdf/2603.17418v4">Emmanuel O. Badmus, Amritanshu Pandey. PowerDAG: Supervisory Agentic AI System for Automating Distribution Grid Analysis. arXiv preprint, version 4. 5 July 2026 (v4); first submitted 18 March 2026.</a></div>
-<span class="pageno">41 / 80</span></div>
+<span class="pageno">42 / 80</span></div>
 
 <!--
 Section IV-C uses voltage-violation checks to explain these requirements. Equation 9 checks whether required Write-tool names appear among executed tool names. That alone does not check whether their outputs match the current grid version. The diagram adds current-v43 freshness as a teaching condition. The introduction also explains how missing a network update can leave a solver using the wrong state. Appendix B reports this Stowe execution order: load_load, load_solar, load_distribution_network, create_and_initialize_model, build_constraints, build_objective, solve, update_network_voltages and plot_network_data. This is a reported order, not a claimed minimal set of dependency links. The authors curate the rules. Tools without rules remain executable. Passing the gate does not prove numerical feasibility or safety.
@@ -1064,7 +1086,7 @@ transition: none
 <h1>PowerDAG results: the same queries, four setups</h1>
 <div class="content"><div class="wide-figure"><figure><img src="/images/powerdag_revision_result.png" alt="PowerDAG v4, Table II. ReAct: a reason-and-act loop. JIT: prerequisite checks just before a call." style="max-height:315px;height:auto"><figcaption>PowerDAG v4, Table II. ReAct: a reason-and-act loop. JIT: prerequisite checks just before a call.</figcaption></figure></div><ul><li>Each GPT-5.5 setup runs the same 150 test queries once.</li><li>Pass@1 measures first-run workflow success: required tool calls, valid inputs and correct order. It does not measure field reliability.</li></ul></div>
 <div class="sources">Source: <a href="https://arxiv.org/pdf/2603.17418v4">Emmanuel O. Badmus, Amritanshu Pandey. PowerDAG: Supervisory Agentic AI System for Automating Distribution Grid Analysis. arXiv preprint, version 4. 5 July 2026 (v4); first submitted 18 March 2026.</a></div>
-<span class="pageno">42 / 80</span></div>
+<span class="pageno">43 / 80</span></div>
 
 <!--
 The reported Pass@1 scores are ReAct 77.33%, retrieval-only PowerChain-AR 92.67%, JIT supervision only 96.00%, and full PowerDAG 98.00%. Each setup runs 150 queries. Across the full study, six setups and ten model backends produce 9,000 query runs. Full PowerDAG scores 97.33% with Gemini 3.1 Pro and 92.67% with Qwen 3.6-27B. Pass@1 is an automated check against expert workflows. The test queries were kept out of the example set, but they use the same ten task families; this is a within-family test. These scores do not measure outage avoidance or the reliability of live commands. The comparison tests complete setups as built. It does not isolate the effect of one graph edge.
@@ -1085,7 +1107,7 @@ transition: none
 <h1>PowerDAG: what can others check and reuse?</h1>
 <div class="content"><ul><li>The public benchmark provides tasks, tool descriptions, workflow records and scoring code.</li><li>Three task groups can run with the public files. Seven need private grid-map data and network tools.</li><li>Reuse the idea of checking required earlier steps. Test the new tools, case state and engineering results.</li></ul></div>
 <div class="sources">Source: <a href="https://github.com/emmanuelbadmus/DistGrid-AgentBench">Emmanuel O. Badmus and contributors. DistGrid-AgentBench: A Distribution Grid Benchmark for Agentic AI. Author-maintained GitHub repository. Live repository reviewed 17 October 2026.</a></div>
-<span class="pageno">43 / 80</span></div>
+<span class="pageno">44 / 80</span></div>
 
 <!--
 The author README names BESS, basicPV and GFI as the three task groups that can run from the public download. The other seven need private feeder data, geographic data (GIS) and network-tool code. Public workflow records let readers inspect the work, but do not make every experiment reproducible from the public files alone. This is a distribution-study research benchmark using real feeder models. It does not show a named utility running PowerDAG in a control room. Keep the task population and score definition with every reported percentage.
@@ -1109,7 +1131,7 @@ transition: none
 <h1>Simulation agents find functions, run code and repair errors</h1>
 <div class="content"><div class="wide-figure"><figure><img src="/images/real_paper_daline_feedback.png" alt="Original environmental acting module: simulation errors feed retrieval and code repair." style="max-height:305px;height:auto"><figcaption>Original environmental acting module: simulation errors feed retrieval and code repair.</figcaption></figure></div><ul><li>The agent finds MATLAB functions and settings, writes code and runs the study.</li><li>A software error triggers repair. Code that runs can still use the wrong settings.</li></ul></div>
 <div class="sources">Source: <a href="https://doi.org/10.1109/TSG.2025.3589114">Mengshuo Jia, Zeyu Cui, Gabriela Hug. Enhancing LLMs for Power System Simulations: A Feedback-Driven Multi-Agent Framework. IEEE Transactions on Smart Grid, volume 16, issue 6, pages 5556–5572. 2025.</a></div>
-<span class="pageno">44 / 80</span></div>
+<span class="pageno">45 / 80</span></div>
 
 <!--
 Jia, Cui and Hug test DALINE and MATPOWER simulation tasks. The paper does not identify LangGraph as its software framework. Its run-and-repair loop is an example of using feedback. The engineering check must compare the actual study and settings with the requested task. A MATLAB run without an error is not enough. Mengshuo Jia, Zeyu Cui, Gabriela Hug; Enhancing LLMs for Power System Simulations: A Feedback-Driven Multi-Agent Framework; Figure 5, author-preprint PDF page 7 Published workflow module, not evidence that error-free execution satisfies the requested engineering settings. Source locator: Figure 5, author-preprint PDF page 7. Original URL: https://doi.org/10.1109/TSG.2025.3589114
@@ -1131,7 +1153,7 @@ transition: none
 <h1>Simulation-agent results: points, not a pass rate</h1>
 <div class="content"><div class="wide-figure"><figure><img src="/images/power_study_feedback.png" alt="DALINE comparison reported in the author preprint, Figure 8 / section V. Each task allows up to three attempts." style="max-height:350px;height:auto"><figcaption>DALINE comparison reported in the author preprint, Figure 8 / section V. Each task allows up to three attempts.</figcaption></figure></div><ul><li>Across 34 DALINE tasks, the score averages graded attempts and penalizes extra settings. The 93.13 score is not a pass rate.</li></ul></div>
 <div class="sources">Source: <a href="https://doi.org/10.1109/TSG.2025.3589114">Mengshuo Jia, Zeyu Cui, Gabriela Hug. Enhancing LLMs for Power System Simulations: A Feedback-Driven Multi-Agent Framework. IEEE Transactions on Smart Grid, volume 16, issue 6, pages 5556–5572. 2025.</a></div>
-<span class="pageno">45 / 80</span></div>
+<span class="pageno">46 / 80</span></div>
 
 <!--
 Each attempt scores 100 when it meets every requirement without extra settings, 50 when unnecessary settings remain, and 0 when a requirement is missed. The score averages the allowed attempt slots. If attempts are unused, the last score fills those slots. The API setups use gpt-4o-2024-05-13. The built-in ChatGPT-RAG setup runs in a different product. These are comparisons of complete systems, so they do not isolate the effect of one feature. In the related MATPOWER test, the full setup scores 96.85 over 35 tasks with up to five attempts per task.
@@ -1153,7 +1175,7 @@ transition: none
 <h1>Trying again can repeat the same software error</h1>
 <div class="content"><div class="wide-figure"><figure><img src="/images/real_framework_anthropic_evaluator.svg" alt="Original Anthropic feedback pattern. A retry must actually use the repaired code and changed inputs." style="max-height:310px;height:auto"><figcaption>Original Anthropic feedback pattern. A retry must actually use the repaired code and changed inputs.</figcaption></figure></div><ul><li>R02 found that an agent request and its cache key both left out reactive load.</li><li>Fixing the request still returned the old result: the cache key had not changed.</li></ul></div>
 <div class="sources">Source: <a href="https://arxiv.org/abs/2607.28822v1">Eve Tsybina, Samim Konjicija, Slaven Peles. Agentic Artificial Intelligence for Power Systems: Strategies to Identify and Close Capability Gaps. arXiv. 30 July 2026; v1.</a></div>
-<span class="pageno">46 / 80</span></div>
+<span class="pageno">47 / 80</span></div>
 
 <!--
 The paper asks for a load of 100 MW and 10 Mvar. The Mvar part is reactive load; leaving it out changes the study. A cache stores past results for reuse. Its key tells the software which inputs produced a result. If the key ignores reactive load, a corrected request can still return the old result. Asking the model to try harder will not fix that software error. Test the tool adapter and cache. The key must include every input that can affect the result, including relevant model and topology versions. Source: Anthropic, Building effective agents (December 19, 2024). An LLM evaluator does not prove grid feasibility, permission or fresh input data. Source figure locator: Workflow: Evaluator-optimizer. Original source URL: https://www.anthropic.com/engineering/building-effective-agents
@@ -1175,32 +1197,9 @@ transition: none
 
 <div class="lesson teaching rigorous video-slide">
 
-<div class="eyebrow">Official developer demo</div>
-<h1>LangGraph Studio: watch an agent use tools</h1>
-<div class="content"><PlatformVideo embed-url="https://www.youtube-nocookie.com/embed/pLPJoFvq4_M?rel=0&amp;autoplay=1" watch-url="https://www.youtube.com/watch?v=pLPJoFvq4_M" poster="platform_pLPJoFvq4_M.jpg" title="LangGraph Studio: watch an agent use tools" /><div class="video-points"><ul><li>Follow the loop: request → tool call → returned result → next step.</li><li>Connect to our lab: inspect the study result before the operator decides.</li></ul></div></div>
-<div class="sources">Source: <a href="https://www.youtube.com/watch?v=pLPJoFvq4_M">LangChain. LangSmith Studio: The first agent IDE. Launch walkthrough linked 1 August 2024.</a></div>
-<span class="pageno">47 / 80</span></div>
-
-<!--
-Use this time to follow one visible tool-call loop, then pause and discuss. This official walkthrough makes an agent run visible. Watch the graph, the selected tool and the returned result. The platform can pause a run and inspect its saved state. In a power-system application, the numerical solver would be one of these tools. The model coordinates the request; the solver computes the electrical result; the operator decides what to do. This is the original 2024 Studio interface, not evidence of a utility deployment. Play the official video on click or use the direct watch link. Pause to identify the selected tool, its returned result and the next decision. Ask: Where would you pause this workflow to check a power-flow result? Answer: After the solver returns and before a recommendation is accepted. Check convergence, units and the study inputs.
-Takeaway:
-Nominal duration: 2.5 minutes.
-
-Full sources:
-LangChain. LangSmith Studio: The first agent IDE. Launch walkthrough linked 1 August 2024.
-Full source: https://www.youtube.com/watch?v=pLPJoFvq4_M
-Publication: https://www.langchain.com/blog/langgraph-studio-the-first-agent-ide
--->
-
----
-transition: none
----
-
-<div class="lesson teaching rigorous video-slide">
-
 <div class="eyebrow">Official grid-platform video / 79 seconds</div>
 <h1>Siemens PSS E: agentic transmission planning</h1>
-<div class="content"><PlatformVideo embed-url="https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016" watch-url="https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016" poster="platform_682ca322-5d0b-47a0-8d18-77bf9d0fb016.png" title="Siemens PSS E: agentic transmission planning" /><div class="video-points"><ul><li>AI helps prepare and review studies; PSS E supplies the grid simulation.</li><li>Connect to our lab: define the case → run the solver → check → review.</li></ul></div></div>
+<div class="content"><PlatformVideo embed-url="https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016" poster="platform_682ca322-5d0b-47a0-8d18-77bf9d0fb016.png" title="Siemens PSS E: agentic transmission planning" /><div class="video-points"><ul><li>AI helps prepare and review studies; PSS E supplies the grid simulation.</li><li>Connect to our lab: define the case → run the solver → check → review.</li></ul></div></div>
 <div class="sources">Source: <a href="https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016">Siemens. Gridscale X PSS E: agentic transmission planning — product video. Undated video; accessed 26 October 2026.</a></div>
 <span class="pageno">48 / 80</span></div>
 

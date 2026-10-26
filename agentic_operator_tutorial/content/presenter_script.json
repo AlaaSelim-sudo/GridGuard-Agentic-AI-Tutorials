@@ -50,7 +50,7 @@
       "number": 6,
       "title": "Watch: how an agent chooses its next step",
       "say": "Let us see the difference in a short video. A fixed workflow follows choices written in code. An agent can use the latest result to choose some next steps. Watch the examples, then map the idea to our study request, numerical solver, result checks and operator review. The model coordinates the work; the solver computes the electrical result. Our grid mapping is a teaching example. The operating decision still belongs to the operator.",
-      "visual": "Click Play official video. The embedded player starts at 0:43 and stops at 3:28. This is the publisher’s definition-and-examples segment. If opening the direct link, stop at 3:28. Use the remaining fifteen seconds to connect the video to the operator workflow.",
+      "visual": "Click Play video. The embedded player starts at 0:43 and stops at 3:28. Use the remaining fifteen seconds to connect the concept to the operator workflow.",
       "question": "After a tool returns its result, what makes the next step agentic?",
       "answer": "The model can choose an allowed next step using that result, rather than following only a fixed sequence. It may call another tool, ask for help or stop.",
       "transition": "The next slide adds the limits: what the agent may do and what the operator must review."
@@ -323,10 +323,19 @@
       "visual": "Explain the highlighted debug pause as a developer inspection point. Use a short run-check-repair example to describe a loop, then distinguish it from human review.",
       "question": "Does using LangGraph automatically add a power-system feasibility check?",
       "answer": "No. The application must call and interpret the appropriate engineering tools and enforce the requirements.",
-      "transition": "Those tools produce evidence that the workflow must keep identifiable."
+      "transition": "The short demo shows this pause-and-inspect step in action."
     },
     {
       "number": 37,
+      "title": "LangGraph demo: pause, inspect and continue",
+      "say": "Here is a short demonstration of the pause we just described. Watch the graph stop, the developer inspect and adjust the work, and execution continue. A breakpoint helps inspect software state. It does not by itself validate a power-flow result or authorize an operator action. In a grid workflow, we would check the returned solver evidence before continuing.",
+      "visual": "Play the embedded 99-second excerpt, 3:34–5:13. The player stops at the end of this segment. Use the remaining time to connect the pause to engineering checks.",
+      "question": "Does resuming a workflow prove that the power-flow result is valid?",
+      "answer": "No. The application still needs the correct inputs, convergence and engineering-limit checks before operator review.",
+      "transition": "Now consider what must be saved so a paused study can be reviewed and resumed."
+    },
+    {
+      "number": 38,
       "title": "Saved state must identify the study and its evidence",
       "say": "Saved state should identify the study, its input versions, results, status and attempt count. Suppose a set of parallel outage studies expects a case called outage_34. The application needs to notice if that result is missing or appears twice. A generic state store does not automatically understand that engineering requirement. Reducers or an external evidence store must preserve the case identities and combine updates correctly. A list of three completed steps is insufficient if the requested set contained four cases. Save enough information to compare the expected set with the returned evidence. That makes both missing coverage and inappropriate reuse easier to detect.",
       "visual": "Read the figure as generic software state. Describe expected-case and returned-case sets verbally. Make clear that those grid-specific fields are tutorial design requirements.",
@@ -335,7 +344,7 @@
       "transition": "Saved progress also allows a run to pause and resume."
     },
     {
-      "number": 38,
+      "number": 39,
       "title": "A checkpoint lets a workflow pause and resume",
       "say": "A checkpoint records workflow progress. A thread identifier links saved steps to the same run so execution can resume later. However, external conditions may change during a pause. A saved voltage result may no longer match the current topology. The application must revalidate the snapshot and rerun affected work. There is another software detail to consider: the interrupted node may restart from its beginning. Actions before the pause may therefore run again. Stable step IDs or idempotency controls can prevent a repeated request from applying the same change twice. Saving and resuming software state solves a coordination problem. It does not keep the external grid state frozen.",
       "visual": "Follow the checkpoint sequence across the pause. Ask what could change outside the software before resumption. Explain idempotency as safely recognizing a repeated operation.",
@@ -344,7 +353,7 @@
       "transition": "The same identity checks matter when several studies run together."
     },
     {
-      "number": 39,
+      "number": 40,
       "title": "Parallel outage studies must account for every case",
       "say": "Parallel studies can reduce waiting when the cases are independent. Each selected outage should run on a consistent copy of the same starting case. Afterward, the application must compare the expected case IDs with the returned results. A failed or missing branch remains unresolved. An aggregator that summarizes only successful branches can produce an attractive but incomplete report. If a case called C2 fails, the report should identify C2, its error and the conclusions that cannot yet be drawn. Even completing every selected case does not imply that the selected set covers every relevant single-component outage. Coverage has to match the original assignment.",
       "visual": "Trace the generic fan-out and fan-in figure. Verbally remove one branch result and ask what the aggregator must preserve rather than summarize away.",
@@ -353,7 +362,7 @@
       "transition": "PowerDAG addresses a related problem: calling a tool before its prerequisites exist."
     },
     {
-      "number": 40,
+      "number": 41,
       "title": "PowerDAG checks the steps needed before a tool runs",
       "say": "PowerDAG retrieves relevant verified workflow examples and uses a dependency graph with a supervisory gate. The gate checks required earlier tool calls before allowing another tool to run. The inspected version four covers 108 tools, ten task families and four Vermont feeder models. Those are distribution networks: Rochester, Stowe, Glover and South Hero. The agent still chooses steps, while the supervisor constrains their order. This combines flexible selection with explicit workflow rules. The exact gate matters. In this paper it checks encoded prior Write-tool names. That is narrower than checking every parameter, input version or physical consequence. We should explain the gate's actual guarantee before interpreting its benchmark result.",
       "visual": "Follow the agent's proposed call through the supervisor and into the environment. Show where retrieval supplies examples and where the prerequisite check occurs.",
@@ -362,7 +371,7 @@
       "transition": "The voltage example makes that boundary concrete."
     },
     {
-      "number": 41,
+      "number": 42,
       "title": "PowerDAG: solve the grid before checking its voltage",
       "say": "A voltage-violation check needs a solved network state. If the required earlier solver step is missing, the gate rejects the call and explains what needs to happen first. That prevents one important class of workflow error. Now ask a second question: did that solve use the current network? The paper's check of executed tool names does not by itself establish freshness. Our teaching diagram adds a current-v43 condition to show the stronger requirement an application may need. It is labeled as an adaptation. Passing a dependency gate therefore means the encoded prerequisites passed. The numerical solution and the resulting engineering conclusion still require their own checks.",
       "visual": "Read the missing-prerequisite path first, then the permitted path. Point explicitly to the added v43 freshness condition so learners do not attribute it to the paper's original gate.",
@@ -371,7 +380,7 @@
       "transition": "Now interpret the controlled benchmark without enlarging that guarantee."
     },
     {
-      "number": 42,
+      "number": 43,
       "title": "PowerDAG results: the same queries, four setups",
       "say": "This comparison uses the same GPT-5.5 model and 150 test queries in each setup. The reported first-run workflow success is 77.33 percent for ReAct, 92.67 for retrieval only, 96 for just-in-time supervision only and 98 for full PowerDAG. Pass at one checks required tool coverage, compatible inputs and ordering against expert workflows. Each query runs once in each setup. These held-out queries still come from the same ten task families. The comparison supports the value of these complete configurations on that benchmark. It does not measure reliability of live commands or isolate the effect of one graph edge. Keep the model, task population and score definition attached to the headline.",
       "visual": "Read the same-model label and denominator before comparing bars. Explain retrieval only and supervision only as separate tested setups. Finish by defining what the 98 percent actually measures.",
@@ -380,7 +389,7 @@
       "transition": "Reproducibility also depends on what the public release contains."
     },
     {
-      "number": 43,
+      "number": 44,
       "title": "PowerDAG: what can others check and reuse?",
       "say": "The PowerDAG public benchmark provides tasks, tool descriptions, workflow records and scoring code. That allows others to inspect the study design and some of the execution evidence. The release has a practical boundary: BESS, basicPV and GFI can run from the public files, while seven other task families need private feeder maps, geographic data and network-tool code. Public records are therefore useful without making the entire study independently runnable from the download. When reusing the idea, we can adopt explicit prerequisite checks and then test them against our own tools and state rules. We should not assume that a published gate automatically transfers unchanged to a different utility environment.",
       "visual": "Count the three public task families and the seven with external dependencies verbally. Point learners to the linked paper and repository rather than promising a one-click full reproduction.",
@@ -389,7 +398,7 @@
       "transition": "Another paper focuses on generating and repairing simulation code."
     },
     {
-      "number": 44,
+      "number": 45,
       "title": "Simulation agents find functions, run code and repair errors",
       "say": "The feedback-driven simulation framework finds relevant MATLAB functions and settings, writes code and runs it. Tool errors return feedback that can guide repair. The study uses DALINE and MATPOWER tasks. This illustrates a real agentic role: selecting and correcting the steps needed to complete a simulation request. However, a program can run without matching the requested engineering settings. We must compare the executed study with the assignment, including required variables and unnecessary changes. A successful software exit is one layer of evidence. Numerical and task-level checks are additional layers. The paper does not identify LangGraph, so we should describe its workflow without assigning an unreported software framework.",
       "visual": "Follow the source feedback path from generated code to execution and back to repair. Give an example of code running with the wrong setting and ask where that error would be detected.",
@@ -398,7 +407,7 @@
       "transition": "The scoring rule in this paper makes that distinction particularly important."
     },
     {
-      "number": 45,
+      "number": 46,
       "title": "Simulation-agent results: points, not a pass rate",
       "say": "For 34 DALINE tasks, each graded attempt receives 100 points if it meets every requirement without extra settings, 50 if unnecessary settings remain and zero if a requirement is missed. The score averages allowed attempt slots, carrying the final score into unused slots. The full setup reports 93.13 on this scale. It is not a statement that 93.13 percent of tasks passed. Other shown setups score zero, 31.37 and 33.82. These compare complete systems with different retrieval and feedback arrangements, including a separate ChatGPT product setup. The related MATPOWER test reports 96.85 over 35 tasks with up to five attempts. Always explain the score before comparing its height.",
       "visual": "Read the horizontal-axis metric and the 100/50/0 rubric aloud. Compare the full setup with the others only after explaining the attempt averaging.",
@@ -407,22 +416,13 @@
       "transition": "Repeated feedback can help, but it can also preserve a software mistake."
     },
     {
-      "number": 46,
+      "number": 47,
       "title": "Trying again can repeat the same software error",
       "say": "A capability study found an error involving a 100 megawatt and 10 megavar load request. The agent request omitted reactive load, and the cache key omitted it as well. Correcting the request still returned the old result because the cache could not distinguish the corrected input. A cache stores earlier results for reuse. Its key must include the inputs that determine whether reuse is valid. In this case, trying again with better wording cannot repair the underlying key. The lesson extends to model revisions, topology and other relevant settings. Agent evaluation needs to test adapters and caching behavior as well as model responses. A fluent explanation can repeatedly describe the same stale calculation.",
       "visual": "Use the evaluator loop as a generic feedback picture. Narrate the original request, corrected request and unchanged cache result. Ask which software component must change.",
       "question": "Why did correcting the prompt fail to obtain a fresh result?",
       "answer": "The cache key ignored a result-changing input. The adapter and cache needed correction, not another verbal retry.",
-      "transition": "Let us make these loops visible in two official platform demonstrations."
-    },
-    {
-      "number": 47,
-      "title": "LangGraph Studio: watch an agent use tools",
-      "say": "This official walkthrough makes an agent run visible. Watch the graph, the selected tool and the returned result. The platform can pause a run and inspect its saved state. In a power-system application, the numerical solver would be one of these tools. The model coordinates the request; the solver computes the electrical result; the operator decides what to do. This is the original 2024 Studio interface, not evidence of a utility deployment.",
-      "visual": "In the 2.5-minute slot, show one visible tool-call loop and its returned result, then pause. Use the graph and saved state to explain what can be checked before continuing. The direct link remains available for the full walkthrough.",
-      "question": "Where would you pause this workflow to check a power-flow result?",
-      "answer": "After the solver returns and before a recommendation is accepted. Check convergence, units and the study inputs.",
-      "transition": "Now compare how work and evidence move through the next example."
+      "transition": "The grid-platform video now connects study preparation, simulation and review to transmission planning."
     },
     {
       "number": 48,
