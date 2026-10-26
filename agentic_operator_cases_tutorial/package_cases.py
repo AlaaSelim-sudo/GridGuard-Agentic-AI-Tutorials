@@ -4,6 +4,7 @@ from zipfile import ZipFile,ZIP_DEFLATED
 import argparse,hashlib,html,json,math,os,shutil
 from pypdf import PdfReader,PdfWriter
 from pypdf.generic import TextStringObject
+from latin_modern import style_html
 ROOT=Path(__file__).resolve().parent
 
 def files(directory):
@@ -87,7 +88,7 @@ def write_exercises(exercises):
             worksheet+='<img alt="Exercise figure" src="images/'+html.escape(s['image'],quote=True)+'">'
         if s.get('excerpt'):worksheet+='<pre>'+html.escape('\n'.join(s['excerpt']))+'</pre>'
         worksheet+='<ul>'+''.join('<li>'+html.escape(p)+'</li>' for p in s['points'])+'</ul><p>Result, supporting check, and next step:</p><div class="space"></div></section>'
-    (ROOT/'Exercises.html').write_text(worksheet,encoding='utf-8')
+    (ROOT/'Exercises.html').write_text(style_html(worksheet),encoding='utf-8')
 
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)

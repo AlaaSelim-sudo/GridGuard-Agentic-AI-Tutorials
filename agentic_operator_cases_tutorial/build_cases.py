@@ -3,6 +3,8 @@ from pathlib import Path,PureWindowsPath
 from types import SimpleNamespace
 import ast,hashlib,html,json,re,shutil,textwrap
 import renderer as r
+from latin_modern import style_html,copy_web_fonts
+from build_presenter_script import presenter_note
 
 ROOT=Path(__file__).resolve().parent
 WORKSHOP=Path(r'C:/Users/f00863x/OPRO/output/agentic_grid_workflow_tutorial')
@@ -262,7 +264,7 @@ def prepare_slides():
     dump(ROOT/'research/code_manifest.json',code_records)
     slides=r.normalized_slides(SimpleNamespace(SLIDES=slides))
     assert len(slides)==80,len(slides)
-    assert sum(s['minutes'] for s in slides)==180
+    assert sum(s['minutes'] for s in slides)==90
     assert sum(s['kind']=='exercise' for s in slides)==3
     return slides
 
@@ -306,7 +308,7 @@ def teaching_guide(slides,sources):
     tex=tex.replace(r'\setbox\readingEntry=\vbox\bgroup\hsize=\linewidth\subsection*{',r'\subsection*{')
     tex=tex.replace(r'\egroup\par\noindent\box\readingEntry\par\medskip',r'\par\medskip')
     (ROOT/'Teaching_Guide.md').write_text(md,encoding='utf-8')
-    (ROOT/'Full_Reading_Guide.html').write_text(web,encoding='utf-8')
+    (ROOT/'Full_Reading_Guide.html').write_text(style_html(web),encoding='utf-8')
     (ROOT/'latex/teaching_guide.tex').write_text(tex,encoding='utf-8')
 
 def alignment_guide(slides,sources):
@@ -328,7 +330,7 @@ def alignment_guide(slides,sources):
         if s.get('source_label'):out.append('<p class="source">'+html.escape(s['source_label'])+'</p>')
         if key:out.append('<p class="source">'+html.escape(r.full_citation(sources[key]))+'</p>')
     out.append('<h2>Check the alignment</h2><p><a href="research/code_manifest.json">Code manifest</a> records each canonical notebook SHA-256, stable cell ID and inclusive source-line range. The selected code statements are unchanged. Older Python-file excerpts, when used, retain their own source hashes and syntax-tree equivalence checks.</p><p>Classroom numerical cells perform fresh calculations when run. Displaying archived model replies does not call an LLM. Editing an earlier classroom parameter does not automatically change an independent archived study or fixed recovery fixture. The notebook and slide notes explain those boundaries.</p>')
-    (ROOT/'Code_and_Record_Guide.html').write_text('\n'.join(out),encoding='utf-8')
+    (ROOT/'Code_and_Record_Guide.html').write_text(style_html('\n'.join(out)),encoding='utf-8')
 
 def main():
     for folder in ['research','images','latex/images','latex/diagrams','slidev/public/images','slidev/public/diagrams','slidev/public/branding']:
@@ -342,7 +344,10 @@ def main():
         assert all(key in sources for key in s['refs']),(i,s['refs'])
         if s.get('main_ref'):assert s['main_ref'] in s['refs']
     # The same renderer and theme used by the preceding edition.
-    frames=''.join(r.render_frame(s,sources) for s in slides).replace('{reading_guide.pdf}','{teaching_guide.pdf}')
+    cues={c['title']:c for c in load(ROOT/'content/presenter_script.json')['slides']}
+    assert set(cues)=={s['title'] for s in slides}
+    presented=[dict(s,note=presenter_note(cues[s['title']])) for s in slides]
+    frames=''.join(r.render_frame(s,sources) for s in presented).replace('{reading_guide.pdf}','{teaching_guide.pdf}')
     front='''---
 theme: default
 title: Hands-on — Three Operator Cases
@@ -353,7 +358,9 @@ aspectRatio: 16/9
 canvasWidth: 1280
 colorSchema: light
 fonts:
-  sans: Arial
+  sans: Latin Modern Roman
+  serif: Latin Modern Roman
+  mono: Latin Modern Mono
   provider: none
 mdc: false
 drawings:
@@ -363,7 +370,7 @@ download: false
 
 '''
     front=front.replace('title: Hands-on — Three Operator Cases','title: '+json.dumps(slides[0]['title'],ensure_ascii=False))
-    web=front+'\n---\ntransition: none\n---\n\n'.join(r.render_slide(s,i,len(slides),sources) for i,s in enumerate(slides,1))
+    web=front+'\n---\ntransition: none\n---\n\n'.join(r.render_slide(s,i,len(slides),sources) for i,s in enumerate(presented,1))
     web=web.replace('Separate reading-guide PDF','Teaching and source guide PDF')
     for token in ['What to notice','v-click','v-motion',r'\pause',r'\uncover<',r'\transfade','<table',r'\begin{tabular}']:
         assert token not in frames+web,token
@@ -397,6 +404,7 @@ download: false
     shutil.copytree(ROOT/'research',ROOT/'slidev/public/research',dirs_exist_ok=True)
     shutil.copy2(ROOT/'Full_Reading_Guide.html',ROOT/'slidev/public/Full_Reading_Guide.html')
     shutil.copy2(ROOT/'Code_and_Record_Guide.html',ROOT/'slidev/public/Code_and_Record_Guide.html')
+    copy_web_fonts(ROOT/'slidev/public/fonts')
     exercise_slides=[i for i,s in enumerate(slides,1) if s['kind']=='exercise']
     manifest={'edition':'plain-language-llama-and-operator-practice','main_slides':len(slides),'minutes':sum(s['minutes'] for s in slides),
         'exercise_slides':exercise_slides,'exercise_count':len(exercise_slides),

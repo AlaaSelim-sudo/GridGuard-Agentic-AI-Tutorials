@@ -33,8 +33,8 @@ def validate(check_pdfs=False):
  require([s['title'] for s in authored]==[s['title'] for s in slides],'Run content: generated slide order differs from the authored modules.')
  require(len({c['title'] for c in cues})==80 and {c['title'] for c in cues}=={s['title'] for s in slides},'Every current slide needs one presenter cue.')
  require(all(s['say'] and s['action'] for s in cues),'Each presenter cue needs spoken text and a delivery action.')
- require(sum(s['minutes'] for s in slides)==180,'The workshop must total 180 teaching minutes.')
- require(sum(s['minutes'] for s in slides[:10])==12,'The Stanford opening must total twelve minutes.')
+ require(sum(s['minutes'] for s in slides)==90,'The workshop must total 90 teaching minutes.')
+ require(sum(s['minutes'] for s in slides[:10])==7,'The short concept opening must total seven minutes.')
  require([i for i,s in enumerate(slides,1) if s['kind']=='exercise']==[25,44,59],'Exercise locations differ from the current teaching route.')
  require(all(s['minutes']==4 for s in slides if s['kind']=='exercise'),'Each of the three exercises needs four minutes.')
  book=ROOT/'agentic_grid_workflow_tutorial/Classroom_Labs.ipynb';nb=read(book);cell_map={c.get('id'):c for c in nb['cells']};count=0
@@ -54,7 +54,7 @@ def validate(check_pdfs=False):
   require(receipt['lesson_sha256']==sha(DECK/'lesson_content.json'),'Run pdf: compiled PDFs belong to older lesson content.')
   require(receipt['script_cues_sha256']==sha(DECK/'content/presenter_script.json'),'Run pdf: presenter PDF belongs to older cues.')
   for name,hash_value in receipt['pdf_sha256'].items():require((DECK/name).is_file() and sha(DECK/name)==hash_value,'Run pdf: download changed after its verified build: '+name)
- print(json.dumps({'slides':80,'minutes':180,'presenter_cues':80,'exact_notebook_excerpts':count,'exercises':[25,44,59],'pdf_receipt_checked':check_pdfs and RECEIPT.is_file()}),flush=True)
+ print(json.dumps({'slides':80,'minutes':90,'presenter_cues':80,'exact_notebook_excerpts':count,'exercises':[25,44,59],'pdf_receipt_checked':check_pdfs and RECEIPT.is_file()}),flush=True)
 def content():
  run([sys.executable,'-X','utf8','build_cases.py'])
  run([sys.executable,'-X','utf8','build_presenter_script.py'])

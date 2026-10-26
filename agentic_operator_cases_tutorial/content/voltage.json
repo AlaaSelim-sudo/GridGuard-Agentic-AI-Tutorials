@@ -11,7 +11,7 @@
       "VCASE"
     ],
     "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.",
-    "minutes": 2,
+    "minutes": 0.5,
     "note": "The feeder is a synthetic SMART-DS Greensboro-area example, not a measured utility circuit. The command sets active- and reactive-power participation for an inverter fleet. MPC, model predictive control, uses a system model and a short forecast to calculate a plan under limits; here the proposed command is the first step of that plan. SAC, Soft Actor–Critic, is a saved controller learned from rewards. It produces a proposal from old weights without training again. The default calculation covers medium-voltage (MV) phases and MV line currents, with simplified low-voltage (LV) aggregation. Feasible means the proposal passes the limits represented by that model. Compare the penalty score J only after checking those limits; smaller J is preferred for this stated objective. Run L0 and L1 first.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -38,7 +38,7 @@
       "VSAC",
       "LRV"
     ],
-    "minutes": 1.5,
+    "minutes": 1,
     "caption": "MPC = model predictive control. SAC = Soft Actor-Critic.",
     "visual_height_px": 350,
     "visual_height_cm": 3.9,
@@ -74,7 +74,7 @@
       "H02"
     ],
     "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.",
-    "minutes": 2,
+    "minutes": 1,
     "note": "Active power delivers net energy; reactive power supports the AC voltage and current balance. The command uses P_i = a S_i and Q_i = b S_i. Its bounds are 0 <= a <= 1, |b| <= 0.44 and a^2 + b^2 <= 1. Modeled voltages must be between 0.95 and 1.05 per unit (p.u.), where values are divided by a stated base. RATING_FRACTION=0.80 sets allowed current to 80% of the nominal rating. The displayed current percentage uses this reduced allowance as its denominator. Passing the inverter bounds alone does not show that network limits pass.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -99,7 +99,7 @@
       "LR0"
     ],
     "caption": "L2 calls lab.voltage_lab directly. Agent coordination is shown in the saved study.",
-    "minutes": 1.5,
+    "minutes": 0.5,
     "visual_height_px": 350,
     "visual_height_cm": 3.9,
     "takeaway": ""
@@ -117,7 +117,7 @@
       "VSAC"
     ],
     "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.",
-    "minutes": 2,
+    "minutes": 3,
     "note": "Start with LOAD_SCALE=1.0 and RATING_FRACTION=0.80. The saved SAC actor produces a new proposal by inference; it is not trained in this cell. Both proposals pass the default classroom checks. MPC has the lower current-step J for this case and objective. This single result does not establish a universal control advantage. The output field feasible reports whether the modeled limits pass; current_step_J is this step’s penalty score, and max_allowed_current_pct is maximum current as a percentage of the reduced allowance.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -142,7 +142,7 @@
       "H02"
     ],
     "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.",
-    "minutes": 3,
+    "minutes": 1,
     "note": "The left panel sorts each voltage curve separately. The same horizontal position means the same rank, not necessarily the same physical bus. The right panel reports current relative to the reduced allowance. Use the output table for exact extrema and feasibility; do not decide acceptance from a plot alone.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -165,7 +165,7 @@
       "H02"
     ],
     "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.",
-    "minutes": 2,
+    "minutes": 1,
     "note": "In the reference execution, MPC returns a=0.960307 and b=-0.111114, with Vmin=1.023874 and Vmax=1.038709 p.u. SAC returns a=0.340066 and b=0.014024, with Vmin=1.013243 and Vmax=1.030000 p.u. Values may vary slightly with the solver or dependency version. Lower current use need not mean lower J, because the objective also includes service and control terms. Check feasibility before comparing J. Both voltage extrema are within the stated 0.95–1.05 p.u. band for this represented MV model.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -193,7 +193,7 @@
     ],
     "caption": "Example uses the separate saved P3 case.",
     "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, pp.17–25; recorded P3 current check.",
-    "minutes": 1.5,
+    "minutes": 0.5,
     "visual_height_px": 330,
     "visual_height_cm": 3.5,
     "takeaway": ""
@@ -235,7 +235,7 @@
     ],
     "caption": "Reference L2 experiment. Both proposals pass at 0.75.",
     "source_label": "Classroom Labs L2, cell classroom-007; verified default and exercise outputs.",
-    "minutes": 4.5,
+    "minutes": 1,
     "visual_height_px": 330,
     "visual_height_cm": 3.5,
     "lab_label": "L2",
@@ -254,7 +254,7 @@
       "H02"
     ],
     "source_label": "Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.",
-    "minutes": 2,
+    "minutes": 0.5,
     "note": "Make the experiment boundary explicit. L3 loads a separate preserved context into pool. It does not inherit the fresh L2 case or the participant's edits. Do not pair an edited L2 result with the test_01 model explanation as though the model had seen those new inputs.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -282,7 +282,7 @@
       "LR0",
       "OT01"
     ],
-    "minutes": 2,
+    "minutes": 0.5,
     "caption": "New calculation, saved reply and proposed pilot are different evidence types.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
@@ -299,7 +299,7 @@
       "H03"
     ],
     "source_label": "Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context.",
-    "minutes": 2,
+    "minutes": 1,
     "note": "The output contains three actual replies from the frozen response-selection study. Ask learners to identify the operation and numerical parameters requested by each reply. The reported seconds measure the original model calls, not today's display cell. Keep this archived context separate from the fresh L2 comparison.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -324,7 +324,7 @@
       "H03"
     ],
     "source_label": "Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context.",
-    "minutes": 2,
+    "minutes": 0.5,
     "note": "The three old replies reduce to two distinct operations after matching their tool names and numerical parameters. The vote keeps one contribution per model. In test_01, two models vote for the Q-relaxation trial, which relaxes a reactive-power restriction in that declared test. This diagram shows the old input and choices; it is not a new vote after a learner edits L2. Grouping matching trials avoids counting different wording as different physical proposals.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -347,7 +347,7 @@
       "H04"
     ],
     "source_label": "Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices.",
-    "minutes": 2,
+    "minutes": 1,
     "note": "The selector is frozen and makes no training updates in this lesson. L4 applies the archived selected operation to its original test context and runs a fresh numerical check. This is a replay with new verification, not a new language-model decision or an online learning experiment. LinUCB is a learned selector that scores the available choices from context; its saved settings stay fixed here.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -372,7 +372,7 @@
       "H04"
     ],
     "source_label": "Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices.",
-    "minutes": 2,
+    "minutes": 0.5,
     "note": "The reference J is about 0.031082 for both selectors. The predicted reward is around -0.0075. It is a learned score, not a feasibility flag. Read new_check_passes for the engineering result. This one case does not show that learned selection is better than voting.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -395,7 +395,7 @@
       "H05"
     ],
     "source_label": "Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model.",
-    "minutes": 2,
+    "minutes": 1.5,
     "note": "L5 rebuilds the original test_01 case and runs a new check on its original MV-MPC incumbent, meaning the baseline plan saved with that case. This is not the reactive-power-relaxation candidate checked in L4. With RUN_OPENDSS=False, L5 checks only the reduced model and reports that OpenDSS is disabled. This CPU route performs no new full-feeder AC check. A wider-model study saved earlier is not a result calculated today. Model scope means the network parts and physical effects that a check represents.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -420,7 +420,7 @@
       "H05"
     ],
     "source_label": "Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model.",
-    "minutes": 2,
+    "minutes": 0.5,
     "note": "Ask a participant to read the explicit scope message aloud. A PASS is conditional on the model and action that were checked. The default model does not cover every LV constraint. A more confident explanation cannot supply the missing model coverage.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -443,7 +443,7 @@
       "LRV",
       "LR0"
     ],
-    "minutes": 2.5,
+    "minutes": 1,
     "image_source_path": "images/llama_voltage_1.png",
     "visual_height_px": 380,
     "visual_height_cm": 4.4,
@@ -470,7 +470,7 @@
       "LRV",
       "LR0"
     ],
-    "minutes": 2.5,
+    "minutes": 1,
     "image_source_path": "images/llama_voltage_2.png",
     "visual_height_px": 380,
     "visual_height_cm": 4.4,
@@ -497,7 +497,7 @@
       "LRV",
       "LR0"
     ],
-    "minutes": 2.5,
+    "minutes": 1,
     "image_source_path": "images/llama_voltage_3.png",
     "visual_height_px": 380,
     "visual_height_cm": 4.4,

@@ -1,5 +1,6 @@
 """Build a short participant workbook from the same lesson and notebook labels."""
 from pathlib import Path
+import sys
 import html,json,os,shutil,subprocess
 from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor
@@ -11,6 +12,9 @@ from reportlab.graphics.shapes import Drawing
 from reportlab.graphics import renderPDF
 
 ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT))
+from latin_modern import register_reportlab,style_html
+register_reportlab()
 BUILD=ROOT/'research/lab_teaching/_build';BUILD.mkdir(exist_ok=True)
 COLAB='https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb'
 SITE='https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/'
@@ -75,9 +79,9 @@ sections=[
 ]
 BLUE=HexColor('#00629b');INK=HexColor('#003b5c');SLATE=HexColor('#526470');TEAL=HexColor('#00a6b2')
 styles={
- 'body':ParagraphStyle('body',fontName='Helvetica',fontSize=11.2,leading=15.8,textColor=INK,spaceAfter=10),
- 'small':ParagraphStyle('small',fontName='Helvetica',fontSize=8.5,leading=11.5,textColor=SLATE,splitLongWords=True),
- 'prompt':ParagraphStyle('prompt',fontName='Helvetica-Bold',fontSize=11.5,leading=16,textColor=BLUE)}
+ 'body':ParagraphStyle('body',fontName='LMRoman',fontSize=11.5,leading=15.8,textColor=INK,spaceAfter=10),
+ 'small':ParagraphStyle('small',fontName='LMRoman',fontSize=9,leading=11.5,textColor=SLATE,splitLongWords=True),
+ 'prompt':ParagraphStyle('prompt',fontName='LMRomanBold',fontSize=11.5,leading=16,textColor=BLUE)}
 path=ROOT/'Participant_Lab_Guide.pdf';c=canvas.Canvas(str(path),pagesize=(612,792))
 c.setTitle('Participant Lab Guide: Three Operator Cases');c.setAuthor('Alaa Selim (MIT/Dartmouth); Mohamed Chehada (UT Austin)')
 def para(text,y,style='body',width=512,x=50):
@@ -88,8 +92,8 @@ def diagram_file(id):
  return prefix.with_suffix('.png')
 web=['<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Participant Lab Guide</title><style>body{font:20px/1.6 Arial;max-width:1050px;margin:35px auto;padding:24px;color:#003b5c}h1,h2{color:#00629b}section{border-top:3px solid #00a6b2;margin:45px 0;padding-top:25px}img{max-width:100%;max-height:320px;display:block;margin:20px auto}a{color:#00629b;overflow-wrap:anywhere}.prompt{font-weight:bold;color:#00629b}</style><h1>Participant Lab Guide</h1><p><a href="Participant_Lab_Guide.pdf">Download the printable guide</a> · <a href="'+COLAB+'">Open the one required Colab</a></p>']
 for n,s in enumerate(sections,1):
- c.setFillColor(BLUE);c.setFont('Helvetica-Bold',23);c.drawString(50,743,s['title'])
- c.setFillColor(SLATE);c.setFont('Helvetica',10.5);c.drawString(50,719,s['subtitle'])
+ c.setFillColor(BLUE);c.setFont('LMRomanBold',23);c.drawString(50,743,s['title'])
+ c.setFillColor(SLATE);c.setFont('LMRoman',10.5);c.drawString(50,719,s['subtitle'])
  c.setStrokeColor(TEAL);c.setLineWidth(1.5);c.line(50,706,562,706);y=690
  imagepath=diagram_file(s['diagram']) if s.get('diagram') else ROOT/'images'/s['image']
  im=ImageReader(str(imagepath));iw,ih=im.getSize();h=min(132,512*ih/iw);w=h*iw/ih
@@ -107,11 +111,11 @@ for n,s in enumerate(sections,1):
  else:
   for _ in range(2):c.setStrokeColor(HexColor('#c7d5dd'));c.line(50,y-12,562,y-12);y-=28
  assert y>=43,('Page overflow',n,y)
- c.setFont('Helvetica',8);c.setFillColor(SLATE);c.drawString(50,30,'Three Operator Cases / Participant Lab Guide / 24 October 2026');c.drawRightString(562,30,f'{n}/6')
+ c.setFont('LMRoman',8.5);c.setFillColor(SLATE);c.drawString(50,30,'Three Operator Cases / Participant Lab Guide');c.drawRightString(562,30,f'{n}/6')
  c.showPage()
  web.append('<section><h2>'+str(n)+'. '+html.escape(s['title'])+'</h2><p>'+html.escape(s['subtitle'])+'</p><img alt="Teaching illustration for '+html.escape(s['title'])+'" src="'+('diagrams/'+s['diagram']+'.svg' if s.get('diagram') else 'images/'+s['image'])+'">'+''.join('<p>'+b+'</p>' for b in s['body'])+'<p class="prompt">'+s['prompt']+'</p></section>')
 c.save()
 web.append('<p>Stanford teaching source: Monica Lam, <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">CS224V Lecture 1: Introduction</a>, Fall 2026, pp.2, 19, 40 and 52–53. <a href="https://research.google.com/colaboratory/faq.html">Google Colab FAQ</a>. <a href="Full_Reading_Guide.html">Full references and figure credits</a>.</p></html>')
-(ROOT/'Participant_Lab_Guide.html').write_text('\n'.join(web),encoding='utf-8')
+(ROOT/'Participant_Lab_Guide.html').write_text(style_html('\n'.join(web)),encoding='utf-8')
 for f in ['Participant_Lab_Guide.pdf','Participant_Lab_Guide.html']:shutil.copy2(ROOT/f,ROOT/'slidev/public'/f)
 print(json.dumps({'pdf':path.name,'pages':len(sections),'exercise_slides':exercise}))

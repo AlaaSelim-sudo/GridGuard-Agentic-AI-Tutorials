@@ -8,7 +8,9 @@ aspectRatio: 16/9
 canvasWidth: 1280
 colorSchema: light
 fonts:
-  sans: Arial
+  sans: Latin Modern Roman
+  serif: Latin Modern Roman
+  mono: Latin Modern Mono
   provider: none
 mdc: false
 drawings:
@@ -27,9 +29,18 @@ download: false
 <span class="pageno">1 / 80</span></div>
 
 <!--
-One Classroom Labs notebook covers all three cases. Follow the L labels in order, keep both optional-tool switches False and use the saved Llama examples after the numerical cases. Learners can follow along during the 90-minute lecture and finish the experiments afterward. The inherited detailed cue timings are a preparation resource, not a revised session schedule. Presenters and affiliations are supplied by the presenters.
-Takeaway: 
-Nominal duration: 0.5 minutes.
+**Say**
+
+We will use one notebook to study three operator problems: voltage support, restoring service and suspicious measurements. For each case, we will look at the input, run a tool, read the result and decide what still needs review. You can follow along now or finish the experiments later. The notebook does not control equipment.
+
+**Show**
+
+Point to the three case names and the one-notebook route.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -51,8 +62,25 @@ transition: none
 <span class="pageno">2 / 80</span></div>
 
 <!--
-Use the architectural definition in Anthropic, Building effective agents: an agent lets the LLM direct its process and tool use. Agentic AI is a broad term; here it means a system organized around this bounded loop. An AI agent is the component that chooses and follows steps. A tool is a permitted software function that returns a result. Point to the goal, model choice, executable tool, returned evidence and feedback arrow. The application stores case facts and prior results as the context supplied at the next model request. If a required check is missing, the outcome remains HOLD. Stop or return a proposal only under the fixed workflow rules. Do not imply that feedback alone establishes agency: conventional programs can also branch and loop. Our default notebook calculates engineering results now but replays the actual old Llama choices. No live model service is needed. Stanford source: Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Fall 2026, p.2 describes function calling and agentic workflows. The goal-and-feedback drawing is our grid teaching adaptation, supported by the separate bounded-agent architecture citation. This is not an original Stanford power-system diagram.
-Takeaway: 
+**Say**
+
+Here, agentic AI means a model can choose a permitted next step using a tool's returned result. The important part is that the result can change the next choice. The model still works within limits set by the application. In our default lab, Python runs now while the Llama choices come from saved recordings.
+
+**Show**
+
+Trace goal, model choice, tool result and feedback arrow.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+
+**Ask**
+
+Which component supplies the electrical numbers?
+
+**Answer**
+
+The numerical tool; the model selects an allowed next step.
 Nominal duration: 1 minutes.
 
 Full sources:
@@ -79,9 +107,18 @@ transition: none
 <span class="pageno">3 / 80</span></div>
 
 <!--
-Show the two original capability panels from Monica Lam’s Stanford CS224V introduction, p.2. The left panel introduces model-selected function calling. The right panel describes multi-step planning, tool use and self-correction. Our plain-language sentence connects the panels to the preceding bounded-loop teaching drawing. The following source-and-lab pairs show why tool results, explicit goals and checked evidence matter in each case. In that example Llama requests a named action and Python validates the JSON choice before calling an existing function; it does not use a native tool_calls protocol. Conventional software can also loop, and a chatbot may itself contain an agent. Here we identify the agentic feature by the model’s permitted next-step choice based on returned evidence. The class replays those old model choices while numerical cells calculate current results. Source lecture figure is shown unchanged within the documented crop.
-Takeaway: 
-Nominal duration: 1 minutes.
+**Say**
+
+A tool call is one job, such as calculating a power flow. A workflow connects several jobs. In an agentic step, the model helps choose what happens next. A fixed program can also contain loops and checks, so a loop alone does not make a system agentic. Look for the actual model decision.
+
+**Show**
+
+Point to the single-call panel, then the multi-step panel.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
@@ -107,9 +144,18 @@ transition: none
 <span class="pageno">4 / 80</span></div>
 
 <!--
-The displayed figure is an original excerpt from Monica Lam’s Stanford CS224V introduction, p.19. Follow its retrieval, claim checking and writing steps. The WikiChat paper is fully cited in the reading guide. Our application to grid studies is a teaching analogy: read the stated limits, run the appropriate numerical check and summarize the actual returned result. Ask which lab step would detect a current violation. The classroom notebook does not run WikiChat; its dialogue factuality measurements are not electrical performance results. This source figure is now in the opening. Spend about one minute on the check-before-writing idea. The next slide maps it to L2; do not run a cell yet.
-Takeaway: 
-Nominal duration: 1.25 minutes.
+**Say**
+
+This source example is about checking claims before writing an answer. We use the same design habit in a grid study: calculate first, then explain the returned numbers. We are borrowing the idea, not running WikiChat in this notebook. A fluent report should never replace an electrical check.
+
+**Show**
+
+Follow checking before drafting in the source figure.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
@@ -137,9 +183,22 @@ transition: none
 <span class="pageno">5 / 80</span></div>
 
 <!--
-Connect the preceding original WikiChat figure to a grid claim. A text answer might say that a proposed plan fits the limits; a numerical tool must calculate the supporting result. The reference bar is the default L2 MPC result: maximum allowed-current utilization 73.619901%, rounded to 73.62%, at LOAD_SCALE=1.0 and RATING_FRACTION=0.80. It passes this current allowance; modeled voltage and required model coverage must also be checked. The default medium-voltage calculation is not proof for the full MV/LV system. This visual previews the lab; do not run L2 before setup, L0 and L1. L2 calls numerical functions directly. The separate P3 L10B archive later shows Llama requesting a check, reading a failed result and selecting a fallback. Our application is an analogy to evidence checking, not a claim that the notebook runs WikiChat.
-Takeaway: 
-Nominal duration: 1.5 minutes.
+**Say**
+
+For voltage, a controller proposes settings and an electrical model checks their effects. L2 lets us run those calculations ourselves. Later, L10B shows a saved Llama choice about which existing tool to use. Keep those two activities separate: a new calculation is different from replaying an old model reply.
+
+**Show**
+
+Point to the proposal, electrical check and returned current value.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L2 later on slide 21; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
@@ -169,9 +228,18 @@ transition: none
 <span class="pageno">6 / 80</span></div>
 
 <!--
-Stanford connection: Lam p.40 and the published Genie Worksheets paper emphasize developer-defined workflows and knowledge sources. The published framework uses an algorithmic runtime to enforce a supplied policy, with LLMs used for language understanding and response generation. Our lab uses custom Python functions, not Genie Worksheets. The application analogy is to specify the task and prevent a language reply from silently changing its limits or filling missing required inputs. A passed calculation does not prove that the task description was correct. The figure shown here is an actual excerpt from the supplied Stanford lecture. Ask the audience to point to the claim-checking or policy step, then identify the corresponding Python check in our lab. We borrow the design habit; the notebook does not run WikiChat or Genie. Their non-grid benchmarks are not electrical performance results.
-Takeaway: 
-Nominal duration: 1.25 minutes.
+**Say**
+
+A useful tool needs a clear contract: required inputs, allowed operations, fixed limits and a stop condition. The language model cannot quietly change those rules to make an answer look better. In this lab, Python owns the rules. If a required input or check is missing, the workflow must stop or request review.
+
+**Show**
+
+Point to the explicit task-rule specification.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+Nominal duration: 1 minutes.
 
 Full sources:
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
@@ -199,9 +267,22 @@ transition: none
 <span class="pageno">7 / 80</span></div>
 
 <!--
-The preceding Genie excerpt motivates writing down the task and its rules before calling a function. In L6 the goal is part of the optimization problem: priority weighting serves 130 total kW, including 90 critical kW; maximizing total service gives 140 total kW, including 30 critical kW. The 40 kW limit belongs to one varied tie, while another tie stays fixed at 100 kW. Totals also include the 40 kW load at node 1 upstream of those ties. A 40 kW varied-tie limit is not a cap on total system service. Each stacked bar uses the same scale. Critical service is cyan; other service is blue. Ask which goal better matches an illustrative request to prioritize a hospital. The numerical model uses abstract critical loads, not an actual hospital dataset. Later learners run both goals and change the tie capacity. L6 is a direct Python calculation, not a live LLM agent. An agent coordinating such a study must preserve the requested goal and explain the returned tradeoff. The separate L10B feeder-catalog archive supplies actual saved Llama choices; it differs from this six-node L6 model. Our notebook does not implement Genie Worksheets.
-Takeaway: 
-Nominal duration: 1.5 minutes.
+**Say**
+
+Before asking for a restoration plan, define what good service means. Serving the most total power can give a different answer from protecting critical loads. The solver follows the objective we give it. The agent's job is to preserve that goal when requesting a tool and explaining its result.
+
+**Show**
+
+Compare the critical-service segments, then the total kW.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L6 later on slide 40; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
@@ -232,9 +313,18 @@ transition: none
 <span class="pageno">8 / 80</span></div>
 
 <!--
-This original diagram selection comes from the function row on p.53 of Monica Lam’s introduction. It shows a clinical-trial example, not a power-system experiment. The language model translates written facts into an SMT representation; a separate solver derives a decision from those constraints. SMT means satisfiability modulo theories, a way to express and solve logical constraints. MaxSAT supports the lecture’s search for conditions that change a decision. The lecture also states that the formalization may not be completely faithful, so correctness remains relative to the represented constraints. Our application is an analogy: Llama requests the permitted estimate or control tool and Python checks numerical limits. An operator must still confirm the trust assumption and review the proposed action. Our notebook does not run an SMT/MaxSAT solver or prove formal electrical safety. Preview the HOLD/PROPOSE distinction now; participants will calculate the L9 outcomes later with their stated model and trusted-data assumption.
-Takeaway: 
-Nominal duration: 1.25 minutes.
+**Say**
+
+The source figure separates language processing from a solver that checks a decision. Our grid example uses a similar separation: Llama requests a permitted study, Python calculates and checks it, and a person reviews the proposal. Our electrical models are not the logical solvers in this source example and do not inherit their guarantees.
+
+**Show**
+
+Follow language input into a separate checked decision.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
@@ -258,9 +348,22 @@ transition: none
 <span class="pageno">9 / 80</span></div>
 
 <!--
-Relate the original Stanford clinical example to this lab without importing a formal guarantee. L8 fits readings to a four-bus DC model using WLS, weighted least squares. Its small residual is a measure of fit, not proof of sensor truth; the known simulation truth is used only for teaching error comparisons. L9 is a separate fixed recovery fixture. Without trusted replacement data it returns HOLD. With three additional readings assumed trusted and a successful modeled recovery check, it returns PROPOSE. The yes branch depicts this fixed example with passing numerical checks; a real study also needs every required check to pass. The calculation does not authenticate the extra readings. Later learners run L8, vary the attack scale, then reset before the independent L9 example. Python performs these calculations now. A coordinating agent should request evidence and retain HOLD when a required premise is missing; saved L10B replies show a separate recorded cyber case. Our code uses numerical checks, not the Stanford SMT/MaxSAT runtime.
-Takeaway: 
-Nominal duration: 1.5 minutes.
+**Say**
+
+Suspicious readings can fit a model and still be wrong. L8 makes that problem visible by comparing a mismatch alarm with known simulation truth. L9 asks a different question: can we propose a correction if extra readings are assumed trustworthy? The trust condition remains an assumption that the operator must review.
+
+**Show**
+
+Point to the quiet residual and the trust-dependent recovery gate.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L8 later on slide 56; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
@@ -289,9 +392,26 @@ transition: none
 <span class="pageno">10 / 80</span></div>
 
 <!--
-Lam’s pp.52–53 distinguish verifiable rationale, explicit assumptions, policy consistency and actionable next conditions. Translate these into four plain questions: which tool supports this claim, which inputs and model were used, were the same limits and service priorities kept, and what must the operator review next? Our power-flow, optimization and evidence-binding checks are numerical/software checks. They do not inherit the lecture’s SMT correctness claims. Ask pairs to apply the questions to one L10B explanation and to the full-scope HOLD at L12. We show only the actual public returned reasons, not hidden chain-of-thought. This closes the twelve-minute opening concept block. Point out that all three labs will use these questions; participants do not need to memorize a framework or run ahead.
-Takeaway: 
-Nominal duration: 1.25 minutes.
+**Say**
+
+Use these four questions throughout the session. Which tool produced this result? What did the tool assume? Which limits did it actually check? What should the operator do next? These questions help us assess both an ordinary software result and a model-generated explanation. Missing evidence stays missing even when the wording sounds confident.
+
+**Show**
+
+Use the four questions to assess one statement from the opening.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+
+**Ask**
+
+What evidence is missing from a confident answer with no tool result?
+
+**Answer**
+
+The actual calculated or measured result and its assumptions.
+Nominal duration: 1 minutes.
 
 Full sources:
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
@@ -317,8 +437,17 @@ transition: none
 <span class="pageno">11 / 80</span></div>
 
 <!--
-Open https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/#notebooks and choose the first notebook, Classroom Labs. The LangGraph and trace notebooks are separate companions. Keep the slides in one tab and Classroom Labs in another.
-Takeaway: 
+**Say**
+
+Classroom Labs is the only required notebook. Save a copy in Drive so you can keep your changes. The voltage, restoration and cyber sections are in this same file. The other notebooks on the website are companions, so you do not need to open several Colabs to follow this workshop.
+
+**Show**
+
+Open the canonical Classroom Labs link and save a Drive copy.
+
+**Colab: NO NEW RUN**
+
+Open Classroom Labs and save a copy. Run setup on slide 12, not the later lesson cells.
 Nominal duration: 1 minutes.
 
 Full sources:
@@ -338,9 +467,24 @@ transition: none
 <span class="pageno">12 / 80</span></div>
 
 <!--
-For a paced workshop, run the setup cell first, then run each named lesson cell when prompted. Runtime > Run all also works, but it reveals later outputs before the prediction questions. The default route needs no GPU, API key or LLM download. If setup stops, reconnect the runtime and rerun setup before starting L0.
-Takeaway: 
-Nominal duration: 1.5 minutes.
+**Say**
+
+Colab gives us a temporary computer called a runtime. Connect a CPU runtime and run the setup cell once. Wait for Ready before continuing. Saving a notebook keeps the text and saved outputs, not the temporary variables. After a runtime reset, rerun setup and the earlier cells. If setup is still running, follow the reference figures and catch up afterward.
+
+**Show**
+
+Show the CPU connection control and setup-cell play button.
+
+**Colab: RUN**
+
+Connect a CPU. Run the whole setup cell once and wait for Ready.
+
+Exact cells: colab-setup. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+Ready appears; the support files and CPU packages are available.
+Nominal duration: 2.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -362,9 +506,22 @@ transition: none
 <span class="pageno">13 / 80</span></div>
 
 <!--
-Point to the three parts: editable input, run control and returned output. The illustrated input lines are the first two lines of the actual L2 cell, not a complete standalone program. The full cell calls the voltage helper and draws two plots. The runtime remembers variables from earlier cells, which is why we run the lesson in order. If NameError reports a missing variable, return to setup/L0 and rerun the required earlier cells. Do not treat a previously displayed output as the result of a number just edited until you rerun its cell. Use the L labels instead of numerical cell indexes. Later cells need earlier variables.
-Takeaway: 
-Nominal duration: 1.5 minutes.
+**Say**
+
+A notebook cell has input code and an output below it. The slide shows selected lines, but we always run the whole matching code cell. First predict the result, then run it and read what appears. Changing a number does not update an old plot until you rerun the cell.
+
+**Show**
+
+Identify the input, run button and output region.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L2 later on slide 21; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Google Colaboratory. Frequently Asked Questions: Using Colab, notebook storage and execution state. Google Research. Reviewed 24 October 2026.
@@ -390,9 +547,24 @@ assert (ROOT / &#x27;data/lindistflow3_network.json&#x27;).exists(), &#x27;Start
 <span class="pageno">14 / 80</span></div>
 
 <!--
-Run all of L0 to import the helpers, configure the plots and initialize the timing record. Keep RUN_OPENDSS=False and RUN_LOCAL_LLAMA=False. These settings skip the optional full-feeder OpenDSS route and local model service. They do not make the calculations prerecorded: L2 and L4 through L9 run fresh numerical calculations or checks, while L12 checks the evidence binding and simulated readback.
-Takeaway: 
-Nominal duration: 1 minutes.
+**Say**
+
+Leave both switches False. OpenDSS is off, so the default voltage calculation uses the three-phase linear model. The local Llama call is also off, so there is no new language-model request. Python still makes new numerical calculations, and the saved SAC policy still proposes a new action from its stored weights.
+
+**Show**
+
+Point to both False settings.
+
+**Colab: RUN**
+
+Run L0 with RUN_OPENDSS=False and RUN_LOCAL_LLAMA=False.
+
+Exact cells: classroom-002. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+The data assertion passes. Both optional live-tool paths remain off.
+Nominal duration: 1.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -412,9 +584,24 @@ transition: none
 <span class="pageno">15 / 80</span></div>
 
 <!--
-Evidence binding means matching a checked record to the exact inputs, proposed command and returned result, using content hashes. Treat L1 as a same-content check, not a test that a physical action passes its limits. The first row keeps the request and command unchanged. The next two rows change a request field or command field, so binding_pass is True, False, False. A failed match calls for new evidence; it does not prove the changed action fails its limits. A matching hash also does not authenticate a sensor.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+This small test asks whether the result still belongs to the same request and command. The first row should be True. Changing the load or command gives False. That match is necessary before using an old result. The hash detects a changed record; it does not authenticate a sensor or prove that the physical action is safe.
+
+**Show**
+
+Read the three binding_pass results.
+
+**Colab: RUN**
+
+Run the whole L1 cell after L0.
+
+Exact cells: classroom-004. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+binding_pass is True, False, False in row order.
+Nominal duration: 2.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -434,9 +621,22 @@ transition: none
 <span class="pageno">16 / 80</span></div>
 
 <!--
-The feeder is a synthetic SMART-DS Greensboro-area example, not a measured utility circuit. The command sets active- and reactive-power participation for an inverter fleet. MPC, model predictive control, uses a system model and a short forecast to calculate a plan under limits; here the proposed command is the first step of that plan. SAC, Soft Actor–Critic, is a saved controller learned from rewards. It produces a proposal from old weights without training again. The default calculation covers medium-voltage (MV) phases and MV line currents, with simplified low-voltage (LV) aggregation. Feasible means the proposal passes the limits represented by that model. Compare the penalty score J only after checking those limits; smaller J is preferred for this stated objective. Run L0 and L1 first.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+Our first case compares two ways to propose voltage-support settings. MPC plans using a model and a short forecast. SAC uses a policy learned earlier. We send both proposals through the same electrical check. Only after a proposal passes should we compare its penalty score J. These are teaching results on a synthetic feeder.
+
+**Show**
+
+Locate the voltage case on the synthetic feeder figure.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L2 later on slide 21; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -458,9 +658,18 @@ transition: none
 <span class="pageno">17 / 80</span></div>
 
 <!--
-MPC uses a model and a short forecast to optimize a plan; this lab applies its first action. SAC is a saved policy learned through reinforcement learning; it produces a new control proposal using old weights, without training again. Neither is the coordinating LLM. The outer agent can choose which permitted study to request. L2 calls both tools directly and displays their checks; this cell alone is not a live LLM agent. Later recorded P3 figures illustrate Llama coordinating the existing tools. Define per unit when the control-limit slide introduces the voltage scale: 1.0 p.u. is the stated base value. Explain MILP and WLS only in their respective cases.
-Takeaway: 
-Nominal duration: 1.5 minutes.
+**Say**
+
+MPC calculates settings from the model when we run it. The saved SAC policy quickly maps the current conditions to settings. Neither proposal is automatically acceptable. A separate model checks voltage, current and inverter limits. These numerical controllers are tools inside the workflow; they do not become language agents just because a model can call them.
+
+**Show**
+
+Follow both proposal methods into the same checker.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -489,8 +698,25 @@ transition: none
 <span class="pageno">18 / 80</span></div>
 
 <!--
-This is an actual saved Llama 3.1:8b voltage episode, not a fabricated interactive exchange. Call 1 selects VERIFY_SAC_FIRST; the numerical check returns 111.966607 percent of allowed current and two current violations. Call 2 selects USE_MPC_PLAN; its numerical check returns 99.604410 percent of allowed current and no recorded violations. The SAC and MPC tools already exist; Llama does not invent or solve the power flow. The arrows show tool-request, result, next-request, result. Call 3 selects REVIEW_EVIDENCE. Human acknowledgment remains PENDING and equipment_dispatch is False. This separate P3 MV/LV OpenDSS archive differs from the fresh L2 exercise and from L3 test_01. Later voltage slides display the exact public returned reasons; learners can replay the source in L10B after completing the three cases. The fixed comparator reaches the same numerical outcome, so the trace illustrates coordination rather than a proven performance improvement. This recorded example now follows the MPC/SAC definition slide in the voltage case, after Colab setup. It remains a preview; run the complete episode in L10B later.
-Takeaway: 
+**Say**
+
+This is a saved P3 example, not the new L2 experiment. Llama first asks to check SAC. The tool returns about 111.97 percent of allowed current, so that trial fails. Llama then requests the existing MPC fallback, which returns about 99.60 percent and passes the recorded checks. Human review still remains pending.
+
+**Show**
+
+Follow the two saved current results in order.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+
+**Ask**
+
+Why can the fallback enter review?
+
+**Answer**
+
+Its stated numerical checks pass; human acknowledgment is still separate.
 Nominal duration: 1.5 minutes.
 
 Full sources:
@@ -514,9 +740,22 @@ transition: none
 <span class="pageno">19 / 80</span></div>
 
 <!--
-Active power delivers net energy; reactive power supports the AC voltage and current balance. The command uses P_i = a S_i and Q_i = b S_i. Its bounds are 0 <= a <= 1, |b| <= 0.44 and a^2 + b^2 <= 1. Modeled voltages must be between 0.95 and 1.05 per unit (p.u.), where values are divided by a stated base. RATING_FRACTION=0.80 sets allowed current to 80% of the nominal rating. The displayed current percentage uses this reduced allowance as its denominator. Passing the inverter bounds alone does not show that network limits pass.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+There are two control settings. The active-power setting changes how much real power the inverter supplies. The reactive-power setting changes reactive support. They share the inverter's capacity, so changing one affects the room available for the other. The numerical checker tests that capacity together with voltage and line-current limits.
+
+**Show**
+
+Point to active and reactive settings and their shared capacity.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L2 later on slide 21; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -535,9 +774,22 @@ transition: none
 <span class="pageno">20 / 80</span></div>
 
 <!--
-Find the actual function call on the next slide. The first two cell lines set the load scale and current allowance; the helper returns numerical proposals, checks and a table for plotting. A tool can be an optimizer, simulator, estimator, lookup or evidence checker. It is not the LLM itself. The student initiates this direct function call with the play button. In the separate recorded workflow Llama selects a named action, the Python application validates that action and its inputs, then invokes a permitted numerical function. Do not claim that the L2 helper uses a live agent gateway. Saving a notebook is separate from keeping a runtime: after a reset, rerun setup and earlier cells.
-Takeaway: 
-Nominal duration: 1.5 minutes.
+**Say**
+
+In the lab, a tool is an ordinary Python function with defined inputs and returned results. L2 calls voltage_lab directly with load scale and current allowance. That lets us inspect what the tool does without a live LLM. In the saved agent workflow, the application validates a model choice before calling an allowed function.
+
+**Show**
+
+Match function inputs to its returned fields.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L2 later on slide 21; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -563,9 +815,24 @@ voltage = lab.voltage_lab(LOAD_SCALE, RATING_FRACTION)</pre><ul><li>Run all of L
 <span class="pageno">21 / 80</span></div>
 
 <!--
-Start with LOAD_SCALE=1.0 and RATING_FRACTION=0.80. The saved SAC actor produces a new proposal by inference; it is not trained in this cell. Both proposals pass the default classroom checks. MPC has the lower current-step J for this case and objective. This single result does not establish a universal control advantage. The output field feasible reports whether the modeled limits pass; current_step_J is this step’s penalty score, and max_allowed_current_pct is maximum current as a percentage of the reduced allowance.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+Run the whole L2 cell with load scale 1.0 and current allowance 0.80. The cell makes an MPC plan, runs the saved SAC actor and checks both proposals. Read feasible first. Then inspect maximum allowed-current use and the score J. The plots and table below the cell are new calculations for these inputs.
+
+**Show**
+
+Show the input lines, then the resulting L2 table.
+
+**Colab: RUN**
+
+Run the full L2 cell at LOAD_SCALE=1.0 and RATING_FRACTION=0.80.
+
+Exact cells: classroom-007. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+Both default proposals pass; current use is about 73.62% for MPC and 51.68% for SAC.
+Nominal duration: 3 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -591,9 +858,18 @@ transition: none
 <span class="pageno">22 / 80</span></div>
 
 <!--
-The left panel sorts each voltage curve separately. The same horizontal position means the same rank, not necessarily the same physical bus. The right panel reports current relative to the reduced allowance. Use the output table for exact extrema and feasibility; do not decide acceptance from a plot alone.
-Takeaway: 
-Nominal duration: 3 minutes.
+**Say**
+
+Read both plots before choosing a method. The voltage plot shows sorted modeled voltages, not the physical order of buses along a feeder. Check that they remain inside the band. The current plot shows the largest use of the allowed current. Its 100 percent line is a limit, not a performance target.
+
+**Show**
+
+Read the voltage band and current allowance line.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -613,9 +889,26 @@ transition: none
 <span class="pageno">23 / 80</span></div>
 
 <!--
-In the reference execution, MPC returns a=0.960307 and b=-0.111114, with Vmin=1.023874 and Vmax=1.038709 p.u. SAC returns a=0.340066 and b=0.014024, with Vmin=1.013243 and Vmax=1.030000 p.u. Values may vary slightly with the solver or dependency version. Lower current use need not mean lower J, because the objective also includes service and control terms. Check feasibility before comparing J. Both voltage extrema are within the stated 0.95–1.05 p.u. band for this represented MV model.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+Both default proposals pass this model. MPC uses about 73.62 percent of the allowed current and has J about 0.03110. SAC uses less current, about 51.68 percent, but has a higher penalty score. Lower current alone does not mean a better overall objective. Compare scores only among proposals that pass the stated checks.
+
+**Show**
+
+Compare feasibility first, then current use and score.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+
+**Ask**
+
+Does less current always mean a smaller objective?
+
+**Answer**
+
+No. J also includes curtailment, reactive effort and other declared penalties.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -634,9 +927,18 @@ transition: none
 <span class="pageno">24 / 80</span></div>
 
 <!--
-Stanford connection: the lecture’s WikiChat discussion, pp.17–25, separates finding material from checking factual claims. Apply the habit to a grid study: retrieving a current limit is different from calculating current for a candidate. The displayed 99.604410% value belongs to the separate archived P3 OpenDSS replay, not to the learner’s fresh L2 result. This example supports only that current check under its recorded model. A sentence, retrieved document or citation does not establish full-network feasibility. Treat the input limits as the task policy. A text source describes the rule; the solver evaluates the particular proposal.
-Takeaway: 
-Nominal duration: 1.5 minutes.
+**Say**
+
+A rule tells us what is allowed. A numerical tool tells us whether a particular proposal meets that rule in a particular model. We need both. When reporting a result, keep the input case, the limit and the calculated value together. The number in this illustration comes from the separate saved P3 example.
+
+**Show**
+
+Point separately to the rule and returned value.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
@@ -664,8 +966,31 @@ transition: none
 <span class="pageno">25 / 80</span></div>
 
 <!--
-Allow one minute to predict, two minutes to edit and run, and one minute to report. Keep LOAD_SCALE=1.0. Reference allowed-current use is 78.527895% for MPC and 54.854158% for SAC; both remain feasible. Do not ask learners to find a rejection that this edit does not produce. The default model still covers MV only.
-Takeaway: 
+**Say**
+
+Change only RATING_FRACTION from 0.80 to 0.75 in L2. Before running it, predict how the percentage of allowed current will change. Run the whole cell and compare both methods. Record the pass flag, current percentage and score. Then decide whether this model covers a full medium- and low-voltage request.
+
+**Show**
+
+Show only the one parameter to change.
+
+**Colab: EDIT AND RERUN**
+
+Change only RATING_FRACTION to 0.75. Predict, then rerun all of L2. Give this exercise four minutes.
+
+Exact cells: classroom-007. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+MPC current use is about 78.53%; SAC about 54.85%; both pass this MV test.
+
+**Ask**
+
+Does this PASS cover the whole MV/LV network?
+
+**Answer**
+
+No. The default covers MV phases and currents with ideal LV aggregation.
 Nominal duration: 4 minutes.
 
 Full sources:
@@ -685,9 +1010,18 @@ transition: none
 <span class="pageno">26 / 80</span></div>
 
 <!--
-Use this visual immediately after the first exercise debrief. It shows the measured reference MPC outputs, rounded to two decimal places, for RATING_FRACTION 0.80 and 0.75. The SAC result is also computed in the notebook but is not drawn here. Both proposals pass this particular tighter test. The result is not a general guarantee for other loads or limits. Ask pairs to explain the denominator in the percentage. Restore the default before moving to L3’s independent archived case. This combines the original numerical debrief with the visual explanation. Compare both methods before restoring RATING_FRACTION=0.80.
-Takeaway: 
-Nominal duration: 4.5 minutes.
+**Say**
+
+A smaller allowance makes the same physical current a larger percentage of the allowance. In this example, MPC reaches about 78.53 percent and SAC about 54.85 percent. Both still pass. This particular experiment does not show a rejection, and the MV-only model still does not establish full MV/LV coverage. Compare with your own output before generalizing.
+
+**Show**
+
+Compare the default and changed allowance.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -708,9 +1042,24 @@ RATING_FRACTION = 0.80</pre><ul><li>Restore LOAD_SCALE=1.0 and RATING_FRACTION=0
 <span class="pageno">27 / 80</span></div>
 
 <!--
-Make the experiment boundary explicit. L3 loads a separate preserved context into pool. It does not inherit the fresh L2 case or the participant's edits. Do not pair an edited L2 result with the test_01 model explanation as though the model had seen those new inputs.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+Restore load scale 1.0 and current allowance 0.80, then rerun L2. This gives everyone the same starting point again. L3 through L5 use a separate archived case called test_01. Your earlier parameter edit does not rewrite that archive, so we must not attach its old Llama explanation to a different new experiment.
+
+**Show**
+
+Show the restored two default inputs.
+
+**Colab: RESET AND RERUN**
+
+Restore LOAD_SCALE=1.0 and RATING_FRACTION=0.80; rerun the complete L2 cell.
+
+Exact cells: classroom-007. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+The default output returns. L3-L5 will use their separate original test_01 case.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -729,9 +1078,18 @@ transition: none
 <span class="pageno">28 / 80</span></div>
 
 <!--
-Point to these evidence modes throughout the session. Default classroom cells calculate fresh results without a live language-model call. L10B displays verified historical Llama choices, original reasons and associated recorded results. Changing your L2 or L6 input does not change those old replies. The final control-room diagrams are a proposed teaching design, not evidence of a deployed utility platform. No new equipment operation occurs in any of these modes. FRESH means calculated during the current execution. SAVED POLICY means old weights used for new inference. ARCHIVED ACTUAL LLM means an old reply with its original inputs and timing. This slide comes just before L3 so the distinction is applied immediately.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+We now have two kinds of evidence. A new calculation uses the inputs we just supplied. A saved model reply records what the model said for its original case. Both can be useful, but they answer different questions. A proposed control-room pilot is a third category: a design to evaluate, not evidence of a deployment.
+
+**Show**
+
+Point to new calculation, saved reply and proposed pilot labels.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -760,9 +1118,24 @@ display(pd.DataFrame(pool[&#x27;responses&#x27;])[[&#x27;model_id&#x27;, &#x27;o
 <span class="pageno">29 / 80</span></div>
 
 <!--
-The output contains three actual replies from the frozen response-selection study. Ask learners to identify the operation and numerical parameters requested by each reply. The reported seconds measure the original model calls, not today's display cell. Keep this archived context separate from the fresh L2 comparison.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+Run L3 and read the original case ID, each requested operation and its recorded call time. These are actual earlier replies. Displaying them does not call those models again. Different explanations may request exactly the same tool and settings, so the next step groups those matching requests before counting votes.
+
+**Show**
+
+Locate case ID, operation and recorded seconds.
+
+**Colab: RUN**
+
+Run L3. Keep the default test_01 case.
+
+Exact cells: classroom-010. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+Three saved model replies and recorded times appear; no new model request occurs.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -782,9 +1155,26 @@ transition: none
 <span class="pageno">30 / 80</span></div>
 
 <!--
-The three old replies reduce to two distinct operations after matching their tool names and numerical parameters. The vote keeps one contribution per model. In test_01, two models vote for the Q-relaxation trial, which relaxes a reactive-power restriction in that declared test. This diagram shows the old input and choices; it is not a new vote after a learner edits L2. Grouping matching trials avoids counting different wording as different physical proposals.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+Three replies do not necessarily produce three different physical trials. Here, two replies request the same reactive-power change, so there are two distinct operations. The vote chooses what to test next. It does not certify the choice. A numerical tool must still check the selected settings, regardless of how many models supported them.
+
+**Show**
+
+Count unique tool/settings records rather than sentences.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+
+**Ask**
+
+How many distinct trials do these three replies request?
+
+**Answer**
+
+Two, because two replies have identical tool/settings records.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -808,9 +1198,24 @@ assert pool[&#x27;frozen&#x27;] and pool[&#x27;training_updates&#x27;] == 24</pr
 <span class="pageno">31 / 80</span></div>
 
 <!--
-The selector is frozen and makes no training updates in this lesson. L4 applies the archived selected operation to its original test context and runs a fresh numerical check. This is a replay with new verification, not a new language-model decision or an online learning experiment. LinUCB is a learned selector that scores the available choices from context; its saved settings stay fixed here.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+Run L4 after L3. We compare majority voting with a saved LinUCB selector that learned which trial to test. All earlier model calls have already happened. This selection step allocates a numerical trial; it does not decide which model to call or whether the grid limits pass. Python checks the selected original-case proposal now.
+
+**Show**
+
+Locate the two selectors and fresh check calls.
+
+**Colab: RUN**
+
+Run L4 after L3 without changing the case ID.
+
+Exact cells: classroom-013. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+Both selectors choose RELAX_Q_10_PERCENT; new_check_passes is True for both.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -830,9 +1235,18 @@ transition: none
 <span class="pageno">32 / 80</span></div>
 
 <!--
-The reference J is about 0.031082 for both selectors. The predicted reward is around -0.0075. It is a learned score, not a feasibility flag. Read new_check_passes for the engineering result. This one case does not show that learned selection is better than voting.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+Both selectors choose the same trial in this example and the new MV check passes. Read new_check_passes for that result. Predicted reward is the selector's learned estimate, not an electrical margin. The saved twelve-case comparison tied voting, so this example does not show that learned selection is generally better than a simple rule.
+
+**Show**
+
+Point to new_check_passes and distinguish predicted reward.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -855,9 +1269,24 @@ display(scope_audit[&#x27;table&#x27;])</pre><ul><li>Leave RUN_OPENDSS=False. Ru
 <span class="pageno">33 / 80</span></div>
 
 <!--
-L5 rebuilds the original test_01 case and runs a new check on its original MV-MPC incumbent, meaning the baseline plan saved with that case. This is not the reactive-power-relaxation candidate checked in L4. With RUN_OPENDSS=False, L5 checks only the reduced model and reports that OpenDSS is disabled. This CPU route performs no new full-feeder AC check. A wider-model study saved earlier is not a result calculated today. Model scope means the network parts and physical effects that a check represents.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+Run L5 with OpenDSS still off. This cell checks the original test_01 MPC plan with the MV model and reports its scope. Read the model, command and pass columns together. An optional OpenDSS route can add a wider AC audit, but we are not running it in the default classroom route.
+
+**Show**
+
+Read model, command, pass and scope information together.
+
+**Colab: RUN**
+
+Run L5 with RUN_OPENDSS still False.
+
+Exact cells: classroom-016. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+The linear-model check is shown; the optional full-model path is disabled.
+Nominal duration: 1.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -877,9 +1306,18 @@ transition: none
 <span class="pageno">34 / 80</span></div>
 
 <!--
-Ask a participant to read the explicit scope message aloud. A PASS is conditional on the model and action that were checked. The default model does not cover every LV constraint. A more confident explanation cannot supply the missing model coverage.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+A PASS describes only what the model checked. Here that means MV phases and line currents, with ideal aggregation of LV load. If the actual request needs the full MV/LV circuit, this result is insufficient. The correct response is to obtain the wider study or keep the request on HOLD, not relabel the result.
+
+**Show**
+
+Point to MV coverage and the missing wider check.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -899,9 +1337,22 @@ transition: none
 <span class="pageno">35 / 80</span></div>
 
 <!--
-Read the exact reason. The model was offered VERIFY_SAC_FIRST or REVIEW. The application then checks the saved SAC action in OpenDSS. 111.966607% refers to the allowed current, which was 80% of nominal, so this exceeds the configured allowance. The numerical result records two current violations. This P3 full supplied MV/LV study is separate from L2 and L3 test_01. Ask the audience to predict the next allowed step before advancing. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.
-Takeaway: 
-Nominal duration: 2.5 minutes.
+**Say**
+
+We return to a saved P3 episode. Llama asks to verify the saved SAC proposal because that check is missing. The electrical tool then finds a current-limit failure. The useful behavior is recognizing which check to request. The failure comes from the numerical tool, not from the confidence of the language explanation.
+
+**Show**
+
+Point to Llama choice, exact public reason and failed result.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 1 minutes.
 
 Full sources:
 Workshop recorded model replies and numerical study records. Voltage P3_current_reserve: Llama 3.1:8b planner, recovery and review calls 1–3. Public teaching archive. 27 September 2026.
@@ -924,9 +1375,22 @@ transition: none
 <span class="pageno">36 / 80</span></div>
 
 <!--
-The model selects USE_MPC_PLAN from two allowed choices, the other being REVIEW. It does not invent or solve MPC. The recorded context already supplies a plan and its eligibility. The application performs a fresh numerical check at that historical time. The result is just below the allowed current threshold. No operating permission follows from this check alone. Ask which evidence, rather than wording, makes the fallback eligible for review. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.
-Takeaway: 
-Nominal duration: 2.5 minutes.
+**Say**
+
+After the failure, Llama requests the MPC plan that already exists. It does not calculate the power flow or invent a new controller. Python and OpenDSS evaluate the fallback and return its voltage and current results. We will inspect the complete saved exchange in L10B after the three numerical cases.
+
+**Show**
+
+Point to the MPC fallback choice and returned checks.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 1 minutes.
 
 Full sources:
 Workshop recorded model replies and numerical study records. Voltage P3_current_reserve: Llama 3.1:8b planner, recovery and review calls 1–3. Public teaching archive. 27 September 2026.
@@ -949,9 +1413,22 @@ transition: none
 <span class="pageno">37 / 80</span></div>
 
 <!--
-Read the exact REVIEW_EVIDENCE choice and distinguish it from the overall status. The proposed controls are 2387.157 kW and +325.738 kvar. The supplied full MV/LV feeder check returned voltage 1.001783–1.035026 p.u. and zero listed violations. The fixed supervisor used the same SAC-to-MPC sequence with identical numerical output. Recorded workflow intervals were 0.346053 s fixed and 3.110454 s agentic, excluding precomputed MPC/SAC preparation. These are single recorded timings, not performance distributions or a measured reduction in operator workload. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: L2 makes new proposals; L3 shows old replies; L4–L5 run new checks on test_01. Report the inputs, proposal, model coverage and result before naming the next step. Give pairs 30 seconds to describe the sequence without calling every step an AI decision. L2 calculates an MPC plan and a saved-policy proposal for the current classroom inputs. L3 displays old model replies. L4 runs new checks of the selected trials; L5 checks the original archived plan and its model coverage. Numerical tools provide the physical evidence. The old model choices select a permitted trial; they do not replace these checks. The operator receives an advisory record whose stated coverage must match the request. The three P3 previews are an additional separate archive. Contrast their saved Llama decisions with your current direct function calls.
-Takeaway: 
-Nominal duration: 2.5 minutes.
+**Say**
+
+The recorded checks pass for the MPC fallback, but the human acknowledgment is still pending. The model's review message is not the operator's approval. A fixed script reaches the same final numerical outcome in this comparison. This episode demonstrates a traceable tool-selection loop, not a measured improvement in the electrical solver.
+
+**Show**
+
+Point to pending acknowledgment and dispatch=False.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 1 minutes.
 
 Full sources:
 Workshop recorded model replies and numerical study records. Voltage P3_current_reserve: Llama 3.1:8b planner, recovery and review calls 1–3. Public teaching archive. 27 September 2026.
@@ -974,9 +1451,22 @@ transition: none
 <span class="pageno">38 / 80</span></div>
 
 <!--
-This six-node graph is separate from the voltage feeder. It represents active-power transport, not AC power flow or a time-ordered field switching procedure. Loads are picked up as whole blocks. A tie is an alternative connection that can supply load; CAPACITIES_KW sets its transfer limit in kilowatts.
-Takeaway: 
-Nominal duration: 1 minutes.
+**Say**
+
+The restoration exercise uses a separate six-node graph. One branch is faulted and unavailable. The tool selects whole loads under the stated capacities. We will compare total served power with power served to critical loads. This smaller example makes the objective easy to inspect; it is not the feeder catalog shown in the saved Llama episode.
+
+**Show**
+
+Identify the source, faulted branch, two ties and critical loads.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L6 later on slide 40; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -996,9 +1486,22 @@ transition: none
 <span class="pageno">39 / 80</span></div>
 
 <!--
-Critical demand totals 90 kW: 60 kW at node 2 and 30 kW at node 5. The objective is the service goal encoded as a score. The priority score gives more weight to these critical loads, while the comparison score maximizes total kW. The difference in selected service comes from that goal. Both numerical methods use the same graph, capacities and whole-load pickup rules. Neither needs a language model to solve this declared problem.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+The two methods use the same graph, fault and capacity rules. One maximizes total kW. The other gives extra weight to two critical loads. The different result therefore comes from the service goal. Before an agent requests a restoration solve, the operator must state which goal the tool should follow.
+
+**Show**
+
+Compare the two goals on the same network.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L6 later on slide 40; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1022,8 +1525,23 @@ display(restoration[&#x27;table&#x27;].drop(columns=&#x27;pickup&#x27;))</pre><u
 <span class="pageno">40 / 80</span></div>
 
 <!--
-MILP means mixed-integer linear programming. Here it is a whole-load chooser: on/off choices decide which load blocks are served, while linear constraints enforce the stated network rules. Start with tie capacities of 40, 60, 80, 100 and 120 kW. The solver enforces active-power balance, capacity limits, connection to a source, no loops in the energized graph, and exclusion of the faulted branch. An independent exhaustive search checks the priority score on this small graph. Agreement supports this formulation; it does not check the AC physics left out of the model.
-Takeaway: 
+**Say**
+
+Run L6 with the original capacity list. A mixed-integer linear program chooses which whole loads to serve. A separate exhaustive search checks the priority score on this small graph. Read total kW, critical kW and the agreement flag. Agreement supports this formulation's result; it does not add AC voltage or protection checks.
+
+**Show**
+
+Read total service, critical service and enumeration agreement.
+
+**Colab: RUN**
+
+Run L6 with CAPACITIES_KW=(40.,60.,80.,100.,120.).
+
+Exact cells: classroom-018. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+The priority MILP agrees with exhaustive enumeration. At 40 kW, compare 130/90 with 140/30 kW total/critical.
 Nominal duration: 2 minutes.
 
 Full sources:
@@ -1044,9 +1562,18 @@ transition: none
 <span class="pageno">41 / 80</span></div>
 
 <!--
-The markers show sampled capacities rather than a continuous ramp between whole-load pickup plans. A higher capacity may still be too small to add another complete load block. Read both total and critical service before choosing the policy that matches the request.
-Takeaway: 
-Nominal duration: 3 minutes.
+**Say**
+
+Read the two service plots together. The left reports total kW and the right reports critical kW. At some capacities the markers overlap because the objectives give the same outcome. Avoid assuming that a priority objective must improve every operating point. Identify where there is a real service tradeoff before explaining a benefit.
+
+**Show**
+
+Compare the two plotted service measures.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1066,9 +1593,26 @@ transition: none
 <span class="pageno">42 / 80</span></div>
 
 <!--
-Compare the first two output rows, where tie_capacity_kw=40. The priority plan serves 10 kW less total demand while preserving 60 kW more critical demand. These results compare two service objectives, not AI with no AI.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+At a 40 kW varied tie limit, the priority goal serves 130 kW total, including 90 kW critical. The maximum-total goal serves 140 kW total, including only 30 kW critical. A separate fixed tie remains at 100 kW, so the varied tie rating is not the total served load. The priorities explain this tradeoff.
+
+**Show**
+
+Point to 130/90 versus 140/30, all in kW.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+
+**Ask**
+
+Which goal would you choose if critical service is the stated priority?
+
+**Answer**
+
+The priority-weighted goal, with the explicit total-service tradeoff.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1088,9 +1632,18 @@ transition: none
 <span class="pageno">43 / 80</span></div>
 
 <!--
-Numerical checks and same-content evidence matching answer different questions. A record can match the inputs exactly while still omitting AC voltage, reactive-power or protection limits. Comparing the MILP score with every permitted plan is an independent check of this small stated problem. Minimizing energized branches does not calculate the number or order of physical switching steps.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+The graph checks include source connection, power balance, branch capacity and keeping the faulted branch unavailable. The separate enumeration checks the priority objective. Those checks give evidence for this active-power model. They do not establish a field switching order, protection coordination or the voltage behavior of an AC network.
+
+**Show**
+
+Trace connection, balance, capacity and independent score checks.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1117,8 +1670,31 @@ transition: none
 <span class="pageno">44 / 80</span></div>
 
 <!--
-Allow one minute to predict, two minutes to edit and run, and one minute to report. At 180 kW, both methods serve 250 kW total and 90 kW critical demand. Keep 40 kW first in the list because L7 binds the first result to the first capacity. Do not reorder the list for this exercise.
-Takeaway: 
+**Say**
+
+Append 180. to the capacity list and keep 40. first. Predict whether the two service goals will still disagree, then rerun the full L6 cell. Compare total and critical kW at 40 and 180 kW. Keeping the first entry unchanged matters because L7 later uses the first record in this list.
+
+**Show**
+
+Show the appended 180. entry and keep 40. first.
+
+**Colab: EDIT AND RERUN**
+
+Append 180. to CAPACITIES_KW, keeping 40. first. Rerun all of L6. Give this exercise four minutes.
+
+Exact cells: classroom-018. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+At 180 kW, both goals serve 250 kW total and 90 kW critical.
+
+**Ask**
+
+At which tested capacity do these two goals agree?
+
+**Answer**
+
+They agree at 180 kW in this exercise.
 Nominal duration: 4 minutes.
 
 Full sources:
@@ -1139,9 +1715,18 @@ transition: none
 <span class="pageno">45 / 80</span></div>
 
 <!--
-Compare the 180 kW result with the 40 kW case before generalizing. Equal service at 180 kW follows from this small graph and its demands; it is not a universal threshold. A single success percentage would hide the service-policy question.
-Takeaway: 
-Nominal duration: 3 minutes.
+**Say**
+
+At 180 kW, both goals serve all 250 kW of load and all 90 kW of critical load in this graph. The earlier tradeoff has disappeared. That is why a good explanation states where a method helps rather than claiming an improvement everywhere. These numbers come from conventional optimization, not from Llama.
+
+**Show**
+
+Compare the equal total and critical service at 180 kW.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1163,9 +1748,24 @@ rest_request = {&#x27;task&#x27;: &#x27;restoration&#x27;, &#x27;capacity_kw&#x2
 <span class="pageno">46 / 80</span></div>
 
 <!--
-Keeping 40 kW first already preserves the L7 example. Resetting the list also makes the saved notebook easy to compare with the default. L7 changes the request capacity and revision without solving a new case. It tests whether the old evidence can still be used.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+First restore the original capacity list and rerun L6. Then run the whole L7 cell. It matches the first restoration result to its 40 kW request, then changes the request to 20 kW without recomputing the plan. We are testing whether old evidence still matches, not solving the changed problem in this cell.
+
+**Show**
+
+Show the reset list, then the L7 changed request.
+
+**Colab: RESET, THEN RUN**
+
+Restore the original capacity list and rerun L6. Then run the whole L7 cell.
+
+Exact cells: classroom-018, classroom-021. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+Original contract: True. Changed rating with old evidence: False. HOLD requests a fresh solve.
+Nominal duration: 1.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1185,9 +1785,26 @@ transition: none
 <span class="pageno">47 / 80</span></div>
 
 <!--
-This output reports evidence binding, not physical infeasibility. A separate fresh solve at 20 kW still gives the 130 kW total and 90 kW critical priority outcome on this graph. L7 itself does not run that solve. Replace the stale evidence because it belongs to a different request, even when the old plan might remain feasible.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+The original request matches and returns True. The changed request returns False because the old evidence describes another set of inputs. Keep the old recommendation on HOLD and request a new solve. This result does not prove that every new plan at 20 kW must fail; it says the old check cannot support the changed request.
+
+**Show**
+
+Read original True and changed-request False.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+
+**Ask**
+
+Does False prove the new physical plan is infeasible?
+
+**Answer**
+
+No. It detects that the old evidence does not match the changed request.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1207,9 +1824,18 @@ transition: none
 <span class="pageno">48 / 80</span></div>
 
 <!--
-Evidence binding asks whether a record matches the exact request, proposed plan and returned result. The diagram’s extra topology labels are teaching illustrations. The runnable L7 example changes only the request capacity and revision; students do not change topology in that cell. Old evidence is unusable for a changed request even if the old plan might still pass its limits. Ask which new numerical check would establish that for the changed request.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+There are two different problems: an electrical limit violation and an outdated result. A mismatch test detects the second. After changing the request, we need a new solve and a new check attached to the new inputs. A confident natural-language explanation cannot turn an old calculation into current evidence.
+
+**Show**
+
+Distinguish an old-evidence mismatch from physical infeasibility.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1229,9 +1855,22 @@ transition: none
 <span class="pageno">49 / 80</span></div>
 
 <!--
-This is a proposed role for an agent, not a new model decision in the default notebook. The current supervisor is ordinary Python. A future language-model agent could request the allowed solve and explain the returned tradeoff. It must preserve the operator’s service goal and limits, rather than quietly changing weights or making up load values. A different service goal requires an explicit new request and solve. The numerical difference here comes from the optimization objective.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+L6 itself runs Python directly: the operator supplies priorities and limits, and MILP selects loads. An agent could request that existing tool and explain the returned tradeoff while keeping the goal fixed. We should not describe that possible role as a live LLM action in L6. The saved multi-role restoration workflow is a separate study.
+
+**Show**
+
+Point to the operator goal and numerical load selection.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L6 later on slide 40; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1251,9 +1890,18 @@ transition: none
 <span class="pageno">50 / 80</span></div>
 
 <!--
-State this boundary clearly and briefly. The result is useful within its declared transport formulation. Actual restoration requires the utility's engineering checks, operating procedure and separate authority.
-Takeaway: 
-Nominal duration: 1 minutes.
+**Say**
+
+The six-node model is deliberately small. It handles active-power transport and whole-load pickup. It does not check AC voltage, reactive power, protection or a safe order of field operations. A selected set of energized branches is therefore a study result to review, not a complete switching instruction.
+
+**Show**
+
+Name one omitted physical check.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1273,9 +1921,22 @@ transition: none
 <span class="pageno">51 / 80</span></div>
 
 <!--
-Switch L10B to restoration. This is the separate L10 feeder-catalog restoration study, not the L6 six-node MILP. The recorded protocol requires a first refinement but Llama chooses between the offered fractions. SHED_075 disconnects 75% of the ordered noncritical load objects, not 75% of load kW. The exact reason calls improvement a possibility. Python evaluates the trial and finds improved service while the tie loading remains 91.867215% of its allowance. A useful hypothesis becomes evidence only after that check. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.
-Takeaway: 
-Nominal duration: 2.5 minutes.
+**Say**
+
+In the separate saved feeder-catalog case, Llama requests SHED_075. The tool reports more served load than the previous passing plan, while preserving critical service and passing the current check. The operation name describes a setting in this catalog. It is not the capacity edit or MILP result from our six-node exercise.
+
+**Show**
+
+Read the saved SHED_075 result and current percentage.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 1 minutes.
 
 Full sources:
 Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14–16. Public teaching archive. 27 September 2026.
@@ -1298,9 +1959,22 @@ transition: none
 <span class="pageno">52 / 80</span></div>
 
 <!--
-Keep the actual returned reason visible. It refers to a target in the objective, but its claim should not be accepted as a proved fact. In this record the next trial is numerically rejected for a thermal failure. Restoring more load does not make a failed current check acceptable. Ask participants to explain why the previous passed candidate must remain in the case record. The model’s trial budget is bounded. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.
-Takeaway: 
-Nominal duration: 2.5 minutes.
+**Say**
+
+Llama next requests SHED_065. That restores more ordinary load but reaches about 111 percent of allowed current, so the verifier rejects it. A larger service number cannot compensate for a failed hard limit. Keep the earlier passing candidate available, record the failure and prevent the rejected trial from entering the final ranking.
+
+**Show**
+
+Point to the failed current check for SHED_065.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14–16. Public teaching archive. 27 September 2026.
@@ -1323,9 +1997,30 @@ transition: none
 <span class="pageno">53 / 80</span></div>
 
 <!--
-Let pairs answer before discussing the result. Smaller cost is better, so E03 must rank before E02. Llama returns [E02,E03] while its explanation claims lowest score first. The recorded language_order_agrees_with_cost field is False. A deterministic guard retains E03 and rechecks it as E05, with no recorded failures. Human acknowledgment and dispatch remain False. The paired fixed workflow reaches the same final action and cost. This example motivates verification rather than an unsupported superiority claim. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: At 40 kW, explain 130 total / 90 critical versus 140 total / 30 critical, all in kW. For a changed request, keep HOLD until evidence for the current request is available. Ask each pair to give one number and one condition. They should distinguish three decisions: selecting a service policy, checking current evidence and authorizing a physical switching operation. Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source.
-Takeaway: 
-Nominal duration: 2.5 minutes.
+**Say**
+
+Llama then puts the passing candidates in the wrong cost order. Python checks the numerical costs, keeps the lower-cost passing plan and rechecks it. This is a concrete reason to keep a deterministic ranking guard. A valid JSON answer can still contain a bad decision, so checking the output format is only the first step.
+
+**Show**
+
+Compare Llama order with the numerical cost order.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+
+**Ask**
+
+Can schema-valid JSON still give the wrong ranking?
+
+**Answer**
+
+Yes. The numerical order must also be checked.
+Nominal duration: 1 minutes.
 
 Full sources:
 Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14–16. Public teaching archive. 27 September 2026.
@@ -1348,9 +2043,22 @@ transition: none
 <span class="pageno">54 / 80</span></div>
 
 <!--
-The separate four-bus linear DC model has three unknown voltage angles, measured relative to a reference bus, and eight readings. This DC approximation is not a full AC estimator, malware detector or sensor-authentication system. Synthetic truth is known for the offline classroom comparison only. A residual checks how well the estimate fits the supplied readings; state error checks how far the estimate is from the known teaching truth.
-Takeaway: 
-Nominal duration: 1 minutes.
+**Say**
+
+The cyber exercise uses a separate four-bus DC model. We can compare an alarm against the true simulated state because this is an offline teaching experiment. A real control-room estimator does not receive that truth for comparison. Keep the alarm's measured consistency separate from our offline measurement of estimation error.
+
+**Show**
+
+Identify the separate four-bus model.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L8 later on slide 56; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1370,9 +2078,22 @@ transition: none
 <span class="pageno">55 / 80</span></div>
 
 <!--
-WLS means weighted least squares: find the state that best fits the readings, giving more influence to readings with smaller stated uncertainty. That weighting does not authenticate a reading. Here J is the residual mismatch statistic, not the voltage case’s penalty score. Its chi-square alarm threshold is about 15.086272 for five residual degrees of freedom at a 1% significance level. This calibration depends on the stated linear model and noise assumptions. An operator does not have the synthetic truth used to calculate the plotted state error. A small J does not establish that the readings are authentic.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+Weighted least squares finds a state that fits the supplied readings, with more weight on readings declared less uncertain. Residual J measures the remaining mismatch. It does not establish where the data came from. The state-error plot is possible here because the simulation supplies a known truth, which remains outside the estimator and Llama inputs.
+
+**Show**
+
+Distinguish measured residual from offline truth error.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L8 later on slide 56; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1399,8 +2120,23 @@ display(cyber[&#x27;table&#x27;])</pre><ul><li>Run L8 with the default scales.</
 <span class="pageno">56 / 80</span></div>
 
 <!--
-L8 runs new WLS calculations. An isolated bias changes one reading. The coordinated Hc shift changes readings in a pattern consistent with a different modeled state. This counterexample assumes knowledge of the linear measurement matrix H and access to the modeled unprotected channels. It is a declared defensive teaching model, not evidence of an incident at a utility.
-Takeaway: 
+**Say**
+
+Run the default L8 cell. One attack biases a single reading. The other coordinates changes so that they remain consistent with the modeled measurement relationships. Compare both the residual and state-error plots. Before looking at the curves, predict whether a larger data attack must always create a larger residual alarm.
+
+**Show**
+
+Show the two attack types and default scale list.
+
+**Colab: RUN**
+
+Run L8 with ATTACK_SCALES=(0.,.25,.5,1.,1.5).
+
+Exact cells: classroom-023. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+A coordinated Hc attack preserves a small residual while offline state error grows.
 Nominal duration: 2 minutes.
 
 Full sources:
@@ -1421,9 +2157,18 @@ transition: none
 <span class="pageno">57 / 80</span></div>
 
 <!--
-The left plot uses a symmetric-log scale. The right plot compares the estimate with known synthetic truth. As the coordinated shift grows, the residual stays unchanged while the state error increases. These plots answer different questions; they do not express the same quantity in different units.
-Takeaway: 
-Nominal duration: 3 minutes.
+**Say**
+
+The coordinated curve is the important one to follow across both panels. Its state error can grow while the residual stays small. The left panel therefore tells us about fit to the model, not the truth of the data. Read the threshold and the offline error together before calling a quiet alarm reassuring.
+
+**Show**
+
+Follow one coordinated curve across both panels.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1443,9 +2188,18 @@ transition: none
 <span class="pageno">58 / 80</span></div>
 
 <!--
-The diagram is a simple scalar illustration of coordinated consistency, not the numerical eight-measurement system. Read the numerical values from L8. A larger false-data shift need not increase the residual when the shift lies in the modeled measurement subspace. The state error is measured in radians; it is available here because this is an offline test with known synthetic truth.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+At scale one, the isolated bias gives J about 277.50 and triggers the alarm. The coordinated attack gives J about 3.92, below the threshold, while the state error is about 0.02678 radians. This attack assumes knowledge of the model and control of the modeled unprotected channels. It is a defined teaching threat, not every possible attack.
+
+**Show**
+
+Compare alarm, residual and state error at scale 1.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1469,8 +2223,31 @@ transition: none
 <span class="pageno">59 / 80</span></div>
 
 <!--
-Allow one minute to predict, two minutes to edit and run, and one minute to report. For isolated bias at scale 0.10, J is about 10.143237, below the 15.086272 threshold. The alarm is False despite nonzero state error. The coordinated residual stays about 3.920222. This added scale remains within the notebook's plot limits.
-Takeaway: 
+**Say**
+
+Add .10 to the attack-scale list and rerun L8. Focus on the isolated-bias row at that scale. Read J, the alarm flag and state error. Use the two plots to answer whether no alarm means the reading is correct. Change only the scale list so the comparison stays clear.
+
+**Show**
+
+Show the single new .10 entry.
+
+**Colab: EDIT AND RERUN**
+
+Add .10 to ATTACK_SCALES. Rerun all of L8 and inspect the isolated-bias row. Give this exercise four minutes.
+
+Exact cells: classroom-023. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+At isolated scale 0.10, J is about 10.14, below the 15.09 threshold; no alarm is not proof of truth.
+
+**Ask**
+
+Does no alarm mean the reading is true?
+
+**Answer**
+
+No. The threshold can miss a small bias, and coordinated changes can preserve the fit.
 Nominal duration: 4 minutes.
 
 Full sources:
@@ -1491,9 +2268,18 @@ transition: none
 <span class="pageno">60 / 80</span></div>
 
 <!--
-Separate the two mechanisms. A small isolated bias can stay below a statistical threshold. A coordinated Hc shift can preserve residual consistency by construction. Neither result establishes trusted telemetry. The state-error curve uses offline synthetic truth, not an input available to an online detector.
-Takeaway: 
-Nominal duration: 3 minutes.
+**Say**
+
+At isolated scale 0.10, J is about 10.14, below the 15.09 alarm threshold. A small inconsistent bias can therefore miss the threshold. The coordinated attack illustrates a different problem: it can preserve the fit by design. These examples show why a residual alarm alone cannot establish measurement authenticity.
+
+**Show**
+
+Point to 10.14 below 15.09.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1515,9 +2301,24 @@ cyber = lab.cyber_sweep(ATTACK_SCALES)</pre><ul><li>Restore the original attack 
 <span class="pageno">61 / 80</span></div>
 
 <!--
-Explain the boundary before comparing the recovery output. Changing ATTACK_SCALES changes the residual and state-error sweep. It does not change the fixed recovery scenario held inside the demo object.
-Takeaway: 
-Nominal duration: 1 minutes.
+**Say**
+
+Restore the original attack-scale list and rerun L8. This resets the shared notebook state before continuing. L9 uses a fixed recovery case rather than the last point from your scale sweep. Changing a plotted scale in L8 therefore does not automatically change the correction calculated in L9.
+
+**Show**
+
+Show the original scale list restored.
+
+**Colab: RESET AND RERUN**
+
+Restore ATTACK_SCALES=(0.,.25,.5,1.,1.5) and rerun all of L8.
+
+Exact cells: classroom-023. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+The default sweep returns. L9 remains a separate fixed recovery fixture.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1537,9 +2338,22 @@ transition: none
 <span class="pageno">62 / 80</span></div>
 
 <!--
-The helper uses the fixed run_wls_demo recovery fixture. The cyber object holds both the sweep results and this shared fixed demo. The comparison tests the trust premise under controlled conditions; it is not a controller reacting continuously to each plotted scale.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+We will compare the same recovery case under two information conditions. In one, the extra trusted readings are unavailable. In the other, three angle readings are assumed trustworthy. The numerical fixture stays fixed. We are testing the effect of that information assumption, not making the solver recover from every attack scale we just plotted.
+
+**Show**
+
+Keep the same fixed recovery case while changing data availability.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L9 later on slide 64; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1559,9 +2373,30 @@ transition: none
 <span class="pageno">63 / 80</span></div>
 
 <!--
-The example assumes three protected angle readings determine the three unknown angles, leaving zero residual degrees of freedom. Independent trusted information must come from a justified source outside this numerical calculation. A zero residual in this exactly determined system adds no detection guarantee. Neither a good model fit nor a language-model explanation establishes authenticity.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+The word trusted has a specific meaning here: the example assumes three independent angle readings are trustworthy. No authentication system is implemented. Neither a small residual nor a good Llama explanation can create that trust. In an actual operator study, the source and protection of those readings would need independent evidence.
+
+**Show**
+
+Point to the assumed trusted angle channels.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L9 later on slide 64; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+
+**Ask**
+
+Which tool authenticates these three readings?
+
+**Answer**
+
+None in this fixture; their trust is an external assumption.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1582,9 +2417,24 @@ with_trust = lab.trusted_response(cyber, protected_available=True)</pre><ul><li>
 <span class="pageno">64 / 80</span></div>
 
 <!--
-The two calls use the same fixed fixture and change only protected_available. Without the trusted channels, the result is HOLD. With the assumed trusted set, it is PROPOSE. A proposal is neither an acknowledgment nor a dispatch command.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+Run all of L9. First read the status for each condition. Without the assumed trusted replacement readings, the result is HOLD and no correction is proposed. With them, a quadratic-program solver calculates a constrained correction and returns PROPOSE. The offline check uses simulation truth to assess the outcome afterward.
+
+**Show**
+
+Read status before looking at the correction.
+
+**Colab: RUN**
+
+Run all of L9 after resetting L8.
+
+Exact cells: classroom-026. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+No trusted replacement readings: HOLD. With assumed trusted readings: PROPOSE, u about 0.121694 p.u., zero offline violations.
+Nominal duration: 1.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1604,9 +2454,18 @@ transition: none
 <span class="pageno">65 / 80</span></div>
 
 <!--
-Read the condition column together with the returned state. The PROPOSE outcome depends on the supplied trust assumption and fixed model. The recovery record keeps dispatch=False. It does not use the equipment_dispatch field from the separate L12 readback example.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+With the trust assumption, the proposed flexible injection is about 0.121694 per unit and the offline model reports zero violations. Per unit means a value relative to the model's stated base, not a direct MW command. PROPOSE is a study outcome for review. It does not say that the sensors have been authenticated or that equipment may operate.
+
+**Show**
+
+Compare HOLD, PROPOSE and the offline violation count.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1626,9 +2485,18 @@ transition: none
 <span class="pageno">66 / 80</span></div>
 
 <!--
-QP means quadratic programming: this numerical solver minimizes a quadratic effort score while enforcing the declared branch limits and a 0.01 p.u. margin. The flexible injection is u=0.1216936673 p.u., balanced by the reference bus. Predicted flow12 is 0.17000 p.u.; the offline actual flow is about 0.17046 p.u., below the 0.18000 p.u. rating. The actual-flow comparison uses synthetic truth for this fixed case. It does not guarantee AC behavior omitted by the model or trustworthy field telemetry.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+The solver looks for the smallest permitted correction that meets the modeled branch limits with a margin. One predicted flow is 0.17000 per unit. The offline actual value is about 0.17046, below the 0.18000 limit. Those are model-specific results. They do not add protection, dynamic or equipment-permission checks.
+
+**Show**
+
+Locate predicted flow, offline actual flow and the limit.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1648,9 +2516,18 @@ transition: none
 <span class="pageno">67 / 80</span></div>
 
 <!--
-Do not attribute recovered information or numerical feasibility to confident prose. The workflow can coordinate the estimator, constrained correction and evidence checks. It cannot invent an independent trusted measurement source.
-Takeaway: 
-Nominal duration: 2 minutes.
+**Say**
+
+The recovery proposal depends on assumed trusted data, the four-bus model and the stated limits. The numerical tool supplies the correction and its checks. The operator must still review those assumptions and any missing studies. If the required information is unavailable, the useful assistant response is a clear HOLD with the missing requirement identified.
+
+**Show**
+
+Point to assumptions, checks and the operator-review step.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1670,9 +2547,22 @@ transition: none
 <span class="pageno">68 / 80</span></div>
 
 <!--
-Switch L10B to cyber. This standard four-bus DC record is separate from L10’s proposal-complete cyber record, and matches the Agent Trace notebook T6 archive. The route is narrow: the prompt already authorizes the tool and supplies the trusted-sensor assumption. The three angle readings give full rank but zero residual redundancy, so a good fit is not an independent trust test. u is the flexible injection correction in per unit. Offline synthetic-truth flow is available to the experimenter, not guaranteed available to a real operator. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.
-Takeaway: 
-Nominal duration: 2.5 minutes.
+**Say**
+
+This saved standard cyber episode already supplies the allowed recovery tool and the trust assumption. Llama selects that tool, and Python calculates the correction. The model does not discover a trusted sensor source. This recording is separate from the five-role cyber archive in L10, even though both use related four-bus teaching methods.
+
+**Show**
+
+Read the supplied tool choice and trust condition.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 0.5 minutes.
 
 Full sources:
 Workshop recorded model replies and numerical study records. Standard four-bus cyber study: Llama 3.1:8b tool selection and REVIEW calls 7–8. Public teaching archive. 21 September 2026.
@@ -1695,9 +2585,22 @@ transition: none
 <span class="pageno">69 / 80</span></div>
 
 <!--
-Read the actual reply, including the REVIEW choice. Numerical verification is PASS, but the overall result remains REVIEW and human acknowledgment is PENDING. The fixed comparator obtains the same numerical state estimate and correction without Llama. This replay demonstrates permitted tool routing and a report decision. It does not demonstrate better estimation, authenticated measurements, AC network security or operating authority. Run L11 with the default False setting, then proceed to L12. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: Report the trust assumption, model, proposed u and the checks that passed or failed. Without independent trusted information, keep HOLD and name what is missing. Ask pairs to state the outcome and its condition in the same sentence. For example: 'The fixture proposes u when the supplied trusted channels are available.' Do not say: 'The AI proved that the telemetry is safe.' Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source.
-Takeaway: 
-Nominal duration: 2.5 minutes.
+**Say**
+
+The recorded numerical check passes, but the language result still asks for review. The operator's acknowledgment is pending. This is the right distinction to keep visible: a passed calculation, a model's review message and a person's decision are different events. The fixed comparator gives the same numerical outcome in this saved episode.
+
+**Show**
+
+Read PASS, REVIEW and pending human acknowledgment separately.
+
+**Colab: PREVIEW ONLY**
+
+Show the slide only. Run L10B later on slide 71; keep the notebook in order.
+
+**Expected result**
+
+No new notebook output on this slide.
+Nominal duration: 1 minutes.
 
 Full sources:
 Workshop recorded model replies and numerical study records. Standard four-bus cyber study: Llama 3.1:8b tool selection and REVIEW calls 7–8. Public teaching archive. 21 September 2026.
@@ -1720,9 +2623,24 @@ transition: none
 <span class="pageno">70 / 80</span></div>
 
 <!--
-L10 reads the archived proposal_complete_workflow study. It includes feeder-catalog restoration and is separate from the L6 six-node MILP and your edited classroom inputs. L10B, inserted immediately after L10, then gives readable verified replay episodes for all three cases. Run L11 after those replays; the default False setting skips a new local model request.
-Takeaway: 
-Nominal duration: 3 minutes.
+**Say**
+
+Run L10 to inspect every stage in the saved five-role workflow. Read a case, role, returned choice and result rather than only the model's explanation. One Llama model fills the planning and optimizer roles; Python performs the other stages. This cell reads the saved trace. It does not launch five new agents or call a model.
+
+**Show**
+
+Expand the saved trace and find all five distinct stage names.
+
+**Colab: RUN**
+
+Run all of L10 after L9. Read the case and stage columns in the saved trace.
+
+Exact cells: classroom-028. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+Five stage names appear. Planning and optimizer rows contain actual saved Llama replies; other stages contain Python results.
+Nominal duration: 1.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1746,9 +2664,24 @@ display(HTML(render_episode_html(replay_episodes[SCENARIO])))</pre><ul><li>Set S
 <span class="pageno">71 / 80</span></div>
 
 <!--
-Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown. Allow about two minutes per scenario: one partner identifies the model choice, the other finds its tool result and the unresolved operator decision. These additional minutes replace removed checkpoint slides and the longer source explanations.
-Takeaway: 
-Nominal duration: 6.5 minutes.
+**Say**
+
+Run the full L10B cell for voltage, then change SCENARIO to restoration and cyber, rerunning each time. Follow input facts, allowed choice, exact public reason, tool result and next step. Find the failed voltage trial or wrong restoration ranking. These are saved, source-checked episodes; replaying them performs no new Llama call or electrical solve.
+
+**Show**
+
+Follow one full replay from facts to next decision.
+
+**Colab: REPLAY THREE TIMES**
+
+After L10, run the whole L10B cell for SCENARIO="voltage", then "restoration", then "cyber". Change only that string between runs.
+
+Exact cells: classroom-llama-walkthrough. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+Input, exact model choice and public reason, saved tool result and next step appear. No new LLM call or electrical solve runs.
+Nominal duration: 4.5 minutes.
 
 Full sources:
 Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
@@ -1772,9 +2705,24 @@ readback = lab.acknowledge(mv_scope, mv_scope[&#x27;recommendation_id&#x27;], &#
 <span class="pageno">72 / 80</span></div>
 
 <!--
-This cell returns to the original test_01 voltage result through selected_trials. It does not use the restoration or cyber sweeps. Read both scope outcomes and explain why the full MV/LV request remains HOLD. The new simulated acknowledgment grants no physical operating authority and does not complete the review of an old record. Readback means repeating the recommendation ID and conditions so the acknowledgment can be matched to the same proposal. In this exercise it is simulated. Check the wrong-ID rejection, the correct simulated acknowledgment and equipment_dispatch=False.
-Takeaway: 
-Nominal duration: 5 minutes.
+**Say**
+
+Leave the live-model switch False and run L11; SKIPPED is expected. Then run L12. It returns to the original voltage test_01 result, not the restoration or cyber sweeps. Compare a full MV/LV request with an explicit MV teaching request, then inspect the wrong-ID and correct-ID readback tests. This remains a simulation.
+
+**Show**
+
+Locate the wrong-ID assertion, the matching readback and equipment_dispatch.
+
+**Colab: SKIP LIVE CALL, THEN RUN**
+
+Keep RUN_LOCAL_LLAMA=False. Run L11 and expect SKIPPED. Then run all of L12.
+
+Exact cells: classroom-030, classroom-033. Run the whole cell, not only the slide excerpt.
+
+**Expected result**
+
+The table shows HOLD for full MV/LV and an acknowledged MV teaching request. The assertions confirm wrong-ID rejection; equipment_dispatch remains False.
+Nominal duration: 2 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1794,9 +2742,26 @@ transition: none
 <span class="pageno">73 / 80</span></div>
 
 <!--
-After running the complete L12 cell, compare these reference outputs with your own. The full MV/LV request remains HOLD because the checked model covers only MV phases. An explicit MV teaching request can pass the simulated readback after the recommendation ID matches. The wrong-ID attempt is rejected. Acknowledgment records a classroom review step and does not operate equipment.
-Takeaway: 
-Nominal duration: 3 minutes.
+**Say**
+
+The full MV/LV request stays on HOLD because the evidence only covers MV. The narrower teaching request can accept a simulated readback when the recommendation ID matches. A wrong ID fails. Check that equipment_dispatch remains False. Human acknowledgment records which study was reviewed; it cannot repair a missing engineering check or authorize field switching here.
+
+**Show**
+
+Compare scope matching before acknowledgment.
+
+**Colab: NO NEW RUN**
+
+Read the output from the previous run. Compare it with the reference figure; no new cell is needed.
+
+**Ask**
+
+Can a correct recommendation ID repair missing LV coverage?
+
+**Answer**
+
+No. Scope must match before a readback can be accepted.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1816,9 +2781,26 @@ transition: none
 <span class="pageno">74 / 80</span></div>
 
 <!--
-This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry.
-Takeaway: 
-Nominal duration: 1 minutes.
+**Say**
+
+The multi-agent design here means five named responsibilities in one Python workflow. Awareness reads the case. Planning prepares candidates and asks Llama whether to proceed. Simulation calculates their effects. Verification applies fixed checks. The optimizer asks Llama for an allowed new trial or ranking. Changed trials return for calculation and checking, and the selected option gets a final recheck before human review.
+
+**Show**
+
+Follow the five roles and the return path for a changed trial.
+
+**Colab: NO NEW RUN**
+
+Use the saved L10 trace already displayed. Map the five roles without making a new model call.
+
+**Ask**
+
+Are these five separate LLMs?
+
+**Answer**
+
+No. One Llama model fills two roles; Python runs awareness, simulation and verification.
+Nominal duration: 1.5 minutes.
 
 Full sources:
 Alaa Selim and Mohamed Chehada. Five-role operator study workflow: implementation and recorded cases. GridGuard Agentic AI Tutorials, reproducible Python source and saved study archive. 2026.
@@ -1845,9 +2827,18 @@ transition: none
 <span class="pageno">75 / 80</span></div>
 
 <!--
-This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. In this L10 lindistflow3 record, the optimizer asks for RELAX_Q_10_PERCENT then INCREASE_PV_0025. Python recalculates each proposal and the verification stage checks it. The selected final recheck uses a=0.3394386941 and b=0.0276310594, with 50.75344954 percent allowed-current use and no recorded violations. The scope is MV phases only with ideal LV aggregation. Do not substitute the P3 99.604410 percent result or L2 MPC score. These are different experiments.
-Takeaway: 
-Nominal duration: 4 minutes.
+**Say**
+
+For the saved L10 voltage case, awareness keeps the load and limits. Numerical planning tools supply MPC and SAC candidates. Simulation calculates voltage and current, and verification tests the limits. Llama requests less reactive power and then more solar output. Python rechecks each change. The final current use is about 50.75 percent in the MV-only model; operator review is still separate.
+
+**Show**
+
+Map each role to the saved voltage inputs, calculations and final result.
+
+**Colab: NO NEW RUN**
+
+Use the saved L10 trace already displayed. Map the five roles without making a new model call.
+Nominal duration: 1 minutes.
 
 Full sources:
 Alaa Selim and Mohamed Chehada. Five-role operator study workflow: implementation and recorded cases. GridGuard Agentic AI Tutorials, reproducible Python source and saved study archive. 2026.
@@ -1871,9 +2862,18 @@ transition: none
 <span class="pageno">76 / 80</span></div>
 
 <!--
-This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. The L10 lindistflow3 restoration record uses a feeder bypass catalog. SHED_075 returns 1843.61355 kW served and 474.03975 critical kW at 91.86721465 percent allowed-current use. SHED_065 then fails at 111.009413 percent. Llama ranks E02 before E03 even though E03 has the smaller cost. The numerical guard selects E03, then records the final recheck as E05. Switching sequence and broader physical operation are not established.
-Takeaway: 
-Nominal duration: 4 minutes.
+**Say**
+
+For L10 restoration, awareness records the fault, available ties and critical loads. Planning supplies catalog options. Simulation measures service and current. Verification rejects the SHED_065 trial that exceeds the current limit. Llama's optimizer also ranks passing plans incorrectly. Python corrects the cost order and rechecks the chosen plan: about 1,843.61 kW total and 474.04 kW critical, with 91.87 percent current use.
+
+**Show**
+
+Map each role to the saved catalog trial, failure and corrected ranking.
+
+**Colab: NO NEW RUN**
+
+Use the saved L10 trace already displayed. Map the five roles without making a new model call.
+Nominal duration: 1 minutes.
 
 Full sources:
 Alaa Selim and Mohamed Chehada. Five-role operator study workflow: implementation and recorded cases. GridGuard Agentic AI Tutorials, reproducible Python source and saved study archive. 2026.
@@ -1900,9 +2900,18 @@ transition: none
 <span class="pageno">77 / 80</span></div>
 
 <!--
-This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. Awareness preserves the declared measurement-trust condition. Planning requests the initial candidates; Python runs the estimator and constrained-response tools. The optimizer requests EXTRA_MARGIN_001 and TRUSTED_QP. The selected final recheck uses TRUSTED_QP with u=0.1216936673 per unit and predicted flow12=0.17 per unit against a 0.18 limit. The model checks a four-bus DC fixture with three protected angles assumed trustworthy. No stage authenticates those channels, and offline truth is not fed to Llama.
-Takeaway: 
-Nominal duration: 4 minutes.
+**Say**
+
+For L10 cyber response, awareness preserves the readings and declared trust assumption. Planning supplies allowed response candidates. Simulation estimates the state and calculates corrections. Verification tests the trust condition, flows and model scope. Llama requests bounded refinements, including the trusted-data QP. The final selected injection is about 0.121694 per unit. None of these roles authenticates the sensors or replaces human review.
+
+**Show**
+
+Map each role to data trust, the QP correction and flow checks.
+
+**Colab: NO NEW RUN**
+
+Use the saved L10 trace already displayed. Map the five roles without making a new model call.
+Nominal duration: 1 minutes.
 
 Full sources:
 Alaa Selim and Mohamed Chehada. Five-role operator study workflow: implementation and recorded cases. GridGuard Agentic AI Tutorials, reproducible Python source and saved study archive. 2026.
@@ -1926,9 +2935,18 @@ transition: none
 <span class="pageno">78 / 80</span></div>
 
 <!--
-Proposed control-room use. The operator reviews the case snapshot, data quality, limits, selected proposal and missing studies. Ask for another study, reject it or accept it for a defined next step. L12 practices ID-bound readback only and never operates equipment.
-Takeaway: 
-Nominal duration: 4 minutes.
+**Say**
+
+An operator needs a short evidence packet: which case and data were used, which proposal was selected, the worst margins and the missing checks. The person can request another study, reject the proposal or accept it for a defined next step. Reviewing a study is different from issuing an equipment command through an authorized operating process.
+
+**Show**
+
+Point to the study packet and the three review choices.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+Nominal duration: 1 minutes.
 
 Full sources:
 Classroom Labs notebook. Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
@@ -1957,9 +2975,26 @@ transition: none
 <span class="pageno">79 / 80</span></div>
 
 <!--
-The six matched fixed-versus-Llama runs in proposal_complete_workflow.json have five tied final costs and one worse Llama voltage result. Recorded model calls add elapsed time. This demonstrates traceable coordination, not better power-flow solvers or general efficiency. Test any proposed benefit against the same tools and budgets. A control-room pilot starts with archived cases, then read-only shadow studies and a limited reviewed scope.
-Takeaway: 
-Nominal duration: 4 minutes.
+**Say**
+
+We should measure useful benefit rather than assume it. In L10's six paired comparisons, five final costs tied and one Llama route was worse. Model calls also added time. Start with past cases and read-only studies. Compare completed work, missed checks, time and review effort against a fixed script using the same numerical tools and budgets.
+
+**Show**
+
+Keep the paired study result separate from a proposed pilot benefit.
+
+**Colab: NO NEW RUN**
+
+Explain the figure or discuss the output already produced. Do not run ahead.
+
+**Ask**
+
+What useful benefit should a new pilot measure?
+
+**Answer**
+
+Completed correct studies, missed checks, elapsed time and reviewer effort against a fixed-script baseline.
+Nominal duration: 1 minutes.
 
 Full sources:
 Alaa Selim and Mohamed Chehada. Five-role operator study workflow: implementation and recorded cases. GridGuard Agentic AI Tutorials, reproducible Python source and saved study archive. 2026.
@@ -1986,9 +3021,26 @@ transition: none
 <span class="pageno">80 / 80</span></div>
 
 <!--
-Close by connecting the full loop: a goal, an allowed agent choice, a tool result, a check and a human decision. Ask each learner to name one case and one changed input they can repeat after the session. Save the notebook. Use the source guide for complete references, not as another required activity.
-Takeaway: 
-Nominal duration: 3 minutes.
+**Say**
+
+Choose one case you can repeat after the session. Change one input, run the relevant cell and save the result. Explain the model's choice where a saved episode is used, the numerical tool result, the check and the operator's remaining decision. Keep your new experiment separate from the saved reply's original inputs. We can now use questions to revisit any part of that loop.
+
+**Show**
+
+Point to the Colab link and invite one repeatable experiment.
+
+**Colab: NO NEW RUN**
+
+No required new run. Learners may repeat one case afterward and save their changed inputs and outputs.
+
+**Ask**
+
+Can you explain one case using input, tool, result, check and operator decision?
+
+**Answer**
+
+Accept an answer only when it distinguishes new calculations from saved model replies and states a remaining limit.
+Nominal duration: 1.5 minutes.
 
 Full sources:
 Classroom Labs notebook. Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.

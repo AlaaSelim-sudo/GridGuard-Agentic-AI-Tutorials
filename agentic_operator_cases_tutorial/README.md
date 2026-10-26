@@ -27,6 +27,8 @@ L10B displays actual saved model choices and returned tool evidence. It makes no
 
 The slide source is `slidev/slides.md`; authored content is in `content/`. Numerical excerpts come from the canonical Classroom Labs notebook. See [BUILD_GUIDE.md](BUILD_GUIDE.md) for source locations and rebuild commands.
 
+The [presenter script](Presenter_Script.pdf) includes a 90-minute schedule, exact Colab run cues and the three agent-role maps. Its editable source is [LaTeX](latex/presenter_script.tex). The same cues appear in Slidev presenter notes.
+
 </details>
 
 The cases are synthetic or reduced-model studies. Simulated readback operates no equipment.

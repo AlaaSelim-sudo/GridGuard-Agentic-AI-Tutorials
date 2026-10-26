@@ -287,7 +287,7 @@ def render_slide(s, number, total, sources):
         out.append('<div class="takeaway">' + he(s["takeaway"]) + "</div>")
     out.append('<span class="pageno">' + str(number) + " / " + str(total) + "</span></div>")
     out.append("\n<!--\n" + s.get("note", "").replace("-->", "--&gt;")
-               + "\nTakeaway: " + s.get("takeaway", "")
+               + ("\nTakeaway: " + s["takeaway"] if s.get("takeaway") else "")
                + "\nNominal duration: " + str(s["minutes"]) + " minutes.\n\nFull sources:\n"
                +complete_sources(s['refs'],sources)+"\n-->\n")
     return "\n".join(out)

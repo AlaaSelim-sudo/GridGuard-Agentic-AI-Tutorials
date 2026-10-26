@@ -20,12 +20,12 @@ Hands-on: Three Operator Cases — notebook-aligned tutorial. Evidence reviewed 
 
 ## 1. Hands-on: Three Operator Cases
 
-**Timing:** 00:00–00:30 (0.5 minutes)
+**Timing:** 00:00–01:00 (1 minutes)
 
 **Slide content:** One notebook. Three operator problems.
 90 minutes / three short exercises
 
-**Teaching notes:** One Classroom Labs notebook covers all three cases. Follow the L labels in order, keep both optional-tool switches False and use the saved Llama examples after the numerical cases. Learners can follow along during the 90-minute lecture and finish the experiments afterward. The inherited detailed cue timings are a preparation resource, not a revised session schedule. Presenters and affiliations are supplied by the presenters.
+**Teaching notes:** One Classroom Labs notebook covers all three cases. Follow the L labels in order, keep both optional-tool switches False and use the saved Llama examples after the numerical cases. Learners can follow along during the 90-minute lecture and finish the experiments afterward. Presenters and affiliations are supplied by the presenters.
 
 **Notebook / source locator:** Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.
 
@@ -37,7 +37,7 @@ Hands-on: Three Operator Cases — notebook-aligned tutorial. Evidence reviewed 
 
 ## 2. What is agentic AI?
 
-**Timing:** 00:30–01:30 (1 minutes)
+**Timing:** 01:00–02:00 (1 minutes)
 
 **Slide content:** An AI agent chooses a tool, reads its result and chooses the next step toward a goal.
 
@@ -57,7 +57,7 @@ Hands-on: Three Operator Cases — notebook-aligned tutorial. Evidence reviewed 
 
 ## 3. A tool call and an agent workflow
 
-**Timing:** 01:30–02:30 (1 minutes)
+**Timing:** 02:00–02:30 (0.5 minutes)
 
 **Slide content:** A tool call does one job. An agent links jobs using the returned results.
 
@@ -77,7 +77,7 @@ Hands-on: Three Operator Cases — notebook-aligned tutorial. Evidence reviewed 
 
 ## 4. Evidence before an answer
 
-**Timing:** 02:30–03:45 (1.25 minutes)
+**Timing:** 02:30–03:00 (0.5 minutes)
 
 **Slide content:** WikiChat checks claims before writing. Our lab checks numbers before reporting a result.
 
@@ -97,7 +97,7 @@ Hands-on: Three Operator Cases — notebook-aligned tutorial. Evidence reviewed 
 
 ## 5. Voltage: propose, then check
 
-**Timing:** 03:45–05:15 (1.5 minutes)
+**Timing:** 03:00–03:30 (0.5 minutes)
 
 **Slide content:** L2 calculates and checks proposals. L10B shows saved Llama tool choices.
 
@@ -121,7 +121,7 @@ Hands-on: Three Operator Cases — notebook-aligned tutorial. Evidence reviewed 
 
 ## 6. Clear rules for tool use
 
-**Timing:** 05:15–06:30 (1.25 minutes)
+**Timing:** 03:30–04:30 (1 minutes)
 
 **Slide content:** Set the inputs, allowed tools, limits and stop rules.
 Python keeps these rules fixed when Llama chooses a step.
@@ -142,7 +142,7 @@ Python keeps these rules fixed when Llama chooses a step.
 
 ## 7. Restoration: define the service goal
 
-**Timing:** 06:30–08:00 (1.5 minutes)
+**Timing:** 04:30–05:00 (0.5 minutes)
 
 **Slide content:** The goal changes which loads the solver restores. L6 compares two goals.
 
@@ -166,7 +166,7 @@ Python keeps these rules fixed when Llama chooses a step.
 
 ## 8. Language and decision checks
 
-**Timing:** 08:00–09:15 (1.25 minutes)
+**Timing:** 05:00–05:30 (0.5 minutes)
 
 **Slide content:** The source example turns written facts into constraints for a solver.
 In our lab, Llama requests a study. Python checks it. A person reviews it.
@@ -187,7 +187,7 @@ In our lab, Llama requests a study. Python checks it. A person reviews it.
 
 ## 9. Cyber: good fit can hide bad data
 
-**Timing:** 09:15–10:45 (1.5 minutes)
+**Timing:** 05:30–06:00 (0.5 minutes)
 
 **Slide content:** L8 tests misleading readings. L9 shows when to return HOLD or a proposal.
 
@@ -211,7 +211,7 @@ In our lab, Llama requests a study. Python checks it. A person reviews it.
 
 ## 10. Four questions about any result
 
-**Timing:** 10:45–12:00 (1.25 minutes)
+**Timing:** 06:00–07:00 (1 minutes)
 
 **Slide content:** Which tool ran? What did it assume? Which limits passed? What should the operator do next?
 
@@ -231,7 +231,7 @@ In our lab, Llama requests a study. Python checks it. A person reviews it.
 
 ## 11. One notebook for all three cases
 
-**Timing:** 12:00–13:00 (1 minutes)
+**Timing:** 07:00–08:00 (1 minutes)
 
 **Slide content:** Open Classroom Labs and save a copy in Drive. Use it throughout.
 
@@ -249,7 +249,7 @@ In our lab, Llama requests a study. Python checks it. A person reviews it.
 
 ## 12. Colab setup
 
-**Timing:** 13:00–14:30 (1.5 minutes)
+**Timing:** 08:00–10:30 (2.5 minutes)
 
 **Slide content:** Save a copy, connect a CPU and run setup.
 Wait for Ready, then run L0 and L1.
@@ -270,7 +270,7 @@ Wait for Ready, then run L0 and L1.
 
 ## 13. Input, run, output
 
-**Timing:** 14:30–16:00 (1.5 minutes)
+**Timing:** 10:30–11:00 (0.5 minutes)
 
 **Slide content:** Find the L heading and run its whole code cell.
 Read the output below it. After any edit, rerun the cell.
@@ -289,7 +289,7 @@ Read the output below it. After any edit, rerun the cell.
 
 ## 14. L0: keep the default settings
 
-**Timing:** 16:00–17:00 (1 minutes)
+**Timing:** 11:00–12:30 (1.5 minutes)
 
 **Slide content:** Leave both switches False. Python calculates new results; Llama replies come from saved records.
 If data are missing, rerun setup.
@@ -312,7 +312,7 @@ assert (ROOT / 'data/lindistflow3_network.json').exists(), 'Start Jupyter in the
 
 ## 15. L1: does the result match the request?
 
-**Timing:** 17:00–19:00 (2 minutes)
+**Timing:** 12:30–15:00 (2.5 minutes)
 
 **Slide content:** Read binding_pass. Expect True, False, False.
 Changed inputs or commands need a new check.
@@ -331,7 +331,7 @@ Changed inputs or commands need a new check.
 
 ## 16. Case 1: voltage support
 
-**Timing:** 19:00–21:00 (2 minutes)
+**Timing:** 15:00–15:30 (0.5 minutes)
 
 **Slide content:** MPC plans ahead. SAC uses a saved learned policy.
 Check limits first. Among passing options, a smaller score J is better.
@@ -352,7 +352,7 @@ Check limits first. Among passing options, a smaller score J is better.
 
 ## 17. Two ways to propose settings
 
-**Timing:** 21:00–22:30 (1.5 minutes)
+**Timing:** 15:30–16:30 (1 minutes)
 
 **Slide content:** MPC plans with a model. SAC proposes from learned weights. Both need the same electrical checks.
 
@@ -372,7 +372,7 @@ Check limits first. Among passing options, a smaller score J is better.
 
 ## 18. A tool result changes the next step
 
-**Timing:** 22:30–24:00 (1.5 minutes)
+**Timing:** 16:30–18:00 (1.5 minutes)
 
 **Slide content:** The first trial fails. Llama requests the fallback. A passing result goes to human review.
 
@@ -388,7 +388,7 @@ Check limits first. Among passing options, a smaller score J is better.
 
 ## 19. Two control settings
 
-**Timing:** 24:00–26:00 (2 minutes)
+**Timing:** 18:00–19:00 (1 minutes)
 
 **Slide content:** a controls active power. b controls reactive power.
 Check inverter capacity, voltage and line current.
@@ -407,7 +407,7 @@ Check inverter capacity, voltage and line current.
 
 ## 20. A tool is a callable function
 
-**Timing:** 26:00–27:30 (1.5 minutes)
+**Timing:** 19:00–19:30 (0.5 minutes)
 
 **Slide content:** Inputs go in. Calculations run. Results come back. L2 calls this Python function directly.
 
@@ -423,7 +423,7 @@ Check inverter capacity, voltage and line current.
 
 ## 21. L2: run the default case
 
-**Timing:** 27:30–29:30 (2 minutes)
+**Timing:** 19:30–22:30 (3 minutes)
 
 **Slide content:** Run all of L2. It checks the MPC plan and the saved SAC policy.
 Read feasible, current_step_J and max_allowed_current_pct.
@@ -450,7 +450,7 @@ voltage = lab.voltage_lab(LOAD_SCALE, RATING_FRACTION)
 
 ## 22. L2: voltage and current plots
 
-**Timing:** 29:30–32:30 (3 minutes)
+**Timing:** 22:30–23:30 (1 minutes)
 
 **Slide content:** Left: voltages should stay inside the allowed band.
 Right: current use should stay below 100% of the allowance.
@@ -469,7 +469,7 @@ Right: current use should stay below 100% of the allowance.
 
 ## 23. L2: both default proposals pass
 
-**Timing:** 32:30–34:30 (2 minutes)
+**Timing:** 23:30–24:30 (1 minutes)
 
 **Slide content:** MPC: 73.62% current use, score J about 0.03110.
 Saved SAC: 51.68% current use, score J about 0.43643.
@@ -488,7 +488,7 @@ Saved SAC: 51.68% current use, score J about 0.43643.
 
 ## 24. The limit and the calculated result
 
-**Timing:** 34:30–36:00 (1.5 minutes)
+**Timing:** 24:30–25:00 (0.5 minutes)
 
 **Slide content:** A rule states the limit. A tool checks the proposal against it.
 Keep both with the result so the operator can review it.
@@ -509,7 +509,7 @@ Keep both with the result so the operator can review it.
 
 ## 25. Exercise 1: lower the current allowance
 
-**Timing:** 36:00–40:00 (4 minutes)
+**Timing:** 25:00–29:00 (4 minutes)
 
 **Slide content:** In L2, change RATING_FRACTION from 0.80 to 0.75. Predict, then rerun.
 Compare feasible, current use and score J for both methods.
@@ -525,7 +525,7 @@ Does this check cover the whole MV/LV network?
 
 ## 26. Exercise 1: both still pass
 
-**Timing:** 40:00–44:30 (4.5 minutes)
+**Timing:** 29:00–30:00 (1 minutes)
 
 **Slide content:** A smaller allowance makes the same current a larger percentage.
 At 0.75: MPC uses 78.53%, SAC 54.85%. Both pass this test.
@@ -544,7 +544,7 @@ At 0.75: MPC uses 78.53%, SAC 54.85%. Both pass this test.
 
 ## 27. L2: reset before continuing
 
-**Timing:** 44:30–46:30 (2 minutes)
+**Timing:** 30:00–30:30 (0.5 minutes)
 
 **Slide content:** Restore LOAD_SCALE=1.0 and RATING_FRACTION=0.80. Rerun L2.
 L3-L5 use a separate saved case called test_01.
@@ -565,7 +565,7 @@ RATING_FRACTION = 0.80
 
 ## 28. New calculations and saved replies
 
-**Timing:** 46:30–48:30 (2 minutes)
+**Timing:** 30:30–31:00 (0.5 minutes)
 
 **Slide content:** Python calculates new results. A saved Llama reply keeps its original inputs.
 Your changed lab input does not change the saved reply.
@@ -584,7 +584,7 @@ Your changed lab input does not change the saved reply.
 
 ## 29. L3: inspect saved model choices
 
-**Timing:** 48:30–50:30 (2 minutes)
+**Timing:** 31:00–32:00 (1 minutes)
 
 **Slide content:** Run L3. Read the case ID, chosen operations and recorded times.
 This cell displays old replies. It makes no new model call.
@@ -605,7 +605,7 @@ display(pd.DataFrame(pool['responses'])[['model_id', 'operation_id', 'reason', '
 
 ## 30. Different words can request the same trial
 
-**Timing:** 50:30–52:30 (2 minutes)
+**Timing:** 32:00–32:30 (0.5 minutes)
 
 **Slide content:** The notebook groups identical tool requests and settings.
 A vote chooses what to test next. It does not prove that limits pass.
@@ -624,7 +624,7 @@ A vote chooses what to test next. It does not prove that limits pass.
 
 ## 31. L4: check the selected trial
 
-**Timing:** 52:30–54:30 (2 minutes)
+**Timing:** 32:30–33:30 (1 minutes)
 
 **Slide content:** Run L4 after L3. Python checks the selected trial for its original case.
 Compare majority voting with the saved LinUCB selector, which learns which trial to test.
@@ -648,7 +648,7 @@ assert pool['frozen'] and pool['training_updates'] == 24
 
 ## 32. L4: read the new check
 
-**Timing:** 54:30–56:30 (2 minutes)
+**Timing:** 33:30–34:00 (0.5 minutes)
 
 **Slide content:** Both selectors choose the same trial and pass the new MV check.
 new_check_passes is the electrical check. Predicted reward is a learned score.
@@ -667,7 +667,7 @@ new_check_passes is the electrical check. Predicted reward is a learned score.
 
 ## 33. L5: check model coverage
 
-**Timing:** 56:30–58:30 (2 minutes)
+**Timing:** 34:00–35:30 (1.5 minutes)
 
 **Slide content:** Leave RUN_OPENDSS=False. Run L5 and read the table.
 The default checks the test_01 MPC plan with the MV model.
@@ -690,7 +690,7 @@ display(scope_audit['table'])
 
 ## 34. A PASS has a scope
 
-**Timing:** 58:30–60:30 (2 minutes)
+**Timing:** 35:30–36:00 (0.5 minutes)
 
 **Slide content:** This result covers medium-voltage (MV) phases and currents.
 A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD.
@@ -709,7 +709,7 @@ A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD.
 
 ## 35. Saved voltage case: check SAC first
 
-**Timing:** 60:30–63:00 (2.5 minutes)
+**Timing:** 36:00–37:00 (1 minutes)
 
 **Slide content:** Llama asks to check SAC. The tool finds a current-limit failure.
 
@@ -729,7 +729,7 @@ A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD.
 
 ## 36. Saved voltage case: try the MPC fallback
 
-**Timing:** 63:00–65:30 (2.5 minutes)
+**Timing:** 37:00–38:00 (1 minutes)
 
 **Slide content:** Llama requests the existing MPC plan. The electrical tool checks it.
 
@@ -749,7 +749,7 @@ A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD.
 
 ## 37. Saved voltage case: return for review
 
-**Timing:** 65:30–68:00 (2.5 minutes)
+**Timing:** 38:00–39:00 (1 minutes)
 
 **Slide content:** The checks pass. Human review is still pending. A fixed script gets the same final result.
 
@@ -769,7 +769,7 @@ A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD.
 
 ## 38. Case 2: restoring service
 
-**Timing:** 68:00–69:00 (1 minutes)
+**Timing:** 39:00–39:30 (0.5 minutes)
 
 **Slide content:** Use the six-node teaching network with one faulted branch.
 Compare total service with service to critical loads.
@@ -788,7 +788,7 @@ Compare total service with service to critical loads.
 
 ## 39. Two service goals
 
-**Timing:** 69:00–71:00 (2 minutes)
+**Timing:** 39:30–40:30 (1 minutes)
 
 **Slide content:** One goal gives extra weight to critical loads.
 The other restores the most total kW. Both use the same network rules.
@@ -807,7 +807,7 @@ The other restores the most total kW. Both use the same network rules.
 
 ## 40. L6: solve the restoration problem
 
-**Timing:** 71:00–73:00 (2 minutes)
+**Timing:** 40:30–42:30 (2 minutes)
 
 **Slide content:** Run L6. MILP selects whole loads. A separate search checks its priority score.
 Read served_kw, critical_kw and MILP_matches_exhaustive_check.
@@ -831,7 +831,7 @@ display(restoration['table'].drop(columns='pickup'))
 
 ## 41. L6: read both service plots
 
-**Timing:** 73:00–76:00 (3 minutes)
+**Timing:** 42:30–43:30 (1 minutes)
 
 **Slide content:** Left: total kW served. Right: critical kW served.
 Overlapping markers mean the two goals give the same result.
@@ -850,7 +850,7 @@ Overlapping markers mean the two goals give the same result.
 
 ## 42. L6: the tradeoff at 40 kW
 
-**Timing:** 76:00–78:00 (2 minutes)
+**Timing:** 43:30–44:30 (1 minutes)
 
 **Slide content:** Priority goal: 130 kW total, including 90 kW critical.
 Most-total-kW goal: 140 kW total, including 30 kW critical.
@@ -869,7 +869,7 @@ Most-total-kW goal: 140 kW total, including 30 kW critical.
 
 ## 43. Restoration checks
 
-**Timing:** 78:00–80:00 (2 minutes)
+**Timing:** 44:30–45:00 (0.5 minutes)
 
 **Slide content:** Check source paths, branch capacity, power balance and the fault.
 A separate search checks the priority score.
@@ -892,7 +892,7 @@ A separate search checks the priority score.
 
 ## 44. Exercise 2: increase tie capacity
 
-**Timing:** 80:00–84:00 (4 minutes)
+**Timing:** 45:00–49:00 (4 minutes)
 
 **Slide content:** Add 180. to CAPACITIES_KW. Keep 40. first. Predict, then rerun L6.
 Compare total and critical kW at 40 and 180 kW.
@@ -908,7 +908,7 @@ At which capacity do the two goals give the same result?
 
 ## 45. Exercise 2: enough capacity removes this tradeoff
 
-**Timing:** 84:00–87:00 (3 minutes)
+**Timing:** 49:00–50:00 (1 minutes)
 
 **Slide content:** At 180 kW, both goals serve 250 kW total and 90 kW critical.
 The priority goal helps at some limits. It does not improve every case.
@@ -923,7 +923,7 @@ The priority goal helps at some limits. It does not improve every case.
 
 ## 46. L7: test an old result after a change
 
-**Timing:** 87:00–89:00 (2 minutes)
+**Timing:** 50:00–51:30 (1.5 minutes)
 
 **Slide content:** Restore the original capacity list and rerun L6.
 Run L7. It changes the first request from 40 kW to 20 kW.
@@ -945,7 +945,7 @@ rest_request = {'task': 'restoration', 'capacity_kw': CAPACITIES_KW[0],
 
 ## 47. L7: the old evidence no longer matches
 
-**Timing:** 89:00–91:00 (2 minutes)
+**Timing:** 51:30–52:00 (0.5 minutes)
 
 **Slide content:** Original request: True. Changed request: False.
 HOLD the old recommendation and request a new solve.
@@ -964,7 +964,7 @@ HOLD the old recommendation and request a new solve.
 
 ## 48. New inputs need new evidence
 
-**Timing:** 91:00–93:00 (2 minutes)
+**Timing:** 52:00–52:30 (0.5 minutes)
 
 **Slide content:** An outdated check does not tell us whether the new plan works.
 Solve again, check again and attach the new result to the new request.
@@ -983,7 +983,7 @@ Solve again, check again and attach the new result to the new request.
 
 ## 49. The agent keeps the service goal
 
-**Timing:** 93:00–95:00 (2 minutes)
+**Timing:** 52:30–53:00 (0.5 minutes)
 
 **Slide content:** L6 runs Python directly. The operator sets priorities; MILP selects loads.
 An agent could request the solve and explain its returned tradeoff.
@@ -1002,7 +1002,7 @@ An agent could request the solve and explain its returned tradeoff.
 
 ## 50. Restoration model limits
 
-**Timing:** 95:00–96:00 (1 minutes)
+**Timing:** 53:00–53:30 (0.5 minutes)
 
 **Slide content:** This graph checks active power, not AC voltage or protection.
 Selected branches do not specify the order of field switching.
@@ -1017,7 +1017,7 @@ Selected branches do not specify the order of field switching.
 
 ## 51. Saved restoration case: try another plan
 
-**Timing:** 96:00–98:30 (2.5 minutes)
+**Timing:** 53:30–54:30 (1 minutes)
 
 **Slide content:** Llama requests a trial that restores more load and passes the current check.
 
@@ -1037,7 +1037,7 @@ Selected branches do not specify the order of field switching.
 
 ## 52. Saved restoration case: reject a failed trial
 
-**Timing:** 98:30–101:00 (2.5 minutes)
+**Timing:** 54:30–55:00 (0.5 minutes)
 
 **Slide content:** The next trial exceeds the current limit. Keep the previous passing plan.
 
@@ -1057,7 +1057,7 @@ Selected branches do not specify the order of field switching.
 
 ## 53. Saved restoration case: correct the ranking
 
-**Timing:** 101:00–103:30 (2.5 minutes)
+**Timing:** 55:00–56:00 (1 minutes)
 
 **Slide content:** Python corrects the ranking and rechecks the lowest-cost passing plan.
 
@@ -1077,7 +1077,7 @@ Selected branches do not specify the order of field switching.
 
 ## 54. Case 3: suspicious readings
 
-**Timing:** 103:30–104:30 (1 minutes)
+**Timing:** 56:00–56:30 (0.5 minutes)
 
 **Slide content:** Use the separate four-bus DC teaching model.
 Compare the fit to readings with error against known simulation truth.
@@ -1096,7 +1096,7 @@ Compare the fit to readings with error against known simulation truth.
 
 ## 55. What the residual measures
 
-**Timing:** 104:30–106:30 (2 minutes)
+**Timing:** 56:30–57:30 (1 minutes)
 
 **Slide content:** Weighted least squares (WLS) fits the readings. Residual J measures the mismatch.
 The true state is known in this simulation, not in a live control room.
@@ -1117,7 +1117,7 @@ The true state is known in this simulation, not in a live control room.
 
 ## 56. L8: run two data attacks
 
-**Timing:** 106:30–108:30 (2 minutes)
+**Timing:** 57:30–59:30 (2 minutes)
 
 **Slide content:** Run L8 with the default scales.
 Compare one biased reading with a coordinated change across readings.
@@ -1141,7 +1141,7 @@ display(cyber['table'])
 
 ## 57. L8: read both cyber plots
 
-**Timing:** 108:30–111:30 (3 minutes)
+**Timing:** 59:30–60:30 (1 minutes)
 
 **Slide content:** Left: mismatch J and the alarm threshold. Right: error against simulation truth.
 A quiet alarm can appear alongside a growing state error.
@@ -1160,7 +1160,7 @@ A quiet alarm can appear alongside a growing state error.
 
 ## 58. L8: a coordinated attack escapes the alarm
 
-**Timing:** 111:30–113:30 (2 minutes)
+**Timing:** 60:30–61:30 (1 minutes)
 
 **Slide content:** At scale 1, one biased reading gives J=277.50 and an alarm.
 The coordinated attack gives J=3.92, no alarm, and 0.02678 rad of state error.
@@ -1181,7 +1181,7 @@ The coordinated attack gives J=3.92, no alarm, and 0.02678 rad of state error.
 
 ## 59. Exercise 3: test a small bias
 
-**Timing:** 113:30–117:30 (4 minutes)
+**Timing:** 61:30–65:30 (4 minutes)
 
 **Slide content:** Add .10 to ATTACK_SCALES. Predict, then rerun L8.
 At scale 0.10, compare J, the alarm flag and state error.
@@ -1197,7 +1197,7 @@ Does no alarm mean the data are correct?
 
 ## 60. Exercise 3: a small bias can miss the threshold
 
-**Timing:** 117:30–120:30 (3 minutes)
+**Timing:** 65:30–66:30 (1 minutes)
 
 **Slide content:** At scale 0.10, J is about 10.14, below the 15.09 alarm threshold.
 A quiet alarm alone cannot prove that readings are true.
@@ -1212,7 +1212,7 @@ A quiet alarm alone cannot prove that readings are true.
 
 ## 61. L8: reset before recovery
 
-**Timing:** 120:30–121:30 (1 minutes)
+**Timing:** 66:30–67:00 (0.5 minutes)
 
 **Slide content:** Restore the original attack scales and rerun L8.
 L9 uses a separate fixed recovery case.
@@ -1234,7 +1234,7 @@ cyber = lab.cyber_sweep(ATTACK_SCALES)
 
 ## 62. L9: one fixed recovery case
 
-**Timing:** 121:30–123:30 (2 minutes)
+**Timing:** 67:00–67:30 (0.5 minutes)
 
 **Slide content:** Compare the same case with and without readings assumed to be trusted.
 Your L8 scale change does not change this case.
@@ -1249,7 +1249,7 @@ Your L8 scale change does not change this case.
 
 ## 63. Data trust is an assumption
 
-**Timing:** 123:30–125:30 (2 minutes)
+**Timing:** 67:30–68:00 (0.5 minutes)
 
 **Slide content:** This example assumes three extra angle readings are trustworthy.
 Neither WLS nor Llama authenticates them.
@@ -1268,7 +1268,7 @@ Neither WLS nor Llama authenticates them.
 
 ## 64. L9: HOLD or PROPOSE
 
-**Timing:** 125:30–127:30 (2 minutes)
+**Timing:** 68:00–69:30 (1.5 minutes)
 
 **Slide content:** Run all of L9. Read status first.
 Then read the proposed injection and the offline violation count.
@@ -1289,7 +1289,7 @@ with_trust = lab.trusted_response(cyber, protected_available=True)
 
 ## 65. L9: two outcomes
 
-**Timing:** 127:30–129:30 (2 minutes)
+**Timing:** 69:30–70:30 (1 minutes)
 
 **Slide content:** Without trusted replacement readings: HOLD.
 With assumed trusted readings: PROPOSE, u about 0.121694 p.u., zero offline model violations.
@@ -1308,7 +1308,7 @@ With assumed trusted readings: PROPOSE, u about 0.121694 p.u., zero offline mode
 
 ## 66. L9: check the correction
 
-**Timing:** 129:30–131:30 (2 minutes)
+**Timing:** 70:30–71:00 (0.5 minutes)
 
 **Slide content:** A quadratic-program (QP) solver finds the smallest allowed injection that meets the branch limits.
 One flow: predicted 0.17000 p.u., offline actual 0.17046 p.u., limit 0.18000 p.u.
@@ -1327,7 +1327,7 @@ One flow: predicted 0.17000 p.u., offline actual 0.17046 p.u., limit 0.18000 p.u
 
 ## 67. A proposal depends on its assumptions
 
-**Timing:** 131:30–133:30 (2 minutes)
+**Timing:** 71:00–71:30 (0.5 minutes)
 
 **Slide content:** Assumed trusted data support the estimate. The solver calculates a correction.
 The operator still reviews data trust, model coverage and missing checks.
@@ -1346,7 +1346,7 @@ The operator still reviews data trust, model coverage and missing checks.
 
 ## 68. Saved cyber case: request the allowed tool
 
-**Timing:** 133:30–136:00 (2.5 minutes)
+**Timing:** 71:30–72:00 (0.5 minutes)
 
 **Slide content:** Llama selects the supplied recovery tool. Python calculates the correction.
 
@@ -1366,7 +1366,7 @@ The operator still reviews data trust, model coverage and missing checks.
 
 ## 69. Saved cyber case: keep human review
 
-**Timing:** 136:00–138:30 (2.5 minutes)
+**Timing:** 72:00–73:00 (1 minutes)
 
 **Slide content:** The model check passes. The operator must still review trust and missing checks.
 
@@ -1386,7 +1386,7 @@ The operator still reviews data trust, model coverage and missing checks.
 
 ## 70. L10: inspect the five-role workflow
 
-**Timing:** 138:30–141:30 (3 minutes)
+**Timing:** 73:00–74:30 (1.5 minutes)
 
 **Slide content:** Run L10 to see every recorded stage and result.
 The stages share case facts, proposals and check results. The next slides explain their jobs.
@@ -1401,12 +1401,12 @@ The stages share case facts, proposals and check results. The next slides explai
 
 ## 71. L10B: replay the three Llama examples
 
-**Timing:** 141:30–148:00 (6.5 minutes)
+**Timing:** 74:30–79:00 (4.5 minutes)
 
 **Slide content:** Set SCENARIO to voltage, restoration and cyber. Rerun for each.
 These are saved replies and tool results. No new Llama call runs here.
 
-**Teaching notes:** Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown. Allow about two minutes per scenario: one partner identifies the model choice, the other finds its tool result and the unresolved operator decision. These additional minutes replace removed checkpoint slides and the longer source explanations.
+**Teaching notes:** Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown. Allow about a minute and a half per scenario: one partner identifies the model choice, the other finds its tool result and the unresolved operator decision. These additional minutes replace removed checkpoint slides and the longer source explanations.
 
 **Exact source excerpt:** Classroom_Labs.ipynb L10B (classroom-llama-walkthrough), source lines 1–5.
 SCENARIO = "voltage"  # Change to "restoration" or "cyber", then rerun this cell.
@@ -1427,7 +1427,7 @@ display(HTML(render_episode_html(replay_episodes[SCENARIO])))
 
 ## 72. L12: practice operator readback
 
-**Timing:** 148:00–153:00 (5 minutes)
+**Timing:** 79:00–81:00 (2 minutes)
 
 **Slide content:** Leave L11 disabled, then run L12.
 Check the wrong ID, the matching ID and equipment_dispatch=False.
@@ -1448,7 +1448,7 @@ readback = lab.acknowledge(mv_scope, mv_scope['recommendation_id'], 'Student ope
 
 ## 73. L12: approval must match the checked scope
 
-**Timing:** 153:00–156:00 (3 minutes)
+**Timing:** 81:00–82:00 (1 minutes)
 
 **Slide content:** Full MV/LV request: HOLD. The MV teaching request allows a simulated readback.
 A wrong ID fails. This exercise never sends equipment commands.
@@ -1467,7 +1467,7 @@ A wrong ID fails. This exercise never sends equipment commands.
 
 ## 74. Our multi-agent design: five roles
 
-**Timing:** 156:00–157:00 (1 minutes)
+**Timing:** 82:00–83:30 (1.5 minutes)
 
 **Slide content:** The roles pass structured results to each other. Llama handles planning and refinement; Python runs the other stages.
 
@@ -1487,7 +1487,7 @@ A wrong ID fails. This exercise never sends equipment commands.
 
 ## 75. Five roles in the voltage case
 
-**Timing:** 157:00–161:00 (4 minutes)
+**Timing:** 83:30–84:30 (1 minutes)
 
 **Slide content:** Llama asks for less reactive power, then more solar output. Python checks each new trial.
 
@@ -1505,7 +1505,7 @@ A wrong ID fails. This exercise never sends equipment commands.
 
 ## 76. Five roles in the restoration case
 
-**Timing:** 161:00–165:00 (4 minutes)
+**Timing:** 84:30–85:30 (1 minutes)
 
 **Slide content:** The goal stays fixed. A failed trial cannot enter the final ranking, and Python corrects a wrong cost order.
 
@@ -1525,7 +1525,7 @@ A wrong ID fails. This exercise never sends equipment commands.
 
 ## 77. Five roles in the cyber case
 
-**Timing:** 165:00–169:00 (4 minutes)
+**Timing:** 85:30–86:30 (1 minutes)
 
 **Slide content:** The workflow keeps the trust assumption visible. It cannot create trusted data from a convincing answer.
 
@@ -1543,7 +1543,7 @@ A wrong ID fails. This exercise never sends equipment commands.
 
 ## 78. The operator reviews one evidence packet
 
-**Timing:** 169:00–173:00 (4 minutes)
+**Timing:** 86:30–87:30 (1 minutes)
 
 **Slide content:** Review the inputs, proposal, worst margins and missing checks.
 Request another study, reject the proposal or accept it for the next authorized step.
@@ -1564,7 +1564,7 @@ Request another study, reject the proposal or accept it for the next authorized 
 
 ## 79. What the evidence shows
 
-**Timing:** 173:00–177:00 (4 minutes)
+**Timing:** 87:30–88:30 (1 minutes)
 
 **Slide content:** In L10, five paired final costs tied; one Llama route was worse.
 Start with past cases and read-only use. Measure benefit against the same tools in a fixed script.
@@ -1585,7 +1585,7 @@ Start with past cases and read-only use. Measure benefit against the same tools 
 
 ## 80. Questions and your next lab run
 
-**Timing:** 177:00–180:00 (3 minutes)
+**Timing:** 88:30–90:00 (1.5 minutes)
 
 **Slide content:** Choose one case. Change one input, rerun and save the result.
 Explain the agent choice, tool result, check and operator decision.

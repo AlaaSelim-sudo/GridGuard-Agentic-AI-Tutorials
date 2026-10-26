@@ -10,7 +10,7 @@
       "H10"
     ],
     "source_label": "Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030.",
-    "minutes": 3,
+    "minutes": 1.5,
     "note": "L10 reads the archived proposal_complete_workflow study. It includes feeder-catalog restoration and is separate from the L6 six-node MILP and your edited classroom inputs. L10B, inserted immediately after L10, then gives readable verified replay episodes for all three cases. Run L11 after those replays; the default False setting skips a new local model request.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -21,7 +21,7 @@
   {
     "title": "L10B: replay the three Llama examples",
     "kind": "normal",
-    "minutes": 6.5,
+    "minutes": 4.5,
     "refs": [
       "LR0",
       "OLL1"
@@ -30,7 +30,7 @@
       "Set SCENARIO to voltage, restoration and cyber. Rerun for each.",
       "These are saved replies and tool results. No new Llama call runs here."
     ],
-    "note": "Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown. Allow about two minutes per scenario: one partner identifies the model choice, the other finds its tool result and the unresolved operator decision. These additional minutes replace removed checkpoint slides and the longer source explanations.",
+    "note": "Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown. Allow about a minute and a half per scenario: one partner identifies the model choice, the other finds its tool result and the unresolved operator decision. These additional minutes replace removed checkpoint slides and the longer source explanations.",
     "source_label": "Classroom_Labs.ipynb, L10B; cell classroom-llama-walkthrough; src/llama_walkthrough.py.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
@@ -55,7 +55,7 @@
       "H12"
     ],
     "source_label": "Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only.",
-    "minutes": 5,
+    "minutes": 2,
     "note": "This cell returns to the original test_01 voltage result through selected_trials. It does not use the restoration or cyber sweeps. Read both scope outcomes and explain why the full MV/LV request remains HOLD. The new simulated acknowledgment grants no physical operating authority and does not complete the review of an old record. Readback means repeating the recommendation ID and conditions so the acknowledgment can be matched to the same proposal. In this exercise it is simulated. Check the wrong-ID rejection, the correct simulated acknowledgment and equipment_dispatch=False.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -80,7 +80,7 @@
       "H12"
     ],
     "source_label": "Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only.",
-    "minutes": 3,
+    "minutes": 1,
     "note": "After running the complete L12 cell, compare these reference outputs with your own. The full MV/LV request remains HOLD because the checked model covers only MV phases. An explicit MV teaching request can pass the simulated readback after the recommendation ID matches. The wrong-ID attempt is rejected. Acknowledgment records a classroom review step and does not operate equipment.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
@@ -103,7 +103,7 @@
       "H10",
       "DEF03"
     ],
-    "minutes": 1,
+    "minutes": 1.5,
     "note": "This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry.",
     "hands_on": true,
     "diagram": "multi_agent_roles",
@@ -126,7 +126,7 @@
       "WF01",
       "H10"
     ],
-    "minutes": 4,
+    "minutes": 1,
     "caption": "L10 MV voltage archive, separate from L2 and the P3 replay in L10B.",
     "visual_height_px": 365,
     "visual_height_cm": 4.25,
@@ -147,7 +147,7 @@
       "H10",
       "LRR"
     ],
-    "minutes": 4,
+    "minutes": 1,
     "caption": "L10 feeder catalog, separate from the six-node L6 exercise.",
     "visual_height_px": 365,
     "visual_height_cm": 4.25,
@@ -167,7 +167,7 @@
       "WF01",
       "H10"
     ],
-    "minutes": 4,
+    "minutes": 1,
     "caption": "L10 four-bus DC cyber_stealth archive. Trusted channels are assumed.",
     "visual_height_px": 365,
     "visual_height_cm": 4.25,
@@ -189,7 +189,7 @@
       "OT01",
       "EVAL01"
     ],
-    "minutes": 4,
+    "minutes": 1,
     "caption": "Proposed control-room use. Study review does not operate equipment.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
@@ -211,7 +211,7 @@
       "H10",
       "EVAL01"
     ],
-    "minutes": 4,
+    "minutes": 1,
     "caption": "L10 comparison: same tools and trial budgets. No general performance gain is established.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
@@ -230,7 +230,7 @@
       "H00"
     ],
     "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
-    "minutes": 3,
+    "minutes": 1.5,
     "note": "Close by connecting the full loop: a goal, an allowed agent choice, a tool result, a check and a human decision. Ask each learner to name one case and one changed input they can repeat after the session. Save the notebook. Use the source guide for complete references, not as another required activity.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
