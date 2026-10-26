@@ -692,6 +692,34 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Full paper PDF:** [https://arxiv.org/pdf/2607.28822v1](https://arxiv.org/pdf/2607.28822v1)
 
+## [VID01] LangSmith Studio: The first agent IDE
+
+**Authors / issuer:** LangChain
+
+**Publisher / venue:** LangChain
+
+**Date:** Launch walkthrough linked 1 August 2024
+
+**Evidence type:** Official platform video; not evidence of a named utility deployment
+
+**Full source URL:** [https://www.youtube.com/watch?v=pLPJoFvq4_M](https://www.youtube.com/watch?v=pLPJoFvq4_M)
+
+**Publication:** [https://www.langchain.com/blog/langgraph-studio-the-first-agent-ide](https://www.langchain.com/blog/langgraph-studio-the-first-agent-ide)
+
+## [VID02] Gridscale X PSS E: agentic transmission planning — product video
+
+**Authors / issuer:** Siemens
+
+**Publisher / venue:** Siemens
+
+**Date:** Undated video; accessed 26 October 2026
+
+**Evidence type:** Official platform video; not evidence of a named utility deployment
+
+**Full source URL:** [https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016](https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016)
+
+**Publication:** [https://www.siemens.com/en-gb/products/pss-software/gridscale-x-pss-e/agentic-transmission-planning/](https://www.siemens.com/en-gb/products/pss-software/gridscale-x-pss-e/agentic-transmission-planning/)
+
 ## [P04] GridMind: LLMs-Powered Agents for Power System Analysis and Operations
 
 **Authors / issuer:** Hongwei Jin, Kibaek Kim, Jonghwan Kwon
@@ -1604,41 +1632,45 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Original figure / image URL:** [https://www-cdn.anthropic.com/images/4zrzovbb/website/14f51e6406ccb29e695da48b17017e899a6119c7-2401x1000.png](https://www-cdn.anthropic.com/images/4zrzovbb/website/14f51e6406ccb29e695da48b17017e899a6119c7-2401x1000.png)
 
-## Visual credit: real_paper_xgrid_architecture.png
+## Visual credit: platform_pLPJoFvq4_M.jpg
 
-**Caption:** Original X-GridAgent architecture: planning, coordination and MCP-based action services.
+**Caption:** LangChain / Launch walkthrough linked 1 August 2024
 
-**Credit:** Yihan (Logon) Wen, Xin Chen; X-GridAgent: An LLM-Powered Agentic AI System for Assisting Power Grid Analysis; Figure 2, PDF page 3
+**Credit:** LangChain. LangSmith Studio: The first agent IDE. Launch walkthrough linked 1 August 2024. Official video thumbnail.
 
-**Used on:** 46. X-GridAgent divides a request into jobs and tool calls
+**Used on:** 46. LangGraph Studio: watch an agent use tools
 
-**Asset type:** Original published figure or result panel, native PDF crop
+**Asset type:** Official video thumbnail
 
-**Transformation:** Only the stated page rectangle is retained; original labels, plotted content and colors are unchanged. Non-figure page-link annotations are removed. Native PDF content is preserved, with a 240-dpi PNG for web display.
+**Transformation:** None
 
-**Evidence limit:** Architecture diagram of a research assistant. MCP supplies an interface; numerical analyses use pandapower. No LangGraph SDK is inferred.
+**Evidence limit:** General software-platform demonstration; not power-system validation or utility deployment evidence.
 
-**Original source / page:** [https://arxiv.org/pdf/2512.20789v1](https://arxiv.org/pdf/2512.20789v1)
+**License or permission status:** Publisher thumbnail linked to the official video; copyright remains with the publisher.
 
-**Original figure / image URL:** [https://arxiv.org/pdf/2512.20789v1](https://arxiv.org/pdf/2512.20789v1)
+**Original source / page:** [https://www.youtube.com/watch?v=pLPJoFvq4_M](https://www.youtube.com/watch?v=pLPJoFvq4_M)
 
-## Visual credit: power_study_xgrid.png
+**Original figure / image URL:** [https://i.ytimg.com/vi/pLPJoFvq4_M/hqdefault.jpg](https://i.ytimg.com/vi/pLPJoFvq4_M/hqdefault.jpg)
 
-**Caption:** X-GridAgent Table I, Q10. The paper does not give objective units. A failed solve is not a zero-cost answer.
+## Visual credit: platform_682ca322-5d0b-47a0-8d18-77bf9d0fb016.png
 
-**Credit:** Original plot redrawn from cited primary-paper numerical results; no experiments rerun
+**Caption:** Siemens / Undated video; accessed 26 October 2026
 
-**Used on:** 47. X-GridAgent results: report when a solver does not converge
+**Credit:** Siemens. Gridscale X PSS E: agentic transmission planning — product video. Undated video; accessed 26 October 2026. Official video thumbnail.
 
-**Asset type:** Original quantitative teaching figure
+**Used on:** 47. Siemens PSS E: agentic transmission planning
 
-**Provenance note:** X-GridAgent's reported IEEE39 scenario outputs: base-case objective 41,872.30, line11-out objective 42,115.34, and nonconverged AC OPF when all loads are doubled. The third scenario has no objective value; it is displayed outside the numerical axis. This is a scenario output, not an accuracy comparison.
+**Asset type:** Official video thumbnail
 
-**Evidence limit:** Objective units are not specified in the paper table; no currency/hour unit invented. The dot-plot axis is deliberately zoomed and has no zero baseline; dots encode reported values, not bars. Nonconvergence is not represented as zero.
+**Transformation:** None
 
-**Original source / page:** [https://arxiv.org/pdf/2512.20789v1](https://arxiv.org/pdf/2512.20789v1)
+**Evidence limit:** General software-platform demonstration; not power-system validation or utility deployment evidence.
 
-**Original figure / image URL:** [images/power_study_xgrid.png](images/power_study_xgrid.png)
+**License or permission status:** Publisher thumbnail linked to the official video; copyright remains with the publisher.
+
+**Original source / page:** [https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016](https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016)
+
+**Original figure / image URL:** [https://video.sw.cdn.siemens.com/mgc/thumbnails/682ca322-5d0b-47a0-8d18-77bf9d0fb016-en-US-thumbnail.png](https://video.sw.cdn.siemens.com/mgc/thumbnails/682ca322-5d0b-47a0-8d18-77bf9d0fb016-en-US-thumbnail.png)
 
 ## Visual credit: real_paper_gridmind2025_architecture.png
 
@@ -1730,49 +1762,13 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Original figure / image URL:** [images/expanded_power_dynamic.png](images/expanded_power_dynamic.png)
 
-## Visual credit: real_paper_gridagent_architecture.png
-
-**Caption:** Original Grid-Agent concept: topology, planning, execution, validation and summary roles.
-
-**Credit:** Yan Zhang, Ahmad Mohammad Saber, Amr Youssef, Deepa Kundur; Grid-Agent: An LLM-Powered Multi-Agent System for Power Grid Control; Figure 1, v3 PDF page 5
-
-**Used on:** 57. Grid-Agent tests proposed actions in a simulation copy
-
-**Asset type:** Original published figure or result panel, native PDF crop
-
-**Transformation:** Only the stated page rectangle is retained; original labels, plotted content and colors are unchanged. Non-figure page-link annotations are removed. Native PDF content is preserved, with a 240-dpi PNG for web display.
-
-**Evidence limit:** The rollback is a simulation operation. The paper does not establish permission to reverse physical switching or a live utility rollout.
-
-**Original source / page:** [https://arxiv.org/pdf/2508.05702v3](https://arxiv.org/pdf/2508.05702v3)
-
-**Original figure / image URL:** [https://arxiv.org/pdf/2508.05702v3](https://arxiv.org/pdf/2508.05702v3)
-
-## Visual credit: real_paper_gridagent_reported_results.png
-
-**Caption:** Original reported scenario-resolution and runtime comparison panels.
-
-**Credit:** Yan Zhang, Ahmad Mohammad Saber, Amr Youssef, Deepa Kundur; Grid-Agent: An LLM-Powered Multi-Agent System for Power Grid Control; Figure 2 panels (a)–(b), v3 PDF page 7
-
-**Used on:** 58. Grid-Agent results need the number of trials
-
-**Asset type:** Original published figure or result panel, native PDF crop
-
-**Transformation:** Only the stated page rectangle is retained; original labels, plotted content and colors are unchanged. Non-figure page-link annotations are removed. Native PDF content is preserved, with a 240-dpi PNG for web display.
-
-**Evidence limit:** The exact aggregate trial denominator is not disclosed. The author rates do not prove optimal control or general field reliability.
-
-**Original source / page:** [https://arxiv.org/pdf/2508.05702v3](https://arxiv.org/pdf/2508.05702v3)
-
-**Original figure / image URL:** [https://arxiv.org/pdf/2508.05702v3](https://arxiv.org/pdf/2508.05702v3)
-
 ## Visual credit: real_paper_veragrid_agent_workflow.png
 
 **Caption:** Original VeraGrid-Agent workflow: question, LLM controller, input file, AC-OPF workspace and selected result reads.
 
 **Credit:** Shivanshu Tripathi, Hamed Mohsenian-Rad, Maziar Raissi; VeraGrid-Agent: Tool-Augmented LLMs for Distribution Optimal Power Flow at the Grid Edge; Figure 2, PDF page 2
 
-**Used on:** 59. VeraGrid-Agent uses solver results to answer a question
+**Used on:** 57. VeraGrid-Agent uses solver results to answer a question
 
 **Asset type:** Original published figure or result panel, native PDF crop
 
@@ -1790,7 +1786,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Original plot redrawn from cited primary-paper numerical results; no experiments rerun
 
-**Used on:** 60. VeraGrid-Agent results: the same models with and without tools
+**Used on:** 58. VeraGrid-Agent results: the same models with and without tools
 
 **Asset type:** Original quantitative teaching figure
 
@@ -1808,7 +1804,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Samim Konjicija, Slaven Peles; Integrating Agentic Artificial Intelligence with High-Performance Computing for Grid Planning; Figure 1, PDF page 2
 
-**Used on:** 61. AgentiGrid: what does one reported run mean?
+**Used on:** 59. AgentiGrid: what does one reported run mean?
 
 **Asset type:** Original published figure or result panel, native PDF crop
 
@@ -1826,7 +1822,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Original plot derived from cited paper data; see caption for interpretation
 
-**Used on:** 63. Successful tool calls can still miss a critical outage
+**Used on:** 61. Successful tool calls can still miss a critical outage
 
 **Asset type:** Original quantitative teaching figure
 
@@ -1844,7 +1840,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Original plot derived from cited paper data; see caption for interpretation
 
-**Used on:** 64. Show both trial counts and uncertainty
+**Used on:** 62. Show both trial counts and uncertainty
 
 **Asset type:** Original quantitative teaching figure
 
@@ -1862,7 +1858,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Xijing Wang, Yinsheng Yao, Jinru Ding, Yidong Jiang, Ziwen Xu, Yiwen Jiang, Jie Xu, Dawei Cheng; PowerBench: A Benchmark for Agentic Retrieval and Reasoning in Power Systems; Figure 1, PDF page 4
 
-**Used on:** 65. PowerBench finds answers across linked records
+**Used on:** 63. PowerBench finds answers across linked records
 
 **Asset type:** Original published figure or result panel, native PDF crop
 
@@ -1880,7 +1876,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Original chart from cited author-reported scores and bootstrap intervals
 
-**Used on:** 66. PowerBench results: complete answers and partial credit
+**Used on:** 64. PowerBench results: complete answers and partial credit
 
 **Asset type:** Original quantitative teaching figure
 
@@ -1898,7 +1894,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Xijing Wang, Yinsheng Yao, Jinru Ding, Yidong Jiang, Ziwen Xu, Yiwen Jiang, Jie Xu, Dawei Cheng; PowerBench: A Benchmark for Agentic Retrieval and Reasoning in Power Systems; Figure 2, PDF page 6
 
-**Used on:** 67. A strong average can hide a weak task group
+**Used on:** 65. A strong average can hide a weak task group
 
 **Asset type:** Original published figure or result panel, native PDF crop
 
@@ -1916,7 +1912,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Original illustrative calculation for this tutorial; not measured agent performance
 
-**Used on:** 69. More required steps can lower overall reliability
+**Used on:** 67. More required steps can lower overall reliability
 
 **Asset type:** Original quantitative teaching figure
 
@@ -1932,7 +1928,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Original illustrative calculation for this tutorial; not measured agent performance
 
-**Used on:** 70. The answer changes when we change what we count
+**Used on:** 68. The answer changes when we change what we count
 
 **Asset type:** Original quantitative teaching figure
 
@@ -1948,7 +1944,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Original illustrative calculation for this tutorial; not measured agent performance
 
-**Used on:** 71. Zero test failures do not prove perfect performance
+**Used on:** 69. Zero test failures do not prove perfect performance
 
 **Asset type:** Original quantitative teaching figure
 
@@ -1964,7 +1960,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Source: Model Context Protocol, official documentation revision July 28, 2026. Screenshot captured October 18, 2026.
 
-**Used on:** 73. MCP connects a workflow to its tools
+**Used on:** 71. MCP connects a workflow to its tools
 
 **Transformation:** Native browser screenshot of the original rendered source diagram only. Page navigation and surrounding prose excluded; diagram content unchanged.
 
@@ -1982,7 +1978,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** California ISO, John Phipps, Control center modernization is enhancing reliability, 10 September 2025.
 
-**Used on:** 75. Measure the whole job, including human review
+**Used on:** 73. Measure the whole job, including human review
 
 **Asset type:** Original operational software screenshot
 
@@ -2000,7 +1996,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** California ISO, Tricia Johnstone, ISO now has expanded training and emergency operations facilities, 20 February 2025.
 
-**Used on:** 76. Test whether the assistant helps on comparable tasks
+**Used on:** 74. Test whether the assistant helps on comparable tasks
 
 **Asset type:** Original utility training-facility photograph
 
@@ -2018,7 +2014,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Oak Ridge National Laboratory, U.S. Department of Energy
 
-**Used on:** 77. Power-sector testbeds provide places to evaluate agents
+**Used on:** 75. Power-sector testbeds provide places to evaluate agents
 
 **Asset type:** Photograph
 
@@ -2038,7 +2034,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Existing GridGuard workshop; SMART-DS synthetic Greensboro feeder udt8894
 
-**Used on:** 78. GridGuard: what should this prototype prove?
+**Used on:** 76. GridGuard: what should this prototype prove?
 
 **Asset type:** Existing scientific model plot
 
@@ -2081,8 +2077,6 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 **SVG diagram:** [diagrams/typed_contract.svg](diagrams/typed_contract.svg)
 
 **Editable TikZ source:** [diagrams/typed_contract.tex](diagrams/typed_contract.tex)
-
-**Concept source [T04]:** [https://developers.openai.com/api/docs/guides/agents/sdk](https://developers.openai.com/api/docs/guides/agents/sdk)
 
 ## Original diagram: A topology event invalidates the old study context
 
@@ -2168,7 +2162,7 @@ Agentic AI for Utility Operators — integrated power-system engineering tutoria
 
 **Credit:** Original worked teaching illustration
 
-**Used on:** 74. A retrieved document cannot give itself permission
+**Used on:** 72. A retrieved document cannot give itself permission
 
 **Caption:** Illustrative prompt-injection mechanism. A retrieved document contains an instruction to ignore limits and execute. Its contents remain data for retrieval and proposal formation. An independent policy and permission gate stands before the command service. The direct path from document text to command execution is blocked.
 

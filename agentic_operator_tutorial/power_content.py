@@ -278,6 +278,8 @@ from visual_revision import revise
 SLIDES=revise(SLIDES)
 from real_image_revision import revise as add_source_images
 SLIDES=add_source_images(SLIDES)
+from platform_revision import revise as add_platform_demos
+SLIDES=add_platform_demos(SLIDES)
 
 assert len(SLIDES)<=80
 assert sum(s['kind']=='exercise' for s in SLIDES)==2

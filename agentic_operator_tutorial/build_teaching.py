@@ -9,9 +9,10 @@ import json
 import hashlib
 import re
 import shutil
+import latin_modern
 
 ROOT = Path(__file__).resolve().parent
-KINDS = {"cover", "normal", "photo", "figure", "diagram", "exercise", "closing"}
+KINDS = {"cover", "normal", "photo", "figure", "diagram", "exercise", "closing", "video"}
 
 
 def module_from_file(name, path):
@@ -138,7 +139,13 @@ def render_frame(s, sources):
     else:
         if s.get("eyebrow"):
             out.append(r"{\scriptsize\color{Slate}\textbf{" + esc(s["eyebrow"]) + r"}\par}\smallskip" + "\n")
-        if s.get('layout')=='news-detail':
+        if kind == 'video':
+            trim=',trim=0 45 0 45,clip' if s['video_id']=='pLPJoFvq4_M' else ''
+            out.append(r'\begin{columns}[T,onlytextwidth]\begin{column}{.64\textwidth}\centering'+'\n')
+            out.append(r'\href{'+s['video_url']+r'}{\includegraphics[width=\linewidth,height=4cm,keepaspectratio'+trim+r']{images/'+s['image']+r'}}\par'+'\n')
+            out.append(r'\smallskip{\small\href{'+s['video_url']+r'}{Watch official video}\par}'+ '\n')
+            out.append(r'\end{column}\begin{column}{.32\textwidth}'+points_tex(s['points'],compact=True)+r'\end{column}\end{columns}'+'\n')
+        elif s.get('layout')=='news-detail':
             out.append(r'\begin{columns}[T,onlytextwidth]\begin{column}{.56\textwidth}'+'\n'
                        +picture_tex(s['image'],s.get('caption',''),'3.6cm')
                        +r'\end{column}\begin{column}{.40\textwidth}'+'\n'
@@ -231,7 +238,9 @@ def render_slide(s, number, total, sources):
         if s.get("eyebrow"):
             out.append('<div class="eyebrow">' + he(s["eyebrow"]) + "</div>")
         out.append("<h1>" + he(s["title"]) + "</h1>")
-        if s.get('layout')=='news-detail':
+        if kind == 'video':
+            out.append('<div class="content"><PlatformVideo embed-url="'+he(s['embed_url'])+'" watch-url="'+he(s['video_url'])+'" poster="'+he(s['image'])+'" title="'+he(s['title'])+'" /><div class="video-points">'+points_html(s['points'])+'</div></div>')
+        elif s.get('layout')=='news-detail':
             out.append('<div class="content"><div class="source-focus news-detail">'+picture_html(s['image'],s.get('caption',''),'330px')
                        +'<div>'+points_html(s['points'])+'</div></div><div class="news-strip">'
                        +picture_html(s['image2'],s.get('caption2',''),'44px')+'</div></div>')
@@ -315,6 +324,9 @@ def normalized_slides(content):
             raise ValueError(f"Slide {i}: image2 requires image")
         if s.get("diagram") and not re.fullmatch(r"[A-Za-z0-9_-]+", s["diagram"]):
             raise ValueError(f"Slide {i}: unsafe diagram ID")
+        if s['kind']=='video':
+            if not s.get('embed_url','').startswith(('https://www.youtube-nocookie.com/embed/','https://video.sw.siemens.com/embed/')):raise ValueError('Invalid video host')
+            if len(s['points'])>2:raise ValueError('Video slides allow two short points')
         slides.append(s)
     return slides
 
@@ -472,7 +484,8 @@ def main():
             target = ROOT / "slidev/public/research" / local
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / "research" / local, target)
-    frames = "".join(render_frame(s, sources) for s in slides)
+    latin_modern.copy_web_fonts(ROOT / "slidev/public/fonts")
+    frames = "\n".join(line.rstrip() for line in "".join(render_frame(s, sources) for s in slides).splitlines()) + "\n"
     front = """---
 theme: default
 title: Agentic AI for Utility Operators — Power Systems and Agent Workflows
@@ -483,7 +496,9 @@ aspectRatio: 16/9
 canvasWidth: 1280
 colorSchema: light
 fonts:
-  sans: Arial
+  sans: Latin Modern Roman
+  serif: Latin Modern Roman
+  mono: Latin Modern Mono
   provider: none
 mdc: false
 drawings:
@@ -504,6 +519,7 @@ download: false
     markdown = markdown.replace("introductory lecture", "integrated power-system engineering tutorial")
     guide_html = guide_html.replace("introductory lecture", "integrated power-system engineering tutorial")
     guide_tex = guide_tex.replace("introductory lecture", "integrated power-system engineering tutorial")
+    guide_html=latin_modern.style_html(guide_html)
     outputs = {
         "latex/frames.tex": frames, "slidev/slides.md": deck,
         "Instructor_Guide.md": instructor_notes(slides,sources),

@@ -406,8 +406,8 @@
   {
     "title": "NYPA: better data for agent use",
     "points": [
-      "NYPA describes Databricks and Ataccama checks for meter data before AI uses it.",
-      "A separate demo connects Genie to Ataccama through the Model Context Protocol (MCP). Its product-data example does not establish NYPA grid control."
+      "NYPA describes checks on meter data before AI uses it.",
+      "A separate MCP demo uses product data. It does not show NYPA grid control."
     ],
     "minutes": 1.5,
     "refs": [
@@ -825,7 +825,7 @@
     "takeaway": "",
     "caption": "Original DrAgent Figure 2, PDF p.4. The third current channel shows a fault in a sample disturbance record.",
     "image": "power_dragent_waveform.png",
-    "visual_height_cm": 4.15,
+    "visual_height_cm": 3.9,
     "visual_height_px": 365,
     "excerpt": [],
     "eyebrow": "",
@@ -882,7 +882,7 @@
     "takeaway": "",
     "caption": "Counts reconstructed from Table IV and the Appendix. They are neither new experiments nor the paper’s mean-score measure.",
     "image": "power_dragent_counts.png",
-    "visual_height_cm": 3.65,
+    "visual_height_cm": 2.9,
     "visual_height_px": 350,
     "excerpt": [],
     "eyebrow": "",
@@ -938,6 +938,7 @@
     "diagram": "power_fault_dag",
     "excerpt": [],
     "eyebrow": "",
+    "visual_height_cm": 3.8,
     "image": null,
     "image2": null,
     "caption2": "",
@@ -1043,13 +1044,12 @@
     ],
     "minutes": 2,
     "refs": [
-      "E01",
       "R01",
       "LG01",
       "DEF03"
     ],
     "kind": "figure",
-    "note": "The goal is complete evidence for the selected study scope, rather than a count of completed software steps. In a spoken grid-study example, if a case named C2 fails, the output should name C2, explain its failure and state what remains unknown. This applies AgentiGrid’s lesson about incomplete coverage. Completing a selected set of outages does not prove coverage of every N−1 contingency, meaning every relevant single-component outage. Source: Anthropic, Building effective agents (December 19, 2024). The aggregator picture does not imply that missing results are automatically detected. Source figure locator: Workflow: Parallelization. Original source URL: https://www.anthropic.com/engineering/building-effective-agents",
+    "note": "Independent outage studies should use the same frozen starting case. Collect results by outage ID, compare the returned IDs with the requested set, and preserve failed or missing studies as unresolved. The original parallel-workflow figure illustrates coordination; it does not establish complete electrical coverage.",
     "takeaway": "",
     "caption": "Original Anthropic parallel workflow. A grid study must also account for missing or failed outage cases.",
     "diagram": null,
@@ -1063,6 +1063,7 @@
     "image": "real_framework_anthropic_parallel.svg",
     "visual_height_cm": 3.7,
     "visual_height_px": 310,
+    "main_ref": "LG01",
     "caption2": ""
   },
   {
@@ -1112,6 +1113,7 @@
     "diagram": "revision_powerdag_gate",
     "excerpt": [],
     "eyebrow": "",
+    "visual_height_cm": 3.7,
     "image": null,
     "image2": null,
     "caption2": "",
@@ -1252,55 +1254,57 @@
     "caption2": ""
   },
   {
-    "title": "X-GridAgent divides a request into jobs and tool calls",
+    "kind": "video",
+    "title": "LangGraph Studio: watch an agent use tools",
+    "eyebrow": "Official developer demo",
+    "minutes": 4,
+    "image": "platform_pLPJoFvq4_M.jpg",
+    "video_id": "pLPJoFvq4_M",
+    "video_url": "https://www.youtube.com/watch?v=pLPJoFvq4_M",
+    "embed_url": "https://www.youtube-nocookie.com/embed/pLPJoFvq4_M?rel=0&autoplay=1",
     "points": [
-      "The planner breaks down the request. The coordinator passes work to specialized tool services.",
-      "Eight MCP services handle analysis, data and plots. Numerical studies use pandapower."
+      "Follow the loop: request → tool call → returned result → next step.",
+      "Connect to our lab: inspect the study result before the operator decides."
     ],
-    "minutes": 2,
     "refs": [
-      "E01"
+      "VID01"
     ],
-    "kind": "figure",
-    "note": "The eight services cover retrieval, power flow, optimal power flow (OPF), contingencies, short circuits, topology, editing and plotting. The paper does not name LangGraph or another open workflow SDK. MCP is the tool interface. It does not calculate the electrical result or guarantee that the agent chose the right cases. The separate numerical comparison discussed in this tutorial selects three lines; the architecture figure itself does not show that query. Keep it separate from the paper's different query that selects five. Yihan (Logon) Wen, Xin Chen; X-GridAgent: An LLM-Powered Agentic AI System for Assisting Power Grid Analysis; Figure 2, PDF page 3 Architecture diagram of a research assistant. MCP supplies an interface; numerical analyses use pandapower. No LangGraph SDK is inferred. Source locator: Figure 2, PDF page 3. Original URL: https://arxiv.org/pdf/2512.20789v1",
+    "caption": "LangChain / Launch walkthrough linked 1 August 2024",
     "takeaway": "",
-    "caption": "Original X-GridAgent architecture: planning, coordination and MCP-based action services.",
-    "excerpt": [],
-    "eyebrow": "",
-    "diagram": null,
-    "image": "real_paper_xgrid_architecture.png",
-    "image2": null,
-    "math_tex": "",
-    "math_html": "",
-    "callout": "",
-    "visual_height_cm": 3.65,
-    "visual_height_px": 305,
-    "alternative_tikz": "va_xgrid",
-    "caption2": ""
-  },
-  {
-    "title": "X-GridAgent results: report when a solver does not converge",
-    "points": [
-      "The 39-bus AC optimal power flow (OPF) study solves the base and outage cases. Doubling the load does not converge."
-    ],
-    "minutes": 2,
-    "refs": [
-      "E01"
-    ],
-    "kind": "figure",
-    "note": "The reported objective rises from 41,872.3 in the base case to 42,115.34 with line 11 out of service, a difference of 243.04 in the table's unspecified units. The doubled-load AC OPF does not converge. Do not treat nonconvergence as a proof that no feasible solution exists. The authors report 100% success in their selected repeated-query test, using manually obtained conventional solutions as references. That result does not establish reliability on random tasks or in a live utility.",
-    "takeaway": "",
-    "caption": "X-GridAgent Table I, Q10. The paper does not give objective units. A failed solve is not a zero-cost answer.",
-    "image": "power_study_xgrid.png",
-    "visual_height_cm": 3.65,
-    "visual_height_px": 350,
-    "excerpt": [],
-    "eyebrow": "",
+    "note": "This official walkthrough makes an agent run visible. Watch the graph, the selected tool and the returned result. The platform can pause a run and inspect its saved state. In a power-system application, the numerical solver would be one of these tools. The model coordinates the request; the solver computes the electrical result; the operator decides what to do. This is the original 2024 Studio interface, not evidence of a utility deployment. Play the official video on click or use the direct watch link. Pause to identify the selected tool, its returned result and the next decision. Ask: Where would you pause this workflow to check a power-flow result? Answer: After the solver returns and before a recommendation is accepted. Check convergence, units and the study inputs.",
     "image2": null,
     "caption2": "",
     "diagram": null,
     "math_tex": "",
     "math_html": "",
+    "excerpt": [],
+    "callout": ""
+  },
+  {
+    "kind": "video",
+    "title": "Siemens PSS E: agentic transmission planning",
+    "eyebrow": "Official grid-platform video / 79 seconds",
+    "minutes": 4,
+    "image": "platform_682ca322-5d0b-47a0-8d18-77bf9d0fb016.png",
+    "video_id": "682ca322-5d0b-47a0-8d18-77bf9d0fb016",
+    "video_url": "https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016",
+    "embed_url": "https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016",
+    "points": [
+      "AI helps prepare and review studies; PSS E supplies the grid simulation.",
+      "Connect to our lab: define the case → run the solver → check → review."
+    ],
+    "refs": [
+      "VID02"
+    ],
+    "caption": "Siemens / Undated video; accessed 26 October 2026",
+    "takeaway": "",
+    "note": "Play the full 79-second product video linked from Siemens’ agentic transmission-planning page. This is a supplier overview of Gridscale X PSS E, rather than a complete recorded engineering study. Connect its planning message to three separate jobs: preparing a study, computing the electrical result and interpreting it. The solver remains essential. In our lab we inspect those steps explicitly. A product video alone does not establish field accuracy or deployment at a named utility. After the video, ask which study inputs and numerical checks a planner would need. The overview does not show a complete tool-call trace. Question: Which part must still be checked by a power engineer? Answer: The study inputs, the solver’s convergence and limits, and whether the result supports the proposed decision.",
+    "image2": null,
+    "caption2": "",
+    "diagram": null,
+    "math_tex": "",
+    "math_html": "",
+    "excerpt": [],
     "callout": ""
   },
   {
@@ -1354,7 +1358,7 @@
     "math_html": "",
     "callout": "",
     "image": "real_paper_gridmind2025_response.png",
-    "visual_height_cm": 3.2,
+    "visual_height_cm": 2.55,
     "visual_height_px": 270,
     "caption2": ""
   },
@@ -1405,6 +1409,7 @@
     "diagram": "power_gridmind_invalidation",
     "excerpt": [],
     "eyebrow": "",
+    "visual_height_cm": 3.6,
     "image": null,
     "image2": null,
     "caption2": "",
@@ -1426,8 +1431,8 @@
     "takeaway": "",
     "caption": "GridMind 2026 Table 1: full reruns in fresh workspaces versus saved-result reuse, on a synthetic 2,000-bus hurricane-risk study.",
     "image": "expanded_power_gridmind.png",
-    "visual_height_cm": 3.9,
-    "visual_height_px": 350,
+    "visual_height_cm": 3.2,
+    "visual_height_px": 300,
     "eyebrow": "",
     "excerpt": [],
     "image2": null,
@@ -1507,8 +1512,8 @@
     "takeaway": "",
     "caption": "PowerAgentBench-Dyn Table II: model-quality task. Other tasks in this benchmark use different models and checks.",
     "image": "expanded_power_dynamic.png",
-    "visual_height_cm": 3.9,
-    "visual_height_px": 350,
+    "visual_height_cm": 3.5,
+    "visual_height_px": 300,
     "eyebrow": "",
     "excerpt": [],
     "image2": null,
@@ -1541,61 +1546,6 @@
     "math_tex": "",
     "math_html": "",
     "callout": ""
-  },
-  {
-    "title": "Grid-Agent tests proposed actions in a simulation copy",
-    "points": [
-      "One agent finds grid violations, a planner proposes actions, and an executor applies them to a simulation copy.",
-      "A checker reruns power flow. It keeps helpful modeled changes and undoes unsuccessful ones."
-    ],
-    "minutes": 2,
-    "refs": [
-      "E03"
-    ],
-    "kind": "figure",
-    "note": "The paper studies voltage violations, thermal-limit violations and disconnected buses. The inspected v3 does not name the numerical solver or workflow SDK. A sandbox is an isolated simulation copy. Restoring that copy does not show that a physical switching action is reversible or authorized. Each action still needs a clear physical meaning, limits and permissions. Yan Zhang, Ahmad Mohammad Saber, Amr Youssef, Deepa Kundur; Grid-Agent: An LLM-Powered Multi-Agent System for Power Grid Control; Figure 1, v3 PDF page 5 The rollback is a simulation operation. The paper does not establish permission to reverse physical switching or a live utility rollout. Source locator: Figure 1, v3 PDF page 5. Original URL: https://arxiv.org/pdf/2508.05702v3",
-    "takeaway": "",
-    "caption": "Original Grid-Agent concept: topology, planning, execution, validation and summary roles.",
-    "excerpt": [],
-    "eyebrow": "",
-    "diagram": null,
-    "image2": null,
-    "math_tex": "",
-    "math_html": "",
-    "callout": "",
-    "image": "real_paper_gridagent_architecture.png",
-    "visual_height_cm": 3.65,
-    "visual_height_px": 305,
-    "layout": "source-focus",
-    "focus_height_cm": 4.6,
-    "focus_height_px": 420,
-    "caption2": ""
-  },
-  {
-    "title": "Grid-Agent results need the number of trials",
-    "points": [
-      "The paper reports 44%–100% scenario-resolution rates across planners, but does not give the exact total trial count.",
-      "It leaves proof of optimality and comparison with a numerical optimizer to future work."
-    ],
-    "minutes": 2,
-    "refs": [
-      "E03"
-    ],
-    "kind": "figure",
-    "note": "The paper names seven scenarios, but does not explain repetition and averaging well enough to reconstruct successes out of seven or confidence intervals. Four planner rows report 100%, Flash-Lite 63% and GPT-4.1-Nano 44%. The prose and table give different CIGRE bus counts, so we do not repeat a precise size. Resolving a violation does not prove that the action is the best possible action. The architecture is useful, but the reporting limits prevent a broad reliability claim. Yan Zhang, Ahmad Mohammad Saber, Amr Youssef, Deepa Kundur; Grid-Agent: An LLM-Powered Multi-Agent System for Power Grid Control; Figure 2 panels (a)–(b), v3 PDF page 7 The exact aggregate trial denominator is not disclosed. The author rates do not prove optimal control or general field reliability. Source locator: Figure 2 panels (a)–(b), v3 PDF page 7. Original URL: https://arxiv.org/pdf/2508.05702v3",
-    "takeaway": "State the allowed actions, limits, test cases and comparison method with a control claim.",
-    "caption": "Original reported scenario-resolution and runtime comparison panels.",
-    "callout": "",
-    "excerpt": [],
-    "eyebrow": "",
-    "diagram": null,
-    "image2": null,
-    "math_tex": "",
-    "math_html": "",
-    "image": "real_paper_gridagent_reported_results.png",
-    "visual_height_cm": 3.65,
-    "visual_height_px": 305,
-    "caption2": ""
   },
   {
     "title": "VeraGrid-Agent uses solver results to answer a question",
@@ -1641,8 +1591,8 @@
     "takeaway": "",
     "caption": "VeraGrid-Agent Table I: selected comparisons using the same model. Missing or badly formatted answers count as incorrect.",
     "image": "power_study_veragrid.png",
-    "visual_height_cm": 3.65,
-    "visual_height_px": 350,
+    "visual_height_cm": 3.2,
+    "visual_height_px": 300,
     "excerpt": [],
     "eyebrow": "",
     "image2": null,
@@ -1799,7 +1749,7 @@
     "takeaway": "",
     "caption": "PowerBench Table 4: selected models and the authors' 95% bootstrap intervals. The two metrics average results differently.",
     "image": "expanded_power_benchmark.png",
-    "visual_height_cm": 3.9,
+    "visual_height_cm": 3.65,
     "visual_height_px": 350,
     "eyebrow": "",
     "excerpt": [],
@@ -1965,13 +1915,12 @@
     ],
     "minutes": 2,
     "refs": [
-      "E01",
       "LG01",
       "T08",
       "T09"
     ],
     "kind": "figure",
-    "note": "MCP, the Model Context Protocol, standardizes how applications connect to tools. It is not a planner or a power-flow model. Tool descriptions should clearly state the job and its inputs. The application still needs to check identity, permissions and whether a call makes engineering sense. MCP servers in X-GridAgent do not establish which orchestration SDK it uses. Source: Model Context Protocol, official documentation revision July 28, 2026. Screenshot captured October 18, 2026. A protocol architecture does not prove numerical correctness or that a utility uses this implementation. Source figure locator: Core concepts: Participants diagram. Original source URL: https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture",
+    "note": "MCP standardizes messages between an application and its tool servers. It does not select the correct study, validate a solver result or authorize an operating action. Those checks belong to the application and operator.",
     "takeaway": "",
     "caption": "Original MCP architecture. Clients connect to servers; the engineering tool performs the calculation.",
     "excerpt": [],

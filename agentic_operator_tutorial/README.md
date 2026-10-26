@@ -8,6 +8,13 @@ Learn how AI agents choose actions, use engineering tools and respond to feedbac
 
 Continue with the [hands-on workshop](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1) and its one required Classroom Labs notebook.
 
+The 78-slide presentation includes two video examples on slides 46–47:
+
+- [LangChain’s Studio walkthrough](https://www.youtube.com/watch?v=pLPJoFvq4_M): inspect tool calls, returned results and saved state.
+- [Siemens Gridscale X PSS E product video](https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016): connect agentic software to transmission planning. This 79-second supplier overview is not a complete engineering validation.
+
+Click the preview to load each video, or open its official link. The PDF includes clickable previews and full source credits. Slide text and editable TikZ diagrams use Latin Modern, the LaTeX font family; original source figures retain their published lettering.
+
 ## Source files
 
 - `slidev/slides.md`: the presentation source.

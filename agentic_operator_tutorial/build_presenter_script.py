@@ -6,6 +6,7 @@ Only script outputs are generated. The presentation and notebook sources are rea
 """
 from pathlib import Path
 import argparse, hashlib, html, json, re, shutil, unicodedata
+import latin_modern
 
 ROOT=Path(__file__).resolve().parent
 SITE='https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/'
@@ -16,9 +17,9 @@ GROUPS=[('concepts',1,8,'1. Agents, tools and workflows'),
         ('operators',18,26,'3. Operator tasks and evidence checks'),
         ('workflow',27,42,'4. Research foundations, LangGraph and PowerDAG'),
         ('simulation',43,53,'5. Simulation feedback and valid reuse'),
-        ('benchmarks',54,67,'6. Power-system benchmarks and failure modes'),
-        ('evaluation',68,77,'7. Statistics, integration and evaluation'),
-        ('handoff',78,80,'8. Prepare for the three-case workshop')]
+        ('benchmarks',54,65,'6. Power-system benchmarks and failure modes'),
+        ('evaluation',66,75,'7. Statistics, integration and evaluation'),
+        ('handoff',76,78,'8. Prepare for the three-case workshop')]
 FIELDS=['say','visual','question','answer','transition']
 GLOSSARY=[
  ('AI agent','A system that observes an environment and chooses actions. A software agent can observe records and act through software interfaces.'),
@@ -76,8 +77,8 @@ def citation(rec):
 
 def prepare():
  slides=load('lesson_content.json');cues=load('content/presenter_script.json')['slides'];sources=load('research/source_map.json')
- if len(slides)!=80 or len(cues)!=80:raise ValueError('Expect eighty slide explanations.')
- if len({c['title'] for c in cues})!=80:raise ValueError('Duplicate script title.')
+ if len(slides)!=78 or len(cues)!=78:raise ValueError('Expect seventy-eight slide explanations.')
+ if len({c['title'] for c in cues})!=78:raise ValueError('Duplicate script title.')
  cue_map={c['title']:c for c in cues}
  if set(cue_map)!={s['title'] for s in slides}:raise ValueError('Slide titles changed: update the authored script.')
  if sum(s['minutes'] for s in slides)!=165:raise ValueError('Expected 165 teaching minutes.')
@@ -96,12 +97,12 @@ def prepare():
   elapsed+=s['minutes']
  return rows,sources
 
-CSS='''body{font:19px/1.65 Arial,sans-serif;max-width:1080px;margin:32px auto;padding:0 24px;color:#003b5c}h1,h2,h3{line-height:1.25;color:#00629b}h1{font-size:39px}h2{font-size:29px;border-top:3px solid #00a6b2;padding-top:24px;margin-top:54px}h3{font-size:26px}a{color:#00629b;overflow-wrap:anywhere}li{margin:8px 0}.slide{padding:12px 0 28px;border-bottom:1px solid #d6e2e9;scroll-margin-top:20px}.meta,.credit{font-size:16px;color:#526470}.cue{border-left:3px solid #00a6b2;padding-left:16px}.question{padding:12px 17px;background:#edf6fa}details{margin:14px 0}summary{cursor:pointer;color:#00629b}figure{margin:18px 0}figure img{display:block;max-width:100%;max-height:500px;width:auto;height:auto;margin:auto}figcaption{font-size:15px;color:#526470}input{font:inherit;padding:10px;width:100%;box-sizing:border-box;border:1px solid #aabfc9;border-radius:5px}label{display:block;margin:20px 0 8px}#search-status{font-size:16px}.sources p{font-size:16px}.glossary dt{font-weight:bold;margin-top:18px}.glossary dd{margin-left:0}.exercise{border-top:4px solid #00a6b2}[hidden]{display:none!important}@media(max-width:550px){body{font-size:18px;padding:0 17px}h1{font-size:30px}h3{font-size:23px}}@media print{body{font-size:11pt;max-width:none;margin:0}.search,nav,.downloads,.slide-links,details.visual{display:none}h2{break-before:page}.slide{break-before:page}a{color:inherit;text-decoration:none}}'''
+CSS='''body{font:19px/1.65 'Latin Modern Roman',serif;max-width:1080px;margin:32px auto;padding:0 24px;color:#003b5c}h1,h2,h3{line-height:1.25;color:#00629b}h1{font-size:39px}h2{font-size:29px;border-top:3px solid #00a6b2;padding-top:24px;margin-top:54px}h3{font-size:26px}a{color:#00629b;overflow-wrap:anywhere}li{margin:8px 0}.slide{padding:12px 0 28px;border-bottom:1px solid #d6e2e9;scroll-margin-top:20px}.meta,.credit{font-size:16px;color:#526470}.cue{border-left:3px solid #00a6b2;padding-left:16px}.question{padding:12px 17px;background:#edf6fa}details{margin:14px 0}summary{cursor:pointer;color:#00629b}figure{margin:18px 0}figure img{display:block;max-width:100%;max-height:500px;width:auto;height:auto;margin:auto}figcaption{font-size:15px;color:#526470}input{font:inherit;padding:10px;width:100%;box-sizing:border-box;border:1px solid #aabfc9;border-radius:5px}label{display:block;margin:20px 0 8px}#search-status{font-size:16px}.sources p{font-size:16px}.glossary dt{font-weight:bold;margin-top:18px}.glossary dd{margin-left:0}.exercise{border-top:4px solid #00a6b2}[hidden]{display:none!important}@media(max-width:550px){body{font-size:18px;padding:0 17px}h1{font-size:30px}h3{font-size:23px}}@media print{body{font-size:11pt;max-width:none;margin:0}.search,nav,.downloads,.slide-links,details.visual{display:none}h2{break-before:page}.slide{break-before:page}a{color:inherit;text-decoration:none}}'''
 
 def render(rows,sources,pdf=False):
  used=load('build_manifest.json')['reading_source_ids']
- if len(used)!=74 or any(k not in sources for k in used):raise ValueError('Expected the deck\'s complete 74-entry reading list.')
- intro='A speaking and teaching companion for all 80 foundations slides. Follow the existing 165-minute route, including the six-minute exercise on slide 26 and the eight-minute exercise on slide 53. Add breaks outside this teaching time.'
+ if any(k not in sources for k in used):raise ValueError('Unregistered reading source.')
+ intro='A speaking and teaching companion for all 78 foundations slides. Follow the existing 165-minute route, including the six-minute exercise on slide 26 and the eight-minute exercise on slide 53. Add breaks outside this teaching time.'
  how='Use Say as the spoken explanation. Walk the image or concept using Show / explain, then use the quick question when it helps the room. Expected answers are presenter cues. The final sentence bridges to the next slide. The timings include explanation, visual walkthrough and brief discussion; the exercise timings include all group work.'
  scope='This script follows the accepted deck and its 18 October 2026 evidence snapshot. It preserves the distinction between company disclosures, supplier reports, product announcements, research results and invented teaching examples. It makes no new experiment or model call.'
  md=['# Foundations presenter script','', '**'+PRESENTERS+'**','',intro,'',how,'',scope,'',f'[Slides]({WEB}#/1) / [Presenter view]({WEB}#/presenter/1) / [Full reading guide]({WEB}Full_Reading_Guide.html)','', '## Prepare to teach','',
@@ -125,7 +126,7 @@ def render(rows,sources,pdf=False):
  # Keep the glossary after the narration online and in print, while linking it early.
  md=md[:-2]+['[Plain-language glossary](#glossary) / [Full references](#references)','']
  web+=['<li><a href="#glossary">Plain-language glossary</a></li><li><a href="#references">Full references</a></li></ul></nav>',
- '<div class="search"><label for="search">Find a slide, term or paper</label><input id="search" type="search" placeholder="For example: slide 39, PowerDAG, confidence" aria-describedby="search-status"><p id="search-status" aria-live="polite">80 slide explanations</p></div>']
+ '<div class="search"><label for="search">Find a slide, term or paper</label><input id="search" type="search" placeholder="For example: slide 39, PowerDAG, confidence" aria-describedby="search-status"><p id="search-status" aria-live="polite">78 slide explanations</p></div>']
  for key,a,b,label in GROUPS:
   md+=['<a id="module-'+key+'"></a>','', '## '+label,''];web.append('<h2 id="module-'+key+'">'+esc(label)+'</h2>')
   for r in rows[a-1:b]:
@@ -149,19 +150,20 @@ def render(rows,sources,pdf=False):
    web.append('<p class="slide-links"><a href="'+WEB+'#/'+str(n)+'">Open slide '+str(n)+'</a> / <a href="'+WEB+'#/presenter/'+str(n)+'">Presenter view</a> / <a href="#module-'+key+'">Section start</a></p></section>')
  md+=['<a id="glossary"></a>','', '## Plain-language glossary',''];web.append('<h2 id="glossary">Plain-language glossary</h2><dl class="glossary">')
  for term,definition in GLOSSARY:md+=['**'+term+':** '+definition,''];web.append('<dt>'+esc(term)+'</dt><dd>'+esc(definition)+'</dd>')
- web.append('</dl><h2 id="references">Full references and source credits</h2><p>The 74 entries below follow the deck\'s source order. Original figure captions and detailed evidence limits remain available on each slide and in the reading guide.</p>')
+ web.append('</dl><h2 id="references">Full references and source credits</h2><p>The source entries below follow the deck\'s source order. Original figure captions and detailed evidence limits remain available on each slide and in the reading guide.</p>')
  md+=['<a id="references"></a>','', '## Full references and source credits','', 'The source list follows the accepted deck. Source figures retain their original attribution; detailed visual provenance and evidence limits are in the full reading guide.','']
  for k in used:
   rec=sources[k];url=source_url(rec['url']);md+=['<a id="source-'+k+'"></a>','', '**['+k+']** '+citation(rec),'', 'Full source: '+url,'']
   web.append('<article class="sources" id="source-'+k+'"><h3>['+k+'] '+esc(rec['title'])+'</h3><p>'+esc(citation(rec))+'</p><p><a href="'+esc(url)+'">'+esc(url)+'</a></p>')
   if rec.get('pdf_url'):md+=['Full paper: '+source_url(rec['pdf_url']),''];web.append('<p>Full paper: <a href="'+esc(source_url(rec['pdf_url']))+'">'+esc(source_url(rec['pdf_url']))+'</a></p>')
   web.append('</article>')
- web.append('''</main><script>const field=document.querySelector('#search');const entries=[...document.querySelectorAll('section.slide')];field.addEventListener('input',()=>{const q=field.value.trim().toLowerCase();let count=0;for(const entry of entries){const match=!q||entry.textContent.toLowerCase().includes(q);entry.hidden=!match;if(match)count++;}document.querySelector('#search-status').textContent=count+' of 80 slide explanations';});</script></body></html>''')
+ web.append('''</main><script>const field=document.querySelector('#search');const entries=[...document.querySelectorAll('section.slide')];field.addEventListener('input',()=>{const q=field.value.trim().toLowerCase();let count=0;for(const entry of entries){const match=!q||entry.textContent.toLowerCase().includes(q);entry.hidden=!match;if(match)count++;}document.querySelector('#search-status').textContent=count+' of 78 slide explanations';});</script></body></html>''')
  (ROOT/'Presenter_Script.md').write_text('\n'.join(md).rstrip()+'\n',encoding='utf-8')
- (ROOT/'Presenter_Script.html').write_text('\n'.join(web)+'\n',encoding='utf-8')
+ latin_modern.copy_web_fonts(ROOT/'slidev/public/fonts')
+ (ROOT/'Presenter_Script.html').write_text(latin_modern.style_html('\n'.join(web)+'\n'),encoding='utf-8')
  if pdf:write_pdf(rows,sources,used,intro,how,scope)
  for name in ['Presenter_Script.md','Presenter_Script.html']+(['Presenter_Script.pdf'] if pdf else []):shutil.copy2(ROOT/name,ROOT/'slidev/public'/name)
- manifest=dict(slides=80,minutes=165,exercises=[26,53],source_count=len(used),lesson_sha256=sha('lesson_content.json'),slidev_sha256=sha('slidev/slides.md'),cue_sha256=sha('content/presenter_script.json'),renderer_sha256=sha('build_presenter_script.py'),spoken_words=sum(len(r['say'].split()) for r in rows),entries=[{k:r[k] for k in ['number','title','minutes','start','end']} for r in rows])
+ manifest=dict(slides=78,minutes=165,exercises=[26,53],source_count=len(used),lesson_sha256=sha('lesson_content.json'),slidev_sha256=sha('slidev/slides.md'),cue_sha256=sha('content/presenter_script.json'),renderer_sha256=sha('build_presenter_script.py'),spoken_words=sum(len(r['say'].split()) for r in rows),entries=[{k:r[k] for k in ['number','title','minutes','start','end']} for r in rows])
  if pdf:manifest['pdf_sha256']=sha('Presenter_Script.pdf')
  dest=ROOT/'research/presenter';dest.mkdir(parents=True,exist_ok=True);(dest/'presenter_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
  public=ROOT/'slidev/public/research/presenter';public.mkdir(parents=True,exist_ok=True);shutil.copy2(dest/'presenter_manifest.json',public/'presenter_manifest.json')
@@ -171,23 +173,24 @@ def write_pdf(rows,sources,used,intro,how,scope):
  from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,PageBreak,KeepTogether
  from reportlab.lib.styles import ParagraphStyle
  from reportlab.lib.colors import HexColor
+ latin_modern.register_reportlab()
  BLUE=HexColor('#00629b');INK=HexColor('#003b5c');SLATE=HexColor('#526470')
  styles={
-  'title':ParagraphStyle('Title',fontName='Helvetica-Bold',fontSize=29,leading=33,textColor=BLUE,spaceAfter=18),
-  'heading':ParagraphStyle('Heading',fontName='Helvetica-Bold',fontSize=20,leading=24,textColor=BLUE,spaceAfter=16),
-  'slide':ParagraphStyle('Slide',fontName='Helvetica-Bold',fontSize=19,leading=23,textColor=BLUE,spaceAfter=9),
-  'label':ParagraphStyle('Label',fontName='Helvetica-Bold',fontSize=10,leading=13,textColor=BLUE,spaceBefore=7,spaceAfter=3),
-  'body':ParagraphStyle('Body',fontName='Helvetica',fontSize=12,leading=16.4,textColor=INK,spaceAfter=7),
-  'small':ParagraphStyle('Small',fontName='Helvetica',fontSize=9,leading=12,textColor=SLATE,spaceAfter=7)}
+  'title':ParagraphStyle('Title',fontName='LMRomanBold',fontSize=29,leading=33,textColor=BLUE,spaceAfter=18),
+  'heading':ParagraphStyle('Heading',fontName='LMRomanBold',fontSize=20,leading=24,textColor=BLUE,spaceAfter=16),
+  'slide':ParagraphStyle('Slide',fontName='LMRomanBold',fontSize=19,leading=23,textColor=BLUE,spaceAfter=9),
+  'label':ParagraphStyle('Label',fontName='LMRomanBold',fontSize=10,leading=13,textColor=BLUE,spaceBefore=7,spaceAfter=3),
+  'body':ParagraphStyle('Body',fontName='LMRoman',fontSize=12,leading=16.4,textColor=INK,spaceAfter=7),
+  'small':ParagraphStyle('Small',fontName='LMRoman',fontSize=9,leading=12,textColor=SLATE,spaceAfter=7)}
  def p(t,style='body'):return Paragraph(esc(plain(t)),styles[style])
  def link(url,label):return Paragraph('<link href="'+esc(url)+'" color="#00629b">'+esc(plain(label))+'</link>',styles['small'])
- story=[p('Foundations presenter script','title'),p(PRESENTERS),p('80 slides / 165 teaching minutes / two worked exercises'),p(intro),p(how),p(scope),Spacer(1,14),p('Before presenting','heading')]
+ story=[p('Foundations presenter script','title'),p(PRESENTERS),p('78 slides / 165 teaching minutes / two worked exercises'),p(intro),p(how),p(scope),Spacer(1,14),p('Before presenting','heading')]
  for text in ['Open the presentation and script in separate windows. Test presenter view and source links.',
               'Ask learners to keep one real work task in mind. Revisit it in the closing discussion.',
               'Name the task, denominator and scoring rule for every research number. Different tasks do not form a model ranking.',
               'Keep exercise answers private until the debrief. Foundations needs no notebook or model account.']:
   story.append(p(text))
- story.extend([link(WEB+'#/1','Open the foundations slides'),link(WEB+'#/presenter/1','Open presenter view'),link(WEB+'Presenter_Script.html','Search the online script and open original visuals')])
+ story.extend([link(WEB+'#/1','Open the foundations slides'),link(WEB+'#/presenter/1','Open presenter view'),link('https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_operator_tutorial/Presenter_Script.html','Presenter script source in the repository')])
  story.extend([PageBreak(),p('Teaching route','heading')])
  for key,a,b,label in GROUPS:
   story.append(p(f'{label}: slides {a}-{b}, {rows[a-1]["start"]}-{rows[b-1]["end"]}.'))
@@ -214,7 +217,7 @@ def write_pdf(rows,sources,used,intro,how,scope):
   if rec.get('pdf_url'):block.append(link(source_url(rec['pdf_url']),'Full paper: '+source_url(rec['pdf_url'])))
   block.append(Spacer(1,9));story.append(KeepTogether(block))
  def footer(c,doc):
-  c.saveState();c.setStrokeColor(HexColor('#00a6b2'));c.line(46,754,566,754);c.setFillColor(SLATE);c.setFont('Helvetica',8)
+  c.saveState();c.setStrokeColor(HexColor('#00a6b2'));c.line(46,754,566,754);c.setFillColor(SLATE);c.setFont('LMRoman',8)
   c.drawString(46,765,'Foundations / presenter script / IEEE ComSoc theme');c.drawString(46,29,'Alaa Selim (MIT/Dartmouth); Mohamed Chehada (UT Austin)');c.drawRightString(566,29,str(doc.page));c.restoreState()
  class ScriptDoc(SimpleDocTemplate):
   def afterFlowable(self,flowable):
@@ -229,16 +232,16 @@ def check(rows):
   if manifest[key]!=sha(path):raise ValueError('Regenerate the presenter script after changing '+path)
  if manifest.get('pdf_sha256')!=sha('Presenter_Script.pdf'):raise ValueError('Presenter PDF differs from its generated receipt.')
  md=(ROOT/'Presenter_Script.md').read_text(encoding='utf-8');web=(ROOT/'Presenter_Script.html').read_text(encoding='utf-8')
- if len(re.findall(r'^### Slide \d+\.',md,re.M))!=80 or web.count('<section class="slide')!=80:raise ValueError('Script coverage mismatch.')
+ if len(re.findall(r'^### Slide \d+\.',md,re.M))!=78 or web.count('<section class="slide')!=78:raise ValueError('Script coverage mismatch.')
  for name in ['Presenter_Script.pdf','Presenter_Script.html','Presenter_Script.md']:
   if (ROOT/name).read_bytes()!=(ROOT/'slidev/public'/name).read_bytes():raise ValueError('Public copy differs: '+name)
  from pypdf import PdfReader
  reader=PdfReader(ROOT/'Presenter_Script.pdf')
- if len(reader.pages)<82:raise ValueError('Missing printed teaching pages.')
+ if len(reader.pages)<80:raise ValueError('Missing printed teaching pages.')
  for i,r in enumerate(rows):
   text=reader.pages[i+2].extract_text()
   if f'Slide {i+1}.' not in text or not all(x in text for x in ['Show / explain','Expected answer','Transition']):raise ValueError('Printed slide page missing or overflowed: '+str(i+1))
- print(json.dumps(dict(slides=80,minutes=165,spoken_words=manifest['spoken_words'],sources=manifest['source_count'],pdf_pages=len(reader.pages),one_page_per_slide=True,exercises=[26,53],validated=True)))
+ print(json.dumps(dict(slides=78,minutes=165,spoken_words=manifest['spoken_words'],sources=manifest['source_count'],pdf_pages=len(reader.pages),one_page_per_slide=True,exercises=[26,53],validated=True)))
 
 def main():
  parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--pdf',action='store_true');parser.add_argument('--check',action='store_true');args=parser.parse_args()

@@ -13,7 +13,7 @@ const out=path.join(root,'_site');
 fs.mkdirSync(out,{recursive:true});
 const repo='https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials';
 const decks=[
-  {slug:'foundations',folder:'agentic_operator_tutorial',slides:80,pdf:'latex/main.pdf'},
+  {slug:'foundations',folder:'agentic_operator_tutorial',pdf:'latex/main.pdf'},
   {slug:'operator-cases',folder:'agentic_operator_cases_tutorial',pdf:'Three_Operator_Cases.pdf'},
 ];
 const walk=dir=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);

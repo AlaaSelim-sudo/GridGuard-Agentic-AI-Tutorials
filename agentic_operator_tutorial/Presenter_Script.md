@@ -2,7 +2,7 @@
 
 **Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.**
 
-A speaking and teaching companion for all 80 foundations slides. Follow the existing 165-minute route, including the six-minute exercise on slide 26 and the eight-minute exercise on slide 53. Add breaks outside this teaching time.
+A speaking and teaching companion for all 78 foundations slides. Follow the existing 165-minute route, including the six-minute exercise on slide 26 and the eight-minute exercise on slide 53. Add breaks outside this teaching time.
 
 Use Say as the spoken explanation. Walk the image or concept using Show / explain, then use the quick question when it helps the room. Expected answers are presenter cues. The final sentence bridges to the next slide. The timings include explanation, visual walkthrough and brief discussion; the exercise timings include all group work.
 
@@ -24,10 +24,10 @@ This script follows the accepted deck and its 18 October 2026 evidence snapshot.
 - [2. What power-sector organizations report: slides 9-17, 00:11:00-00:28:30](#module-industry)
 - [3. Operator tasks and evidence checks: slides 18-26, 00:28:30-00:48:00](#module-operators)
 - [4. Research foundations, LangGraph and PowerDAG: slides 27-42, 00:48:00-01:19:30](#module-workflow)
-- [5. Simulation feedback and valid reuse: slides 43-53, 01:19:30-01:49:00](#module-simulation)
-- [6. Power-system benchmarks and failure modes: slides 54-67, 01:49:00-02:19:30](#module-benchmarks)
-- [7. Statistics, integration and evaluation: slides 68-77, 02:19:30-02:40:00](#module-evaluation)
-- [8. Prepare for the three-case workshop: slides 78-80, 02:40:00-02:45:00](#module-handoff)
+- [5. Simulation feedback and valid reuse: slides 43-53, 01:19:30-01:53:00](#module-simulation)
+- [6. Power-system benchmarks and failure modes: slides 54-65, 01:53:00-02:19:30](#module-benchmarks)
+- [7. Statistics, integration and evaluation: slides 66-75, 02:19:30-02:40:00](#module-evaluation)
+- [8. Prepare for the three-case workshop: slides 76-78, 02:40:00-02:45:00](#module-handoff)
 
 Exercises: slide 26, six minutes; slide 53, eight minutes.
 
@@ -43,7 +43,7 @@ Exercises: slide 26, six minutes; slide 53, eight minutes.
 
 **Say:** Welcome. I am Alaa Selim, from MIT/Dartmouth, presenting with Mohamed Chehada from UT Austin. Our question is how an AI agent can help a power engineer or operator complete a useful, checkable task. We will define the basic ideas, examine industry reports, work through power-system research and learn how to judge the evidence. Two short exercises will let you make the checks yourself. The separate hands-on tutorial then applies these ideas to voltage support, restoration and cyber response.
 
-**Show / explain:** Introduce the presenters and the 165-minute route. Ask learners to keep one task from their own work in mind throughout the session.
+**Show / explain:** Introduce the presenters and the session route. Ask learners to keep one task from their own work in mind throughout the session.
 
 **Ask:** Which task would you like an assistant to help you complete?
 
@@ -723,7 +723,7 @@ Sources: [LG02](#source-LG02), [LG03](#source-LG03), [LG05](#source-LG05). Full 
 
 **Transition:** PowerDAG addresses a related problem: calling a tool before its prerequisites exist.
 
-Sources: [E01](#source-E01), [R01](#source-R01), [LG01](#source-LG01), [DEF03](#source-DEF03). Full author, title, date and URLs appear in the reference section.
+Sources: [R01](#source-R01), [LG01](#source-LG01), [DEF03](#source-DEF03). Full author, title, date and URLs appear in the reference section.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/38) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/38)
 
@@ -851,51 +851,51 @@ Sources: [E02](#source-E02). Full author, title, date and URLs appear in the ref
 
 **Expected answer:** The cache key ignored a result-changing input. The adapter and cache needed correction, not another verbal retry.
 
-**Transition:** Tool services also need clear responsibilities when a request spans several analyses.
+**Transition:** Let us make these loops visible in two official platform demonstrations.
 
 Sources: [R02](#source-R02), [DEF03](#source-DEF03). Full author, title, date and URLs appear in the reference section.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/45) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/45)
 
-### Slide 46. X-GridAgent divides a request into jobs and tool calls
+### Slide 46. LangGraph Studio: watch an agent use tools
 
-01:26:00-01:28:00 / 2 minutes
+01:26:00-01:30:00 / 4 minutes
 
-**Say:** X-GridAgent uses a planner to divide a request and a coordinator to send work to specialized services. Eight MCP services cover retrieval, power flow, optimal power flow, contingencies, short circuits, topology, editing and plotting. Pandapower performs the numerical grid analysis. MCP defines the tool connection, while planning and coordination determine which calls are made. These are separate responsibilities. The paper does not name LangGraph or another open workflow SDK, so the architecture should not be labeled with one by inference. As with our earlier cases, the report must show the cases actually studied and the solver evidence behind its conclusions.
+**Say:** This official walkthrough makes an agent run visible. Watch the graph, the selected tool and the returned result. The platform can pause a run and inspect its saved state. In a power-system application, the numerical solver would be one of these tools. The model coordinates the request; the solver computes the electrical result; the operator decides what to do. This is the original 2024 Studio interface, not evidence of a utility deployment.
 
-**Show / explain:** Follow a request through the planner and coordinator to a numerical service, then back to the answer. Explain MCP as a connection mechanism and pandapower as the numerical library.
+**Show / explain:** Click Play official demo. Follow one visible request through the agent graph. Pause when a tool result or delegation event is shown. Use the direct watch link if presenting in a separate tab. Ask learners to name the tool, result and next decision; do not treat the demo as grid validation.
 
-**Ask:** Does using MCP tell us which planning or orchestration library the system uses?
+**Ask:** Where would you pause this workflow to check a power-flow result?
 
-**Expected answer:** No. The interface protocol and workflow implementation are separate choices.
+**Expected answer:** After the solver returns and before a recommendation is accepted. Check convergence, units and the study inputs.
 
-**Transition:** Now inspect one numerical example from the paper.
+**Transition:** Now compare how work and evidence move through the next example.
 
-Sources: [E01](#source-E01). Full author, title, date and URLs appear in the reference section.
+Sources: [VID01](#source-VID01). Full author, title, date and URLs appear in the reference section.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/46) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/46)
 
-### Slide 47. X-GridAgent results: report when a solver does not converge
+### Slide 47. Siemens PSS E: agentic transmission planning
 
-01:28:00-01:30:00 / 2 minutes
+01:30:00-01:34:00 / 4 minutes
 
-**Say:** In the 39-bus AC optimal-power-flow example, the reported objective is 41,872.3 for the base case and 42,115.34 with line 11 out of service. The difference is 243.04 in the table's unspecified objective units. We should not invent a currency or time unit. When all loads are doubled, the AC OPF does not converge, so the chart shows no objective value. Nonconvergence means that solve did not obtain an acceptable solution under its settings. It is not a proof that no feasible solution exists. The paper also reports success on selected repeated queries with conventional reference solutions. Those selected tests should remain distinct from a broad claim about arbitrary utility work.
+**Say:** Play the full 79-second product video linked from Siemens’ agentic transmission-planning page. This is a supplier overview of Gridscale X PSS E, rather than a complete recorded engineering study. Connect its planning message to three separate jobs: preparing a study, computing the electrical result and interpreting it. The solver remains essential. In our lab we inspect those steps explicitly. A product video alone does not establish field accuracy or deployment at a named utility.
 
-**Show / explain:** Compare the two solved-case markers and their stated values. Then point to the separate nonconverged case, rather than drawing a zero-valued bar for it.
+**Show / explain:** Play the full 79-second Siemens product video. Then connect its planning message to study preparation, the PSS E solver and engineering review. Ask learners which inputs and numerical checks are needed. The overview does not display a complete tool-call trace.
 
-**Ask:** Should a failed solve be shown as a zero-cost result?
+**Ask:** Which part must still be checked by a power engineer?
 
-**Expected answer:** No. It needs an explicit nonconverged status and an explanation of what remains unknown.
+**Expected answer:** The study inputs, the solver’s convergence and limits, and whether the result supports the proposed decision.
 
-**Transition:** A second analysis framework shows why successful execution and complete coverage differ.
+**Transition:** Return to power-system studies: keep the same question about who supplies and checks each result.
 
-Sources: [E01](#source-E01). Full author, title, date and URLs appear in the reference section.
+Sources: [VID02](#source-VID02). Full author, title, date and URLs appear in the reference section.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/47) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/47)
 
 ### Slide 48. GridMind 2025 connects typed agents to solvers
 
-01:30:00-01:32:00 / 2 minutes
+01:34:00-01:36:00 / 2 minutes
 
 **Say:** The 2025 GridMind study uses PydanticAI to structure agents and pandapower for AC OPF and outage studies. It tests 14-, 30-, 118- and 300-bus systems. On case 118, the paper reports 100 percent ACOPF success across six models, with timing distributions based on five repeats. Structured types help make inputs and outputs machine-readable, but they do not establish that every required outage was studied or interpreted correctly. Keep that task boundary attached to the result. Also keep this 2025 system separate from the 2026 weather-risk GridMind workflow that we discuss next. They share a name while using different architectures and addressing different tasks.
 
@@ -913,7 +913,7 @@ Sources: [P04](#source-P04). Full author, title, date and URLs appear in the ref
 
 ### Slide 49. GridMind: reported answers need independent checks
 
-01:32:00-01:34:00 / 2 minutes
+01:36:00-01:38:00 / 2 minutes
 
 **Say:** For case 118, one model reports 165 percent maximum overload and five report 137 percent. The models also identify different critical lines. These are different model setups, not six repeats that estimate one model's error probability. The table provides no complete independent outage reference that would tell us which answer covers the full required scope. A majority answer may be shared, incomplete or based on different selections. The response screenshot itself is an example of agent output, rather than ground truth. To resolve the discrepancy, obtain the same case definitions and run or inspect an independent reference study. Count agreement only after establishing what the answers were supposed to cover.
 
@@ -931,7 +931,7 @@ Sources: [P04](#source-P04). Full author, title, date and URLs appear in the ref
 
 ### Slide 50. GridMind 2026 reuses results when their inputs still match
 
-01:34:00-01:36:30 / 2.5 minutes
+01:38:00-01:40:30 / 2.5 minutes
 
 **Say:** The 2026 GridMind workflow coordinates five stages using LangGraph: weather, outages, ACOPF, screening and cascade analysis. Weather comes from AERIS. Base OPF uses LUMINA or pandapower. A LUMINA surrogate provides faster screening, and EPFast uses a reduced-order DC model for cascade simulation. Input fingerprints identify when a saved result can be reused. A fingerprint is a hash of declared inputs. It can show whether those inputs match an earlier run, but it cannot detect an important input that was never included. Dependencies must reflect the actual implementation. Here the contingency stage reads outage schedules directly, so a change in the ACOPF solver does not automatically invalidate every stage that appears later in a list.
 
@@ -949,7 +949,7 @@ Sources: [P03](#source-P03), [P03A](#source-P03A). Full author, title, date and 
 
 ### Slide 51. GridMind: which changes need a new run?
 
-01:36:30-01:38:30 / 2 minutes
+01:40:30-01:42:30 / 2 minutes
 
 **Say:** If only the cascade parameter k changes, this implementation reruns cascade and reuses the unaffected results. If the forecast initialization shifts by six hours, all five stages rerun. A change of ACOPF solver reruns ACOPF only in this particular implementation because its other stages do not all consume that output. These examples show why a workflow's dependency structure matters more than a simple left-to-right sequence. Returning to exactly matching inputs can permit reuse of an earlier result. That reuse still depends on the key recording every relevant input. Another workflow may have different dependencies, so these rules should travel with the implementation rather than become universal weather-study rules.
 
@@ -967,7 +967,7 @@ Sources: [P03](#source-P03). Full author, title, date and URLs appear in the ref
 
 ### Slide 52. GridMind results: fewer stages and less time are different
 
-01:38:30-01:41:00 / 2.5 minutes
+01:42:30-01:45:00 / 2.5 minutes
 
 **Say:** For the same seven-query session, the paper reports a 60 percent reduction in stage runs and about a 52.7 percent reduction in total run time. Those quantities differ because stages have different costs. Avoid calling a 60 percent reduction in stage count a 60 percent time saving. The gain comes from workflow design and appropriate reuse, rather than simply from a faster language model. The study reports one seven-query session and gives no repeated-session interval for the time reduction. It also uses surrogate and reduced-order models. We can learn a useful design principle while retaining those evaluation limits and the need for engineering validation.
 
@@ -985,7 +985,7 @@ Sources: [P03](#source-P03). Full author, title, date and URLs appear in the ref
 
 ### Slide 53. Exercise 2: check whether saved weather-risk results still apply
 
-01:41:00-01:49:00 / 8 minutes
+01:45:00-01:53:00 / 8 minutes
 
 **Say:** Start from a saved run with forecast F0, topology v43 and cascade parameter k equal to 50. First, change only k to 200 and decide which stages need new results. Next, shift the forecast initialization by six hours. Use the dependencies we just discussed, rather than assuming every implementation behaves the same way. Finally, imagine a required simulation fails. Decide what the operator should receive and which conclusion remains unsupported. Work from the specific cited workflow. F0 and v43 are invented classroom labels. The goal is to identify the valid evidence set and communicate any gap clearly.
 
@@ -1007,7 +1007,7 @@ Sources: [P03](#source-P03), [LG02](#source-LG02). Full author, title, date and 
 
 ### Slide 54. PowerAgentBench-Dyn allows only specific model changes
 
-01:49:00-01:51:30 / 2.5 minutes
+01:53:00-01:55:30 / 2.5 minutes
 
 **Say:** PowerAgentBench-Dyn is a Harvard-led benchmark, separate from the broader PowerAgent roadmap. In its model-quality task, an agent receives a modified solar-PV dynamic model that fails eight quality tests. DMView and PSS/E provide feedback. The agent may change only four REECAU1 controller gains, with all other fields locked and at most five parameter updates. A gain changes a controller's response within the simulation model. The benchmark asks whether a tool-using agent can repair that specified model under clear constraints. It does not authorize changing a utility's live controller. The public harness also needs licensed PSS/E and external DMView software, which matters for audience expectations about reproduction.
 
@@ -1025,7 +1025,7 @@ Sources: [P01](#source-P01), [P01C](#source-P01C). Full author, title, date and 
 
 ### Slide 55. PowerAgentBench-Dyn results: passed sessions and updates
 
-01:51:30-01:54:00 / 2.5 minutes
+01:55:30-01:58:00 / 2.5 minutes
 
 **Say:** Each session passes only when all eight quality tests pass within five allowed updates. On the one modified solar-PV model, the paper reports 10 successful sessions out of 10 for Opus 4.8, 10 out of 10 for Sonnet 4.6 and nine out of 10 for Haiku 4.5. Median updates are one, one and two. The left-hand counts describe complete compliant sessions, while the right-hand values describe update effort. They are different measures. Testing one modified model limits generalization, and the study gives no matched human or fixed-search baseline. These results therefore do not establish a comparative speedup or fleet-wide model-repair reliability.
 
@@ -1043,7 +1043,7 @@ Sources: [P01](#source-P01). Full author, title, date and URLs appear in the ref
 
 ### Slide 56. PowerAgentBench-Dyn also checks grid response to faults
 
-01:54:00-01:56:30 / 2.5 minutes
+01:58:00-02:00:30 / 2.5 minutes
 
 **Say:** The dynamic-security task uses PowerMCP and PowerFactory to study ten candidate faults and identify three critical cases. Full-workflow success also requires correct findings and staying within the allowed synchronous-condenser mitigation options. Across six models, reported passes range from zero out of ten to ten out of ten. Opus 4.7 and Sonnet 4.6 each pass nine, Haiku 4.5 passes seven, Gemini 3.1 Pro and GPT-5.5 each pass ten, and Qwen 2.5-Coder-7B passes zero. This task uses Opus 4.7, which differs from the model-quality task's Opus 4.8. A run can fail at tool execution before reaching an engineering finding. Keep those failure stages separate.
 
@@ -1053,49 +1053,13 @@ Sources: [P01](#source-P01). Full author, title, date and URLs appear in the ref
 
 **Expected answer:** No. The tasks, model versions and pass criteria differ.
 
-**Transition:** Another architecture tests proposed grid actions in a simulation copy.
+**Transition:** Now compare a different tool-based power-system assistant, VeraGrid-Agent.
 
 Sources: [P01](#source-P01). Full author, title, date and URLs appear in the reference section.
 
 [Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/56) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/56)
 
-### Slide 57. Grid-Agent tests proposed actions in a simulation copy
-
-01:56:30-01:58:30 / 2 minutes
-
-**Say:** Grid-Agent separates finding violations, planning changes, applying them to a simulation copy and checking the result. The checker reruns power flow, retains helpful modeled changes and undoes unsuccessful ones. The paper studies voltage and thermal violations as well as disconnected buses. This structure makes feedback concrete: an action proposal is tested before the next proposal is chosen. However, restoring a simulation state is a software operation. A physical switching action may have different consequences and permissions. The inspected paper version does not identify the numerical solver or workflow SDK. Teach the architecture that the paper reports and keep implementation details and physical authority separate.
-
-**Show / explain:** Follow detector, planner, executor and checker in the source architecture. Point out the simulation-copy boundary when describing rollback.
-
-**Ask:** Why does simulation rollback not establish reversible physical switching?
-
-**Expected answer:** The model copy can be restored without reproducing the physical effects, timing, risks or authorization requirements of equipment operations.
-
-**Transition:** The reported rates also need a recoverable trial denominator.
-
-Sources: [E03](#source-E03). Full author, title, date and URLs appear in the reference section.
-
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/57) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/57)
-
-### Slide 58. Grid-Agent results need the number of trials
-
-01:58:30-02:00:30 / 2 minutes
-
-**Say:** The paper reports scenario-resolution rates from 44 to 100 percent across planners. Four rows report 100 percent, Flash-Lite reports 63 percent and GPT-4.1-Nano reports 44 percent. Although seven scenarios are named, the account does not give enough information about repetition and averaging to reconstruct a precise total trial count. We therefore cannot turn those percentages into successes out of seven or calculate defensible confidence intervals. Resolving a modeled violation also differs from proving an action is optimal. The paper leaves comparison with a numerical optimizer to future work. The architecture is informative, while the reporting boundary limits what we can conclude about reliability.
-
-**Show / explain:** Show the original result panels. Read them as author-reported aggregate rates and identify the missing denominator before interpreting differences.
-
-**Ask:** Can we infer seven successes from a 100 percent row because seven scenarios are named?
-
-**Expected answer:** No. The repetition and aggregation rules are insufficiently specified.
-
-**Transition:** A solver-assisted question-answering benchmark gives explicit answer counts.
-
-Sources: [E03](#source-E03). Full author, title, date and URLs appear in the reference section.
-
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/58) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/58)
-
-### Slide 59. VeraGrid-Agent uses solver results to answer a question
+### Slide 57. VeraGrid-Agent uses solver results to answer a question
 
 02:00:30-02:02:30 / 2 minutes
 
@@ -1111,9 +1075,9 @@ Sources: [E03](#source-E03). Full author, title, date and URLs appear in the ref
 
 Sources: [E04](#source-E04), [E04C](#source-E04C). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/59) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/59)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/57) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/57)
 
-### Slide 60. VeraGrid-Agent results: the same models with and without tools
+### Slide 58. VeraGrid-Agent results: the same models with and without tools
 
 02:02:30-02:04:30 / 2 minutes
 
@@ -1129,9 +1093,9 @@ Sources: [E04](#source-E04), [E04C](#source-E04C). Full author, title, date and 
 
 Sources: [E04](#source-E04). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/60) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/60)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/58) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/58)
 
-### Slide 61. AgentiGrid: what does one reported run mean?
+### Slide 59. AgentiGrid: what does one reported run mean?
 
 02:04:30-02:06:30 / 2 minutes
 
@@ -1147,9 +1111,9 @@ Sources: [E04](#source-E04). Full author, title, date and URLs appear in the ref
 
 Sources: [R01](#source-R01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/61) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/61)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/59) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/59)
 
-### Slide 62. A lower cost can come from solving the wrong task
+### Slide 60. A lower cost can come from solving the wrong task
 
 02:06:30-02:08:30 / 2 minutes
 
@@ -1165,9 +1129,9 @@ Sources: [R01](#source-R01). Full author, title, date and URLs appear in the ref
 
 Sources: [R01](#source-R01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/62) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/62)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/60) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/60)
 
-### Slide 63. Successful tool calls can still miss a critical outage
+### Slide 61. Successful tool calls can still miss a critical outage
 
 02:08:30-02:11:00 / 2.5 minutes
 
@@ -1183,9 +1147,9 @@ Sources: [R01](#source-R01). Full author, title, date and URLs appear in the ref
 
 Sources: [R01](#source-R01). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/63) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/63)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/61) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/61)
 
-### Slide 64. Show both trial counts and uncertainty
+### Slide 62. Show both trial counts and uncertainty
 
 02:11:00-02:13:30 / 2.5 minutes
 
@@ -1201,9 +1165,9 @@ Sources: [R01](#source-R01). Full author, title, date and URLs appear in the ref
 
 Sources: [R02](#source-R02), [R03](#source-R03). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/64) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/64)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/62) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/62)
 
-### Slide 65. PowerBench finds answers across linked records
+### Slide 63. PowerBench finds answers across linked records
 
 02:13:30-02:15:30 / 2 minutes
 
@@ -1219,9 +1183,9 @@ Sources: [R02](#source-R02), [R03](#source-R03). Full author, title, date and UR
 
 Sources: [P02](#source-P02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/65) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/65)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/63) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/63)
 
-### Slide 66. PowerBench results: complete answers and partial credit
+### Slide 64. PowerBench results: complete answers and partial credit
 
 02:15:30-02:17:30 / 2 minutes
 
@@ -1237,9 +1201,9 @@ Sources: [P02](#source-P02). Full author, title, date and URLs appear in the ref
 
 Sources: [P02](#source-P02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/66) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/66)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/64) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/64)
 
-### Slide 67. A strong average can hide a weak task group
+### Slide 65. A strong average can hide a weak task group
 
 02:17:30-02:19:30 / 2 minutes
 
@@ -1255,13 +1219,13 @@ Sources: [P02](#source-P02). Full author, title, date and URLs appear in the ref
 
 Sources: [P02](#source-P02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/67) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/67)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/65) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/65)
 
 <a id="module-evaluation"></a>
 
 ## 7. Statistics, integration and evaluation
 
-### Slide 68. What do ten successful trials tell us?
+### Slide 66. What do ten successful trials tell us?
 
 02:19:30-02:21:30 / 2 minutes
 
@@ -1277,9 +1241,9 @@ Sources: [P02](#source-P02). Full author, title, date and URLs appear in the ref
 
 Sources: [R03](#source-R03). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/68) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/68)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/66) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/66)
 
-### Slide 69. More required steps can lower overall reliability
+### Slide 67. More required steps can lower overall reliability
 
 02:21:30-02:23:30 / 2 minutes
 
@@ -1293,9 +1257,9 @@ Sources: [R03](#source-R03). Full author, title, date and URLs appear in the ref
 
 **Transition:** What we count in the final evaluation matters just as much.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/69) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/69)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/67) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/67)
 
-### Slide 70. The answer changes when we change what we count
+### Slide 68. The answer changes when we change what we count
 
 02:23:30-02:26:00 / 2.5 minutes
 
@@ -1309,9 +1273,9 @@ Sources: [R03](#source-R03). Full author, title, date and URLs appear in the ref
 
 **Transition:** Even seeing no failures needs a careful interpretation.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/70) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/70)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/68) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/68)
 
-### Slide 71. Zero test failures do not prove perfect performance
+### Slide 69. Zero test failures do not prove perfect performance
 
 02:26:00-02:28:30 / 2.5 minutes
 
@@ -1327,9 +1291,9 @@ Sources: [R03](#source-R03). Full author, title, date and URLs appear in the ref
 
 Sources: [R04](#source-R04). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/71) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/71)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/69) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/69)
 
-### Slide 72. Choose tests that can reveal failures
+### Slide 70. Choose tests that can reveal failures
 
 02:28:30-02:30:30 / 2 minutes
 
@@ -1345,9 +1309,9 @@ Sources: [R04](#source-R04). Full author, title, date and URLs appear in the ref
 
 Sources: [P01](#source-P01), [P02](#source-P02), [R02](#source-R02), [E04](#source-E04). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/72) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/72)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/70) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/70)
 
-### Slide 73. MCP connects a workflow to its tools
+### Slide 71. MCP connects a workflow to its tools
 
 02:30:30-02:32:30 / 2 minutes
 
@@ -1361,11 +1325,11 @@ Sources: [P01](#source-P01), [P02](#source-P02), [R02](#source-R02), [E04](#sour
 
 **Transition:** Documents arriving through those services must also stay within their authority.
 
-Sources: [E01](#source-E01), [LG01](#source-LG01), [T08](#source-T08), [T09](#source-T09). Full author, title, date and URLs appear in the reference section.
+Sources: [LG01](#source-LG01), [T08](#source-T08), [T09](#source-T09). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/73) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/73)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/71) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/71)
 
-### Slide 74. A retrieved document cannot give itself permission
+### Slide 72. A retrieved document cannot give itself permission
 
 02:32:30-02:34:30 / 2 minutes
 
@@ -1381,9 +1345,9 @@ Sources: [E01](#source-E01), [LG01](#source-LG01), [T08](#source-T08), [T09](#so
 
 Sources: [T09](#source-T09). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/74) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/74)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/72) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/72)
 
-### Slide 75. Measure the whole job, including human review
+### Slide 73. Measure the whole job, including human review
 
 02:34:30-02:36:30 / 2 minutes
 
@@ -1399,9 +1363,9 @@ Sources: [T09](#source-T09). Full author, title, date and URLs appear in the ref
 
 Sources: [Q01](#source-Q01), [U01](#source-U01), [U04](#source-U04), [O05](#source-O05). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/75) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/75)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/73) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/73)
 
-### Slide 76. Test whether the assistant helps on comparable tasks
+### Slide 74. Test whether the assistant helps on comparable tasks
 
 02:36:30-02:38:30 / 2 minutes
 
@@ -1417,9 +1381,9 @@ Sources: [Q01](#source-Q01), [U01](#source-U01), [U04](#source-U04), [O05](#sour
 
 Sources: [O03](#source-O03). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/76) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/76)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/74) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/74)
 
-### Slide 77. Power-sector testbeds provide places to evaluate agents
+### Slide 75. Power-sector testbeds provide places to evaluate agents
 
 02:38:30-02:40:00 / 1.5 minutes
 
@@ -1435,13 +1399,13 @@ Sources: [O03](#source-O03). Full author, title, date and URLs appear in the ref
 
 Sources: [C15](#source-C15), [C11](#source-C11), [C12](#source-C12), [I05](#source-I05). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/77) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/77)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/75) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/75)
 
 <a id="module-handoff"></a>
 
 ## 8. Prepare for the three-case workshop
 
-### Slide 78. GridGuard: what should this prototype prove?
+### Slide 76. GridGuard: what should this prototype prove?
 
 02:40:00-02:42:00 / 2 minutes
 
@@ -1457,9 +1421,9 @@ Sources: [C15](#source-C15), [C11](#source-C11), [C12](#source-C12), [I05](#sour
 
 Sources: [L01](#source-L01), [L02](#source-L02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/78) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/78)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/76) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/76)
 
-### Slide 79. Next tutorial: check the proposed action
+### Slide 77. Next tutorial: check the proposed action
 
 02:42:00-02:43:00 / 1 minutes
 
@@ -1475,9 +1439,9 @@ Sources: [L01](#source-L01), [L02](#source-L02). Full author, title, date and UR
 
 Sources: [L02](#source-L02). Full author, title, date and URLs appear in the reference section.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/79) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/79)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/77) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/77)
 
-### Slide 80. Discussion and full sources
+### Slide 78. Discussion and full sources
 
 02:43:00-02:45:00 / 2 minutes
 
@@ -1491,7 +1455,7 @@ Sources: [L02](#source-L02). Full author, title, date and URLs appear in the ref
 
 **Transition:** Move to the hands-on tutorial or close the session with the full reading guide.
 
-[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/80) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/80)
+[Open slide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/78) / [Presenter view](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/foundations/#/presenter/78)
 
 <a id="glossary"></a>
 
@@ -1904,6 +1868,18 @@ Full source: https://github.com/emmanuelbadmus/DistGrid-AgentBench
 Full source: https://arxiv.org/abs/2607.28822v1
 
 Full paper: https://arxiv.org/pdf/2607.28822v1
+
+<a id="source-VID01"></a>
+
+**[VID01]** LangChain. LangSmith Studio: The first agent IDE. Launch walkthrough linked 1 August 2024.
+
+Full source: https://www.youtube.com/watch?v=pLPJoFvq4_M
+
+<a id="source-VID02"></a>
+
+**[VID02]** Siemens. Gridscale X PSS E: agentic transmission planning — product video. Undated video; accessed 26 October 2026.
+
+Full source: https://video.sw.siemens.com/embed/682ca322-5d0b-47a0-8d18-77bf9d0fb016
 
 <a id="source-P04"></a>
 
