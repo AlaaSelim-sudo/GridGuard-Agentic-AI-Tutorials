@@ -38,7 +38,7 @@ def notebook_cell_excerpt(spec,lab_label=''):
             'cell_source_sha256':hashlib.sha256(source.encode('utf-8')).hexdigest()}
 
 def module_schedule(slides):
-    labels={'opening':'Stanford concepts and Colab setup','voltage':'Voltage support','restoration':'Service restoration',
+    labels={'opening':'Agent concepts and Colab setup','voltage':'Voltage support','restoration':'Service restoration',
             'cyber':'Cyber response','closing':'Llama walkthrough and operator practice'}
     return [{'module':module,'label':labels[module],
              'slides':sum(s['module']==module for s in slides),
@@ -269,14 +269,14 @@ def prepare_slides():
 def teaching_guide(slides,sources):
     schedule=module_schedule(slides)
     route='; '.join(item['label']+': '+str(item['slides'])+' slides / '+str(item['minutes'])+' minutes' for item in schedule)+'.'
-    sections=[('How to teach this hands-on session',[
-        ('Format',str(len(slides))+' static slides / '+str(sum(s['minutes'] for s in slides))+' minutes. '+route),
+    sections=[('Using the lab and source guide',[
+        ('Format',str(len(slides))+' slides, one notebook and three operator cases. Follow along during the session or finish the experiments afterward.'),
         ('Prerequisite','Use the foundations tutorial first. This session follows the current Classroom Labs notebook through voltage support, service restoration and cyber response.'),
         ('Evidence modes','Run the selected numerical cells to calculate results for your inputs. Archived model-response pools and historical evaluation records remain separately labeled. Editing L2 does not change the archived test_01 used by L3–L5, and editing the L8 sweep does not change the fixed L9 recovery fixture. No default cell calls an LLM or operates equipment.'),
-        ('Preparation','Give participants Participant_Lab_Guide.pdf. Open the one required notebook in Google Colab, sign in and use a standard CPU runtime. Run setup, wait for Ready, then follow the L labels in order. Keep both model switches at the stated defaults. The default route needs no API key, LLM download or GPU.'),
-        ('Opening and replay route','The first ten slides form a twelve-minute Stanford concept block. Original source figures are paired with simple voltage, restoration and cyber applications on slides 5, 7 and 9. Slides 11–15 spend seven minutes on Colab setup and L0–L1. Case slides preview saved Llama episodes beside the relevant engineering calculation. Run the canonical notebook in order: only execute L10B after L10, then L11 and L12.'),
-        ('Stanford teaching bridge','All four original figure excerpts from Monica Lam’s Stanford CS224V Lecture 1, pp.2, 19, 40 and 53 now appear in the opening, on slides 3, 4, 6 and 8. Each has a full citation, page and reading link. The adjacent application slides preview L2 numerical evidence, L6 task goals and L8–L9 fit, trust and recovery checks. Original grid teaching diagrams adapt task decomposition, evidence checking and explicit workflow specification from Monica Lam’s CS224V Lecture 1, with full lecture and paper references below. This notebook does not run WikiChat, Genie Worksheets or a theorem prover.'),
-        ('Facilitation','Follow each slide’s lab label and stable cell ID. Read the code, predict the result, run it, change the stated parameter and explain what changed. Each exercise has its own timed prompt; answers belong in the teacher notes and following debrief.')],[])]
+        ('Setup','Open Classroom Labs, save a copy in Drive and connect a CPU. Run setup, wait for Ready, then run L0 and L1. Keep both switches False. No API key, LLM download or GPU is needed.'),
+        ('Lab order','Voltage L2-L5, restoration L6-L7, cyber L8-L9, then saved agent records L10-L10B and simulated readback L12. Leave L11 disabled.'),
+        ('Source figures','Monica Lam, CS224V Agentic AI, Lecture 1: Introduction, Stanford University, Fall 2026, pp.2, 19, 40 and 53. Original excerpts keep their source credits. Grid diagrams are teaching adaptations. This notebook does not run WikiChat, Genie Worksheets or a theorem prover.'),
+        ('Five-role workflow','Slides 74-77 map the custom Python workflow to all three recorded L10 cases. One Llama model fills the planning and optimizer roles. Python runs awareness, simulation and verification. The notebook replays these saved stages; it does not launch five independent LLM agents.')],[])]
     elapsed=0
     for i,s in enumerate(slides,1):
         end=elapsed+s['minutes']

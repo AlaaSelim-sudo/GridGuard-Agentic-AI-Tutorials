@@ -6,8 +6,9 @@ import html
 import json
 import re
 import shutil
+import os
 
-SOURCE = Path(r'C:\Users\f00863x\OPRO\tmp\colab_publication_qa\Classroom_Labs.executed.ipynb')
+SOURCE = Path(os.environ.get('CLASSROOM_EXECUTED_NOTEBOOK',r'C:\Users\f00863x\OPRO\tmp\colab_publication_qa\Classroom_Labs.executed.ipynb'))
 HERE = Path(__file__).resolve().parent
 CASES = HERE.parent.parent
 IMAGES = CASES / 'images'

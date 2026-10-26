@@ -19,15 +19,15 @@ download: false
 <div class="lesson teaching rigorous cover-slide cover">
 
 <h1>Hands-on:<br>Three Operator Cases</h1>
-<p>Run one notebook to understand three operator studies.</p>
-<p>90 minutes / three short exercises / no coding experience required</p>
+<p>One notebook. Three operator problems.</p>
+<p>90 minutes / three short exercises</p>
 <div class="presenters"><div><strong>Alaa Selim</strong><span>MIT/Dartmouth</span></div><div><strong>Mohamed Chehada</strong><span>UT Austin</span></div></div>
 <img class="cover-logo" src="/branding/comsoc-lockup.png" alt="IEEE Communications Society lockup"><small>Independent educational material · IEEE ComSoc theme adaptation</small>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.</a></div>
 <span class="pageno">1 / 80</span></div>
 
 <!--
-Open the one required Classroom Labs notebook. This hands-on workshop uses 80 slides and 180 teaching minutes, with breaks outside that total. Start with a twelve-minute Stanford concept block: show each original source figure, then its simple grid adaptation. The next seven minutes prepare Colab and run L0–L1. Learners calculate fresh numerical results and inspect separately labeled saved Llama replies. No default cell calls an LLM or operates equipment. Keep the notebook in order and run L10B only after L10. Work in pairs and use the six-page participant guide. Presenter affiliations were supplied by the presenters. The IEEE ComSoc theme is an independent educational adaptation.
+One Classroom Labs notebook covers all three cases. Follow the L labels in order, keep both optional-tool switches False and use the saved Llama examples after the numerical cases. Learners can follow along during the 90-minute lecture and finish the experiments afterward. The inherited detailed cue timings are a preparation resource, not a revised session schedule. Presenters and affiliations are supplied by the presenters.
 Takeaway: 
 Nominal duration: 0.5 minutes.
 
@@ -46,7 +46,7 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <h1>What is agentic AI?</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_goal_loop.svg" alt="Grid teaching adaptation of the Stanford lecture, p.2. Model choices are recorded; calculations can run now." style="height:350px;max-height:350px"><figcaption>Grid teaching adaptation of the Stanford lecture, p.2. Model choices are recorded; calculations can run now.</figcaption></figure><ul><li>An LLM agent works toward a goal by choosing tools, reading their results and choosing what to do next.</li></ul></div>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_goal_loop.svg" alt="Teaching diagram. Llama choices are saved; Python calculations can run now." style="height:350px;max-height:350px"><figcaption>Teaching diagram. Llama choices are saved; Python calculations can run now.</figcaption></figure><ul><li>An AI agent chooses a tool, reads its result and chooses the next step toward a goal.</li></ul></div>
 <div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.2.</a></div>
 <span class="pageno">2 / 80</span></div>
 
@@ -73,8 +73,8 @@ transition: none
 
 <div class="lesson teaching rigorous figure-slide">
 
-<h1>Stanford: tool calls become a workflow</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_agentic_capabilities.png" alt="Original Stanford lecture excerpt, p.2. Next, connect tool use to evidence, task rules and decision checks." style="max-height:330px;height:auto"><figcaption>Original Stanford lecture excerpt, p.2. Next, connect tool use to evidence, task rules and decision checks.</figcaption></figure></div><p class="activity-link"><a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=2">Read the Stanford lecture, p.2</a></p><ul><li>A tool call runs one step. An agentic workflow links steps and uses their results to continue or stop.</li></ul></div>
+<h1>A tool call and an agent workflow</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_agentic_capabilities.png" alt="Source figure, p.2. Function calling and a multi-step workflow." style="max-height:330px;height:auto"><figcaption>Source figure, p.2. Function calling and a multi-step workflow.</figcaption></figure></div><ul><li>A tool call does one job. An agent links jobs using the returned results.</li></ul></div>
 <div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.2.</a></div>
 <span class="pageno">3 / 80</span></div>
 
@@ -101,8 +101,8 @@ transition: none
 
 <div class="lesson teaching rigorous figure-slide">
 
-<h1>Stanford example: check before you write</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_wikichat_steps.png" alt="Original Stanford lecture excerpt, p.19. WikiChat checks claims before drafting a reply." style="max-height:350px;height:auto"><figcaption>Original Stanford lecture excerpt, p.19. WikiChat checks claims before drafting a reply.</figcaption></figure></div><p class="activity-link"><a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=19">Read the Stanford lecture, p.19</a></p><ul><li>Grid lab takeaway: check the numerical result before writing the study summary.</li></ul></div>
+<h1>Evidence before an answer</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_wikichat_steps.png" alt="Source figure, p.19. WikiChat checks claims before writing." style="max-height:350px;height:auto"><figcaption>Source figure, p.19. WikiChat checks claims before writing.</figcaption></figure></div><ul><li>WikiChat checks claims before writing. Our lab checks numbers before reporting a result.</li></ul></div>
 <div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19.</a></div>
 <span class="pageno">4 / 80</span></div>
 
@@ -130,9 +130,9 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<div class="eyebrow">Stanford idea / Colab preview: L2</div>
-<h1>Voltage: a proposal needs a numerical check</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/stanford_colab_voltage.svg" alt="Our grid adaptation of WikiChat’s checking habit. L2 calls Python directly; L10B replays saved Llama choices." style="height:340px;max-height:340px"><figcaption>Our grid adaptation of WikiChat’s checking habit. L2 calls Python directly; L10B replays saved Llama choices.</figcaption></figure><ul><li>L2 lets you test the numerical check. The saved L10B episode shows Llama choosing the next tool.</li></ul></div>
+<div class="eyebrow">Lab preview: L2</div>
+<h1>Voltage: propose, then check</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/stanford_colab_voltage.svg" alt="Teaching adaptation. L2 runs Python; L10B replays saved model choices." style="height:340px;max-height:340px"><figcaption>Teaching adaptation. L2 runs Python; L10B replays saved model choices.</figcaption></figure><ul><li>L2 calculates and checks proposals. L10B shows saved Llama tool choices.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.19; Classroom Labs L2.</a></div>
 <span class="pageno">5 / 80</span></div>
 
@@ -163,8 +163,8 @@ transition: none
 
 <div class="lesson teaching rigorous figure-slide">
 
-<h1>Stanford example: tools need clear rules</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_genie_specification.png" alt="Original Stanford lecture excerpt, p.40. The lab adopts the idea of explicit rules in Python." style="max-height:315px;height:auto"><figcaption>Original Stanford lecture excerpt, p.40. The lab adopts the idea of explicit rules in Python.</figcaption></figure></div><p class="activity-link"><a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=40">Read the Stanford lecture, p.40</a></p><ul><li>Write down the required inputs, permitted tools, limits and stop rules.</li><li>Our lab keeps those rules in Python. A language reply cannot change the limits.</li></ul></div>
+<h1>Clear rules for tool use</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_genie_specification.png" alt="Source figure, p.40. Task rules define permitted tool use." style="max-height:315px;height:auto"><figcaption>Source figure, p.40. Task rules define permitted tool use.</figcaption></figure></div><ul><li>Set the inputs, allowed tools, limits and stop rules.</li><li>Python keeps these rules fixed when Llama chooses a step.</li></ul></div>
 <div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40.</a></div>
 <span class="pageno">6 / 80</span></div>
 
@@ -192,9 +192,9 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<div class="eyebrow">Stanford idea / Colab preview: L6</div>
-<h1>Restoration: the service goal shapes the plan</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/stanford_colab_restoration.svg" alt="Our grid adaptation of explicit task rules. L6 uses the same 40 kW varied tie and 100 kW fixed tie for both goals." style="height:340px;max-height:340px"><figcaption>Our grid adaptation of explicit task rules. L6 uses the same 40 kW varied tie and 100 kW fixed tie for both goals.</figcaption></figure><ul><li>An agent must keep the stated service goal. L6 lets you see how that goal changes the plan.</li></ul></div>
+<div class="eyebrow">Lab preview: L6</div>
+<h1>Restoration: define the service goal</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/stanford_colab_restoration.svg" alt="L6: same network and limits, different service goals." style="height:340px;max-height:340px"><figcaption>L6: same network and limits, different service goals.</figcaption></figure><ul><li>The goal changes which loads the solver restores. L6 compares two goals.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.40; Classroom Labs L6.</a></div>
 <span class="pageno">7 / 80</span></div>
 
@@ -225,9 +225,9 @@ transition: none
 
 <div class="lesson teaching rigorous figure-slide">
 
-<div class="eyebrow">Stanford source example / grid teaching analogy</div>
-<h1>Stanford: language and decision checks</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_language_decision.png" alt="Clinical-trial research example. SMT represents logical constraints; MaxSAT helps find decision-changing conditions." style="max-height:190px;height:auto"><figcaption>Clinical-trial research example. SMT represents logical constraints; MaxSAT helps find decision-changing conditions.</figcaption></figure></div><p class="activity-link"><a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=53">Read the Stanford lecture, p.53</a></p><ul><li>The lecture turns written facts into constraints, then uses a solver to check a decision.</li><li>Our grid adaptation: Llama requests a study, Python checks its results, and the operator reviews the proposal.</li></ul></div>
+<div class="eyebrow">Source example / grid application</div>
+<h1>Language and decision checks</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/stanford_language_decision.png" alt="Source figure, p.53. Clinical example using logical constraints, not a power-system model." style="max-height:190px;height:auto"><figcaption>Source figure, p.53. Clinical example using logical constraints, not a power-system model.</figcaption></figure></div><ul><li>The source example turns written facts into constraints for a solver.</li><li>In our lab, Llama requests a study. Python checks it. A person reviews it.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.</a></div>
 <span class="pageno">8 / 80</span></div>
 
@@ -251,9 +251,9 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<div class="eyebrow">Stanford idea / Colab preview: L8–L9</div>
-<h1>Cyber: a clear answer still needs evidence</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/stanford_colab_cyber.svg" alt="Our grid adaptation of separating language from checks. The fixed L9 example returns HOLD or PROPOSE under stated assumptions." style="height:340px;max-height:340px"><figcaption>Our grid adaptation of separating language from checks. The fixed L9 example returns HOLD or PROPOSE under stated assumptions.</figcaption></figure><ul><li>L8 tests whether readings can look consistent but be wrong. L9 adds a trust assumption and recovery checks.</li></ul></div>
+<div class="eyebrow">Lab preview: L8–L9</div>
+<h1>Cyber: good fit can hide bad data</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/stanford_colab_cyber.svg" alt="L8 checks fit. L9 requires a trust assumption before proposing recovery." style="height:340px;max-height:340px"><figcaption>L8 checks fit. L9 requires a trust assumption before proposing recovery.</figcaption></figure><ul><li>L8 tests misleading readings. L9 shows when to return HOLD or a proposal.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53; Classroom Labs L8–L9.</a></div>
 <span class="pageno">9 / 80</span></div>
 
@@ -283,8 +283,8 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<h1>Ask four questions about a study result</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_review_questions.svg" alt="Grid teaching adaptation of Monica Lam’s accountability concepts, Stanford CS224V introduction, pp.52–53." style="height:330px;max-height:330px"><figcaption>Grid teaching adaptation of Monica Lam’s accountability concepts, Stanford CS224V introduction, pp.52–53.</figcaption></figure><p class="activity-link"><a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf#page=52">Read the Stanford lecture, p.52</a></p><ul><li>Find the tool result, assumptions, rules and the operator’s next step.</li><li>If a claim has no supporting result, leave it unresolved and request the missing check.</li></ul></div>
+<h1>Four questions about any result</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_review_questions.svg" alt="Teaching adaptation of the cited lecture. The lab uses custom Python." style="height:330px;max-height:330px"><figcaption>Teaching adaptation of the cited lecture. The lab uses custom Python.</figcaption></figure><ul><li>Which tool ran? What did it assume? Which limits passed? What should the operator do next?</li></ul></div>
 <div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, pp.52–53.</a></div>
 <span class="pageno">10 / 80</span></div>
 
@@ -311,8 +311,8 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<h1>One notebook covers all three cases</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_one_notebook.svg" alt="Only Classroom Labs is required. The graph and trace notebooks are companion material." style="height:330px;max-height:330px"><figcaption>Only Classroom Labs is required. The graph and trace notebooks are companion material.</figcaption></figure><p class="activity-link"><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open Classroom Labs in Google Colab</a></p><ul><li>Save a copy in Drive. Keep this same notebook open for all three cases.</li></ul></div>
+<h1>One notebook for all three cases</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_one_notebook.svg" alt="Classroom Labs is the only required notebook." style="height:330px;max-height:330px"><figcaption>Classroom Labs is the only required notebook.</figcaption></figure><p class="activity-link"><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open Classroom Labs in Google Colab</a></p><ul><li>Open Classroom Labs and save a copy in Drive. Use it throughout.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.</a></div>
 <span class="pageno">11 / 80</span></div>
 
@@ -332,8 +332,8 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<h1>Get ready in four small steps</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_ready.svg" alt="Setup prepares the runtime. Then follow each named lesson cell with the slides." style="height:315px;max-height:315px"><figcaption>Setup prepares the runtime. Then follow each named lesson cell with the slides.</figcaption></figure><ul><li>Open the notebook, save your copy, connect a CPU and run setup.</li><li>Wait for Ready. Then run L0 and L1 before starting the three cases.</li></ul></div>
+<h1>Colab setup</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_ready.svg" alt="Setup first, then L0 and L1." style="height:315px;max-height:315px"><figcaption>Setup first, then L0 and L1.</figcaption></figure><ul><li>Save a copy, connect a CPU and run setup.</li><li>Wait for Ready, then run L0 and L1.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.</a></div>
 <span class="pageno">12 / 80</span></div>
 
@@ -356,8 +356,8 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<h1>Run a cell, then read what it returns</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_cell_loop.svg" alt="Teaching illustration, not a Colab screenshot. Input lines match L2; run the full L2 cell." style="height:330px;max-height:330px"><figcaption>Teaching illustration, not a Colab screenshot. Input lines match L2; run the full L2 cell.</figcaption></figure><ul><li>Find the L heading. Use the play button to run the whole matching code cell.</li><li>Wait, then read the table or plot underneath it. Editing an input alone does not update output.</li></ul></div>
+<h1>Input, run, output</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_cell_loop.svg" alt="Illustration of a code cell. Run the full L2 cell." style="height:330px;max-height:330px"><figcaption>Illustration of a code cell. Run the full L2 cell.</figcaption></figure><ul><li>Find the L heading and run its whole code cell.</li><li>Read the output below it. After any edit, rerun the cell.</li></ul></div>
 <div class="sources">Source: <a href="https://research.google.com/colaboratory/faq.html">Google Colab FAQ; Classroom Labs L2, cell classroom-007.</a></div>
 <span class="pageno">13 / 80</span></div>
 
@@ -381,11 +381,11 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L0 · classroom-002</div>
-<h1>Run L0: choose the classroom route</h1>
+<h1>L0: keep the default settings</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L0 (classroom-002), source lines 11–14.</p><pre class="teaching-code">RUN_OPENDSS = False       # True: fresh full-model audit + separate AC MPC solve in L5
 RUN_LOCAL_LLAMA = False   # True: one optional local call in L11
 ROOT = Path.cwd()
-assert (ROOT / &#x27;data/lindistflow3_network.json&#x27;).exists(), &#x27;Start Jupyter in the tutorial folder&#x27;</pre><ul><li>Keep both switches False: new numerical checks, saved controller and archived model replies.</li><li>If the data check fails, rerun setup before continuing.</li></ul></div>
+assert (ROOT / &#x27;data/lindistflow3_network.json&#x27;).exists(), &#x27;Start Jupyter in the tutorial folder&#x27;</pre><ul><li>Leave both switches False. Python calculates new results; Llama replies come from saved records.</li><li>If data are missing, rerun setup.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.</a></div>
 <span class="pageno">14 / 80</span></div>
 
@@ -406,8 +406,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Classroom Labs · L1 · classroom-004</div>
-<h1>Run L1: does the evidence still match?</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L1_binding.png" alt="Reference L1 output: only the unchanged request and command match the evidence." style="max-height:345px;height:auto"><figcaption>Reference L1 output: only the unchanged request and command match the evidence.</figcaption></figure></div><ul><li>Read binding_pass: does the record match the same inputs and command?</li><li>Expect True, False, False. Changing the load or command breaks that match.</li></ul></div>
+<h1>L1: does the result match the request?</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L1_binding.png" alt="Reference L1 output. Only the unchanged request and command match." style="max-height:345px;height:auto"><figcaption>Reference L1 output. Only the unchanged request and command match.</figcaption></figure></div><ul><li>Read binding_pass. Expect True, False, False.</li><li>Changed inputs or commands need a new check.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004.</a></div>
 <span class="pageno">15 / 80</span></div>
 
@@ -428,8 +428,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Classroom Labs · L2 · classroom-007</div>
-<h1>Voltage: open L2</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/feeder.png" alt="Synthetic SMART-DS teaching feeder; not an operating utility circuit." style="max-height:345px;height:auto"><figcaption>Synthetic SMART-DS teaching feeder; not an operating utility circuit.</figcaption></figure></div><ul><li>MPC makes a forecast-based plan. SAC is a saved learned controller.</li><li>Check limits first. Then compare penalty score J; smaller is preferred after the checks pass.</li></ul></div>
+<h1>Case 1: voltage support</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/feeder.png" alt="Synthetic SMART-DS feeder used for teaching." style="max-height:345px;height:auto"><figcaption>Synthetic SMART-DS feeder used for teaching.</figcaption></figure></div><ul><li>MPC plans ahead. SAC uses a saved learned policy.</li><li>Check limits first. Among passing options, a smaller score J is better.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</a></div>
 <span class="pageno">16 / 80</span></div>
 
@@ -452,8 +452,8 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<h1>MPC plans; SAC proposes</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_mpc_sac.svg" alt="MPC: model predictive control. SAC: Soft Actor–Critic. These are control tools inside the larger workflow." style="height:350px;max-height:350px"><figcaption>MPC: model predictive control. SAC: Soft Actor–Critic. These are control tools inside the larger workflow.</figcaption></figure><ul><li>Both tools propose control settings. The same numerical check tests their voltage and current limits.</li></ul></div>
+<h1>Two ways to propose settings</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_mpc_sac.svg" alt="MPC = model predictive control. SAC = Soft Actor-Critic." style="height:350px;max-height:350px"><figcaption>MPC = model predictive control. SAC = Soft Actor-Critic.</figcaption></figure><ul><li>MPC plans with a model. SAC proposes from learned weights. Both need the same electrical checks.</li></ul></div>
 <div class="sources">Source: <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</a></div>
 <span class="pageno">17 / 80</span></div>
 
@@ -483,8 +483,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Recorded P3 example / separate from the L2 calculation</div>
-<h1>A real agent changes its next step</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_recorded_trace.svg" alt="Recorded P3 example, separate from L2. 111.966607% and 99.604410% are rounded here." style="height:350px;max-height:350px"><figcaption>Recorded P3 example, separate from L2. 111.966607% and 99.604410% are rounded here.</figcaption></figure><ul><li>The failed tool result leads to a fallback check. Passing the checks still leaves human review.</li></ul></div>
+<h1>A tool result changes the next step</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_recorded_trace.svg" alt="Saved P3 OpenDSS example, separate from L2. Values rounded." style="height:350px;max-height:350px"><figcaption>Saved P3 OpenDSS example, separate from L2. Values rounded.</figcaption></figure><ul><li>The first trial fails. Llama requests the fallback. A passing result goes to human review.</li></ul></div>
 <div class="sources">Source: <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/continuous_llama_opendss_20260927T161223523552Z.json">Workshop recorded model replies and numerical study records. Voltage P3_current_reserve: Llama 3.1:8b planner, recovery and review calls 1–3. Public teaching archive. 27 September 2026.</a></div>
 <span class="pageno">18 / 80</span></div>
 
@@ -508,8 +508,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L2 · classroom-007</div>
-<h1>Control settings and limits</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/voltage_capability.svg" alt="Active and reactive settings share the inverter’s power limit." style="height:305px;max-height:305px"><figcaption>Active and reactive settings share the inverter’s power limit.</figcaption></figure><ul><li>a sets active-power participation; b sets reactive-power participation.</li><li>Check the inverter limits, modeled voltages and allowed line current.</li></ul></div>
+<h1>Two control settings</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/voltage_capability.svg" alt="Active and reactive power share the inverter capacity." style="height:305px;max-height:305px"><figcaption>Active and reactive power share the inverter capacity.</figcaption></figure><ul><li>a controls active power. b controls reactive power.</li><li>Check inverter capacity, voltage and line current.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</a></div>
 <span class="pageno">19 / 80</span></div>
 
@@ -529,8 +529,8 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<h1>A tool is a Python function in this lab</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_python_tool.svg" alt="L2 calls lab.voltage_lab(LOAD_SCALE, RATING_FRACTION) directly. Recorded agent coordination is separate." style="height:350px;max-height:350px"><figcaption>L2 calls lab.voltage_lab(LOAD_SCALE, RATING_FRACTION) directly. Recorded agent coordination is separate.</figcaption></figure><ul><li>A tool takes defined inputs and returns evidence. The notebook lets you see both.</li></ul></div>
+<h1>A tool is a callable function</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_python_tool.svg" alt="L2 calls lab.voltage_lab directly. Agent coordination is shown in the saved study." style="height:350px;max-height:350px"><figcaption>L2 calls lab.voltage_lab directly. Agent coordination is shown in the saved study.</figcaption></figure><ul><li>Inputs go in. Calculations run. Results come back. L2 calls this Python function directly.</li></ul></div>
 <div class="sources">Source: <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom Labs notebook. Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</a></div>
 <span class="pageno">20 / 80</span></div>
 
@@ -554,11 +554,11 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L2 · classroom-007</div>
-<h1>Run L2 with the default inputs</h1>
+<h1>L2: run the default case</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L2 (classroom-007), source lines 1–4.</p><pre class="teaching-code">LOAD_SCALE = 1.0
 RATING_FRACTION = 0.80
 started = time.perf_counter()
-voltage = lab.voltage_lab(LOAD_SCALE, RATING_FRACTION)</pre><ul><li>Run all of L2 to calculate the MPC plan and check the saved SAC controller’s proposal.</li><li>Read feasible, current_step_J and max_allowed_current_pct.</li></ul></div>
+voltage = lab.voltage_lab(LOAD_SCALE, RATING_FRACTION)</pre><ul><li>Run all of L2. It checks the MPC plan and the saved SAC policy.</li><li>Read feasible, current_step_J and max_allowed_current_pct.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</a></div>
 <span class="pageno">21 / 80</span></div>
 
@@ -585,8 +585,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Classroom Labs · L2 · classroom-007</div>
-<h1>Read the voltage and current plots</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L2_plot.png" alt="Reference L2 plots; rerun L2 to calculate plots for your inputs." style="max-height:345px;height:auto"><figcaption>Reference L2 plots; rerun L2 to calculate plots for your inputs.</figcaption></figure></div><ul><li>Left: compare the sorted modeled voltages with the allowed band.</li><li>Right: compare line current with the 100% allowed-current limit.</li></ul></div>
+<h1>L2: voltage and current plots</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L2_plot.png" alt="Reference L2 plots. Rerun for your inputs." style="max-height:345px;height:auto"><figcaption>Reference L2 plots. Rerun for your inputs.</figcaption></figure></div><ul><li>Left: voltages should stay inside the allowed band.</li><li>Right: current use should stay below 100% of the allowance.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</a></div>
 <span class="pageno">22 / 80</span></div>
 
@@ -607,8 +607,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Classroom Labs · L2 · classroom-007</div>
-<h1>Check limits before comparing scores</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L2_table.png" alt="Reference L2 output with LOAD_SCALE=1.0 and RATING_FRACTION=0.80." style="max-height:345px;height:auto"><figcaption>Reference L2 output with LOAD_SCALE=1.0 and RATING_FRACTION=0.80.</figcaption></figure></div><ul><li>Default MPC passes: current use 73.62%, penalty score J about 0.03110.</li><li>Default saved SAC passes: current use 51.68%, J about 0.43643.</li></ul></div>
+<h1>L2: both default proposals pass</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L2_table.png" alt="Reference L2: load scale 1.0, current allowance 0.80." style="max-height:345px;height:auto"><figcaption>Reference L2: load scale 1.0, current allowance 0.80.</figcaption></figure></div><ul><li>MPC: 73.62% current use, score J about 0.03110.</li><li>Saved SAC: 51.68% current use, score J about 0.43643.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</a></div>
 <span class="pageno">23 / 80</span></div>
 
@@ -628,8 +628,8 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<h1>A rule and a tool result answer different questions</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_claim_evidence.svg" alt="Teaching analogy. The number shown comes from the recorded P3 replay, which is separate from L2." style="height:330px;max-height:330px"><figcaption>Teaching analogy. The number shown comes from the recorded P3 replay, which is separate from L2.</figcaption></figure><ul><li>A document can tell us the limit. A numerical tool tells us how the proposal compares with it.</li><li>Keep the source, the measured or calculated value, and the remaining checks together.</li></ul></div>
+<h1>The limit and the calculated result</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_claim_evidence.svg" alt="Example uses the separate saved P3 case." style="height:330px;max-height:330px"><figcaption>Example uses the separate saved P3 case.</figcaption></figure><ul><li>A rule states the limit. A tool checks the proposal against it.</li><li>Keep both with the result so the operator can review it.</li></ul></div>
 <div class="sources">Source: <a href="https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, pp.17–25; recorded P3 current check.</a></div>
 <span class="pageno">24 / 80</span></div>
 
@@ -658,8 +658,8 @@ transition: none
 <div class="lesson teaching rigorous exercise-slide">
 
 <div class="eyebrow">Classroom Labs · L2 · classroom-007</div>
-<h1>Exercise 1: tighten the current allowance</h1>
-<div class="content"><pre class="source-excerpt">RATING_FRACTION = 0.75</pre><ul><li>In L2, change only RATING_FRACTION from 0.80 to 0.75. Predict, then rerun.</li><li>For each method, report feasible, allowed-current use and current_step_J.</li><li>Does a PASS cover the full medium- and low-voltage network? Explain.</li></ul></div>
+<h1>Exercise 1: lower the current allowance</h1>
+<div class="content"><pre class="source-excerpt">RATING_FRACTION = 0.75</pre><ul><li>In L2, change RATING_FRACTION from 0.80 to 0.75. Predict, then rerun.</li><li>Compare feasible, current use and score J for both methods.</li><li>Does this check cover the whole MV/LV network?</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</a></div>
 <span class="pageno">25 / 80</span></div>
 
@@ -679,8 +679,8 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<h1>Change one number and explain the difference</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_try_observe.svg" alt="Reference L2 exercise: MPC uses 73.62% of the default allowance and 78.53% after the change." style="height:330px;max-height:330px"><figcaption>Reference L2 exercise: MPC uses 73.62% of the default allowance and 78.53% after the change.</figcaption></figure><ul><li>A tighter allowance makes the same current a larger percentage of that allowance.</li><li>At 0.75, MPC uses 78.53% and SAC 54.85%. Both pass this particular test.</li></ul></div>
+<h1>Exercise 1: both still pass</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_try_observe.svg" alt="Reference L2 experiment. Both proposals pass at 0.75." style="height:330px;max-height:330px"><figcaption>Reference L2 experiment. Both proposals pass at 0.75.</figcaption></figure><ul><li>A smaller allowance makes the same current a larger percentage.</li><li>At 0.75: MPC uses 78.53%, SAC 54.85%. Both pass this test.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom Labs L2, cell classroom-007; verified default and exercise outputs.</a></div>
 <span class="pageno">26 / 80</span></div>
 
@@ -701,9 +701,9 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L2 · classroom-007</div>
-<h1>Reset L2 before reading old model choices</h1>
+<h1>L2: reset before continuing</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L2 (classroom-007), source lines 1–2.</p><pre class="teaching-code">LOAD_SCALE = 1.0
-RATING_FRACTION = 0.80</pre><ul><li>Restore the default values and rerun L2.</li><li>L3–L5 use the original test_01 case, separate from your changed L2 experiment.</li></ul></div>
+RATING_FRACTION = 0.80</pre><ul><li>Restore LOAD_SCALE=1.0 and RATING_FRACTION=0.80. Rerun L2.</li><li>L3-L5 use a separate saved case called test_01.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L2; cell classroom-007; src/continuous_control.py.</a></div>
 <span class="pageno">27 / 80</span></div>
 
@@ -723,8 +723,8 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<h1>What runs now and what was recorded</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/bridge_modes.svg" alt="Three explicitly labeled teaching modes used throughout this workshop." style="height:330px;max-height:330px"><figcaption>Three explicitly labeled teaching modes used throughout this workshop.</figcaption></figure><ul><li>The current cell calculates new results. The saved Llama reply keeps its original inputs.</li><li>Changing your lab input does not rewrite the recorded agent study.</li></ul></div>
+<h1>New calculations and saved replies</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/bridge_modes.svg" alt="New calculation, saved reply and proposed pilot are different evidence types." style="height:330px;max-height:330px"><figcaption>New calculation, saved reply and proposed pilot are different evidence types.</figcaption></figure><ul><li>Python calculates new results. A saved Llama reply keeps its original inputs.</li><li>Your changed lab input does not change the saved reply.</li></ul></div>
 <div class="sources">Source: <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/COLAB_GUIDE.md">Classroom Labs notebook. Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.</a></div>
 <span class="pageno">28 / 80</span></div>
 
@@ -753,9 +753,9 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L3 · classroom-010</div>
-<h1>L3 opens a separate recorded case</h1>
+<h1>L3: inspect saved model choices</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L3 (classroom-010), source lines 1–2.</p><pre class="teaching-code">pool = lab.saved_pool(&#x27;test_01&#x27;)
-display(pd.DataFrame(pool[&#x27;responses&#x27;])[[&#x27;model_id&#x27;, &#x27;operation_id&#x27;, &#x27;reason&#x27;, &#x27;seconds&#x27;, &#x27;source&#x27;]])</pre><ul><li>Run L3. Read the original case ID, requested operations and recorded seconds.</li><li>These reasons are old model replies. Displaying them makes no new model call.</li></ul></div>
+display(pd.DataFrame(pool[&#x27;responses&#x27;])[[&#x27;model_id&#x27;, &#x27;operation_id&#x27;, &#x27;reason&#x27;, &#x27;seconds&#x27;, &#x27;source&#x27;]])</pre><ul><li>Run L3. Read the case ID, chosen operations and recorded times.</li><li>This cell displays old replies. It makes no new model call.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context.</a></div>
 <span class="pageno">29 / 80</span></div>
 
@@ -776,8 +776,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L3 · classroom-010</div>
-<h1>What did the models choose?</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/voltage_canonical_trial.svg" alt="Three old replies request two distinct operations; two votes select reactive-power relaxation." style="height:305px;max-height:305px"><figcaption>Three old replies request two distinct operations; two votes select reactive-power relaxation.</figcaption></figure><ul><li>Different wording can request the same tool and numbers.</li><li>The notebook groups matching trials. An explanation alone does not show that limits pass.</li></ul></div>
+<h1>Different words can request the same trial</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/voltage_canonical_trial.svg" alt="Three saved replies request two different trials." style="height:305px;max-height:305px"><figcaption>Three saved replies request two different trials.</figcaption></figure><ul><li>The notebook groups identical tool requests and settings.</li><li>A vote chooses what to test next. It does not prove that limits pass.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L3; cell classroom-010; archived test_01 context.</a></div>
 <span class="pageno">30 / 80</span></div>
 
@@ -798,12 +798,12 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L4 · classroom-013</div>
-<h1>Run L4: check the old choice again</h1>
+<h1>L4: check the selected trial</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L4 (classroom-013), source lines 5–9.</p><pre class="teaching-code">started = time.perf_counter()
 selected_trials = lab.trial_saved_selection(pool)
 timings[&#x27;L4 new verification of archived choices&#x27;] = time.perf_counter() - started
 display(selected_trials[&#x27;table&#x27;])
-assert pool[&#x27;frozen&#x27;] and pool[&#x27;training_updates&#x27;] == 24</pre><ul><li>After L3, run L4. Python checks the selected proposal again for its original case.</li><li>Compare majority vote with the saved LinUCB selector on that same case.</li></ul></div>
+assert pool[&#x27;frozen&#x27;] and pool[&#x27;training_updates&#x27;] == 24</pre><ul><li>Run L4 after L3. Python checks the selected trial for its original case.</li><li>Compare majority voting with the saved LinUCB selector, which learns which trial to test.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices.</a></div>
 <span class="pageno">31 / 80</span></div>
 
@@ -824,8 +824,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Classroom Labs · L4 · classroom-013</div>
-<h1>Separate the old choice from the new check</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L4_checks.png" alt="Reference L4 output: old selector choices, new numerical checks of the original case." style="max-height:345px;height:auto"><figcaption>Reference L4 output: old selector choices, new numerical checks of the original case.</figcaption></figure></div><ul><li>Both selectors choose the same reactive-power relaxation trial and pass the new MV check.</li><li>Predicted reward is a learned score. Read new_check_passes for the engineering check.</li></ul></div>
+<h1>L4: read the new check</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L4_checks.png" alt="Saved choices, new checks of the original test_01 case." style="max-height:345px;height:auto"><figcaption>Saved choices, new checks of the original test_01 case.</figcaption></figure></div><ul><li>Both selectors choose the same trial and pass the new MV check.</li><li>new_check_passes is the electrical check. Predicted reward is a learned score.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L4; cell classroom-013; fresh checks of archived choices.</a></div>
 <span class="pageno">32 / 80</span></div>
 
@@ -846,11 +846,11 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L5 · classroom-016</div>
-<h1>Run L5: check what the model covers</h1>
+<h1>L5: check model coverage</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L5 (classroom-016), source lines 1–4.</p><pre class="teaching-code">started = time.perf_counter()
 scope_audit = lab.backend_audit(pool, run_opendss=RUN_OPENDSS)
 timings[&#x27;L5 selected model scope checks&#x27;] = time.perf_counter() - started
-display(scope_audit[&#x27;table&#x27;])</pre><ul><li>Keep RUN_OPENDSS=False. Run L5 and read the table and optional_mode message.</li><li>L5 checks the original test_01 MV-MPC plan. OpenDSS is disabled.</li></ul></div>
+display(scope_audit[&#x27;table&#x27;])</pre><ul><li>Leave RUN_OPENDSS=False. Run L5 and read the table.</li><li>The default checks the test_01 MPC plan with the MV model.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model.</a></div>
 <span class="pageno">33 / 80</span></div>
 
@@ -871,8 +871,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Classroom Labs · L5 · classroom-016</div>
-<h1>A PASS covers only the model checked</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L5_scope.png" alt="Reference L5 output: a medium-voltage check with OpenDSS disabled." style="max-height:345px;height:auto"><figcaption>Reference L5 output: a medium-voltage check with OpenDSS disabled.</figcaption></figure></div><ul><li>This check covers medium-voltage (MV) phases and currents, not all low-voltage (LV) equipment.</li><li>For a full MV/LV request, get the wider check or HOLD.</li></ul></div>
+<h1>A PASS has a scope</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L5_scope.png" alt="Default L5 checks MV only. OpenDSS is off." style="max-height:345px;height:auto"><figcaption>Default L5 checks MV only. OpenDSS is off.</figcaption></figure></div><ul><li>This result covers medium-voltage (MV) phases and currents.</li><li>A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model.</a></div>
 <span class="pageno">34 / 80</span></div>
 
@@ -893,8 +893,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Recorded agent example · separate P3 study</div>
-<h1>Voltage: Llama asks to check the saved controller</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/llama_voltage_1.png" alt="Saved voltage example; separate from this case’s fresh calculation. Replay it in L10B later." style="max-height:380px;height:auto"><figcaption>Saved voltage example; separate from this case’s fresh calculation. Replay it in L10B later.</figcaption></figure></div><ul><li>Llama identifies the missing check. The current failure forces a new trial.</li></ul></div>
+<h1>Saved voltage case: check SAC first</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/llama_voltage_1.png" alt="Saved P3 case, separate from L2. Replay in L10B." style="max-height:380px;height:auto"><figcaption>Saved P3 case, separate from L2. Replay in L10B.</figcaption></figure></div><ul><li>Llama asks to check SAC. The tool finds a current-limit failure.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom Labs L10B: voltage replay, recorded call 1; full record in source guide.</a></div>
 <span class="pageno">35 / 80</span></div>
 
@@ -918,8 +918,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Recorded agent example · separate P3 study</div>
-<h1>Voltage: Llama chooses the existing fallback plan</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/llama_voltage_2.png" alt="Saved voltage example; separate from this case’s fresh calculation. Replay it in L10B later." style="max-height:380px;height:auto"><figcaption>Saved voltage example; separate from this case’s fresh calculation. Replay it in L10B later.</figcaption></figure></div><ul><li>Llama chooses an existing MPC plan. Python checks whether the result passes.</li></ul></div>
+<h1>Saved voltage case: try the MPC fallback</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/llama_voltage_2.png" alt="Saved P3 case, separate from L2. Replay in L10B." style="max-height:380px;height:auto"><figcaption>Saved P3 case, separate from L2. Replay in L10B.</figcaption></figure></div><ul><li>Llama requests the existing MPC plan. The electrical tool checks it.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom Labs L10B: voltage replay, recorded call 2; full record in source guide.</a></div>
 <span class="pageno">36 / 80</span></div>
 
@@ -943,8 +943,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Recorded agent example · separate P3 study</div>
-<h1>Voltage: the checks pass and human review remains</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/llama_voltage_3.png" alt="Saved voltage example; separate from this case’s fresh calculation. Replay it in L10B later." style="max-height:380px;height:auto"><figcaption>Saved voltage example; separate from this case’s fresh calculation. Replay it in L10B later.</figcaption></figure></div><ul><li>Human review remains pending. The fixed script returned the same numerical result.</li></ul></div>
+<h1>Saved voltage case: return for review</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/llama_voltage_3.png" alt="Saved P3 case, separate from L2. Replay in L10B." style="max-height:380px;height:auto"><figcaption>Saved P3 case, separate from L2. Replay in L10B.</figcaption></figure></div><ul><li>The checks pass. Human review is still pending. A fixed script gets the same final result.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom Labs L10B: voltage replay, recorded call 3; full record in source guide.</a></div>
 <span class="pageno">37 / 80</span></div>
 
@@ -968,8 +968,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L6 · classroom-018</div>
-<h1>Restoration: open L6</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/restoration_fault_map.svg" alt="Six-node active-power teaching graph with whole-load pickup and one unavailable branch." style="height:305px;max-height:305px"><figcaption>Six-node active-power teaching graph with whole-load pickup and one unavailable branch.</figcaption></figure><ul><li>Use the six-node teaching graph. Keep the faulted branch unavailable.</li><li>Compare total restored load with restored critical load.</li></ul></div>
+<h1>Case 2: restoring service</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/restoration_fault_map.svg" alt="Six-node active-power model. One branch is unavailable." style="height:305px;max-height:305px"><figcaption>Six-node active-power model. One branch is unavailable.</figcaption></figure><ul><li>Use the six-node teaching network with one faulted branch.</li><li>Compare total service with service to critical loads.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</a></div>
 <span class="pageno">38 / 80</span></div>
 
@@ -990,8 +990,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L6 · classroom-018</div>
-<h1>Choose the service goal before the plan</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/restoration_priority.svg" alt="Different service goals can select different loads on the same network." style="height:305px;max-height:305px"><figcaption>Different service goals can select different loads on the same network.</figcaption></figure><ul><li>The priority goal gives more weight to two critical loads.</li><li>The comparison goal serves the most total kW, using the same network and pickup rules.</li></ul></div>
+<h1>Two service goals</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/restoration_priority.svg" alt="Different goals can select different loads." style="height:305px;max-height:305px"><figcaption>Different goals can select different loads.</figcaption></figure><ul><li>One goal gives extra weight to critical loads.</li><li>The other restores the most total kW. Both use the same network rules.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</a></div>
 <span class="pageno">39 / 80</span></div>
 
@@ -1012,12 +1012,12 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L6 · classroom-018</div>
-<h1>Run L6: change the tie capacity</h1>
+<h1>L6: solve the restoration problem</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L6 (classroom-018), source lines 1–5.</p><pre class="teaching-code">CAPACITIES_KW = (40., 60., 80., 100., 120.)
 started = time.perf_counter()
 restoration = lab.restoration_sweep(CAPACITIES_KW)
 timings[&#x27;L6 fresh MILP sweep + independent enumeration&#x27;] = time.perf_counter() - started
-display(restoration[&#x27;table&#x27;].drop(columns=&#x27;pickup&#x27;))</pre><ul><li>Run all of L6. MILP chooses whole loads; an exhaustive search checks its priority score.</li><li>Read served_kw, critical_kw and MILP_matches_exhaustive_check.</li></ul></div>
+display(restoration[&#x27;table&#x27;].drop(columns=&#x27;pickup&#x27;))</pre><ul><li>Run L6. MILP selects whole loads. A separate search checks its priority score.</li><li>Read served_kw, critical_kw and MILP_matches_exhaustive_check.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</a></div>
 <span class="pageno">40 / 80</span></div>
 
@@ -1038,8 +1038,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Classroom Labs · L6 · classroom-018</div>
-<h1>Read both service plots</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L6_plot.png" alt="Reference L6 plots; rerun L6 to compare your chosen tie capacities." style="max-height:345px;height:auto"><figcaption>Reference L6 plots; rerun L6 to compare your chosen tie capacities.</figcaption></figure></div><ul><li>Left: total load served in kW. Right: critical load served in kW.</li><li>Overlapping markers mean the two plans give the same result at that tested capacity.</li></ul></div>
+<h1>L6: read both service plots</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L6_plot.png" alt="Reference L6 plots. Overlapping markers show equal outcomes." style="max-height:345px;height:auto"><figcaption>Reference L6 plots. Overlapping markers show equal outcomes.</figcaption></figure></div><ul><li>Left: total kW served. Right: critical kW served.</li><li>Overlapping markers mean the two goals give the same result.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</a></div>
 <span class="pageno">41 / 80</span></div>
 
@@ -1060,8 +1060,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Classroom Labs · L6 · classroom-018</div>
-<h1>The tradeoff at a 40 kW tie limit</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L6_table.png" alt="Reference L6 results at a 40 kW tie limit: compare total and critical load served." style="max-height:345px;height:auto"><figcaption>Reference L6 results at a 40 kW tie limit: compare total and critical load served.</figcaption></figure></div><ul><li>Priority goal: 130 kW total, including 90 kW of critical load.</li><li>Most-total-kW goal: 140 kW total, including 30 kW of critical load.</li></ul></div>
+<h1>L6: the tradeoff at 40 kW</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L6_table.png" alt="Reference L6: 40 kW varied tie, 100 kW fixed tie." style="max-height:345px;height:auto"><figcaption>Reference L6: 40 kW varied tie, 100 kW fixed tie.</figcaption></figure></div><ul><li>Priority goal: 130 kW total, including 90 kW critical.</li><li>Most-total-kW goal: 140 kW total, including 30 kW critical.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</a></div>
 <span class="pageno">42 / 80</span></div>
 
@@ -1082,8 +1082,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L6 · classroom-018</div>
-<h1>How Python checks the plan</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/restoration_verify.svg" alt="Python checks the stated graph constraints, then compares the priority score independently." style="height:305px;max-height:305px"><figcaption>Python checks the stated graph constraints, then compares the priority score independently.</figcaption></figure><ul><li>Check paths to a source, capacity limits, power balance and the faulted branch.</li><li>Then compare the MILP service score with the independent exhaustive search.</li></ul></div>
+<h1>Restoration checks</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/restoration_verify.svg" alt="Checks cover this graph model, not AC operation or field switching." style="height:305px;max-height:305px"><figcaption>Checks cover this graph model, not AC operation or field switching.</figcaption></figure><ul><li>Check source paths, branch capacity, power balance and the fault.</li><li>A separate search checks the priority score.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</a></div>
 <span class="pageno">43 / 80</span></div>
 
@@ -1111,8 +1111,8 @@ transition: none
 <div class="lesson teaching rigorous exercise-slide">
 
 <div class="eyebrow">Classroom Labs · L6 · classroom-018</div>
-<h1>Exercise 2: add more tie capacity</h1>
-<div class="content"><pre class="source-excerpt">CAPACITIES_KW = (40., 60., 80., 100., 120., 180.)</pre><ul><li>Add 180. to CAPACITIES_KW, keeping 40. first. Predict, then rerun L6.</li><li>Compare total and critical load served at 40 and 180 kW.</li><li>At which of these two capacities do the service goals give the same result?</li></ul></div>
+<h1>Exercise 2: increase tie capacity</h1>
+<div class="content"><pre class="source-excerpt">CAPACITIES_KW = (40., 60., 80., 100., 120., 180.)</pre><ul><li>Add 180. to CAPACITIES_KW. Keep 40. first. Predict, then rerun L6.</li><li>Compare total and critical kW at 40 and 180 kW.</li><li>At which capacity do the two goals give the same result?</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</a></div>
 <span class="pageno">44 / 80</span></div>
 
@@ -1133,8 +1133,8 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L6 · classroom-018</div>
-<h1>Debrief: the tradeoff disappears here</h1>
-<div class="content"><p class="callout">250 kW total / 90 kW critical</p><ul><li>At 180 kW, both methods serve 250 kW total and 90 kW of critical load.</li><li>Priority helps in the constrained case. It does not improve every case.</li></ul></div>
+<h1>Exercise 2: enough capacity removes this tradeoff</h1>
+<div class="content"><p class="callout">250 kW total / 90 kW critical</p><ul><li>At 180 kW, both goals serve 250 kW total and 90 kW critical.</li><li>The priority goal helps at some limits. It does not improve every case.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</a></div>
 <span class="pageno">45 / 80</span></div>
 
@@ -1155,10 +1155,10 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L7 · classroom-021</div>
-<h1>Reset the capacity list, then run L7</h1>
+<h1>L7: test an old result after a change</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L7 (classroom-021), source lines 1–3.</p><pre class="teaching-code">rest_record = restoration[&#x27;records&#x27;][0][&#x27;weighted&#x27;]
 rest_request = {&#x27;task&#x27;: &#x27;restoration&#x27;, &#x27;capacity_kw&#x27;: CAPACITIES_KW[0],
-                &#x27;critical_nodes&#x27;: [2, 5], &#x27;model&#x27;: &#x27;six_node_active_transport&#x27;, &#x27;revision&#x27;: 1}</pre><ul><li>Restore the original CAPACITIES_KW list and rerun L6.</li><li>L7 checks the first 40 kW record, then changes the request to 20 kW.</li></ul></div>
+                &#x27;critical_nodes&#x27;: [2, 5], &#x27;model&#x27;: &#x27;six_node_active_transport&#x27;, &#x27;revision&#x27;: 1}</pre><ul><li>Restore the original capacity list and rerun L6.</li><li>Run L7. It changes the first request from 40 kW to 20 kW.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding.</a></div>
 <span class="pageno">46 / 80</span></div>
 
@@ -1179,8 +1179,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Classroom Labs · L7 · classroom-021</div>
-<h1>Read the evidence-match test</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L7_binding.png" alt="Reference L7 output: changed request, unchanged evidence, so a new check is needed." style="max-height:345px;height:auto"><figcaption>Reference L7 output: changed request, unchanged evidence, so a new check is needed.</figcaption></figure></div><ul><li>Original request: True. Changed rating with the old evidence: False.</li><li>HOLD the old recommendation and request a new solve.</li></ul></div>
+<h1>L7: the old evidence no longer matches</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L7_binding.png" alt="Reference L7. New inputs require new evidence." style="max-height:345px;height:auto"><figcaption>Reference L7. New inputs require new evidence.</figcaption></figure></div><ul><li>Original request: True. Changed request: False.</li><li>HOLD the old recommendation and request a new solve.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding.</a></div>
 <span class="pageno">47 / 80</span></div>
 
@@ -1201,8 +1201,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L7 · classroom-021</div>
-<h1>Changed inputs need a new check</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/restoration_stale.svg" alt="L7 changes capacity and revision; extra topology labels are teaching examples." style="height:305px;max-height:305px"><figcaption>L7 changes capacity and revision; extra topology labels are teaching examples.</figcaption></figure><ul><li>“The evidence is old” does not mean “the changed plan fails its limits.”</li><li>Update the request, solve and check it, then match the new evidence to that request.</li></ul></div>
+<h1>New inputs need new evidence</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/restoration_stale.svg" alt="L7 changes capacity and revision, then tests the old evidence." style="height:305px;max-height:305px"><figcaption>L7 changes capacity and revision, then tests the old evidence.</figcaption></figure><ul><li>An outdated check does not tell us whether the new plan works.</li><li>Solve again, check again and attach the new result to the new request.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding.</a></div>
 <span class="pageno">48 / 80</span></div>
 
@@ -1223,8 +1223,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L6 · classroom-018</div>
-<h1>Proposed agent role: keep the service goal</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/restoration_plan.svg" alt="Proposed agent responsibilities; the current notebook cell runs Python." style="height:305px;max-height:305px"><figcaption>Proposed agent responsibilities; the current notebook cell runs Python.</figcaption></figure><ul><li>This cell runs Python: the operator sets the goal and limits; MILP chooses the whole loads.</li><li>A proposed agent would request that solve and explain the returned tradeoff.</li></ul></div>
+<h1>The agent keeps the service goal</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/restoration_plan.svg" alt="Proposed agent use. L6 itself runs Python." style="height:305px;max-height:305px"><figcaption>Proposed agent use. L6 itself runs Python.</figcaption></figure><ul><li>L6 runs Python directly. The operator sets priorities; MILP selects loads.</li><li>An agent could request the solve and explain its returned tradeoff.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</a></div>
 <span class="pageno">49 / 80</span></div>
 
@@ -1245,8 +1245,8 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L6 · classroom-018</div>
-<h1>What this model does not check</h1>
-<div class="content"><ul><li>This active-power graph does not check AC voltage, reactive power or protection.</li><li>The energized branches do not give the order of field switching steps.</li></ul></div>
+<h1>Restoration model limits</h1>
+<div class="content"><ul><li>This graph checks active power, not AC voltage or protection.</li><li>Selected branches do not specify the order of field switching.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L6; cell classroom-018; src/standard_formulations.py.</a></div>
 <span class="pageno">50 / 80</span></div>
 
@@ -1267,8 +1267,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Recorded agent example · separate feeder study</div>
-<h1>Restoration: Llama chooses a useful new trial</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/llama_restoration_14.png" alt="Saved restoration example; separate from this case’s fresh calculation. Replay it in L10B later." style="max-height:380px;height:auto"><figcaption>Saved restoration example; separate from this case’s fresh calculation. Replay it in L10B later.</figcaption></figure></div><ul><li>The new trial serves more load, keeps critical service and passes the current check.</li></ul></div>
+<h1>Saved restoration case: try another plan</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/llama_restoration_14.png" alt="Saved feeder-catalog study, separate from L6. Replay in L10B." style="max-height:380px;height:auto"><figcaption>Saved feeder-catalog study, separate from L6. Replay in L10B.</figcaption></figure></div><ul><li>Llama requests a trial that restores more load and passes the current check.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom Labs L10B: restoration replay, recorded call 14; full record in source guide.</a></div>
 <span class="pageno">51 / 80</span></div>
 
@@ -1292,8 +1292,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Recorded agent example · separate feeder study</div>
-<h1>Restoration: the next trial crosses the current limit</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/llama_restoration_15.png" alt="Saved restoration example; separate from this case’s fresh calculation. Replay it in L10B later." style="max-height:380px;height:auto"><figcaption>Saved restoration example; separate from this case’s fresh calculation. Replay it in L10B later.</figcaption></figure></div><ul><li>The next trial fails the current limit. Keep the previous passed candidate.</li></ul></div>
+<h1>Saved restoration case: reject a failed trial</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/llama_restoration_15.png" alt="Saved feeder-catalog study, separate from L6. Replay in L10B." style="max-height:380px;height:auto"><figcaption>Saved feeder-catalog study, separate from L6. Replay in L10B.</figcaption></figure></div><ul><li>The next trial exceeds the current limit. Keep the previous passing plan.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom Labs L10B: restoration replay, recorded call 15; full record in source guide.</a></div>
 <span class="pageno">52 / 80</span></div>
 
@@ -1317,8 +1317,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Recorded agent example · separate feeder study</div>
-<h1>Restoration: catch Llama’s wrong ranking</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/llama_restoration_16.png" alt="Saved restoration example; separate from this case’s fresh calculation. Replay it in L10B later." style="max-height:380px;height:auto"><figcaption>Saved restoration example; separate from this case’s fresh calculation. Replay it in L10B later.</figcaption></figure></div><ul><li>The returned order is wrong. Python chooses the smaller cost and rechecks the plan.</li></ul></div>
+<h1>Saved restoration case: correct the ranking</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/llama_restoration_16.png" alt="Saved feeder-catalog study, separate from L6. Replay in L10B." style="max-height:380px;height:auto"><figcaption>Saved feeder-catalog study, separate from L6. Replay in L10B.</figcaption></figure></div><ul><li>Python corrects the ranking and rechecks the lowest-cost passing plan.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom Labs L10B: restoration replay, recorded call 16; full record in source guide.</a></div>
 <span class="pageno">53 / 80</span></div>
 
@@ -1342,8 +1342,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L8 · classroom-023</div>
-<h1>Cyber: open L8</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/cyber_network.svg" alt="Four-bus linear DC teaching model; known synthetic truth is used only for offline comparison." style="height:305px;max-height:305px"><figcaption>Four-bus linear DC teaching model; known synthetic truth is used only for offline comparison.</figcaption></figure><ul><li>Use the separate four-bus DC model and its supplied readings.</li><li>Compare a residual alarm, which checks fit, with error against the known teaching truth.</li></ul></div>
+<h1>Case 3: suspicious readings</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/cyber_network.svg" alt="Four-bus DC model. Simulation truth is used only for offline comparison." style="height:305px;max-height:305px"><figcaption>Four-bus DC model. Simulation truth is used only for offline comparison.</figcaption></figure><ul><li>Use the separate four-bus DC teaching model.</li><li>Compare the fit to readings with error against known simulation truth.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</a></div>
 <span class="pageno">54 / 80</span></div>
 
@@ -1364,8 +1364,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L8 · classroom-023</div>
-<h1>Best fit and true state are different</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/cyber_residual.svg" alt="A good fit to readings does not show that those readings are authentic." style="height:305px;max-height:305px"><figcaption>A good fit to readings does not show that those readings are authentic.</figcaption></figure><ul><li>WLS finds the best fit to readings, giving more weight to lower stated uncertainty.</li><li>Residual J measures fit mismatch. State error uses teaching truth unavailable to an operator.</li></ul></div>
+<h1>What the residual measures</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/cyber_residual.svg" alt="A good fit does not authenticate the readings." style="height:305px;max-height:305px"><figcaption>A good fit does not authenticate the readings.</figcaption></figure><ul><li>Weighted least squares (WLS) fits the readings. Residual J measures the mismatch.</li><li>The true state is known in this simulation, not in a live control room.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</a></div>
 <span class="pageno">55 / 80</span></div>
 
@@ -1389,12 +1389,12 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L8 · classroom-023</div>
-<h1>Run L8: compare two data attacks</h1>
+<h1>L8: run two data attacks</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L8 (classroom-023), source lines 1–5.</p><pre class="teaching-code">ATTACK_SCALES = (0., .25, .5, 1., 1.5)
 started = time.perf_counter()
 cyber = lab.cyber_sweep(ATTACK_SCALES)
 timings[&#x27;L8 fresh WLS attack sweep&#x27;] = time.perf_counter() - started
-display(cyber[&#x27;table&#x27;])</pre><ul><li>Run all of L8 with its default scale list.</li><li>Compare one biased reading with the coordinated Hc shift in the table and plots.</li></ul></div>
+display(cyber[&#x27;table&#x27;])</pre><ul><li>Run L8 with the default scales.</li><li>Compare one biased reading with a coordinated change across readings.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</a></div>
 <span class="pageno">56 / 80</span></div>
 
@@ -1415,8 +1415,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Classroom Labs · L8 · classroom-023</div>
-<h1>Read both cyber plots</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L8_plot.png" alt="Reference L8 plots; rerun L8 to calculate results for your chosen attack scales." style="max-height:345px;height:auto"><figcaption>Reference L8 plots; rerun L8 to calculate results for your chosen attack scales.</figcaption></figure></div><ul><li>Left: residual J and its alarm threshold. Right: error against the known teaching truth.</li><li>Follow the coordinated curve across both plots before calling a quiet alarm reassuring.</li></ul></div>
+<h1>L8: read both cyber plots</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L8_plot.png" alt="Reference L8 plots. State error uses known simulation truth." style="max-height:345px;height:auto"><figcaption>Reference L8 plots. State error uses known simulation truth.</figcaption></figure></div><ul><li>Left: mismatch J and the alarm threshold. Right: error against simulation truth.</li><li>A quiet alarm can appear alongside a growing state error.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</a></div>
 <span class="pageno">57 / 80</span></div>
 
@@ -1437,8 +1437,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L8 · classroom-023</div>
-<h1>At scale 1, the alarm misses a state error</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/cyber_stealth.svg" alt="Simple consistency illustration; the numerical values come from the eight-reading L8 model." style="height:305px;max-height:305px"><figcaption>Simple consistency illustration; the numerical values come from the eight-reading L8 model.</figcaption></figure><ul><li>One biased reading: J about 277.50, so the residual alarm is True.</li><li>Coordinated Hc: J about 3.92, no alarm, but state error is about 0.02678 rad.</li></ul></div>
+<h1>L8: a coordinated attack escapes the alarm</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/cyber_stealth.svg" alt="Values from the eight-reading L8 model." style="height:305px;max-height:305px"><figcaption>Values from the eight-reading L8 model.</figcaption></figure><ul><li>At scale 1, one biased reading gives J=277.50 and an alarm.</li><li>The coordinated attack gives J=3.92, no alarm, and 0.02678 rad of state error.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</a></div>
 <span class="pageno">58 / 80</span></div>
 
@@ -1463,8 +1463,8 @@ transition: none
 <div class="lesson teaching rigorous exercise-slide">
 
 <div class="eyebrow">Classroom Labs · L8 · classroom-023</div>
-<h1>Exercise 3: add a small isolated bias</h1>
-<div class="content"><pre class="source-excerpt">ATTACK_SCALES = (0., .10, .25, .5, 1., 1.5)</pre><ul><li>Add .10 to ATTACK_SCALES. Predict, then rerun L8.</li><li>At scale 0.10, read J, the alarm flag and the error against known teaching truth.</li><li>Does “no alarm” mean the reading is correct? Use both plots to explain.</li></ul></div>
+<h1>Exercise 3: test a small bias</h1>
+<div class="content"><pre class="source-excerpt">ATTACK_SCALES = (0., .10, .25, .5, 1., 1.5)</pre><ul><li>Add .10 to ATTACK_SCALES. Predict, then rerun L8.</li><li>At scale 0.10, compare J, the alarm flag and state error.</li><li>Does no alarm mean the data are correct?</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</a></div>
 <span class="pageno">59 / 80</span></div>
 
@@ -1485,8 +1485,8 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L8 · classroom-023</div>
-<h1>Debrief: no alarm does not prove truth</h1>
-<div class="content"><p class="callout">10.14 &lt; 15.09 → no residual alarm</p><ul><li>At scale 0.10, the isolated-bias J is about 10.14, below the 15.09 threshold.</li><li>A small bias can miss the threshold. A coordinated shift can preserve the fit.</li></ul></div>
+<h1>Exercise 3: a small bias can miss the threshold</h1>
+<div class="content"><p class="callout">10.14 &lt; 15.09 → no residual alarm</p><ul><li>At scale 0.10, J is about 10.14, below the 15.09 alarm threshold.</li><li>A quiet alarm alone cannot prove that readings are true.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</a></div>
 <span class="pageno">60 / 80</span></div>
 
@@ -1507,10 +1507,10 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L8 · classroom-023</div>
-<h1>Reset L8 before the recovery example</h1>
+<h1>L8: reset before recovery</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L8 (classroom-023), source lines 1–3.</p><pre class="teaching-code">ATTACK_SCALES = (0., .25, .5, 1., 1.5)
 started = time.perf_counter()
-cyber = lab.cyber_sweep(ATTACK_SCALES)</pre><ul><li>Restore the original ATTACK_SCALES list and rerun L8.</li><li>L9 uses a fixed recovery case, separate from the scale you changed.</li></ul></div>
+cyber = lab.cyber_sweep(ATTACK_SCALES)</pre><ul><li>Restore the original attack scales and rerun L8.</li><li>L9 uses a separate fixed recovery case.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L8; cell classroom-023; four-bus DC fixture.</a></div>
 <span class="pageno">61 / 80</span></div>
 
@@ -1531,8 +1531,8 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L9 · classroom-026</div>
-<h1>L9 uses a fixed recovery case</h1>
-<div class="content"><ul><li>Check the same case with and without replacement readings assumed to be trusted.</li><li>Its control value does not follow your L8 scale change.</li></ul></div>
+<h1>L9: one fixed recovery case</h1>
+<div class="content"><ul><li>Compare the same case with and without readings assumed to be trusted.</li><li>Your L8 scale change does not change this case.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</a></div>
 <span class="pageno">62 / 80</span></div>
 
@@ -1553,8 +1553,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L9 · classroom-026</div>
-<h1>Trusted readings are an assumption</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/cyber_trusted.svg" alt="Three trusted angle readings are assumed, not authenticated by this calculation." style="height:305px;max-height:305px"><figcaption>Three trusted angle readings are assumed, not authenticated by this calculation.</figcaption></figure><ul><li>The example assumes three independent angle readings are trustworthy.</li><li>The residual check and a model’s explanation cannot authenticate those readings.</li></ul></div>
+<h1>Data trust is an assumption</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/cyber_trusted.svg" alt="Three extra angle readings are assumed trustworthy." style="height:305px;max-height:305px"><figcaption>Three extra angle readings are assumed trustworthy.</figcaption></figure><ul><li>This example assumes three extra angle readings are trustworthy.</li><li>Neither WLS nor Llama authenticates them.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</a></div>
 <span class="pageno">63 / 80</span></div>
 
@@ -1575,9 +1575,9 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L9 · classroom-026</div>
-<h1>Run L9: compare HOLD and PROPOSE</h1>
+<h1>L9: HOLD or PROPOSE</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L9 (classroom-026), source lines 1–2.</p><pre class="teaching-code">without_trust = lab.trusted_response(cyber, protected_available=False)
-with_trust = lab.trusted_response(cyber, protected_available=True)</pre><ul><li>Run the whole L9 cell, including its assertions.</li><li>Read status first, then the proposed injection and the offline limit-violation count.</li></ul></div>
+with_trust = lab.trusted_response(cyber, protected_available=True)</pre><ul><li>Run all of L9. Read status first.</li><li>Then read the proposed injection and the offline violation count.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</a></div>
 <span class="pageno">64 / 80</span></div>
 
@@ -1598,8 +1598,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Classroom Labs · L9 · classroom-026</div>
-<h1>Read the two decision states</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L9_trust.png" alt="Reference L9 output for the fixed recovery case, not the edited L8 scale." style="max-height:325px;height:auto"><figcaption>Reference L9 output for the fixed recovery case, not the edited L8 scale.</figcaption></figure></div><ul><li>No trusted replacement readings: HOLD, with no proposed injection.</li><li>Trusted readings assumed: PROPOSE; u ≈ 0.121694 p.u.; zero offline toy-model violations.</li></ul></div>
+<h1>L9: two outcomes</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L9_trust.png" alt="Reference L9 output for the fixed recovery case, not the edited L8 scale." style="max-height:325px;height:auto"><figcaption>Reference L9 output for the fixed recovery case, not the edited L8 scale.</figcaption></figure></div><ul><li>Without trusted replacement readings: HOLD.</li><li>With assumed trusted readings: PROPOSE, u about 0.121694 p.u., zero offline model violations.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</a></div>
 <span class="pageno">65 / 80</span></div>
 
@@ -1620,8 +1620,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L9 · classroom-026</div>
-<h1>Check the numerical correction</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/cyber_qp.svg" alt="Fixed L9 correction: compare the predicted branch flow with the offline truth check." style="height:305px;max-height:305px"><figcaption>Fixed L9 correction: compare the predicted branch flow with the offline truth check.</figcaption></figure><ul><li>The QP solver minimizes effort, subject to branch limits and a 0.01 p.u. margin.</li><li>Predicted flow12: 0.17000; offline actual: about 0.17046, below the 0.18000 rating.</li></ul></div>
+<h1>L9: check the correction</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/cyber_qp.svg" alt="Fixed L9 correction: compare the predicted branch flow with the offline truth check." style="height:305px;max-height:305px"><figcaption>Fixed L9 correction: compare the predicted branch flow with the offline truth check.</figcaption></figure><ul><li>A quadratic-program (QP) solver finds the smallest allowed injection that meets the branch limits.</li><li>One flow: predicted 0.17000 p.u., offline actual 0.17046 p.u., limit 0.18000 p.u.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</a></div>
 <span class="pageno">66 / 80</span></div>
 
@@ -1642,8 +1642,8 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Classroom Labs · L9 · classroom-026</div>
-<h1>What makes the recovery possible?</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/cyber_handoff.svg" alt="Trusted information and numerical checks have separate roles." style="height:305px;max-height:305px"><figcaption>Trusted information and numerical checks have separate roles.</figcaption></figure><ul><li>Assumed trusted readings support the estimate. The solver calculates a limited correction.</li><li>The explanation must keep those conditions clear and leave the proposal for review.</li></ul></div>
+<h1>A proposal depends on its assumptions</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/cyber_handoff.svg" alt="A numerical proposal still needs human review." style="height:305px;max-height:305px"><figcaption>A numerical proposal still needs human review.</figcaption></figure><ul><li>Assumed trusted data support the estimate. The solver calculates a correction.</li><li>The operator still reviews data trust, model coverage and missing checks.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L9; cell classroom-026; fixed trusted-recovery fixture.</a></div>
 <span class="pageno">67 / 80</span></div>
 
@@ -1664,8 +1664,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Recorded agent example · separate recovery study</div>
-<h1>Cyber: Llama selects the tool already allowed</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/llama_cyber_7.png" alt="Saved cyber example; separate from this case’s fresh calculation. Replay it in L10B later." style="max-height:380px;height:auto"><figcaption>Saved cyber example; separate from this case’s fresh calculation. Replay it in L10B later.</figcaption></figure></div><ul><li>The task supplies the tool and trust assumption. Python computes the correction.</li></ul></div>
+<h1>Saved cyber case: request the allowed tool</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/llama_cyber_7.png" alt="Saved four-bus study. Replay in L10B." style="max-height:380px;height:auto"><figcaption>Saved four-bus study. Replay in L10B.</figcaption></figure></div><ul><li>Llama selects the supplied recovery tool. Python calculates the correction.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom Labs L10B: cyber replay, recorded call 7; full record in source guide.</a></div>
 <span class="pageno">68 / 80</span></div>
 
@@ -1689,8 +1689,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Recorded agent example · separate recovery study</div>
-<h1>Cyber: a passing calculation still needs review</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/llama_cyber_8.png" alt="Saved cyber example; separate from this case’s fresh calculation. Replay it in L10B later." style="max-height:350px;height:auto"><figcaption>Saved cyber example; separate from this case’s fresh calculation. Replay it in L10B later.</figcaption></figure></div><ul><li>Keep REVIEW visible. The operator must resolve the trust assumption and missing checks.</li></ul></div>
+<h1>Saved cyber case: keep human review</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/llama_cyber_8.png" alt="Saved four-bus study. Replay in L10B." style="max-height:350px;height:auto"><figcaption>Saved four-bus study. Replay in L10B.</figcaption></figure></div><ul><li>The model check passes. The operator must still review trust and missing checks.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom Labs L10B: cyber replay, recorded call 8; full record in source guide.</a></div>
 <span class="pageno">69 / 80</span></div>
 
@@ -1714,8 +1714,8 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L10 · classroom-028</div>
-<h1>Run L10 before the Llama walkthrough</h1>
-<div class="content"><ul><li>Run L10 to inspect its separate archived five-stage study.</li><li>Continue to L10B for the recorded Llama choices, then run L11 with its default False setting.</li></ul></div>
+<h1>L10: inspect the five-role workflow</h1>
+<div class="content"><ul><li>Run L10 to see every recorded stage and result.</li><li>The stages share case facts, proposals and check results. The next slides explain their jobs.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030.</a></div>
 <span class="pageno">70 / 80</span></div>
 
@@ -1736,12 +1736,12 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L10B · classroom-llama-walkthrough</div>
-<h1>Run L10B: watch Llama choose a tool</h1>
+<h1>L10B: replay the three Llama examples</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L10B (classroom-llama-walkthrough), source lines 1–5.</p><pre class="teaching-code">SCENARIO = &quot;voltage&quot;  # Change to &quot;restoration&quot; or &quot;cyber&quot;, then rerun this cell.
 from IPython.display import HTML, display
 from src.llama_walkthrough import load_episodes, render_episode_html
 replay_episodes = load_episodes(ROOT)
-display(HTML(render_episode_html(replay_episodes[SCENARIO])))</pre><ul><li>Now replay the three saved episodes: set SCENARIO to voltage, restoration and cyber, rerunning each time.</li></ul></div>
+display(HTML(render_episode_html(replay_episodes[SCENARIO])))</pre><ul><li>Set SCENARIO to voltage, restoration and cyber. Rerun for each.</li><li>These are saved replies and tool results. No new Llama call runs here.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L10B; cell classroom-llama-walkthrough; src/llama_walkthrough.py.</a></div>
 <span class="pageno">71 / 80</span></div>
 
@@ -1765,9 +1765,9 @@ transition: none
 <div class="lesson teaching rigorous normal-slide">
 
 <div class="eyebrow">Classroom Labs · L12 · classroom-033</div>
-<h1>Finish L12: practice the readback</h1>
+<h1>L12: practice operator readback</h1>
 <div class="content code-content"><p class="code-caption">Classroom_Labs.ipynb L12 (classroom-033), source lines 9–10.</p><pre class="teaching-code">wrong_id = lab.acknowledge(mv_scope, &#x27;wrong-id&#x27;, &#x27;Student operator&#x27;)
-readback = lab.acknowledge(mv_scope, mv_scope[&#x27;recommendation_id&#x27;], &#x27;Student operator&#x27;)</pre><ul><li>Run all of L12 after completing L0–L11 in notebook order.</li><li>Check wrong-ID rejection, simulated acknowledgment and equipment_dispatch=False.</li></ul></div>
+readback = lab.acknowledge(mv_scope, mv_scope[&#x27;recommendation_id&#x27;], &#x27;Student operator&#x27;)</pre><ul><li>Leave L11 disabled, then run L12.</li><li>Check the wrong ID, the matching ID and equipment_dispatch=False.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only.</a></div>
 <span class="pageno">72 / 80</span></div>
 
@@ -1788,8 +1788,8 @@ transition: none
 <div class="lesson teaching rigorous figure-slide">
 
 <div class="eyebrow">Classroom Labs / L12 / simulated readback</div>
-<h1>Read the two readback outcomes</h1>
-<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L12_packet.png" alt="Reference L12 output. Run L12 here, after the three cases and the L10B replay." style="max-height:345px;height:auto"><figcaption>Reference L12 output. Run L12 here, after the three cases and the L10B replay.</figcaption></figure></div><ul><li>Full MV/LV request: HOLD. The explicit MV teaching request allows a simulated readback.</li><li>A wrong recommendation ID is rejected. equipment_dispatch stays False.</li></ul></div>
+<h1>L12: approval must match the checked scope</h1>
+<div class="content"><div class="wide-figure"><figure><img src="/images/hands_on_L12_packet.png" alt="Reference L12 output. Readback is simulated." style="max-height:345px;height:auto"><figcaption>Reference L12 output. Readback is simulated.</figcaption></figure></div><ul><li>Full MV/LV request: HOLD. The MV teaching request allows a simulated readback.</li><li>A wrong ID fails. This exercise never sends equipment commands.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only.</a></div>
 <span class="pageno">73 / 80</span></div>
 
@@ -1809,29 +1809,27 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<h1>Llama chooses; tools calculate; people decide</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/agent_roles_simple.svg" alt="Our grid teaching adaptation of the language/checking distinction in Stanford Lecture 1, p.53." style="height:350px;max-height:350px"><figcaption>Our grid teaching adaptation of the language/checking distinction in Stanford Lecture 1, p.53.</figcaption></figure><ul><li>The agent coordinates a study. Numerical tools supply the checks. The operator reviews the proposal.</li></ul></div>
-<div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53.</a></div>
+<div class="eyebrow">Recorded five-role study / L10</div>
+<h1>Our multi-agent design: five roles</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/multi_agent_roles.svg" alt="Custom Python workflow, one Llama model in two roles. L10 displays its saved trace." style="height:365px;max-height:365px"><figcaption>Custom Python workflow, one Llama model in two roles. L10 displays its saved trace.</figcaption></figure><ul><li>The roles pass structured results to each other. Llama handles planning and refinement; Python runs the other stages.</li></ul></div>
+<div class="sources">Source: <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py">Five-role implementation: src/proposal_workflow.py; recorded results: proposal_complete_workflow.json.</a></div>
 <span class="pageno">74 / 80</span></div>
 
 <!--
-Use the three symbols to assign responsibilities: the speech box is Llama making a permitted choice and returning a public reason; the function is Python and OpenDSS calculating physical results and enforcing workflow limits; the person is the operator reviewing evidence and retaining operating authority. The Llama wrappers use constrained JSON interpreted by the application, rather than native tool_calls. Language explanations are not proof of physical correctness. In our replay the model may say REVIEW but the human acknowledgment is still PENDING. For each exercise work in pairs: one person runs while the other checks, then swap. Save the input, result, check and next decision. Stanford p.53 separates language understanding from checking a formal decision model in a clinical-trial example. The lab adaptation separates Llama coordination from Python numerical checks and operator review. This lab does not run SMT or MaxSAT, and the analogy supplies no formal guarantee about the grid model. This role reminder now introduces the closing advisory-pilot discussion, after the L12 readback.
+This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry.
 Takeaway: 
 Nominal duration: 1 minutes.
 
 Full sources:
-Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University. Fall 2026.
-Full source: https://web.stanford.edu/class/cs224v/lectures_2026/l-introduction.pdf
-Publication: https://web.stanford.edu/class/cs224v/
+Alaa Selim and Mohamed Chehada. Five-role operator study workflow: implementation and recorded cases. GridGuard Agentic AI Tutorials, reproducible Python source and saved study archive. 2026.
+Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py
+Publication: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/proposal_complete_workflow.json
+
+Classroom Labs notebook. Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
 Erik S., Barry Zhang. Building effective agents. Anthropic Engineering. 2024-12-19.
 Full source: https://www.anthropic.com/research/building-effective-agents
-
-Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
-Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
-
-Ollama documentation maintainers. Structured Outputs: generating structured JSON with a schema. Official Ollama documentation. Reviewed 24 October 2026.
-Full source: https://docs.ollama.com/capabilities/structured-outputs
 -->
 
 ---
@@ -1840,27 +1838,23 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<div class="eyebrow">Proposed advisory pilot · teaching design</div>
-<h1>Start a control-room pilot with a clear study request</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/ops_request_snapshot.svg" alt="Proposed advisory pilot — teaching design. F12 is an illustrative identifier." style="height:330px;max-height:330px"><figcaption>Proposed advisory pilot — teaching design. F12 is an illustrative identifier.</figcaption></figure><ul><li>Use an approved copy of the network data with a time stamp, topology version and limits.</li><li>If required data are missing or too old, return HOLD and name the missing information.</li></ul></div>
-<div class="sources">Source: <a href="https://doi.org/10.6028/NIST.SP.800-82r3">Teaching proposal informed by NIST OT guidance and the cited notebook checks.</a></div>
+<div class="eyebrow">Recorded five-role study / L10</div>
+<h1>Five roles in the voltage case</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/multi_agent_voltage.svg" alt="L10 MV voltage archive, separate from L2 and the P3 replay in L10B." style="height:365px;max-height:365px"><figcaption>L10 MV voltage archive, separate from L2 and the P3 replay in L10B.</figcaption></figure><ul><li>Llama asks for less reactive power, then more solar output. Python checks each new trial.</li></ul></div>
+<div class="sources">Source: <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py">Five-role implementation: src/proposal_workflow.py; recorded results: proposal_complete_workflow.json.</a></div>
 <span class="pageno">75 / 80</span></div>
 
 <!--
-Proposed advisory pilot, not a deployment claim. F12 is an illustrative teaching feeder name. Read the study request aloud: compare the allowed voltage-support options, keep the stated current and voltage limits, show the worst margins and missing checks, and return a recommendation for review. The data owner defines acceptable age, source and quality rules. L1 and L7 illustrate matching inputs to results, but hashes alone do not authenticate those sources.
+This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. In this L10 lindistflow3 record, the optimizer asks for RELAX_Q_10_PERCENT then INCREASE_PV_0025. Python recalculates each proposal and the verification stage checks it. The selected final recheck uses a=0.3394386941 and b=0.0276310594, with 50.75344954 percent allowed-current use and no recorded violations. The scope is MV phases only with ideal LV aggregation. Do not substitute the P3 99.604410 percent result or L2 MPC score. These are different experiments.
 Takeaway: 
 Nominal duration: 4 minutes.
 
 Full sources:
-Keith Stouffer, Michael Pease, CheeYee Tang, Timothy Zimmerman, Victoria Pillitteri, Suzanne Lightman, Adam Hahn, Stephanie Saravia, Aslam Sherule, Michael Thompson. Guide to Operational Technology (OT) Security. National Institute of Standards and Technology, NIST SP 800-82 Revision 3. September 2023 (final).
-Full source: https://doi.org/10.6028/NIST.SP.800-82r3
-Full paper: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf
-Publication: https://csrc.nist.gov/pubs/sp/800/82/r3/final
+Alaa Selim and Mohamed Chehada. Five-role operator study workflow: implementation and recorded cases. GridGuard Agentic AI Tutorials, reproducible Python source and saved study archive. 2026.
+Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py
+Publication: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/proposal_complete_workflow.json
 
-Classroom Labs notebook. Classroom_Labs.ipynb, L0–L1; cells classroom-002 and classroom-004. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
-
-Classroom Labs notebook. Classroom_Labs.ipynb, L7; cell classroom-021; request/evidence binding. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Classroom Labs notebook. Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 -->
 
@@ -1870,28 +1864,27 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<div class="eyebrow">Proposed advisory pilot · teaching design</div>
-<h1>Give the assistant a small, controlled tool list</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/ops_tool_boundary.svg" alt="Proposed advisory pilot — teaching design. Classroom functions are not live control-room interfaces." style="height:330px;max-height:330px"><figcaption>Proposed advisory pilot — teaching design. Classroom functions are not live control-room interfaces.</figcaption></figure><ul><li>An approved interface supplies read-only data and study tools. Log every request and result.</li><li>Keep equipment commands in the utility’s separate authorized operating process.</li></ul></div>
-<div class="sources">Source: <a href="https://doi.org/10.6028/NIST.SP.800-82r3">Teaching proposal informed by NIST OT guidance and the cited notebook checks.</a></div>
+<div class="eyebrow">Recorded five-role study / L10</div>
+<h1>Five roles in the restoration case</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/multi_agent_restoration.svg" alt="L10 feeder catalog, separate from the six-node L6 exercise." style="height:365px;max-height:365px"><figcaption>L10 feeder catalog, separate from the six-node L6 exercise.</figcaption></figure><ul><li>The goal stays fixed. A failed trial cannot enter the final ranking, and Python corrects a wrong cost order.</li></ul></div>
+<div class="sources">Source: <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py">Five-role implementation: src/proposal_workflow.py; recorded results: proposal_complete_workflow.json.</a></div>
 <span class="pageno">76 / 80</span></div>
 
 <!--
-Proposed advisory pilot. Walk through the lanes: operator, assistant, application-controlled tool gateway and engineering tools. Llama requests one permitted function; the application checks the request and executes the tool. A snapshot identifier binds the result to the input. The workshop Python functions are teaching counterparts, not SCADA adapters. NIST OT guidance supports controlled information flows, least privilege and logging. The exact pilot architecture is our teaching recommendation, not a NIST-certified design.
+This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. The L10 lindistflow3 restoration record uses a feeder bypass catalog. SHED_075 returns 1843.61355 kW served and 474.03975 critical kW at 91.86721465 percent allowed-current use. SHED_065 then fails at 111.009413 percent. Llama ranks E02 before E03 even though E03 has the smaller cost. The numerical guard selects E03, then records the final recheck as E05. Switching sequence and broader physical operation are not established.
 Takeaway: 
 Nominal duration: 4 minutes.
 
 Full sources:
-Keith Stouffer, Michael Pease, CheeYee Tang, Timothy Zimmerman, Victoria Pillitteri, Suzanne Lightman, Adam Hahn, Stephanie Saravia, Aslam Sherule, Michael Thompson. Guide to Operational Technology (OT) Security. National Institute of Standards and Technology, NIST SP 800-82 Revision 3. September 2023 (final).
-Full source: https://doi.org/10.6028/NIST.SP.800-82r3
-Full paper: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf
-Publication: https://csrc.nist.gov/pubs/sp/800/82/r3/final
+Alaa Selim and Mohamed Chehada. Five-role operator study workflow: implementation and recorded cases. GridGuard Agentic AI Tutorials, reproducible Python source and saved study archive. 2026.
+Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py
+Publication: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/proposal_complete_workflow.json
 
-Ollama documentation maintainers. Structured Outputs: generating structured JSON with a schema. Official Ollama documentation. Reviewed 24 October 2026.
-Full source: https://docs.ollama.com/capabilities/structured-outputs
+Classroom Labs notebook. Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
 
-Classroom Labs notebook and Python helper. L10B: Watch how Llama chooses a tool; src/llama_walkthrough.py. Public reproducible teaching material. 24 October 2026.
-Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/llama_walkthrough.py
+Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14–16. Public teaching archive. 27 September 2026.
+Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/proposal_run_20260927T184402Z_53e0cf/llama_calls.json
 -->
 
 ---
@@ -1900,28 +1893,24 @@ transition: none
 
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
-<div class="eyebrow">Proposed advisory pilot · teaching design</div>
-<h1>Check three things before returning a proposal</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/ops_three_gates.svg" alt="Proposed advisory pilot — teaching design. A PASS is limited to its tested model and inputs." style="height:330px;max-height:330px"><figcaption>Proposed advisory pilot — teaching design. A PASS is limited to its tested model and inputs.</figcaption></figure><ul><li>Check that the inputs match, the required limits pass and the required network parts were modeled.</li><li>Example: an MV-only PASS stays on HOLD when the request requires the full MV/LV network.</li></ul></div>
-<div class="sources">Source: <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Teaching proposal informed by NIST OT guidance and the cited notebook checks.</a></div>
+<div class="eyebrow">Recorded five-role study / L10</div>
+<h1>Five roles in the cyber case</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/multi_agent_cyber.svg" alt="L10 four-bus DC cyber_stealth archive. Trusted channels are assumed." style="height:365px;max-height:365px"><figcaption>L10 four-bus DC cyber_stealth archive. Trusted channels are assumed.</figcaption></figure><ul><li>The workflow keeps the trust assumption visible. It cannot create trusted data from a convincing answer.</li></ul></div>
+<div class="sources">Source: <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py">Five-role implementation: src/proposal_workflow.py; recorded results: proposal_complete_workflow.json.</a></div>
 <span class="pageno">77 / 80</span></div>
 
 <!--
-Proposed advisory pilot. Current data and a matching evidence packet are the first gate. The second gate checks stated engineering limits with approved tools. The third asks whether the calculations cover the request, including excluded low-voltage parts or required protection and dynamic studies. This is not a universal complete security checklist. It illustrates why L12 can produce a passing local calculation and still HOLD a broader request. Make missing evidence visible instead of allowing fluent text to fill the gap.
+This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. Awareness preserves the declared measurement-trust condition. Planning requests the initial candidates; Python runs the estimator and constrained-response tools. The optimizer requests EXTRA_MARGIN_001 and TRUSTED_QP. The selected final recheck uses TRUSTED_QP with u=0.1216936673 per unit and predicted flow12=0.17 per unit against a 0.18 limit. The model checks a four-bus DC fixture with three protected angles assumed trustworthy. No stage authenticates those channels, and offline truth is not fed to Llama.
 Takeaway: 
 Nominal duration: 4 minutes.
 
 Full sources:
-Classroom Labs notebook. Classroom_Labs.ipynb, L5; cell classroom-016; MV-only default model. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
-Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
+Alaa Selim and Mohamed Chehada. Five-role operator study workflow: implementation and recorded cases. GridGuard Agentic AI Tutorials, reproducible Python source and saved study archive. 2026.
+Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py
+Publication: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/proposal_complete_workflow.json
 
-Classroom Labs notebook. Classroom_Labs.ipynb, L12; cell classroom-033; simulated readback only. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Classroom Labs notebook. Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
 Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
-
-Keith Stouffer, Michael Pease, CheeYee Tang, Timothy Zimmerman, Victoria Pillitteri, Suzanne Lightman, Adam Hahn, Stephanie Saravia, Aslam Sherule, Michael Thompson. Guide to Operational Technology (OT) Security. National Institute of Standards and Technology, NIST SP 800-82 Revision 3. September 2023 (final).
-Full source: https://doi.org/10.6028/NIST.SP.800-82r3
-Full paper: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf
-Publication: https://csrc.nist.gov/pubs/sp/800/82/r3/final
 -->
 
 ---
@@ -1931,13 +1920,13 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Proposed advisory pilot · teaching design</div>
-<h1>Give the operator a short evidence packet</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/ops_review.svg" alt="Proposed advisory pilot — teaching design. Review of a study is distinct from operating equipment." style="height:330px;max-height:330px"><figcaption>Proposed advisory pilot — teaching design. Review of a study is distinct from operating equipment.</figcaption></figure><ul><li>Show the input snapshot, selected option, worst margins, rejected trials and missing checks.</li><li>The reviewer can ask for another study, reject the proposal or accept it for the next review step.</li></ul></div>
+<h1>The operator reviews one evidence packet</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/ops_review.svg" alt="Proposed control-room use. Study review does not operate equipment." style="height:330px;max-height:330px"><figcaption>Proposed control-room use. Study review does not operate equipment.</figcaption></figure><ul><li>Review the inputs, proposal, worst margins and missing checks.</li><li>Request another study, reject the proposal or accept it for the next authorized step.</li></ul></div>
 <div class="sources">Source: <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Teaching proposal informed by NIST OT guidance and the cited notebook checks.</a></div>
 <span class="pageno">78 / 80</span></div>
 
 <!--
-Proposed advisory pilot. Use three review questions: Does this match the current equipment, inputs and model? Did the required checks pass, with missing checks clear? What exactly am I approving, who owns the next step, and where is the record? Record the reviewer, reason, case snapshot and tool versions. Accepting a study result does not itself issue an equipment command. Authorized operating procedures and roles determine any later physical action. L12 practices only a simulated ID-bound readback.
+Proposed control-room use. The operator reviews the case snapshot, data quality, limits, selected proposal and missing studies. Ask for another study, reject it or accept it for a defined next step. L12 practices ID-bound readback only and never operates equipment.
 Takeaway: 
 Nominal duration: 4 minutes.
 
@@ -1962,45 +1951,42 @@ transition: none
 <div class="lesson teaching rigorous diagram-slide has-diagram">
 
 <div class="eyebrow">Proposed advisory pilot · teaching design</div>
-<h1>Adopt it in stages and measure the benefit</h1>
-<div class="content"><figure class="native-diagram"><img src="/diagrams/ops_pilot.svg" alt="Proposed advisory pilot — teaching design. Benefits must be measured against an appropriate baseline." style="height:330px;max-height:330px"><figcaption>Proposed advisory pilot — teaching design. Benefits must be measured against an appropriate baseline.</figcaption></figure><ul><li>Begin with past cases, then read-only shadow work, then a limited pilot with named reviewers.</li><li>Compare against the same tools in a fixed script: correct studies, missed checks, time and rework.</li></ul></div>
-<div class="sources">Source: <a href="https://doi.org/10.6028/NIST.AI.100-1">Teaching proposal informed by NIST OT guidance and the cited notebook checks.</a></div>
+<h1>What the evidence shows</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/ops_pilot.svg" alt="L10 comparison: same tools and trial budgets. No general performance gain is established." style="height:330px;max-height:330px"><figcaption>L10 comparison: same tools and trial budgets. No general performance gain is established.</figcaption></figure><ul><li>In L10, five paired final costs tied; one Llama route was worse.</li><li>Start with past cases and read-only use. Measure benefit against the same tools in a fixed script.</li></ul></div>
+<div class="sources">Source: <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py">Teaching proposal informed by NIST OT guidance and the cited notebook checks.</a></div>
 <span class="pageno">79 / 80</span></div>
 
 <!--
-Proposed advisory pilot. Historical replay lets engineers define expected outcomes and failure cases. Shadow use compares recommendations alongside the existing process without relying on them for equipment control. A limited pilot needs a named owner, training, an agreed scope and a way to stop use. Measure end-to-end elapsed time including review, correct completed studies, missed or stale inputs, overlooked limits and reviewer changes. Compare the same engineering tools with and without Llama. Our paired records show identical final numerical results, so there is no basis yet to promise higher accuracy, less operator workload or faster decisions. NIST AI RMF supports human roles, evaluation under realistic conditions and deactivation; these particular pilot metrics are our recommendation.
+The six matched fixed-versus-Llama runs in proposal_complete_workflow.json have five tied final costs and one worse Llama voltage result. Recorded model calls add elapsed time. This demonstrates traceable coordination, not better power-flow solvers or general efficiency. Test any proposed benefit against the same tools and budgets. A control-room pilot starts with archived cases, then read-only shadow studies and a limited reviewed scope.
 Takeaway: 
 Nominal duration: 4 minutes.
 
 Full sources:
+Alaa Selim and Mohamed Chehada. Five-role operator study workflow: implementation and recorded cases. GridGuard Agentic AI Tutorials, reproducible Python source and saved study archive. 2026.
+Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py
+Publication: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/proposal_complete_workflow.json
+
+Classroom Labs notebook. Classroom_Labs.ipynb, L10–L11; cells classroom-028 and classroom-030. Public notebook and Python source. 24 October 2026; stable notebook cell IDs checked.
+Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb
+
 National Institute of Standards and Technology. Artificial Intelligence Risk Management Framework (AI RMF 1.0). NIST AI 100-1. 26 January 2023.
 Full source: https://doi.org/10.6028/NIST.AI.100-1
 Full paper: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf
-
-Workshop recorded model replies and numerical study records. Voltage P3_current_reserve: Llama 3.1:8b planner, recovery and review calls 1–3. Public teaching archive. 27 September 2026.
-Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/continuous_llama_opendss_20260927T161223523552Z.json
-
-Workshop recorded model replies and numerical study records. Feeder-catalog restoration: Llama 3.1:8b refinement and ranking calls 14–16. Public teaching archive. 27 September 2026.
-Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/proposal_run_20260927T184402Z_53e0cf/llama_calls.json
-
-Workshop recorded model replies and numerical study records. Standard four-bus cyber study: Llama 3.1:8b tool selection and REVIEW calls 7–8. Public teaching archive. 21 September 2026.
-Full source: https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/standard_stage_20260921T143826Z_42d19a61/llama_calls.json
 -->
 
 ---
 transition: none
 ---
 
-<div class="lesson teaching rigorous closing-slide closing">
+<div class="lesson teaching rigorous normal-slide has-diagram">
 
-<h1>Save a workshop record others can repeat</h1>
-<div class="content"><p class="activity-link"><a href="https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf">Get the Participant Lab Guide</a></p><ul><li>Save your changed inputs and results, labeled new, archived or simulated.</li><li>Explain the request, tool call, result, checks and next decision.</li></ul></div>
-<p class="reading-link"><a href="/Full_Reading_Guide.html">Open the Full Reading Guide</a></p>
+<h1>Questions and your next lab run</h1>
+<div class="content"><figure class="native-diagram"><img src="/diagrams/lab_one_notebook.svg" alt="Keep the saved replies separate from your new experiment." style="height:310px;max-height:310px"><figcaption>Keep the saved replies separate from your new experiment.</figcaption></figure><p class="activity-link"><a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Open the three cases in Colab</a></p><ul><li>Choose one case. Change one input, rerun and save the result.</li><li>Explain the agent choice, tool result, check and operator decision.</li></ul></div>
 <div class="sources">Source: <a href="https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb">Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.</a></div>
 <span class="pageno">80 / 80</span></div>
 
 <!--
-Use the final three minutes for pair reports and saving. Each pair names one changed parameter, compares its predicted and observed result, and states one evidence limit. Another person should be able to repeat the experiment from the saved notebook. The reading guide supplies the full source links, stable cell map and debrief answers.
+Close by connecting the full loop: a goal, an allowed agent choice, a tool result, a check and a human decision. Ask each learner to name one case and one changed input they can repeat after the session. Save the notebook. Use the source guide for complete references, not as another required activity.
 Takeaway: 
 Nominal duration: 3 minutes.
 

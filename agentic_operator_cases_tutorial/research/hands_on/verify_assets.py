@@ -51,7 +51,7 @@ for cell in notebook['cells']:
             assert joined(data['text/html']) in review
         if 'image/png' in data:
             assert joined(data['image/png']) in review
-assert manifest['review_page']['browser_checks']['cells'] == len(notebook['cells']) == 37
+assert manifest['review_page']['browser_checks']['cells'] == len(notebook['cells'])
 assert manifest['review_page']['browser_checks']['plots_loaded']
 report = {
     'status':'PASS',

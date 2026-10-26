@@ -191,7 +191,9 @@ def render_frame(s, sources):
     if s.get("takeaway") and kind not in {"cover", "figure", "diagram"} and not s.get("diagram") and s.get('layout') not in {'source-focus','news-detail'}:
         out.append(r"{\small\color{IEEEBlue}\textbf{" + esc(s["takeaway"]) + r"}\par}\smallskip" + "\n")
     out.append(sources_tex(s["refs"],sources,s.get('main_ref'),s.get('source_label'),s.get('notebook_url')))
-    out.append(r"\note{" + esc(s.get("note", "")) + " Takeaway: " + esc(s.get("takeaway", ""))
+    note_text=esc(s.get("note", ""))
+    if s.get("takeaway"):note_text+=" Takeaway: "+esc(s["takeaway"])
+    out.append(r"\note{" + note_text
                + '\n\n'+esc(complete_sources(s['refs'],sources))+ "}\n")
     out.append(r"\end{frame}" + "\n\n")
     return "".join(out)

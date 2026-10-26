@@ -12,7 +12,7 @@ const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 (async () => {
   const browser = await chromium.launch({
     headless: true,
-    executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    executablePath: process.env.CAPTURE_BROWSER || 'C:/Program Files/Google/Chrome/Application/chrome.exe',
     args: ['--disable-extensions', '--disable-background-networking', '--no-first-run'],
   });
   const context = await browser.newContext({viewport: {width: 1160, height: 1000}, deviceScaleFactor: 1});

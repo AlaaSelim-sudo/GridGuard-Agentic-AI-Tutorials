@@ -1,10 +1,10 @@
 [
   {
-    "title": "Restoration: open L6",
+    "title": "Case 2: restoring service",
     "kind": "diagram",
     "points": [
-      "Use the six-node teaching graph. Keep the faulted branch unavailable.",
-      "Compare total restored load with restored critical load."
+      "Use the six-node teaching network with one faulted branch.",
+      "Compare total service with service to critical loads."
     ],
     "refs": [
       "H06"
@@ -19,14 +19,15 @@
     "diagram": "restoration_fault_map",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Six-node active-power teaching graph with whole-load pickup and one unavailable branch."
+    "caption": "Six-node active-power model. One branch is unavailable.",
+    "takeaway": ""
   },
   {
-    "title": "Choose the service goal before the plan",
+    "title": "Two service goals",
     "kind": "diagram",
     "points": [
-      "The priority goal gives more weight to two critical loads.",
-      "The comparison goal serves the most total kW, using the same network and pickup rules."
+      "One goal gives extra weight to critical loads.",
+      "The other restores the most total kW. Both use the same network rules."
     ],
     "refs": [
       "H06"
@@ -41,13 +42,14 @@
     "diagram": "restoration_priority",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Different service goals can select different loads on the same network."
+    "caption": "Different goals can select different loads.",
+    "takeaway": ""
   },
   {
-    "title": "Run L6: change the tie capacity",
+    "title": "L6: solve the restoration problem",
     "kind": "normal",
     "points": [
-      "Run all of L6. MILP chooses whole loads; an exhaustive search checks its priority score.",
+      "Run L6. MILP selects whole loads. A separate search checks its priority score.",
       "Read served_kw, critical_kw and MILP_matches_exhaustive_check."
     ],
     "refs": [
@@ -65,14 +67,15 @@
       "id": "classroom-018",
       "start": 1,
       "end": 5
-    }
+    },
+    "takeaway": ""
   },
   {
-    "title": "Read both service plots",
+    "title": "L6: read both service plots",
     "kind": "figure",
     "points": [
-      "Left: total load served in kW. Right: critical load served in kW.",
-      "Overlapping markers mean the two plans give the same result at that tested capacity."
+      "Left: total kW served. Right: critical kW served.",
+      "Overlapping markers mean the two goals give the same result."
     ],
     "refs": [
       "H06"
@@ -87,14 +90,15 @@
     "image_source_path": "images/hands_on_L6_plot.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L6 plots; rerun L6 to compare your chosen tie capacities."
+    "caption": "Reference L6 plots. Overlapping markers show equal outcomes.",
+    "takeaway": ""
   },
   {
-    "title": "The tradeoff at a 40 kW tie limit",
+    "title": "L6: the tradeoff at 40 kW",
     "kind": "figure",
     "points": [
-      "Priority goal: 130 kW total, including 90 kW of critical load.",
-      "Most-total-kW goal: 140 kW total, including 30 kW of critical load."
+      "Priority goal: 130 kW total, including 90 kW critical.",
+      "Most-total-kW goal: 140 kW total, including 30 kW critical."
     ],
     "refs": [
       "H06"
@@ -109,14 +113,15 @@
     "image_source_path": "images/hands_on_L6_table.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L6 results at a 40 kW tie limit: compare total and critical load served."
+    "caption": "Reference L6: 40 kW varied tie, 100 kW fixed tie.",
+    "takeaway": ""
   },
   {
-    "title": "How Python checks the plan",
+    "title": "Restoration checks",
     "kind": "diagram",
     "points": [
-      "Check paths to a source, capacity limits, power balance and the faulted branch.",
-      "Then compare the MILP service score with the independent exhaustive search."
+      "Check source paths, branch capacity, power balance and the fault.",
+      "A separate search checks the priority score."
     ],
     "refs": [
       "H06",
@@ -133,15 +138,16 @@
     "diagram": "restoration_verify",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Python checks the stated graph constraints, then compares the priority score independently."
+    "caption": "Checks cover this graph model, not AC operation or field switching.",
+    "takeaway": ""
   },
   {
-    "title": "Exercise 2: add more tie capacity",
+    "title": "Exercise 2: increase tie capacity",
     "kind": "exercise",
     "points": [
-      "Add 180. to CAPACITIES_KW, keeping 40. first. Predict, then rerun L6.",
-      "Compare total and critical load served at 40 and 180 kW.",
-      "At which of these two capacities do the service goals give the same result?"
+      "Add 180. to CAPACITIES_KW. Keep 40. first. Predict, then rerun L6.",
+      "Compare total and critical kW at 40 and 180 kW.",
+      "At which capacity do the two goals give the same result?"
     ],
     "refs": [
       "H06"
@@ -155,14 +161,15 @@
     "eyebrow": "Classroom Labs · L6 · classroom-018",
     "excerpt": [
       "CAPACITIES_KW = (40., 60., 80., 100., 120., 180.)"
-    ]
+    ],
+    "takeaway": ""
   },
   {
-    "title": "Debrief: the tradeoff disappears here",
+    "title": "Exercise 2: enough capacity removes this tradeoff",
     "kind": "normal",
     "points": [
-      "At 180 kW, both methods serve 250 kW total and 90 kW of critical load.",
-      "Priority helps in the constrained case. It does not improve every case."
+      "At 180 kW, both goals serve 250 kW total and 90 kW critical.",
+      "The priority goal helps at some limits. It does not improve every case."
     ],
     "refs": [
       "H06"
@@ -174,14 +181,15 @@
     "hands_on": true,
     "lab_label": "L6",
     "eyebrow": "Classroom Labs · L6 · classroom-018",
-    "callout": "250 kW total / 90 kW critical"
+    "callout": "250 kW total / 90 kW critical",
+    "takeaway": ""
   },
   {
-    "title": "Reset the capacity list, then run L7",
+    "title": "L7: test an old result after a change",
     "kind": "normal",
     "points": [
-      "Restore the original CAPACITIES_KW list and rerun L6.",
-      "L7 checks the first 40 kW record, then changes the request to 20 kW."
+      "Restore the original capacity list and rerun L6.",
+      "Run L7. It changes the first request from 40 kW to 20 kW."
     ],
     "refs": [
       "H07"
@@ -198,13 +206,14 @@
       "id": "classroom-021",
       "start": 1,
       "end": 3
-    }
+    },
+    "takeaway": ""
   },
   {
-    "title": "Read the evidence-match test",
+    "title": "L7: the old evidence no longer matches",
     "kind": "figure",
     "points": [
-      "Original request: True. Changed rating with the old evidence: False.",
+      "Original request: True. Changed request: False.",
       "HOLD the old recommendation and request a new solve."
     ],
     "refs": [
@@ -220,14 +229,15 @@
     "image_source_path": "images/hands_on_L7_binding.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L7 output: changed request, unchanged evidence, so a new check is needed."
+    "caption": "Reference L7. New inputs require new evidence.",
+    "takeaway": ""
   },
   {
-    "title": "Changed inputs need a new check",
+    "title": "New inputs need new evidence",
     "kind": "diagram",
     "points": [
-      "“The evidence is old” does not mean “the changed plan fails its limits.”",
-      "Update the request, solve and check it, then match the new evidence to that request."
+      "An outdated check does not tell us whether the new plan works.",
+      "Solve again, check again and attach the new result to the new request."
     ],
     "refs": [
       "H07"
@@ -242,14 +252,15 @@
     "diagram": "restoration_stale",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "L7 changes capacity and revision; extra topology labels are teaching examples."
+    "caption": "L7 changes capacity and revision, then tests the old evidence.",
+    "takeaway": ""
   },
   {
-    "title": "Proposed agent role: keep the service goal",
+    "title": "The agent keeps the service goal",
     "kind": "diagram",
     "points": [
-      "This cell runs Python: the operator sets the goal and limits; MILP chooses the whole loads.",
-      "A proposed agent would request that solve and explain the returned tradeoff."
+      "L6 runs Python directly. The operator sets priorities; MILP selects loads.",
+      "An agent could request the solve and explain its returned tradeoff."
     ],
     "refs": [
       "H06"
@@ -264,14 +275,15 @@
     "diagram": "restoration_plan",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Proposed agent responsibilities; the current notebook cell runs Python."
+    "caption": "Proposed agent use. L6 itself runs Python.",
+    "takeaway": ""
   },
   {
-    "title": "What this model does not check",
+    "title": "Restoration model limits",
     "kind": "normal",
     "points": [
-      "This active-power graph does not check AC voltage, reactive power or protection.",
-      "The energized branches do not give the order of field switching steps."
+      "This graph checks active power, not AC voltage or protection.",
+      "Selected branches do not specify the order of field switching."
     ],
     "refs": [
       "H06"
@@ -282,13 +294,14 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L6",
-    "eyebrow": "Classroom Labs · L6 · classroom-018"
+    "eyebrow": "Classroom Labs · L6 · classroom-018",
+    "takeaway": ""
   },
   {
-    "title": "Restoration: Llama chooses a useful new trial",
+    "title": "Saved restoration case: try another plan",
     "kind": "figure",
     "points": [
-      "The new trial serves more load, keeps critical service and passes the current check."
+      "Llama requests a trial that restores more load and passes the current check."
     ],
     "note": "Switch L10B to restoration. This is the separate L10 feeder-catalog restoration study, not the L6 six-node MILP. The recorded protocol requires a first refinement but Llama chooses between the offered fractions. SHED_075 disconnects 75% of the ordered noncritical load objects, not 75% of load kW. The exact reason calls improvement a possibility. Python evaluates the trial and finds improved service while the tie loading remains 91.867215% of its allowance. A useful hypothesis becomes evidence only after that check. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
     "refs": [
@@ -299,7 +312,7 @@
     "image_source_path": "images/llama_restoration_14.png",
     "visual_height_px": 380,
     "visual_height_cm": 4.4,
-    "caption": "Saved restoration example; separate from this case’s fresh calculation. Replay it in L10B later.",
+    "caption": "Saved feeder-catalog study, separate from L6. Replay in L10B.",
     "source_label": "Classroom Labs L10B: restoration replay, recorded call 14; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
@@ -308,13 +321,14 @@
     "hands_on": false,
     "replay_scenario": "restoration",
     "replay_call": 14,
-    "replay_preview": true
+    "replay_preview": true,
+    "takeaway": ""
   },
   {
-    "title": "Restoration: the next trial crosses the current limit",
+    "title": "Saved restoration case: reject a failed trial",
     "kind": "figure",
     "points": [
-      "The next trial fails the current limit. Keep the previous passed candidate."
+      "The next trial exceeds the current limit. Keep the previous passing plan."
     ],
     "note": "Keep the actual returned reason visible. It refers to a target in the objective, but its claim should not be accepted as a proved fact. In this record the next trial is numerically rejected for a thermal failure. Restoring more load does not make a failed current check acceptable. Ask participants to explain why the previous passed candidate must remain in the case record. The model’s trial budget is bounded. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
     "refs": [
@@ -325,7 +339,7 @@
     "image_source_path": "images/llama_restoration_15.png",
     "visual_height_px": 380,
     "visual_height_cm": 4.4,
-    "caption": "Saved restoration example; separate from this case’s fresh calculation. Replay it in L10B later.",
+    "caption": "Saved feeder-catalog study, separate from L6. Replay in L10B.",
     "source_label": "Classroom Labs L10B: restoration replay, recorded call 15; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
@@ -334,13 +348,14 @@
     "hands_on": false,
     "replay_scenario": "restoration",
     "replay_call": 15,
-    "replay_preview": true
+    "replay_preview": true,
+    "takeaway": ""
   },
   {
-    "title": "Restoration: catch Llama’s wrong ranking",
+    "title": "Saved restoration case: correct the ranking",
     "kind": "figure",
     "points": [
-      "The returned order is wrong. Python chooses the smaller cost and rechecks the plan."
+      "Python corrects the ranking and rechecks the lowest-cost passing plan."
     ],
     "note": "Let pairs answer before discussing the result. Smaller cost is better, so E03 must rank before E02. Llama returns [E02,E03] while its explanation claims lowest score first. The recorded language_order_agrees_with_cost field is False. A deterministic guard retains E03 and rechecks it as E05, with no recorded failures. Human acknowledgment and dispatch remain False. The paired fixed workflow reaches the same final action and cost. This example motivates verification rather than an unsupported superiority claim. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: At 40 kW, explain 130 total / 90 critical versus 140 total / 30 critical, all in kW. For a changed request, keep HOLD until evidence for the current request is available. Ask each pair to give one number and one condition. They should distinguish three decisions: selecting a service policy, checking current evidence and authorizing a physical switching operation. Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source.",
     "refs": [
@@ -351,7 +366,7 @@
     "image_source_path": "images/llama_restoration_16.png",
     "visual_height_px": 380,
     "visual_height_cm": 4.4,
-    "caption": "Saved restoration example; separate from this case’s fresh calculation. Replay it in L10B later.",
+    "caption": "Saved feeder-catalog study, separate from L6. Replay in L10B.",
     "source_label": "Classroom Labs L10B: restoration replay, recorded call 16; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
@@ -360,6 +375,7 @@
     "hands_on": false,
     "replay_scenario": "restoration",
     "replay_call": 16,
-    "replay_preview": true
+    "replay_preview": true,
+    "takeaway": ""
   }
 ]

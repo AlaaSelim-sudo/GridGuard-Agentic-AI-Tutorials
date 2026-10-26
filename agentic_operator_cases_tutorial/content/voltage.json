@@ -1,10 +1,10 @@
 [
   {
-    "title": "Voltage: open L2",
+    "title": "Case 1: voltage support",
     "kind": "figure",
     "points": [
-      "MPC makes a forecast-based plan. SAC is a saved learned controller.",
-      "Check limits first. Then compare penalty score J; smaller is preferred after the checks pass."
+      "MPC plans ahead. SAC uses a saved learned policy.",
+      "Check limits first. Among passing options, a smaller score J is better."
     ],
     "refs": [
       "H02",
@@ -20,15 +20,16 @@
     "image_source_path": "images/feeder.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Synthetic SMART-DS teaching feeder; not an operating utility circuit.",
-    "image_source_url": "https://data.openei.org/submissions/2981"
+    "caption": "Synthetic SMART-DS feeder used for teaching.",
+    "image_source_url": "https://data.openei.org/submissions/2981",
+    "takeaway": ""
   },
   {
-    "title": "MPC plans; SAC proposes",
+    "title": "Two ways to propose settings",
     "kind": "diagram",
     "diagram": "agent_mpc_sac",
     "points": [
-      "Both tools propose control settings. The same numerical check tests their voltage and current limits."
+      "MPC plans with a model. SAC proposes from learned weights. Both need the same electrical checks."
     ],
     "note": "MPC uses a model and a short forecast to optimize a plan; this lab applies its first action. SAC is a saved policy learned through reinforcement learning; it produces a new control proposal using old weights, without training again. Neither is the coordinating LLM. The outer agent can choose which permitted study to request. L2 calls both tools directly and displays their checks; this cell alone is not a live LLM agent. Later recorded P3 figures illustrate Llama coordinating the existing tools. Define per unit when the control-limit slide introduces the voltage scale: 1.0 p.u. is the stated base value. Explain MILP and WLS only in their respective cases.",
     "refs": [
@@ -38,16 +39,17 @@
       "LRV"
     ],
     "minutes": 1.5,
-    "caption": "MPC: model predictive control. SAC: Soft Actor–Critic. These are control tools inside the larger workflow.",
+    "caption": "MPC = model predictive control. SAC = Soft Actor-Critic.",
     "visual_height_px": 350,
-    "visual_height_cm": 3.9
+    "visual_height_cm": 3.9,
+    "takeaway": ""
   },
   {
-    "title": "A real agent changes its next step",
+    "title": "A tool result changes the next step",
     "kind": "diagram",
     "diagram": "agent_recorded_trace",
     "points": [
-      "The failed tool result leads to a fallback check. Passing the checks still leaves human review."
+      "The first trial fails. Llama requests the fallback. A passing result goes to human review."
     ],
     "note": "This is an actual saved Llama 3.1:8b voltage episode, not a fabricated interactive exchange. Call 1 selects VERIFY_SAC_FIRST; the numerical check returns 111.966607 percent of allowed current and two current violations. Call 2 selects USE_MPC_PLAN; its numerical check returns 99.604410 percent of allowed current and no recorded violations. The SAC and MPC tools already exist; Llama does not invent or solve the power flow. The arrows show tool-request, result, next-request, result. Call 3 selects REVIEW_EVIDENCE. Human acknowledgment remains PENDING and equipment_dispatch is False. This separate P3 MV/LV OpenDSS archive differs from the fresh L2 exercise and from L3 test_01. Later voltage slides display the exact public returned reasons; learners can replay the source in L10B after completing the three cases. The fixed comparator reaches the same numerical outcome, so the trace illustrates coordination rather than a proven performance improvement. This recorded example now follows the MPC/SAC definition slide in the voltage case, after Colab setup. It remains a preview; run the complete episode in L10B later.",
     "refs": [
@@ -55,17 +57,18 @@
       "LR0"
     ],
     "minutes": 1.5,
-    "caption": "Recorded P3 example, separate from L2. 111.966607% and 99.604410% are rounded here.",
+    "caption": "Saved P3 OpenDSS example, separate from L2. Values rounded.",
     "visual_height_px": 350,
     "visual_height_cm": 3.9,
-    "eyebrow": "Recorded P3 example / separate from the L2 calculation"
+    "eyebrow": "Recorded P3 example / separate from the L2 calculation",
+    "takeaway": ""
   },
   {
-    "title": "Control settings and limits",
+    "title": "Two control settings",
     "kind": "diagram",
     "points": [
-      "a sets active-power participation; b sets reactive-power participation.",
-      "Check the inverter limits, modeled voltages and allowed line current."
+      "a controls active power. b controls reactive power.",
+      "Check inverter capacity, voltage and line current."
     ],
     "refs": [
       "H02"
@@ -80,30 +83,32 @@
     "diagram": "voltage_capability",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Active and reactive settings share the inverter’s power limit."
+    "caption": "Active and reactive power share the inverter capacity.",
+    "takeaway": ""
   },
   {
-    "title": "A tool is a Python function in this lab",
+    "title": "A tool is a callable function",
     "kind": "diagram",
     "diagram": "agent_python_tool",
     "points": [
-      "A tool takes defined inputs and returns evidence. The notebook lets you see both."
+      "Inputs go in. Calculations run. Results come back. L2 calls this Python function directly."
     ],
     "note": "Find the actual function call on the next slide. The first two cell lines set the load scale and current allowance; the helper returns numerical proposals, checks and a table for plotting. A tool can be an optimizer, simulator, estimator, lookup or evidence checker. It is not the LLM itself. The student initiates this direct function call with the play button. In the separate recorded workflow Llama selects a named action, the Python application validates that action and its inputs, then invokes a permitted numerical function. Do not claim that the L2 helper uses a live agent gateway. Saving a notebook is separate from keeping a runtime: after a reset, rerun setup and earlier cells.",
     "refs": [
       "H02",
       "LR0"
     ],
-    "caption": "L2 calls lab.voltage_lab(LOAD_SCALE, RATING_FRACTION) directly. Recorded agent coordination is separate.",
+    "caption": "L2 calls lab.voltage_lab directly. Agent coordination is shown in the saved study.",
     "minutes": 1.5,
     "visual_height_px": 350,
-    "visual_height_cm": 3.9
+    "visual_height_cm": 3.9,
+    "takeaway": ""
   },
   {
-    "title": "Run L2 with the default inputs",
+    "title": "L2: run the default case",
     "kind": "normal",
     "points": [
-      "Run all of L2 to calculate the MPC plan and check the saved SAC controller’s proposal.",
+      "Run all of L2. It checks the MPC plan and the saved SAC policy.",
       "Read feasible, current_step_J and max_allowed_current_pct."
     ],
     "refs": [
@@ -123,14 +128,15 @@
       "id": "classroom-007",
       "start": 1,
       "end": 4
-    }
+    },
+    "takeaway": ""
   },
   {
-    "title": "Read the voltage and current plots",
+    "title": "L2: voltage and current plots",
     "kind": "figure",
     "points": [
-      "Left: compare the sorted modeled voltages with the allowed band.",
-      "Right: compare line current with the 100% allowed-current limit."
+      "Left: voltages should stay inside the allowed band.",
+      "Right: current use should stay below 100% of the allowance."
     ],
     "refs": [
       "H02"
@@ -145,14 +151,15 @@
     "image_source_path": "images/hands_on_L2_plot.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L2 plots; rerun L2 to calculate plots for your inputs."
+    "caption": "Reference L2 plots. Rerun for your inputs.",
+    "takeaway": ""
   },
   {
-    "title": "Check limits before comparing scores",
+    "title": "L2: both default proposals pass",
     "kind": "figure",
     "points": [
-      "Default MPC passes: current use 73.62%, penalty score J about 0.03110.",
-      "Default saved SAC passes: current use 51.68%, J about 0.43643."
+      "MPC: 73.62% current use, score J about 0.03110.",
+      "Saved SAC: 51.68% current use, score J about 0.43643."
     ],
     "refs": [
       "H02"
@@ -167,15 +174,16 @@
     "image_source_path": "images/hands_on_L2_table.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L2 output with LOAD_SCALE=1.0 and RATING_FRACTION=0.80."
+    "caption": "Reference L2: load scale 1.0, current allowance 0.80.",
+    "takeaway": ""
   },
   {
-    "title": "A rule and a tool result answer different questions",
+    "title": "The limit and the calculated result",
     "kind": "diagram",
     "diagram": "lab_claim_evidence",
     "points": [
-      "A document can tell us the limit. A numerical tool tells us how the proposal compares with it.",
-      "Keep the source, the measured or calculated value, and the remaining checks together."
+      "A rule states the limit. A tool checks the proposal against it.",
+      "Keep both with the result so the operator can review it."
     ],
     "note": "Stanford connection: the lecture’s WikiChat discussion, pp.17–25, separates finding material from checking factual claims. Apply the habit to a grid study: retrieving a current limit is different from calculating current for a candidate. The displayed 99.604410% value belongs to the separate archived P3 OpenDSS replay, not to the learner’s fresh L2 result. This example supports only that current check under its recorded model. A sentence, retrieved document or citation does not establish full-network feasibility. Treat the input limits as the task policy. A text source describes the rule; the solver evaluates the particular proposal.",
     "refs": [
@@ -183,19 +191,20 @@
       "ST02",
       "LRV"
     ],
-    "caption": "Teaching analogy. The number shown comes from the recorded P3 replay, which is separate from L2.",
+    "caption": "Example uses the separate saved P3 case.",
     "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, pp.17–25; recorded P3 current check.",
     "minutes": 1.5,
     "visual_height_px": 330,
-    "visual_height_cm": 3.5
+    "visual_height_cm": 3.5,
+    "takeaway": ""
   },
   {
-    "title": "Exercise 1: tighten the current allowance",
+    "title": "Exercise 1: lower the current allowance",
     "kind": "exercise",
     "points": [
-      "In L2, change only RATING_FRACTION from 0.80 to 0.75. Predict, then rerun.",
-      "For each method, report feasible, allowed-current use and current_step_J.",
-      "Does a PASS cover the full medium- and low-voltage network? Explain."
+      "In L2, change RATING_FRACTION from 0.80 to 0.75. Predict, then rerun.",
+      "Compare feasible, current use and score J for both methods.",
+      "Does this check cover the whole MV/LV network?"
     ],
     "refs": [
       "H02"
@@ -209,35 +218,37 @@
     "eyebrow": "Classroom Labs · L2 · classroom-007",
     "excerpt": [
       "RATING_FRACTION = 0.75"
-    ]
+    ],
+    "takeaway": ""
   },
   {
-    "title": "Change one number and explain the difference",
+    "title": "Exercise 1: both still pass",
     "kind": "diagram",
     "diagram": "lab_try_observe",
     "points": [
-      "A tighter allowance makes the same current a larger percentage of that allowance.",
-      "At 0.75, MPC uses 78.53% and SAC 54.85%. Both pass this particular test."
+      "A smaller allowance makes the same current a larger percentage.",
+      "At 0.75: MPC uses 78.53%, SAC 54.85%. Both pass this test."
     ],
     "note": "Use this visual immediately after the first exercise debrief. It shows the measured reference MPC outputs, rounded to two decimal places, for RATING_FRACTION 0.80 and 0.75. The SAC result is also computed in the notebook but is not drawn here. Both proposals pass this particular tighter test. The result is not a general guarantee for other loads or limits. Ask pairs to explain the denominator in the percentage. Restore the default before moving to L3’s independent archived case. This combines the original numerical debrief with the visual explanation. Compare both methods before restoring RATING_FRACTION=0.80.",
     "refs": [
       "H02"
     ],
-    "caption": "Reference L2 exercise: MPC uses 73.62% of the default allowance and 78.53% after the change.",
+    "caption": "Reference L2 experiment. Both proposals pass at 0.75.",
     "source_label": "Classroom Labs L2, cell classroom-007; verified default and exercise outputs.",
     "minutes": 4.5,
     "visual_height_px": 330,
     "visual_height_cm": 3.5,
     "lab_label": "L2",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
-    "hands_on": true
+    "hands_on": true,
+    "takeaway": ""
   },
   {
-    "title": "Reset L2 before reading old model choices",
+    "title": "L2: reset before continuing",
     "kind": "normal",
     "points": [
-      "Restore the default values and rerun L2.",
-      "L3–L5 use the original test_01 case, separate from your changed L2 experiment."
+      "Restore LOAD_SCALE=1.0 and RATING_FRACTION=0.80. Rerun L2.",
+      "L3-L5 use a separate saved case called test_01."
     ],
     "refs": [
       "H02"
@@ -254,15 +265,16 @@
       "id": "classroom-007",
       "start": 1,
       "end": 2
-    }
+    },
+    "takeaway": ""
   },
   {
-    "title": "What runs now and what was recorded",
+    "title": "New calculations and saved replies",
     "kind": "diagram",
     "diagram": "bridge_modes",
     "points": [
-      "The current cell calculates new results. The saved Llama reply keeps its original inputs.",
-      "Changing your lab input does not rewrite the recorded agent study."
+      "Python calculates new results. A saved Llama reply keeps its original inputs.",
+      "Your changed lab input does not change the saved reply."
     ],
     "note": "Point to these evidence modes throughout the session. Default classroom cells calculate fresh results without a live language-model call. L10B displays verified historical Llama choices, original reasons and associated recorded results. Changing your L2 or L6 input does not change those old replies. The final control-room diagrams are a proposed teaching design, not evidence of a deployed utility platform. No new equipment operation occurs in any of these modes. FRESH means calculated during the current execution. SAVED POLICY means old weights used for new inference. ARCHIVED ACTUAL LLM means an old reply with its original inputs and timing. This slide comes just before L3 so the distinction is applied immediately.",
     "refs": [
@@ -271,16 +283,17 @@
       "OT01"
     ],
     "minutes": 2,
-    "caption": "Three explicitly labeled teaching modes used throughout this workshop.",
+    "caption": "New calculation, saved reply and proposed pilot are different evidence types.",
     "visual_height_px": 330,
-    "visual_height_cm": 3.55
+    "visual_height_cm": 3.55,
+    "takeaway": ""
   },
   {
-    "title": "L3 opens a separate recorded case",
+    "title": "L3: inspect saved model choices",
     "kind": "normal",
     "points": [
-      "Run L3. Read the original case ID, requested operations and recorded seconds.",
-      "These reasons are old model replies. Displaying them makes no new model call."
+      "Run L3. Read the case ID, chosen operations and recorded times.",
+      "This cell displays old replies. It makes no new model call."
     ],
     "refs": [
       "H03"
@@ -297,14 +310,15 @@
       "id": "classroom-010",
       "start": 1,
       "end": 2
-    }
+    },
+    "takeaway": ""
   },
   {
-    "title": "What did the models choose?",
+    "title": "Different words can request the same trial",
     "kind": "diagram",
     "points": [
-      "Different wording can request the same tool and numbers.",
-      "The notebook groups matching trials. An explanation alone does not show that limits pass."
+      "The notebook groups identical tool requests and settings.",
+      "A vote chooses what to test next. It does not prove that limits pass."
     ],
     "refs": [
       "H03"
@@ -319,14 +333,15 @@
     "diagram": "voltage_canonical_trial",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Three old replies request two distinct operations; two votes select reactive-power relaxation."
+    "caption": "Three saved replies request two different trials.",
+    "takeaway": ""
   },
   {
-    "title": "Run L4: check the old choice again",
+    "title": "L4: check the selected trial",
     "kind": "normal",
     "points": [
-      "After L3, run L4. Python checks the selected proposal again for its original case.",
-      "Compare majority vote with the saved LinUCB selector on that same case."
+      "Run L4 after L3. Python checks the selected trial for its original case.",
+      "Compare majority voting with the saved LinUCB selector, which learns which trial to test."
     ],
     "refs": [
       "H04"
@@ -343,14 +358,15 @@
       "id": "classroom-013",
       "start": 5,
       "end": 9
-    }
+    },
+    "takeaway": ""
   },
   {
-    "title": "Separate the old choice from the new check",
+    "title": "L4: read the new check",
     "kind": "figure",
     "points": [
-      "Both selectors choose the same reactive-power relaxation trial and pass the new MV check.",
-      "Predicted reward is a learned score. Read new_check_passes for the engineering check."
+      "Both selectors choose the same trial and pass the new MV check.",
+      "new_check_passes is the electrical check. Predicted reward is a learned score."
     ],
     "refs": [
       "H04"
@@ -365,14 +381,15 @@
     "image_source_path": "images/hands_on_L4_checks.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L4 output: old selector choices, new numerical checks of the original case."
+    "caption": "Saved choices, new checks of the original test_01 case.",
+    "takeaway": ""
   },
   {
-    "title": "Run L5: check what the model covers",
+    "title": "L5: check model coverage",
     "kind": "normal",
     "points": [
-      "Keep RUN_OPENDSS=False. Run L5 and read the table and optional_mode message.",
-      "L5 checks the original test_01 MV-MPC plan. OpenDSS is disabled."
+      "Leave RUN_OPENDSS=False. Run L5 and read the table.",
+      "The default checks the test_01 MPC plan with the MV model."
     ],
     "refs": [
       "H05"
@@ -389,14 +406,15 @@
       "id": "classroom-016",
       "start": 1,
       "end": 4
-    }
+    },
+    "takeaway": ""
   },
   {
-    "title": "A PASS covers only the model checked",
+    "title": "A PASS has a scope",
     "kind": "figure",
     "points": [
-      "This check covers medium-voltage (MV) phases and currents, not all low-voltage (LV) equipment.",
-      "For a full MV/LV request, get the wider check or HOLD."
+      "This result covers medium-voltage (MV) phases and currents.",
+      "A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD."
     ],
     "refs": [
       "H05"
@@ -411,13 +429,14 @@
     "image_source_path": "images/hands_on_L5_scope.png",
     "visual_height_px": 345,
     "visual_height_cm": 2.95,
-    "caption": "Reference L5 output: a medium-voltage check with OpenDSS disabled."
+    "caption": "Default L5 checks MV only. OpenDSS is off.",
+    "takeaway": ""
   },
   {
-    "title": "Voltage: Llama asks to check the saved controller",
+    "title": "Saved voltage case: check SAC first",
     "kind": "figure",
     "points": [
-      "Llama identifies the missing check. The current failure forces a new trial."
+      "Llama asks to check SAC. The tool finds a current-limit failure."
     ],
     "note": "Read the exact reason. The model was offered VERIFY_SAC_FIRST or REVIEW. The application then checks the saved SAC action in OpenDSS. 111.966607% refers to the allowed current, which was 80% of nominal, so this exceeds the configured allowance. The numerical result records two current violations. This P3 full supplied MV/LV study is separate from L2 and L3 test_01. Ask the audience to predict the next allowed step before advancing. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
     "refs": [
@@ -428,7 +447,7 @@
     "image_source_path": "images/llama_voltage_1.png",
     "visual_height_px": 380,
     "visual_height_cm": 4.4,
-    "caption": "Saved voltage example; separate from this case’s fresh calculation. Replay it in L10B later.",
+    "caption": "Saved P3 case, separate from L2. Replay in L10B.",
     "source_label": "Classroom Labs L10B: voltage replay, recorded call 1; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
@@ -437,13 +456,14 @@
     "hands_on": false,
     "replay_scenario": "voltage",
     "replay_call": 1,
-    "replay_preview": true
+    "replay_preview": true,
+    "takeaway": ""
   },
   {
-    "title": "Voltage: Llama chooses the existing fallback plan",
+    "title": "Saved voltage case: try the MPC fallback",
     "kind": "figure",
     "points": [
-      "Llama chooses an existing MPC plan. Python checks whether the result passes."
+      "Llama requests the existing MPC plan. The electrical tool checks it."
     ],
     "note": "The model selects USE_MPC_PLAN from two allowed choices, the other being REVIEW. It does not invent or solve MPC. The recorded context already supplies a plan and its eligibility. The application performs a fresh numerical check at that historical time. The result is just below the allowed current threshold. No operating permission follows from this check alone. Ask which evidence, rather than wording, makes the fallback eligible for review. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
     "refs": [
@@ -454,7 +474,7 @@
     "image_source_path": "images/llama_voltage_2.png",
     "visual_height_px": 380,
     "visual_height_cm": 4.4,
-    "caption": "Saved voltage example; separate from this case’s fresh calculation. Replay it in L10B later.",
+    "caption": "Saved P3 case, separate from L2. Replay in L10B.",
     "source_label": "Classroom Labs L10B: voltage replay, recorded call 2; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
@@ -463,13 +483,14 @@
     "hands_on": false,
     "replay_scenario": "voltage",
     "replay_call": 2,
-    "replay_preview": true
+    "replay_preview": true,
+    "takeaway": ""
   },
   {
-    "title": "Voltage: the checks pass and human review remains",
+    "title": "Saved voltage case: return for review",
     "kind": "figure",
     "points": [
-      "Human review remains pending. The fixed script returned the same numerical result."
+      "The checks pass. Human review is still pending. A fixed script gets the same final result."
     ],
     "note": "Read the exact REVIEW_EVIDENCE choice and distinguish it from the overall status. The proposed controls are 2387.157 kW and +325.738 kvar. The supplied full MV/LV feeder check returned voltage 1.001783–1.035026 p.u. and zero listed violations. The fixed supervisor used the same SAC-to-MPC sequence with identical numerical output. Recorded workflow intervals were 0.346053 s fixed and 3.110454 s agentic, excluding precomputed MPC/SAC preparation. These are single recorded timings, not performance distributions or a measured reduction in operator workload. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: L2 makes new proposals; L3 shows old replies; L4–L5 run new checks on test_01. Report the inputs, proposal, model coverage and result before naming the next step. Give pairs 30 seconds to describe the sequence without calling every step an AI decision. L2 calculates an MPC plan and a saved-policy proposal for the current classroom inputs. L3 displays old model replies. L4 runs new checks of the selected trials; L5 checks the original archived plan and its model coverage. Numerical tools provide the physical evidence. The old model choices select a permitted trial; they do not replace these checks. The operator receives an advisory record whose stated coverage must match the request. The three P3 previews are an additional separate archive. Contrast their saved Llama decisions with your current direct function calls.",
     "refs": [
@@ -480,7 +501,7 @@
     "image_source_path": "images/llama_voltage_3.png",
     "visual_height_px": 380,
     "visual_height_cm": 4.4,
-    "caption": "Saved voltage example; separate from this case’s fresh calculation. Replay it in L10B later.",
+    "caption": "Saved P3 case, separate from L2. Replay in L10B.",
     "source_label": "Classroom Labs L10B: voltage replay, recorded call 3; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
@@ -489,6 +510,7 @@
     "hands_on": false,
     "replay_scenario": "voltage",
     "replay_call": 3,
-    "replay_preview": true
+    "replay_preview": true,
+    "takeaway": ""
   }
 ]

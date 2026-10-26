@@ -37,7 +37,7 @@ sections=[
   '<b>If a variable is missing:</b> rerun the required earlier cells. Editing a number does not update an old output until you rerun.'
  ],prompt='Work in pairs: one person runs, one checks. Swap roles for the next case.'),
  dict(title='Case 1: voltage support',subtitle=f'L2–L5 / exercise on slide {exercise["L2"]}',image='hands_on_L2_plot.png',body=[
-  '<b>Stanford link, p.19:</b> check evidence before writing an answer. L2 lets you inspect the numbers behind a voltage proposal.',
+  '<b>Main idea:</b> check the numbers before reporting a result. Source: Monica Lam, CS224V Lecture 1, p.19.',
   '<b>Goal:</b> compare two control proposals, then check their voltage and current limits.',
   '<b>Run L2 at the defaults:</b> LOAD_SCALE = 1.0 and RATING_FRACTION = 0.80. Read feasible, current_step_J and max_allowed_current_pct.',
   '<b>Read the plots:</b> the left plot shows sorted modeled voltages. The right plot compares current use with the 100% allowed-current line.',
@@ -46,7 +46,7 @@ sections=[
   '<b>Model coverage:</b> the default check covers the MV model. It does not prove that every LV device or dynamic limit passes.'
  ],prompt='Record: the changed allowance, each current percentage, pass/fail, and what the model does not cover.'),
  dict(title='Case 2: restoring service',subtitle=f'L6–L7 / exercise on slide {exercise["L6"]}',image='hands_on_L6_plot.png',body=[
-  '<b>Stanford link, p.40:</b> define the task rules. In L6, the service goal changes which plan the optimizer prefers.',
+  '<b>Main idea:</b> define the task rules. Source: Monica Lam, CS224V Lecture 1, p.40.',
   '<b>Goal:</b> see why restoring the most kW can differ from serving critical loads.',
   '<b>Run L6:</b> compare served_kw and critical_kw for the priority-weighted plan and the maximum-kW plan. Both use the same six-node graph.',
   '<b>Read the plots together:</b> total service is on the left; critical service is on the right. Explain the tradeoff at 40 kW.',
@@ -55,7 +55,7 @@ sections=[
   '<b>Meaning of HOLD:</b> old evidence no longer matches. That does not prove a newly calculated plan would fail. The model also omits AC voltage and physical switching order.'
  ],prompt='Record: total and critical kW at both capacities. Explain which service goal each plan follows.'),
  dict(title='Case 3: checking suspicious readings',subtitle=f'L8–L9 / exercise on slide {exercise["L8"]}',image='hands_on_L8_plot.png',body=[
-  '<b>Stanford link, p.53:</b> separate an explanation from a checked decision. L8–L9 make the data assumptions and checks visible.',
+  '<b>Main idea:</b> check the decision and its assumptions. Source: Monica Lam, CS224V Lecture 1, p.53.',
   '<b>Goal:</b> distinguish a reading that fits the model from a reading that is true.',
   '<b>Run L8:</b> compare isolated bias with coordinated Hc shifts. The residual alarm measures mismatch. State error uses known simulation truth for teaching.',
   '<b>Four-minute task:</b> add <b>.10</b> to ATTACK_SCALES. Predict, rerun L8 and compare the alarm with the state error at that scale.',
@@ -63,8 +63,9 @@ sections=[
   '<b>Run L9:</b> no trusted replacement data gives HOLD. Assuming the additional readings are trusted allows a PROPOSE result. The calculation does not authenticate those readings.',
   '<b>Discuss:</b> a small residual or clear model explanation alone cannot establish sensor trust.'
  ],prompt='Record: residual J, alarm flag, state error and the condition needed before a recovery proposal.'),
- dict(title='Read Llama’s choices',subtitle='L10 / L10B / L11 / L12',diagram='agent_roles_simple',body=[
-  '<b>The opening connects Stanford ideas to the labs.</b> Case slides preview saved Llama examples. Follow notebook order; run the replays after the three cases.',
+ dict(title='Five roles and operator review',subtitle='L10 / L10B / L11 / L12',diagram='multi_agent_roles',body=[
+  '<b>Five roles:</b> awareness reads facts; planning requests tools; simulation calculates; verification checks; the optimizer requests another trial or ranks passed options.',
+  '<b>What runs:</b> one Llama model fills the planning and optimizer roles. Python runs the other stages. L10 displays their saved trace, not a new multi-agent run.',
   '<b>Run L10, then L10B:</b> set SCENARIO = "voltage", then "restoration" and "cyber", rerunning each time. These use separate recorded studies.',
   '<b>Follow the agentic loop:</b> goal, Llama tool choice, returned evidence, next choice. The replay makes no new model call.',
   '<b>Restoration challenge:</b> find the wrong Llama ranking. Explain why the numerical guard keeps the lower-cost passed candidate.',

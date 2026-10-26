@@ -3,21 +3,27 @@
 </style></head><body><main>
 <header><h1>Executed classroom notebook</h1><p>Original source cells and recorded outputs, preserved for audience review. This page displays executed results; it does not execute code.</p>
 <p><a href="Classroom_Labs.executed.ipynb">Download the byte-preserved executed notebook</a> · <a href="hands_on_manifest.json">Output provenance and hashes</a></p>
-<p class="hash">Notebook SHA-256: e7fcad8717decd9e5d9ad47e374f0131958318df332cd3f2162944584e9ff5af</p><p class="notice">Browser captures are labeled “Executed notebook output” and do not reproduce the Colab interface. Tables below retain all recorded columns and rows; wide tables scroll horizontally.</p></header>
+<p class="hash">Notebook SHA-256: fb825152c891ef3bd137262fd2b3fc0495eb1546c737c0eb5e161fab3c685126</p><p class="notice">Browser captures are labeled “Executed notebook output” and do not reproduce the Colab interface. Tables below retain all recorded columns and rows; wide tables scroll horizontally.</p></header>
 <article class="cell" id="colab-start"><div class="cellid">Cell 0 · colab-start · markdown</div>
-<h2>Run this notebook in Google Colab</h2>
-<p>1. Sign in to Google and connect to a <strong>CPU</strong> runtime. A GPU and API key are unnecessary.<br>2. Choose <strong>Runtime → Run all</strong>. The setup cell below retrieves the supporting files and installs packages. Wait for <strong>Ready</strong>.<br>3. Follow the lesson from top to bottom. Use <strong>File → Save a copy in Drive</strong> to keep your edits. Skip the local Jupyter installation section when using Colab.</p>
-<p>Run all three cases: voltage support (L2–L5), restoration (L6–L7) and cyber response (L8–L9). Start at L0 and continue in order; later cells use earlier results. Leave <code>RUN_OPENDSS</code> and <code>RUN_LOCAL_LLAMA</code> set to <code>False</code> for this CPU route.</p>
-<p>Setup uses the internet; default lesson cells make no new LLM call or model download. <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/COLAB_GUIDE.md">Full Colab guide</a>.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## Run this notebook in Google Colab
+<h2>Start here</h2>
+<p>One notebook covers <strong>voltage, restoration and cyber response</strong>.</p>
+<p>1. Save a copy in Drive and connect a <strong>CPU</strong> runtime.<br>2. Run <strong>Set up Google Colab (CPU)</strong>. Wait for <strong>Ready</strong>.<br>3. Run <strong>L0</strong>, then <strong>L1</strong>. Follow the later L headings in order.</p>
+<p>Keep <code>RUN_OPENDSS=False</code> and <code>RUN_LOCAL_LLAMA=False</code>. You need no GPU, API key or live Llama service. Follow along in the lecture or finish the experiments afterward.</p>
+<p>After a runtime reset, rerun setup and the earlier cells.</p>
+<p><a href="https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1">Slides</a> · <a href="https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf">Lab guide</a> · <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/COLAB_GUIDE.md">Setup help</a></p>
+<details><summary>Original Markdown source</summary><pre class="source">## Start here
 
-1. Sign in to Google and connect to a **CPU** runtime. A GPU and API key are unnecessary.
-2. Choose **Runtime → Run all**. The setup cell below retrieves the supporting files and installs packages. Wait for **Ready**.
-3. Follow the lesson from top to bottom. Use **File → Save a copy in Drive** to keep your edits. Skip the local Jupyter installation section when using Colab.
+One notebook covers **voltage, restoration and cyber response**.
 
-Run all three cases: voltage support (L2–L5), restoration (L6–L7) and cyber response (L8–L9). Start at L0 and continue in order; later cells use earlier results. Leave `RUN_OPENDSS` and `RUN_LOCAL_LLAMA` set to `False` for this CPU route.
+1. Save a copy in Drive and connect a **CPU** runtime.
+2. Run **Set up Google Colab (CPU)**. Wait for **Ready**.
+3. Run **L0**, then **L1**. Follow the later L headings in order.
 
-Setup uses the internet; default lesson cells make no new LLM call or model download. [Full Colab guide](https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/COLAB_GUIDE.md).
+Keep `RUN_OPENDSS=False` and `RUN_LOCAL_LLAMA=False`. You need no GPU, API key or live Llama service. Follow along in the lecture or finish the experiments afterward.
+
+After a runtime reset, rerun setup and the earlier cells.
+
+[Slides](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/1) · [Lab guide](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf) · [Setup help](https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/COLAB_GUIDE.md)
 </pre></details>
 </article>
 <article class="cell" id="colab-setup"><div class="cellid">Cell 1 · colab-setup · code · recorded execution 1</div>
@@ -56,34 +62,48 @@ else:
 </section>
 </article>
 <article class="cell" id="classroom-000"><div class="cellid">Cell 2 · classroom-000 · markdown</div>
-<h1>Agentic AI for grid operators — classroom labs</h1>
-<p><strong>One notebook, three cases, 45 minutes of hands-on work inside a three-hour lecture.</strong></p>
-<p>The learning objective is to build a *checked decision workflow*: understand a request, choose a numerical tool, simulate a candidate, verify evidence, refine within a budget, and request an operator readback. A fluent answer is not electrical evidence.</p>
-<p>| Lab | Student time | Question you will answer |<br>|---|---:|---|<br>| L0–L1 · contracts and state | 5 min | Can yesterday&#x27;s valid result approve today&#x27;s changed request? |<br>| L2–L5 · voltage support | 15 min | Do MPC, SAC, voting and learned selection solve the same problem? |<br>| L6–L7 · restoration | 9 min | Does restoring more kW always serve the operator&#x27;s priorities? |<br>| L8–L9 · cyber response | 8 min | Can a small residual coexist with a wrong state? |<br>| L10–L12 · critique and handoff | 8 min | What must the operator see before acknowledgment? |</p>
-<p><strong>Prerequisites.</strong> Python 3.12, a Jupyter kernel with <code>requirements_linear.txt</code>, and this complete tutorial folder. Open Jupyter in this folder. Default cells perform new numerical calculations and inspect separately labeled archived LLM replies. They make no network request, train no new policy, and need no OpenDSS installation. The optional full-model route uses <code>requirements.txt</code>; one optional local Ollama call is off by default. Do not run OpenDSS concurrently from another notebook.</p>
-<p><strong>Evidence vocabulary.</strong> FRESH = calculated in this notebook execution. ARCHIVED ACTUAL LLM = a previously recorded local model output with original context and latency. SAVED POLICY = previously trained weights used for new inference. ILLUSTRATIVE CONTRACT = a small software teaching record. These labels are never interchangeable.</p>
-<details><summary>Original Markdown source</summary><pre class="source"># Agentic AI for grid operators — classroom labs
-**One notebook, three cases, 45 minutes of hands-on work inside a three-hour lecture.**
+<h1>Three operator cases</h1>
+<p><strong>Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.</strong></p>
+<p>For each case: <strong>predict, run, change one input, rerun, explain</strong>.</p>
+<p>- <strong>Voltage, L2-L5:</strong> propose settings and check electrical limits.<br>- <strong>Restoration, L6-L7:</strong> compare service goals and check changed inputs.<br>- <strong>Cyber, L8-L9:</strong> test misleading readings and a recovery proposal.<br>- <strong>Agent records, L10-L10B:</strong> inspect saved Llama choices and tool results.<br>- <strong>Operator review, L12:</strong> practice a simulated readback. Leave L11 disabled.</p>
+<p><strong>What runs?</strong> Python makes new calculations. Saved SAC weights produce new proposals. Llama replies are recordings, not new calls. No cell operates equipment.</p>
+<p>&lt;details&gt;&lt;summary&gt;Terms and local setup&lt;/summary&gt;</p>
+<p><strong>New calculation</strong> means calculated in this run. <strong>Saved reply</strong> means an actual earlier model response with its original inputs and timing. <strong>Saved policy</strong> means previously trained weights used to propose an action now.</p>
+<p>Local Jupyter users need the full tutorial folder and <code>requirements_linear.txt</code>. Start Jupyter in that folder. Colab users run the setup cell. OpenDSS and a live local Ollama call need extra preparation and remain off in this route.</p>
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source"># Three operator cases
 
-The learning objective is to build a *checked decision workflow*: understand a request, choose a numerical tool, simulate a candidate, verify evidence, refine within a budget, and request an operator readback. A fluent answer is not electrical evidence.
+**Alaa Selim, MIT/Dartmouth; Mohamed Chehada, UT Austin.**
 
-| Lab | Student time | Question you will answer |
-|---|---:|---|
-| L0–L1 · contracts and state | 5 min | Can yesterday&#x27;s valid result approve today&#x27;s changed request? |
-| L2–L5 · voltage support | 15 min | Do MPC, SAC, voting and learned selection solve the same problem? |
-| L6–L7 · restoration | 9 min | Does restoring more kW always serve the operator&#x27;s priorities? |
-| L8–L9 · cyber response | 8 min | Can a small residual coexist with a wrong state? |
-| L10–L12 · critique and handoff | 8 min | What must the operator see before acknowledgment? |
+For each case: **predict, run, change one input, rerun, explain**.
 
-**Prerequisites.** Python 3.12, a Jupyter kernel with `requirements_linear.txt`, and this complete tutorial folder. Open Jupyter in this folder. Default cells perform new numerical calculations and inspect separately labeled archived LLM replies. They make no network request, train no new policy, and need no OpenDSS installation. The optional full-model route uses `requirements.txt`; one optional local Ollama call is off by default. Do not run OpenDSS concurrently from another notebook.
+- **Voltage, L2-L5:** propose settings and check electrical limits.
+- **Restoration, L6-L7:** compare service goals and check changed inputs.
+- **Cyber, L8-L9:** test misleading readings and a recovery proposal.
+- **Agent records, L10-L10B:** inspect saved Llama choices and tool results.
+- **Operator review, L12:** practice a simulated readback. Leave L11 disabled.
 
-**Evidence vocabulary.** FRESH = calculated in this notebook execution. ARCHIVED ACTUAL LLM = a previously recorded local model output with original context and latency. SAVED POLICY = previously trained weights used for new inference. ILLUSTRATIVE CONTRACT = a small software teaching record. These labels are never interchangeable.</pre></details>
+**What runs?** Python makes new calculations. Saved SAC weights produce new proposals. Llama replies are recordings, not new calls. No cell operates equipment.
+
+&lt;details&gt;&lt;summary&gt;Terms and local setup&lt;/summary&gt;
+
+**New calculation** means calculated in this run. **Saved reply** means an actual earlier model response with its original inputs and timing. **Saved policy** means previously trained weights used to propose an action now.
+
+Local Jupyter users need the full tutorial folder and `requirements_linear.txt`. Start Jupyter in that folder. Colab users run the setup cell. OpenDSS and a live local Ollama call need extra preparation and remain off in this route.
+
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-001"><div class="cellid">Cell 3 · classroom-001 · markdown</div>
-<h2>L0 · Set the experiment boundary</h2>
-<p>Choose a backend before computing. Keep the default linear route during the timed class; the OpenDSS comparison is an instructor demonstration or optional audience route. The voltage feeder is a supplied synthetic Greensboro-area subset, not an operational utility model. Restoration below uses a separately declared six-node graph; cyber uses a four-bus DC network.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L0 · Set the experiment boundary
-Choose a backend before computing. Keep the default linear route during the timed class; the OpenDSS comparison is an instructor demonstration or optional audience route. The voltage feeder is a supplied synthetic Greensboro-area subset, not an operational utility model. Restoration below uses a separately declared six-node graph; cyber uses a four-bus DC network.</pre></details>
+<h2>L0 · Default settings</h2>
+<p>Leave both switches <strong>False</strong> and run the cell.</p>
+<p>Voltage uses a synthetic feeder and a three-phase linear model. Restoration uses a separate six-node graph. Cyber uses a separate four-bus DC model. These are teaching studies, not live utility networks.</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L0 · Default settings
+
+Leave both switches **False** and run the cell.
+
+Voltage uses a synthetic feeder and a three-phase linear model. Restoration uses a separate six-node graph. Cyber uses a separate four-bus DC model. These are teaching studies, not live utility networks.
+</pre></details>
 </article>
 <article class="cell" id="classroom-002"><div class="cellid">Cell 4 · classroom-002 · code · recorded execution 2</div>
 <details><summary>Original code cell</summary><pre class="source">from pathlib import Path
@@ -111,16 +131,18 @@ print(&#x27;Default: fresh linear numerical labs; recorded LLM examples; no trai
 </section>
 </article>
 <article class="cell" id="classroom-003"><div class="cellid">Cell 5 · classroom-003 · markdown</div>
-<h2>L1 · A tool contract is more than a prompt</h2>
-<p><strong>Predict:</strong> after changing the load forecast, should the old simulator result still authorize the candidate?</p>
-<p>The request defines the task, model, numeric bounds and revision. The candidate has a precise command. The evidence must bind to both. A hash detects accidental changes in this exercise; it is <strong>not</strong> an authentication or cybersecurity mechanism. Production systems also need timestamps, signatures, access control and trusted telemetry.</p>
-<p>This is the smallest useful agent state: request → candidate → evidence → gate. It is a deterministic workflow invariant, so it also belongs in a conventional control application.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L1 · A tool contract is more than a prompt
-**Predict:** after changing the load forecast, should the old simulator result still authorize the candidate?
+<h2>L1 · Does the evidence match?</h2>
+<p><strong>Predict:</strong> can an old result support a changed request?</p>
+<p>Run the cell. Read <code>binding_pass</code>. Expect <strong>True, False, False</strong>: only unchanged inputs and commands match.</p>
+<p>The hash detects changed records. It does <strong>not</strong> authenticate sensor data or prove an action is safe.</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L1 · Does the evidence match?
 
-The request defines the task, model, numeric bounds and revision. The candidate has a precise command. The evidence must bind to both. A hash detects accidental changes in this exercise; it is **not** an authentication or cybersecurity mechanism. Production systems also need timestamps, signatures, access control and trusted telemetry.
+**Predict:** can an old result support a changed request?
 
-This is the smallest useful agent state: request → candidate → evidence → gate. It is a deterministic workflow invariant, so it also belongs in a conventional control application.</pre></details>
+Run the cell. Read `binding_pass`. Expect **True, False, False**: only unchanged inputs and commands match.
+
+The hash detects changed records. It does **not** authenticate sensor data or prove an action is safe.
+</pre></details>
 </article>
 <article class="cell" id="classroom-004"><div class="cellid">Cell 6 · classroom-004 · code · recorded execution 3</div>
 <details><summary>Original code cell</summary><pre class="source">request = lab.validate_request(dict(task=&#x27;voltage&#x27;, backend=&#x27;lindistflow3&#x27;,
@@ -179,22 +201,39 @@ assert guard.binding_pass.tolist() == [True, False, False]</pre></details>
 </section>
 </article>
 <article class="cell" id="classroom-005"><div class="cellid">Cell 7 · classroom-005 · markdown</div>
-<p>&lt;details&gt;&lt;summary&gt;Instructor answer and challenge&lt;/summary&gt;The old result is rejected because it describes a different request. A PASS is conditional on the state, candidate and model it checked. Change the evidence&#x27;s result after binding it: the third hash check should reject that too. In production, revision checks need a trusted state source; a hash alone cannot establish truth.&lt;/details&gt;</p>
-<p><strong>Transition:</strong> now replace the illustrative result with a real numerical solve. Keep planning and checking separate.</p>
-<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Instructor answer and challenge&lt;/summary&gt;The old result is rejected because it describes a different request. A PASS is conditional on the state, candidate and model it checked. Change the evidence&#x27;s result after binding it: the third hash check should reject that too. In production, revision checks need a trusted state source; a hash alone cannot establish truth.&lt;/details&gt;
+<p>&lt;details&gt;&lt;summary&gt;Check your answer&lt;/summary&gt;</p>
+<p>Changed inputs or commands need a new check. The third test also detects a changed result. A hash confirms a record match, not the truth of the data.</p>
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Check your answer&lt;/summary&gt;
 
-**Transition:** now replace the illustrative result with a real numerical solve. Keep planning and checking separate.</pre></details>
+Changed inputs or commands need a new check. The third test also detects a changed result. A hash confirms a record match, not the truth of the data.
+
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-006"><div class="cellid">Cell 8 · classroom-006 · markdown</div>
-<h2>L2 · Model-based planning and model-free action proposals</h2>
-<p><strong>Predict:</strong> will a fast saved policy necessarily remain feasible after a current limit changes?</p>
+<h2>L2 · Propose and check voltage settings</h2>
+<p><strong>MPC</strong> plans using a model. <strong>SAC</strong> uses a saved learned policy. Python checks both proposals.</p>
+<p>1. Run the default cell.<br>2. Read <code>feasible</code>, <code>max_allowed_current_pct</code> and <code>current_step_J</code>.<br>3. Change only <code>RATING_FRACTION</code> from <code>0.80</code> to <code>0.75</code>. Predict and rerun.<br>4. Compare the results, then restore <code>0.80</code> and rerun.</p>
+<p>Check limits before comparing score <strong>J</strong>. A lower J is useful only for a passing proposal. The default model covers MV phases and currents, with ideal LV aggregation.</p>
+<p>&lt;details&gt;&lt;summary&gt;Model details and sources&lt;/summary&gt;</p>
 <p>Let $u=[a,b]$, where $a$ is active-power participation and $b$ is reactive-power participation across the supplied inverter fleet: $P_i=aS_i,\ Q_i=bS_i$. The capability constraint is $a^2+b^2\leq1$, with $0\leq a\leq1,\ |b|\leq0.44$. Both controls are continuous.</p>
 <p>MPC solves a three-step local sensitivity optimization, minimizing<br>\[<br>\sum_{k=0}^{2}\gamma^k\left[(1-a_k)^2+0.05b_k^2+<br>10\operatorname{mean}(V_k-1.01)^2+0.05\lVert u_k-u_{k-1}\rVert^2\right],<br>\]<br>subject to modeled voltage/current limits and inverter capability. $V_k$ contains per-unit phase voltages; $\gamma=0.98$ discounts later cost. Only the first action is evaluated in the comparison table. This is local feasible planning, without a global optimum or stability certificate.</p>
 <p>SAC is a model-free continuous policy learned previously from simulator experience. The saved NumPy actor performs new inference here. Its training conditions differ from this derated test, so this is a transfer check. PPO is another continuous policy-learning method, but no PPO policy is trained in this tutorial.</p>
-<p><strong>Do:</strong> run the default, then change <code>LOAD_SCALE</code> to <code>1.05</code> or <code>RATING_FRACTION</code> to <code>0.75</code>. Compare feasibility before comparing cost. A rejected action has no eligible cost.</p>
 <p>Sources: <a href="https://sites.engineering.ucsb.edu/~jbraw/mpc/">Rawlings, Mayne &amp; Diehl, MPC</a>; <a href="https://proceedings.mlr.press/v80/haarnoja18b.html">Haarnoja et al., SAC</a>; <a href="https://arxiv.org/abs/1406.3054">Gan &amp; Low, multiphase linear models</a>.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L2 · Model-based planning and model-free action proposals
-**Predict:** will a fast saved policy necessarily remain feasible after a current limit changes?
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L2 · Propose and check voltage settings
+
+**MPC** plans using a model. **SAC** uses a saved learned policy. Python checks both proposals.
+
+1. Run the default cell.
+2. Read `feasible`, `max_allowed_current_pct` and `current_step_J`.
+3. Change only `RATING_FRACTION` from `0.80` to `0.75`. Predict and rerun.
+4. Compare the results, then restore `0.80` and rerun.
+
+Check limits before comparing score **J**. A lower J is useful only for a passing proposal. The default model covers MV phases and currents, with ideal LV aggregation.
+
+&lt;details&gt;&lt;summary&gt;Model details and sources&lt;/summary&gt;
 
 Let $u=[a,b]$, where $a$ is active-power participation and $b$ is reactive-power participation across the supplied inverter fleet: $P_i=aS_i,\ Q_i=bS_i$. The capability constraint is $a^2+b^2\leq1$, with $0\leq a\leq1,\ |b|\leq0.44$. Both controls are continuous.
 
@@ -207,9 +246,10 @@ subject to modeled voltage/current limits and inverter capability. $V_k$ contain
 
 SAC is a model-free continuous policy learned previously from simulator experience. The saved NumPy actor performs new inference here. Its training conditions differ from this derated test, so this is a transfer check. PPO is another continuous policy-learning method, but no PPO policy is trained in this tutorial.
 
-**Do:** run the default, then change `LOAD_SCALE` to `1.05` or `RATING_FRACTION` to `0.75`. Compare feasibility before comparing cost. A rejected action has no eligible cost.
+Sources: [Rawlings, Mayne &amp; Diehl, MPC](https://sites.engineering.ucsb.edu/~jbraw/mpc/); [Haarnoja et al., SAC](https://proceedings.mlr.press/v80/haarnoja18b.html); [Gan &amp; Low, multiphase linear models](https://arxiv.org/abs/1406.3054).
 
-Sources: [Rawlings, Mayne &amp; Diehl, MPC](https://sites.engineering.ucsb.edu/~jbraw/mpc/); [Haarnoja et al., SAC](https://proceedings.mlr.press/v80/haarnoja18b.html); [Gan &amp; Low, multiphase linear models](https://arxiv.org/abs/1406.3054).</pre></details>
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-007"><div class="cellid">Cell 9 · classroom-007 · code · recorded execution 4</div>
 <details><summary>Original code cell</summary><pre class="source">LOAD_SCALE = 1.0
@@ -298,23 +338,29 @@ plt.tight_layout(); plt.show()</pre></details>
 </section>
 </article>
 <article class="cell" id="classroom-008"><div class="cellid">Cell 10 · classroom-008 · markdown</div>
-<p>&lt;details&gt;&lt;summary&gt;Instructor answer and challenge&lt;/summary&gt;The saved actor is a proposal tool. The numerical gate can reject it under transfer conditions. A fast policy is valuable only with a declared feasibility contract or fallback. Changing the load or current allowance creates a new experiment; do not attach the archived Llama explanation in L3 to that changed case.&lt;/details&gt;</p>
-<p><strong>Transition:</strong> numerical tools can offer several candidates. An LLM can choose a bounded next experiment and explain that choice, but its prose must not determine feasibility.</p>
-<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Instructor answer and challenge&lt;/summary&gt;The saved actor is a proposal tool. The numerical gate can reject it under transfer conditions. A fast policy is valuable only with a declared feasibility contract or fallback. Changing the load or current allowance creates a new experiment; do not attach the archived Llama explanation in L3 to that changed case.&lt;/details&gt;
+<p>&lt;details&gt;&lt;summary&gt;Check your answer&lt;/summary&gt;</p>
+<p>At allowance 0.75, MPC uses about 78.53% and SAC 54.85%. Both pass this test. This does not prove full MV/LV coverage. Your changed L2 case is separate from the saved model replies in L3.</p>
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Check your answer&lt;/summary&gt;
 
-**Transition:** numerical tools can offer several candidates. An LLM can choose a bounded next experiment and explain that choice, but its prose must not determine feasibility.</pre></details>
+At allowance 0.75, MPC uses about 78.53% and SAC 54.85%. Both pass this test. This does not prove full MV/LV coverage. Your changed L2 case is separate from the saved model replies in L3.
+
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-009"><div class="cellid">Cell 11 · classroom-009 · markdown</div>
-<h2>L3 · Three real replies; one canonical operation</h2>
-<p><strong>Predict:</strong> if two differently worded answers request exactly the same setpoint, how many distinct physical candidates exist?</p>
-<p>These are <strong>ARCHIVED ACTUAL LLM</strong> responses from <code>test_01</code> in the frozen study. The models saw the same original context. Their reported seconds are historical call durations, not time spent in this cell. The fresh modified case in L2 is separate. Displaying saved replies keeps the class deterministic and avoids download delays.</p>
-<p>Canonicalization groups identical tool/parameter records, retains one vote per model identity, and rejects unavailable operations. Reasons remain inspectable public explanations; they are not proof. In particular, a claim about dynamic voltage stability cannot be validated by this steady-state experiment.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L3 · Three real replies; one canonical operation
-**Predict:** if two differently worded answers request exactly the same setpoint, how many distinct physical candidates exist?
+<h2>L3 · Inspect three saved model replies</h2>
+<p>Run the cell. Compare the chosen operations and their recorded times.</p>
+<p>Different wording can request the same tool and settings. The notebook groups these matching requests before counting votes.</p>
+<p>These are real earlier replies for <strong>test_01</strong>. No new model call runs. They do not describe your changed L2 inputs. Their explanations still need an electrical check.</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L3 · Inspect three saved model replies
 
-These are **ARCHIVED ACTUAL LLM** responses from `test_01` in the frozen study. The models saw the same original context. Their reported seconds are historical call durations, not time spent in this cell. The fresh modified case in L2 is separate. Displaying saved replies keeps the class deterministic and avoids download delays.
+Run the cell. Compare the chosen operations and their recorded times.
 
-Canonicalization groups identical tool/parameter records, retains one vote per model identity, and rejects unavailable operations. Reasons remain inspectable public explanations; they are not proof. In particular, a claim about dynamic voltage stability cannot be validated by this steady-state experiment.</pre></details>
+Different wording can request the same tool and settings. The notebook groups these matching requests before counting votes.
+
+These are real earlier replies for **test_01**. No new model call runs. They do not describe your changed L2 inputs. Their explanations still need an electrical check.
+</pre></details>
 </article>
 <article class="cell" id="classroom-010"><div class="cellid">Cell 12 · classroom-010 · code · recorded execution 5</div>
 <details><summary>Original code cell</summary><pre class="source">pool = lab.saved_pool(&#x27;test_01&#x27;)
@@ -432,16 +478,36 @@ Malformed/duplicate votes rejected: 0
 </section>
 </article>
 <article class="cell" id="classroom-011"><div class="cellid">Cell 13 · classroom-011 · markdown</div>
-<p>&lt;details&gt;&lt;summary&gt;Instructor answer and challenge&lt;/summary&gt;Count distinct canonical tool/parameter records, not sentences. Two different words can request the same action. A majority is an allocation rule for the next simulation, not a safety certificate. Inspect any reason claiming unmeasured stability or an unsupported cost reduction.&lt;/details&gt;</p>
-<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Instructor answer and challenge&lt;/summary&gt;Count distinct canonical tool/parameter records, not sentences. Two different words can request the same action. A majority is an allocation rule for the next simulation, not a safety certificate. Inspect any reason claiming unmeasured stability or an unsupported cost reduction.&lt;/details&gt;</pre></details>
+<p>&lt;details&gt;&lt;summary&gt;Check your answer&lt;/summary&gt;</p>
+<p>Count distinct tool requests and settings, not sentences. A majority chooses a trial to check. It does not establish electrical feasibility or dynamic stability.</p>
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Check your answer&lt;/summary&gt;
+
+Count distinct tool requests and settings, not sentences. A majority chooses a trial to check. It does not establish electrical feasibility or dynamic stability.
+
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-012"><div class="cellid">Cell 14 · classroom-012 · markdown</div>
-<h2>L4 · Learned response selection is a trial budget decision</h2>
+<h2>L4 · Check the selected trial</h2>
+<p>Run L4 after L3. Compare majority voting with the saved <strong>LinUCB</strong> selector, which learns which trial to test.</p>
+<p>Both choices receive a <strong>new numerical check of the original test_01 case</strong>. Read <code>new_check_passes</code>. Predicted reward is a learned score, not an electrical check.</p>
+<p>The saved 12-case comparison found a tie with voting. This cell does not show that learning is better.</p>
+<p>&lt;details&gt;&lt;summary&gt;Model details and sources&lt;/summary&gt;</p>
 <p>The response selector is a contextual bandit, a one-step RL problem. For context $x$, canonical operation $o$, and feature vector $\phi(x,o)$, training uses<br>\[<br>\hat\theta=A^{-1}b,\quad<br>o_t=\arg\max_o\left[\hat\theta^T\phi(x,o)+\alpha\sqrt{\phi(x,o)^TA^{-1}\phi(x,o)}\right],<br>\]<br>\[<br>A\leftarrow A+\phi_t\phi_t^T,\qquad b\leftarrow b+r_t\phi_t.<br>\]</p>
 <p>$A$ is a regularized feature covariance, $b$ accumulates selected rewards, and $\alpha$ controls exploration. The frozen test policy omits the exploration bonus and makes no updates. The reward concerns a selected trial&#x27;s verified improvement with a trial penalty. It does not score persuasive prose or decide which LLM to call: all three calls have already occurred.</p>
-<p><strong>Do:</strong> reproduce the frozen choice, then run a *fresh* model check of the original selected candidate. This is replay plus new verification, not a new LLM decision. In the archived 12-case test, learned selection ties voting; the fixed reactive-relaxation diagnostic matches both. Do not infer RL superiority from this cell.</p>
 <p>Source: <a href="https://arxiv.org/abs/1003.0146">Li et al., contextual bandits</a>.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L4 · Learned response selection is a trial budget decision
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L4 · Check the selected trial
+
+Run L4 after L3. Compare majority voting with the saved **LinUCB** selector, which learns which trial to test.
+
+Both choices receive a **new numerical check of the original test_01 case**. Read `new_check_passes`. Predicted reward is a learned score, not an electrical check.
+
+The saved 12-case comparison found a tie with voting. This cell does not show that learning is better.
+
+&lt;details&gt;&lt;summary&gt;Model details and sources&lt;/summary&gt;
+
 The response selector is a contextual bandit, a one-step RL problem. For context $x$, canonical operation $o$, and feature vector $\phi(x,o)$, training uses
 \[
 \hat\theta=A^{-1}b,\quad
@@ -453,9 +519,10 @@ A\leftarrow A+\phi_t\phi_t^T,\qquad b\leftarrow b+r_t\phi_t.
 
 $A$ is a regularized feature covariance, $b$ accumulates selected rewards, and $\alpha$ controls exploration. The frozen test policy omits the exploration bonus and makes no updates. The reward concerns a selected trial&#x27;s verified improvement with a trial penalty. It does not score persuasive prose or decide which LLM to call: all three calls have already occurred.
 
-**Do:** reproduce the frozen choice, then run a *fresh* model check of the original selected candidate. This is replay plus new verification, not a new LLM decision. In the archived 12-case test, learned selection ties voting; the fixed reactive-relaxation diagnostic matches both. Do not infer RL superiority from this cell.
+Source: [Li et al., contextual bandits](https://arxiv.org/abs/1003.0146).
 
-Source: [Li et al., contextual bandits](https://arxiv.org/abs/1003.0146).</pre></details>
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-013"><div class="cellid">Cell 15 · classroom-013 · code · recorded execution 6</div>
 <details><summary>Original code cell</summary><pre class="source">decision = pool[&#x27;selection&#x27;]
@@ -507,7 +574,7 @@ Same canonical choice as majority: True
       <td>RELAX_Q_10_PERCENT</td>
       <td>True</td>
       <td>0.031082</td>
-      <td>0.091243</td>
+      <td>0.081254</td>
       <td>none</td>
     </tr>
     <tr>
@@ -516,7 +583,7 @@ Same canonical choice as majority: True
       <td>RELAX_Q_10_PERCENT</td>
       <td>True</td>
       <td>0.031082</td>
-      <td>0.134089</td>
+      <td>0.111011</td>
       <td>none</td>
     </tr>
   </tbody>
@@ -525,23 +592,41 @@ Same canonical choice as majority: True
 </section>
 </article>
 <article class="cell" id="classroom-014"><div class="cellid">Cell 16 · classroom-014 · markdown</div>
-<p>&lt;details&gt;&lt;summary&gt;Instructor answer and challenge&lt;/summary&gt;Selection allocates a limited simulator trial. Feasibility remains a separate calculation. The fair comparison includes simple fixed operations and voting, equal candidate budgets, identical model coverage, held-out contexts, and all call latency. Change <code>test_01</code> to <code>test_02</code> in L3 and rerun L4; keep the same original context throughout.&lt;/details&gt;</p>
-<p><strong>Transition:</strong> a correct check may still cover too little of the network. Verification is only as broad as the model it used.</p>
-<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Instructor answer and challenge&lt;/summary&gt;Selection allocates a limited simulator trial. Feasibility remains a separate calculation. The fair comparison includes simple fixed operations and voting, equal candidate budgets, identical model coverage, held-out contexts, and all call latency. Change `test_01` to `test_02` in L3 and rerun L4; keep the same original context throughout.&lt;/details&gt;
+<p>&lt;details&gt;&lt;summary&gt;Check your answer&lt;/summary&gt;</p>
+<p>The selector allocates a trial. Python checks feasibility separately. A fair comparison uses the same candidates, model coverage and trial budget, including simple fixed choices as baselines.</p>
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Check your answer&lt;/summary&gt;
 
-**Transition:** a correct check may still cover too little of the network. Verification is only as broad as the model it used.</pre></details>
+The selector allocates a trial. Python checks feasibility separately. A fair comparison uses the same candidates, model coverage and trial budget, including simple fixed choices as baselines.
+
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-015"><div class="cellid">Cell 17 · classroom-015 · markdown</div>
-<h2>L5 · Same physical action, different model coverage</h2>
-<p>Three-phase LinDistFlow retains MV phases and ideal LV aggregation. OpenDSS includes the supplied MV/LV circuit. Their extrema need not describe the same equipment. The first comparison below fixes the action and state; the optional third row separately replans in the full model.</p>
-<p><strong>Do:</strong> linear-only students run the default and discuss scope. OpenDSS students set <code>RUN_OPENDSS=True</code> in L0, then rerun L5. The helper executes OpenDSS serially. A missing installation is an environment error, not evidence that the action is safe.</p>
-<p>The recorded held-out study contains 12 MV final actions rejected by the broader AC audit. It demonstrates a coverage gap on these cases, not universal inaccuracy of linear models. A full-model solution can be more conservative because it checks more equipment.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L5 · Same physical action, different model coverage
-Three-phase LinDistFlow retains MV phases and ideal LV aggregation. OpenDSS includes the supplied MV/LV circuit. Their extrema need not describe the same equipment. The first comparison below fixes the action and state; the optional third row separately replans in the full model.
+<h2>L5 · What does the model cover?</h2>
+<p>Leave <code>RUN_OPENDSS=False</code>. Run the cell and read the scope table.</p>
+<p>The default checks <strong>medium-voltage (MV)</strong> phases and currents. It does not check all <strong>low-voltage (LV)</strong> equipment. A full MV/LV request therefore needs a wider check or a HOLD.</p>
+<p>This cell uses the original test_01 plan, not your edited L2 experiment.</p>
+<p>&lt;details&gt;&lt;summary&gt;Advanced OpenDSS comparison&lt;/summary&gt;</p>
+<p>With OpenDSS installed, setting <code>RUN_OPENDSS=True</code> in L0 adds an AC audit of the same action and a separate full-model replan in L5. It does not switch L2 automatically. Run OpenDSS serially. A missing installation is an environment error.</p>
+<p>The saved held-out study found 12 MV final actions rejected by the wider AC audit. That finding describes these cases, not every linear model.</p>
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L5 · What does the model cover?
 
-**Do:** linear-only students run the default and discuss scope. OpenDSS students set `RUN_OPENDSS=True` in L0, then rerun L5. The helper executes OpenDSS serially. A missing installation is an environment error, not evidence that the action is safe.
+Leave `RUN_OPENDSS=False`. Run the cell and read the scope table.
 
-The recorded held-out study contains 12 MV final actions rejected by the broader AC audit. It demonstrates a coverage gap on these cases, not universal inaccuracy of linear models. A full-model solution can be more conservative because it checks more equipment.</pre></details>
+The default checks **medium-voltage (MV)** phases and currents. It does not check all **low-voltage (LV)** equipment. A full MV/LV request therefore needs a wider check or a HOLD.
+
+This cell uses the original test_01 plan, not your edited L2 experiment.
+
+&lt;details&gt;&lt;summary&gt;Advanced OpenDSS comparison&lt;/summary&gt;
+
+With OpenDSS installed, setting `RUN_OPENDSS=True` in L0 adds an AC audit of the same action and a separate full-model replan in L5. It does not switch L2 automatically. Run OpenDSS serially. A missing installation is an environment error.
+
+The saved held-out study found 12 MV final actions rejected by the wider AC audit. That finding describes these cases, not every linear model.
+
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-016"><div class="cellid">Cell 18 · classroom-016 · code · recorded execution 7</div>
 <details><summary>Original code cell</summary><pre class="source">started = time.perf_counter()
@@ -602,15 +687,32 @@ An MV-only PASS cannot acknowledge a request requiring full MV/LV coverage.
 </section>
 </article>
 <article class="cell" id="classroom-017"><div class="cellid">Cell 19 · classroom-017 · markdown</div>
-<h2>L6 · Restoration: the objective expresses a service policy</h2>
-<p><strong>Predict:</strong> does maximizing total restored kW also maximize critical-load service?</p>
+<h2>L6 · Which loads should return first?</h2>
+<p>Compare two goals on the <strong>same six-node network</strong>:</p>
+<p>- Give extra weight to critical loads.<br>- Restore the most total kW.</p>
+<p>Run L6. Compare <code>served_kw</code> and <code>critical_kw</code>. A <strong>mixed-integer linear program (MILP)</strong> selects whole loads. A separate exhaustive search checks its priority score.</p>
+<p><strong>Exercise:</strong> add <code>180.</code> to <code>CAPACITIES_KW</code>, keeping <code>40.</code> first. Compare 40 and 180 kW. Then restore the original list and rerun.</p>
+<p>This is an active-power graph model. It does not check AC voltage, protection or field switching order. Llama does not solve this optimization.</p>
+<p>&lt;details&gt;&lt;summary&gt;Model details and sources&lt;/summary&gt;</p>
 <p>On a six-node synthetic graph, choose binary pickup $x_i$ and energized edges $y_e$:<br>\[<br>\max\sum_i w_i d_i x_i,<br>\quad x_i\leq z_i,<br>\quad -\bar P_e y_e\leq P_e\leq\bar P_e y_e.<br>\]</p>
 <p>$d_i$ is demand in kW, $w_i=10$ for two critical loads and $1$ otherwise, and $z_i$ is node energization. Signed active-power balance supplies picked-up demand. Commodity flow connects energized nodes to the source; a radial edge-count constraint then enforces a tree. Faulted edges are unavailable. A second lexicographic solve preserves service and minimizes energized branches; this is not the number of switching operations from a prior state.</p>
 <p>The baseline maximizes unweighted total kW on <strong>the same graph and constraints</strong>. Both are conventional numerical optimizers; any difference here is caused by the objective, not by Llama. Independent exhaustive enumeration checks the priority MILP optimum. The agentic task is to preserve the operator&#x27;s priority contract when selecting and explaining the solver.</p>
-<p><strong>Do:</strong> sweep the tie capacity, then add <code>100.</code> or <code>180.</code> to the list. This toy active-power transport model omits AC voltage/reactive constraints and protection sequencing; it is not the supplied Greensboro switching system.</p>
 <p>Source: <a href="https://doi.org/10.1109/TPWRS.2017.2720122">Chen et al., restoration optimization</a>.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L6 · Restoration: the objective expresses a service policy
-**Predict:** does maximizing total restored kW also maximize critical-load service?
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L6 · Which loads should return first?
+
+Compare two goals on the **same six-node network**:
+
+- Give extra weight to critical loads.
+- Restore the most total kW.
+
+Run L6. Compare `served_kw` and `critical_kw`. A **mixed-integer linear program (MILP)** selects whole loads. A separate exhaustive search checks its priority score.
+
+**Exercise:** add `180.` to `CAPACITIES_KW`, keeping `40.` first. Compare 40 and 180 kW. Then restore the original list and rerun.
+
+This is an active-power graph model. It does not check AC voltage, protection or field switching order. Llama does not solve this optimization.
+
+&lt;details&gt;&lt;summary&gt;Model details and sources&lt;/summary&gt;
 
 On a six-node synthetic graph, choose binary pickup $x_i$ and energized edges $y_e$:
 \[
@@ -623,9 +725,10 @@ $d_i$ is demand in kW, $w_i=10$ for two critical loads and $1$ otherwise, and $z
 
 The baseline maximizes unweighted total kW on **the same graph and constraints**. Both are conventional numerical optimizers; any difference here is caused by the objective, not by Llama. Independent exhaustive enumeration checks the priority MILP optimum. The agentic task is to preserve the operator&#x27;s priority contract when selecting and explaining the solver.
 
-**Do:** sweep the tie capacity, then add `100.` or `180.` to the list. This toy active-power transport model omits AC voltage/reactive constraints and protection sequencing; it is not the supplied Greensboro switching system.
+Source: [Chen et al., restoration optimization](https://doi.org/10.1109/TPWRS.2017.2720122).
 
-Source: [Chen et al., restoration optimization](https://doi.org/10.1109/TPWRS.2017.2720122).</pre></details>
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-018"><div class="cellid">Cell 20 · classroom-018 · code · recorded execution 8</div>
 <details><summary>Original code cell</summary><pre class="source">CAPACITIES_KW = (40., 60., 80., 100., 120.)
@@ -772,17 +875,29 @@ assert restoration[&#x27;table&#x27;].MILP_matches_exhaustive_check.all()</pre><
 </section>
 </article>
 <article class="cell" id="classroom-019"><div class="cellid">Cell 21 · classroom-019 · markdown</div>
-<p>&lt;details&gt;&lt;summary&gt;Instructor answer and challenge&lt;/summary&gt;A maximum-kW objective can choose a larger ordinary load instead of a smaller critical one when capacity is limited. At some capacities the objectives agree. An agentic explanation should identify the actual tradeoff, not claim every point improves. The MILP establishes optimality only for this small declared formulation.&lt;/details&gt;</p>
-<p><strong>Transition:</strong> changing a tie rating invalidates the old plan even if its natural-language explanation sounds unchanged.</p>
-<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Instructor answer and challenge&lt;/summary&gt;A maximum-kW objective can choose a larger ordinary load instead of a smaller critical one when capacity is limited. At some capacities the objectives agree. An agentic explanation should identify the actual tradeoff, not claim every point improves. The MILP establishes optimality only for this small declared formulation.&lt;/details&gt;
+<p>&lt;details&gt;&lt;summary&gt;Check your answer&lt;/summary&gt;</p>
+<p>At 40 kW, the priority goal serves 130 kW total and 90 kW critical. The maximum-kW goal serves 140 kW total and 30 kW critical. At 180 kW, both serve 250 kW total and 90 kW critical.</p>
+<p>The objective creates this tradeoff. It is not a measured benefit from Llama.</p>
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Check your answer&lt;/summary&gt;
 
-**Transition:** changing a tie rating invalidates the old plan even if its natural-language explanation sounds unchanged.</pre></details>
+At 40 kW, the priority goal serves 130 kW total and 90 kW critical. The maximum-kW goal serves 140 kW total and 30 kW critical. At 180 kW, both serve 250 kW total and 90 kW critical.
+
+The objective creates this tradeoff. It is not a measured benefit from Llama.
+
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-020"><div class="cellid">Cell 22 · classroom-020 · markdown</div>
-<h2>L7 · Restoration under a changed contract</h2>
-<p><strong>Do:</strong> bind the first solution to its capacity and priorities, then lower the capacity without rerunning the tool. The guard should reject stale evidence. Replanning is necessary, but software binding alone does not check AC operation or interlocks.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L7 · Restoration under a changed contract
-**Do:** bind the first solution to its capacity and priorities, then lower the capacity without rerunning the tool. The guard should reject stale evidence. Replanning is necessary, but software binding alone does not check AC operation or interlocks.</pre></details>
+<h2>L7 · Changed capacity needs a new check</h2>
+<p>Run L7 after resetting L6. It attaches a result to the original 40 kW request, then changes the request to 20 kW.</p>
+<p>Expect <strong>True</strong> for the original match and <strong>False</strong> for the changed request. <strong>HOLD</strong> the old recommendation and solve again. This test detects old evidence; it does not calculate whether a new plan would pass.</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L7 · Changed capacity needs a new check
+
+Run L7 after resetting L6. It attaches a result to the original 40 kW request, then changes the request to 20 kW.
+
+Expect **True** for the original match and **False** for the changed request. **HOLD** the old recommendation and solve again. This test detects old evidence; it does not calculate whether a new plan would pass.
+</pre></details>
 </article>
 <article class="cell" id="classroom-021"><div class="cellid">Cell 23 · classroom-021 · code · recorded execution 9</div>
 <details><summary>Original code cell</summary><pre class="source">rest_record = restoration[&#x27;records&#x27;][0][&#x27;weighted&#x27;]
@@ -803,14 +918,29 @@ Required response: HOLD old recommendation; request a fresh constrained solve.
 </section>
 </article>
 <article class="cell" id="classroom-022"><div class="cellid">Cell 24 · classroom-022 · markdown</div>
-<h2>L8 · Cyber: residual consistency is not truth</h2>
-<p><strong>Predict:</strong> will a larger attack always produce a larger residual alarm?</p>
+<h2>L8 · Can bad data fit the model?</h2>
+<p>Run L8 and compare two attacks: one biased reading and a coordinated change across readings.</p>
+<p>- <strong>Left plot:</strong> mismatch J and the alarm threshold.<br>- <strong>Right plot:</strong> state error against known simulation truth.</p>
+<p><strong>Exercise:</strong> add <code>.10</code> to <code>ATTACK_SCALES</code>. Predict, rerun and compare both plots. Then restore the original list and rerun.</p>
+<p>A quiet alarm does not prove that readings are true. The true state is available here for offline teaching, not to the live estimator.</p>
+<p>&lt;details&gt;&lt;summary&gt;Model details and sources&lt;/summary&gt;</p>
 <p>Weighted least squares uses $z=Hx+\epsilon$, $R=\mathrm{diag}(\sigma_i^2)$,<br>\[<br>\hat x=(H^TR^{-1}H)^{-1}H^TR^{-1}z,\qquad<br>J=(z-H\hat x)^TR^{-1}(z-H\hat x).<br>\]</p>
 <p>$x$ contains three non-slack DC voltage angles in radians; $z$ contains flows, injections and one angle; $H$ maps state to measurement. With independent Gaussian errors and a correct full-rank model, compare $J$ with a chi-square threshold using $m-n$ degrees of freedom and significance $0.01$.</p>
 <p>An isolated bias creates inconsistency. The negative control $a=Hc$ shifts the estimated state by $c$ while leaving the residual unchanged. This attack assumes knowledge of $H$ and control of all modeled unprotected channels. Offline state error uses known simulation truth for teaching, <strong>not an online detector input</strong>.</p>
-<p><strong>Do:</strong> increase the scale range. Compare the two panels before explaining the alarm. Sources: <a href="https://doi.org/10.1109/TPAS.1970.292678">Schweppe &amp; Wildes, state estimation</a>; <a href="https://doi.org/10.1145/1653662.1653666">Liu et al., false-data injection</a>.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L8 · Cyber: residual consistency is not truth
-**Predict:** will a larger attack always produce a larger residual alarm?
+<p>Sources: <a href="https://doi.org/10.1109/TPAS.1970.292678">Schweppe &amp; Wildes, state estimation</a>; <a href="https://doi.org/10.1145/1653662.1653666">Liu et al., false-data injection</a>.</p>
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L8 · Can bad data fit the model?
+
+Run L8 and compare two attacks: one biased reading and a coordinated change across readings.
+
+- **Left plot:** mismatch J and the alarm threshold.
+- **Right plot:** state error against known simulation truth.
+
+**Exercise:** add `.10` to `ATTACK_SCALES`. Predict, rerun and compare both plots. Then restore the original list and rerun.
+
+A quiet alarm does not prove that readings are true. The true state is available here for offline teaching, not to the live estimator.
+
+&lt;details&gt;&lt;summary&gt;Model details and sources&lt;/summary&gt;
 
 Weighted least squares uses $z=Hx+\epsilon$, $R=\mathrm{diag}(\sigma_i^2)$,
 \[
@@ -822,7 +952,10 @@ $x$ contains three non-slack DC voltage angles in radians; $z$ contains flows, i
 
 An isolated bias creates inconsistency. The negative control $a=Hc$ shifts the estimated state by $c$ while leaving the residual unchanged. This attack assumes knowledge of $H$ and control of all modeled unprotected channels. Offline state error uses known simulation truth for teaching, **not an online detector input**.
 
-**Do:** increase the scale range. Compare the two panels before explaining the alarm. Sources: [Schweppe &amp; Wildes, state estimation](https://doi.org/10.1109/TPAS.1970.292678); [Liu et al., false-data injection](https://doi.org/10.1145/1653662.1653666).</pre></details>
+Sources: [Schweppe &amp; Wildes, state estimation](https://doi.org/10.1109/TPAS.1970.292678); [Liu et al., false-data injection](https://doi.org/10.1145/1653662.1653666).
+
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-023"><div class="cellid">Cell 25 · classroom-023 · code · recorded execution 10</div>
 <details><summary>Original code cell</summary><pre class="source">ATTACK_SCALES = (0., .25, .5, 1., 1.5)
@@ -970,18 +1103,40 @@ plt.tight_layout(); plt.show()</pre></details>
 </section>
 </article>
 <article class="cell" id="classroom-024"><div class="cellid">Cell 26 · classroom-024 · markdown</div>
-<p>&lt;details&gt;&lt;summary&gt;Instructor answer and challenge&lt;/summary&gt;The stealth residual remains at the nominal value as state error grows. A low residual is consistency with the model, not proof of authenticity. The control-room response must change when the threat model includes coordinated corruption. Try an isolated scale of 0.10: a threshold can also miss small inconsistent errors.&lt;/details&gt;</p>
-<p><strong>Transition:</strong> if telemetry trust is uncertain, producing a more eloquent answer does not repair it. The next stage requires independent information or a HOLD.</p>
-<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Instructor answer and challenge&lt;/summary&gt;The stealth residual remains at the nominal value as state error grows. A low residual is consistency with the model, not proof of authenticity. The control-room response must change when the threat model includes coordinated corruption. Try an isolated scale of 0.10: a threshold can also miss small inconsistent errors.&lt;/details&gt;
+<p>&lt;details&gt;&lt;summary&gt;Check your answer&lt;/summary&gt;</p>
+<p>At isolated scale 0.10, J is about 10.14, below the 15.09 threshold. The coordinated attack can grow the state error while keeping J near 3.92. The alarm checks model fit, not data authenticity.</p>
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Check your answer&lt;/summary&gt;
 
-**Transition:** if telemetry trust is uncertain, producing a more eloquent answer does not repair it. The next stage requires independent information or a HOLD.</pre></details>
+At isolated scale 0.10, J is about 10.14, below the 15.09 threshold. The coordinated attack can grow the state error while keeping J near 3.92. The alarm checks model fit, not data authenticity.
+
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-025"><div class="cellid">Cell 27 · classroom-025 · markdown</div>
-<h2>L9 · Trusted state, constrained response, explicit HOLD</h2>
+<h2>L9 · When can we propose a correction?</h2>
+<p>Run L9. Compare the same fixed recovery case:</p>
+<p>- <strong>No trusted replacement readings:</strong> HOLD.<br>- <strong>Three readings assumed trustworthy:</strong> calculate a limited correction and return PROPOSE.</p>
+<p>Read <code>status</code> first, then <code>u_pu</code> and the offline violation count. A solver calculates the injection. The operator still reviews it.</p>
+<p>L9 is separate from your L8 scale change. It assumes trust; it does not authenticate sensors.</p>
+<p>&lt;details&gt;&lt;summary&gt;Model details and sources&lt;/summary&gt;</p>
 <p>Three additional angle channels are assumed independently trustworthy. This example does not implement authentication. Their WLS system is exactly determined, so it has zero residual degrees of freedom and makes no chi-square detection claim.</p>
 <p>The model-based response solves $\min_{0\leq u\leq0.5}\tfrac12u^2$, subject to<br>\[<br>|F\hat x+FB^{-1}e_2u|\leq\bar f-0.01.<br>\]</p>
 <p>$u$ is a flexible injection in per unit, balanced by the slack; $B$ is the reduced nodal susceptance matrix, $F$ maps angles to branch flows, $e_2$ selects the controlled node, and $\bar f$ is the branch-flow limit. The 0.01 p.u. margin is explicit. Known truth is used only for the offline outcome check. The gate may HOLD even when the numerical solver could return an action.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L9 · Trusted state, constrained response, explicit HOLD
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L9 · When can we propose a correction?
+
+Run L9. Compare the same fixed recovery case:
+
+- **No trusted replacement readings:** HOLD.
+- **Three readings assumed trustworthy:** calculate a limited correction and return PROPOSE.
+
+Read `status` first, then `u_pu` and the offline violation count. A solver calculates the injection. The operator still reviews it.
+
+L9 is separate from your L8 scale change. It assumes trust; it does not authenticate sensors.
+
+&lt;details&gt;&lt;summary&gt;Model details and sources&lt;/summary&gt;
+
 Three additional angle channels are assumed independently trustworthy. This example does not implement authentication. Their WLS system is exactly determined, so it has zero residual degrees of freedom and makes no chi-square detection claim.
 
 The model-based response solves $\min_{0\leq u\leq0.5}\tfrac12u^2$, subject to
@@ -989,7 +1144,10 @@ The model-based response solves $\min_{0\leq u\leq0.5}\tfrac12u^2$, subject to
 |F\hat x+FB^{-1}e_2u|\leq\bar f-0.01.
 \]
 
-$u$ is a flexible injection in per unit, balanced by the slack; $B$ is the reduced nodal susceptance matrix, $F$ maps angles to branch flows, $e_2$ selects the controlled node, and $\bar f$ is the branch-flow limit. The 0.01 p.u. margin is explicit. Known truth is used only for the offline outcome check. The gate may HOLD even when the numerical solver could return an action.</pre></details>
+$u$ is a flexible injection in per unit, balanced by the slack; $B$ is the reduced nodal susceptance matrix, $F$ maps angles to branch flows, $e_2$ selects the controlled node, and $\bar f$ is the branch-flow limit. The 0.01 p.u. margin is explicit. Known truth is used only for the offline outcome check. The gate may HOLD even when the numerical solver could return an action.
+
+&lt;/details&gt;
+</pre></details>
 </article>
 <article class="cell" id="classroom-026"><div class="cellid">Cell 28 · classroom-026 · code · recorded execution 11</div>
 <details><summary>Original code cell</summary><pre class="source">without_trust = lab.trusted_response(cyber, protected_available=False)
@@ -1053,18 +1211,41 @@ assert with_trust[&#x27;actual_violation_count&#x27;] == 0</pre></details>
 </section>
 </article>
 <article class="cell" id="classroom-027"><div class="cellid">Cell 29 · classroom-027 · markdown</div>
-<h2>L10 · Read the agent&#x27;s actual public explanations critically</h2>
-<p>The fresh numerical labs show methods; this separate archive shows how the five roles were orchestrated in the earlier complete workflow. It uses a feeder restoration catalog, not L6&#x27;s six-node MILP. Do not transfer one experiment&#x27;s benefit to the other.</p>
-<p><strong>Do:</strong> read the returned choice and its evidence. Does the explanation accurately name the objective, constraints and scope? The deterministic simulator and verifier stages return structured records; they do not need invented LLM dialogue. The table below includes exact archived public Llama reasons only where the model actually responded.</p>
-<p>In the paired prior study, five final numerical costs tied and one Llama route was worse; recorded language calls increased latency. The teaching result is an auditable bounded workflow, not demonstrated universal superiority. A credible new study would preregister tasks, baselines, budgets, failures and latency boundaries.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L10 · Read the agent&#x27;s actual public explanations critically
-The fresh numerical labs show methods; this separate archive shows how the five roles were orchestrated in the earlier complete workflow. It uses a feeder restoration catalog, not L6&#x27;s six-node MILP. Do not transfer one experiment&#x27;s benefit to the other.
+<h2>L10 · Inspect the five-role workflow</h2>
+<p>Run the cell to inspect the saved trace. Five roles share case facts, proposals and check results:</p>
+<p>1. <strong>Awareness:</strong> read the case and its limits.<br>2. <strong>Planning:</strong> request candidate tools.<br>3. <strong>Simulation:</strong> calculate each proposal&#x27;s effects.<br>4. <strong>Verification:</strong> pass or reject it using fixed rules.<br>5. <strong>Optimizer:</strong> request another trial or rank passing options.</p>
+<p>One Llama model fills the planning and optimizer roles. Python runs the other stages. These are not five independent LLMs. The default notebook replays the saved workflow.</p>
+<p>L10 restoration uses a feeder catalog, not L6&#x27;s six-node model. In the six paired saved comparisons, five final costs tied and one Llama route was worse.</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L10 · Inspect the five-role workflow
 
-**Do:** read the returned choice and its evidence. Does the explanation accurately name the objective, constraints and scope? The deterministic simulator and verifier stages return structured records; they do not need invented LLM dialogue. The table below includes exact archived public Llama reasons only where the model actually responded.
+Run the cell to inspect the saved trace. Five roles share case facts, proposals and check results:
 
-In the paired prior study, five final numerical costs tied and one Llama route was worse; recorded language calls increased latency. The teaching result is an auditable bounded workflow, not demonstrated universal superiority. A credible new study would preregister tasks, baselines, budgets, failures and latency boundaries.</pre></details>
+1. **Awareness:** read the case and its limits.
+2. **Planning:** request candidate tools.
+3. **Simulation:** calculate each proposal&#x27;s effects.
+4. **Verification:** pass or reject it using fixed rules.
+5. **Optimizer:** request another trial or rank passing options.
+
+One Llama model fills the planning and optimizer roles. Python runs the other stages. These are not five independent LLMs. The default notebook replays the saved workflow.
+
+L10 restoration uses a feeder catalog, not L6&#x27;s six-node model. In the six paired saved comparisons, five final costs tied and one Llama route was worse.
+</pre></details>
 </article>
-<article class="cell" id="classroom-028"><div class="cellid">Cell 30 · classroom-028 · code · recorded execution 12</div>
+<article class="cell" id="classroom-five-role-map"><div class="cellid">Cell 30 · classroom-five-role-map · markdown</div>
+<h3>How the roles work together</h3>
+<p>!<a href="https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/diagrams/multi_agent_roles.svg">Five roles: awareness, planning, simulation, verification and optimizer. The optimizer sends changed trials back for checking. A final recheck precedes operator review.</a></p>
+<p><strong>Voltage:</strong> test settings. <strong>Restoration:</strong> test plans while keeping service priorities. <strong>Cyber:</strong> test corrections under the stated trust assumption. In every case, changed proposals need another calculation and check.</p>
+<p>Source: <a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py">workflow implementation</a>, <code>CORE_STAGES</code> and <code>run_proposal_case</code>; [saved results](results/proposal_complete_workflow.json). Custom teaching diagram.</p>
+<details><summary>Original Markdown source</summary><pre class="source">### How the roles work together
+
+![Five roles: awareness, planning, simulation, verification and optimizer. The optimizer sends changed trials back for checking. A final recheck precedes operator review.](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/diagrams/multi_agent_roles.svg)
+
+**Voltage:** test settings. **Restoration:** test plans while keeping service priorities. **Cyber:** test corrections under the stated trust assumption. In every case, changed proposals need another calculation and check.
+
+Source: [workflow implementation](https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py), `CORE_STAGES` and `run_proposal_case`; [saved results](results/proposal_complete_workflow.json). Custom teaching diagram.
+</pre></details>
+</article>
+<article class="cell" id="classroom-028"><div class="cellid">Cell 31 · classroom-028 · code · recorded execution 12</div>
 <details><summary>Original code cell</summary><pre class="source">archived_reasons = []
 for case, backend in [(&#x27;voltage&#x27;, &#x27;lindistflow3&#x27;), (&#x27;restoration&#x27;, &#x27;lindistflow3&#x27;), (&#x27;cyber_stealth&#x27;, &#x27;dc&#x27;)]:
     run = lab.archived_stage_replies(case, backend)
@@ -1242,27 +1423,27 @@ print(&#x27;Selected returned fields are exact archive values; complete records:
     <tr>
       <th>0</th>
       <td>L2 fresh MPC + SAC + checks</td>
-      <td>4.163343</td>
+      <td>3.799577</td>
     </tr>
     <tr>
       <th>1</th>
       <td>L4 new verification of archived choices</td>
-      <td>0.225715</td>
+      <td>0.192607</td>
     </tr>
     <tr>
       <th>2</th>
       <td>L5 selected model scope checks</td>
-      <td>0.088353</td>
+      <td>0.081593</td>
     </tr>
     <tr>
       <th>3</th>
       <td>L6 fresh MILP sweep + independent enumeration</td>
-      <td>0.056755</td>
+      <td>0.055353</td>
     </tr>
     <tr>
       <th>4</th>
       <td>L8 fresh WLS attack sweep</td>
-      <td>0.003940</td>
+      <td>0.003494</td>
     </tr>
   </tbody>
 </table>
@@ -1685,16 +1866,70 @@ print(&#x27;Selected returned fields are exact archive values; complete records:
 </pre>
 </section>
 </article>
-<article class="cell" id="classroom-029"><div class="cellid">Cell 31 · classroom-029 · markdown</div>
-<h2>L11 · Optional local Llama experiment</h2>
-<p>This extension is excluded from the default 45-minute hands-on budget. Start Ollama and install the chosen model before class. Setting the toggle to True makes <strong>one new local call</strong>, journals its exact response and timing, and uses the original <code>test_01</code> context. A schema failure remains a failure; the helper does not fabricate a reply. The result requests an experiment and never changes the numerical limits.</p>
-<p><strong>Challenge:</strong> compare the fresh reason with the archived reason while keeping context and settings fixed. One rerun is not a statistical reproducibility study.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L11 · Optional local Llama experiment
-This extension is excluded from the default 45-minute hands-on budget. Start Ollama and install the chosen model before class. Setting the toggle to True makes **one new local call**, journals its exact response and timing, and uses the original `test_01` context. A schema failure remains a failure; the helper does not fabricate a reply. The result requests an experiment and never changes the numerical limits.
+<article class="cell" id="classroom-llama-walkthrough-intro"><div class="cellid">Cell 32 · classroom-llama-walkthrough-intro · markdown</div>
+<h2>L10B · Replay Llama&#x27;s tool choices</h2>
+<p>Set <code>SCENARIO = &quot;voltage&quot;</code>, then try <code>&quot;restoration&quot;</code> and <code>&quot;cyber&quot;</code>. Rerun for each.</p>
+<p>Follow <strong>input facts, model choice, public reason, tool result, next step</strong>. Find one failed check or corrected choice.</p>
+<p>These are actual saved <code>llama3.1:8b</code> replies and tool results. This cell makes <strong>no new model call or electrical solve</strong>. A public reason is not proof of correctness.</p>
+<p>&lt;details&gt;&lt;summary&gt;Which saved study is shown?&lt;/summary&gt;</p>
+<p>- Voltage: P3 OpenDSS recovery, separate from L2 and L3 test_01.<br>- Restoration: L10 feeder catalog, separate from L6&#x27;s six-node MILP.<br>- Cyber: the standard four-bus study, separate from L10&#x27;s five-role archive.</p>
+<p>The fixed comparators reach the same numerical outcomes. Human review remains pending. No episode authorizes equipment operation.</p>
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L10B · Replay Llama&#x27;s tool choices
 
-**Challenge:** compare the fresh reason with the archived reason while keeping context and settings fixed. One rerun is not a statistical reproducibility study.</pre></details>
+Set `SCENARIO = &quot;voltage&quot;`, then try `&quot;restoration&quot;` and `&quot;cyber&quot;`. Rerun for each.
+
+Follow **input facts, model choice, public reason, tool result, next step**. Find one failed check or corrected choice.
+
+These are actual saved `llama3.1:8b` replies and tool results. This cell makes **no new model call or electrical solve**. A public reason is not proof of correctness.
+
+&lt;details&gt;&lt;summary&gt;Which saved study is shown?&lt;/summary&gt;
+
+- Voltage: P3 OpenDSS recovery, separate from L2 and L3 test_01.
+- Restoration: L10 feeder catalog, separate from L6&#x27;s six-node MILP.
+- Cyber: the standard four-bus study, separate from L10&#x27;s five-role archive.
+
+The fixed comparators reach the same numerical outcomes. Human review remains pending. No episode authorizes equipment operation.
+
+&lt;/details&gt;
+</pre></details>
 </article>
-<article class="cell" id="classroom-030"><div class="cellid">Cell 32 · classroom-030 · code · recorded execution 13</div>
+<article class="cell" id="classroom-llama-walkthrough"><div class="cellid">Cell 33 · classroom-llama-walkthrough · code · recorded execution 13</div>
+<details><summary>Original code cell</summary><pre class="source">SCENARIO = &quot;voltage&quot;  # Change to &quot;restoration&quot; or &quot;cyber&quot;, then rerun this cell.
+from IPython.display import HTML, display
+from src.llama_walkthrough import load_episodes, render_episode_html
+replay_episodes = load_episodes(ROOT)
+display(HTML(render_episode_html(replay_episodes[SCENARIO])))
+</pre></details>
+<section class="output"><p class="output-label">Executed output 0 (zero-based)</p>
+<div class="llama-walkthrough" id="llama-replay-voltage" data-scenario="voltage"><style>
+.llama-walkthrough{font:16px/1.5 Arial,sans-serif;color:#17384b;max-width:1120px;margin:16px 0}
+.llama-walkthrough h2,.llama-walkthrough h3{color:#00629b;margin:8px 0}
+.llama-walkthrough .lw-mode{font-weight:bold;color:#003b5c;background:#e8f3f7;padding:12px;border-left:5px solid #00a6b2}
+.llama-walkthrough .lw-step{border:1px solid #bdced8;border-left:5px solid #00a6b2;border-radius:5px;padding:16px;margin:18px 0}
+.llama-walkthrough .lw-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.llama-walkthrough .lw-panel{background:#f4f8fa;padding:10px 14px;border-radius:4px;margin:5px 0}
+.llama-walkthrough .lw-reason{background:#fff7e8;border-left:4px solid #a66610;padding:12px 15px;margin:12px 0}
+.llama-walkthrough .lw-label{font-weight:bold;color:#003b5c}
+.llama-walkthrough .lw-source{font-size:13px;color:#526470;overflow-wrap:anywhere}
+.llama-walkthrough ul{margin:6px 0;padding-left:20px}.llama-walkthrough li{margin:5px 0}
+.llama-walkthrough code{white-space:normal;overflow-wrap:anywhere}
+@media(max-width:720px){.llama-walkthrough .lw-row{grid-template-columns:1fr}}
+</style><h2>Voltage: reject the failed proposal, then check the fallback</h2><p class="lw-mode">RECORDED REPLAY — no new LLM call or electrical solve</p><p>P3_current_reserve; supplied full MV/LV OpenDSS feeder; 27 September 2026.<br>Separate from Classroom L2 and L3 test_01. No live SCADA, protection or transient study.</p><p>Exact public returned explanations; no hidden reasoning is exposed or inferred.</p><section class="lw-step" id="llama-replay-voltage-call-1" data-step="1" data-call-id="1"><h3>Call 1 · Request a fresh check of the SAC proposal</h3><div class="lw-row"><div class="lw-panel lw-input"><span class="lw-label">1. Input facts</span><ul><li>Forecast load multipliers: [1.0, 0.94, 1.06].</li><li>Current allowance: 80% of nominal; voltage limits: [0.95, 1.05] p.u.</li><li>The saved SAC action is a proposal, not a checked command.</li></ul></div><div class="lw-panel lw-choice"><span class="lw-label">2. Allowed choice</span><p>VERIFY_SAC_FIRST, REVIEW</p><p><b>Returned:</b> <code>VERIFY_SAC_FIRST</code></p></div></div><div class="lw-reason"><span class="lw-label">3. Exact recorded public reason</span><p>“A numerical SAC proposal is available; its fresh first-action check has not yet been requested.”</p></div><div class="lw-row"><div class="lw-panel lw-result"><span class="lw-label">4. Actual tool result</span><ul><li>OpenDSS: 111.966607% of the allowed current; 2 current violations.</li><li>Deterministic check: REJECT; failure = thermal.</li></ul></div><div class="lw-panel lw-next"><span class="lw-label">5. Next step</span><p>The recorded route rejects SAC and asks Recovery for the next allowed step.</p></div></div><p class="lw-source">llama3.1:8b · Planner · recorded client interval 0.987997 s. Raw JSON, parsed reply and trace match.</p></section><section class="lw-step" id="llama-replay-voltage-call-2" data-step="2" data-call-id="2"><h3>Call 2 · Request a fresh check of the existing MPC fallback</h3><div class="lw-row"><div class="lw-panel lw-input"><span class="lw-label">1. Input facts</span><ul><li>The supplied failed checks are: thermal.</li><li>An MPC plan already exists; its recovery-eligibility failure list is empty.</li><li>At most 2 candidate checks are permitted.</li></ul></div><div class="lw-panel lw-choice"><span class="lw-label">2. Allowed choice</span><p>USE_MPC_PLAN, REVIEW</p><p><b>Returned:</b> <code>USE_MPC_PLAN</code></p></div></div><div class="lw-reason"><span class="lw-label">3. Exact recorded public reason</span><p>“The MPC plan has been generated and is eligible for a numerical check. This is the next allowed step in the recovery process.”</p></div><div class="lw-row"><div class="lw-panel lw-result"><span class="lw-label">4. Actual tool result</span><ul><li>OpenDSS: 99.604410% of allowed current; no recorded violations.</li><li>Proposed P = 2387.157 kW; Q = +325.738 kvar.</li></ul></div><div class="lw-panel lw-next"><span class="lw-label">5. Next step</span><p>Keep the numerically passed candidate and ask how to focus the operator explanation.</p></div></div><p class="lw-source">llama3.1:8b · Recovery · recorded client interval 0.846633 s. Raw JSON, parsed reply and trace match.</p></section><section class="lw-step" id="llama-replay-voltage-call-3" data-step="3" data-call-id="3"><h3>Call 3 · Explain the evidence without acknowledging for the operator</h3><div class="lw-row"><div class="lw-panel lw-input"><span class="lw-label">1. Input facts</span><ul><li>The full-feeder first-action check passed; voltage is 1.001783–1.035026 p.u.</li><li>Protection, transients and implementation authority remain outside this model.</li></ul></div><div class="lw-panel lw-choice"><span class="lw-label">2. Allowed choice</span><p>REVIEW_ACTION, REVIEW_EVIDENCE, REVIEW_MODEL_LIMITS</p><p><b>Returned:</b> <code>REVIEW_EVIDENCE</code></p></div></div><div class="lw-reason"><span class="lw-label">3. Exact recorded public reason</span><p>“The model has converged and the numerical evidence indicates that the control actions are within the allowed limits. Reviewing the evidence will provide more insight into the model&#x27;s performance and the selected control actions.”</p></div><div class="lw-row"><div class="lw-panel lw-result"><span class="lw-label">4. Actual tool result</span><ul><li>Numerical status: MODEL_RECOMMEND; recorded human acknowledgment: PENDING.</li><li>Acknowledged = False; dispatch authorized = False; equipment operated = False.</li></ul></div><div class="lw-panel lw-next"><span class="lw-label">5. Next step</span><p>A person must review this exact packet through a separate authorized process. No human decision is recorded.</p></div></div><p class="lw-source">llama3.1:8b · Explanation · recorded client interval 0.985395 s. Raw JSON, parsed reply and trace match.</p></section><p><b>Compare with automation:</b> The fixed supervisor used the same SAC→MPC checks and returned the same numerical result. The replay shows bounded routing, not evidence of a better controller or reduced operator workload.</p><p><b>Find the same archive:</b> Agent_Trace_and_Latency: T2 stages and operator card; T3 exact public replies.</p><details class="lw-source"><summary>Recorded sources and SHA-256 fingerprints</summary><p><a target="_blank" rel="noopener noreferrer" href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/workshop_run_opendss.json">results/workshop_run_opendss.json</a><br><code>4dcf85386081652fa7f0b4157c3f5f513cec1b2f79567bc48b71df87c1ce408a</code></p><p><a target="_blank" rel="noopener noreferrer" href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/results/continuous_llama_opendss_20260927T161223523552Z.json">results/continuous_llama_opendss_20260927T161223523552Z.json</a><br><code>adaafce8f59a92e472124bfef8c0a73aa3e61fb4cc0a4137824a8865c33b6097</code></p><p>SHA-256 identifies the local source bytes; it does not authenticate measurements.</p></details></div>
+</section>
+</article>
+<article class="cell" id="classroom-029"><div class="cellid">Cell 34 · classroom-029 · markdown</div>
+<h2>L11 · Live Llama extension</h2>
+<p>Leave <code>RUN_LOCAL_LLAMA=False</code> and run the cell. <strong>SKIPPED is expected.</strong> L10B already shows the saved replies needed here.</p>
+<p>A live call needs a separately prepared Ollama service and model. If enabled, it makes one new local <code>llama3.1:8b</code> call for the original test_01 context and saves the response and timing. It never changes the numerical limits or operates equipment.</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L11 · Live Llama extension
+
+Leave `RUN_LOCAL_LLAMA=False` and run the cell. **SKIPPED is expected.** L10B already shows the saved replies needed here.
+
+A live call needs a separately prepared Ollama service and model. If enabled, it makes one new local `llama3.1:8b` call for the original test_01 context and saves the response and timing. It never changes the numerical limits or operates equipment.
+</pre></details>
+</article>
+<article class="cell" id="classroom-030"><div class="cellid">Cell 35 · classroom-030 · code · recorded execution 14</div>
 <details><summary>Original code cell</summary><pre class="source">if RUN_LOCAL_LLAMA:
     from datetime import datetime, timezone
     from src.proposal_workflow import ProposalLlama
@@ -1712,7 +1947,8 @@ else:
 </pre>
 </section>
 </article>
-<article class="cell" id="classroom-031"><div class="cellid">Cell 33 · classroom-031 · markdown</div>
+<article class="cell" id="classroom-031"><div class="cellid">Cell 36 · classroom-031 · markdown</div>
+<p>&lt;details&gt;&lt;summary&gt;Recorded live-call example and exact timing&lt;/summary&gt;</p>
 <h3>Recorded validation of the optional live path · 17 October 2026</h3>
 <p><strong>ARCHIVED ACTUAL LOCAL CALL</strong>, recorded separately at 13:21:06 UTC with <strong>llama3.1:8b</strong>. This reading block makes no call. The model received the original archived <strong>test_01</strong> context, not a modified L2 experiment. Its choice was <strong>RELAX_Q_10_PERCENT</strong>.</p>
 <p>Exact public reason:</p>
@@ -1720,7 +1956,10 @@ else:
 <p>| Timing boundary | Recorded seconds |<br>|---|---:|<br>| Client elapsed, including request overhead | 34.113 |<br>| Ollama-reported model loading | 16.967 |<br>| Ollama-reported prompt evaluation | 15.192 |<br>| Ollama-reported generation | 1.916 |</p>
 <p>The model processed 1,891 prompt tokens and generated 137 tokens. Component times are server-reported; they are not all of client elapsed and should not be double-counted with the total. A loading cost in this single run explains why a warm-call latency can differ. One call does not estimate a latency distribution.</p>
 <p><strong>Interpretation:</strong> the model requests a bounded trial and uses “may improve,” which is appropriate before simulation. The returned reason does not establish feasibility or the final objective. [Raw request, response and timing journal](results/classroom_optional_llama_validation.json) · [focused exercise checks](results/classroom_focused_checks.json).</p>
-<details><summary>Original Markdown source</summary><pre class="source">### Recorded validation of the optional live path · 17 October 2026
+<p>&lt;/details&gt;</p>
+<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Recorded live-call example and exact timing&lt;/summary&gt;
+
+### Recorded validation of the optional live path · 17 October 2026
 **ARCHIVED ACTUAL LOCAL CALL**, recorded separately at 13:21:06 UTC with **llama3.1:8b**. This reading block makes no call. The model received the original archived **test_01** context, not a modified L2 experiment. Its choice was **RELAX_Q_10_PERCENT**.
 
 Exact public reason:
@@ -1736,21 +1975,30 @@ Exact public reason:
 
 The model processed 1,891 prompt tokens and generated 137 tokens. Component times are server-reported; they are not all of client elapsed and should not be double-counted with the total. A loading cost in this single run explains why a warm-call latency can differ. One call does not estimate a latency distribution.
 
-**Interpretation:** the model requests a bounded trial and uses “may improve,” which is appropriate before simulation. The returned reason does not establish feasibility or the final objective. [Raw request, response and timing journal](results/classroom_optional_llama_validation.json) · [focused exercise checks](results/classroom_focused_checks.json).</pre></details>
-</article>
-<article class="cell" id="classroom-032"><div class="cellid">Cell 34 · classroom-032 · markdown</div>
-<h2>L12 · Operator handoff: acknowledge the recommendation you actually checked</h2>
-<p><strong>Predict:</strong> should an acknowledgment button be enabled when a full MV/LV request has only an MV check?</p>
-<p>Build the report from actual numerical evidence. Scope, binding and engineering pass must agree. A readback uses the recommendation ID and an operator name. This is a notebook exercise only; <code>equipment_dispatch</code> remains False. Human acknowledgment does not repair a failed check or authorize physical switching.</p>
-<p><strong>Do:</strong> inspect the HOLD report; then compare it with the explicit MV-scoped teaching report. Try a wrong recommendation ID. Finally complete the synthetic readback. The output demonstrates an interface invariant, not deployed operator performance.</p>
-<details><summary>Original Markdown source</summary><pre class="source">## L12 · Operator handoff: acknowledge the recommendation you actually checked
-**Predict:** should an acknowledgment button be enabled when a full MV/LV request has only an MV check?
+**Interpretation:** the model requests a bounded trial and uses “may improve,” which is appropriate before simulation. The returned reason does not establish feasibility or the final objective. [Raw request, response and timing journal](results/classroom_optional_llama_validation.json) · [focused exercise checks](results/classroom_focused_checks.json).
 
-Build the report from actual numerical evidence. Scope, binding and engineering pass must agree. A readback uses the recommendation ID and an operator name. This is a notebook exercise only; `equipment_dispatch` remains False. Human acknowledgment does not repair a failed check or authorize physical switching.
-
-**Do:** inspect the HOLD report; then compare it with the explicit MV-scoped teaching report. Try a wrong recommendation ID. Finally complete the synthetic readback. The output demonstrates an interface invariant, not deployed operator performance.</pre></details>
+&lt;/details&gt;
+</pre></details>
 </article>
-<article class="cell" id="classroom-033"><div class="cellid">Cell 35 · classroom-033 · code · recorded execution 14</div>
+<article class="cell" id="classroom-032"><div class="cellid">Cell 37 · classroom-032 · markdown</div>
+<h2>L12 · Match the operator readback</h2>
+<p>Run L12 after the earlier cells. Compare:</p>
+<p>- A <strong>full MV/LV</strong> request with only an MV check: <strong>HOLD</strong>.<br>- An <strong>MV teaching</strong> request with matching evidence: simulated readback allowed.</p>
+<p>Try the wrong recommendation ID, then the matching ID. Read <code>acknowledged</code> and <code>equipment_dispatch</code>.</p>
+<p>The wrong ID must fail. <code>equipment_dispatch</code> stays <strong>False</strong>. This is a classroom review exercise, not physical switching authority.</p>
+<details><summary>Original Markdown source</summary><pre class="source">## L12 · Match the operator readback
+
+Run L12 after the earlier cells. Compare:
+
+- A **full MV/LV** request with only an MV check: **HOLD**.
+- An **MV teaching** request with matching evidence: simulated readback allowed.
+
+Try the wrong recommendation ID, then the matching ID. Read `acknowledged` and `equipment_dispatch`.
+
+The wrong ID must fail. `equipment_dispatch` stays **False**. This is a classroom review exercise, not physical switching authority.
+</pre></details>
+</article>
+<article class="cell" id="classroom-033"><div class="cellid">Cell 38 · classroom-033 · code · recorded execution 15</div>
 <details><summary>Original code cell</summary><pre class="source">checked = selected_trials[&#x27;evaluations&#x27;][&#x27;frozen LinUCB&#x27;]
 handoff_request = {&#x27;case&#x27;: asdict(selected_trials[&#x27;case&#x27;]), &#x27;revision&#x27;: 1}
 handoff_candidate = checked[&#x27;candidate&#x27;]
@@ -1832,21 +2080,20 @@ assert readback[&#x27;acknowledged&#x27;] and not readback[&#x27;equipment_dispa
 </div>
 </section>
 </article>
-<article class="cell" id="classroom-034"><div class="cellid">Cell 36 · classroom-034 · markdown</div>
-<p>&lt;details&gt;&lt;summary&gt;Instructor answer&lt;/summary&gt;The full-scope request remains HOLD. The MV-scoped report can be acknowledged only as the declared teaching recommendation. Changing the label to hide missing coverage would invalidate the task, not solve it. In a control room, the report must also include approved procedures, equipment permissions, trusted timestamps, interlocks, rollback and escalation paths.&lt;/details&gt;</p>
-<h2>Exit ticket · defend one design decision</h2>
-<p>In pairs, explain one result without saying “AI is better.” State (1) the numerical method, (2) the agent&#x27;s bounded choice, (3) the independent check, (4) the baseline, and (5) the operator&#x27;s remaining responsibility.</p>
-<p>- <strong>Voltage:</strong> a saved policy proposes an action; the model checks it; model coverage changes acceptance.<br>- <strong>Restoration:</strong> priorities belong in the objective and the evidence contract; conventional optimization creates the service tradeoff.<br>- <strong>Cyber:</strong> residual consistency cannot establish truth; protected information or a HOLD is required under the stated threat model.</p>
-<p>For the larger archived studies and their exact timing/selection protocols, continue with [LLM Response Selection](LLM_Response_Selection.ipynb), [Complete Five-Stage Workflow](Proposal_Complete_Workflow.ipynb), and [Standard Formulations](Standard_Formulations.ipynb). These are optional depth, not additional required notebooks during the lecture.</p>
-<details><summary>Original Markdown source</summary><pre class="source">&lt;details&gt;&lt;summary&gt;Instructor answer&lt;/summary&gt;The full-scope request remains HOLD. The MV-scoped report can be acknowledged only as the declared teaching recommendation. Changing the label to hide missing coverage would invalidate the task, not solve it. In a control room, the report must also include approved procedures, equipment permissions, trusted timestamps, interlocks, rollback and escalation paths.&lt;/details&gt;
+<article class="cell" id="classroom-034"><div class="cellid">Cell 39 · classroom-034 · markdown</div>
+<h2>What did the three cases teach?</h2>
+<p>- <strong>Voltage:</strong> propose settings, then check limits and model coverage.<br>- <strong>Restoration:</strong> state the service goal and recheck changed requests.<br>- <strong>Cyber:</strong> check data trust before using a recovery proposal.</p>
+<p>For one case, explain <strong>the agent choice, tool result, check and operator decision</strong>. Save your changed input and output so you can repeat it later.</p>
+<p><a href="https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py">Five-role source code</a> · [Recorded workflow results](results/proposal_complete_workflow.json) · <a href="https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Full_Reading_Guide.html">Full sources</a></p>
+<details><summary>Original Markdown source</summary><pre class="source">## What did the three cases teach?
 
-## Exit ticket · defend one design decision
-In pairs, explain one result without saying “AI is better.” State (1) the numerical method, (2) the agent&#x27;s bounded choice, (3) the independent check, (4) the baseline, and (5) the operator&#x27;s remaining responsibility.
+- **Voltage:** propose settings, then check limits and model coverage.
+- **Restoration:** state the service goal and recheck changed requests.
+- **Cyber:** check data trust before using a recovery proposal.
 
-- **Voltage:** a saved policy proposes an action; the model checks it; model coverage changes acceptance.
-- **Restoration:** priorities belong in the objective and the evidence contract; conventional optimization creates the service tradeoff.
-- **Cyber:** residual consistency cannot establish truth; protected information or a HOLD is required under the stated threat model.
+For one case, explain **the agent choice, tool result, check and operator decision**. Save your changed input and output so you can repeat it later.
 
-For the larger archived studies and their exact timing/selection protocols, continue with [LLM Response Selection](LLM_Response_Selection.ipynb), [Complete Five-Stage Workflow](Proposal_Complete_Workflow.ipynb), and [Standard Formulations](Standard_Formulations.ipynb). These are optional depth, not additional required notebooks during the lecture.</pre></details>
+[Five-role source code](https://github.com/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/src/proposal_workflow.py) · [Recorded workflow results](results/proposal_complete_workflow.json) · [Full sources](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Full_Reading_Guide.html)
+</pre></details>
 </article>
 </main></body></html>

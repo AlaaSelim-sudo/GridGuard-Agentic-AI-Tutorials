@@ -1,0 +1,25 @@
+\begingroup
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\fontsize{9}{10.5}\selectfont,
+every node/.style={align=center,text=Navy},
+role/.style={draw=IEEEBlue,line width=1.1pt,text width=2.55cm,minimum height=1.95cm,inner sep=4pt},
+flow/.style={-{Stealth[length=2.3mm]},draw=IEEEBlue,line width=1.3pt},
+loop/.style={-{Stealth[length=2.3mm]},draw=Cyan,line width=1.4pt},
+small/.style={font=\sffamily\fontsize{8.6}{10.5}\selectfont}]
+\node[role] (r0) at (1.5,2.5) {\textbf{Awareness}\\{\small Python}\\[3pt]Fault, ties and\\critical loads};
+\node[role,fill=Cyan!7] (r1) at (4.63,2.5) {\textbf{Planning}\\{\small Llama + tools}\\[3pt]Request two\\restoration plans};
+\draw[flow] (r0.east)--(r1.west);
+\node[role] (r2) at (7.76,2.5) {\textbf{Simulation}\\{\small Python}\\[3pt]Calculate service\\and current};
+\draw[flow] (r1.east)--(r2.west);
+\node[role] (r3) at (10.89,2.5) {\textbf{Verification}\\{\small Python}\\[3pt]Reject failed\\plans};
+\draw[flow] (r2.east)--(r3.west);
+\node[role,fill=Cyan!7] (r4) at (14.02,2.5) {\textbf{Optimizer}\\{\small Llama}\\[3pt]Try two levels\\of load shedding};
+\draw[flow] (r3.east)--(r4.west);
+\draw[loop] (r4.north)--(14.02,4.0)--node[above,small,text=Cyan]{New trial returns for calculation and checking}(7.76,4.0)--(r2.north);
+\node[role,minimum height=.65cm,text width=4.1cm] (final) at (9.2,-.1) {\textbf{Final numerical recheck}};
+\node[role,minimum height=.65cm,text width=3cm] (human) at (13.6,-.1) {\textbf{Operator review}};
+\draw[flow] (r4.east)--(15.65,2.5)--(15.65,.62)--node[above,small]{Selected option}(9.2,.62)--(final.north);
+\draw[flow] (final.east)--(human.west);
+\node[align=left,text width=6.1cm,small] at (3.0,-.1) {Only passed candidates can be ranked.\\Human review stays separate from dispatch.};
+\node[text width=15.6cm,font=\sffamily\bfseries\fontsize{10.5}{13}\selectfont,text=IEEEBlue] at (7.76,-1.0) {Selected: 1,843.61 kW served, 474.04 kW critical, 91.87\% current use.};
+\end{tikzpicture}
+\endgroup

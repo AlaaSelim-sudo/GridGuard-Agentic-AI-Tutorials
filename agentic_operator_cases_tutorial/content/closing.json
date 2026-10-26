@@ -1,10 +1,10 @@
 [
   {
-    "title": "Run L10 before the Llama walkthrough",
+    "title": "L10: inspect the five-role workflow",
     "kind": "normal",
     "points": [
-      "Run L10 to inspect its separate archived five-stage study.",
-      "Continue to L10B for the recorded Llama choices, then run L11 with its default False setting."
+      "Run L10 to see every recorded stage and result.",
+      "The stages share case facts, proposals and check results. The next slides explain their jobs."
     ],
     "refs": [
       "H10"
@@ -15,10 +15,11 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L10",
-    "eyebrow": "Classroom Labs · L10 · classroom-028"
+    "eyebrow": "Classroom Labs · L10 · classroom-028",
+    "takeaway": ""
   },
   {
-    "title": "Run L10B: watch Llama choose a tool",
+    "title": "L10B: replay the three Llama examples",
     "kind": "normal",
     "minutes": 6.5,
     "refs": [
@@ -26,7 +27,8 @@
       "OLL1"
     ],
     "points": [
-      "Now replay the three saved episodes: set SCENARIO to voltage, restoration and cyber, rerunning each time."
+      "Set SCENARIO to voltage, restoration and cyber. Rerun for each.",
+      "These are saved replies and tool results. No new Llama call runs here."
     ],
     "note": "Run L10 first. In the new L10B cell the helper validates the original JSON reply against the parsed journal and trace, then displays the recorded episode. Change only SCENARIO to inspect the other two episodes. Earlier case slides previewed selected fields from these replays. Now inspect the full episodes in the same notebook. This cell makes no model request and performs no new electrical solve. At the end, run L11 at its default False setting before L12. Llama reasons are historical public returned text. Their correctness must be judged against the input and tool results. SCENARIO can be voltage, restoration or cyber. The full cell is shown. Allow about two minutes per scenario: one partner identifies the model choice, the other finds its tool result and the unresolved operator decision. These additional minutes replace removed checkpoint slides and the longer source explanations.",
     "source_label": "Classroom_Labs.ipynb, L10B; cell classroom-llama-walkthrough; src/llama_walkthrough.py.",
@@ -39,14 +41,15 @@
       "id": "classroom-llama-walkthrough",
       "start": 1,
       "end": 5
-    }
+    },
+    "takeaway": ""
   },
   {
-    "title": "Finish L12: practice the readback",
+    "title": "L12: practice operator readback",
     "kind": "normal",
     "points": [
-      "Run all of L12 after completing L0–L11 in notebook order.",
-      "Check wrong-ID rejection, simulated acknowledgment and equipment_dispatch=False."
+      "Leave L11 disabled, then run L12.",
+      "Check the wrong ID, the matching ID and equipment_dispatch=False."
     ],
     "refs": [
       "H12"
@@ -63,14 +66,15 @@
       "id": "classroom-033",
       "start": 9,
       "end": 10
-    }
+    },
+    "takeaway": ""
   },
   {
-    "title": "Read the two readback outcomes",
+    "title": "L12: approval must match the checked scope",
     "kind": "figure",
     "points": [
-      "Full MV/LV request: HOLD. The explicit MV teaching request allows a simulated readback.",
-      "A wrong recommendation ID is rejected. equipment_dispatch stays False."
+      "Full MV/LV request: HOLD. The MV teaching request allows a simulated readback.",
+      "A wrong ID fails. This exercise never sends equipment commands."
     ],
     "refs": [
       "H12"
@@ -85,154 +89,159 @@
     "image_source_path": "images/hands_on_L12_packet.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L12 output. Run L12 here, after the three cases and the L10B replay."
+    "caption": "Reference L12 output. Readback is simulated.",
+    "takeaway": ""
   },
   {
-    "title": "Llama chooses; tools calculate; people decide",
+    "title": "Our multi-agent design: five roles",
     "kind": "diagram",
     "points": [
-      "The agent coordinates a study. Numerical tools supply the checks. The operator reviews the proposal."
+      "The roles pass structured results to each other. Llama handles planning and refinement; Python runs the other stages."
     ],
     "refs": [
-      "ST01",
-      "DEF03",
-      "LR0",
-      "OLL1"
+      "WF01",
+      "H10",
+      "DEF03"
     ],
     "minutes": 1,
-    "note": "Use the three symbols to assign responsibilities: the speech box is Llama making a permitted choice and returning a public reason; the function is Python and OpenDSS calculating physical results and enforcing workflow limits; the person is the operator reviewing evidence and retaining operating authority. The Llama wrappers use constrained JSON interpreted by the application, rather than native tool_calls. Language explanations are not proof of physical correctness. In our replay the model may say REVIEW but the human acknowledgment is still PENDING. For each exercise work in pairs: one person runs while the other checks, then swap. Save the input, result, check and next decision. Stanford p.53 separates language understanding from checking a formal decision model in a clinical-trial example. The lab adaptation separates Llama coordination from Python numerical checks and operator review. This lab does not run SMT or MaxSAT, and the analogy supplies no formal guarantee about the grid model. This role reminder now introduces the closing advisory-pilot discussion, after the L12 readback.",
-    "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
+    "note": "This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry.",
     "hands_on": true,
-    "diagram": "agent_roles_simple",
-    "visual_height_px": 350,
-    "visual_height_cm": 3.9,
-    "caption": "Our grid teaching adaptation of the language/checking distinction in Stanford Lecture 1, p.53.",
-    "source_label": "Monica Lam. CS224V Agentic AI, Lecture 1: Introduction. Stanford University, Fall 2026, p.53."
+    "diagram": "multi_agent_roles",
+    "visual_height_px": 365,
+    "visual_height_cm": 4.25,
+    "caption": "Custom Python workflow, one Llama model in two roles. L10 displays its saved trace.",
+    "source_label": "Five-role implementation: src/proposal_workflow.py; recorded results: proposal_complete_workflow.json.",
+    "takeaway": "",
+    "eyebrow": "Recorded five-role study / L10"
   },
   {
-    "title": "Start a control-room pilot with a clear study request",
+    "title": "Five roles in the voltage case",
     "kind": "diagram",
-    "diagram": "ops_request_snapshot",
+    "diagram": "multi_agent_voltage",
     "points": [
-      "Use an approved copy of the network data with a time stamp, topology version and limits.",
-      "If required data are missing or too old, return HOLD and name the missing information."
+      "Llama asks for less reactive power, then more solar output. Python checks each new trial."
     ],
-    "note": "Proposed advisory pilot, not a deployment claim. F12 is an illustrative teaching feeder name. Read the study request aloud: compare the allowed voltage-support options, keep the stated current and voltage limits, show the worst margins and missing checks, and return a recommendation for review. The data owner defines acceptable age, source and quality rules. L1 and L7 illustrate matching inputs to results, but hashes alone do not authenticate those sources.",
+    "note": "This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. In this L10 lindistflow3 record, the optimizer asks for RELAX_Q_10_PERCENT then INCREASE_PV_0025. Python recalculates each proposal and the verification stage checks it. The selected final recheck uses a=0.3394386941 and b=0.0276310594, with 50.75344954 percent allowed-current use and no recorded violations. The scope is MV phases only with ideal LV aggregation. Do not substitute the P3 99.604410 percent result or L2 MPC score. These are different experiments.",
     "refs": [
-      "OT01",
-      "H01",
-      "H07"
+      "WF01",
+      "H10"
     ],
     "minutes": 4,
-    "caption": "Proposed advisory pilot — teaching design. F12 is an illustrative identifier.",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.55,
-    "eyebrow": "Proposed advisory pilot · teaching design",
-    "source_label": "Teaching proposal informed by NIST OT guidance and the cited notebook checks."
+    "caption": "L10 MV voltage archive, separate from L2 and the P3 replay in L10B.",
+    "visual_height_px": 365,
+    "visual_height_cm": 4.25,
+    "eyebrow": "Recorded five-role study / L10",
+    "source_label": "Five-role implementation: src/proposal_workflow.py; recorded results: proposal_complete_workflow.json.",
+    "takeaway": ""
   },
   {
-    "title": "Give the assistant a small, controlled tool list",
+    "title": "Five roles in the restoration case",
     "kind": "diagram",
-    "diagram": "ops_tool_boundary",
+    "diagram": "multi_agent_restoration",
     "points": [
-      "An approved interface supplies read-only data and study tools. Log every request and result.",
-      "Keep equipment commands in the utility’s separate authorized operating process."
+      "The goal stays fixed. A failed trial cannot enter the final ranking, and Python corrects a wrong cost order."
     ],
-    "note": "Proposed advisory pilot. Walk through the lanes: operator, assistant, application-controlled tool gateway and engineering tools. Llama requests one permitted function; the application checks the request and executes the tool. A snapshot identifier binds the result to the input. The workshop Python functions are teaching counterparts, not SCADA adapters. NIST OT guidance supports controlled information flows, least privilege and logging. The exact pilot architecture is our teaching recommendation, not a NIST-certified design.",
+    "note": "This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. The L10 lindistflow3 restoration record uses a feeder bypass catalog. SHED_075 returns 1843.61355 kW served and 474.03975 critical kW at 91.86721465 percent allowed-current use. SHED_065 then fails at 111.009413 percent. Llama ranks E02 before E03 even though E03 has the smaller cost. The numerical guard selects E03, then records the final recheck as E05. Switching sequence and broader physical operation are not established.",
     "refs": [
-      "OT01",
-      "OLL1",
-      "LR0"
+      "WF01",
+      "H10",
+      "LRR"
     ],
     "minutes": 4,
-    "caption": "Proposed advisory pilot — teaching design. Classroom functions are not live control-room interfaces.",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.55,
-    "eyebrow": "Proposed advisory pilot · teaching design",
-    "source_label": "Teaching proposal informed by NIST OT guidance and the cited notebook checks."
+    "caption": "L10 feeder catalog, separate from the six-node L6 exercise.",
+    "visual_height_px": 365,
+    "visual_height_cm": 4.25,
+    "eyebrow": "Recorded five-role study / L10",
+    "source_label": "Five-role implementation: src/proposal_workflow.py; recorded results: proposal_complete_workflow.json.",
+    "takeaway": ""
   },
   {
-    "title": "Check three things before returning a proposal",
+    "title": "Five roles in the cyber case",
     "kind": "diagram",
-    "diagram": "ops_three_gates",
+    "diagram": "multi_agent_cyber",
     "points": [
-      "Check that the inputs match, the required limits pass and the required network parts were modeled.",
-      "Example: an MV-only PASS stays on HOLD when the request requires the full MV/LV network."
+      "The workflow keeps the trust assumption visible. It cannot create trusted data from a convincing answer."
     ],
-    "note": "Proposed advisory pilot. Current data and a matching evidence packet are the first gate. The second gate checks stated engineering limits with approved tools. The third asks whether the calculations cover the request, including excluded low-voltage parts or required protection and dynamic studies. This is not a universal complete security checklist. It illustrates why L12 can produce a passing local calculation and still HOLD a broader request. Make missing evidence visible instead of allowing fluent text to fill the gap.",
+    "note": "This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. Awareness preserves the declared measurement-trust condition. Planning requests the initial candidates; Python runs the estimator and constrained-response tools. The optimizer requests EXTRA_MARGIN_001 and TRUSTED_QP. The selected final recheck uses TRUSTED_QP with u=0.1216936673 per unit and predicted flow12=0.17 per unit against a 0.18 limit. The model checks a four-bus DC fixture with three protected angles assumed trustworthy. No stage authenticates those channels, and offline truth is not fed to Llama.",
     "refs": [
-      "H05",
-      "H12",
-      "OT01"
+      "WF01",
+      "H10"
     ],
     "minutes": 4,
-    "caption": "Proposed advisory pilot — teaching design. A PASS is limited to its tested model and inputs.",
-    "visual_height_px": 330,
-    "visual_height_cm": 3.2,
-    "eyebrow": "Proposed advisory pilot · teaching design",
-    "source_label": "Teaching proposal informed by NIST OT guidance and the cited notebook checks."
+    "caption": "L10 four-bus DC cyber_stealth archive. Trusted channels are assumed.",
+    "visual_height_px": 365,
+    "visual_height_cm": 4.25,
+    "eyebrow": "Recorded five-role study / L10",
+    "source_label": "Five-role implementation: src/proposal_workflow.py; recorded results: proposal_complete_workflow.json.",
+    "takeaway": ""
   },
   {
-    "title": "Give the operator a short evidence packet",
+    "title": "The operator reviews one evidence packet",
     "kind": "diagram",
     "diagram": "ops_review",
     "points": [
-      "Show the input snapshot, selected option, worst margins, rejected trials and missing checks.",
-      "The reviewer can ask for another study, reject the proposal or accept it for the next review step."
+      "Review the inputs, proposal, worst margins and missing checks.",
+      "Request another study, reject the proposal or accept it for the next authorized step."
     ],
-    "note": "Proposed advisory pilot. Use three review questions: Does this match the current equipment, inputs and model? Did the required checks pass, with missing checks clear? What exactly am I approving, who owns the next step, and where is the record? Record the reviewer, reason, case snapshot and tool versions. Accepting a study result does not itself issue an equipment command. Authorized operating procedures and roles determine any later physical action. L12 practices only a simulated ID-bound readback.",
+    "note": "Proposed control-room use. The operator reviews the case snapshot, data quality, limits, selected proposal and missing studies. Ask for another study, reject it or accept it for a defined next step. L12 practices ID-bound readback only and never operates equipment.",
     "refs": [
       "H12",
       "OT01",
       "EVAL01"
     ],
     "minutes": 4,
-    "caption": "Proposed advisory pilot — teaching design. Review of a study is distinct from operating equipment.",
+    "caption": "Proposed control-room use. Study review does not operate equipment.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
     "eyebrow": "Proposed advisory pilot · teaching design",
-    "source_label": "Teaching proposal informed by NIST OT guidance and the cited notebook checks."
+    "source_label": "Teaching proposal informed by NIST OT guidance and the cited notebook checks.",
+    "takeaway": ""
   },
   {
-    "title": "Adopt it in stages and measure the benefit",
+    "title": "What the evidence shows",
     "kind": "diagram",
     "diagram": "ops_pilot",
     "points": [
-      "Begin with past cases, then read-only shadow work, then a limited pilot with named reviewers.",
-      "Compare against the same tools in a fixed script: correct studies, missed checks, time and rework."
+      "In L10, five paired final costs tied; one Llama route was worse.",
+      "Start with past cases and read-only use. Measure benefit against the same tools in a fixed script."
     ],
-    "note": "Proposed advisory pilot. Historical replay lets engineers define expected outcomes and failure cases. Shadow use compares recommendations alongside the existing process without relying on them for equipment control. A limited pilot needs a named owner, training, an agreed scope and a way to stop use. Measure end-to-end elapsed time including review, correct completed studies, missed or stale inputs, overlooked limits and reviewer changes. Compare the same engineering tools with and without Llama. Our paired records show identical final numerical results, so there is no basis yet to promise higher accuracy, less operator workload or faster decisions. NIST AI RMF supports human roles, evaluation under realistic conditions and deactivation; these particular pilot metrics are our recommendation.",
+    "note": "The six matched fixed-versus-Llama runs in proposal_complete_workflow.json have five tied final costs and one worse Llama voltage result. Recorded model calls add elapsed time. This demonstrates traceable coordination, not better power-flow solvers or general efficiency. Test any proposed benefit against the same tools and budgets. A control-room pilot starts with archived cases, then read-only shadow studies and a limited reviewed scope.",
     "refs": [
-      "EVAL01",
-      "LRV",
-      "LRR",
-      "LRC"
+      "WF01",
+      "H10",
+      "EVAL01"
     ],
     "minutes": 4,
-    "caption": "Proposed advisory pilot — teaching design. Benefits must be measured against an appropriate baseline.",
+    "caption": "L10 comparison: same tools and trial budgets. No general performance gain is established.",
     "visual_height_px": 330,
     "visual_height_cm": 3.55,
     "eyebrow": "Proposed advisory pilot · teaching design",
-    "source_label": "Teaching proposal informed by NIST OT guidance and the cited notebook checks."
+    "source_label": "Teaching proposal informed by NIST OT guidance and the cited notebook checks.",
+    "takeaway": ""
   },
   {
-    "title": "Save a workshop record others can repeat",
-    "kind": "closing",
+    "title": "Questions and your next lab run",
+    "kind": "normal",
     "points": [
-      "Save your changed inputs and results, labeled new, archived or simulated.",
-      "Explain the request, tool call, result, checks and next decision."
+      "Choose one case. Change one input, rerun and save the result.",
+      "Explain the agent choice, tool result, check and operator decision."
     ],
     "refs": [
       "H00"
     ],
     "source_label": "Setup: COLAB_GUIDE.md; Classroom_Labs.ipynb.",
     "minutes": 3,
-    "note": "Use the final three minutes for pair reports and saving. Each pair names one changed parameter, compares its predicted and observed result, and states one evidence limit. Another person should be able to repeat the experiment from the saved notebook. The reading guide supplies the full source links, stable cell map and debrief answers.",
+    "note": "Close by connecting the full loop: a goal, an allowed agent choice, a tool result, a check and a human decision. Ask each learner to name one case and one changed input they can repeat after the session. Save the notebook. Use the source guide for complete references, not as another required activity.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "action_link": {
-      "label": "Get the Participant Lab Guide",
-      "url": "https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/downloads/participant-lab-guide.pdf"
-    }
+      "label": "Open the three cases in Colab",
+      "url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb"
+    },
+    "takeaway": "",
+    "diagram": "lab_one_notebook",
+    "visual_height_px": 310,
+    "visual_height_cm": 3.5,
+    "caption": "Keep the saved replies separate from your new experiment."
   }
 ]

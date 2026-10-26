@@ -1,10 +1,10 @@
 [
   {
-    "title": "Cyber: open L8",
+    "title": "Case 3: suspicious readings",
     "kind": "diagram",
     "points": [
-      "Use the separate four-bus DC model and its supplied readings.",
-      "Compare a residual alarm, which checks fit, with error against the known teaching truth."
+      "Use the separate four-bus DC teaching model.",
+      "Compare the fit to readings with error against known simulation truth."
     ],
     "refs": [
       "H08"
@@ -19,14 +19,15 @@
     "diagram": "cyber_network",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Four-bus linear DC teaching model; known synthetic truth is used only for offline comparison."
+    "caption": "Four-bus DC model. Simulation truth is used only for offline comparison.",
+    "takeaway": ""
   },
   {
-    "title": "Best fit and true state are different",
+    "title": "What the residual measures",
     "kind": "diagram",
     "points": [
-      "WLS finds the best fit to readings, giving more weight to lower stated uncertainty.",
-      "Residual J measures fit mismatch. State error uses teaching truth unavailable to an operator."
+      "Weighted least squares (WLS) fits the readings. Residual J measures the mismatch.",
+      "The true state is known in this simulation, not in a live control room."
     ],
     "refs": [
       "H08",
@@ -42,14 +43,15 @@
     "diagram": "cyber_residual",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "A good fit to readings does not show that those readings are authentic."
+    "caption": "A good fit does not authenticate the readings.",
+    "takeaway": ""
   },
   {
-    "title": "Run L8: compare two data attacks",
+    "title": "L8: run two data attacks",
     "kind": "normal",
     "points": [
-      "Run all of L8 with its default scale list.",
-      "Compare one biased reading with the coordinated Hc shift in the table and plots."
+      "Run L8 with the default scales.",
+      "Compare one biased reading with a coordinated change across readings."
     ],
     "refs": [
       "H08"
@@ -66,14 +68,15 @@
       "id": "classroom-023",
       "start": 1,
       "end": 5
-    }
+    },
+    "takeaway": ""
   },
   {
-    "title": "Read both cyber plots",
+    "title": "L8: read both cyber plots",
     "kind": "figure",
     "points": [
-      "Left: residual J and its alarm threshold. Right: error against the known teaching truth.",
-      "Follow the coordinated curve across both plots before calling a quiet alarm reassuring."
+      "Left: mismatch J and the alarm threshold. Right: error against simulation truth.",
+      "A quiet alarm can appear alongside a growing state error."
     ],
     "refs": [
       "H08"
@@ -88,14 +91,15 @@
     "image_source_path": "images/hands_on_L8_plot.png",
     "visual_height_px": 345,
     "visual_height_cm": 3.65,
-    "caption": "Reference L8 plots; rerun L8 to calculate results for your chosen attack scales."
+    "caption": "Reference L8 plots. State error uses known simulation truth.",
+    "takeaway": ""
   },
   {
-    "title": "At scale 1, the alarm misses a state error",
+    "title": "L8: a coordinated attack escapes the alarm",
     "kind": "diagram",
     "points": [
-      "One biased reading: J about 277.50, so the residual alarm is True.",
-      "Coordinated Hc: J about 3.92, no alarm, but state error is about 0.02678 rad."
+      "At scale 1, one biased reading gives J=277.50 and an alarm.",
+      "The coordinated attack gives J=3.92, no alarm, and 0.02678 rad of state error."
     ],
     "refs": [
       "H08",
@@ -111,15 +115,16 @@
     "diagram": "cyber_stealth",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Simple consistency illustration; the numerical values come from the eight-reading L8 model."
+    "caption": "Values from the eight-reading L8 model.",
+    "takeaway": ""
   },
   {
-    "title": "Exercise 3: add a small isolated bias",
+    "title": "Exercise 3: test a small bias",
     "kind": "exercise",
     "points": [
       "Add .10 to ATTACK_SCALES. Predict, then rerun L8.",
-      "At scale 0.10, read J, the alarm flag and the error against known teaching truth.",
-      "Does “no alarm” mean the reading is correct? Use both plots to explain."
+      "At scale 0.10, compare J, the alarm flag and state error.",
+      "Does no alarm mean the data are correct?"
     ],
     "refs": [
       "H08"
@@ -133,14 +138,15 @@
     "eyebrow": "Classroom Labs · L8 · classroom-023",
     "excerpt": [
       "ATTACK_SCALES = (0., .10, .25, .5, 1., 1.5)"
-    ]
+    ],
+    "takeaway": ""
   },
   {
-    "title": "Debrief: no alarm does not prove truth",
+    "title": "Exercise 3: a small bias can miss the threshold",
     "kind": "normal",
     "points": [
-      "At scale 0.10, the isolated-bias J is about 10.14, below the 15.09 threshold.",
-      "A small bias can miss the threshold. A coordinated shift can preserve the fit."
+      "At scale 0.10, J is about 10.14, below the 15.09 alarm threshold.",
+      "A quiet alarm alone cannot prove that readings are true."
     ],
     "refs": [
       "H08"
@@ -152,14 +158,15 @@
     "hands_on": true,
     "lab_label": "L8",
     "eyebrow": "Classroom Labs · L8 · classroom-023",
-    "callout": "10.14 < 15.09 → no residual alarm"
+    "callout": "10.14 < 15.09 → no residual alarm",
+    "takeaway": ""
   },
   {
-    "title": "Reset L8 before the recovery example",
+    "title": "L8: reset before recovery",
     "kind": "normal",
     "points": [
-      "Restore the original ATTACK_SCALES list and rerun L8.",
-      "L9 uses a fixed recovery case, separate from the scale you changed."
+      "Restore the original attack scales and rerun L8.",
+      "L9 uses a separate fixed recovery case."
     ],
     "refs": [
       "H08"
@@ -176,14 +183,15 @@
       "id": "classroom-023",
       "start": 1,
       "end": 3
-    }
+    },
+    "takeaway": ""
   },
   {
-    "title": "L9 uses a fixed recovery case",
+    "title": "L9: one fixed recovery case",
     "kind": "normal",
     "points": [
-      "Check the same case with and without replacement readings assumed to be trusted.",
-      "Its control value does not follow your L8 scale change."
+      "Compare the same case with and without readings assumed to be trusted.",
+      "Your L8 scale change does not change this case."
     ],
     "refs": [
       "H09"
@@ -194,14 +202,15 @@
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "hands_on": true,
     "lab_label": "L9",
-    "eyebrow": "Classroom Labs · L9 · classroom-026"
+    "eyebrow": "Classroom Labs · L9 · classroom-026",
+    "takeaway": ""
   },
   {
-    "title": "Trusted readings are an assumption",
+    "title": "Data trust is an assumption",
     "kind": "diagram",
     "points": [
-      "The example assumes three independent angle readings are trustworthy.",
-      "The residual check and a model’s explanation cannot authenticate those readings."
+      "This example assumes three extra angle readings are trustworthy.",
+      "Neither WLS nor Llama authenticates them."
     ],
     "refs": [
       "H09"
@@ -216,14 +225,15 @@
     "diagram": "cyber_trusted",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Three trusted angle readings are assumed, not authenticated by this calculation."
+    "caption": "Three extra angle readings are assumed trustworthy.",
+    "takeaway": ""
   },
   {
-    "title": "Run L9: compare HOLD and PROPOSE",
+    "title": "L9: HOLD or PROPOSE",
     "kind": "normal",
     "points": [
-      "Run the whole L9 cell, including its assertions.",
-      "Read status first, then the proposed injection and the offline limit-violation count."
+      "Run all of L9. Read status first.",
+      "Then read the proposed injection and the offline violation count."
     ],
     "refs": [
       "H09"
@@ -240,14 +250,15 @@
       "id": "classroom-026",
       "start": 1,
       "end": 2
-    }
+    },
+    "takeaway": ""
   },
   {
-    "title": "Read the two decision states",
+    "title": "L9: two outcomes",
     "kind": "figure",
     "points": [
-      "No trusted replacement readings: HOLD, with no proposed injection.",
-      "Trusted readings assumed: PROPOSE; u ≈ 0.121694 p.u.; zero offline toy-model violations."
+      "Without trusted replacement readings: HOLD.",
+      "With assumed trusted readings: PROPOSE, u about 0.121694 p.u., zero offline model violations."
     ],
     "refs": [
       "H09"
@@ -262,14 +273,15 @@
     "image_source_path": "images/hands_on_L9_trust.png",
     "visual_height_px": 325,
     "visual_height_cm": 3.45,
-    "caption": "Reference L9 output for the fixed recovery case, not the edited L8 scale."
+    "caption": "Reference L9 output for the fixed recovery case, not the edited L8 scale.",
+    "takeaway": ""
   },
   {
-    "title": "Check the numerical correction",
+    "title": "L9: check the correction",
     "kind": "diagram",
     "points": [
-      "The QP solver minimizes effort, subject to branch limits and a 0.01 p.u. margin.",
-      "Predicted flow12: 0.17000; offline actual: about 0.17046, below the 0.18000 rating."
+      "A quadratic-program (QP) solver finds the smallest allowed injection that meets the branch limits.",
+      "One flow: predicted 0.17000 p.u., offline actual 0.17046 p.u., limit 0.18000 p.u."
     ],
     "refs": [
       "H09"
@@ -284,14 +296,15 @@
     "diagram": "cyber_qp",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Fixed L9 correction: compare the predicted branch flow with the offline truth check."
+    "caption": "Fixed L9 correction: compare the predicted branch flow with the offline truth check.",
+    "takeaway": ""
   },
   {
-    "title": "What makes the recovery possible?",
+    "title": "A proposal depends on its assumptions",
     "kind": "diagram",
     "points": [
-      "Assumed trusted readings support the estimate. The solver calculates a limited correction.",
-      "The explanation must keep those conditions clear and leave the proposal for review."
+      "Assumed trusted data support the estimate. The solver calculates a correction.",
+      "The operator still reviews data trust, model coverage and missing checks."
     ],
     "refs": [
       "H09"
@@ -306,13 +319,14 @@
     "diagram": "cyber_handoff",
     "visual_height_px": 305,
     "visual_height_cm": 3.25,
-    "caption": "Trusted information and numerical checks have separate roles."
+    "caption": "A numerical proposal still needs human review.",
+    "takeaway": ""
   },
   {
-    "title": "Cyber: Llama selects the tool already allowed",
+    "title": "Saved cyber case: request the allowed tool",
     "kind": "figure",
     "points": [
-      "The task supplies the tool and trust assumption. Python computes the correction."
+      "Llama selects the supplied recovery tool. Python calculates the correction."
     ],
     "note": "Switch L10B to cyber. This standard four-bus DC record is separate from L10’s proposal-complete cyber record, and matches the Agent Trace notebook T6 archive. The route is narrow: the prompt already authorizes the tool and supplies the trusted-sensor assumption. The three angle readings give full rank but zero residual redundancy, so a good fit is not an independent trust test. u is the flexible injection correction in per unit. Offline synthetic-truth flow is available to the experimenter, not guaranteed available to a real operator. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation.",
     "refs": [
@@ -323,7 +337,7 @@
     "image_source_path": "images/llama_cyber_7.png",
     "visual_height_px": 380,
     "visual_height_cm": 4.4,
-    "caption": "Saved cyber example; separate from this case’s fresh calculation. Replay it in L10B later.",
+    "caption": "Saved four-bus study. Replay in L10B.",
     "source_label": "Classroom Labs L10B: cyber replay, recorded call 7; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
@@ -332,13 +346,14 @@
     "hands_on": false,
     "replay_scenario": "cyber",
     "replay_call": 7,
-    "replay_preview": true
+    "replay_preview": true,
+    "takeaway": ""
   },
   {
-    "title": "Cyber: a passing calculation still needs review",
+    "title": "Saved cyber case: keep human review",
     "kind": "figure",
     "points": [
-      "Keep REVIEW visible. The operator must resolve the trust assumption and missing checks."
+      "The model check passes. The operator must still review trust and missing checks."
     ],
     "note": "Read the actual reply, including the REVIEW choice. Numerical verification is PASS, but the overall result remains REVIEW and human acknowledgment is PENDING. The fixed comparator obtains the same numerical state estimate and correction without Llama. This replay demonstrates permitted tool routing and a report decision. It does not demonstrate better estimation, authenticated measurements, AC network security or operating authority. Run L11 with the default False setting, then proceed to L12. This slide is a recorded preview beside the matching case. Do not run ahead to L10B yet. Keep the named L2–L9 cells in order; after L10, use L10B to inspect all three complete episodes. The source label locates the replay rather than the current classroom calculation. End-of-case partner check: Report the trust assumption, model, proposed u and the checks that passed or failed. Without independent trusted information, keep HOLD and name what is missing. Ask pairs to state the outcome and its condition in the same sentence. For example: 'The fixture proposes u when the supplied trusted channels are available.' Do not say: 'The AI proved that the telemetry is safe.' Ask which step was chosen by Llama in the recorded example, which returned result came from software, and what the operator must review. These previews use a separate archived case; L10B later displays the full source.",
     "refs": [
@@ -349,7 +364,7 @@
     "image_source_path": "images/llama_cyber_8.png",
     "visual_height_px": 350,
     "visual_height_cm": 4.4,
-    "caption": "Saved cyber example; separate from this case’s fresh calculation. Replay it in L10B later.",
+    "caption": "Saved four-bus study. Replay in L10B.",
     "source_label": "Classroom Labs L10B: cyber replay, recorded call 8; full record in source guide.",
     "notebook_url": "https://colab.research.google.com/github/AlaaSelim-sudo/GridGuard-Agentic-AI-Tutorials/blob/main/agentic_grid_workflow_tutorial/Classroom_Labs.ipynb",
     "lab_label": "L10B",
@@ -358,6 +373,7 @@
     "hands_on": false,
     "replay_scenario": "cyber",
     "replay_call": 8,
-    "replay_preview": true
+    "replay_preview": true,
+    "takeaway": ""
   }
 ]

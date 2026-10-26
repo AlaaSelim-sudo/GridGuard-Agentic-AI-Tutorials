@@ -5,403 +5,403 @@
   "slides": [
     {
       "title": "Hands-on: Three Operator Cases",
-      "say": "Today we will use one notebook for three operator studies. We will connect Stanford ideas to the cases, run calculations, change inputs, inspect saved Llama choices and explain what a person must still review.",
+      "say": "One notebook. Three operator problems. 90 minutes / three short exercises",
       "action": "Have slides, Classroom Labs and the Participant Lab Guide ready. Pair participants. Allow breaks outside the 180 teaching minutes."
     },
     {
       "title": "What is agentic AI?",
-      "say": "An LLM agent works toward a goal by choosing a permitted tool, reading its result and choosing the next step. The application keeps the tool rules fixed. The numerical tool supplies the physical evidence.",
+      "say": "An AI agent chooses a tool, reads its result and chooses the next step toward a goal.",
       "action": "Ask which part supplies a physical result. Expected: the numerical tool. Ordinary programs can also contain loops."
     },
     {
-      "title": "Stanford: tool calls become a workflow",
-      "say": "These original Stanford panels distinguish a model-selected function call from a workflow connecting several steps. We will inspect the requests and returned results, so the coordinating role is visible.",
+      "title": "A tool call and an agent workflow",
+      "say": "A tool call does one job. An agent links jobs using the returned results.",
       "action": "Point to the original function-calling and workflow panels. Follow the source link for lecture p.2."
     },
     {
-      "title": "Stanford example: check before you write",
-      "say": "WikiChat separates retrieval, claim checking and writing. We borrow the checking habit for grid studies: the summary should follow the evidence returned by a tool.",
+      "title": "Evidence before an answer",
+      "say": "WikiChat checks claims before writing. Our lab checks numbers before reporting a result.",
       "action": "Point to fact checking before Draft. Ask what numerical evidence a grid proposal would need."
     },
     {
-      "title": "Voltage: a proposal needs a numerical check",
-      "say": "In L2, Python calculates a proposal and checks it. This reference plan uses about 73.62 percent of allowed current. Also review voltage and model coverage. A separate saved Llama episode later shows tool selection.",
+      "title": "Voltage: propose, then check",
+      "say": "L2 calculates and checks proposals. L10B shows saved Llama tool choices.",
       "action": "Preview L2 now; run it after setup, L0 and L1. The bar is a reference result, separate from the P3 replay."
     },
     {
-      "title": "Stanford example: tools need clear rules",
-      "say": "Genie Worksheets emphasizes a complete task description, beyond listing functions. Our Python rules state the inputs, limits and stop conditions. A model explanation cannot silently change them.",
+      "title": "Clear rules for tool use",
+      "say": "Set the inputs, allowed tools, limits and stop rules. Python keeps these rules fixed when Llama chooses a step.",
       "action": "Ask which task rules must remain fixed when comparing restoration plans."
     },
     {
-      "title": "Restoration: the service goal shapes the plan",
-      "say": "The service goal changes the preferred restoration plan. Priority weighting gives 130 total kW with 90 critical kW. Maximizing total gives 140 total kW with only 30 critical kW. The network and capacities stay the same.",
+      "title": "Restoration: define the service goal",
+      "say": "The goal changes which loads the solver restores. L6 compares two goals.",
       "action": "Compare the cyan critical-service segments. The varied tie is 40 kW, another tie stays at 100 kW, and totals include upstream load."
     },
     {
-      "title": "Stanford: language and decision checks",
-      "say": "Stanford separates language understanding from a solver that checks a formal decision model. Our grid adaptation separates Llama coordination, Python numerical checks and operator review. The clinical-source example supplies an analogy.",
+      "title": "Language and decision checks",
+      "say": "The source example turns written facts into constraints for a solver. In our lab, Llama requests a study. Python checks it. A person reviews it.",
       "action": "Explain SMT briefly as logical constraints and MaxSAT as supporting decision-changing conditions. Our lab uses numerical checks and no SMT guarantee."
     },
     {
-      "title": "Cyber: a clear answer still needs evidence",
-      "say": "L8 asks whether readings fit the model. A small mismatch can hide a wrong estimate. L9 asks a separate recovery question that requires an explicit trust premise and passing numerical checks.",
+      "title": "Cyber: good fit can hide bad data",
+      "say": "L8 tests misleading readings. L9 shows when to return HOLD or a proposal.",
       "action": "Ask why a clear explanation cannot establish sensor trust."
     },
     {
-      "title": "Ask four questions about a study result",
-      "say": "Use four review questions: which result supports the claim, which assumptions were used, were the rules kept, and what happens next? These questions apply to all three labs.",
+      "title": "Four questions about any result",
+      "say": "Which tool ran? What did it assume? Which limits passed? What should the operator do next?",
       "action": "Collect one example of a missing check, then start Colab setup."
     },
     {
-      "title": "One notebook covers all three cases",
-      "say": "Only Classroom Labs is required today. Keep that notebook beside the slides. It contains all three cases and the L10B replay; the graph and trace notebooks are companion resources.",
+      "title": "One notebook for all three cases",
+      "say": "Open Classroom Labs and save a copy in Drive. Use it throughout.",
       "action": "Open Classroom Labs and save a copy. Keep the same notebook open for all three cases."
     },
     {
-      "title": "Get ready in four small steps",
-      "say": "Colab supplies a temporary computer. Save your copy, connect a CPU runtime and run setup until Ready. The default route needs no GPU, API key or model download.",
+      "title": "Colab setup",
+      "say": "Save a copy, connect a CPU and run setup. Wait for Ready, then run L0 and L1.",
       "action": "Connect a CPU runtime and run the first setup cell. Wait for Ready. After a reset, rerun setup and the required earlier cells."
     },
     {
-      "title": "Run a cell, then read what it returns",
-      "say": "Find the input, play button and returned output. Editing a number does not change an old output until the whole cell runs again. Follow the named L lesson cells in order.",
+      "title": "Input, run, output",
+      "say": "Find the L heading and run its whole code cell. Read the output below it. After any edit, rerun the cell.",
       "action": "Locate input, play button and output. Run the complete named L cell; slide code is often an excerpt."
     },
     {
-      "title": "Run L0: choose the classroom route",
-      "say": "L0 selects the classroom route. Keep both switches False. Numerical calculations run now, the controller uses saved weights, and the model replies are recorded. The data-file assertion checks the working folder.",
+      "title": "L0: keep the default settings",
+      "say": "Leave both switches False. Python calculates new results; Llama replies come from saved records. If data are missing, rerun setup.",
       "action": "Run L0 with RUN_OPENDSS=False and RUN_LOCAL_LLAMA=False. If the data check fails, rerun setup."
     },
     {
-      "title": "Run L1: does the evidence still match?",
-      "say": "The unchanged request and command match the evidence. Changing either breaks that match. A fresh study is needed for the new request; stale evidence alone does not prove the changed case infeasible.",
+      "title": "L1: does the result match the request?",
+      "say": "Read binding_pass. Expect True, False, False. Changed inputs or commands need a new check.",
       "action": "Run L1. Read binding_pass as True, False, False. Ask what changed in each row."
     },
     {
-      "title": "Voltage: open L2",
-      "say": "This synthetic feeder is our voltage teaching network. We will compare two control proposals, check modeled voltage and current limits, then compare their penalty scores. The default model has limited coverage.",
+      "title": "Case 1: voltage support",
+      "say": "MPC plans ahead. SAC uses a saved learned policy. Check limits first. Among passing options, a smaller score J is better.",
       "action": "Locate L2 and identify this synthetic teaching feeder."
     },
     {
-      "title": "MPC plans; SAC proposes",
-      "say": "MPC plans from a model and a short forecast. SAC proposes settings using saved learned weights. Both are tools inside the wider workflow, and the same numerical checks must test their proposals.",
+      "title": "Two ways to propose settings",
+      "say": "MPC plans with a model. SAC proposes from learned weights. Both need the same electrical checks.",
       "action": "Define MPC as model predictive control and SAC as Soft Actor–Critic. SAC uses saved weights without training again."
     },
     {
-      "title": "A real agent changes its next step",
-      "say": "This separate saved P3 example makes the agentic sequence visible. A SAC check fails at about 111.97 percent of the allowance. Llama requests the MPC fallback, whose current check passes at about 99.60 percent. Human review remains pending.",
+      "title": "A tool result changes the next step",
+      "say": "The first trial fails. Llama requests the fallback. A passing result goes to human review.",
       "action": "Point to the failed check between Llama choices. This is the saved P3 MV/LV study; the fixed comparator reaches the same numerical outcome."
     },
     {
-      "title": "Control settings and limits",
-      "say": "Active and reactive settings share the inverter power limit. Network voltage and current must also pass. Here, 100 percent current means the configured allowance, which is a fraction of nominal rating.",
+      "title": "Two control settings",
+      "say": "a controls active power. b controls reactive power. Check inverter capacity, voltage and line current.",
       "action": "Explain per unit as a value divided by its base. At RATING_FRACTION=0.80, 100% current denotes the reduced allowance."
     },
     {
-      "title": "A tool is a Python function in this lab",
-      "say": "A tool has defined inputs and returned evidence. Your L2 cell calls the voltage function directly. In the separate agent study, Python validates Llama’s named choice before calling an allowed function.",
+      "title": "A tool is a callable function",
+      "say": "Inputs go in. Calculations run. Results come back. L2 calls this Python function directly.",
       "action": "Locate lab.voltage_lab on the next slide. Distinguish a direct Python call from a model-selected request."
     },
     {
-      "title": "Run L2 with the default inputs",
-      "say": "Run L2 at the defaults. It calculates an MPC plan and a proposal from the saved SAC policy, then checks both. Read feasibility and allowed-current use before comparing the current-step penalty.",
+      "title": "L2: run the default case",
+      "say": "Run all of L2. It checks the MPC plan and the saved SAC policy. Read feasible, current_step_J and max_allowed_current_pct.",
       "action": "Set LOAD_SCALE=1.0 and RATING_FRACTION=0.80. Run all of L2; read feasible, max_allowed_current_pct and current_step_J."
     },
     {
-      "title": "Read the voltage and current plots",
-      "say": "Read both plots together. The voltage curves are sorted separately, so equal ranks need not be the same location. Compare current use against the 100 percent line, using the output from the current run.",
+      "title": "L2: voltage and current plots",
+      "say": "Left: voltages should stay inside the allowed band. Right: current use should stay below 100% of the allowance.",
       "action": "Ask a pair to describe one voltage check and one current check. Use the current run’s outputs."
     },
     {
-      "title": "Check limits before comparing scores",
-      "say": "Both reference proposals pass. MPC uses about 73.62 percent of the current allowance; SAC uses about 51.68 percent. MPC has the lower penalty here. This single case does not establish a universal controller advantage.",
+      "title": "L2: both default proposals pass",
+      "say": "MPC: 73.62% current use, score J about 0.03110. Saved SAC: 51.68% current use, score J about 0.43643.",
       "action": "Read feasibility before penalty. Reference J: MPC about 0.03110, SAC about 0.43643."
     },
     {
-      "title": "A rule and a tool result answer different questions",
-      "say": "A document can state a current limit, while a numerical tool calculates a proposal’s current. Keep the rule, result and remaining checks together. This displayed P3 number is separate from your fresh L2 result.",
+      "title": "The limit and the calculated result",
+      "say": "A rule states the limit. A tool checks the proposal against it. Keep both with the result so the operator can review it.",
       "action": "Keep the P3 value separate from the fresh L2 exercise. Ask which remaining checks the operator must review."
     },
     {
-      "title": "Exercise 1: tighten the current allowance",
-      "say": "Predict the effect of tightening the current allowance. Change only that input, rerun L2 and report each method’s feasibility, percentage and penalty. Explain what the default model covers.",
+      "title": "Exercise 1: lower the current allowance",
+      "say": "In L2, change RATING_FRACTION from 0.80 to 0.75. Predict, then rerun. Compare feasible, current use and score J for both methods. Does this check cover the whole MV/LV network?",
       "action": "FOUR MINUTES: predict for 1 minute, edit/run for 2, report for 1. Change only RATING_FRACTION to 0.75; keep LOAD_SCALE=1.0."
     },
     {
-      "title": "Change one number and explain the difference",
-      "say": "The same current becomes a larger share of a smaller allowance, so the percentage rises. Both proposals still pass this particular exercise. Explain the returned result and its scope rather than expecting a rejection.",
+      "title": "Exercise 1: both still pass",
+      "say": "A smaller allowance makes the same current a larger percentage. At 0.75: MPC uses 78.53%, SAC 54.85%. Both pass this test.",
       "action": "Debrief: reference current use becomes 78.527895% for MPC and 54.854158% for SAC. Both pass; default coverage is MV only."
     },
     {
-      "title": "Reset L2 before reading old model choices",
-      "say": "Restore the defaults before the saved-response lessons. L3 through L5 use the original test_01 archive. Your edited L2 run does not rewrite that historical case.",
+      "title": "L2: reset before continuing",
+      "say": "Restore LOAD_SCALE=1.0 and RATING_FRACTION=0.80. Rerun L2. L3-L5 use a separate saved case called test_01.",
       "action": "Restore LOAD_SCALE=1.0 and RATING_FRACTION=0.80, then rerun L2."
     },
     {
-      "title": "What runs now and what was recorded",
-      "say": "A fresh calculation runs now. A replay displays an old reply with its original inputs. The closing control-room pilot is a teaching proposal. Keep those evidence labels visible.",
+      "title": "New calculations and saved replies",
+      "say": "Python calculates new results. A saved Llama reply keeps its original inputs. Your changed lab input does not change the saved reply.",
       "action": "Ask which evidence mode applies to L2 and to the coming L3 replies."
     },
     {
-      "title": "L3 opens a separate recorded case",
-      "say": "L3 opens saved responses for test_01. Read the requested operation, public reason and recorded time. Displaying these records makes no new language-model call.",
+      "title": "L3: inspect saved model choices",
+      "say": "Run L3. Read the case ID, chosen operations and recorded times. This cell displays old replies. It makes no new model call.",
       "action": "Run L3. Read the original test_01 identifier, requested operation and exact public reason."
     },
     {
-      "title": "What did the models choose?",
-      "say": "Different wording can request the same numerical trial. Two recorded replies agree on reactive-power relaxation. Agreement selects a trial; a numerical check still has to evaluate it.",
+      "title": "Different words can request the same trial",
+      "say": "The notebook groups identical tool requests and settings. A vote chooses what to test next. It does not prove that limits pass.",
       "action": "Ask what evidence is required before accepting the selected trial for review."
     },
     {
-      "title": "Run L4: check the old choice again",
-      "say": "L4 checks the selected archived trial again. It compares majority selection with a saved LinUCB selector. The engineering result comes from the new check, while the selection models remain fixed.",
+      "title": "L4: check the selected trial",
+      "say": "Run L4 after L3. Python checks the selected trial for its original case. Compare majority voting with the saved LinUCB selector, which learns which trial to test.",
       "action": "Run L4 after L3. Read the table and separate the fixed selection methods from new numerical checks."
     },
     {
-      "title": "Separate the old choice from the new check",
-      "say": "Both selectors choose the same relaxation trial in this reference case, and its fresh check passes. A learned selection score and physical feasibility answer different questions.",
+      "title": "L4: read the new check",
+      "say": "Both selectors choose the same trial and pass the new MV check. new_check_passes is the electrical check. Predicted reward is a learned score.",
       "action": "Read operation, new_check_passes and current_step_J. Reference penalty is about 0.031082."
     },
     {
-      "title": "Run L5: check what the model covers",
-      "say": "L5 asks what the original plan’s model covers. It audits the archived test_01 MV-MPC plan, rather than L4’s selected relaxation trial. Keep OpenDSS disabled on the default route.",
+      "title": "L5: check model coverage",
+      "say": "Leave RUN_OPENDSS=False. Run L5 and read the table. The default checks the test_01 MPC plan with the MV model.",
       "action": "Keep RUN_OPENDSS=False. Run L5, read optional_mode and the checked model scope."
     },
     {
-      "title": "A PASS covers only the model checked",
-      "say": "A passing result applies to the checked model and limits. An MV-only pass leaves missing evidence for a request requiring both MV and LV. Obtain the wider check or keep HOLD for that request.",
+      "title": "A PASS has a scope",
+      "say": "This result covers medium-voltage (MV) phases and currents. A full medium- and low-voltage (MV/LV) request needs the wider check or a HOLD.",
       "action": "Ask which missing coverage prevents an MV-only pass from supporting a full MV/LV request."
     },
     {
-      "title": "Voltage: Llama asks to check the saved controller",
-      "say": "Return to the separate saved P3 study. Llama requests the missing SAC check. OpenDSS reports two current violations and about 111.97 percent of allowed current. That tool result supports considering another permitted step.",
+      "title": "Saved voltage case: check SAC first",
+      "say": "Llama asks to check SAC. The tool finds a current-limit failure.",
       "action": "Identify VERIFY_SAC_FIRST and the recorded numerical failure. Replay the full source later in L10B."
     },
     {
-      "title": "Voltage: Llama chooses the existing fallback plan",
-      "say": "An MPC fallback already exists in the saved case. Llama selects it for a check; Python and OpenDSS supply the passing result. The language model coordinates the request rather than solving the power flow.",
+      "title": "Saved voltage case: try the MPC fallback",
+      "say": "Llama requests the existing MPC plan. The electrical tool checks it.",
       "action": "Identify USE_MPC_PLAN. Contrast Llama’s requested step with the returned numerical evidence."
     },
     {
-      "title": "Voltage: the checks pass and human review remains",
-      "say": "The numerical checks pass, while acknowledgment remains pending. The fixed workflow reached the same numerical result. Describe the coordination role and the missing human decision without claiming a numerical benefit from the model.",
+      "title": "Saved voltage case: return for review",
+      "say": "The checks pass. Human review is still pending. A fixed script gets the same final result.",
       "action": "Partner recap: one fresh calculation, one saved model choice and one unresolved operator review. Next, restoration."
     },
     {
-      "title": "Restoration: open L6",
-      "say": "Restoration uses a separate six-node teaching graph. Keep the faulted branch unavailable. We will compare service goals, vary the tie capacity and inspect whether the evidence still matches its request.",
+      "title": "Case 2: restoring service",
+      "say": "Use the six-node teaching network with one faulted branch. Compare total service with service to critical loads.",
       "action": "Locate L6 and keep the faulted branch unavailable."
     },
     {
-      "title": "Choose the service goal before the plan",
-      "say": "The two plans follow different service goals under the same constraints. More total kW can come with less critical service. State the requested goal before deciding which plan is preferable.",
+      "title": "Two service goals",
+      "say": "One goal gives extra weight to critical loads. The other restores the most total kW. Both use the same network rules.",
       "action": "Ask pairs to state the service goal before choosing the preferred plan."
     },
     {
-      "title": "Run L6: change the tie capacity",
-      "say": "L6 sweeps the tie capacity. The mixed-integer solver chooses whole loads under the graph rules. A separate exhaustive search checks the priority score on this small case.",
+      "title": "L6: solve the restoration problem",
+      "say": "Run L6. MILP selects whole loads. A separate search checks its priority score. Read served_kw, critical_kw and MILP_matches_exhaustive_check.",
       "action": "Run L6 with original capacities 40, 60, 80, 100 and 120 kW. Read served_kw, critical_kw and MILP_matches_exhaustive_check."
     },
     {
-      "title": "Read both service plots",
-      "say": "Read total service on the left and critical service on the right. Coincident points mean the goals give the same result at that capacity. Compare both measures before explaining the tradeoff.",
+      "title": "L6: read both service plots",
+      "say": "Left: total kW served. Right: critical kW served. Overlapping markers mean the two goals give the same result.",
       "action": "Compare both plots at the same capacity. Ask where the service goals differ."
     },
     {
-      "title": "The tradeoff at a 40 kW tie limit",
-      "say": "At the 40 kW varied-tie limit, priority weighting gives 130 total kW and 90 critical kW. The maximum-kW goal gives 140 total kW and 30 critical kW. Both use the same network and rules.",
+      "title": "L6: the tradeoff at 40 kW",
+      "say": "Priority goal: 130 kW total, including 90 kW critical. Most-total-kW goal: 140 kW total, including 30 kW critical.",
       "action": "Compare 130 total/90 critical with 140 total/30 critical kW. The goals share the same capacities and rules."
     },
     {
-      "title": "How Python checks the plan",
-      "say": "Python checks source connection, capacities, power balance, the excluded fault and energized loops. Exhaustive enumeration checks the priority score. These graph checks leave AC physics and field switching order open.",
+      "title": "Restoration checks",
+      "say": "Check source paths, branch capacity, power balance and the fault. A separate search checks the priority score.",
       "action": "Ask which AC, protection and switching-order checks remain outside this formulation."
     },
     {
-      "title": "Exercise 2: add more tie capacity",
-      "say": "Predict whether more tie capacity removes the tradeoff. Append 180 kW, keep 40 kW first and rerun L6. Compare total and critical service at those two capacities.",
+      "title": "Exercise 2: increase tie capacity",
+      "say": "Add 180. to CAPACITIES_KW. Keep 40. first. Predict, then rerun L6. Compare total and critical kW at 40 and 180 kW. At which capacity do the two goals give the same result?",
       "action": "FOUR MINUTES: predict for 1 minute, edit/run for 2, report for 1. Append 180. to CAPACITIES_KW and keep 40. first."
     },
     {
-      "title": "Debrief: the tradeoff disappears here",
-      "say": "At 180 kW both goals give 250 total kW and 90 critical kW in this example. Priority weighting matters when constraints create a tradeoff; it does not improve every instance.",
+      "title": "Exercise 2: enough capacity removes this tradeoff",
+      "say": "At 180 kW, both goals serve 250 kW total and 90 kW critical. The priority goal helps at some limits. It does not improve every case.",
       "action": "Debrief: at 180 kW both methods serve 250 total and 90 critical kW. Explain why the constrained-case tradeoff disappears."
     },
     {
-      "title": "Reset the capacity list, then run L7",
-      "say": "Restore the original capacity list before L7. The next cell binds the first 40 kW result to its request, then changes that request while keeping the old evidence.",
+      "title": "L7: test an old result after a change",
+      "say": "Restore the original capacity list and rerun L6. Run L7. It changes the first request from 40 kW to 20 kW.",
       "action": "Restore the original capacity list and rerun L6. Run L7; it binds the first 40 kW record."
     },
     {
-      "title": "Read the evidence-match test",
-      "say": "The original request matches. The changed request no longer matches the old evidence. The required next step is a fresh constrained study, rather than reusing an unsupported recommendation.",
+      "title": "L7: the old evidence no longer matches",
+      "say": "Original request: True. Changed request: False. HOLD the old recommendation and request a new solve.",
       "action": "Read original contract True and changed rating False. Request a fresh constrained solve."
     },
     {
-      "title": "Changed inputs need a new check",
-      "say": "When inputs change, update the request, solve and check again, then bind the new evidence. An old correct calculation can still be irrelevant to a changed case.",
+      "title": "New inputs need new evidence",
+      "say": "An outdated check does not tell us whether the new plan works. Solve again, check again and attach the new result to the new request.",
       "action": "Ask which request fields and evidence must be refreshed after a change."
     },
     {
-      "title": "Proposed agent role: keep the service goal",
-      "say": "The present cell runs Python: the operator supplies the service goal, and the optimizer chooses loads. A coordinating agent would request that study and explain the returned tradeoff while preserving the goal.",
+      "title": "The agent keeps the service goal",
+      "say": "L6 runs Python directly. The operator sets priorities; MILP selects loads. An agent could request the solve and explain its returned tradeoff.",
       "action": "Identify the current Python calculation and the proposed coordinating-agent responsibility."
     },
     {
-      "title": "What this model does not check",
-      "say": "This transport model does not check AC voltage, reactive power or protection. An energized graph also does not supply a safe field switching sequence. Keep those missing checks explicit.",
+      "title": "Restoration model limits",
+      "say": "This graph checks active power, not AC voltage or protection. Selected branches do not specify the order of field switching.",
       "action": "Name a further study needed before a real operating decision."
     },
     {
-      "title": "Restoration: Llama chooses a useful new trial",
-      "say": "In this separate recorded feeder study, Llama requests SHED_075. The tool returns about 1843.614 total kW and 474.040 critical kW, with a passing current check. The result establishes what that trial achieved.",
+      "title": "Saved restoration case: try another plan",
+      "say": "Llama requests a trial that restores more load and passes the current check.",
       "action": "Read SHED_075, served/critical kW and the passing current check. This archive uses a separate feeder catalog; the fraction selects load objects, not percent kW."
     },
     {
-      "title": "Restoration: the next trial crosses the current limit",
-      "say": "Llama requests SHED_065 next. The returned tie loading is about 111.009 percent, so the check rejects the trial. More served load cannot override a required current limit.",
+      "title": "Saved restoration case: reject a failed trial",
+      "say": "The next trial exceeds the current limit. Keep the previous passing plan.",
       "action": "Keep the previously passed candidate when SHED_065 fails its current check."
     },
     {
-      "title": "Restoration: catch Llama’s wrong ranking",
-      "say": "The final language ranking is wrong. Python compares the numerical costs, retains the lower-cost passed candidate E03 and rechecks it. A fluent explanation needs a guard grounded in the actual results.",
+      "title": "Saved restoration case: correct the ranking",
+      "say": "Python corrects the ranking and rechecks the lowest-cost passing plan.",
       "action": "Find the wrong language order and numerical guard retaining E03. Contrast this saved feeder case with L6, then move to cyber."
     },
     {
-      "title": "Cyber: open L8",
-      "say": "The cyber lab uses a separate four-bus DC fixture. We compare model fit with error against known simulation truth. That teaching truth is an offline comparison, not an extra authenticated operator measurement.",
+      "title": "Case 3: suspicious readings",
+      "say": "Use the separate four-bus DC teaching model. Compare the fit to readings with error against known simulation truth.",
       "action": "Locate L8. Explain that the known truth is available for offline teaching comparison."
     },
     {
-      "title": "Best fit and true state are different",
-      "say": "Weighted least squares finds the state that best fits the readings, weighting more precise measurements more strongly. A small residual measures consistency with the model; it does not establish authentic readings.",
+      "title": "What the residual measures",
+      "say": "Weighted least squares (WLS) fits the readings. Residual J measures the mismatch. The true state is known in this simulation, not in a live control room.",
       "action": "Define WLS as weighted least squares. Ask what small residual establishes and what it leaves open."
     },
     {
-      "title": "Run L8: compare two data attacks",
-      "say": "L8 compares an isolated biased reading with a coordinated shift fitting a different modeled state. This declared defensive fixture makes a detector limitation visible under stated model and access assumptions.",
+      "title": "L8: run two data attacks",
+      "say": "Run L8 with the default scales. Compare one biased reading with a coordinated change across readings.",
       "action": "Run the full default L8 cell. The defensive Hc example assumes knowledge of H and access to modeled unprotected channels."
     },
     {
-      "title": "Read both cyber plots",
-      "say": "Follow each curve across both plots. Residual is on the left, while error against known teaching truth is on the right. The residual alarm can remain quiet while estimation error grows.",
+      "title": "L8: read both cyber plots",
+      "say": "Left: mismatch J and the alarm threshold. Right: error against simulation truth. A quiet alarm can appear alongside a growing state error.",
       "action": "Follow the same curve across residual and state-error plots."
     },
     {
-      "title": "At scale 1, the alarm misses a state error",
-      "say": "The coordinated shift changes the estimated state while preserving the residual pattern of this linear fixture. At scale one the residual stays about 3.92 without an alarm, while state error is nonzero.",
+      "title": "L8: a coordinated attack escapes the alarm",
+      "say": "At scale 1, one biased reading gives J=277.50 and an alarm. The coordinated attack gives J=3.92, no alarm, and 0.02678 rad of state error.",
       "action": "Compare no residual alarm with nonzero state error at scale one."
     },
     {
-      "title": "Exercise 3: add a small isolated bias",
-      "say": "Predict whether a small isolated bias triggers the alarm. Add scale 0.10, rerun L8, and read the alarm alongside the state error. Use both results to explain what no alarm means.",
+      "title": "Exercise 3: test a small bias",
+      "say": "Add .10 to ATTACK_SCALES. Predict, then rerun L8. At scale 0.10, compare J, the alarm flag and state error. Does no alarm mean the data are correct?",
       "action": "FOUR MINUTES: predict for 1 minute, edit/run for 2, report for 1. Add .10 to ATTACK_SCALES and rerun L8."
     },
     {
-      "title": "Debrief: no alarm does not prove truth",
-      "say": "The small isolated bias also stays below the chosen threshold. A quiet alarm alone cannot establish truth. Keep the claim tied to this fixture and its stated assumptions.",
+      "title": "Exercise 3: a small bias can miss the threshold",
+      "say": "At scale 0.10, J is about 10.14, below the 15.09 alarm threshold. A quiet alarm alone cannot prove that readings are true.",
       "action": "Debrief: isolated-bias J about 10.143237 is below the 15.086272 threshold. Alarm=False despite nonzero error; coordinated J stays about 3.920222."
     },
     {
-      "title": "Reset L8 before the recovery example",
-      "say": "Restore the default scale list and rerun L8. L9 uses a separate fixed recovery fixture; its correction does not follow the scale you just added.",
+      "title": "L8: reset before recovery",
+      "say": "Restore the original attack scales and rerun L8. L9 uses a separate fixed recovery case.",
       "action": "Restore the original ATTACK_SCALES tuple and rerun L8."
     },
     {
-      "title": "L9 uses a fixed recovery case",
-      "say": "L9 compares a fixed recovery case with and without additional readings assumed trustworthy. We will separate that premise from the returned numerical result.",
+      "title": "L9: one fixed recovery case",
+      "say": "Compare the same case with and without readings assumed to be trusted. Your L8 scale change does not change this case.",
       "action": "Locate L9 and note that its fixed fixture does not follow the changed L8 sweep."
     },
     {
-      "title": "Trusted readings are an assumption",
-      "say": "The three trusted angle readings are explicitly assumed. They supply three independent measurements for the three-angle model, with no residual redundancy left. This numerical calculation does not authenticate them.",
+      "title": "Data trust is an assumption",
+      "say": "This example assumes three extra angle readings are trustworthy. Neither WLS nor Llama authenticates them.",
       "action": "Ask who or what would establish the trusted-data premise outside this calculation."
     },
     {
-      "title": "Run L9: compare HOLD and PROPOSE",
-      "say": "Run both L9 calls. Without trusted replacement data the result is HOLD. With the set assumed trusted and numerical checks passing, the result is PROPOSE. A proposal still needs review.",
+      "title": "L9: HOLD or PROPOSE",
+      "say": "Run all of L9. Read status first. Then read the proposed injection and the offline violation count.",
       "action": "Run all of L9, including its assertions. Read status, u_pu and offline_actual_violations."
     },
     {
-      "title": "Read the two decision states",
-      "say": "The reference proposed injection is about 0.121694 per unit, with zero recorded offline model violations. This depends on the fixture and trust premise and does not authorize equipment dispatch.",
+      "title": "L9: two outcomes",
+      "say": "Without trusted replacement readings: HOLD. With assumed trusted readings: PROPOSE, u about 0.121694 p.u., zero offline model violations.",
       "action": "Read HOLD without trusted data and PROPOSE with the assumed trusted set. Reference u is about 0.121694 p.u.; offline toy violations are zero."
     },
     {
-      "title": "Check the numerical correction",
-      "say": "The optimizer seeks the least-effort modeled correction under branch limits and a margin. Predicted flow12 is 0.17000 per unit; the offline truth check gives about 0.17046, below the 0.18000 rating.",
+      "title": "L9: check the correction",
+      "say": "A quadratic-program (QP) solver finds the smallest allowed injection that meets the branch limits. One flow: predicted 0.17000 p.u., offline actual 0.17046 p.u., limit 0.18000 p.u.",
       "action": "Compare predicted and offline flow checks. These use fixed DC sensitivities, rather than a full AC or dynamic model."
     },
     {
-      "title": "What makes the recovery possible?",
-      "say": "The recovery depends on assumed trusted information and a constrained correction. Preserve both in the evidence packet so the operator can review the conditions supporting the proposal.",
+      "title": "A proposal depends on its assumptions",
+      "say": "Assumed trusted data support the estimate. The solver calculates a correction. The operator still reviews data trust, model coverage and missing checks.",
       "action": "Ask what must happen if the trust premise cannot be established. Retain HOLD."
     },
     {
-      "title": "Cyber: Llama selects the tool already allowed",
-      "say": "In this separate saved cyber episode, the task already permits WLS_TRUSTED_REDISPATCH. Llama selects it and Python computes the correction. The model has not discovered or authenticated trusted sensors.",
+      "title": "Saved cyber case: request the allowed tool",
+      "say": "Llama selects the supplied recovery tool. Python calculates the correction.",
       "action": "Separate what the task already permits from what Llama chooses and Python computes."
     },
     {
-      "title": "Cyber: a passing calculation still needs review",
-      "say": "The numerical calculation passes, while the overall result remains REVIEW and acknowledgment remains pending. Keep the trust premise and missing operating checks visible. The fixed comparison reaches the same numerical outcome.",
+      "title": "Saved cyber case: keep human review",
+      "say": "The model check passes. The operator must still review trust and missing checks.",
       "action": "Partner recap: why are PASS and PROPOSE different from approved action? Then inspect the complete replays."
     },
     {
-      "title": "Run L10 before the Llama walkthrough",
-      "say": "L10 opens a separate archived five-stage study. Read it for context, then continue to L10B for the readable saved Llama episodes. These records differ from your current classroom edits.",
+      "title": "L10: inspect the five-role workflow",
+      "say": "Run L10 to see every recorded stage and result. The stages share case facts, proposals and check results. The next slides explain their jobs.",
       "action": "Run L10 to inspect the separate archive. The later L11 switch stays False."
     },
     {
-      "title": "Run L10B: watch Llama choose a tool",
-      "say": "Inspect the three saved episodes yourselves. Identify the supplied facts, allowed choice, exact public reason, returned tool result and next step. The replay makes no new model request or electrical solve.",
+      "title": "L10B: replay the three Llama examples",
+      "say": "Set SCENARIO to voltage, restoration and cyber. Rerun for each. These are saved replies and tool results. No new Llama call runs here.",
       "action": "Run L10B for SCENARIO=\"voltage\", then \"restoration\", then \"cyber\". Allow about 2 minutes per episode and swap runner/checker roles. Afterward run L11 with RUN_LOCAL_LLAMA=False."
     },
     {
-      "title": "Finish L12: practice the readback",
-      "say": "L12 practices repeating the same recommendation ID and conditions. A wrong ID is rejected. The correct simulated acknowledgment still grants no equipment authority and does not resolve a scope gap.",
+      "title": "L12: practice operator readback",
+      "say": "Leave L11 disabled, then run L12. Check the wrong ID, the matching ID and equipment_dispatch=False.",
       "action": "After L10B and L11, run all of L12. It returns to L4’s selected test_01 voltage trial. Check wrong-ID rejection, simulated acknowledgment and equipment_dispatch=False."
     },
     {
-      "title": "Read the two readback outcomes",
-      "say": "The full MV/LV request remains HOLD because its evidence lacks full coverage. An explicit MV teaching request can reach simulated readback. Each result stays tied to its actual request and recommendation ID.",
+      "title": "L12: approval must match the checked scope",
+      "say": "Full MV/LV request: HOLD. The MV teaching request allows a simulated readback. A wrong ID fails. This exercise never sends equipment commands.",
       "action": "Explain the full-scope HOLD and the MV-only simulated readback. These do not complete the pending review of a separate old record."
     },
     {
-      "title": "Llama chooses; tools calculate; people decide",
-      "say": "Llama chooses and explains permitted steps. Numerical software calculates and checks. The operator reviews the evidence and retains authority. These responsibilities shape the proposed advisory pilot.",
-      "action": "Assign one task to Llama, numerical software and the operator. Start the proposed advisory-pilot discussion."
+      "title": "Our multi-agent design: five roles",
+      "say": "The roles pass structured results to each other. Llama handles planning and refinement; Python runs the other stages. This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry.",
+      "action": "Follow the diagram, then identify the tool result and remaining operator decision."
     },
     {
-      "title": "Start a control-room pilot with a clear study request",
-      "say": "Begin with a clear study request and an approved read-only snapshot containing time, topology version and limits. A stale topology copy needs refreshing before the study can support a current decision.",
-      "action": "Ask which snapshot fields must be refreshed after the illustrated topology mismatch. This is a teaching pilot, not a deployed integration."
+      "title": "Five roles in the voltage case",
+      "say": "Llama asks for less reactive power, then more solar output. Python checks each new trial. This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. In this L10 lindistflow3 record, the optimizer asks for RELAX_Q_10_PERCENT then INCREASE_PV_0025. Python recalculates each proposal and the verification stage checks it. The selected final recheck uses a=0.3394386941 and b=0.0276310594, with 50.75344954 percent allowed-current use and no recorded violations. The scope is MV phases only with ideal LV aggregation. Do not substitute the P3 99.604410 percent result or L2 MPC score. These are different experiments.",
+      "action": "Follow the diagram, then identify the tool result and remaining operator decision."
     },
     {
-      "title": "Give the assistant a small, controlled tool list",
-      "say": "Use a small approved tool list and a gateway that validates requests and logs results. Equipment commands remain in the utility’s authorized operating process.",
-      "action": "Discuss one approved read-only function and one input-validation rule."
+      "title": "Five roles in the restoration case",
+      "say": "The goal stays fixed. A failed trial cannot enter the final ranking, and Python corrects a wrong cost order. This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. The L10 lindistflow3 restoration record uses a feeder bypass catalog. SHED_075 returns 1843.61355 kW served and 474.03975 critical kW at 91.86721465 percent allowed-current use. SHED_065 then fails at 111.009413 percent. Llama ranks E02 before E03 even though E03 has the smaller cost. The numerical guard selects E03, then records the final recheck as E05. Switching sequence and broader physical operation are not established.",
+      "action": "Follow the diagram, then identify the tool result and remaining operator decision."
     },
     {
-      "title": "Check three things before returning a proposal",
-      "say": "Before returning a proposal, check the evidence matches, all required limits pass and the requested scope is covered. A single PASS field cannot answer all three questions.",
-      "action": "Ask which of the three checks caught each workshop failure mode."
+      "title": "Five roles in the cyber case",
+      "say": "The workflow keeps the trust assumption visible. It cannot create trusted data from a convincing answer. This is a custom, role-based Python workflow. It is not five independent LLMs. One Llama 3.1:8b model is called with the Planning Agent and LLM Optimizer roles. Awareness, simulation and verification run Python. The default notebook displays saved role traces in L10 and saved selected episodes in L10B; it does not execute a new multi-agent LLM run. The handoff is structured case facts, candidate IDs, tool results and checks, not an invented agent conversation. src/proposal_workflow.py defines CORE_STAGES, run_proposal_case, evaluate and the ranking guard. A final independent recheck precedes MODEL_RECOMMEND. Human acknowledgment remains separate and pending. Hash checks detect changed records but do not authenticate telemetry. Awareness preserves the declared measurement-trust condition. Planning requests the initial candidates; Python runs the estimator and constrained-response tools. The optimizer requests EXTRA_MARGIN_001 and TRUSTED_QP. The selected final recheck uses TRUSTED_QP with u=0.1216936673 per unit and predicted flow12=0.17 per unit against a 0.18 limit. The model checks a four-bus DC fixture with three protected angles assumed trustworthy. No stage authenticates those channels, and offline truth is not fed to Llama.",
+      "action": "Follow the diagram, then identify the tool result and remaining operator decision."
     },
     {
-      "title": "Give the operator a short evidence packet",
-      "say": "Give the operator a concise evidence packet containing inputs, results, margins, rejected trials, scope and missing checks. The reviewer can request more study, reject the proposal or accept the study for the next review step.",
-      "action": "Ask pairs to draft a two-sentence handover for one case. Accepting a study packet does not operate equipment."
+      "title": "The operator reviews one evidence packet",
+      "say": "Review the inputs, proposal, worst margins and missing checks. Request another study, reject the proposal or accept it for the next authorized step. Proposed control-room use. The operator reviews the case snapshot, data quality, limits, selected proposal and missing studies. Ask for another study, reject it or accept it for a defined next step. L12 practices ID-bound readback only and never operates equipment.",
+      "action": "Follow the diagram, then identify the tool result and remaining operator decision."
     },
     {
-      "title": "Adopt it in stages and measure the benefit",
-      "say": "Adopt an assistant in stages, beginning with historical replay and read-only shadow studies. Measure correct work, missed checks, time and reviewer changes against a fixed workflow using the same tools.",
-      "action": "Choose one measurement that could demonstrate useful benefit against the fixed-workflow baseline."
+      "title": "What the evidence shows",
+      "say": "In L10, five paired final costs tied; one Llama route was worse. Start with past cases and read-only use. Measure benefit against the same tools in a fixed script. The six matched fixed-versus-Llama runs in proposal_complete_workflow.json have five tied final costs and one worse Llama voltage result. Recorded model calls add elapsed time. This demonstrates traceable coordination, not better power-flow solvers or general efficiency. Test any proposed benefit against the same tools and budgets. A control-room pilot starts with archived cases, then read-only shadow studies and a limited reviewed scope.",
+      "action": "Follow the diagram, then identify the tool result and remaining operator decision."
     },
     {
-      "title": "Save a workshop record others can repeat",
-      "say": "Save enough for another person to repeat the study. Explain the input, tool call, returned result, supporting checks and next operator decision. Mark each result as fresh, recorded or simulated.",
-      "action": "Collect an exit ticket: input, tool, result, checks and operator decision. Save the notebook and its changed inputs."
+      "title": "Questions and your next lab run",
+      "say": "Choose one case. Change one input, rerun and save the result. Explain the agent choice, tool result, check and operator decision. Close by connecting the full loop: a goal, an allowed agent choice, a tool result, a check and a human decision. Ask each learner to name one case and one changed input they can repeat after the session. Save the notebook. Use the source guide for complete references, not as another required activity.",
+      "action": "Invite questions. Ask learners to save one changed input, result and next decision."
     }
   ]
 }

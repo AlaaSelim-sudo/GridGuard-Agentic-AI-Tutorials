@@ -18,6 +18,8 @@ Save a copy, connect a CPU runtime, run setup and continue from L0 in order. Kee
 
 L10B displays actual saved model choices and returned tool evidence. It makes no new model call or electrical solve. The fresh classroom calculations and saved studies use clearly identified models and inputs.
 
+[Slides 74-77](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/#/74) map the five roles to each recorded case. One Llama model handles planning and refinement. Python reads the case, calculates results and checks the limits. The operator reviews the recommendation.
+
 [Full references and figure credits](https://alaaselim-sudo.github.io/GridGuard-Agentic-AI-Tutorials/operator-cases/Full_Reading_Guide.html) include the original Stanford CS224V material and the power-system sources.
 
 <details>

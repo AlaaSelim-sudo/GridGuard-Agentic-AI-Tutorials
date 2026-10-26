@@ -9,6 +9,8 @@ Use this guide to update the current 80-slide workshop, its presenter script, ha
 - **Numerical code:** the canonical sibling `../agentic_grid_workflow_tutorial/Classroom_Labs.ipynb` and its `src/` folder. Thirteen slide excerpts are read by stable cell ID.
 - **Sources:** `content/*_sources.json` and the preserved records in `research/`.
 - **Figures:** editable TikZ in `diagrams/` and supplied image assets in `images/`. Regenerate matching PDF/SVG assets when changing a diagram.
+- **Five-role summary visuals:** `research/plain_language/build_framework_visuals.py`. These map the actual saved L10 records, rather than combining the different L2, L6 and L10B studies.
+- **Notebook reading copy:** run `node scripts/export-classroom-notebook.mjs` from the repository root after changing the canonical notebook. This refreshes its HTML and current notebook-download copies without changing the code.
 - **Website:** `../web/index.html`, `../web/assets/site.css` and `../scripts/build-pages.mjs`.
 
 `slidev/slides.md`, `latex/frames.tex`, the guides and presenter-script outputs are generated. Edit their source files above for changes that survive a rebuild.
