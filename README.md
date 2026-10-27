@@ -63,4 +63,4 @@ Earlier editions remain in their original folders for reproducibility. Start wit
 
 </details>
 
-See [THIRD_PARTY_SOURCES.md](THIRD_PARTY_SOURCES.md) for credits. Independent educational material using an IEEE ComSoc theme; no IEEE sponsorship or endorsement is claimed. Third-party materials retain their terms.
+
